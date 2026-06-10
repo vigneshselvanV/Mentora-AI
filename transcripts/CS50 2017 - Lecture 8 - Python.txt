@@ -1,0 +1,3079 @@
+00:00 [MUSIC PLAYING]
+00:10 DAVID MALAN: All right.
+00:11 This is CS50, and this is the
+day before our test, of course.
+00:16 But this is lecture 8,
+in which we're actually
+00:18 going to finally transition from
+C, this lower-level language
+00:20 that we've been spending
+quite some time to.
+00:22 And the goal today isn't so
+much to focus on Python per se,
+00:25 but honestly to do what we hope will
+be one of the most empowering aspects
+00:29 of the class, which is to emphasize that
+this has not been a semester learning
+00:33 C. This has been a semester
+learning programming,
+00:35 a certain type of programming called
+procedural or imperative programming.
+00:38 But more on that in another
+higher-level class perhaps.
+00:40 But really, that this class
+is about ultimately teaching
+00:43 yourself to learn new languages.
+00:45 And indeed, what you'll find is that
+as we explore some of the features
+00:49 and the syntax of
+Python, odds are today,
+00:51 it might look as cryptic as
+C did just a few weeks ago.
+00:54 But you'll find that once you
+start recognizing patterns,
+00:56 as you have with C, it will be all the
+more accessible and all the more useful
+01:01 when solving some problems.
+01:03 So unrelatedly, just earlier this
+week, I happened to be in Mountain View
+01:08 with some of the team.
+01:09 And you might recall from
+last lecture at Harvard
+01:12 we offered this glimpse of one
+of the earliest racks of servers
+01:15 that Google itself had.
+01:17 Well, turns out they changed buildings.
+01:19 But we happened to stumble
+upon the actual display.
+01:22 So pictured here is a
+photo from my own phone,
+01:24 which was actually really cool to see.
+01:26 So inside of this, you'll see all
+of the old hard drives they've used.
+01:30 We actually looked at
+some of the labels.
+01:31 And indeed, hard drives
+manufactured in 1999,
+01:34 which is when Google started
+getting some of its momentum.
+01:37 You can see the green
+circuit boards here,
+01:38 on which would be CPUs and
+other things, potentially.
+01:41 So if you'd like a
+stroll down memory lane,
+01:43 feel free to read up on this on
+Wikipedia or even on the excerpts here.
+01:47 And then strangely enough, at
+the conference some of us were at
+01:50 did we discover this-- perhaps
+the biggest duck debugger made up
+01:54 of smaller duck debuggers,
+one of whom was our own.
+01:58 So that, too, was how
+we spent this past week.
+02:01 All right.
+02:01 So how are we going to spend
+this week and the weeks to come?
+02:04 So you'll recall that when we
+transitioned from Scratch to C,
+02:07 we drew a couple of comparisons
+between syntax and features.
+02:09 And I thought it'd be useful to
+take that same approach here,
+02:12 really to emphasize that most of the
+ideas we're going to explore today
+02:15 are themselves not new.
+02:16 It's just how you
+express them and how you
+02:18 write the syntax in the
+language known as Python that's
+02:21 indeed going to be different
+from Scratch, from C,
+02:24 and now here we are with Python.
+02:25 So back in the day, in week 0, when
+you wanted to say something in Scratch,
+02:30 you would literally use this blue
+purple puzzle piece, say hello.
+02:33 And we called that a
+function or a statement.
+02:35 It was some kind of verb action.
+02:37 And in C, of course, it looked
+a little something like this.
+02:39 Henceforth, starting today in
+Python, it's going to look like this.
+02:43 So before, after.
+02:45 Before, after.
+02:47 So it's pretty easy to
+visually diff these two things.
+02:49 But what are just a
+couple of the differences
+02:51 that jump out at you immediately?
+02:52 C, Python.
+02:57 So there's no more backslash n,
+it would seem, in this context.
+02:60 So that's kind of a nice relief
+to not have to type anymore.
+03:02 What else seems to be different?
+03:04 No semicolon, thank god.
+03:06 Right?
+03:06 Perhaps the stupidest
+source of frustration
+03:08 that you might have experienced
+by just omitting one of those.
+03:10 And someone over here?
+03:12 Yeah, so printf is now just print,
+which is pretty reasonable unto itself.
+03:16 So these are terribly minor differences.
+03:18 But it's sort of testament to
+the kinds of mental adjustments
+03:21 you're going to have to start to make.
+03:22 Fortunately, thus far we've seen that
+you can start leaving things off,
+03:25 which is actually a guiding principle of
+Python in that one of its goals is it's
+03:28 meant to be easier to write than some
+of its predecessors, among them C.
+03:31 So in C we might have implemented
+this hello, world program that
+03:35 actually ran when you clicked the green
+flag using code like that at the right.
+03:39 And this was, if those of you who
+had no programming experience coming
+03:42 in to CS50, what probably looked
+like the proverbial Greek to you
+03:45 just a few weeks ago.
+03:46 And we teased apart what
+those various lines meant.
+03:49 But in Python, guess what?
+03:50 If you want to write a program whose
+purpose in life is to say, hello, well,
+03:53 just write def main.
+03:55 Print hello, world.
+03:57 So it's a little similarly structured.
+03:59 And in fact, it does not lack for
+some of the more arcane syntax here.
+04:05 But we'll see soon what
+this actually means.
+04:07 But it's a little simpler
+than the one before.
+04:09 And let's tease this apart.
+04:11 So def here simply means
+define me, a function.
+04:13 So whereas in C we've
+historically seen that you specify
+04:16 the type that the
+function should return,
+04:18 we're not going to do
+that in Python anymore.
+04:21 Python still has data
+types, but we're not
+04:22 going to explicitly mention
+what data types we're using.
+04:25 Meanwhile, here is the
+name of the function.
+04:27 And main would be a
+convention, but it's not
+04:29 built into the language in the same
+way as it is in C, as we shall see.
+04:33 Meanwhile, this silly
+incantation is just
+04:36 a way of ensuring that
+the default function
+04:38 to be executed in a Python program
+is indeed going to be called main.
+04:41 But more on that when we
+actually start creating.
+04:44 But this is perhaps the most
+subtle but most important
+04:46 difference, at least early on.
+04:48 And it's even hard to see at this scale.
+04:50 But notice the colons both here and here
+that I've highlighted now in yellow,
+04:54 and these dots, which
+are not to be typed,
+04:56 but are just meant to draw
+your attention to the fact
+04:58 that I hit the space bar four
+times in those locations.
+05:01 So if you have ever sort of gotten
+some feedback from your TA or TF
+05:05 that your style could be better,
+closer to 5 out of 5, because of lack
+05:09 of indentation or pretty
+formatting, Python's
+05:11 actually gonna help us out with this.
+05:13 So Python code will not run if you
+have not invented things properly.
+05:18 So gone are the curly braces that
+encapsulate related lines of code
+05:22 within some block of functionality.
+05:24 And instead, they're replaced
+generally with this general structure.
+05:28 You have a colon, and then
+below that and indented
+05:30 are all of the lines that are somehow
+related to that earlier line of code.
+05:34 And the indentation must be consistent.
+05:36 So even though your
+own eye might not quite
+05:39 distinguish four spaces from
+three, the Python environment will.
+05:43 And so this will
+actually help implicitly
+05:45 enforce better style,
+perhaps, than might
+05:47 have been easily done from the get-go.
+05:51 So then, of course, in Scratch,
+we had a forever block,
+05:53 which says, hello, world
+forever, much like in C, we
+05:55 could implement it like this.
+05:57 Now there's actually a pretty
+clean mapping in Python.
+05:59 We already know we can
+get rid of the semicolon.
+06:02 We already know we can get
+rid of the curly braces.
+06:04 We're going to have to add in a colon.
+06:06 But it turns out we can get
+rid of a little more, too.
+06:08 So what more is absent from this
+translation of hello, world to Python?
+06:14 This one's more subtle.
+06:17 So we definitely got
+rid of the curly braces,
+06:19 relying now just on indentation.
+06:24 OK, so there's no
+parentheses around while.
+06:26 And so this, too, is actually
+meant to be a feature of Python.
+06:29 If you don't logically need parentheses
+to enforce order of operations,
+06:33 like in arithmetic or the
+like, then don't use them
+06:36 because they're just a distraction.
+06:38 They're just more to type.
+06:39 And the code now is just visually
+cleaner and easier to read.
+06:42 There's a minor difference, too--
+06:43 True and False are going to
+be capitalized in Python.
+06:46 But that's a fairly incidental detail.
+06:47 But notice this kind of captures
+already the spirit of Python.
+06:50 It's not a huge leap to
+go from one to the other.
+06:52 But we've just kind of
+started to get rid of some
+06:54 of the clutter and the stuff that
+never really intellectually added much,
+06:57 and if anything was annoying
+to have to remember early on.
+06:60 So True here is our Boolean.
+07:01 And now we have a finite
+number of iterations.
+07:04 We might want to say hello,
+world exactly 50 times.
+07:06 In C, this was a crazy mess
+if you wanted to do this.
+07:09 You'd have to initialize a
+variable with which to count up to,
+07:12 but not including 50, plus plussing
+along the way and so forth.
+07:15 In Python, it's going
+to be a little cleaner.
+07:17 And we'll come back to
+what this means exactly.
+07:20 But if you kind of read it from left to
+right, it kind of says what you mean.
+07:24 Right?
+07:24 For i in the range of 50.
+07:27 So i is probably going to be a variable.
+07:29 And notice we're not
+mentioning its type.
+07:31 It's going to be implied by whatever
+the context is, which in this case
+07:34 has to do, apparently,
+with numbers, per the 50.
+07:37 Range is actually going to
+be a data type unto itself.
+07:39 It's a little funky in that sense.
+07:41 It's called a class.
+07:42 But this essentially is a special
+feature of Python that, unlike in C,
+07:47 where if you want to iterate over an
+array of values or 50 such values,
+07:50 you would literally have
+an array of 50 values.
+07:53 Range is kind of cool in
+that it kind of stands there.
+07:55 And every time you iterate through a
+loop, it hands you the next number,
+07:59 but just one at a time, thereby
+using maybe as little as one
+08:03 50th the amount of memory because it
+only has to keep one number around
+08:06 at a time.
+08:07 And there's a bit more
+overhead than that.
+08:09 It's not a perfect savings, quite so.
+08:11 But this just says for i
+in range 50, and that's
+08:16 going to implicitly count
+from 0 up through 49.
+08:19 And meanwhile, what's below it is
+what's going to get printed this time.
+08:23 So meanwhile, here was one of our
+bigger Scratch blocks early on.
+08:27 And i translates pretty
+literally to code in C.
+08:30 And you can perhaps
+guess, if you've never
+08:33 seen Python before today, what the
+Python code might now look like.
+08:37 If this here on the
+right is the C code, what
+08:39 are some of the features syntactically
+that we're about to throw away?
+08:42 Yeah.
+08:42 AUDIENCE: You can throw away the
+curly braces and the parentheses.
+08:45 DAVID MALAN: Curly braces and
+parentheses are going to go away.
+08:47 What else might go away?
+08:49 The semicolons are going to go away.
+08:53 The backslash n inside
+of the print statements.
+08:55 Great.
+08:57 One more thing, I think.
+08:60 The if.
+09:01 So we don't strictly
+need the parentheses
+09:03 because it's not like I'm
+combining things logically
+09:06 like this or that or this and that.
+09:08 So it should suffice to
+get rid of those two.
+09:10 And there's a couple of other tweaks
+we're going to have to make here.
+09:12 But indeed, the code's going to
+be a lot tighter, so to speak.
+09:15 Now you're just going to
+say what you mean here.
+09:17 And there is one weird thing.
+09:18 And it's not a typo.
+09:20 What apparently are we going
+to have to start knowing now?
+09:23 Elif whatever.
+09:24 So elif is not a typo.
+09:26 It's indeed how you express
+the notion of else-if.
+09:29 But otherwise, everything
+is exactly the same.
+09:31 And notice the colons.
+09:32 Frankly, ironically,
+whereas previously it
+09:34 might have been annoying to
+occasionally forget a semicolon,
+09:37 now the colons my take on that role.
+09:39 But at least everything below
+them is meant to be indented.
+09:42 So here's a fundamental difference
+beyond the sort of silly syntactic
+09:46 differences of this and,
+say, other languages--
+09:48 the flow of work that we've been using
+thus far has been essentially this
+09:52 in C. You write source code in
+a file generally ending in .c.
+09:56 You run a compiler, which, as
+a quick check, is called clang.
+10:01 So it's not technically make.
+10:02 Make is just this helpful
+build utility that
+10:04 automates the process of calling clang.
+10:06 So clang is, strictly
+speaking, the compiler.
+10:08 And clang outputs zeros and ones,
+otherwise known as machine code.
+10:11 And your computer-- Mac, PC, whatever--
+has a CPU, Central Processing
+10:15 Unit inside, made by Intel
+or some other company.
+10:18 And that's CPU is
+hardwired to understand
+10:21 certain patterns of bits, zeros and
+ones, otherwise known as machine code.
+10:25 So that's been our world in C.
+10:27 With Python-- so the code that
+you might have compiled in C,
+10:31 for instance, might
+have been this, which
+10:33 we said we run clang on like this.
+10:35 And if you don't specify a
+default file name as output,
+10:38 you'll instead just get in your
+file all of the zeros and ones,
+10:40 which can then be executed
+by way of ./a.out,
+10:44 the default name for the
+assembler's output here.
+10:47 So in Python, though, the world gets
+here, too, a little simpler, as well.
+10:53 So we just now have source
+code and an interpreter.
+10:57 So there's no machine
+code, it would seem.
+10:59 There's no compiler, it would seem.
+11:01 And frankly, there's
+one fewer arrow, which
+11:03 suggests to me that the process
+of running Python code itself
+11:05 is actually going to be a little easier.
+11:07 Running C code has
+typically been two steps.
+11:09 You rerun clang, or
+via make you run clang.
+11:12 Then you run the program.
+11:14 And it's fine.
+11:14 It's not all that hard.
+11:15 But it's two steps.
+11:16 Why not reduce to two steps what
+you could instead do in one?
+11:19 And we'll see exactly what this means.
+11:21 Now, technically, that's a
+bit of an oversimplification.
+11:23 Technically, underneath
+the hood, if you wanted
+11:25 to run a program like this that
+simply prints out hello, world,
+11:30 you would simply run python hello.py.
+11:33 And the result of that would be
+to see hello, world on the screen,
+11:37 as we'll soon see.
+11:38 But technically, underneath the hood,
+there is some other stuff going on.
+11:41 So there actually kind of is a compiler.
+11:43 But there's not something
+called machine code, per se.
+11:45 It's called bytecode.
+11:46 There's even something called
+a Python virtual machine.
+11:48 But all of this is
+abstracted away for us,
+11:51 certainly for the sake
+of today's conversation,
+11:53 but also in the real
+world, more generally.
+11:56 Humans have gotten
+better over the decades
+11:58 at writing software and writing tools
+via which we can write software.
+12:01 And so a lot of the
+more manual processes
+12:04 and a lot of the lower-level
+details that we've
+12:06 been focusing on, if not struggling
+on, in C, start to go away.
+12:09 Because much like in week 0, where we
+started layering on idea after idea--
+12:13 zeros and ones, ASCII,
+colors, and whatnot--
+12:16 similarly with our actual tools are
+we're going to start to do the same.
+12:19 So whereas in actuality what's
+going on underneath the hood is
+12:24 this process here, we can
+start to think about it,
+12:28 really, as something quite simpler.
+12:30 Now, if you're curious, and if
+you take some higher-level class
+12:33 like CS61 or another,
+you'll actually talk
+12:36 about things like bytecode and
+assembly code and the like.
+12:39 And we saw a glimpse of
+the latter a bit ago.
+12:41 This happens to be an
+intermediate language
+12:43 that Python source code is converted
+into before it's run by the computer.
+12:47 But again, we're going to turn a blind
+eye to those lower-level details.
+12:51 So here are some of the
+tools now in our toolkit.
+12:54 In Python, there are data
+types, though as of now we've
+12:56 not seen any examples whereby
+I specify what types of values
+12:60 are going to be in my variables
+or what types of values
+13:02 a function's going to return.
+13:04 But they are there.
+13:05 Everything is sort of
+loosely typed in that
+13:07 whatever you want a variable to be,
+it will just take on that data type,
+13:11 whether it's an int
+or string or the like.
+13:14 It's not going to be
+the full word string.
+13:15 In Python, it's literally called str.
+13:18 But there are some familiar types here--
+bool and float and int and others.
+13:22 And, in fact, among the others, as
+we'll soon see, are features like range.
+13:26 But before that, note too that we'll
+provide for at least our first foray
+13:30 into Python a few familiar functions.
+13:33 So Python has different mechanisms
+than C for getting input from the user.
+13:37 We've abstracted some of those details
+away in a new CS50 library for Python
+13:42 that you'll really just
+use one or few times before
+13:44 we transition away from even that, but
+will give you functions like get_char,
+13:48 get_float, get_int, get_string that
+handle all the requisite error checking
+13:51 so that at least for
+your first few programs,
+13:53 you can just start to
+get some real work done
+13:55 without diving into
+underneath the hood there.
+13:59 And then lastly, here are some
+other tools in our toolkit.
+14:01 And we'll just scratch the
+surface of some of these today.
+14:04 But what's nice about Python and what's
+nice about higher-level languages more
+14:08 generally-- like more modern languages
+that learned lessons from older
+14:11 languages like C--
+14:13 is that you get so much more for
+free, so much more out of the box.
+14:17 There's so much more of a kitchen sink.
+14:19 There's so many metaphors we can use
+here, all of which speak to the fact
+14:22 that Python has more features
+than C, much like Java,
+14:26 if you took AP CS or
+something else, had than C.
+14:29 So does Python have a whole toolkit
+for representing complex numbers,
+14:33 for representing dictionaries,
+otherwise implemented as hash tables,
+14:37 as you now know; lists, which is
+kind of synonymous with an array.
+14:40 But a list is an array that can sort
+of automatically grow and shrink.
+14:44 We don't have to jump through hoops as
+we did in C. Range we've seen briefly,
+14:47 which just hands you back one number
+after another in some range, ideally
+14:50 for iteration.
+14:51 Set is the notion from
+mathematics, where
+14:53 if you want to put bunches of
+things into a data structure
+14:55 and you want to make sure you
+have only one of each such thing
+14:58 without duplicates, you can use a set.
+15:00 And a tuple is also a
+mathematical notion,
+15:02 typically where you can combine related
+things without complicating things
+15:07 with actual structs.
+15:08 Like, x, y is a common paradigm
+in lots of programs-- graphics,
+15:12 or videos, or certainly
+math and graphing itself.
+15:14 You don't really need a whole
+full-fledged data structure.
+15:17 You might just want to say, x, y.
+15:20 And so Python gives us that
+kind of expressiveness.
+15:22 So let's actually now dive
+in with that quick mapping
+15:26 from one world to the other and focus
+on what you can actually do with Python.
+15:30 So here I am in the familiar CS50 IDE.
+15:32 Much like we have
+pre-installed for you clang
+15:34 and make and other tools, we've
+also installed for you a program.
+15:38 That program is called Python, which
+is a little confusing at first glance
+15:42 because Python is apparently
+the name of the language.
+15:45 But it's also the name of the program.
+15:46 And here's where Python is different.
+15:48 Whereas C is again compiled,
+and you use something
+15:51 like clang to convert
+it to machine code,
+15:53 Python is both the name of the language
+and the name of the program you
+15:55 use to interpret the language.
+15:58 So pre-installed in CS50
+IDE, and frankly, these days,
+16:01 probably on your own Macs or
+PCs, even if you don't know it,
+16:04 is a program called Python that
+if fed Python source code as input
+16:08 will do what that code says.
+16:10 So let's go ahead and try
+something just like that.
+16:13 Let me go ahead and save a
+file preemptively as hello.py.
+16:16 So .py will be the
+convention now instead of .c.
+16:20 And I'm going to go ahead and
+actually keep this pretty simple.
+16:23 I'm just going to
+print the first thing--
+16:24 muscle memory.
+16:25 So it's not printf anymore.
+16:26 It's just hello, world.
+16:29 Save, done.
+16:30 That's going to be my
+first program in Python.
+16:33 Why?
+16:33 It's one line of code.
+16:34 It's consistent with the
+features I've claimed Python has.
+16:39 So how do I run it?
+16:40 Well, in C, we would have
+done, like, make hello.
+16:44 But make knows nothing about this
+because make is typically used with C,
+16:47 at least in this context here.
+16:50 So maybe it's, like, ./hello.py.
+16:54 No.
+16:55 It seems I don't have permission there.
+16:56 But there's a step that I teased us
+with earlier on just the slide alone.
+17:01 How do I go about running
+a program, did I say?
+17:04 AUDIENCE: Python hello.py.
+17:05 DAVID MALAN: Yeah.
+17:06 I have to be a little more explicit.
+17:08 So python, which is the name of the
+interpreter that understands Python.
+17:11 And now I need to feed it some input.
+17:12 And we know from our
+time in C that programs
+17:15 can take command-line arguments.
+17:16 And indeed, this program
+itself does, Python.
+17:18 You just give it the
+name of a program to run.
+17:20 And there it is, our very first program.
+17:23 So that's all fine and good.
+17:25 But what if I wanted to do
+something a little more interesting,
+17:27 like getting a string from the user?
+17:29 Well, turns out in Python,
+in CS50 IDE especially,
+17:33 I can do something like
+this. s gets get_string.
+17:38 And I can ask someone, for
+instance, for their name, like this.
+17:42 Now, CS50 IDE is already yelling at me--
+17:44 undefined variable get_string.
+17:47 and let's actually see
+if maybe it's just buggy.
+17:50 No.
+17:51 So this is a little
+more arcane than usual.
+17:54 But traceback, most recent call last.
+17:57 File "hello.py," line 2, in
+module-- whatever that is.
+17:60 So I see a line of code from line 2.
+18:01 NameError-- name
+get_string is not defined.
+18:04 This is not the same
+language we've seen before,
+18:06 but what does this feel reminiscent of?
+18:10 Yeah, like in the past, when
+you've forgotten cs50.h,
+18:13 you've gotten something about an
+undeclared identifier, something
+18:16 like that.
+18:17 It just didn't understand something
+related to the CS50 library.
+18:20 So in C, we would have
+done include cs50.h.
+18:24 That's no longer germane
+because now we're in Python.
+18:26 But it's somewhat similar in spirit.
+18:28 Now I'm going to say instead from cs50
+import get_string, and now save that.
+18:35 And hopefully momentarily, the errors
+will go away as the IDE realizes,
+18:39 oh, you've now imported
+the CS50 library,
+18:41 specifically a method or function,
+rather, inside of it called get_string.
+18:45 So there, too, it's different
+syntax, but it kind of
+18:47 says what it means-- from cs50, which
+is apparently the name of the library,
+18:50 import a function called get_string.
+18:52 Now if I go ahead and
+rerun python hello.py,
+18:55 I can go ahead and type
+in, say, Maria's name
+18:57 and ignore her altogether because
+I need to make a fix here.
+19:02 What's the obvious bug--
+19:03 obvious now, to me-- in the program?
+19:06 AUDIENCE: You need to
+include the variable for s.
+19:08 DAVID MALAN: Yeah.
+19:09 So I need to include s,
+which I got on line 3,
+19:13 but didn't thereafter use in any way.
+19:15 So this is going to be wrong, of
+course, because that's going to say,
+19:19 literally, hello s.
+19:20 This is kind of how we used to do it.
+19:23 And then we would put in s.
+19:24 But this is not printf.
+19:25 This is print.
+19:26 So the world is a little different.
+19:27 And it turns out we can do this
+in a couple of different ways.
+19:30 Perhaps the easiest,
+if least obvious, would
+19:34 be something like this, where
+I could simply say hello,
+19:41 open curly brace, close curly brace.
+19:44 And then inside of there, simply
+specify the name of the variable
+19:47 that I want to plug in.
+19:48 And that's not quite all the way there.
+19:50 Let me go ahead and run this once more.
+19:53 Now if I type in Maria's name, oh.
+19:54 Still not quite right.
+19:56 I need to actually tell Python that
+this is a special type of string.
+19:60 It's a formatted string, similar
+in spirit to what printf expected.
+20:03 And the way you do this, even though
+it's a little different from C,
+20:06 is you just say f.
+20:08 This is an f string.
+20:09 So literally before the
+quotes, you write the letter f.
+20:12 And then if I now run
+this program here, i'm
+20:14 going to actually see
+Maria's name as hello, Maria.
+20:18 And I'll take care of that red X later.
+20:20 So that's a format string.
+20:21 And there's one other way.
+20:22 And this is not very
+obvious, I would say.
+20:26 You might also see in online
+documentation something like this.
+20:29 And let's just tease this
+apart for just a second.
+20:32 It turns out in Python that
+what I've highlighted in green
+20:34 here is known as a string,
+otherwise known as a str.
+20:38 str is the name of this data type.
+20:40 Well, unlike in C, where string was
+kind of a white lie, where it was just
+20:44 a pointer at the end
+of the day, a string
+20:47 is actually a first-class
+object in Python, which means
+20:50 it's not just a sequence of characters.
+20:52 It has built-in functionality,
+built-in features.
+20:56 So much like a struct in C had
+multiple things inside of it,
+21:00 so does a string in Python have
+multiple things inside of it,
+21:04 not just the sequence of characters, but
+functions that can actually do things.
+21:09 And it turns out you access those
+functions by way of the same dot
+21:13 operator as in C. And
+then you would only
+21:15 know from the documentation or examples
+in class what functions are inside
+21:19 of the string object.
+21:20 But one of them is format.
+21:21 And that's just a function
+that takes an argument-- what
+21:24 do you want to plug into the
+string to the left of the dot?
+21:26 And so simply by
+specifying, hey, Python,
+21:30 here's a string with a placeholder.
+21:33 Inside of this string is a
+built-in function-- otherwise known
+21:36 as a method, when a function is
+inside some object or structure--
+21:39 pass in the value s.
+21:41 So if I now go ahead and rerun
+this after saving my changes,
+21:46 I should now see that Maria's
+name is still plugged in.
+21:49 So that's it.
+21:50 But a simple idea that
+now even strings have
+21:53 things inside of them
+besides the characters alone,
+21:55 and you can access that via the dots.
+21:57 So let's go ahead now and ramp things up
+to a more familiar example from a while
+22:01 back.
+22:02 Let me go ahead and open
+up two side-by-side windows
+22:05 and see if we can't
+translate one to the other.
+22:07 I'm going to go ahead and open up, for
+instance, int.c from some time ago.
+22:13 So you might recall from int.c, we had
+this program, whose purpose in life
+22:17 was to get an integer from the user
+and actually now plug it into printf,
+22:21 and then print it out.
+22:22 So what's going to be
+different now in Python?
+22:25 Well in Python, if I go ahead and
+implement this as, say, int.py,
+22:29 I'm going to go ahead
+and do the following.
+22:31 Let me scroll down to kind
+of line things up roughly.
+22:34 I can go ahead and say def main,
+as I saw in the slides before.
+22:40 And then over here, I can say i gets
+get_int, quote, unquote, integer.
+22:45 And then down here, I'm going to say
+not printf but print, quote, unquote,
+22:49 "hello," and then the placeholder.
+22:52 What's the simplest way to do
+this now, per our past example?
+22:56 Curly brace i.
+22:59 And then I just need to be super clear
+this is a special f string or format
+23:03 string, into which you
+can plug in values.
+23:04 And now I'm going to
+go ahead and save that.
+23:06 And I've got most of
+the pieces together,
+23:09 ignoring, for now, the red X.
+So what more remains to be done?
+23:14 I've made one same mistake as before.
+23:18 Yeah, so the get_int. so up here,
+really the equivalent of line 3
+23:21 would be from cs50
+import get_int this time.
+23:26 Saving that.
+23:27 And now if in my terminal window I
+go ahead and run python of int.py--
+23:33 hmm.
+23:36 That seems strange.
+23:39 It's not an error, in terms
+of, like, erroneous output.
+23:42 Just nothing happened.
+23:44 So why might this be?
+23:47 How might you go about troubleshooting
+this, even with very little Python
+23:50 under your belt?
+23:52 Was that a hand, or no?
+23:53 No?
+23:54 OK.
+23:55 Yeah?
+23:56 AUDIENCE: Is there a line break?
+23:57 DAVID MALAN: Is there a line break?
+23:59 That's OK.
+23:59 I was just doing that to kind
+of make everything line up.
+24:02 But it's no big deal.
+24:02 Everything's indented properly,
+which is the important aesthetic.
+24:06 Yeah.
+24:07 AUDIENCE: We didn't call the function.
+24:08 DAVID MALAN: We didn't
+call the function.
+24:10 And this is where Python's a little
+different from C. In C, recall,
+24:13 main just gets called
+automatically for you.
+24:15 Humans years ago decided that shall
+be the default name of a function.
+24:18 In Python, line 6 here, calling
+something main is just a convention.
+24:21 I could have called it foo
+or bar or any other word.
+24:24 It has no special meaning.
+24:26 And so in Python, if you
+want to actually call main,
+24:28 you need to do something,
+frankly, that's,
+24:30 I think, one of the stupider
+distractions early on.
+24:33 But you have to literally say this--
+24:34 if the name of this file happens
+to equal something that's
+24:40 specially called main, then call main.
+24:44 So long story short, when you run
+the Python interpreter on a file,
+24:48 as we've been doing with python,
+space, int.py or hello.py,
+24:53 there is a special global variable
+that your program has access to called
+24:57 __name__.
+25:00 And if that default name
+happens to be __main__,
+25:05 then you know that you have the
+ability to call any function you want
+25:11 by default.
+25:12 So for now, much like
+we did in week one,
+25:14 where we glossed over certain details
+that just weren't all that interesting,
+25:17 lines 11 and 12, for now, let's
+consider not all that interesting.
+25:21 But it's how we're going to
+kick-start these programs.
+25:23 Because now if I run python, space,
+int.py, type in a great number--
+25:28 hello, 42.
+25:30 That's the meaning of life,
+the universe, and everything.
+25:33 So let's now actually do
+something more powerful
+25:35 than just getting a
+single int from the user.
+25:37 Let me go ahead and close off
+this one and close off this one
+25:41 and open up, say, ints.c after splitting
+my window again into two windows here.
+25:47 And let's open ints.c.
+25:49 So this one was a little different
+in that we did some arithmetic.
+25:54 And so here is going to be
+another difference in Python.
+25:57 Here's what we did in C. And
+what was curious or worth
+26:00 noting about math in C?
+26:04 Which of these did not quite behave
+as you might expect in the real world?
+26:10 Division?
+26:11 Yeah, why?
+26:11 What did division do?
+26:14 Yeah, it chopped off or rounded down.
+26:16 It floored the value by throwing away
+everything after the decimal point.
+26:20 So this line here, 18, where it's
+such-and-such divided by such-and-such
+26:23 is such-and-such.
+26:25 And we literally just
+said x divided by y.
+26:27 If you divided, for instance, 1 divided
+by 2 in grade school, hopefully,
+26:31 you would get the value 1/2 or 0.5.
+26:34 But in C, what did we get instead?
+26:36 AUDIENCE: Zero.
+26:36 DAVID MALAN: Zero.
+26:37 So it gets truncated to
+an int, the closest int
+26:40 without a decimal point being
+0 because 0.5 is really 0.5.
+26:44 And thus we had that effect.
+26:46 So in Python, things are
+going to be similar in spirit.
+26:49 But this is kind of a feature that
+was fixed or a bug that was fixed.
+26:54 In Python-- let me go ahead
+here and open up an example
+26:57 I wrote in advance called
+ints.py, which is actually
+27:01 now going to look like this.
+27:03 So the Python equivalent now,
+which I've roughly line up,
+27:07 looks a little different.
+27:09 And there's a few distractions
+because we have all these f strings.
+27:12 Now in the way.
+27:13 But notice I'm just
+plugging in x's and y's.
+27:15 But what's a new feature, apparently,
+in Python, arithmetically?
+27:20 So floor division.
+27:21 So this was the more proper term for
+what C has been doing all this time.
+27:25 In C, when you use use the slash and
+you divide one number by another,
+27:29 it divides, and then floors
+it to the nearest int.
+27:32 In Python, if you want that
+same old-school feature,
+27:35 you're going to now use slash slash,
+not to be confused with the C comment.
+27:38 And if you want division to work the way
+you always knew it did in grade school,
+27:43 you continue using just the slash.
+27:45 So a minor point, but one of
+the differences to keep in mind.
+27:48 So if we actually run this here in
+Python, if I go into source 8 today
+27:52 and our week's directory for
+week 1, and I run Python ints.py,
+27:58 here now we're going to see 1 and 2.
+28:00 And there's all of the values
+that we would expect to see.
+28:05 All right.
+28:06 So without dwelling too much on
+this, let's fast forward to something
+28:10 more powerful like conditions.
+28:12 So in Python, if we want to do
+something only conditionally,
+28:16 laying out my browser like this, let
+me go ahead and open up, let's say,
+28:21 conditions.py.
+28:24 Sorry, conditions.c, which once
+upon a time looked like this.
+28:29 So in this example here,
+notice that we have
+28:33 a program that gets
+two ints from the user,
+28:36 and then just compares x and
+y and x and y and prints out
+28:39 whether they're greater than, less
+than, or equal to, ultimately.
+28:42 So let's actually do this one from
+scratch over here on the right.
+28:45 So let me go ahead and
+save this as conditions.py.
+28:47 And then at the top,
+what's the very first thing
+28:49 I'm going to apparently now need?
+28:53 Yeah, so the CS50 library.
+28:54 So from cs50 import-- it looks like
+get_int is the one we want this time.
+28:58 Now, how do I go about getting an int?
+29:02 Or what's the translation
+of line 9 on the left
+29:04 to the right-hand side of the screen?
+29:11 x equals get_into of the same prompt.
+29:17 OK, what comes next, if I
+line it up roughly here?
+29:20 y gets get_int of quote, unquote, y.
+29:23 And what's down here?
+29:26 The condition.
+29:27 So if x less than y?
+29:30 No parentheses are necessary.
+29:32 It's not wrong to put
+them, but it's unnecessary.
+29:34 And now enters a word
+into our terminology--
+29:37 it's not Pythonic, so to speak.
+29:39 If you don't need them, don't put them.
+29:40 So if x is indeed less than
+y, what do we want to do?
+29:43 We want to print x is less than y, yes?
+29:48 No.
+29:48 OK.
+29:49 All right, good.
+29:50 So else if x--
+29:53 OK, good.
+29:54 Right.
+29:55 So, kind of goofily, elif, then go
+ahead and print out x is greater than y.
+30:03 And as an aside, I actually
+did that accidentally.
+30:05 But it turns out in Python, too, you
+can use double quotes or single quotes.
+30:10 Either is fine, whereas in C, single
+quotes had a very specific meaning,
+30:13 which meant what?
+30:14 AUDIENCE: Char.
+30:15 DAVID MALAN: Char.
+30:16 So single characters.
+30:17 And double quotes
+meant strings, sequence
+30:19 of characters, which meant zero or more
+characters, followed by backslash 0.
+30:23 In Python, all of that is gone.
+30:25 Single quotes and double
+quotes are equivalent.
+30:27 I'll almost always use double quotes,
+just for consistency, as should you,
+30:30 for consistency, within your own files.
+30:33 But sometimes it's useful to drop
+into one or the other if you nest,
+30:36 for instance, quote marks, as you
+might have once in a while in C
+30:39 OK.
+30:40 So finally, else print
+out x is equal to y.
+30:45 So it's cleaner.
+30:47 And frankly, I don't
+need all this whitespace.
+30:49 So let's go ahead and just make
+this a little tighter still.
+30:51 You can see that in 11 lines, we've
+now done what took 27 or so last time.
+30:56 But I have omitted
+something, to be fair.
+30:59 What did I omit?
+31:01 Yeah, I didn't do that whole
+calling of function thing.
+31:03 There's no mention of main.
+31:05 And it actually turns out that's
+not strictly necessary in Python.
+31:08 If you're going to be interpreting
+a file that contains Python code,
+31:11 and it's a simple enough program that
+you don't really need to factor code
+31:15 out and organize it into
+separate functions, then don't.
+31:18 If this is what would now be
+called a command-line script,
+31:21 a program that just has lines of
+code that you can execute, literally,
+31:25 at the prompt.
+31:26 So if I go into this directory and
+run python of conditions.py, Enter.
+31:30 x will be 1. y will be 2.
+31:32 x is indeed less than y.
+31:34 And that's it.
+31:34 I don't need to bother doing all
+of this, as I proposed earlier.
+31:38 def main, and then I could go in here.
+31:41 And if you've never known
+this, and now it's useful,
+31:43 especially, for Python, you
+can highlight lines and just
+31:46 tab them all at once.
+31:47 I could do this, but then I would
+need this thing, which I'd probably
+31:50 have to go look up how to remember it,
+if you're doing it for the first time.
+31:54 There's just no value in
+this case to doing that.
+31:57 But at least it can be there as needed.
+32:01 So let me go ahead and undo that.
+32:02 And we're back to a porting
+of one to the other.
+32:05 All right.
+32:05 So that might then be conditions.
+32:07 And let's see if we can't--
+32:10 noswitch there.
+32:11 Let's take a look at this one.
+32:12 Let me open up, rather than
+comparing all of them side-by-side,
+32:15 let me just open up this
+one now called noswitch.py,
+32:19 which is reminiscent of a program we
+ran some time ago called noswitch.c.
+32:24 And you can perhaps infer what
+this does from the comments alone.
+32:28 What does this program do in English?
+32:31 Because logical operators is
+not all that explicit at top.
+32:37 What's that?
+32:41 Yeah.
+32:42 So if you've ever interacted with a
+program that asked you for a prompt,
+32:45 yes or no, here's some code with
+which you might implement it.
+32:48 And we could do this in C. We're
+just comparing characters here.
+32:50 But there's a few differences
+if you kind of now
+32:52 think back to how you
+might implement this in C,
+32:55 even if you don't recall
+this specific program.
+32:57 I'm importing my library right up here.
+32:59 I'm then calling
+get_char this time, which
+33:02 is also in CS50's library for Python.
+33:04 And then notice there's
+just a couple of things
+33:06 different down here syntactically.
+33:08 Besides the colons and the indentation
+and such, what else is noteworthy?
+33:12 Yeah.
+33:14 Yeah.
+33:15 Thank god, you can just say
+more of what you mean now.
+33:17 If you want to do something or
+something, you literally say or.
+33:21 And if we were instead--
+33:22 albeit nonsensically here-- trying to
+do the conjunction of two things, this
+33:26 and that, you could literally say and.
+33:28 So instead of the two vertical
+bars or the two ampersands,
+33:31 here's another slight
+difference in Python.
+33:33 Let's now take a look at another
+example reminiscent of ones past,
+33:37 this one called return.py.
+33:40 So here's an example
+where it's actually more
+33:42 compelling to have a main
+function because now I'm
+33:45 going to start organizing my code
+into different functions still.
+33:48 So up here, we are importing the
+get_int function from CS50 library.
+33:53 Here I have my main function
+just saying x gets get_int.
+33:57 And then print out the square of x.
+33:58 So how do you go about defining
+your own custom function
+34:01 in Python that's not just main?
+34:02 Well, here on line 11 is how I would
+define a function called square--
+34:07 that takes, apparently,
+an argument called n,
+34:09 though I could call this anything I
+want-- colon, return, n, star star, 2.
+34:15 So a few new features here.
+34:16 But again, it's no big deal once you
+just kind of look these features up
+34:19 in a manual or in a class.
+34:22 What is star star probably doing?
+34:24 AUDIENCE: Square root.
+34:25 DAVID MALAN: Not square root.
+34:26 The power of, yeah.
+34:27 So n star star 2 is just n
+raised to the power of 2.
+34:30 That was not a feature we had in
+C. So now we get this in Python.
+34:34 And what's this line 12 in green
+with the weird use of double quotes?
+34:40 Yeah, it's a comment.
+34:41 And it's a different type
+of comment than we've
+34:43 seen before because in my previous
+example, I did have a few comments.
+34:46 Recall that just a moment
+ago, in conditions.py,
+34:50 we had a whole bunch of comments.
+34:52 Prompt the user for x.
+34:53 Prompt the user for y.
+34:54 Compare x and y.
+34:55 So whereas in C we
+were using slash slash,
+34:58 Python, unfortunately, uses that
+for floor division, so to speak.
+35:01 So we instead just use the
+hashtag or the pound sign
+35:04 to specify a line that should
+be thought of as a comment.
+35:09 But here is something
+a little different.
+35:11 And we won't dwell too
+much on this for now.
+35:13 But Python has different types of
+comments, one of which is this.
+35:16 This is technically called a
+docstring or document string.
+35:19 And what's nice about Python, as well
+as languages like Java and others still,
+35:23 is that you can put
+comments in your code
+35:26 that special programs can read, and
+then generate documentation for you.
+35:31 So if you ever took AP CS
+and you ever saw a Javadoc,
+35:34 this was a way of
+commenting your methods
+35:36 and your code in Java using
+funky @ signs and other syntax
+35:39 so that if you ran a special command, it
+could generate a user's manual for all
+35:43 of your functions and tell you or
+colleagues or friends or teachers
+35:46 exactly what all your functions
+are, what their arguments are,
+35:49 what their return values
+are, and all of that.
+35:51 Similarly in Python can you use
+these funky quote quote quote
+35:55 docstrings to document your function.
+35:57 So whereas in C our style has been
+to put quotes above the functions,
+36:01 in Python it's going to be to
+put them as the first line inside
+36:04 and indented within the function.
+36:08 All right.
+36:08 So now let's actually try to
+port a program from code again,
+36:12 thinking back on week one in C
+when we had this program here.
+36:20 So there's quite a bit going--
+36:21 oops, spoiler.
+36:22 Don't look at that.
+36:25 Hopefully, that didn't sink in just yet.
+36:27 So in week one, we had this
+program in C, get_positive_int.
+36:32 And its purpose in life
+was to write a program that
+36:35 gets a positive integer from
+the user, in and of itself
+36:37 not all that interesting.
+36:38 But it was an opportunity
+to introduce a few things.
+36:40 One, we introduced this
+line 6 several weeks ago,
+36:44 which is known as a prototype.
+36:45 And what was the purpose of having
+that function prototype up there?
+36:49 Yeah, you declare the function, but why?
+36:51 Because it's already implemented
+down here on line 15.
+36:54 AUDIENCE: The way the program runs,
+it needs to be in order or something
+36:58 like that.
+36:58 DAVID MALAN: Yeah.
+36:59 Because of the way the
+program's run, and frankly
+37:01 because of how sort of naive or
+dumb that clang is by design,
+37:04 it does not know that a function
+exists until it actually sees it.
+37:08 So the problem is that if in C,
+you have main, inside of which
+37:12 is a call to function
+like get_positive_int,
+37:14 but it's not implemented
+until a few lines later,
+37:16 clang is going to be dumb and
+just not know that it even exists.
+37:19 And it's not going to compile your code.
+37:21 So this prototype, as we called it,
+is kind of a teaser, a hint, that
+37:24 doesn't implement the whole function.
+37:26 It just shows the compiler
+its return type and its types
+37:29 and order of parameters so
+that that's enough information
+37:32 to then just trust that if
+I just blindly compile main,
+37:36 eventually I'm going to see the
+actual implementation of the function.
+37:39 So I can compile its bits, as well.
+37:42 So in here, in C, we
+called get_positive_int,
+37:44 and then we passed in a prompt.
+37:46 We stored it in a variable calle
+i, and then printed it out.
+37:49 And then to implement this, we
+used kind of a familiar construct
+37:52 that you've used in other programs.
+37:53 Pretty much anytime you want
+to prompt the user for input,
+37:56 and you want to keep
+pestering him or her
+37:58 until they cooperate with
+whatever your conditions are,
+38:01 you would use the
+so-called do-while loop.
+38:03 And because the do-while loop, recall,
+is distinct from the while loop how?
+38:07 AUDIENCE: It runs at least once.
+38:09 DAVID MALAN: It runs
+at least once, which
+38:10 just kind of makes
+intuitive sense if you
+38:12 want to prompt the user for something.
+38:14 And then if he or she
+doesn't cooperate, only then
+38:16 do you want to prompt them again.
+38:17 By contrast with a while loop, it's
+going to happen again and again
+38:20 and again no matter
+what, from the get-go.
+38:23 So let's see if we can't
+now convert this or port
+38:26 this, as people would say, to Python.
+38:29 So here I'm going to go ahead and
+save a new file called positive.py.
+38:34 And I'm going to go ahead and do
+everything here in main, as before.
+38:40 So I'm going to ahead and do, let's
+say, from cs50 import get_int,
+38:44 because I do need that.
+38:46 And then I'm going to go ahead
+and have my main method here.
+38:49 And then inside of main, just
+like on the left-hand side,
+38:52 I'm going to do i gets
+get_positive_int--
+38:56 positive integer, please.
+38:58 It's going to wrap a little bit now.
+38:60 That's fine.
+39:01 And then I'm going to go ahead
+and print this, which, recall,
+39:03 is just print an f string
+where the placeholder is i,
+39:07 although, frankly,
+this is kind of stupid,
+39:09 to just create a string that has nothing
+other than the value we want to print.
+39:13 Nicely enough in Python,
+just print what you want.
+39:15 And so that simplifies that argument.
+39:17 So now it remains to
+implement get_positive_int,
+39:23 which is going to take some
+kind of prompt as its input.
+39:25 And notice I'm not specifying the
+data type of prompt, which is string.
+39:30 I'm not specifying the
+return type of this function.
+39:32 But both actually do
+exist underneath the hood.
+39:35 So in the past, to get a
+variable, I would do something
+39:38 like this, semicolon.
+39:40 But I know I don't need the semicolon.
+39:42 I know I don't need the data type.
+39:44 And this just looks stupid to just
+put a variable there to need it.
+39:47 You don't need to do this in Python.
+39:49 If you want to use a
+variable, just start using it.
+39:52 And unfortunately, whereas almost every
+other feature we've seen in Python
+39:55 thus far kind of maps directly
+back to a feature in C,
+40:01 Python does not have a do-while.
+40:05 So it has the for-in, and it has while.
+40:08 And maybe it has other things
+we haven't told you about.
+40:11 But it doesn't have do-while.
+40:13 So knowing that, and knowing only
+what we've presented thus far,
+40:16 how do we still go about
+getting an int from the user
+40:20 and ensuring it's positive and
+reprompting him or her if and only
+40:24 if it's not?
+40:28 Put another way, how would you do
+this in C if we took away from you
+40:31 the do-while construct?
+40:37 Exclamation points?
+40:38 OK.
+40:38 So we could invert something,
+maybe, using that logically.
+40:42 AUDIENCE: You can just do a while loop.
+40:43 DAVID MALAN: We could
+just use a while loop.
+40:44 How?
+40:45 AUDIENCE: So while
+prompt is less than 1.
+40:51 DAVID MALAN: So while prompt is--
+40:52 OK, so the prompt is the string
+we're going to display to the user.
+40:57 So it's not prompt, I think.
+40:60 So maybe i or n, to be
+consistent with the other side.
+41:04 So you know what?
+41:05 Why don't I-- what about this?
+41:06 What if I just do-- you know what?
+41:08 I know I need a loop.
+41:09 This is by far the easiest
+way to just get a loop, right?
+41:12 It's infinite, which is not good.
+41:13 But I can break out of loops, recall.
+41:15 So what if I do something like this?
+41:18 What if I do n gets get_int,
+passing in the same prompt?
+41:23 And then what do I want to do next?
+41:25 I'm inside of an infinite loop.
+41:27 So this is going to keep happening,
+keep happening, keep happening until--
+41:34 is positive?
+41:35 So python's not quite
+that user-friendly.
+41:37 We can't just say that.
+41:39 But we can say what?
+41:41 AUDIENCE: Greater than 1.
+41:42 DAVID MALAN: Greater than--
+41:44 close.
+41:45 AUDIENCE: Equal to.
+41:46 DAVID MALAN: OK, that's fine.
+41:47 Greater than or equal to one.
+41:49 Then what do we want to do?
+41:50 Break.
+41:51 So it's not quite as cool
+as, like, a do-while loop,
+41:54 which kind of gives us all these
+features, though frankly, this
+41:56 was never that pretty, right?
+41:57 Especially the fact that you had
+to deal with the issue of scope
+41:59 by putting the variable outside.
+42:01 So in Python, the right way to do
+this would be something like this.
+42:04 Just induce an infinite loop, but make
+sure you break out of it logically
+42:07 when it's appropriate to do so.
+42:09 And so now if I go ahead and add in
+that last thing that I keep needing--
+42:14 so if name equals main, and it's always
+find to copy-paste something like that,
+42:20 call main.
+42:21 Let me go ahead now and in my terminal
+window run python of positive.py.
+42:27 And let me go ahead
+and give it negative 5.
+42:30 How about negative 1?
+42:31 How about 0?
+42:32 Whoops.
+42:33 How about that?
+42:34 How about 0?
+42:34 1?
+42:35 Hmm.
+42:39 I screwed up.
+42:41 None is interesting.
+42:42 It's kind of our new null, so to speak.
+42:44 But whereas in C, null can,
+potentially, if used in the wrong way,
+42:47 crash your program, Python
+might just print it, apparently.
+42:51 Where did I screw up?
+42:53 Yeah, so I didn't
+return an actual value.
+42:55 And whereas clang might have
+noticed something like this, Python,
+42:58 the interpreter's not going to be as
+vigilant when it comes to figuring out
+43:02 if your code is missing something.
+43:03 Because after all, we never said
+we were going to return anything.
+43:06 And so we don't strictly need to.
+43:07 So what could I instead
+do here instead of break?
+43:12 I could just return n here.
+43:14 Or I could equivalently do this, and
+then just make sure I return n here.
+43:20 And another difference in Python,
+too, is that the issue of scope
+43:23 isn't quite as difficult as it was in C.
+As soon as I've declared n to exist up
+43:29 here, it now exists down below.
+43:32 So even though it was declared
+inside of this indentation,
+43:35 it is not scoped to
+that while loop alone.
+43:38 So either way could we
+actually make this work.
+43:42 OK, so now let's try to run this again.
+43:45 Positive integer.
+43:45 Negative 1.
+43:46 0.
+43:47 1.
+43:48 And now we're actually
+seeing the number 1.
+43:49 All right.
+43:50 Let me pause here for just a moment
+and see if there's any questions.
+43:53 No?
+43:54 Yes.
+43:55 AUDIENCE: Do you to call things
+from the CS50 library individually,
+43:58 or can you just import
+the entire library?
+44:00 DAVID MALAN: Ah, good question.
+44:02 Do you have to call things inside
+of the CS50 library individually,
+44:04 or can you import the whole thing?
+44:06 You can technically import
+the whole thing as follows.
+44:09 If you want access to
+everything in the CS50 library,
+44:11 you can literally say star.
+44:13 And a star in programming--
+well, in many computer contexts,
+44:16 star generally is a wildcard character.
+44:18 And it means anything that
+matches this string here.
+44:21 This is generally considered
+bad practice, though.
+44:24 Because if CS50 staff happens to give
+you functionality or variables that you
+44:28 don't want, you have now just
+imported into your namespace,
+44:33 so to speak, all of those functions.
+44:35 So for instance, if the CS50
+library had public inside of it
+44:39 a variable called x
+and y and z in addition
+44:42 to functions like get_string
+and get_int and get_char,
+44:45 your program is now seeing
+variables x and y and z.
+44:49 And if you have your own
+variables called x and y and z,
+44:51 you're going to shadow
+those variables inside ours.
+44:54 And it just gets messy quickly.
+44:55 So generally, you want to
+be a little more nitpicky
+44:59 and just import what you want.
+45:00 Or, another convention in Python
+is to not specify it like this,
+45:06 but instead to do import CS50.
+45:09 This does not have the
+same effect of importing
+45:12 all of those keywords like
+get_int and get_string
+45:14 into your program's namespace,
+like the list of symbols
+45:18 you can actually type in.
+45:20 But what you then have to do is this--
+45:22 you have to now prefix any usages
+of the functions in that library
+45:28 with the now familiar or
+more familiar dot operator.
+45:31 So this is just a
+stylistic decision now.
+45:33 I have consciously
+chosen the other approach
+45:35 so that initially, you can just call
+get_int, get_string, just like we
+45:38 did in C. But technically and
+probably more conventionally would
+45:41 people do this to make super clear
+this isn't my get_int method.
+45:44 It's CS50's get_int function.
+45:48 OK.
+45:48 Other questions?
+45:50 Yeah.
+45:51 AUDIENCE: Is it good coding practice
+to do the if __name__ or just--
+45:56 because you can run hello,
+world without defining main.
+45:59 Do you really need to do--
+46:00 DAVID MALAN: Oh, it's a good question.
+46:02 Short answer, no.
+46:03 So I'm showing you
+this way because you'll
+46:06 see this in various examples
+online and in programs
+46:09 that you might look at
+that are open source.
+46:11 Strictly speaking,
+this is not necessary.
+46:13 If you end up making your own library,
+this tends to be a useful feature.
+46:18 But otherwise, I could equivalently do
+this, which is perfectly fine as well.
+46:24 I can still define get_positive int.
+46:26 I can get rid of main altogether.
+46:28 And I can just now do this.
+46:30 So this program is equivalent
+and just as fine for now.
+46:34 OK.
+46:35 So with that said, let's do
+a couple of more examples
+46:37 here to kind of paint a
+picture of some of the things
+46:40 that are similar and different.
+46:41 And let's go ahead and open up, for
+instance, overflow.c from some weeks
+46:47 ago, splitting our windows again.
+46:50 And then on the right-hand side, let me
+open up something called overflow.py,
+46:53 which I put together in advance.
+46:55 So here we have on the left an
+example of integer overflow, whereby
+47:02 if I start counting at 1, and
+then don't even have a condition,
+47:06 and I just keep multiplying
+i by 2, by 2, by 2,
+47:08 doubling it, doubling it,
+doubling it, doubling it,
+47:10 we know from C that bad things
+happen if you just kind of keep
+47:13 incrementing something
+without any boundary in sight.
+47:16 So this program is just going to
+print out each of those values,
+47:19 and it's going to sleep
+one second in between.
+47:21 Same program in Python
+looks pretty similar.
+47:23 But notice I'm initializing i to
+1, doing the following forever--
+47:27 printing out i, multiplying i by 2,
+and then sleeping for one second.
+47:32 But sleep is also not built into
+Python in the way that print is.
+47:36 Notice what I had to include up here.
+47:37 And I wasn't sure what that was.
+47:38 And so honestly, just a
+few days ago, I googled,
+47:41 like, "sleep one second Python," saw
+that there's this time library, inside
+47:45 of which is a sleep function.
+47:47 And that's how I knew which
+library to actually include.
+47:50 And so just as there
+are man pages for C,
+47:52 there's a whole documentation
+website for Python
+47:56 that has all of this
+information, as well.
+47:57 So let me go ahead and do this.
+47:59 And let me actually try to
+create two windows here.
+48:04 What's the best way for me to do this?
+48:07 Split one to two.
+48:09 OK.
+48:10 So let's do this, just so I
+can run this in the same place.
+48:14 So if I go into my source--
+48:16 [POPPING NOISE]
+48:17 Jeez.
+48:18 My source 8 directory, and I go into
+weeks and one, and I make overflow--
+48:29 nope, sorry.
+48:30 Week one.
+48:31 OK.
+48:32 So if I go into source one,
+and I do make overflow,
+48:36 which is kind of cute
+semantically, I'm now
+48:39 going to be able to run a
+program called overflow.
+48:41 Meanwhile, over here, let me go
+ahead and split this window, too.
+48:49 Dammit, not there.
+48:50 Let's put this over here.
+48:54 Oh, no!
+49:01 OK.
+49:01 One second.
+49:02 Sorry.
+49:03 Overflow.py.
+49:04 OK.
+49:05 So now we're-- oh, now
+I lost the other window.
+49:10 Oh, that's cool.
+49:10 OK.
+49:11 So let's do this.
+49:14 OK.
+49:16 Now I know how to use the IDE.
+49:18 All right.
+49:18 So on the left-hand side,
+I'm about to run overflow.
+49:21 And then lastly, without generating that
+beep again, I'm going to go in here.
+49:25 And I'm about to run
+python of overflow.py.
+49:29 All right.
+49:30 And so the left will run the C version.
+49:32 The right will run the Python version.
+49:34 And we'll start to see--
+49:38 no pun intended-- what
+happens with these programs.
+49:42 Oh, damn it.
+49:43 I got to scroll.
+49:48 OK, so I'll just keep scrolling for us.
+49:52 This is fun.
+49:54 OK.
+49:59 OK.
+49:60 Next time, Google how to sleep
+for half a second instead.
+50:03 OK.
+50:04 So there we go.
+50:05 Something bad has happened here.
+50:07 And now C is just completely choking.
+50:09 Things are in a funky state.
+50:11 So what happened on the left,
+before the answer scrolls away?
+50:15 Integer overflow, right?
+50:16 We had so many bits becoming
+ones, that eventually, it
+50:20 was mistaken for a negative
+number temporarily.
+50:22 And then the whole thing
+just kind of got confused
+50:24 and became permanently zeros.
+50:26 Whereas on the right-hand
+side, like, yeah, Python.
+50:29 Look at you go.
+50:30 Still counting higher
+and higher and higher.
+50:33 And even though we haven't talked
+about the underlying representation
+50:36 of these types in
+Python, what can we infer
+50:38 from the apparent better correctness
+of the version on the right in Python?
+50:44 It's not an eight-bit representation.
+50:45 And even C, to be fair,
+uses 32 bits for its ints.
+50:48 And that's what we got as high as
+2 billion or 4 billion in total.
+50:51 But same idea.
+50:52 How many bits must Python be using?
+50:54 AUDIENCE: 64?
+50:55 DAVID MALAN: Yeah, maybe 64.
+50:57 I don't know exactly.
+50:58 But I know it's not 32 because it's
+keep counting up and up and up.
+51:01 And so this is another
+feature of Python.
+51:03 Whereas int in C has typically
+been for us 32 bits--
+51:06 although that is technically
+machine-specific--
+51:09 Python integers are now
+going to be 64, which
+51:11 just means we can do
+much bigger math, which
+51:13 is great for various data-science
+applications and stats and whatnot,
+51:16 where you actually might have
+some large data sets to deal with.
+51:19 Unfortunately, we still have
+some issues of imprecision.
+51:22 Let me go ahead and close a
+whole bunch of these windows
+51:24 and go ahead and open up, for
+instance, just this one here.
+51:30 OK.
+51:31 No, I'm going to skip
+this and do something
+51:33 slightly more fun, which is this.
+51:35 So in Python here, let's
+do a quick warm-up.
+51:39 This is going to print for me what?
+51:40 AUDIENCE: Four question marks.
+51:41 DAVID MALAN: 4 question marks, right?
+51:42 And this is reminiscent-- this is like
+a really cheap version of "Super Mario
+51:46 Bros."
+51:47 And if you think back to week
+one, where we explored this,
+51:49 there was a screenshot I had of
+"Super Mario Bros," one of the worlds
+51:52 where we just had four question marks
+which Mario could hit his head against
+51:56 to actually generate a coin.
+51:58 So we stepped up from there
+in C to do this instead.
+52:00 And this is going to
+give us another feature.
+52:02 But let's see if we can't start to infer
+from context what these programs do.
+52:06 Here's another one, mario1.
+52:07 What's this do?
+52:12 It's using a loop, for sure.
+52:14 And it's using how many
+iterations, apparently?
+52:16 Four.
+52:16 So from 0 to 1 to 2 to 3, total.
+52:19 Each time, it's going to print
+out, apparently, a question mark.
+52:22 But now, just infer from this--
+52:24 I haven't answered
+this question already--
+52:26 what else is going on line 4 and why?
+52:28 AUDIENCE: It's not going to a new line.
+52:30 DAVID MALAN: Not going
+to a new line, right?
+52:32 So there's always this trade-off in
+programming and CS more generally.
+52:35 Like, yay, we took away the backslash
+n, which was annoying to type.
+52:39 But now if it's always there,
+how do you turn it off?
+52:42 So this is one way to
+do that, and it also
+52:46 reveals another fundamental
+feature of Python.
+52:48 Notice that print apparently takes,
+in this case, more than one argument.
+52:52 The first is a string-- literally
+quote, unquote, and a question mark.
+52:56 The second is a little funkier.
+52:59 It's like a word, end.
+53:00 It's then an equal sign,
+and then it's a quote mark.
+53:04 So what is this here?
+53:05 So it turns out Python supports
+what are called named parameters.
+53:10 So in C, any parameters
+you pass to a function
+53:13 are defined, ultimately,
+by way of their order.
+53:16 Because even if a function
+takes arguments that have names,
+53:19 like x and y or a and b or whatever,
+when you call the function,
+53:24 you do not mention those names.
+53:26 You know they exist, and that's how you
+think about them in the documentation
+53:29 or in the original code.
+53:31 But you don't name the arguments as
+you pass them in and call a function.
+53:35 You instead pass them in in the
+appropriate order per the man page
+53:38 or per the documentation.
+53:41 In Python, you can actually
+be a little more flexible.
+53:44 If a function takes multiple
+arguments, all of which have names,
+53:48 you can actually mention
+the names explicitly,
+53:50 thereby freeing you from
+the minor inconvenience
+53:53 of having to remember and always get
+right the actual order of arguments.
+53:58 So in this case, print apparently
+takes at least two arguments
+54:01 in this case, one of
+which is called end.
+54:03 And if you want to use that one, which
+is clearly optional because I haven't
+54:07 used it yet, you can literally
+mention it by name, set an equal sign,
+54:11 and then specify the value
+that you want to pass in.
+54:13 So if I actually now go into this
+and go into weeks and 1 and do python
+54:18 of mario1.py, I'll still get--
+54:24 in week two.
+54:26 If I get mario1.py, I still
+get four question marks.
+54:31 But that's the result of printing this
+with a line ending of quote, unquote.
+54:35 If I do this, meanwhile,
+it's a little stupid
+54:38 because I'm going to get that for
+free if I just omit it altogether.
+54:41 But now I get four question marks here.
+54:43 And if you really want to be
+funky, you can do something
+54:46 like this, which is just
+going to be taken literally
+54:51 to give you that instead.
+54:53 Unclear utility of taking this approach.
+54:57 But that's all--
+54:57 [POPPING NOISE]
+54:58 Sorry-- that's going on.
+54:59 Let's take a look at mario2.
+55:01 This one works a little
+differently, as well.
+55:03 And how would you describe the feature
+offered by this version of mario?
+55:09 Prints any number of
+question marks perfectly.
+55:11 So it's parameterized by first
+getting and int from the user using
+55:14 CS50's get_int function.
+55:16 And now I'm iterating from i to
+the range of n, whatever that is,
+55:20 and then actually printing
+out the question marks.
+55:23 Meanwhile, in mario3.py,
+a little fancier still.
+55:27 But what am I doing a little better now?
+55:34 AUDIENCE: You're making
+sure that the n is positive.
+55:36 DAVID MALAN: Yeah, I'm just making
+sure that the n is positive.
+55:38 So I didn't bother implementing
+a whole function called, like,
+55:41 get_positive_int.
+55:42 I don't need that.
+55:42 This is a super-short program.
+55:44 I'm just using the same logic up here--
+55:46 inducing, deliberately,
+an infinite loop,
+55:47 breaking out of it only when I've
+gotten back a positive integer,
+55:50 and then printing out that many of
+hashtags, reminiscent of the bricks
+55:55 in Mario.
+55:56 And then lastly, we have this
+slightly more sophisticated version
+55:60 that actually prints out a
+different shape altogether.
+56:03 You can infer from the
+comments, but focus more on why.
+56:12 So this first line 12
+iterates from i to n,
+56:15 whatever n is that the user typed in.
+56:17 Meanwhile, line 15, indented, iterates
+from j from 0 up to n, as well.
+56:24 So this is kind of like
+our canonical for int i
+56:26 gets 0, dot, dot, dot, for int
+j get 0, dot, dot, dot, where
+56:30 we've had nested loops in the past.
+56:32 So notice now that we have this building
+block, which is a line of code or kind
+56:35 of conceptually just a Scratch piece.
+56:37 We can embed one inside of the other.
+56:39 Here I can print out
+a hashtag, making sure
+56:40 not to put a new line after
+every single hashtag I print out,
+56:44 only printing out a new line on line
+17, on each iteration of the outer loop.
+56:50 And now notice whereas in C we
+would have done this historically--
+56:55 and that's fine-- in
+Python, we don't need the f.
+56:58 And we also don't need the backslash n.
+56:59 End So ergo, you can simply do print,
+and you'll get, if nothing else,
+57:03 a backslash n automatically.
+57:05 So that now when I run
+this version of Mario,
+57:08 we now get something more interesting.
+57:09 And I'll increase the
+size of my terminal window
+57:11 for this so that I can enter a
+positive number like this and print 10.
+57:14 And now we've got a whole block.
+57:16 So that was a lot.
+57:17 Let's go ahead and take
+our five-minute break here.
+57:18 And when we come back, we'll look at
+some more sophisticated examples still.
+57:22 All right.
+57:23 So let's begin to start to transition
+to actually solving problems with Python
+57:28 after introducing just a
+couple of additional features
+57:30 that aren't so much syntactic but
+actual features of the language.
+57:34 So here on the left was an old program
+we wrote in week three called argv0.c.
+57:38 And its purpose in life
+was simply to allow
+57:41 you to run a command-line
+argument for the very first time.
+57:43 And that was a nice tool
+to have in our toolkit.
+57:45 So how might we go ahead and map this?
+57:47 Well, we actually need
+to know how Python works
+57:50 a little bit differently as follows.
+57:52 If I go ahead and open
+a new file called--
+57:58 let's call it argv0.py.
+58:04 I'm going to go ahead and translate
+this, just as we did earlier.
+58:07 So I'm going to go ahead and
+want to use the following.
+58:12 So if argc-- so there is no argc.
+58:16 And actually, so def main--
+58:19 there was also no argc or argv.
+58:22 And it's not actually correct to do
+this and this, as you might assume.
+58:26 It turns out that the feature
+of command-line arguments
+58:29 are provided by a Python
+package, so to speak,
+58:31 or a library, much like the
+CS50 library is a package
+58:34 that you can import in Python speak.
+58:36 So to do this, I actually need to
+do this-- import sys, which gives me
+58:40 access to a whole bunch
+of system-related stuff,
+58:42 like what the user has
+typed at the command prompt.
+58:45 And if I want to check if the
+number of words that the human typed
+58:48 at the prompt is two,
+I actually am going
+58:51 to do this-- if the length
+of sys.argv equals 2,
+58:57 then I'm going to go ahead and
+print out quote, unquote, "hello,"
+59:04 and then a placeholder here.
+59:06 I know for placeholders, I need to
+turn this into a formatted string, so
+59:09 an f string there.
+59:11 And now inside of the curly braces,
+it turns out I can do sys.argv[1].
+59:18 So it's a little different from before.
+59:20 But notice I'm borrowing almost
+all the same ideas as earlier,
+59:23 including how we're
+printing out strings.
+59:25 And even though this is
+a little more verbose,
+59:27 what is between these two curly braces?
+59:29 Well it's the result of looking
+in the system package, which
+59:32 has a variable called
+argv, for argument vector,
+59:35 just like in C. It is itself
+an array, AKA a list in Python.
+59:39 And here we have the result of
+indexing into element one of that list.
+59:44 And the way that I have
+access to this is because I've
+59:47 imported that whole package.
+59:49 So if on the right-hand side here
+I go ahead, after saving that file,
+59:53 and I do python of
+argv0.py, I see nothing.
+59:58 But if I actually say, like, my
+name here, I see, "hello, David."
+60:02 So a very similar program, but
+implemented a little differently.
+60:06 And you'll notice, too,
+that the length of an array,
+60:09 henceforth known as a list, is
+not something that you yourself
+60:14 have to remember or keep around.
+60:15 You can just ask a list how
+long it is by calling the len--
+60:19 or L-E-N for length--
+60:21 function, passing it in as an argument.
+60:24 So that's one of the takeaways there.
+60:25 And if we actually want to do
+something a little more clever,
+60:28 like print out all of the strings in
+argv, well, back in the day in see,
+60:33 you might recall this example--
+60:34 argv1.c, wherein I had this for loop.
+60:37 And I iterated from zero on up
+to argc, the argument count,
+60:41 printing out each of the
+arguments in that vector.
+60:44 Python actually makes even
+something like this even simpler.
+60:48 Let me go ahead and
+create a new file here.
+60:50 And I'll call this, say, argv1.py.
+60:54 And it turns out in Python, I
+can similarly just import sys,
+60:58 and then do, honestly, for
+s in sys.argv, print s.
+61:06 Done.
+61:07 So again, kind of just
+says what it means.
+61:09 So I've imported the system library.
+61:11 sys.argv I know to be a list,
+apparently, of command-line arguments.
+61:15 For something in something is a
+new syntax we have for for loops.
+61:18 So for some variable s inside of
+this list, go ahead and print it.
+61:24 And so it's a much cleaner,
+much more succinct way
+61:26 of honestly getting rid of
+all of the complexity of this
+61:30 by just saying instead what we mean.
+61:32 Meanwhile, if I wanted to
+print out every character,
+61:34 I can take this one step further.
+61:36 So back in the day in C
+if I wanted to print out
+61:39 every command line argument and every
+character therein I could do this.
+61:43 I just need a couple of nested
+loops, wherein via the outer loop,
+61:47 I iterate over all of
+the arguments passed in.
+61:50 And on the inner loop, I iterate
+over the current string length
+61:53 of whatever argument I'm printing.
+61:55 And this had the effect of printing
+out all of the command-line arguments'
+61:59 letters one at a time.
+62:01 I can do this in Python,
+honestly, so much easier.
+62:03 So let me go over here.
+62:05 Let me create a new
+file called argv2.py.
+62:10 Let me import sys, as I did.
+62:12 So import sys.
+62:13 And then for s in sys.argv,
+for c in s, print c.
+62:20 Done.
+62:21 So what is this doing?
+62:23 Gone is all of that overhead of for
+int i and for int j and so forth.
+62:28 For s in sys.argv iterates over
+all of the elements of that list,
+62:32 one string at a time.
+62:33 For c in s is a little different
+because s is technically
+62:37 a string or a str object, as
+we're going to start calling it.
+62:39 But at the end of the day, a string
+is just a sequence of characters.
+62:42 And it turns out Python supports, out of
+the box, the ability to use a for loop
+62:46 even to iterate over all of
+the characters in a string.
+62:49 And so c-- I just mean char.
+62:50 So for c in s, that gives
+me each of the characters.
+62:53 So now at the end here, if I go
+ahead and run python of argv2.py
+62:60 with nothing, I get
+just the program's name
+63:04 because that's, of course, the very
+first thing in argv, as in C. And if I
+63:07 write, say, a word like "Maria"
+here, I get argv2.py, Maria,
+63:14 all in one long column because of the
+additional prints that are happening
+63:17 and the implicit new lines.
+63:19 So any questions before we
+proceed on this use of a package
+63:23 called sys using these
+functions therein?
+63:28 All right.
+63:28 So let me skip ahead, then, to
+something slightly familiar, too.
+63:33 Let me go ahead-- and you might
+recall initials.c from some time ago,
+63:40 wherein we accepted as input
+to get_string a user's name,
+63:46 and then we printed out their initials.
+63:47 So let's go ahead and do that.
+63:49 So from CS50, let me go
+ahead and import get_string.
+63:52 Then let me go ahead and
+say, get me a string.
+63:55 And I want the user to be prompted
+for their name, as we might do here.
+63:60 Then let me go ahead and say,
+all right, their initials--
+64:03 I don't know what they are yet.
+64:04 So let me just initialize
+an empty string.
+64:06 But then do this--
+64:07 for c in s, which is for each
+character in the person's name, if--
+64:13 and I don't know how to say this yet.
+64:15 If c is an uppercase letter, then
+go ahead and append c to initials.
+64:25 And then down here, print initials.
+64:27 So I've left a couple of blanks.
+64:28 That's just pseudocode for the moment.
+64:30 But this line 5, just to be
+clear, is doing what for me?
+64:33 What is being iterated over?
+64:36 The string.
+64:36 So for each character in the string, for
+c in s, I'm going to ask two questions.
+64:41 So in C, we did this in a
+couple of different ways.
+64:44 We can actually do it
+with inequality checks
+64:48 and actually considering what
+the underlying ASCII values are.
+64:51 The ctype library had that isupper
+function and islower that we use.
+64:55 Well, it turns out because
+c is itself not a char,
+65:01 there is no such thing,
+technically, as a char in Python.
+65:04 You have only strings of length 1.
+65:06 And this is why single quotes no
+longer have any special meaning.
+65:10 It turns out c is technically
+just a one-character string.
+65:14 Strings are what we've
+started calling objects,
+65:16 which is a fancier name for struct.
+65:18 So inside of an object like
+a string is functionality.
+65:22 And we saw one piece of functionality
+earlier, which was what?
+65:26 Not length, though that is another one.
+65:32 It was format.
+65:33 We saw it briefly.
+65:34 But when I did the
+string.format, I proposed
+65:37 that there's actually
+built-in functionality
+65:39 to a string called format.
+65:40 Well, you know what?
+65:41 It turns out there is a method
+or function inside of the string
+65:45 class also called isupper.
+65:47 And I can ask the very string
+I'm looking at that question
+65:51 by saying if c.isupper is true, then
+go ahead and append c to initials.
+65:58 So in C, if initials were
+technically a string,
+66:04 how could you go about appending
+another character to a string in C?
+66:10 AUDIENCE: c.append?
+66:12 DAVID MALAN: Not in C. In
+C. So in C, the language.
+66:17 OK, so what's a string in C?
+66:19 A string in C is a
+sequence of characters,
+66:21 the last one of which is backslash 0.
+66:24 All right.
+66:24 So it's an array of characters,
+last of which is backslash 0.
+66:27 So if I, for instance, typed
+in my first name, "David,"
+66:30 and now I want to append "Malan" to
+the end of it, how do I do that in C?
+66:34 AUDIENCE: [INAUDIBLE]
+66:36 DAVID MALAN: Exactly.
+66:37 It's like an utter pain in the neck.
+66:38 You have to create a new array that's
+bigger, that can fit both words,
+66:41 copy the "David" into the new array,
+then copy the last name in, then put
+66:45 the null terminator at
+the new array, then free,
+66:47 probably, the original memory.
+66:49 I mean, it's a ridiculous
+number of hoops to jump through.
+66:51 And you've done this on occasion,
+especially for things like, perhaps,
+66:54 problem set five.
+66:55 But my god, we're kind of past that.
+66:57 Just go ahead and append to the
+array the character you care about.
+67:01 So in this case, not
+an array, but a list.
+67:04 Sorry, not an array but a string
+object that's initially blank.
+67:08 It turns out that Python
+supports this syntax--
+67:10 plus equals typically means arithmetic
+and add one number to another.
+67:14 But it also means append.
+67:16 So you can simply append to
+initials by doing plus equals c, one
+67:21 additional character.
+67:22 So even though the string starts
+like this, and this big in memory,
+67:25 it's then going to
+grow for one character,
+67:27 grow, grow, grow, grow, until it
+has all of the user's initials.
+67:31 And as for where that memory
+is coming from, who cares?
+67:34 This is the point that we're now past.
+67:36 You leave it to the language.
+67:38 You leave it to the computer to
+start to manage those details.
+67:40 And yes, if it needs
+to call malloc, fine.
+67:42 Do it.
+67:43 Don't bother me with that detail.
+67:44 We can now start thinking
+and writing code sort
+67:46 of conceptually at this level,
+instead of at this level.
+67:50 So again, we're sort of abstracting
+away what a string even is
+67:52 and leaving it to the language itself.
+67:54 So if I now go ahead and run
+python of initials.py and type
+67:58 in, for instance, "Maria Zlatkova"
+here, with a capital M and a capital Z,
+68:05 I then see her names because I've
+plucked out the middle initials.
+68:08 And if we do something else, like "David
+J. Malan," even with a period in there,
+68:12 it infers from the capitalization
+what my initials should actually be.
+68:16 So again, a much tighter
+way of doing things.
+68:19 Let me go ahead and now
+open up another example
+68:21 we didn't see a few
+weeks ago, though it was
+68:22 included in some of our distribution
+code, if you wanted to look.
+68:26 Some weeks ago, we had this program
+among the distribution code,
+68:30 where I declared an array
+of strings called book.
+68:35 And I proposed that there were
+these several names in the phone
+68:38 book, so to speak-- all of
+the past instructors of CS50
+68:42 sorted alphabetically.
+68:43 And then down below in this C program,
+I used that global variable called book
+68:48 to implement, it seems, linear search.
+68:51 And to implement linear search
+in C, I'm going to need,
+68:54 of course, a loop to iterate
+over all of the strings.
+68:57 This line 26 does exactly that.
+68:60 I then in C, recall,
+had to use str compare
+69:02 because remember we
+tripped over this issue
+69:04 early on where you can't
+just compare two strings in C
+69:06 because you'd be
+comparing, accidentally,
+69:07 their addresses, their
+pointers, not the actual value.
+69:11 So we used str compare.
+69:13 And I could pass in the name that
+I'm looking for in the i'th book one
+69:16 at a time, checking for equals zero.
+69:18 And then I can call
+Mike or David or whoever
+69:21 I'm trying to call, or just
+quit if the user isn't found.
+69:24 So what did this program actually do?
+69:26 If I go into this example,
+which, again, was from weeks 3,
+69:31 and I do make linear--
+69:33 nope, not that.
+69:35 Wrong directory again.
+69:37 If I go into source3 and
+make linear, this program
+69:41 is supposed to behave as follows.
+69:43 So if I go ahead and run ./linear,
+look for our old friend Smith,
+69:48 it found Smith.
+69:49 If I go ahead and search for,
+say, Jones, who did not previously
+69:53 teach CS50, it says "quitting."
+69:54 All right.
+69:55 So meanwhile, in Python, bless its
+heart, we can get rid of all of that.
+70:01 And in our source8 directory
+here and our subdirectory 3,
+70:06 let me go ahead and open this instead.
+70:09 In Python, I can declare an
+array, otherwise known as a list,
+70:13 almost in the same way.
+70:14 But what's different,
+just to be super clear?
+70:17 AUDIENCE: Brackets?
+70:18 DAVID MALAN: So the brackets
+are now square brackets
+70:20 instead of curly braces.
+70:21 And frankly, unless you statically
+initialized an array in C--
+70:24 like hardcoded the values
+for your array in C--
+70:26 you might not have even known
+you could use curly braces.
+70:29 So that's not a huge deal here.
+70:30 But in Python, square brackets here
+and here represent a list of elements,
+70:35 literally.
+70:36 And what else is different?
+70:39 Didn't declare the size of the array.
+70:41 And I technically don't
+have to do that in C,
+70:43 either, if you're hardcoding
+all of the values all at once.
+70:46 But there is something
+missing on line 7.
+70:49 AUDIENCE: Type.
+70:50 DAVID MALAN: Sorry?
+70:50 AUDIENCE: The type?
+70:51 DAVID MALAN: The type.
+70:52 I didn't specify string.
+70:53 But otherwise, this is pretty
+similar to what we've done in C.
+70:56 But what's beautiful here--
+70:58 and let me go ahead and
+hide that for just a second.
+71:01 Let me go ahead and prompt
+the user for his or her name.
+71:05 So let's ask for the name here.
+71:07 And then if I want to search the
+book, which is just a list of names,
+71:11 how do I implement linear search?
+71:12 Well I could just do if name
+in book, print "Calling name."
+71:20 And Let's make this an f string.
+71:23 And then down here, that's it.
+71:25 So that's how you implement
+linear search in Python.
+71:28 You don't need a loop.
+71:29 You can just ask the question yourself.
+71:31 So if book is a list, and name is
+the string that you're looking for,
+71:35 just ask the language to
+figure this out for you.
+71:39 If name in book is the syntax you can
+use to ask literally that question.
+71:43 And then Python will use, probably,
+linear search over that list
+71:47 because it doesn't necessarily
+know it's sorted, even
+71:49 though it happens to be alphabetically.
+71:51 But it will find it for
+you, thereby saving us
+71:53 a lot of the complexity and time of
+having had to implement that ourselves.
+71:58 Meanwhile, if I want
+to compare two strings,
+72:02 let me propose this-- let me write
+a quick program here, compare1.py.
+72:07 And let me go ahead and from CS50
+import get_string, as before.
+72:11 And now let me go ahead and get
+one string that I'll call s.
+72:16 And let me get another
+string that I shall call t,
+72:20 just as we did a few weeks ago.
+72:22 And now in C, this was buggy, right?
+72:27 If I print same, else I print different.
+72:32 So in C, just to be super clear, why
+was this incorrect, this general idea
+72:38 of using equals equals?
+72:43 Yeah, they're comparing
+addresses, right?
+72:44 This was like the day
+before we peeled back
+72:47 the layer of what a string actually is.
+72:49 And it turns out that s and t in C
+were char stars or addresses, which
+72:53 means certainly if you
+get two different strings,
+72:55 even if you've typed
+the same characters,
+72:57 you're going to be comparing
+two different addresses.
+72:59 They're not going to be the same.
+73:00 Now, you can perhaps infer
+from the theme of today--
+73:03 what is Python going to do if
+asked if s and t are equal?
+73:07 It's gonna answer that question
+as you would expect as the human.
+73:11 Equals equals now, in Python,
+is going to compare s and t,
+73:15 look at their actual values
+because they are strings,
+73:18 and return same if you
+literally typed the same words.
+73:22 So in here, if I go in here and I do
+python of compare1.py, and I type in,
+73:28 for instance, "Maria," and then I type
+in "Maria," they're indeed the same.
+73:33 If I type in "Maria" and,
+say, "Stelios," they're
+73:36 different because it's actually
+now comparing the strings,
+73:39 as we would have hoped some time ago.
+73:42 So let's take a look
+at another that kind of
+73:44 led to some interesting quandaries.
+73:46 You might recall in week four,
+we had this example in C--
+73:51 noswap, so named because
+this just did not work.
+73:55 It was logically seemingly correct.
+73:57 But swap did not actually swap x
+and y, but it did swap a and b.
+74:02 Why?
+74:06 AUDIENCE: The memory locations?
+74:07 DAVID MALAN: The memory
+locations were different, right?
+74:10 So x and y, recall, are variables in C
+that exist in a certain slice of memory
+74:14 that we called a frame on the
+stack, main's frame on the stack.
+74:18 Meanwhile, a and b are from a
+slightly different location in memory.
+74:22 We sort of kept drawing
+it slightly above,
+74:24 like a tray at the dining
+hall on the so-called stack.
+74:28 a and b had the same values of x and y--
+74:31 1 and 2-- but their own copies of them.
+74:33 So even though we logically,
+as with Kate, I think,
+74:36 with the Gatorade,
+swapped the two values,
+74:39 we ultimately swapped
+the wrong two values
+74:41 without actually permanently
+mutating the original x and y.
+74:45 So unfortunately-- well, fortunately
+and unfortunately in Python,
+74:49 there is no such thing as a pointer.
+74:50 So those are now gone.
+74:52 So we no longer have the
+expressiveness with which
+74:54 to solve this problem that way.
+74:56 But let me propose that we do it
+in oh-so-clever of another way.
+75:02 Here let me go ahead and
+declare x is 1, y is 2.
+75:06 Let me go ahead and print out as much.
+75:08 So with a format string, I'm going
+to go ahead and say x is x, y is y,
+75:13 plugging in their respective values.
+75:15 I'm going to do that twice.
+75:17 But in between, I'm going
+to try to perform this swap.
+75:20 And if your mind's
+ready to be blown, you
+75:23 can do that in Python, do
+the old switcheroo in Python.
+75:27 And this actually does swap the
+two values as you would expect.
+75:31 Now this is not a very common case.
+75:32 And to be fair, this is an
+incredibly contrived example
+75:35 because if you needed
+them swapped, well,
+75:36 maybe you should have just
+done this in the first place.
+75:39 But it does speak to one
+of the features of Python,
+75:41 where you can actually
+do something like that.
+75:44 Let me introduce now one additional
+feature that we only recently
+75:48 acquired in C. And that's
+the notion of a struct.
+75:51 And let me go ahead and do
+this in code from scratch.
+75:54 So let me go ahead and save this
+file proactively as struct0.py,
+75:58 reminiscent of one of
+our older programs.
+76:01 And let me go ahead and do this.
+76:02 From CS50 import get_string.
+76:06 And then let me give
+myself an empty list.
+76:08 So that would be a conventional
+way of giving yourself
+76:10 an empty list in Python.
+76:11 And much like in C, you
+can declare an empty array.
+76:15 But in C, you have to
+know the size of it
+76:17 or, if not, you have to use a pointer.
+76:18 And then you have to malloc.
+76:19 No.
+76:20 All of that is gone.
+76:21 Now in Python, you want a list?
+76:23 Just say you need a list.
+76:24 And it will grow and shrink as you need.
+76:26 Now I'm going to go ahead and
+just three times, arbitrarily,
+76:29 for i in the range of 3,
+let me go ahead and ask
+76:32 the user for a name using get_string.
+76:35 And I'll ask him or her for their name.
+76:37 Dorm will use get_string, as well.
+76:40 Dorm here.
+76:41 And then I want to append
+to the array this student.
+76:45 So I could do something like
+this-- students.append name.
+76:52 And it turns out-- and
+we've not said this yet.
+76:55 But there is inside of the
+list data type a method--
+76:59 that is function-- built into it
+called append that literally does that.
+77:02 So if you've got an
+otherwise empty list,
+77:06 and you calls that
+list's name dot append,
+77:07 you'll add something
+to the end of the list.
+77:09 And if there's not enough
+memory for it, no big deal.
+77:11 Python will find you the memory,
+allocate it, move everything in it,
+77:14 and you move on your way without
+having to worry about that.
+77:17 But I don't want to store just the name.
+77:19 I want to store the name and the dorm.
+77:22 So I could do this.
+77:23 I could do-- well, maybe
+this isn't really students.
+77:26 Maybe this is now, like, dorms.
+77:28 And then here I could
+do dorms.append dorm.
+77:33 But why is this devolving
+now into bad design
+77:37 if my goal was to associate a
+student with his or her dorm,
+77:40 and then keep those values together?
+77:42 Why is this not the best approach in
+Python or, back in the day, even in C,
+77:47 to have two separate arrays?
+77:50 AUDIENCE: Like struct?
+77:51 DAVID MALAN: What's that?
+77:53 AUDIENCE: Struct?
+77:54 DAVID MALAN: Well, it's twice as
+many things to maintain, for sure.
+77:57 And what else?
+77:58 AUDIENCE: You can't
+map them to each other.
+78:00 DAVID MALAN: You can't
+map one to the other.
+78:02 It's just-- it's very arbitrary.
+78:04 It's sort of this social
+contract that I will just
+78:06 assume that student 0 lives in dorm 0.
+78:10 And student 1 lives in dorm 1.
+78:13 And that's fine.
+78:13 And that's true.
+78:14 But one of the features of
+programming and computer science
+78:17 is this idea of encapsulation,
+like, associate related memory
+78:20 with each other.
+78:21 And so what did we do in C instead?
+78:23 We did not have two arrays.
+78:24 AUDIENCE: We had a struct.
+78:26 DAVID MALAN: Yeah, we had a struct.
+78:27 And so Python doesn't
+have structs per se.
+78:30 It instead has what are called classes.
+78:32 And it has a few other things
+like tuples and namedtuples,
+78:34 but more on those some other time.
+78:36 So it turns out I could actually
+implement my own notion of a student.
+78:41 And I could import it like this.
+78:43 The convention in Python is
+if you create your own struct,
+78:46 henceforth called a class,
+you capitalize the name of it
+78:50 by convention.
+78:50 So a little different
+from C conventions.
+78:52 So what is a student going to look like?
+78:54 This is perhaps the most complex
+syntax that we'll have today,
+78:57 but it just has a few lines.
+78:59 If you want to implement the notion
+of a student, how might you do this?
+79:03 Well, in Python, you
+literally say class Student,
+79:06 where class is similar in
+spirit to-- just to be clear--
+79:09 struct or typedef struct.
+79:11 But in Python, we're just saying class.
+79:14 And then this is the funky part.
+79:16 You can declare a function that
+by convention must be called init
+79:21 for initialize that takes as its
+first argument a keyword called
+79:25 self, and then any number of
+other arguments like this.
+79:30 And then, for reasons that will
+hopefully be clear momentarily,
+79:35 I can write some code
+inside of this method.
+79:37 So long story short, what am I doing?
+79:39 I have declared a new type of
+data structure called Student.
+79:43 And implicitly inside
+of this data structure,
+79:45 there are two things inside of itself--
+79:48 something called name and
+something called dorm.
+79:50 And this is how you would
+in a C struct typically do
+79:53 things with the data types and
+semicolons inside of the curly braces.
+79:57 Meanwhile, there's this method here.
+79:59 And it's a method insofar
+as it is inside of a class.
+80:03 Otherwise it's a function,
+just by a different name.
+80:06 This method init takes whatever
+self is-- more on that another time.
+80:10 But it then takes zero or more custom
+arguments that you can provide.
+80:13 And I called it name and dorm.
+80:15 So it turns out this
+special method init is
+80:17 a function that's going to be called
+automatically for you any time you
+80:21 create a student object.
+80:24 So what does that actually mean?
+80:26 That means in your code, what
+you can actually do is this.
+80:30 I can create a student in memory by
+saying s gets capital Student, passing
+80:37 in name and dorm.
+80:38 And we don't have this feature in C.
+80:41 On the right-hand side,
+what I've highlighted
+80:42 is the name of the class
+and its two arguments--
+80:46 name and dorm, which are just
+what the user has typed in.
+80:49 What this class does for me
+now is it allocates memory
+80:53 underneath the hood for a Student.
+80:54 It's got to be big enough for their
+name and big enough for their dorm.
+80:56 So it's, like, yay big
+in memory, so to speak.
+80:59 It then puts in the name and the
+dorm strings into that object,
+81:02 and then returns the whole object.
+81:05 So you can kind of think of this as
+a much fancier version of malloc.
+81:09 So this is allocating
+all the memory you need.
+81:11 But it's also installing inside of
+that memory the name and the dorm.
+81:15 And it's bundling it up inside of not
+just an arbitrary chunk of memory,
+81:19 but something you can
+call a Student object.
+81:24 And all that means that
+now for our students,
+81:27 we can just go ahead and append
+that student to the list.
+81:30 So now if later I want to iterate
+over for student in students,
+81:36 I can go ahead and print out,
+for instance, that student.name
+81:42 lives in student.dorm, close quote.
+81:47 And if now over here--
+81:49 whoops, close that.
+81:51 Now over here, if I go ahead
+and run python on struct0.py--
+81:57 oh, no!
+81:59 Oh, thank you.
+82:02 That goes there.
+82:03 So now-- dammit.
+82:07 Missing curly-- oh, thank you.
+82:11 OK.
+82:12 So now if I want to go ahead and
+type "Maria" and "Cabot" and "David"
+82:15 and "Mather" and "Rob" and, say,
+"Kirkland," now we get all three
+82:20 of those names.
+82:21 And there's other
+ways, too, if we wanted
+82:23 to actually store this thing on disk.
+82:25 But I'll defer that
+to an example online.
+82:27 Let's look at one final
+example that will hopefully
+82:31 either make you regret
+the past several weeks
+82:33 or embrace the next several instead.
+82:36 So you'll recall that--
+82:39 though the former, I suppose,
+could be true even without my help.
+82:42 So if I go into now today's distribution
+code, you will see this program.
+82:46 And we won't walk
+through all of its lines.
+82:48 But this is a program written
+in Python called speller.
+82:51 And what I did was literally sit down
+with speller.c from problem set 5.
+82:55 And I just converted it from
+left to right, from C to Python,
+82:59 implementing it in Python in as
+close to an identical way as I could,
+83:03 just using features of Python.
+83:05 So just skimming this, you'll see that
+apparently my implementation of speller
+83:09 in Python has a class called Dictionary
+which is very similar in spirit
+83:12 to dictionary.h in C Notice that
+I still have a constant here.
+83:16 Or it's not technically a constant,
+but a variable called length equals 45.
+83:20 I hardcoded in dictionary/large,
+as speller.c did, too.
+83:24 I'm using command-line
+arguments, as we saw earlier,
+83:26 but this time in Python instead of C.
+83:29 Notice you can do
+funky things like this,
+83:31 which is reminiscent of our swap
+trick just a little bit ago.
+83:34 If you want to declare multiple
+variables all on the same line
+83:37 and initialize them, you can just
+enumerate them all with commas.
+83:40 Then on the other side
+of the equal sign,
+83:42 enumerate with commas the values that
+you want to assign to those variables.
+83:46 And then down here, if
+I keep scrolling, you'll
+83:49 see code that we won't get into the
+weeds of, but some familiar phrases.
+83:53 So this is the program that
+actually runs a student's dictionary
+83:57 on some input, and then prints out
+per all of this stuff at the bottom
+84:02 all of the familiar phrases that you
+might recall from problem set five.
+84:06 So this took a lot of work, most likely,
+to implement in C. And understandably,
+84:10 you might have used a
+linked list initially,
+84:11 or ultimately you might have
+used a hash table or a try
+84:14 or struggled with something
+in between those two.
+84:16 And that is a function
+of C. C is difficult.
+84:19 C is challenging because you
+have to do everything yourself.
+84:22 An upside, though, of it is that you end
+up getting a lot of great performance,
+84:26 theoretically.
+84:27 Once you have implemented the code,
+you're kind of as close to the hardware
+84:30 as possible.
+84:31 And so your code runs pretty
+darn well and is dependent
+84:33 only then on your algorithms,
+not on your choice of language.
+84:38 So here let me go ahead and implement
+a file called dictionary.py.
+84:41 And let me propose that the words--
+84:45 the equivalent, sorry, of
+dictionary.h would be this file here.
+84:50 And it's going to have
+a function called check,
+84:54 which takes in an argument called word.
+84:57 It's going to have a
+function called load, which
+84:60 takes in an argument called dictionary.
+85:03 It's going to have a method
+called size, which takes
+85:08 in no arguments other than itself.
+85:11 And then it's going to have
+a method called unload,
+85:13 which also takes no
+arguments other than itself.
+85:15 So if we were instead to have
+assigned problem set five in Python,
+85:18 we essentially would have given
+you a file called dictionary.py
+85:21 with these placeholders for you
+because recall in pset five,
+85:23 those were all to dos.
+85:25 Strictly speaking, there
+would be one other here.
+85:28 We would probably have a def init
+because every class in Python,
+85:31 we'll see, we'll typically
+have this init method,
+85:34 where we just are able to do something
+to initialize the data structure.
+85:38 So let me go ahead and do this.
+85:40 We don't know that much Python yet.
+85:41 And we're taking for granted
+that speller in fact, works.
+85:44 But let me go ahead and load
+some words in a dictionary.
+85:47 So here is my method called load.
+85:49 Dictionary is going to be the
+name of the dictionary to load.
+85:51 So you guys implemented this yourself
+by loading those files from disk.
+85:56 In Python, I'm going
+to do this as follows.
+85:58 Give me a file and open it in read mode.
+86:02 Iterate over each line in the file.
+86:06 Then go ahead and add
+to my set called words
+86:11 the result of that line by stripping
+off the end of it backslash 0.
+86:16 Then go ahead and close the
+file, and then return true
+86:21 because I'm done implementing load.
+86:23 So that is the load method in Python.
+86:28 Happy, yes.
+86:29 OK.
+86:29 So check.
+86:30 Check was a struggle, too, right?
+86:31 Because once you had your hash
+table, or once you had your try, now
+86:34 you had to actually navigate
+that structure in memory,
+86:36 maybe recursively, maybe
+iteratively, following lots
+86:38 of pointers and the like,
+following a linked list.
+86:40 How about I just do--
+86:43 let's just say if word lowercase
+in self.words, return true.
+86:55 Else return false.
+86:57 Done.
+86:59 So that one's done.
+87:01 Size-- we actually can kind
+of infer how to do this.
+87:04 Return the length of the words.
+87:07 That's done.
+87:08 Unload-- don't have to worry about
+memory in Python, so that's done.
+87:11 And there you have a problem set five.
+87:14 [APPLAUSE]
+87:14 Thank you.
+87:16 So what then are the takeaways?
+87:19 Either great elation that you now
+have this power or great sadness
+87:22 that you had to implement this
+first in C. But this was really
+87:25 ultimately meant to be thematic.
+87:26 Hopefully moving forward, even if you
+struggled with any number of these
+87:29 topics-- linked lists and hash
+tables and pointers and the like--
+87:32 hopefully you have a
+general understanding
+87:33 of some of these fundamentals
+and what computers
+87:36 are doing underneath the hood.
+87:37 And now with languages like Python
+and soon with JavaScript and SQL,
+87:41 with a little bit of HTML and CSS
+mixed in for our user interfaces,
+87:44 do you have the ability
+to now solve problems,
+87:46 taking for granted both your
+understanding of those topics
+87:49 and the reality that someone else has
+now implemented those concepts for you
+87:53 so that when it comes to solving
+problem sets six and seven and eight,
+87:56 and then leaving CS50 and solving
+problems in your own domain,
+87:59 you have so many more
+tools in your toolkit.
+88:01 And the goal really for
+you is going to be to pick
+88:04 whichever one is most appropriate.
+88:06 So let's adjourn here.
+88:07 I'll stick around for questions.
+88:08 And we'll see you next time.
+88:09 Best of luck on the test.

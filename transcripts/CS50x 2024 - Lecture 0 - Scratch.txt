@@ -1,0 +1,4504 @@
+01:43 SPOT: Hello, world.
+01:44 This is CS50, Harvard
+University's introduction
+01:48 to the intellectual
+enterprises of computer science
+01:51 and the art of programming.
+01:53 Woof, woof.
+02:09 I'm sorry, Dave.
+02:11 [PINK, "WHAT ABOUT US"] What about us?
+02:15 What about us?
+02:16 La-da-da-da-da-da-da.
+02:18 La-da-da-da-da-da-da.
+02:19 We are searchlights.
+02:22 We can see in the dark.
+02:27 We are rockets pointed up at the stars.
+02:35 We are billions of beautiful hearts.
+02:42 And you sold us down the river too far.
+02:50 What about us?
+02:52 What about all the times you
+said you had the answers?
+02:57 What about us?
+02:59 What about all the
+broken happy ever-afters?
+03:05 What about us?
+03:07 What about all the plans
+that ended in disaster?
+03:13 What about love?
+03:15 What about trust?
+03:16 What about us?
+03:21 La-da-da-da-da-da-da.
+03:25 La-da-da-da-da-da-da.
+03:29 La-da-da-da-da-da-da.
+03:33 La-da-da-da-da-da-da.
+03:55 DAVID J. MALAN: All right.
+03:56 So--
+04:03 This is CS50, Harvard
+University's introduction
+04:05 to the intellectual
+enterprises of computer science
+04:08 and the art of programming.
+04:09 And this is Spot.
+04:11 And our thanks to our
+friends at 3D Cowboys
+04:13 for bringing him by class today.
+04:15 Perhaps a round of applause for
+our special Professor [INAUDIBLE]..
+04:22 My name is David Malan.
+04:23 And I actually took this class,
+CS50, myself, some years ago.
+04:26 But I almost didn't.
+04:28 And I didn't because when I
+got to campus, as a first-year,
+04:31 I really gravitated toward
+things already familiar, things
+04:33 with which I was already comfortable,
+specifically, government.
+04:35 And I came in here thinking I was going
+to major or concentrate in government.
+04:39 And it was only once I got to
+sophomore year, fall semester,
+04:42 that some friends of mine were
+coming to this class called
+04:44 CS50 that was very much to
+beware at the time, in that it
+04:48 was an unfamiliar field to so
+many of us, myself included.
+04:51 But I got up the nerve to go over the
+threshold, sit in on the first class,
+04:54 just shop it, so to speak.
+04:56 And I was hooked.
+04:58 I found that homework was,
+for the first time, fun.
+05:00 And this was after having enrolled
+only because the professor let
+05:04 me enroll pass/fail or [INAUDIBLE]
+because I didn't really
+05:06 think I could even cut it.
+05:07 But fast forward to five
+Mondays later in the semester,
+05:10 I actually switched to a
+letter grade, deciding,
+05:12 wow, this is actually something for me.
+05:14 And I say this because
+computer science, what
+05:17 I didn't realize about
+it at the time, really
+05:20 is this very general purpose way of
+thinking and way of solving problems.
+05:24 And even if this is the
+only CS class you ever take,
+05:26 even if this is the only formal
+training you have in programming
+05:30 as a practical skill, it's
+just so darn applicable
+05:33 to so many other fields-- the
+arts, humanities, social sciences,
+05:36 natural sciences, and beyond, and
+certainly within the STEM fields,
+05:40 themselves.
+05:41 That said, it's going to often
+feel a little something like this.
+05:44 This is from our friends at MIT, down
+the road, which is one of their hacks
+05:47 whereby they connected a fire
+hydrant to a drinking fountain,
+05:51 with a little sign up there that says,
+"GETTING AN EDUCATION FROM MIT IS LIKE
+05:55 DRINKING FROM A FIRE HOSE,"
+which is to say that it's
+05:57 going to feel, quite
+often, in this class,
+05:59 too, that there's just
+a lot of information.
+06:01 And you can't possibly
+absorb it all, but realize
+06:04 that's to be expected, especially
+in an introductory class.
+06:07 The whole point is for so much of it to
+feel new, but with practice, with time,
+06:12 with years, even, looking
+back, will you get all the more
+06:14 comfortable with the material.
+06:16 But you're not meant to feel
+comfortable along the way.
+06:18 And so let me encourage
+you, invite you, expect
+06:20 you to get comfortable feeling
+uncomfortable along the way,
+06:24 whether you have or have not prior
+computer science or programming
+06:27 experience.
+06:28 Now, back in my day, the class'
+syllabus was a little bit different.
+06:32 And, really, when I and all of
+my classmates exited the class,
+06:35 we would say to friends
+that we learned how
+06:37 to program in C, which is a language
+that we, ourselves, will still
+06:41 learn in this class.
+06:42 But that was it for languages.
+06:44 But nowadays, as you'll
+see, we'll explore not just
+06:47 this older language called
+C, but a more modern language
+06:50 called Python that's very much in vogue
+for data science, and web applications,
+06:54 and much more.
+06:54 But we'll also introduce
+you, along the way,
+06:56 to another language called S-Q-L or SQL,
+which is specifically for databases.
+07:01 And SQL is a different type
+of programming language
+07:03 that's just going to give you
+different ways of solving problems,
+07:06 different building blocks with which
+to express problems you want to solve.
+07:09 We'll introduce you, toward
+the end of the semester,
+07:12 yet another language,
+JavaScript, often used
+07:14 with markup languages called HTML
+and CSS, with which maybe you
+07:17 have some experience if
+you've made websites.
+07:19 But we'll do this because so many of
+today's actual real-world software
+07:24 is web-based.
+07:25 Or it's phone-based,
+mobile-based, but even then,
+07:27 it's using these same
+languages, like JavaScript.
+07:30 And so by the end of
+CS50, in particular,
+07:33 you won't know how to program
+in X, or Y, or Z, per se.
+07:36 But, period, you'll
+learn how to program.
+07:39 And, indeed, among the
+goals of this class
+07:41 is to equip you with enough of a set
+of concepts, enough practical skills
+07:46 and experience that after CS50, again,
+if you never take another CS class,
+07:49 you can teach yourself new languages.
+07:52 And you won't feel--
+07:53 you won't have been reliant
+on a class to, indeed,
+07:55 introduce you to each
+and one of those ideas.
+07:58 And what are we going to
+do, then, in this class?
+07:60 And, really, what are we
+going to start doing today?
+08:01 Well, we're going to learn
+how to solve problems.
+08:03 And that's really what
+computer science is all about.
+08:06 We'll, very specifically,
+today, knock off a few to-dos.
+08:09 We'll learn how to represent
+simple things, like numbers.
+08:12 We'll learn how to represent letters
+of an alphabet, like English.
+08:15 We'll learn how to represent
+colors-- red, green, blue,
+08:17 and everything in between.
+08:18 We'll learn how to represent,
+more interestingly,
+08:21 full-fledged images that you might
+see on the web or your phone.
+08:23 We'll talk about representing
+videos and even audio files.
+08:27 So, by the end of today,
+alone, you will exit here
+08:30 with a newfound mental
+model for how you can
+08:32 represent all of today's media and
+multimedia that we take for granted
+08:36 and use most every day.
+08:38 But we'll also focus
+today, ultimately, on how
+08:40 to write algorithms, like
+step-by-step instructions for solving
+08:44 some problem, specifically,
+implementing algorithms with code.
+08:47 And that's what we'll find.
+08:49 An algorithm is just
+something you can express
+08:50 in English or any human language,
+but code is a translation of that
+08:54 to, presumably, the 0's and
+1's that you've probably heard
+08:57 is all that computers ultimately speak.
+08:60 And if you're feeling like
+that's a lot for today,
+09:02 if you're feeling like that's
+a lot for the whole semester,
+09:04 realize and take comfort in
+knowing that -thirds of you
+09:07 have never taken a CS course before.
+09:10 So even if you think, like
+I did all those years ago,
+09:12 that, surely, my friends, the
+kids I didn't even in the class,
+09:15 must know more than I,
+have been programming
+09:17 since they were six years old.
+09:19 That's just not the case.
+09:20 You're in very much good company.
+09:21 And within the class will
+you find different tracks,
+09:24 by way of the homework
+assignments, called "problem sets,"
+09:26 by way of the sections or recitations.
+09:28 There will be different
+tracks for those of you
+09:30 less comfortable, more
+comfortable, somewhere in between.
+09:33 And if you really don't
+know why you are here today,
+09:35 we'll even have sections for those
+least comfortable, where you just
+09:38 don't necessarily feel ready to dive
+into CS or maybe STEM, more generally.
+09:42 But we'll get you there by way of
+the course's support structure.
+09:45 And it's very much
+grounded in this mindset.
+09:48 What ultimately matters in
+this class is not so much
+09:50 where you end up relative
+to your classmates,
+09:52 but where you end up relative
+to yourself, when you began.
+09:55 So whether you have or have not
+prior programming or CSS experience,
+09:58 it's not going to matter when
+it comes to evaluation, when
+10:01 it comes to the output, be it a grade,
+or a satisfactory mark, or the like.
+10:04 It's going to depend on,
+really, where you are today,
+10:07 in this, what we call week zero, versus
+the very end of the semester, when
+10:12 you will have built something grand,
+of your very own, in software.
+10:15 But CS50 is also
+characterized, fairly uniquely,
+10:17 by its community, its culture.
+10:19 And along the way, you'll
+see that your experience
+10:21 is punctuated by a lot of social
+and academic events alike.
+10:25 CS50 lunches, most every Friday,
+we'll gather at a nearby restaurant
+10:28 called Changsho where we'll
+have Chinese lunch together.
+10:30 And as many of you as
+might want to attend
+10:32 that week will be able to join us,
+sit down, and chat casually with me,
+10:35 the course's teaching staff, friends
+of ours, alumni from industry, as well.
+10:40 CS50 Puzzle Day, coming up this
+weekend, will be an opportunity,
+10:43 even if you have no prior CS
+experience, just to solve problems,
+10:47 not jigsaw puzzles, but
+puzzles in the logical sense.
+10:50 We'll hand you a packet of puzzles--
+10:52 logic problems, or
+riddles, or the like--
+10:54 that you, as teams, can solve together.
+10:56 And at the very end,
+we'll walk you through.
+10:58 And along the way, there'll be not only
+these puzzles, but pizza, and prizes,
+11:01 and so much more, as well.
+11:03 Towards the end of the semester,
+we'll have a CS50 Hackathon whereby
+11:06 we'll get together around 7:00 PM,
+at the start of reading period,
+11:10 and we'll finish up around
+7:00 AM the next morning.
+11:13 And it will be this
+opportunity to really bond
+11:15 with your classmates, your project
+partners, if you work in a team,
+11:18 on your very own final
+project, which is meant
+11:21 to be a capstone of the course,
+something you build, yourselves,
+11:24 that we don't hand you
+a specification for.
+11:26 But it's your final offboarding,
+so that when you exit CS50,
+11:29 you don't need CS50 anymore.
+11:31 You don't need me.
+11:32 You don't need your TF.
+11:33 You can actually write code
+and solve problems on your own.
+11:36 So this picture here is one of our past
+photos from earlier in the evening.
+11:40 Things get a little quieter
+as we then, around 5:00 AM,
+11:43 drive anyone who's still awake
+and energetic to a nearby IHOP
+11:46 for pancakes, around then.
+11:48 But here is how most of the evenings
+tend to end for at least some
+11:52 of your classmates prior.
+11:53 But at the very end of the class
+is the so-called CS50 Fair,
+11:56 an exhibition of all of your final
+projects for friends, faculty,
+11:60 students, and staff
+across campus, whereby
+12:02 you'll be invited to a space like this.
+12:03 Bring your laptop.
+12:04 Bring your phone, whatever it
+is you have built and created.
+12:07 And we'll just show it off
+for a bit of the afternoon,
+12:09 complete with music, and
+friends from industry,
+12:12 and candy, and all what makes
+gathering together at term's end fond.
+12:16 And you'll wear,
+ultimately, very proudly,
+12:18 we hope, your very own "I took CS50,"
+stating, very matter of factly,
+12:22 what I did some years ago; that, indeed,
+this was a course I, myself, took.
+12:26 So, today, let's focus, then, on
+computer science, like what is it.
+12:29 Well, it's really the
+study of information.
+12:32 But, really, it's, more
+specifically, about solving problems,
+12:35 using certain ideas and techniques, all
+of which you'll exit the course with.
+12:38 So, as such, problem
+solving is a goal that we'll
+12:43 approach by way of something
+called "computational thinking."
+12:46 So computational thinking, you can
+oversimplistically think about it
+12:50 as thinking like a computer.
+12:52 But it's really the application of
+ideas that we'll dive into today
+12:55 and we'll finish some
+weeks from now, that you
+12:57 can apply to problems from this field or
+most any other, but in a computational,
+13:02 that is, a very methodical,
+very careful way.
+13:05 And that's what CS really did for
+me and does for a lot of people.
+13:08 It helps clean up your
+thought processes.
+13:10 Even if you go off into the real
+world and do nothing in tech,
+13:13 you have an ability,
+after classes like this,
+13:15 to express yourself a
+little more correctly, more
+13:18 precisely and, generally,
+having better command
+13:21 of your own ideas and your language.
+13:23 So what's problem solving?
+13:24 Let me propose that this is it.
+13:26 This is as simple as we can make
+today's goals and the semester's goals.
+13:29 Problems to be solved look like this.
+13:31 You've got some input,
+the problem to be solved.
+13:33 You've got a goal being the output,
+like the solution there, too.
+13:36 And then somewhere in the
+middle is the secret sauce,
+13:38 where we'll spend the next
+several weeks figuring out how
+13:40 we can convert these inputs to outputs.
+13:42 But before we can do
+that, we all just have
+13:45 to agree on how to represent
+these inputs and outputs,
+13:48 whether it's with English or,
+really, any type of language.
+13:51 But, as I spoiled earlier, you
+probably came in here already
+13:54 with a general sense that,
+yeah, computers somehow
+13:57 only speak or know 0's and 1's,
+the so-called binary system.
+14:01 But that's just one way of
+representing information.
+14:03 Even simpler than binary is unary.
+14:05 So if you've ever, at this age or any
+prior age, counted on your fingers,
+14:11 this is unary notation, whereby
+each of your digits, your fingers
+14:14 literally represent some
+piece of information;
+14:17 taking attendance, like 1, 2, 3, 4, 5.
+14:20 But on your one human hand, how high
+can you count in this unary notation?
+14:26 AUDIENCE: Five.
+14:27 AUDIENCE: Five.
+14:27 DAVID J. MALAN: Five, I'm hearing five.
+14:30 Six, I heard one six.
+14:32 But I'm going to go further and say
+the answer, if you're clever about it,
+14:36 is actually--
+14:37 AUDIENCE: 40?
+14:37 DAVID J. MALAN: Not quite 40.
+14:38 You overbid, but--
+14:40 AUDIENCE: 31.
+14:41 DAVID J. MALAN: 31 is as
+high as I can actually count.
+14:44 And that's because if I
+actually-- and if you're thinking
+14:46 this is weirdly painful
+now, it will be, but this
+14:50 is my hand representing the number 0.
+14:52 Normally, in unary, this is 1,
+2, 3, 4, 5, of course, obviously.
+14:56 But what if I take into
+account the order in which I'm
+14:58 putting my fingers up and down?
+14:60 So maybe this is still 0.
+15:01 Maybe this is still 1.
+15:02 But maybe this is now 2, where it's
+just the single second finger up,
+15:07 not two of them, total.
+15:09 Maybe this is now 3.
+15:11 Maybe this is now-- often offensive,
+with just the middle finger up.
+15:15 This is now [LAUGHS] 5.
+15:17 This is now 6.
+15:19 This is now 7.
+15:21 And my hand just hurts too much if
+I try to count higher than seven.
+15:24 But, theoretically, because each
+of my fingers can be down or up
+15:28 and I've got five of them, that's
+actually 32 possible permutations,
+15:32 up and down.
+15:33 But wait a minute.
+15:34 We said, 31, but if you start at 0.
+15:36 You have to subtract 1 from
+the biggest possible value.
+15:39 So this is to say you and I have been
+using unary because it's just simple,
+15:42 and it gets the job done.
+15:43 But if we just think about
+representation a little more cleverly,
+15:47 we can do exactly what computers do,
+using not what mathematicians call
+15:50 "base-1," where the finger is either
+there or it's not, but base-2.
+15:54 And in base-2, we just need
+two digits at our disposal.
+15:58 And we could call these digits 1
+and 2, A and B, black or white.
+16:03 We just need two words to describe
+two pieces of information.
+16:06 Computers keep it simple.
+16:08 And just like we humans start
+counting 0, 1, 2, 3 on up,
+16:11 computers use 0 and 1, and that's it.
+16:14 But that's by convention.
+16:16 But why do they do that?
+16:17 Well, it turns out, when you use
+base-2, otherwise known as binary, well,
+16:22 it just maps really
+readily to the real world.
+16:24 Because, at the end of
+the day, what do we all
+16:26 do, if you've got a laptop,
+or a phone, or any device?
+16:29 You plug it into the wall because
+it needs electricity at some point.
+16:32 And what if you have electricity or not?
+16:36 Well, there's your two possible values.
+16:38 Either it's there, or it's not.
+16:40 And because computers
+are electrical devices,
+16:42 this is why binary is just useful.
+16:44 It's nice and simple.
+16:45 Either electricity is
+there, or it's not.
+16:47 So when you plug this
+device in and you've
+16:49 got all these electrons
+or whatever flowing, maybe
+16:51 if we just hang on to
+some of that electricity,
+16:53 we can represent what we'll call a 1.
+16:55 And maybe if we let it dissipate
+or go away, that's a 0.
+16:58 So on and off maps very readily
+to this idea of just 0's and 1's.
+17:03 And if you've ever thought of
+this, now, as binary digits--
+17:07 "bi" implying 2, 0 and 1-- well,
+if you've ever heard this term now,
+17:10 "bit," it just means binary digit.
+17:13 A single bit is just a 0 or 1.
+17:15 But we could have called
+these things anything we want.
+17:17 Now how does this map to
+be clear to the real world?
+17:20 Well, we can't see the tiny little
+switches inside of our Macs,
+17:23 PCs, and our phones that are
+actually turning the electricity on
+17:26 or off, storing electricity or not.
+17:28 But they're called transistors.
+17:30 They've got millions of
+them in today's hardware.
+17:32 And they're just on or off,
+like a switch or a light bulb.
+17:35 So, for instance, if
+there's no electricity,
+17:37 the switch is off, we would
+call this, by convention, a 0.
+17:41 If, though, you throw the switch and it
+actually turns on, we would call this--
+17:45 AUDIENCE: On.
+17:46 DAVID J. MALAN: --an "on," exactly, a 1.
+17:48 We could have reversed it.
+17:49 But this is just the way the
+world decided to standardize.
+17:51 And that's it.
+17:52 So you've either got something
+on or off, a 1 or a 0.
+17:56 And this, then, is this thing we
+know now as a binary digit or a bit.
+18:00 So once we've got these
+values, what about how--
+18:04 how can we go about,
+perhaps, representing things?
+18:07 Well, you know what?
+18:08 It turns out we've got a lot
+of light bulbs right here.
+18:10 Let me grab-- thanks.
+18:11 Excuse me, spot.
+18:12 Let me grab the little music stand here.
+18:17 Let me borrow a couple
+of these bulbs and see
+18:19 if we can't make clearer than my
+hand, alone, what's going on here.
+18:22 So I'm going to go ahead
+and grab two of these.
+18:25 And I'll just put them here.
+18:27 And I can turn these
+things on or off now.
+18:28 So if I've got two bits, two switches,
+two transistors, if you will, well,
+18:33 if I go ahead and turn on this one,
+I'm representing what number in binary,
+18:39 perhaps?
+18:39 AUDIENCE: 1.
+18:40 DAVID J. MALAN: So just 1.
+18:41 Now, if I'm using unary, I would
+turn this one on and be done with it.
+18:45 And that's 2, but not in binary.
+18:47 Binary, it's the permutations, which
+ones are on and off, that matters.
+18:51 So what, now, am I
+representing here, perhaps?
+18:54 AUDIENCE: 2.
+18:54 DAVID J. MALAN: 2.
+18:55 So this is when I put my
+single pointer finger up.
+18:58 But then when I did
+this, in my human hand,
+19:00 this was like representing the number 3.
+19:03 How do I represent the number 4.
+19:07 Yeah, I need another light bulb, so
+I need more hardware, so to speak.
+19:11 So if I turn--
+19:13 if I leave this one-- if I turn this
+one on, this one off, this one off,
+19:19 now I have the number 4.
+19:21 And someone tell me,
+saying the words "on"
+19:25 and "on" and "on," or
+"on," or "off," or "on,"
+19:27 using combinations of
+"on," "off" and-- "on"
+19:29 and "off," how do I represent
+5, from your left to your right?
+19:33 How about over here?
+19:34 AUDIENCE: On, off, on.
+19:35 DAVID J. MALAN: "On, off, on," I heard.
+19:37 And that's exactly right.
+19:38 And how do I represent, maybe, 6?
+19:41 Over here?
+19:42 AUDIENCE: Off, on, on.
+19:43 DAVID J. MALAN: Off, on, on, not quite.
+19:45 From left to right?
+19:46 AUDIENCE: Off-- the other way.
+19:47 DAVID J. MALAN: The--
+19:48 [LAUGHS] OK, so from right to left.
+19:49 So I think we leave this one on.
+19:51 This one, I'm going to claim,
+represents, now, 6 and 7.
+19:59 AUDIENCE: On, off.
+19:60 DAVID J. MALAN: I'm just going to--
+it's actually going to be "on, on, on."
+20:02 Now, if you're wondering, where
+are these people coming up
+20:05 with these combinations,
+there's actually a system here.
+20:07 It's actually hard for
+me to do it backwards.
+20:10 But it turns out there's actually a
+system that's not all that unfamiliar.
+20:14 In fact, let me propose this.
+20:15 Let me propose that we
+consider what you and I all
+20:19 learned in grade school, which was
+something like the base-10 system, 10
+20:23 meaning that you use 10
+different digits, not two, 10.
+20:26 So 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, that's
+the base-10 system, otherwise known
+20:30 as decimal, "dec" implying 10.
+20:32 So that's what you and I use every day.
+20:34 Well, let's think about how we
+represent numbers in decimal,
+20:37 in the normal human way.
+20:38 Well, here is a number.
+20:40 It's what number, of course?
+20:41 AUDIENCE: 123.
+20:42 DAVID J. MALAN: 123.
+20:44 So we all just have an
+intuition for that, obviously.
+20:46 But it's not necessarily 123.
+20:48 You're just assigning meaning to
+the positions of these digits.
+20:52 This is really the pattern 1-2-3.
+20:54 But you immediately jump,
+mathematically, to 123, but why?
+20:57 Well, odds are, in grade school, you
+learned that the rightmost digit is
+21:00 the ones place or the ones column.
+21:02 This is the tens place
+or the tens column.
+21:05 This is the hundreds place.
+21:06 And so why is this relevant?
+21:08 Well, this is like doing
+100 times 1 plus 10 times
+21:11 2 plus 1 times 3 or, if we multiply
+that out, 100 plus 20 plus 3,
+21:16 ergo, the number, now, that we
+just take for granted is 123.
+21:21 But that's in base-10, the
+so-called decimal system,
+21:24 whereby each of these digits
+is in a different column.
+21:28 And those columns are, again,
+ones place, tens, hundreds.
+21:31 If we keep going, thousand,
+ten thousand, and so forth.
+21:34 But where did these come from?
+21:35 Well, here's the base.
+21:36 If you remember exponents
+and all of that,
+21:38 this is just 10 to the 0, 10 to
+the 1, 10 to the 2, ad infinitum.
+21:42 And so, now, what if we just changed
+the base from 10, 0 through 9,
+21:47 to just two digits, 0 and 1?
+21:48 Well, now the math is
+fundamentally the same.
+21:51 But it's 2 to the 0, 2
+to the 1, 2 to the 2,
+21:53 which gives us the ones place,
+twos place, and fours place.
+21:57 Now, why is this relevant?
+21:58 If you've got three light bulbs or
+three bits that are off, off, off,
+22:03 what have I done?
+22:04 4 times 0 plus 2 times 0 plus 1
+times 0 is, obviously, the number
+22:08 you and I know, in decimal, as 0.
+22:10 This, though, represents the
+number you and I know as--
+22:13 AUDIENCE: 1
+22:13 DAVID J. MALAN: This represents--
+22:15 AUDIENCE: 2.
+22:15 DAVID J. MALAN: --3, 4.
+22:18 And just to be clear, this is why, when
+I grabbed the additional light bulb,
+22:22 we claimed that this now was 4.
+22:25 Because we had "on, off,
+off," "on, off, off."
+22:29 This now is 5.
+22:31 This now is 6.
+22:32 This now is 7.
+22:33 And if I wanted to count higher, what
+would the pattern of 0's and 1's be
+22:36 for the number 8?
+22:37 AUDIENCE: 1, 0--
+22:39 DAVID J. MALAN: 1, 0, 0, 0.
+22:40 So we just need more
+hardware, more bits.
+22:42 So it wasn't arbitrary,
+even if it was non-obvious,
+22:46 what I was actually doing with
+turning these light bulbs on and off.
+22:50 Now, it turns out here we are talking
+about how to represent information,
+22:54 like numbers, but we could also
+use bits, 0's and 1's, light bulbs
+22:59 to represent instructions, as well.
+23:02 Because, at the end of the
+day, that's all computers do.
+23:04 They process data, information
+of some sort, whether it's files,
+23:08 or numbers, or images,
+or videos, or the like.
+23:10 And you do things with those files.
+23:13 You open them.
+23:14 You print them.
+23:15 You edit them and the like.
+23:16 So there's this notion of instructions,
+what the computer can actually do.
+23:19 And I bet we could come up with
+some pattern of 0's and 1's
+23:22 or, equivalently, light bulbs
+that tell even Spot what to do.
+23:27 Maybe, go up, or down,
+or left, or right.
+23:31 And it could certainly do this
+autonomously by using various sensors.
+23:34 We need to keep things safe today.
+23:35 We're using Wi-Fi in sending
+Spot these very instructions.
+23:38 But what's happening, wirelessly,
+with our friend Andrew, here, is,
+23:41 essentially, he's sending Spot
+instructions just encoded, wirelessly,
+23:45 somehow, as patterns of 0's and 1's.
+23:48 And the folks at Boston Dynamics,
+who built this robot, programmed
+23:51 Spot to recognize certain
+patterns as meaning "up,"
+23:54 a certain pattern as meaning
+"down," "left," "right,"
+23:57 and any number of other things.
+23:59 So, in fact, Spot, come on
+over here, if you could.
+24:01 Come on, Spot.
+24:04 OK.
+24:06 So Spot, for instance, may
+very well have a pattern
+24:08 of 0's and 1's that represents shake.
+24:11 Shake, Spot.
+24:13 So he could do that and any number
+of other movements, as well.
+24:16 And maybe, especially with sensors here
+and also a little human help over here,
+24:20 for today, what if we went
+ahead and did something-- maybe
+24:23 ask Spot some questions?
+24:24 So let's go ahead, and
+we'll start simple.
+24:26 Spot, here we have some
+bits, "off, off, on."
+24:31 Spot, what [LAUGHS]-- OK.
+24:34 Spot, what is this
+representing, "off, off, on"?
+24:44 Correct?
+24:45 I think so.
+24:46 Very horse-like, OK.
+24:47 Thank you.
+24:47 All right, so a round of
+applause for Spot here.
+24:50 All right.
+24:51 So, Spot, what if we [LAUGHS] turn--
+24:54 OK.
+24:55 We'll turn that one off here.
+24:56 How about if we turn this one on?
+24:58 So it's "off, on, off."
+24:59 Spot, what's this number?
+25:04 Is that correct?
+25:06 Nice.
+25:06 OK.
+25:08 [LAUGHS] How about one final flourish?
+25:10 How about, Spot, instead
+of "off, on, off,"
+25:12 let's go ahead and do "off, on, on"?
+25:16 So think, in your mind's eye,
+what the answer should be.
+25:21 All right, Spot, "off, on, on."
+25:28 OK.
+25:28 And a round of applause
+for, Spot, as well.
+25:34 So this is to say, no matter how--
+25:36 thank you, Spot.
+25:37 No matter how fancy today's
+hardware or software is,
+25:41 it really just boils
+down to representing
+25:43 information and instructions.
+25:45 And computers, and phones,
+and the like really are just
+25:47 operating on those same
+pieces of information,
+25:51 whether implemented in 0's and 1's
+or with, really, anything else.
+25:55 All right.
+25:56 So, where can we take this, once
+we have this agreed-upon system
+25:60 for representing [LAUGHS] information?
+26:03 Well, it turns out that using three
+bits, three 0's and 1's, at a time,
+26:07 isn't actually all that useful.
+26:09 And you and I, even in conversation,
+don't often say the word "bit."
+26:12 We say the word "byte."
+26:14 And what is a byte, if familiar?
+26:15 Yeah?
+26:16 AUDIENCE: It's eight bits.
+26:17 DAVID J. MALAN: So it's just eight bits.
+26:18 It's just a more useful unit of measure.
+26:20 And it happens to be a
+power of 2, 2 to the third,
+26:23 which just makes math work out cleanly.
+26:24 But it's just a convention, to have
+more interesting units of measure
+26:28 than individual bits.
+26:29 So a byte is eight bits.
+26:30 So, for instance, this represents,
+using eight bits, eight light bulbs,
+26:35 the number you and I know is 0.
+26:36 And this byte of all 1 bits--
+26:41 now you've got to do some quick math--
+represents what number, instead?
+26:46 So it's all 1's; eight of them, total.
+26:49 How about over here, on the end?
+26:50 AUDIENCE: 255.
+26:51 DAVID J. MALAN: So it's, indeed, 255.
+26:53 Now, that's not the
+kind of math that you
+26:55 need to do in your head for a
+class like this, but you could.
+26:57 This is the ones place, twos,
+fours, eight, 16, 32, 64, 128.
+27:05 And because they're all 1, you just have
+to add up all of those columns' values.
+27:09 And you get 255.
+27:11 But a little mental trick, too,
+is that, if you've got eight bits
+27:14 and each of them can be two
+possible values, 0 or 1,
+27:17 that's like 2 possibilities here times
+2 times 2 times 2 times 2, eight times.
+27:22 So that's 2 to the eighth, so that
+is maybe a little easier to do.
+27:25 That's 256.
+27:27 Or easier, in the sense that you get
+used to seeing these numbers in CS.
+27:30 That's 256.
+27:31 But wait a minute.
+27:32 How do I reconcile this with your 255?
+27:35 Because you start at 0.
+27:37 So you lose one on the high end because
+we started counting and representing
+27:41 the number, like 0.
+27:43 All right.
+27:44 Questions on how we've represented
+just numbers or, for instance,
+27:48 instructions to Spot, thus far?
+27:52 Any questions on binary,
+unary, or the like?
+27:57 No?
+27:58 All right, so seeing none,
+let's let things escalate a bit.
+28:01 So how do you represent letters
+because, obviously, this
+28:03 makes our devices more
+useful, whether it's
+28:05 in English or any other human language.
+28:07 How could we go about representing
+the letter A, for instance?
+28:11 If, at the end of the
+day, all our computers,
+28:13 all our phones have access to is
+electricity; or, equivalently,
+28:17 switches; or, metaphorically,
+tiny little light bulbs
+28:21 inside of them that can
+be on and off-- that's it.
+28:24 There's no more building
+blocks to give you.
+28:27 How could we represent
+something like the letter A?
+28:31 Yeah, how about here?
+28:32 Yeah?
+28:33 AUDIENCE: You could assign a number.
+28:34 DAVID J. MALAN: Perfect.
+28:35 So we could just assign
+every letter a number.
+28:37 And we could do this super simply.
+28:39 Maybe 0 is A, and 1
+is B. Or maybe 1 is A,
+28:43 and 2 is B. It doesn't really matter,
+so long as we all agree and we all
+28:46 use the same types of computers,
+in some sense, ultimately.
+28:49 Well, for various reasons, the
+humans that designed this system,
+28:52 they went with the number 65.
+28:53 So, nowadays, anytime your computer
+is showing you the capital letter
+28:58 A on the screen, underneath
+the hood, so to speak,
+29:01 it's actually storing a pattern of 0's
+and 1's that represents the number 65.
+29:07 And it tends to use seven bits
+or, typically, eight bits, total,
+29:10 even if it doesn't need
+all of those bits in total.
+29:13 So how do we get there?
+29:15 Well, here, for instance,
+is that same pattern.
+29:17 Here is that pattern of
+bits that represents 65.
+29:20 And why?
+29:21 Well, quick check here.
+29:22 This is the ones place, twos,
+fours, eights, 16, 32, 64's place.
+29:29 OK, so 64 plus 1 gives me 65.
+29:33 So that is to say here's how a computer,
+using some light switches, so to speak,
+29:37 would represent the number 65.
+29:39 And our Macs, our PCs, our
+phones just all know this.
+29:42 So whenever they see that in
+their memory, so to speak,
+29:44 they show a capital
+letter A on the screen.
+29:48 So that's it.
+29:49 That's the system known as
+ASCII, the American Standard
+29:51 Code for Information Interchange.
+29:53 And the A is actually operative there
+because we're only talking, thus far,
+29:57 about English letters in our alphabet.
+29:60 And, in fact, I claimed, a
+moment ago, that we only use
+30:03 seven, maybe eight bits to
+represent letters of an alphabet.
+30:06 So, just to come back to
+you, if I may, how many
+30:08 possible letters of the
+alphabet could-- how
+30:11 many possible letters of any alphabet
+could we represent with eight bits?
+30:14 AUDIENCE: 256.
+30:15 DAVID J. MALAN: 256, the
+numbers 0 through 255.
+30:18 Now, that's more than enough
+for English because we've
+30:21 got A through Z, uppercase,
+lowercase, a bunch of numbers,
+30:23 a bunch of punctuation symbols.
+30:25 But in a lot of languages, with accented
+characters, a lot of Asian characters,
+30:29 this is not nearly enough
+memory or bits with which
+30:32 to represent all of
+those possible values.
+30:35 So we need to do a
+little better than ASCII,
+30:37 but we can build on top of
+what they did years ago.
+30:39 So here is a chart of ASCII codes.
+30:41 It's just a bunch of columns showing
+us the mapping between letters
+30:44 and numbers.
+30:45 So, for instance, up here is the
+capital letter A, 65; capital B, 66;
+30:49 capital C, 67; dot, dot, dot.
+30:52 72 is H. 73 is I and so forth.
+30:56 There's some weird things over
+here, like special symbols,
+30:59 that we'll learn about over time.
+31:00 But there's a mapping
+between every English letter
+31:02 of the alphabet and some
+number, just as you'd propose,
+31:05 both for uppercase and lowercase.
+31:07 So, for instance, if we highlight
+just a few of these for now
+31:11 and I say that I've just received
+a text message or an email that,
+31:15 underneath the hood, so to
+speak, if I have the ability
+31:17 to look at what switches are on and
+off, I received this message here.
+31:23 Well, first-- and this is not what
+CS is about, but just fun fact.
+31:26 Does anyone know what number
+this would represent in decimal,
+31:29 if this is the binary pattern,
+like ones place, twos place?
+31:35 AUDIENCE: 72?
+31:35 DAVID J. MALAN: 72 is correct.
+31:37 And again, not, intellectually,
+all that interesting
+31:40 and this is not the kind of math
+that we spend all day as CS--
+31:42 a computer scientist doing.
+31:43 But it's just following the
+same darn pattern, which
+31:45 is to say it might look
+cryptic, but, conceptually,
+31:48 intellectually, it ultimately
+is exactly as we did before.
+31:51 So, yes, I'll spoil
+the rest of the math.
+31:52 It's 72, 73, 33.
+31:55 Now, anyone remember, in your mind's
+eye, what message we just spelled?
+31:58 AUDIENCE: Hi.
+31:59 AUDIENCE: Hi.
+31:60 DAVID J. MALAN: Yeah,
+so it is, in fact, "Hi!"
+32:02 Though, no one really
+said that excitedly.
+32:03 What's the 33, if you noticed?
+32:05 AUDIENCE: Exclamation point.
+32:06 DAVID J. MALAN: OK, so
+a lot of people noticed.
+32:07 Yes, it's an exclamation point.
+32:09 And that's, indeed,
+noticeable right here.
+32:11 33 is the exclamation point.
+32:13 And that's just something,
+eventually, that might sink in.
+32:15 But, for the most part, if
+you remember capital A is 65,
+32:18 you can figure out at least 25 other
+answers to these kinds of questions
+32:22 because they're all
+contiguous like that.
+32:24 So there's the exclamation point.
+32:26 But at the end of the day, we might
+just have this mapping known as ASCII.
+32:30 And it's how our phones, and
+computers, and devices, more
+32:33 generally, actually store information.
+32:35 So we thought we'd make--
+32:37 maybe take a little
+pressure off of me here.
+32:39 And could we maybe flip things around?
+32:42 How about we try applying
+this newfound knowledge--
+32:44 if it's, indeed, new to you-- with seven
+volunteers, seven bits, if we could?
+32:48 OK.
+32:49 I saw your hand first.
+32:50 Come on down.
+32:51 Maybe your hand, there.
+32:53 OK, three, come on down over here.
+32:55 How about four and five?
+32:57 Yep, come on down.
+32:58 Yep, in the black shirt, yep.
+32:59 How about let me go farther back?
+33:00 How about in the green, over there?
+33:02 And how about you, seven, over here?
+33:03 All right.
+33:04 Come on down.
+33:06 Come on down.
+33:08 So a round of applause
+for our brave volunteers.
+33:13 All right.
+33:14 So if you'd like to stand, roughly,
+side by side, here in the middle
+33:17 of the stage.
+33:20 First of all, thank you.
+33:23 Let's see.
+33:23 1, 2, 3, 4, 5, 6, 7, perfect.
+33:25 OK.
+33:26 And let's go all the way
+over to this place, here.
+33:30 If you would like to introduce
+yourself to the class.
+33:33 RACHEL RICHEY: I'm Rachel Richey.
+33:34 DAVID J. MALAN: OK.
+33:35 And what year?
+33:36 Anything about you?
+33:37 RACHEL RICHEY: Oh, first
+year, concentrating in CS.
+33:39 DAVID J. MALAN: OK.
+33:40 Welcome to the stage.
+33:41 Next.
+33:41 SPEAKER: Hi.
+33:42 I'm [? Kang. ?] Also a
+first-year concentrating in CS.
+33:46 SPEAKER: Hello.
+33:47 My name is [? Lam. ?] I'm a [INAUDIBLE]
+student from education department.
+33:53 DAVID J. MALAN: Nice.
+33:54 OK.
+33:54 Next.
+33:54 JORDAN MITTLER: Hi.
+33:55 I'm Jordan Mittler, concentrating
+in economics and maybe some CS.
+33:59 SPEAKER: So, hi.
+34:00 I'm [? Natalia. ?] First
+year, and I want to do CS.
+34:03 SPEAKER: Hi.
+34:03 I'm [? Khadija. ?] I'm a
+first-year, and I want to do CS.
+34:06 DAVID J. MALAN: [LAUGHS].
+34:07 SPEAKER: Hello.
+34:08 I'm [? Caleb. ?] And, once again,
+first year, concentrating in CS.
+34:11 DAVID J. MALAN: OK.
+34:12 Wonderful.
+34:13 A pattern, yes.
+34:14 Thank you.
+34:14 Thank you.
+34:16 So, if you haven't guessed
+already, each of these volunteers
+34:20 is going to represent a bit, from
+left to right, or right to left,
+34:23 in this case.
+34:24 So let's see.
+34:25 If you want to represent--
+how about the twos place?
+34:28 How about the fours place, the eighths
+place, 16ths place, 32's, 64, and 128?
+34:37 Although, wait a-- I think I screwed up.
+34:39 We needed one-- eighth volunteer.
+34:41 I think you know-- well, I think--
+34:43 [CLEARS THROAT] Spot?
+34:45 OK.
+34:46 Come on over.
+34:47 If you guys could step forward a
+little bit, and then scooch this way,
+34:50 just to give Spot some room.
+34:53 So Spot will represent the ones place.
+34:55 Now, what our volunteers have on
+the back of their sheets of paper
+34:58 are little instructions.
+34:60 We're going to spell out a three-letter
+word in English by using three bytes,
+35:05 from left to right, because
+now we have eight volunteers.
+35:08 I'm going to propose that you
+raise your hand, if you're
+35:11 supposed to represent a 1.
+35:12 Or you just stand there,
+without raising your hand,
+35:14 if you're meant to represent a 0.
+35:16 And what we'll have the
+audience do is do the quick math
+35:18 to figure out-- one, two, three--
+each letter, what number is it.
+35:22 What letter is it?
+35:23 And we'll see what word that
+we have finally spelled.
+35:26 All right.
+35:27 So, in round one--
+35:28 you have instructions on your back
+of your sheet that will tell you to--
+35:31 what your number is.
+35:33 If you're 0, stand there.
+35:34 If you're a 1, raise your hand.
+35:40 What number do these guys
+seem to be representing?
+35:43 AUDIENCE: 68.
+35:45 DAVID J. MALAN: 66, I think.
+35:46 64 plus 2, so 66, which is the letter--
+35:49 AUDIENCE: B.
+35:50 DAVID J. MALAN: OK, so,
+B. OK, so, B. All right.
+35:53 Hands down.
+35:54 Second letter is going
+to be spelled how?
+36:02 AUDIENCE: Whoa.
+36:03 AUDIENCE: Whoa.
+36:04 AUDIENCE: Whoa.
+36:05 DAVID J. MALAN: [LAUGHS] All right.
+36:08 What are we spelling now?
+36:12 I think-- psst, yep, OK.
+36:16 Yeah, I think you're one.
+36:19 OK.
+36:21 Now what number are we spelling?
+36:23 AUDIENCE: 79
+36:24 DAVID J. MALAN: 79, I
+heard, which is the letter?
+36:27 AUDIENCE: O.
+36:27 DAVID J. MALAN: O. OK.
+36:28 So hands down.
+36:29 Thank you, Spot.
+36:30 One final flourish.
+36:31 So we've spelled B-O--
+36:33 third letter, go ahead.
+36:40 What number, now, is this?
+36:43 AUDIENCE: 87.
+36:44 AUDIENCE: 87.
+36:44 DAVID J. MALAN: I heard it here, 80--
+36:45 AUDIENCE: Seven.
+36:46 DAVID J. MALAN: --seven, which is?
+36:47 AUDIENCE: W.
+36:48 DAVID J. MALAN: W, which,
+of course, spells "bow."
+36:50 So if our volunteers could
+take a bow, Spot included.
+36:58 So this will make more
+sense in week one,
+37:02 when we have an assignment involving
+a certain someone from the Nintendo
+37:05 World.
+37:05 But we have a lovely parting
+gift for each of you.
+37:07 SPEAKER: Thank you.
+37:08 DAVID J. MALAN: Thank
+you for volunteering.
+37:08 SPEAKER: Thanks.
+37:09 DAVID J. MALAN: You might need to
+share it with the folks next to you.
+37:19 Oop, here we go.
+37:19 There we go.
+37:20 Thank you--
+37:20 SPEAKER: Thank you.
+37:21 RACHEL RICHEY: Thank you.
+37:21 DAVID J. MALAN: --so much.
+37:22 One more round of applause, if
+we could, for our volunteers.
+37:23 Thank you.
+37:25 Did you lose something?
+37:26 OK.
+37:27 All right.
+37:28 So, [LAUGHS] Spot's had it.
+37:31 So let's see, then,
+if we've solved, now,
+37:34 the problem of representing
+English letters of the alphabet,
+37:37 being able to spell out words like
+"bow," B-O-W. What if we actually do
+37:40 have accented characters?
+37:41 What if we do have other glyphs
+that we want to represent?
+37:44 Well, here, of course, is a standard
+US English keyboard, which a lot of you
+37:47 might have.
+37:48 But there's also characters
+that you can type much more
+37:50 easily if you have a foreign
+keyboard, relative to the US,
+37:53 or with certain keystrokes on
+your own Mac, PC, and phone.
+37:56 But, nowadays, too, there's
+this menu that, probably, you've
+37:59 used in the past hour or two
+to actually send some emoji.
+38:03 An emoji, even though
+they look like pictures
+38:06 and they actually are
+pictures on the screen,
+38:08 they're, technically, just characters,
+characters of an emoji alphabet
+38:13 that happened to use a certain
+pattern of 0's and 1's to represent
+38:16 each of these faces, each of these
+people, and places, and things.
+38:20 And it turns out that one of
+the reasons that we have just
+38:23 so many [LAUGHS] such characters
+nowadays is because we now
+38:29 use Unicode instead of ASCII.
+38:31 So Unicode is a superset,
+so to speak, of ASCII,
+38:34 which is to say that we, humans,
+realized, some time ago, that just
+38:38 using eight bits to represent
+letters of the alphabet
+38:40 certainly isn't very good
+when we want to represent
+38:43 other, non-English languages.
+38:45 So Unicode doesn't just use eight bits.
+38:47 It sometimes uses 16 bits per character,
+sometimes 24 bits per character,
+38:53 and sometimes even 32
+bits per character.
+38:56 Now, why those numbers?
+38:57 That's just one byte, two bytes,
+three bytes, or four bytes.
+39:01 And that gives us--
+39:02 does anyone know?
+39:03 That gives us the ability
+to represent as many as 4
+39:06 billion possible characters.
+39:09 Because if the longest one is
+32 bits, that's 2 to the 32,
+39:12 which, if you do out the math,
+trust me, is roughly 4 billion.
+39:15 So that's a lot of characters.
+39:16 And we've got a lot of
+room, then, for these emoji.
+39:19 But it's not just about having
+fun, pictorially, on the screen.
+39:22 Unicode's mission really is to represent
+and to preserve all human languages
+39:28 digitally, both past,
+present, and future.
+39:32 So it is really about capturing
+the entirety of human knowledge,
+39:35 as we've expressed it
+in language, but also
+39:37 giving this newfound ability that's been
+used centuries ago, too-- in writings,
+39:42 on walls, and the like--
+pictograms via which
+39:44 we can still communicate,
+even independently
+39:47 of our own human language.
+39:48 So we'll reduce it, today, to
+just patterns of 0's and 1's, but
+39:51 the problem being solved is much greater
+and well-beyond CS, itself, there.
+39:56 So here is a pattern
+of 0's and 1's using
+39:59 Unicode, so more than eight bits, that
+represents a very popular emoji, which
+40:04 might be a bit of a hint.
+40:06 This is the most popular emoji,
+as of last year, at least,
+40:09 statistically, internationally.
+40:13 DAVID J. MALAN: Does this help?
+40:14 It's, roughly, this number here.
+40:17 No?
+40:17 It's this one here.
+40:19 So this is the most popular emoji,
+by most measures, as of last year.
+40:23 But it doesn't always look like this.
+40:25 Those of you who have a Mac or an
+iPhone recognize this symbol, perhaps,
+40:28 immediately.
+40:29 Those of you with Android
+devices or other platforms
+40:31 might notice that it's the same idea,
+but it's a little bit different.
+40:35 And this is because, too,
+emojis, at the end of the day,
+40:39 just represent character, but
+those characters can be drawn,
+40:41 can be painted in different ways.
+40:43 And reasonable people
+will interpret differently
+40:46 this emoji, whose official name
+is "face with tears of joy."
+40:50 And, indeed, Google interprets
+it a little differently
+40:52 from Apple, versus Microsoft, versus
+Meta, versus other companies, as well.
+40:56 So you can almost think of
+those different companies
+40:58 as having different fonts for emoji.
+41:00 And that really starts to connect things
+to the world of text and characters.
+41:04 So, just so you've seen it.
+41:06 More on this, another time.
+41:07 It turns out that emoji and,
+really, characters, in general,
+41:11 we don't use binary 0's
+and 1's to represent them
+41:13 because no one, myself included,
+is going to recognize what's what.
+41:16 It's just too much math.
+41:17 It's not interesting.
+41:17 And even decimal numbers--
+that was 4 billion or some--
+41:20 I don't remember which number is which.
+41:22 So we represent things
+a little more compactly.
+41:24 And this, too, admittedly,
+still looks cryptic,
+41:27 but this is a Unicode code point that
+uses another system, mathematically,
+41:31 called base-16 or hexadecimal.
+41:33 More on that, another time.
+41:35 But it's just a way of representing
+numbers even more succinctly,
+41:38 writing less on the screen,
+because you're using not just 0
+41:41 through 9, as in decimal.
+41:43 But you're using A through
+F, as well, so a few letters
+41:46 of the English alphabet come into play.
+41:48 But, for now, that's
+just a little easier
+41:50 to remember, too, for people who
+care, that that is the number that
+41:54 represents "face with tears of joy."
+41:56 But what if we want a customized emoji?
+41:58 And this, increasingly, is the case.
+41:60 Here, for instance,
+are the five skin tones
+42:02 that phones, and laptops, and
+desktops, nowadays, support.
+42:05 It's based on something called the
+"Fitzpatrick scale," which essentially
+42:08 categorizes human skin tone
+into six or, in this case, five
+42:10 different categories,
+from lighter to darker.
+42:13 But this suggests that, wow,
+if we want to represent people
+42:17 with five different skin tones,
+like this, that could significantly
+42:22 increase how many unique
+patterns of 0's and 1's we
+42:25 need for every possible face.
+42:27 But if we think about it from
+an engineering perspective,
+42:30 we can actually just think of skin
+tone as modifying some default
+42:33 color, for better or for worse.
+42:34 And yellow is the de facto
+default, Simpson style.
+42:37 But to modify it to look more genuinely
+human-like, from lighter to darker,
+42:41 well, maybe we just use
+the same pattern of bits
+42:44 to represent a human thumb, for
+instance, thumbs up or thumbs down.
+42:48 And we just, then, modify that character
+to be displayed with a different skin
+42:51 tone.
+42:52 So, for instance, here,
+then, is the "thumbs up"
+42:54 that you might use on various platforms.
+42:56 And let me just stipulate that
+this is the Unicode code point.
+42:59 That is the number that
+Macs, PCs, and phones
+43:02 use underneath the hood to represent
+the default yellow "thumbs up."
+43:06 But if you want to give
+it a medium skin tone,
+43:09 you still use that same number,
+that same pattern of 0's and 1's,
+43:12 or switches, underneath the hood.
+43:14 But you use a few more switches
+that the computer or phone
+43:18 will interpret as, "Oh, you don't
+want to see the default in yellow
+43:21 because of this second number that's
+in the computer's memory somewhere.
+43:24 You want me to adjust it to
+be the medium skin tone or any
+43:27 of the other values, instead."
+43:29 So that's the engineering
+solution to this problem
+43:32 of just trying to represent
+different ranges of emoji here.
+43:35 Well, what about something like this?
+43:37 There's a lot more
+combinatorics, nowadays,
+43:38 on your keyboard for
+relationships, for instance.
+43:41 So here is a "couple with heart" here.
+43:44 So the couple, here, of course,
+is represented with, apparently,
+43:47 this number here.
+43:48 But that's it.
+43:48 But if you want to be more
+specific-- like man and woman,
+43:51 or man-man, woman-woman--
+it's the same idea,
+43:53 but we just need to express
+ourselves a little-- with a little
+43:57 more information.
+43:58 So, for instance, the way the
+Unicode folks came up with,
+44:01 years ago, to represent, for instance,
+a woman with a heart and a man,
+44:04 from left to right, would
+be using these values.
+44:06 So things just escalated
+quickly, but only
+44:09 in the sense that we're using more
+bits, more 0's and 1's, to represent,
+44:13 more expressively, this
+particular combination.
+44:15 So this happens to be
+the number in Unicode
+44:18 that represents the woman at left.
+44:20 This is the number that
+represents the man at right.
+44:22 And this is the pair of
+numbers that represents
+44:25 the heart in the middle, sometimes red,
+sometimes pink, displayed here as pink.
+44:30 But if we want to change the
+combination, for instance, to be,
+44:33 say, woman--
+44:34 if we want to change the
+combination to be woman-woman,
+44:36 notice that, now, the left and
+the rightmost numbers match.
+44:39 Or if we flip it back to man-man,
+it's just using different numbers
+44:42 on the tail end again.
+44:44 And meanwhile, if I rewind, there's
+these two identical values here.
+44:48 These are called zero-width
+joiners or ZWNJ characters.
+44:52 It just is a special number
+that humans reserve to say,
+44:55 glue the emoji at the left to the
+emoji on the right and so forth.
+45:00 So it connects ideas in this way.
+45:02 So there's actually a
+lot of emojis, nowadays,
+45:04 that are a combination
+of different things.
+45:07 "Heart on fire" is one
+that's, technically,
+45:10 the combination of a heart
+emoji, the fire emoji,
+45:13 joined together,
+numerically, in this way.
+45:16 So computer scientists who
+come up with these things
+45:18 are just reducing things
+to representations.
+45:21 All we have at our
+disposal are 0's and 1's.
+45:23 So we all just need
+to agree, ultimately--
+45:25 whether we're Google, Microsoft, or the
+like-- how we're going to standardize
+45:29 these kinds of things as information.
+45:31 Questions, then, on how characters
+are represented in a computer,
+45:37 be it English or any other language?
+45:38 Yeah.
+45:39 AUDIENCE: How is the plus a number?
+45:41 DAVID J. MALAN: How is the what?
+45:42 AUDIENCE: The plus, the U+.
+45:44 DAVID J. MALAN: Oh, the U+
+is just a convention, really.
+45:47 So U+ represents a
+special Unicode character,
+45:50 which is a U with a plus in the middle.
+45:52 And this is just the
+convention for saying,
+45:55 hey, everyone, here comes a number
+that represents a Unicode code point.
+45:59 The U and the 1 have no-- sorry.
+46:00 The U and the plus have no
+mathematical significance.
+46:02 It's just a visual clue to folks.
+46:05 Other questions on
+representing text in this way?
+46:10 All right.
+46:11 So what about colors?
+46:12 We've already started
+looking at pictures.
+46:14 Well, how are those pictures, be it
+emojis or anything else, represented?
+46:17 One of the most common
+ways is just with RGB--
+46:20 red, green, and blue.
+46:21 It turns out that if we just
+keep track of how much red should
+46:25 be on the screen, and how much green,
+and how much blue, combined together,
+46:28 that gives us every
+color of the rainbow,
+46:30 from white to black and
+everything in between.
+46:32 So how do we represent an amount
+of red, and green, and blue?
+46:36 Well, frankly, just with
+three different numbers.
+46:38 And this is how computers
+typically represent colors.
+46:40 Every one of the dots on your
+computer screen or your phone screen
+46:43 is called a pixel.
+46:44 And every single dot underneath the hood
+has three numbers associated with it,
+46:50 so three numbers, three numbers,
+three numbers for every little dot.
+46:53 And those three numbers, together,
+say how much red, green, and blue
+46:56 should the device
+display at that location.
+46:59 So, for instance, if you
+had a dot on your screen
+47:02 that said, "use this much red, this
+much green this much blue," because each
+47:08 of these numbers, I'll tell
+you, are one byte or eight bits,
+47:12 which means the total
+possible values is 0 to 255--
+47:16 let me just ballpark that the 72,
+it feels like a medium amount of red
+47:19 because it's in between 0 and 255.
+47:21 73 is a medium amount of green, and
+33 of blue is just a little bit.
+47:26 So if you combine a medium amount of
+red, green, and a little bit of blue,
+47:29 anyone want to guess what
+color of the rainbow this is?
+47:33 AUDIENCE: Brown.
+47:34 DAVID J. MALAN: Sorry?
+47:34 AUDIENCE: Brown.
+47:35 DAVID J. MALAN: Brown?
+47:36 So, close.
+47:37 It's a little more
+yellow than it is brown.
+47:39 But if we combine them, it looks
+a little something like this.
+47:42 This is just CS trivia,
+not something that even
+47:44 I would be able to eyeball, unless I
+came up with that particular example.
+47:47 But wait a minute.
+47:49 We've seen these numbers before.
+47:50 72, 73, 33 represented what--
+47:52 AUDIENCE: Hi!
+47:52 DAVID J. MALAN: --a few minutes ago?
+47:53 So it meant "Hi!" but here I
+am, claiming, no, no, no, no,
+47:56 that means yellow.
+47:57 How do you reconcile this?
+47:59 Well, at the end of the
+day, this is all we have,
+48:02 0's and 1's, whether you
+think of them as numbers,
+48:04 or letters, or even colors now.
+48:07 But it depends on the context.
+48:08 So if you've received a
+text message or an email,
+48:11 odds are the pattern of 0's
+and 1's that the computer
+48:14 is showing you are going to be
+interpreted as text because that's
+48:17 the whole point of a
+text message or an email.
+48:20 If, though, you opened up MacOS's
+or iOS's or Windows's or Android's
+48:24 calculator app, the same
+pattern of 0's and 1's might
+48:27 be interpreted as numbers for some
+addition, or subtraction, or whatever.
+48:31 If you open the same pattern
+of 0's and 1's in Photoshop,
+48:34 like a graphics program, they're going
+to be interpreted, in that context,
+48:37 as colors.
+48:38 So context matters.
+48:39 And, indeed, as soon
+as next week, when you
+48:41 start writing code in
+that language called C,
+48:43 the onus will be on you, the programmer,
+to tell the computer, interpret
+48:48 the following sequence of bits as a
+number, or a letter, or something else.
+48:53 And you won't have to even worry
+about what the 0's and 1's are,
+48:55 but you need to give the computer
+a hint as to what type of file
+48:58 or piece of data you're representing.
+49:01 So that gives us bits.
+49:02 And you can actually see these
+dots, these pixels on the screen.
+49:06 Let me zoom in, zoom in.
+49:07 And here we have it, just with this
+emoji, which, at the end of the day,
+49:10 is a picture that someone at
+Apple, in this case, drew.
+49:13 And you can see-- if you really
+zoom in, or take your phone or TV
+49:16 and really put it close to your
+face, you'll see all of these dots,
+49:19 depending on the hardware.
+49:21 And each of these
+dots, these squares, is
+49:23 storing 24 bits or three bytes,
+24 bits, 24 bits, 24 bits.
+49:28 And that's whey, dot,
+dot, dot, if you've
+49:31 got a photograph, for instance,
+that's three megabytes, which
+49:36 is 3 million bytes, well, odds are
+there's 1 million pixels therein
+49:42 because you're using
+three bytes per pixel
+49:45 to represent each of those colors.
+49:47 That's a bit of an
+oversimplification, but that's
+49:49 why images and photos are getting
+bigger and bigger nowadays.
+49:52 Because we're throwing even
+more pixels into the file.
+49:56 Music--
+49:57 --how could you represent
+music, digitally,
+49:60 using just 0's and 1's,
+or numbers, really?
+50:04 Any instinct, whether a musician or not?
+50:08 Yeah.
+50:09 AUDIENCE: The notes could
+be represented by a number.
+50:11 DAVID J. MALAN: Yeah, so we can
+just represent notes by a number.
+50:14 So A is some number, and B. And maybe
+sharp or flat is some other number.
+50:18 But note might not be
+quite enough for some--
+50:22 yeah?
+50:22 AUDIENCE: [INAUDIBLE].
+50:23 DAVID J. MALAN: Ah, OK.
+50:24 So one note-- one number to
+represent the note, itself,
+50:26 the sound or the pitch; one other
+number to represent the duration.
+50:31 In the context of piano, how long
+is the human holding the key down?
+50:35 And maybe I can think of
+a third, the loudness.
+50:37 How hard has the person
+played that note?
+50:39 So, minimally, with
+three numbers, you could
+50:41 imagine representing music, as well.
+50:43 And, indeed, that's very
+well might be what computers
+50:46 are doing when you listen to sound.
+50:48 What about video?
+50:49 How could you represent videos, as well?
+50:52 Yeah?
+50:52 AUDIENCE: Through many images.
+50:53 DAVID J. MALAN: Yeah, many images.
+50:55 So if you've ever produced a film
+or looked at some of the fine print,
+50:58 30 frames per second, FPS,
+or 29 frames per second
+51:02 is just how many pictures
+are flying across the screen.
+51:05 But that's really all a
+video file is on a computer,
+51:07 lots of pictures moving so quickly in
+front of us that you and I, our brains,
+51:10 interpolate that as being actual motion.
+51:13 And, in fact, from
+yesteryear, motion pictures,
+51:16 it's like pictures that are
+giving the illusion of motion,
+51:19 even though there's only 30 or so
+of them flying across the screen.
+51:22 So we have a way, now, to
+represent information, both as
+51:25 input and output, whether it's numbers,
+letters, images, anything else.
+51:29 Let's now focus on what's
+inside of that black box,
+51:32 so to speak, wherein we have
+algorithms, step-by-step instructions
+51:36 for solving some problem.
+51:38 Now, what do I mean by "algorithms"
+or "step-by-step instructions"?
+51:42 Well, maybe, if we were
+to turn this into code--
+51:45 and that's how we'll connect
+the dots, ultimately, today.
+51:47 Code is just the implementation,
+in computers, of algorithms.
+51:51 An algorithm can be something
+we do in the physical world.
+51:54 Code is how we implement that exact
+same idea, in the context of a computer,
+51:58 instead.
+51:59 And here, for instance, is a very
+common application inside of a computer,
+52:02 for your context.
+52:03 This is the iOS version of the icon.
+52:05 And, typically, if you
+click on that icon,
+52:07 you'll see something like
+all of your contacts here,
+52:09 typically, alphabetical,
+by first name or last name.
+52:12 And your phone or your computer lets
+you often search for someone's name
+52:17 at the very top.
+52:18 And it will autocomplete, and
+it'll be pretty darn fast.
+52:21 But it'll be pretty darn fast
+because the programmers who
+52:23 implemented that application are
+looking for someone quickly for you.
+52:28 Now, I can do this old school style,
+whereby we have one of these things
+52:33 from yesteryear, an actual phone book.
+52:36 So, in a physical phone book like
+this, you might have 1,000 pages.
+52:39 And on every page are a bunch
+of names and a bunch of numbers.
+52:42 And as I flip through this, I
+could look for someone specific.
+52:45 So suppose I want to call John Harvard,
+who's-- the first name, of course,
+52:49 starts with a J. Well, I
+could just turn, page by page,
+52:53 looking for John Harvard.
+52:55 And if he's not there, I
+keep turning and turning.
+52:57 So this is an algorithm.
+52:58 I'm stepping through the phone
+book, one page at a time.
+53:01 Is it correct, this algorithm,
+assuming I'm looking down?
+53:05 So, yeah.
+53:05 I mean, it's stupidly
+slow because why am
+53:08 I wasting my time with the A's,
+and the B's, and the so forth?
+53:11 I could probably take
+bigger bites out of it.
+53:12 But it is correct.
+53:13 And that's going to be one of the goals
+of writing code, is to, of course,
+53:16 solve the problem you
+care about correctly.
+53:18 So correctness goes without
+saying, or else what's
+53:20 the point of writing the code
+or solving-- or implementing
+53:23 the algorithm?
+53:24 All right.
+53:24 Well, let me at least speed things up.
+53:26 So, instead of one page at a
+time, so, two, four, six, eight--
+53:29 no, ignore that-- 10,
+12, 14, 16, and so forth.
+53:33 It's a little hard to do,
+physically, but it sounded faster.
+53:36 It was twice as fast,
+theoretically, but is it correct?
+53:39 AUDIENCE: No.
+53:40 DAVID J. MALAN: So, no.
+53:40 Why?
+53:41 Yeah?
+53:42 AUDIENCE: Yeah, you might [INAUDIBLE].
+53:43 DAVID J. MALAN: Yeah, I might miss
+John Harvard because, just by accident,
+53:46 he might get sandwiched
+between two pages.
+53:48 But do I have to throw the
+algorithm out altogether?
+53:52 Probably not.
+53:53 Once I reach the K section,
+which is past the J section,
+53:56 I could double back at least one
+page, at least, [PATS TELEPHONE BOOK]
+53:59 and just make sure I didn't
+blow past him completely.
+54:02 So that is twice as fast,
+because I'm going two pages
+54:04 at a time, plus one extra step.
+54:06 So it's still an improvement.
+54:07 So the first algorithm,
+worst case, if it's
+54:09 not John, but someone
+whose name starts with Z,
+54:11 that might take me a full 1,000 steps.
+54:13 The second algorithm is
+just 500 steps because I'm
+54:16 going two pages at a time plus
+one, in case I have to double back,
+54:20 but that's in the worst case.
+54:21 But most of us in the-- in yesteryear,
+and what Apple, and Google, and others
+54:26 are actually doing is, in
+software or here, physically,
+54:29 we're typically going,
+roughly, to the middle.
+54:32 Especially if there's no cheat
+sheet on the side, like A through Z,
+54:34 I'm just going to go
+to, roughly, the middle.
+54:36 And, oh, here I am, not
+surprisingly, in the M section.
+54:39 But what do I now know.
+54:40 If this is the M section,
+where is John Harvard?
+54:44 So, clearly, to the
+left, alphabetically.
+54:46 And so here is where we can take a
+much bigger bite out of the problem.
+54:50 We can really divide
+and conquer this problem
+54:52 by tearing [TEARS BOOK] the problem
+in half, throwing half of it
+54:56 away, 500 pages away, leaving
+me with a smaller problem,
+55:01 half as big, that I can
+really just now repeat.
+55:04 So I go, roughly, here, and
+now I'm in the E section.
+55:07 So I went a little too far back.
+55:09 But what do I now know?
+55:10 If this is the E pages, where's John?
+55:12 AUDIENCE: To the right.
+55:12 DAVID J. MALAN: So
+now he's to the right.
+55:14 So I can-- again, hopefully,
+he's not on that page.
+55:16 I can tear the problem in half
+again, throw that 250 pages away.
+55:20 And now I've gone from
+1,000 to 500 to 250 pages.
+55:24 Now I'm moving because the first
+algorithm was one page at a time,
+55:26 second was two.
+55:27 This is hundreds of pages at a time.
+55:29 And if I go, roughly, again,
+to the middle; roughly,
+55:32 to the middle; roughly, to
+the middle, hopefully, I'll
+55:34 find John Harvard on one final page.
+55:36 Can only do this once,
+but one final page.
+55:39 So that invites the
+question, I would think,
+55:42 if the phone book does
+have 1,000 or so pages,
+55:45 how many times can I divide the problem
+in half to get down to one last page?
+55:50 So it's, roughly, 10.
+55:52 And the quick math is 1,000 goes to
+500 to 250 to 125 to 67 something.
+55:56 So we have to deal with
+rounding issues, eventually.
+55:58 But assuming we work out the math,
+it's, roughly, 10 page tears.
+56:02 And that's crazy faster than 1,000
+pages and still faster than 500 pages.
+56:08 So it's fundamentally better.
+56:09 And, indeed, if I finally get to that
+final page, in the software world,
+56:14 you'd see something like this,
+John Harvard and his number,
+56:16 which you're welcome to call or text.
+56:18 But that's how we now have our answer,
+much like the single page there.
+56:23 But let's consider just how
+efficient that actually is.
+56:27 So here's a very rough, broad--
+with broad strokes, a chart.
+56:31 So here's an xy plot.
+56:32 So here, on the horizontal, is
+going to be the size of the problem.
+56:35 And, by that, I mean, how many
+pages are we trying to go through?
+56:38 This would be zero pages.
+56:40 This would be a lot of pages.
+56:41 How much time does it
+take to solve the problem?
+56:44 How long does it take to find
+John Harvard or anyone else?
+56:46 This means no time.
+56:48 This means a lot of time.
+56:49 So what's the relationship
+among these algorithms?
+56:51 Well, the first one is
+actually just a straight line.
+56:53 If there's n pages in
+the phone book, well, I
+56:57 claim that it's a
+one-to-one relationship.
+57:00 Because if Verizon or the phone
+company adds another page next year,
+57:04 that just means I might have
+one more step next year,
+57:07 as well, to find John
+Harvard or anyone else.
+57:10 But the second algorithm,
+it's also a straight line,
+57:13 but it's lower, even though
+it might not look obvious.
+57:15 And what do I mean by that?
+57:16 Well, let me just draw
+some temporary lines.
+57:18 If this is how many pages
+are in the phone book-- dot,
+57:21 dot, dot-- notice that it takes
+this much time, on the red line,
+57:24 to solve the problem.
+57:25 But if I, instead, use
+the second algorithm,
+57:29 it takes me half as much time.
+57:31 So, even though they're
+both straight lines,
+57:32 one is strictly lower than the
+other, which means it's faster.
+57:35 It's better.
+57:36 But the third algorithm is a
+fundamentally different shape,
+57:38 and it looks a little
+something like this.
+57:40 And it looks like it's going to
+flatten, flatten, flatten out,
+57:42 but it never does.
+57:43 It just rises ever so slowly.
+57:46 And what this means is that if
+maybe Cambridge and Allston, here
+57:49 in Massachusetts, merge next year,
+so we go from 1,000 page phone book
+57:53 to a 2,000 page phone book, that
+means, if we're here this year,
+57:58 we're over here next year.
+57:60 It's not all that much higher.
+58:01 But it would be much higher if we
+were using the first two algorithms.
+58:04 Why?
+58:05 It'd be an extra 1,000 steps to
+find someone in that combined phone
+58:08 book or maybe another 500 steps.
+58:10 But, to be clear, if we're using
+my third and final algorithm,
+58:14 how many more steps will
+it take me next year,
+58:16 when Cambridge and Allston merge
+into one 2,000-page phone book?
+58:21 Just one more step, no big deal.
+58:23 It's one more page tear.
+58:24 And this is what we mean,
+ultimately, about not just writing
+58:27 code or implementing algorithms
+that are correct, but, now,
+58:30 that are well-designed or
+efficient, specifically.
+58:33 And this is what makes someone
+a better programmer, perhaps,
+58:36 than someone else, or a better
+problem-solver than someone else,
+58:38 is acquiring, over time, these skills.
+58:40 So that, sure, you could solve
+the problem quickly and dirtily,
+58:43 so to speak, but if you're
+going to have a lot of data
+58:46 eventually, be it in your phone book
+or maybe your Google website index,
+58:49 if you're searching
+the web, you're going
+58:51 to want to try to think about how to
+design algorithms that look like this.
+58:55 Mathematically, this
+is called a logarithm.
+58:56 And it's log base 2 because I'm halving,
+halving, halving, again and again.
+58:59 But, for now, just know that it's a
+fundamentally faster and different
+59:03 shape.
+59:04 So, among our goals in CS50,
+ultimately, is not just
+59:06 to write and solve problems correctly,
+but, ultimately, ever more efficiently,
+59:12 as well.
+59:14 Any questions, then, on these
+ideas of efficiency and design?
+59:20 Any questions here?
+59:21 Yeah, in back?
+59:22 AUDIENCE: [INAUDIBLE].
+59:23 DAVID J. MALAN: A good question.
+59:24 Just to repeat it, can a graph like this
+capture the accuracy of the algorithm?
+59:27 Short answer, no.
+59:29 For instance, if I drew
+a straight line that
+59:31 is super low on this graph, which
+would imply that the algorithm takes
+59:36 the same amount of time, no
+matter how many pages there are,
+59:38 my algorithm might actually be to
+just pull a random page from the phone
+59:41 book, one step, and say, here it is.
+59:43 But that's not necessarily
+going to be accurate,
+59:45 unless I get really, really lucky.
+59:47 So the graph really only
+speaks to efficiency
+59:50 and the design of the algorithm,
+not the correctness of it.
+59:53 To analyze the correctness, you need
+to use another mechanism altogether,
+59:57 namely, logic.
+59:58 Other questions now, on
+efficiency, in this way?
+60:02 No?
+60:03 All right.
+60:03 So, with that in mind, let's begin to
+translate this to some actual code.
+60:08 And, in fact, before we look at,
+today, one actual programming language,
+60:12 albeit a graphical one, let's
+consider something called pseudocode.
+60:15 So pseudocode has no formal meaning.
+60:16 Generally, you write it in English or
+whatever your own human language is.
+60:20 But you write your thoughts down
+tersely, succinct, but precisely.
+60:26 You try to really convey your
+thoughts, not with a wave of the hand,
+60:29 metaphorically, but
+step by step, precisely.
+60:32 So what do I mean by this?
+60:33 Here might be some
+representative pseudocode
+60:35 via which I describe that third
+and final algorithm in a way
+60:39 that I could hand it to you and
+you could do the same at home.
+60:42 Or I could hand it to someone at Google,
+and they could implement it in Android.
+60:45 Or I could hand it to someone at Apple,
+and they could implement it in iOS.
+60:49 So, step one, I claimed,
+was "Pick up phone book."
+60:51 Step two was "Open to the
+middle of the phone book."
+60:54 Step three, "Look at
+the page," as I did.
+60:57 And now things get a
+little more interesting.
+60:59 Step four, "If person is on
+page," I have to make a decision.
+61:04 Presumably, what should I do if John
+Harvard is on the page I'm looking at?
+61:08 So stop and probably make the call, or
+email, or whatever the goal might be.
+61:12 And so I'm going to actually indent
+this, visually, by a few spaces,
+61:15 just to make clear that you should only
+do line five if the answer to line four
+61:20 is yes.
+61:21 Otherwise, you don't bother.
+61:22 The next thing I'm going to do, line
+six, is consider another possibility.
+61:27 "If the person I'm
+looking for is earlier
+61:29 in the book," what do I want to do?
+61:31 Well, I could write--
+61:32 I could describe this
+in a bunch of ways.
+61:33 I'm going to do this
+tersely, as follows.
+61:35 "Open to the middle of
+the left half of the book,
+61:39 so it's open to the middle
+of the left half of the book.
+61:42 And then, what am I going to do?
+61:43 Well, I've just divided the
+problem into something smaller.
+61:47 But it's fundamentally the same problem.
+61:49 It's just a fewer number of pages.
+61:51 So I'm just going to go back
+to line three and do it again
+61:54 because the problem is just getting
+smaller and smaller, presumably.
+61:57 Else, if the person I'm looking
+for is later in the book,
+61:60 open to the middle of the
+right half of the book,
+62:03 and, also, "Go back to line 3."
+62:05 But there's a fourth
+possibility and its failure
+62:08 to realize, sometimes, that there's
+other possible outcomes that
+62:12 make computers crash, or spinning
+beach balls, or the like,
+62:14 if a programmer doesn't
+anticipate some situation.
+62:17 What's the fourth possible situation,
+when looking for John Harvard?
+62:21 AUDIENCE: If they're not in the book.
+62:22 DAVID J. MALAN: If they're
+not in the book, at all.
+62:24 And, indeed, I might get to the very
+last page and John Harvard's not even
+62:27 on that one.
+62:28 I'd better handle that and say, else,
+as a catchall, just quit altogether.
+62:33 And, truly, often, in
+your Macs, PCs, phones,
+62:36 when they freeze, or, again,
+spinning beach ball, or the like,
+62:38 and just weird things
+happen, that's just
+62:40 because some human made a dumb mistake.
+62:41 And they didn't realize that you could
+somehow get your phone or your laptop
+62:44 into a configuration that
+they didn't anticipate.
+62:47 So we're going to try
+to handle that here.
+62:49 Now this is just one way
+of writing pseudocode.
+62:51 There's no one way to do this.
+62:52 All of us in this room could come up
+with slightly different pseudocode.
+62:56 But I think you'll find
+characteristic are certain building
+62:59 blocks in all of our answers.
+63:02 Here, in yellow, are
+what, as of today, we're
+63:05 going to start calling
+"functions," technically speaking.
+63:08 These are like actions or verbs that
+literally, in this case, tell me
+63:11 what to do.
+63:12 Next, we're going to have
+these things, conditionals,
+63:15 forks in the road, so to speak, that
+take me down this path or another,
+63:21 metaphorically.
+63:21 So I do this thing or something else.
+63:23 But how do I decide if I want
+to go this way, or this way,
+63:25 or this way, or this way?
+63:27 I need to ask a question.
+63:28 And in programming,
+we'll typically use what
+63:30 are called Boolean expressions,
+named after a mathematician, Boole.
+63:33 And a Boolean expression is
+essentially just a question
+63:36 with a yes/no answer, a true or
+false answer, a 1 or 0 answer.
+63:42 It doesn't matter how you think about
+it, but it's got two possible answers.
+63:46 And so you can think of these as
+being expressions with question marks,
+63:49 even though I didn't draw such.
+63:51 Person on page, person earlier
+in book, person later in book,
+63:54 those are Boolean expressions.
+63:56 And they tell me whether I should go
+down one fork in the road or another.
+64:00 And, lastly, there's this, "Go back
+to line 3," in two different places.
+64:04 That represents what we call a
+"loop," some kind of cycle that's
+64:07 doing something again and again.
+64:08 Now these are just a few
+building blocks here--
+64:11 functions, conditionals,
+Boolean expressions, loops.
+64:13 But you'll find that
+they're characteristic of so
+64:15 many different languages, one of which
+we'll look at today, another of which
+64:18 we'll look at next week.
+64:19 And those include, indeed, C, and
+Python, and other languages still.
+64:23 And so this is why we
+focus on these basics
+64:25 and fundamentals in these
+early days because we're
+64:27 going to see them again and again.
+64:29 So even if you feel like that
+fire hose is hitting you sometime,
+64:32 we'll give you, today,
+ultimately, more visuals
+64:34 by which you can hang onto, so as
+to actually write code, ultimately,
+64:39 in different languages and
+solve all sorts of problems.
+64:41 Now, we'd be remiss in not bringing
+up what's behind characters like Spot,
+64:46 and ChatGPT, and other software,
+artificial intelligence.
+64:49 And it turns out, to
+get to the point of AI,
+64:51 we're actually going to need
+more building blocks than just
+64:54 functions, and loops, and conditionals.
+64:56 It's not going to be quite that simple.
+64:58 But this has been a lot, so far.
+64:59 Let's go ahead, here, and
+take a five-minute break.
+65:02 And when we resume, we'll
+take a look not only at AI,
+65:04 but also a specific
+language called Scratch.
+65:07 So no cake, just yet, but
+we'll come back in five.
+65:10 Before we dive back in, I just
+wanted to call out a special guest
+65:15 that we have here today,
+beyond Spot, someone
+65:17 who's come from even farther away.
+65:19 And, in fact, if any of you have taken
+CS50x, the OpenCourseWare version
+65:23 of the class, or dabbled in
+it over the past few years
+65:25 in some of CS50's online
+social communities,
+65:27 you might have had
+your questions answered
+65:30 by a certain human from New Zealand.
+65:32 And she's come all this way, today,
+to spend this lecture with us.
+65:36 This is CS50's own Brenda Anderson.
+65:38 If you might come up for
+acknowledgment from all of us here.
+65:47 It's not much, but just a
+little token of our thanks.
+65:50 Brenda has helped, truly,
+thousands of students online
+65:54 for the past many years.
+65:55 And, in fact, her own
+daughter has been the artist
+65:59 behind the duck that's about to loom
+large in CS50 this year and beyond.
+66:04 So, thank you to Brenda.
+66:11 All right.
+66:12 So it's hard to escape a discussion
+of artificial intelligence, nowadays,
+66:17 but we thought we'd use
+this as an opportunity
+66:19 to connect some of these dots.
+66:20 Because, indeed, over the
+course of the semester,
+66:22 we'll be-- not only be talking
+about artificial intelligence or AI,
+66:26 but really using it all
+the more constructively
+66:29 to help you solve problems,
+help you get unblocked
+66:32 when you hit a wall, cognitively or
+syntactically, when writing code.
+66:36 And, indeed, it's no accident
+that we have this duck here,
+66:39 looming large, which is really
+the embodiment of the sort of AI
+66:42 that you'll experience within
+CS50, itself, this year.
+66:45 So let's talk about the
+so-called chatbots that
+66:48 inspired some of those
+headlines with which we began
+66:51 class, that weren't quite on the nose.
+66:53 So the class will still
+be taught by us humans,
+66:55 but helped by this CS50
+duck, a chatbot of sorts.
+66:59 Now what do I mean by this?
+67:01 Well, it turns out that, when it
+comes to implementing something
+67:04 like an artificial
+intelligence, we don't quite
+67:07 have all of the building blocks yet,
+certainly after just today's week zero,
+67:11 to implement something like that.
+67:12 But I think we can skate in
+that direction, intellectually.
+67:15 So, for instance, if we were to take a
+stab at implementing our own chatbot--
+67:20 some interactive text-based
+program that talks to us,
+67:23 and answers questions,
+and the like-- we could
+67:25 try borrowing some of today's ideas
+already, those functions, conditionals,
+67:29 loops, and more.
+67:30 And I could write something like this.
+67:32 If I am writing code or
+pseudocode for a chatbot,
+67:34 I could program the chatbot
+to do something like this.
+67:37 If the student says,
+hello, to the chatbot,
+67:39 then the chatbot should
+say, hello, back.
+67:42 Else, if the student says,
+goodbye, well, the chatbot
+67:45 should say, goodbye, back.
+67:47 Else, if the student asks how you are,
+the chat bot should say that it's well.
+67:52 But things get a little
+harder when you start
+67:54 asking more interesting
+questions, like, else,
+67:57 if the student asks why 111
+in binary is 7 in decimal.
+68:01 Now, you could imagine that
+we just have a conditional,
+68:04 with this Boolean expression, that
+programs the chatbot to just give you
+68:09 the answer and explain, in an English
+sentence, why that, in fact, is.
+68:12 But what if you, the student, asks why
+110 is 6 in decimal or why 010 is 2?
+68:21 I mean, you can just imagine the
+explosion in the amount of code
+68:24 that we would have to write to just
+anticipate every darn question that you
+68:28 might ask about today and every
+other class, not to mention all
+68:31 of the knowledge in the universe.
+68:33 So, surely, there are other
+ways to implement algorithms
+68:37 that allow something
+like a chatbot or AI,
+68:39 more generally, to be fed input,
+still, like all of the internet, all
+68:44 of the worldwide web, all of the
+pages and textual content therein,
+68:47 but to let it just figure out
+how to answer our questions based
+68:51 on those kinds of inputs, assuming
+the inputs, themselves, are accurate.
+68:54 So "large language models"
+is a term you might
+68:57 have heard bandied about over
+the past several months, or LLMs.
+68:60 And a large language model really
+is an implementation, in software,
+69:05 of code that actually takes, as
+input, lots and lots of language--
+69:10 like the text of lots and lots of web
+pages, dictionaries, encyclopedias,
+69:13 Wikipedias, and the like--
+69:15 and infers, from the patterns of
+English words or any human language,
+69:20 what a typical human might
+actually say when asked a question.
+69:23 And some of these
+questions are easy, right?
+69:25 Probably, on the internet, alone, not
+to mention everyday life, if someone
+69:28 extends their hand and says, "Hi.
+69:30 How are you," odds are, with 90%
+probability, you're going to say,
+69:33 "Good.
+69:34 Thanks.
+69:34 How are you?"
+69:35 So I bet we could write
+software that just
+69:37 infers what it should say,
+probabilistically, statistically, based
+69:42 on those kinds of patterns online.
+69:43 And that's, indeed, where
+the world is starting
+69:45 to go, when it comes to
+the most sophisticated
+69:47 of algorithms, where
+you and I, the humans,
+69:49 we don't try to anticipate
+every possible input.
+69:52 Rather, we give it a
+more general purpose
+69:55 input, like all human knowledge, and
+ideally just let it figure things out.
+69:58 Now, we're not quite there, yet.
+69:60 And odds are you've heard of
+hallucinations or just mistakes
+70:02 that these large language models make.
+70:04 But their inputs are imperfect.
+70:05 And sometimes there's a
+bit of randomness sprinkled
+70:07 in because you don't want the thing
+to always say the exact same thing.
+70:10 Even you and I might say, "Eh, I'm
+not that great today" 10% of the time.
+70:14 So you need to perturb
+the output in some way.
+70:17 But within CS50 and within this
+world of large language models,
+70:21 we do have these tools like
+ChatGPT, and Bing, chat, and others.
+70:25 And we'll stipulate that,
+for CS50's purposes,
+70:27 the direction we're going
+this year is that this
+70:29 is what's in the
+syllabus, dot, dot, dot;
+70:31 that it will not be allowed,
+it will be considered
+70:33 not reasonable to use AI-based
+software, other than CS50's own.
+70:37 So the goal here is
+not to simply take away
+70:39 tools that are clearly inevitable,
+in my view, and clearly helpful
+70:43 and productivity savers.
+70:45 But we'd like there to be some
+guardrails, intellectually, on just how
+70:48 helpful these chatbots are.
+70:50 Because as you've probably
+seen, if you ask it a question,
+70:52 these chatbots are already
+pretty good at not just helping
+70:55 you finish your current
+thought, but it'll
+70:56 hand you your second and your third
+thought and do the assignment for you.
+70:60 But I think, through
+prompting, so to speak,
+71:03 we'll be able to coax
+some of our own tools,
+71:05 being computer scientists,
+ourself, in a direction
+71:07 that you actually find to be the
+right balance, akin to having
+71:10 a good tutor by your side 24/7,
+who doesn't just hand you answers,
+71:14 but, indeed, tries to
+lead you to the same.
+71:16 So you actually get something
+out of the experience,
+71:18 and, ideally, three-plus
+months from now,
+71:21 those training wheels can come off, too.
+71:22 And you're able to
+still stand on your own.
+71:25 So it will be reasonable to use
+CS50's own AI-based software which
+71:29 will actually take the form of a CS50
+duck, which is actually available now--
+71:33 and we'll use it throughout the term--
+at CS50.ai, a web-based application
+71:37 that's quite similar
+to ChatGPT, but that
+71:39 has the personality of a CS50 teaching
+fellow or TF, or teaching assistant,
+71:44 TA, that also happens to
+think of itself as a duck.
+71:47 And for reasons we'll get to
+in a couple of weeks time,
+71:50 but rubber ducks, in particular,
+are a thing in programming.
+71:54 But more on that, before long,
+as you can even see from the one
+71:57 there on my desk.
+71:58 With that said, too, well, I'm
+going to call out CS50's own Brenda
+72:01 Anderson, whose daughter,
+Sophie, kindly not only created
+72:05 the first incarnation, digitally,
+of this duck, but also,
+72:08 most recently, once it actually
+did more than quack a random number
+72:12 of times in response
+to questions, has now
+72:14 been virtually brought to life, too.
+72:15 So, all that and more, over the coming
+weeks, but you'll find, ultimately,
+72:19 that the goal is to really bring to life
+the availability of an AI-based tutor
+72:24 that you have access
+to, a friend in your--
+72:27 next to you, that will help guide
+you through a lot of the course's
+72:30 challenges along the way.
+72:32 And we actually rolled
+it out this past summer,
+72:33 already, with some of your predecessors,
+through the Harvard Summer School.
+72:36 One student wrote, at
+summer's end, that this duck
+72:38 "felt like having a personal tutor--
+72:40 I love how AI bots will answer questions
+without ego and without judgment
+72:44 generally entertaining even
+the stupidest of questions
+72:47 without treating them
+like they're stupid.
+72:49 It has, as one could expect,
+an inhuman level of patience."
+72:53 So there's actually something really
+there because as many teachers
+72:56 as there are in CS50--
+72:58 myself, the course's preceptors,
+teaching fellows, teaching assistants,
+73:01 and course assistants--
+there's only so many of us.
+73:03 And we're only awake so
+many hours of the day.
+73:06 And I think you'll find, too, that
+we're on the cusp of something
+73:09 pretty remarkable, in
+the coming years, where
+73:11 it's going to get a lot more
+enabling, now, to learn material
+73:14 not only within the confines of a class,
+but on your own, ultimately, as well.
+73:18 And as one other student put it, at
+summer's end, with respect to the duck,
+73:22 "Love love loved the duck.
+73:24 We're friends now."
+73:24 So that, too, awaits.
+73:26 But, first, we're going to
+need to start with the basics.
+73:29 And we started today by
+talking about binary.
+73:31 And darn it, here it is again.
+73:33 So we can't actually get to the point
+of using, or solving, or implementing AI
+73:37 until we understand this.
+73:39 And odds are most of you won't know, at
+a glance, what this piece of software
+73:43 does.
+73:43 But these are the 0's and
+1's that represent, perhaps,
+73:47 the first program that any programmer
+writes, which is now a clue to some
+73:51 of you who have dabbled in code before.
+73:53 What does this pattern of 0's and
+1's tell a typical computer to do?
+73:56 Might someone guess?
+73:57 AUDIENCE: "Hello, world."
+73:58 DAVID J. MALAN: It's going to
+have it say, "hello, world,"
+74:01 which is one of the very
+first programmer-- programs
+74:03 that most any programmer writes.
+74:04 Should you be able to
+recognize these 0's and 1's?
+74:07 Do I recognize these 0's and 1's?
+74:08 No, not at all.
+74:09 I just happen to know
+that they are the same.
+74:11 And that was a leading question.
+74:13 But they are representing data
+and instructions, ultimately,
+74:17 data like H-E-L-L-O, comma,
+W-O-R-L-D and an instruction like,
+74:22 "Print that data to the screen."
+74:25 As for what these patterns
+of 0's and 1's are,
+74:27 this is not something that a computer
+scientist or programmer worries about.
+74:30 We just stipulate that, OK, someone,
+somewhere knows how to do this.
+74:34 And it's probably someone
+like Intel, who makes
+74:36 the hardware inside of the computers.
+74:38 But you and I, starting
+now, already, in week zero,
+74:41 can start to view
+binary more abstractly.
+74:45 We don't care about the 0's and 1's.
+74:47 We only care that you
+can use 0's and 1's
+74:49 to represent more useful
+quantities, like numbers,
+74:52 and letters, colors, and more.
+74:54 So this, next week, is going
+to be the code we actually
+74:57 start writing at a keyboard.
+74:58 And this is that language called C. It's
+the same language I, myself, learned
+75:02 years ago, when taking CS50, when
+all we learned at the time was C.
+75:05 But this, too, has
+some crypticness to it.
+75:08 And if you've never programmed before,
+you can probably wrap your mind around,
+75:11 OK, I'm guessing the "printf"
+prints out the "hello, world."
+75:14 But what's with the semicolon,
+the quotes, the backslash,
+75:17 and the curly braces, the #include,
+and all of this stupid syntax?
+75:21 A lot of this, in the beginning of
+any class, is really a distraction.
+75:24 It is not intellectually interesting.
+75:26 But it's the stupid kind of stuff
+that's going to trip you up quite often.
+75:29 And so, today, what
+we'll do is focus not
+75:32 on syntax, characters on
+the keyboard, but ideas
+75:35 because what really
+matters in this program
+75:37 is that "printf" is a function
+here for our purposes.
+75:41 And that function is to display
+information on the screen.
+75:44 Everything else, as
+we'll soon see, has value
+75:47 and will be understood by you, before
+long, but for now, it's a distraction.
+75:50 Let's focus on those building blocks.
+75:52 When it comes time to write
+code, though, for the curious,
+75:55 especially if you've
+programmed before, we'll
+75:57 use a very popular free
+and open-source tool
+75:59 called Visual Studio Code, or VS Code.
+76:01 We'll use a cloud-based version of
+it that we pre-install everything
+76:06 you need in the cloud
+for you so you don't
+76:08 have to deal with headaches like
+getting your Mac or PC to work.
+76:11 You'll use instead this
+URL, cs50.dev, but more
+76:14 on that in next week, week one.
+76:16 For now, we'll use another
+cloud-based editor called Scratch.
+76:20 And odds are some number
+of you use this probably
+76:22 as early as like middle
+school or the like.
+76:24 And that was fine to create
+your own animations, games,
+76:27 interactive art, or the like.
+76:29 But we'll use it today for just a bit.
+76:31 And we'll use it in the
+course's first homework,
+76:33 AKA problem set 0, to explore
+now some of these same ideas.
+76:37 And among the goals today
+for the remainder of today
+76:40 is not to focus so much on
+Scratch and the particulars
+76:43 because this is not a
+language that you're
+76:45 going to use often but to give you
+very visual representations of ideas
+76:50 so that when things do escalate
+next week to C, to the more cryptic,
+76:54 it's the same ideas just typed out
+instead of dragged and dropped.
+76:58 So by that, I mean this.
+76:59 I'm going to go ahead and share in just
+a moment the user interface of Scratch.
+77:03 But what's nice about
+Scratch is that this
+77:05 is how we're going to implement
+that same program today.
+77:08 These are two blocks or
+puzzle pieces on the screen,
+77:11 and they've been interconnected to
+tell the computer to say "hello, world"
+77:16 on the screen.
+77:17 The user interface
+that we're about to use
+77:18 will look generally something like this.
+77:21 It's a web-based editor
+that you can also
+77:22 download it locally to use offline.
+77:24 And you'll see that at the left here
+are a whole bunch of puzzle pieces
+77:28 or blocks.
+77:29 They're categorized by
+color, and the blue ones
+77:32 tend to relate to motion, for instance.
+77:34 The purple ones represent looks.
+77:36 The pink one represents sounds.
+77:38 The yellow one represents events.
+77:40 More on that soon.
+77:41 The orange ones represent
+control, and then
+77:43 there's operators, variables, my
+blocks, and even some extensions
+77:46 we can install as well.
+77:48 So it just categorizes things
+visually and colorfully so that you
+77:52 can find what you're looking for.
+77:53 But we're going to use these
+puzzle pieces to drag and drop them
+77:57 onto this area here.
+77:58 And we're going to connect them
+when we want them to do something.
+78:02 What can they do?
+78:03 Well, by default, Scratch comes
+with this cat here, otherwise known
+78:06 as a sprite, which is a character
+in a game or in a graphics context.
+78:10 And this cat lives in this
+two-dimensional world in which
+78:12 the cat can go up, down, left, right.
+78:14 And you can actually
+change the cat's costume
+78:16 to be a dog, a bird, or anything else.
+78:19 It really is more of an idea than it
+is a specific animal in this case.
+78:23 But the world that Scratch lives in
+looks a little something like this.
+78:27 It's like a Cartesian plane with
+x-coordinates and y-coordinates.
+78:30 And the numbers don't so
+much matter fundamentally,
+78:32 except that when you want the
+cat or any character to go up,
+78:35 down, left, or right
+by some amount, it's
+78:37 useful to know, for instance, that 0, 0
+is the middle, 0 comma 0 for x comma y.
+78:43 All the way up is a y value of 180.
+78:46 All the way down is -180.
+78:47 All the way to the left is -240.
+78:50 All the way to the right is 240.
+78:52 And generally, you're not going
+to have to worry about numbers.
+78:55 You're going to use these relatively--
+go right, go left, go up, or down.
+78:58 But that's just the world that
+Scratch itself lives in here.
+79:02 So let's go about using Scratch here.
+79:04 I'm going to change over
+to my cloud-based editor
+79:07 here, where I've gone
+to scratch.mit.edu.
+79:10 And I've clicked Create in
+order to create a project.
+79:13 And that gives me this
+blank canvas here.
+79:15 And I'm going to do these somewhat
+quickly because I kind of know
+79:18 what I'm looking for.
+79:18 But part of the process with problem
+set zero is going to be clicking,
+79:21 and dragging, and sort
+of scrolling around
+79:23 to see what building blocks exist.
+79:25 But I know under Events
+there's this puzzle piece here
+79:29 when green flag clicked.
+79:31 Why is that germane?
+79:32 Well, if I zoom out, and go back to
+Scratch's world at the right here,
+79:36 notice that above
+Scratch's world there's
+79:38 a green flag, which is going to
+mean go, and a red stop sign, which,
+79:41 of course, is going to mean stop.
+79:42 So if I drag this puzzle piece
+anywhere into the middle,
+79:47 it's just going to plop where I put it.
+79:49 But what that means semantically is
+when someone clicks that green flag,
+79:53 I want Scratch the cat
+to do this other thing.
+79:56 Well, what do I want it to do?
+79:58 Well, let me go under Looks.
+79:60 And looks here in purple have
+some puzzle pieces like this.
+80:04 Well, I can say hello for
+some number of seconds,
+80:06 or I can just go ahead and say hello.
+80:09 So let's do that.
+80:09 I'm going to drag this say block.
+80:12 And notice that as soon
+as I get close enough,
+80:14 it's going to magnetically
+want to connect.
+80:16 So I can let go, and they
+snap together automatically
+80:18 because they're the right shape.
+80:19 I don't have to say
+hello, exclamation point.
+80:21 I can change it to the more
+canonical, hello comma world.
+80:24 So anything in this
+white oval is editable
+80:26 that you can change as just text there.
+80:29 If I now zoom out, let me go
+ahead and click the green flag.
+80:32 And voila-- this should be
+my first program in Scratch.
+80:37 Hello, world.
+80:37 Without any of the
+distractions of syntax
+80:39 or weird characters on the screen,
+it's just done what I want it to do.
+80:42 All right.
+80:43 Let me go ahead and click Stop there.
+80:44 And let me make it a
+little more connected
+80:47 to what we've discussed thus far.
+80:49 So this puzzle piece
+here, say hello, world,
+80:51 represents what type of building
+block using the vocabulary of today?
+80:56 So it's a function.
+80:57 So these purple blocks are
+functions, say, hello, world.
+81:00 And let me give you another
+piece of terminology.
+81:02 These white ovals that
+take textual input--
+81:05 in general, those are called
+parameters or arguments.
+81:08 And they customize the
+behavior of a function.
+81:12 So a parameter or an
+argument customizes,
+81:14 modifies the default behavior of a
+function, like in this case, say.
+81:18 Similarly, in the C code from
+earlier that we'll see next week,
+81:21 the printf function took a quoted phrase
+like, hello, world, similarly as input.
+81:27 But more on that in the future.
+81:30 So how does this connect to the
+mental model we presented earlier?
+81:33 Well, here's problem-solving as I
+described it earlier, inputs to outputs
+81:37 with algorithms or code in the middle.
+81:39 Well, what we've got here really is an
+input of, hello, world, the white oval.
+81:44 The function or algorithm that it's
+going into as input is the say block.
+81:49 And what is the output of using
+this say block, the say function?
+81:52 It's the visual effect of having the
+cat have the little speech bubble appear
+81:56 above its head, saying, hello, world.
+81:58 So everything we do, in
+fact, can be mapped back
+82:01 to that very simple idea
+of inputs and outputs.
+82:05 Well, let's make it a little
+more interesting, though.
+82:07 It's a little boring to just
+say "hello, world" all the time.
+82:09 Let me go ahead and drag this away.
+82:12 And if you just drag it to the left and
+let go, it gets automatically deleted.
+82:15 Let me go under Sensing
+in light blue here.
+82:19 And you'll see there's a
+bunch of blocks, one of which
+82:21 is an ask block, an ask function,
+which is going to prompt
+82:24 the human, me, for some input.
+82:26 So let me go ahead and drag that
+over here, and it snaps together.
+82:30 I could change the question,
+but I'm OK with that question.
+82:32 We'll use what's your name.
+82:34 But notice that this block,
+ask, is a little special.
+82:37 It is not just going to display
+like a speech bubble on the screen.
+82:40 It's actually going to
+return a value, and this is
+82:43 another term of art today and onward.
+82:44 A return value is some value that can
+be handed back to you conceptually
+82:48 from a function so that you
+can do something with it.
+82:51 It's as though the ask function
+asks someone for their name,
+82:55 writes it down on a piece of paper,
+and hands you the piece of paper.
+82:58 You can do anything now that
+you want with that name.
+83:00 And here is how you access the
+name in this special block called
+83:04 answer, which, again, will
+start calling a return value.
+83:07 So if I want to say "hello" to someone
+specific, I'm going to do this.
+83:11 Let me zoom out.
+83:12 Let me go back to Looks,
+and let me go back to Say.
+83:16 And I'm going to change the say
+block here to "hello, comma."
+83:20 Then I'm going to zoom out.
+83:21 Well, I need two inputs, I think.
+83:24 So I'm going to grab another say
+block, and I'm going to put it below.
+83:27 And I could just type
+"David," but this is
+83:29 going to defeat the whole point
+of asking me for the name.
+83:32 And it will only work for me.
+83:33 So I don't want to do that.
+83:34 So let me go back to Sensing, and
+notice the shape is important here.
+83:39 Even if it's not quite the
+same size, the shape matters.
+83:41 And I can actually drag this and
+change the input of this say function
+83:46 to be whatever that return
+value is, that piece of paper
+83:49 that has the person's name on it.
+83:50 And it grows to fill,
+but now we have a program
+83:54 that I think when I click the green
+flag-- watch-- is going to prompt me.
+83:57 What's your name?
+83:58 And now I have room to type down here.
+83:60 So I'm going to type D-A-V-I-D.
+I'm going to hit Enter,
+84:02 and it should say "hello, Dave."
+84:04 Wait.
+84:05 Hmm.
+84:06 Huh.
+84:07 Maybe it was-- didn't work.
+84:10 D-A-V-I-D. Here we go.
+84:11 Hello, David.
+84:12 Hmm.
+84:14 It's missing the hello, but I'm quite
+sure we have a hello right there.
+84:19 So what explains this bug or mistake?
+84:22 Yeah.
+84:23 AUDIENCE: [INAUDIBLE].
+84:27 So they overlap.
+84:29 DAVID J. MALAN: Exactly.
+84:31 Put another way, my Mac,
+my PC, it's just so darn
+84:34 fast that it did exactly
+what it was supposed to.
+84:36 But it said "hello, David" so fast that
+we didn't even see, we being the human,
+84:41 the slowest part of the
+puzzle, see the actual hello.
+84:43 So there's a few different
+ways to fix this, as you know.
+84:45 We could have it say "hello"
+for some number of seconds.
+84:49 So I could kind of do that.
+84:50 So let me do this.
+84:51 I can decouple these by just
+dragging and letting it go
+84:53 so that they're magnetically far apart.
+84:55 Let me go ahead and drag this
+one, say hello for two seconds.
+84:59 I'm going to change the grammar
+here to be hello comma again.
+85:02 I'm going to go ahead
+and disconnect these two.
+85:05 I'm going to throw away the old
+one that I don't want to use.
+85:08 And I'm going to reconnect
+this so that now--
+85:11 OK.
+85:12 It's going to say hello for two
+seconds and then my name, hopefully.
+85:15 So let me click Stop and Start.
+85:17 D-A-V-I-D. Enter.
+85:21 OK.
+85:22 So it's better, but it's
+kind of poorly implemented.
+85:26 Like, come on.
+85:26 I just wanted to say hello comma David.
+85:28 Why is that hard?
+85:29 Well, maybe we can actually
+combine these a little differently.
+85:31 And let me propose this.
+85:33 Let me actually get rid
+of these blocks again.
+85:36 And let me go ahead
+and just say one thing.
+85:38 But can I somehow combine this to say
+hello comma David all in one breath?
+85:44 Well, it turns out if
+I go under Operators,
+85:46 I know from having played with this
+before that there's this puzzle
+85:49 piece down here called join.
+85:51 It's an oval.
+85:52 It's a little big, but,
+again, it will grow to fill.
+85:55 And by default, it wants to join
+two words, "apple" and "banana."
+85:57 But those are just placeholders.
+85:60 So let me go ahead and drag
+this over the default hello.
+86:04 Let me change "apple" to hello
+comma space and then banana.
+86:09 Let me go back to Sensing.
+86:10 Let me grab answer and
+drag and drop that.
+86:14 So now notice that I'm
+kind of layering my ideas.
+86:17 And put another way, the
+output of this join block
+86:21 is presumably going to
+join two things together,
+86:23 apple and banana or hello comma David.
+86:25 And then the output of join is
+going to become the input to say.
+86:29 So aesthetically, it just looks better.
+86:32 It's still correct,
+but it's just better.
+86:34 So if I type "David," and
+hit Enter, hello, David.
+86:37 This is what a normal
+program would presumably
+86:39 do, not show you part of the phrase
+and then the rest of the phrase.
+86:42 Like, it's just better in this way.
+86:44 So let's connect this now to this same
+puzzle piece and this methodology.
+86:48 So here's that same puzzle piece, ask.
+86:51 How do we fit it into this input
+and output flow with algorithms?
+86:54 Well, the input to that puzzle piece
+is something like, what's your name,
+86:57 question mark.
+86:58 Then the algorithm or the
+code implementation thereof
+87:02 is this ask block and wait so the human
+has a moment to type their response in.
+87:06 The output of that function
+recall is a return value.
+87:10 You don't see anything on the screen by
+default because we've not used say yet,
+87:13 but we get this return value.
+87:15 And let me scooch everything
+over now so that we can now
+87:18 join those inputs together.
+87:20 So here's this puzzle piece.
+87:22 Let me go ahead and propose that
+the inputs now to the join block
+87:25 are two arguments or two parameters,
+so to speak, hello and answer.
+87:30 They go into that join puzzle
+piece, whose purpose in life
+87:33 is to return one joined version thereof.
+87:36 Let me slide this all
+over logically now so
+87:38 that now that output becomes
+the input to the say block
+87:43 and now is why the cat has the
+speech bubble saying all at once,
+87:46 hello comma David.
+87:48 So what we've done here is
+kind of composed the output
+87:52 and from one function
+into the input of another.
+87:54 And you can think of this in
+a couple of different ways,
+87:56 left to right, as I
+did there, or kind of
+87:58 like stacking these things
+on top of one another.
+88:01 But at the end of the
+day, even as programming
+88:03 gets more and more powerful for us,
+it's just inputs and outputs, inputs
+88:08 and outputs.
+88:08 And thankfully, with built-in
+functionality from our friends
+88:11 at MIT who designed Scratch, I can
+even do something playful like this.
+88:15 I can go to that Extensions
+button at the bottom.
+88:17 And there's a lot of fancy things I
+can add here, like text-to-speech.
+88:20 So let me go ahead and
+choose text-to-speech.
+88:23 And let me go ahead here and
+change the say block in purple.
+88:28 Let me get rid of the say
+block, and let me borrow this.
+88:30 Let me get the speak block like this.
+88:33 And now let me drag and drop this oval.
+88:35 It's going to grow to fill.
+88:36 And I think it's just about to
+be a little more interesting.
+88:39 Let me click Play now, and
+hopefully this isn't too loud.
+88:42 D-A-V-I-D. Enter.
+88:44 SPEAKER: Hello, David.
+88:46 DAVID J. MALAN: OK.
+88:48 Thank you.
+88:50 Thank you.
+88:51 That's a low bar.
+88:52 [CHUCKLES] Let me go ahead
+and set the voice too.
+88:55 And you might now remember
+how we began class, where
+88:57 we had a robotic, computerized voice.
+88:59 Well, we didn't use Scratch at the time,
+but we could change this in Scratch
+89:03 alone to be a little different.
+89:04 So D-A-V-I-D.
+89:06 SPEAKER: Hello, David.
+89:07 DAVID J. MALAN: OK.
+89:08 Little creepy, but we can
+play all day long with that.
+89:10 But the point is that
+these functions are just
+89:12 now doing something a little different.
+89:14 But it's just these inputs and outputs.
+89:16 Well, let's make the
+cat more like a cat.
+89:18 Let me go ahead and throw away
+all of this asking question stuff.
+89:21 Let me go up to Sound,
+and let me go ahead
+89:23 and drag the play sound meow until done.
+89:26 And here too it comes with meow.
+89:28 You can add your own sounds as well.
+89:32 But I'm just going to use the
+default meow and here too.
+89:34 Hopefully, this won't be too loud.
+89:35 Let's make the cat
+meow by clicking Play.
+89:40 OK.
+89:40 It's a little piercing, but it's cute.
+89:42 And if I want the cat to meow twice,
+I could just play the game twice.
+89:48 All right.
+89:49 But it would be nice to just get it
+to meow automatically two, or three,
+89:52 or more times.
+89:53 So you know what I could do?
+89:55 I could just drag a second one of these.
+89:57 Actually, you know what?
+89:58 I could even just right-click or
+Control-click and duplicate them.
+90:01 But I'll just keep
+dragging and dropping.
+90:02 There's different ways
+to solve problems.
+90:04 And now let me click Play.
+90:07 OK.
+90:08 Cat does not sound particularly happy.
+90:10 So we could go under--
+90:12 how about Control?
+90:14 We could wait one second.
+90:15 Now, there's no room, but it will
+sort of expand to give room for me.
+90:19 So let me try this.
+90:20 And now it's going to wait
+one second in between meows.
+90:27 OK.
+90:27 Let me stipulate that is correct.
+90:29 If my goal is to get the cat to meow
+three times, it meowed three times.
+90:32 But per our discussion earlier of
+algorithms and the design thereof,
+90:37 this is not the best design.
+90:40 OK?
+90:41 Thank you for playing along at home.
+90:42 Yeah.
+90:43 In what sense is this
+arguably not well-designed?
+90:47 Yeah.
+90:48 AUDIENCE: You repeated yourself.
+90:49 DAVID J. MALAN: I repeated myself,
+which actually in programming
+90:52 tends not to be a good thing.
+90:53 Now, it was easy.
+90:55 I almost resorted to copy-paste,
+which saves me time upfront.
+90:58 But just imagine a contrived scenario.
+90:59 Now, what if I want it to wait
+like two seconds in between?
+91:02 All right.
+91:03 It's not that big a deal.
+91:04 I change it here, and I change it here.
+91:06 But what if the program
+is meant to meow 10 times?
+91:08 Then I have to change it here, and
+here, and here, and here, and here.
+91:11 And eventually I'm going to screw up.
+91:13 Humans are fallible.
+91:13 I'm going to overlook one of them.
+91:15 One time, it's going to be one second.
+91:16 Another is going to be two, and
+just stupid things will happen.
+91:19 You're setting yourself up for
+failure if you design things poorly.
+91:23 And so I would propose that we
+use another type of building block
+91:26 to solve this instead.
+91:28 Yeah.
+91:29 AUDIENCE: [INAUDIBLE]
+91:29 DAVID J. MALAN: Yeah.
+91:30 So we could use a loop and
+just write minimal code
+91:33 but to accomplish even
+more functionality.
+91:35 So let me throw away
+most of these blocks.
+91:37 And let's go and grab this repeat
+block, which we haven't used yet,
+91:41 but it's right there.
+91:42 And as the name
+suggests, this will allow
+91:44 me to repeat something
+some number of times.
+91:46 Let me put these two
+puzzle pieces inside.
+91:48 It'll grow to fill.
+91:49 Let me reconnect it to the green flag.
+91:51 I'll change the default 10 to a 3.
+91:53 And now--
+91:59 It's just sort of better because if
+now you want it to meow more times,
+92:02 you change it one place.
+92:03 If you want it to slow down,
+you change it in one place.
+92:06 There's no room for error.
+92:07 And that's generally a good thing.
+92:10 But this is silly.
+92:11 Like, Scratch comes with a cat.
+92:12 Why didn't MIT give us a
+puzzle piece called "meow?"
+92:16 Like, why am I implementing
+the idea of meowing myself?
+92:18 Like, that took me what?
+92:19 1, 2, 3, 4 puzzle pieces.
+92:21 Why isn't there just one
+puzzle piece that meows for me?
+92:24 This too we can do in code, be it in
+Scratch, or C, or other languages too.
+92:28 I'm going to go down to
+these pink my blocks here,
+92:33 where I can create my own puzzle piece.
+92:35 And I'm going to call
+this literally "meow."
+92:37 And I'm going to go
+ahead and just click OK.
+92:39 And notice that it's given me
+this new type of start connector.
+92:42 It's a start puzzle piece
+that nothing goes above it.
+92:44 But you can put anything
+you want below it.
+92:46 And I'm going to go
+ahead and cheat here.
+92:48 I'm just going to grab my
+existing code, so to speak.
+92:51 This is code I'm writing, even
+though it's puzzle pieces.
+92:54 And now let me just claim,
+and I'll move this aside.
+92:57 Here is now an implementation
+of my own function,
+93:01 my own block called "meow,"
+whose purpose in life
+93:04 is to meow until done
+and then wait one second.
+93:06 But what's powerful now is notice at
+top left, now that I've made the block,
+93:10 I can use it any number of times.
+93:13 So I can grab this meow block, drag
+it over here, and you know what?
+93:18 Now that "meow" exists as an
+idea, I can abstract that away.
+93:22 And I'm just going to arbitrarily
+drag it way to the bottom.
+93:24 I'm not deleting it.
+93:25 I'm just putting it out
+of sight, out of mind so
+93:27 that we can focus now on this idea.
+93:29 And I claim that this
+implementation of meowing
+93:31 is sort of better because it's
+more compact, it does what it says,
+93:35 and I don't care about the
+implementation details of "meow."
+93:39 So this idea of abstraction, something
+we're going to use frequently.
+93:42 To abstract something
+away is to simplify.
+93:45 Don't think about the underlying
+implementation details.
+93:47 Just care about what it
+does or what it's called.
+93:50 Someone has to care about
+the implementation details,
+93:53 like me 30 seconds ago.
+93:54 But here on out, I don't need to care.
+93:56 And so in fact, you and I
+are using the abstraction
+93:60 that is Scratch because I don't know how
+to put a speech bubble on the screen.
+94:03 I don't know how to
+create that sound, meow.
+94:05 MIT did that, and they
+abstracted those pieces
+94:07 of functionality away already
+for us by just giving us
+94:10 these puzzle pieces we see here.
+94:12 So the code will work the exact same.
+94:17 But it's sort of better
+designed now because now I've
+94:22 abstracted away the idea of meowing.
+94:23 But I bet I can improve this further.
+94:26 Can I get rid of the
+repeat block altogether?
+94:28 And let me just tell the meow
+block how many times to meow.
+94:32 Well, let me go down to the bottom and
+look at the implementation details.
+94:35 I'm going to right-click
+or Control-click on this,
+94:37 and I'm going to edit it.
+94:38 So I'm going to make a change.
+94:39 And I didn't do this before, but I'm
+going to call it "meow," as before.
+94:42 I'm going to add an input.
+94:44 And just so I know what
+it says what it does,
+94:46 I'm going to add the word "times" here.
+94:49 And I'm going to change
+this placeholder to n.
+94:53 n for "number" is the
+go-to placeholder any time
+94:55 we want to talk about a number in CS.
+94:57 So now notice the puzzle piece
+looks a little different.
+95:00 It takes an argument
+or a parameter called
+95:03 n, which represents the number of
+times you want the thing to meow.
+95:06 Now, that doesn't do that yet.
+95:07 So let me go back to my other code.
+95:10 Let me just decouple these temporarily.
+95:13 I'm going to move my loop into
+my implementation of meowing.
+95:18 But I don't want to hard code, that is
+literally write the number 3 anymore.
+95:22 I'm going to grab this
+oval and put it there.
+95:26 So now I've generalized the function.
+95:28 So now it will meow any number of
+times, 0 on up, by executing that loop
+95:34 and now more powerfully.
+95:36 Out of sight, out of mind.
+95:37 Notice that my code just
+became so darn simple.
+95:41 Like, my function is called "meow."
+95:43 It meows some number of times.
+95:44 All I have to do is type a
+number there, and it just works.
+95:47 And I don't care any more about
+those lower-level, so to speak,
+95:51 implementation details.
+95:52 So here, no surprise.
+95:53 If I type in the number 3,
+zoom out, and hit Play--
+96:00 --it still works just fine.
+96:03 So any questions on what
+we've just done here?
+96:05 It's still just meowing, but
+that's besides the point.
+96:08 It's this creation of our own
+functions, this modularity,
+96:11 this abstraction that's going to be
+the idea that keeps coming back to us.
+96:16 No?
+96:16 All right.
+96:17 So let's make this a
+little more cat-like.
+96:19 Let me throw away all of this code.
+96:21 And let me go ahead--
+96:22 oops-- let me throw away this code
+first and then the rest of this code.
+96:25 And let me go ahead and give
+myself another green flag block.
+96:29 And let me go ahead, and let's
+create a cat that allows us to pet it
+96:32 by moving my cursor over the cat.
+96:35 And maybe it likes that, so
+it'll meow when I do that.
+96:37 So let me go under Control, and
+let me grab this if conditional,
+96:42 which we talked about as
+a building block earlier.
+96:45 Let me go to Sensing, and
+we haven't used this before.
+96:47 But here is a weird
+sort of diagonal shape
+96:50 that says touching mouse
+pointer question mark.
+96:52 So that's a Boolean expression.
+96:54 So I'm going to drag that, and
+it's definitely the wrong size.
+96:57 But it is the right shape,
+so it will grow to fill.
+96:59 And the question I want to ask is if
+the cat is touching the mouse pointer,
+97:04 then go ahead and meow happily.
+97:06 So let me grab the meow
+sound, put it in there.
+97:08 And so I think when I click the
+green flag to start the program,
+97:13 and now I let the mouse pointer
+touch the cat, we should hear--
+97:19 huh.
+97:20 huh.
+97:21 Doesn't seem to be working.
+97:24 There's a bug or a mistake
+in this program too.
+97:27 What did I do wrong?
+97:28 Yeah.
+97:29 AUDIENCE: You didn't specify
+the sprite [INAUDIBLE]..
+97:31 DAVID J. MALAN: I don't need to
+specify the sprite explicitly
+97:33 because a detail I
+didn't discuss earlier.
+97:35 In the bottom right
+of the screen, notice
+97:38 that the cat is already selected.
+97:40 So this code relates to that cat.
+97:42 So your instinct is good if
+we had two or more sprites,
+97:45 but I just have one,
+so I'm covered there.
+97:48 Other thoughts.
+97:49 Yeah.
+97:50 AUDIENCE: It only checks once.
+97:51 DAVID J. MALAN: It only checks?
+97:52 AUDIENCE: Once.
+97:52 DAVID J. MALAN: Once.
+97:53 So I click the green flag.
+97:55 The computer did what I told it to do.
+97:57 The mouse pointer was not
+touching the cat at that moment
+98:00 because it was touching the green flag.
+98:02 So, of course, it didn't meow.
+98:03 So what maybe is the fix here?
+98:05 What puzzle piece can we add?
+98:07 AUDIENCE: After the green
+flag is [INAUDIBLE]..
+98:09 DAVID J. MALAN: OK.
+98:10 OK.
+98:11 Interesting solution.
+98:12 So let me go ahead, and under Control
+let me grab a-- wait one second.
+98:18 I'm going to change the 1 to 5, and
+now I'm going to click the green flag.
+98:21 So here we go.
+98:22 1, 2, 3, 4, 5.
+98:28 Damn it.
+98:30 OK.
+98:30 That was yours, not mine.
+98:32 It didn't work.
+98:34 AUDIENCE: [INAUDIBLE]
+98:35 DAVID J. MALAN: Sorry?
+98:36 AUDIENCE: [INAUDIBLE]
+98:37 DAVID J. MALAN: Oh, maybe forever.
+98:38 So your approach would work, but
+it's very much a hack, if you will.
+98:42 Like, I would have to time it perfectly
+so that the mouse pointer is touching
+98:47 it, or, conversely, I have
+to drag it there and just
+98:49 leave it there for five seconds.
+98:51 And that's a little weird because
+you don't just touch a cat
+98:53 and then five seconds
+later it meows at you.
+98:55 Like, presumably, we want
+it to be more interactive.
+98:57 So I like this idea of a loop.
+98:59 Right?
+98:59 Why don't we just tell the cat
+to forever listen for the cursor
+99:04 as by using not repeat but forever?
+99:07 Let me move this in here.
+99:08 So now the cat's going to be told when
+the green flag is clicked just forever,
+99:11 if touching, if touching, if touching.
+99:13 Oh, meow when actually touched.
+99:15 So now if I zoom out and hit
+Play, nothing's happening.
+99:19 I don't have to wait
+any number of seconds.
+99:21 But when I do touch the cat--
+99:24 [CHUCKLES] Fan section here.
+99:27 Thank you.
+99:28 So now it's actually working quite well.
+99:31 So there we have sort of a logical bug.
+99:33 But it does make sense if
+you think about what it was
+99:36 you told the computer to actually do.
+99:38 Well, let's make things
+even more interesting
+99:40 by using one of these extensions.
+99:41 In this bottom left corner, this is
+how I got to text-to-speech earlier.
+99:45 Let me go to Video
+Sensing over here too.
+99:47 And I can actually-- there we go--
+literally, the video has come on.
+99:51 Let me go ahead and do this.
+99:52 Get rid of this code, and
+let me step out of the frame.
+99:56 When video motion is greater than--
+99:59 well, this is CS50, so
+let's just type in 50,
+100:00 which is just a measure of motion.
+100:02 Let me go and play sound meow.
+100:07 OK.
+100:08 And let me stop and restart.
+100:12 All right.
+100:12 So there's the cat.
+100:19 OK.
+100:20 It worked.
+100:21 The cat's a little insensitive.
+100:25 There we go.
+100:26 Actually, you know what?
+100:27 Maybe it's just-- let me
+put-- let's change it.
+100:30 20.
+100:31 Oh, my God.
+100:32 Oh, that's OK.
+100:34 There we go.
+100:35 All right.
+100:36 There we go.
+100:36 So now it's a little more sensitive
+to the petting by using the camera.
+100:40 Now, this is kind of a weird example.
+100:42 And if I just start moving
+around crazily, like,
+100:43 it's just going to meow incessantly,
+which was what was happening--
+100:46 Stop.
+100:49 OK.
+100:50 When in doubt, this is
+when you reload the page.
+100:53 All right.
+100:54 So now we're back to
+where we wanted to be.
+100:56 But where can we now use these
+kinds of building blocks?
+100:58 Like, we were doing such
+tiny little programs.
+101:01 But even that we could turn
+into a whole game, I bet.
+101:04 Could we get like one
+volunteer to come on up?
+101:08 One volunteer?
+101:09 Everyone's looking down.
+101:10 OK.
+101:11 On the end here.
+101:11 Come on down.
+101:12 Yeah.
+101:12 All right.
+101:13 Round of applause for our
+one brave volunteer here.
+101:19 All right.
+101:19 These Super Mario cookies
+are on the line for you,
+101:22 depending on how this goes.
+101:23 So I'm going to have you come over here.
+101:25 And in advance on Scratch's website,
+we have some pre-made games,
+101:29 one of them written by one of your
+predecessors, a former student,
+101:33 that they implemented this
+sort of "Whac-A-Mole" game.
+101:36 So what you're about to see
+is the camera turn on on you.
+101:39 And you're going to see four moles
+above, below, left, and right.
+101:43 And using only your head--
+101:45 up, down, left, right--
+the goal is to whack a mole
+101:48 to get a point every time your
+head touches one of these sprites.
+101:52 So you're about to see things get
+very interesting very quickly.
+101:55 But using these building
+blocks, just those simple
+101:57 blocks but have four sprites, not
+four cats but four moles in this case.
+102:01 We can actually turn
+these into actual games.
+102:05 So here we go.
+102:07 Click Beginner.
+102:08 OK.
+102:09 And we just need you to
+center your head first.
+102:31 Nice.
+102:32 Ten seconds.
+102:39 Nice.
+102:40 Two seconds.
+102:42 AUDIENCE: [LAUGHS]
+102:43 DAVID J. MALAN: All right.
+102:44 A round of applause.
+102:46 Thank you.
+102:48 You want to introduce yourself?
+102:50 AUDIENCE: Hi, everybody.
+102:51 My name is [? Vanilla. ?]
+I'm a first year,
+102:54 and I'm going to be majoring in
+computer science and economics.
+102:57 DAVID J. MALAN: Nice to meet you.
+102:58 Here we go.
+102:59 Thank you.
+102:59 AUDIENCE: Nice to meet you.
+103:01 DAVID J. MALAN: So we won't look
+at the code for that actual game.
+103:04 It was written by one
+of your predecessors.
+103:06 And you can see it
+online if you're curious.
+103:08 But you can think about now with
+our functions, conditionals,
+103:11 Boolean expressions, loops how you could
+kind of compose that kind of program.
+103:15 So odds are there was a loop that
+was just constantly listening
+103:18 for that kind of
+connectivity, or it was one
+103:20 of those extensions that
+was waiting for motion to go
+103:23 touch one of those sprites.
+103:24 Notice that there's
+these numbers up here.
+103:26 And we haven't talked about this yet.
+103:27 But just like in math, where you
+can have variables x, y, and z,
+103:30 in programming, you can create
+variables using other puzzle pieces
+103:33 in Scratch that just keep track
+of how many seconds are left,
+103:36 that keeps track of how many times
+her head hit one of the moles.
+103:40 And so you can implement the mechanics
+of games using very simple building
+103:44 blocks.
+103:44 But how do you go about
+building something
+103:46 that's more interesting
+and interactive like that?
+103:49 Let me go ahead and
+bring up, for instance,
+103:51 one of the very first
+things I wrote years ago
+103:53 when I was in graduate school
+and Scratch had just come out.
+103:55 I was taking a class at MIT's Media Lab.
+103:57 And they invited us to beta test-- that
+is, try out the software before it then
+104:02 became part of the world.
+104:03 And the game I made was this one here.
+104:07 Let me find the right
+version of "Oscartime."
+104:11 So "Oscartime" is a game that took
+me tens of hours probably in the end.
+104:16 It was a little bit addictive, but
+let me go ahead and full-screen it.
+104:19 And I won't play the whole game.
+104:20 But it looked a little
+something like this.
+104:24 OSCAR: (SINGS) Oh, I love--
+104:25 DAVID J. MALAN: Where trash
+is falling from the sky.
+104:28 And I can click on it and drag it.
+104:30 And notice as I get close,
+the lid opens up like this.
+104:33 And if I let it keep falling, it
+goes in, and Oscar gives me a point.
+104:37 And I can do this again.
+104:40 OSCAR: If you really want
+to see something trashy--
+104:42 DAVID J. MALAN: All right.
+104:42 Here comes something else.
+104:43 OSCAR: I have here a sneaker that--
+104:45 DAVID J. MALAN: So now
+there's two pieces of trash.
+104:47 OSCAR: It's all full of
+holes, and the laces are--
+104:50 DAVID J. MALAN: And it just keeps
+going, and going, and going.
+104:52 And if we can lower the volume for just
+a moment, we'll let more trash fall.
+104:56 But to your comment earlier
+about one sprite or more
+104:58 sprites, that's what we're seeing here.
+105:00 Even though our examples thus far
+are just one cat, one or two puzzle
+105:03 pieces, or a few puzzle pieces.
+105:05 Here is, I claim, a sprite.
+105:07 Here is another sprite.
+105:08 Here is another sprite.
+105:09 And by toggling among them in
+that bottom right-hand corner,
+105:12 I can just associate different puzzle
+pieces with each of these sprites.
+105:15 Now, I didn't start off by
+implementing this whole game.
+105:18 And in just a moment, if we can
+raise the volume a little bit,
+105:21 we'll see even more trash is falling.
+105:22 So this is what--
+105:23 I hate this song now, like 10 plus
+hours listening to this song on loop
+105:27 just to get the timing right.
+105:28 But it brings to life all
+of these different sprites.
+105:31 And if you play it again and again,
+it's always a little bit different
+105:34 because I'm using some randomness.
+105:36 So this newspaper doesn't
+always fall from there.
+105:39 Sometimes it's here.
+105:40 Sometimes it's here.
+105:41 And so here, again, we have
+mechanics of a game where
+105:43 things are being perturbed a
+little, randomized a little bit
+105:46 to keep things more interesting.
+105:48 And let me go ahead.
+105:49 OSCAR: (SINGS) I love trash.
+105:50 DAVID J. MALAN: There we go.
+105:51 How. about raise a little volume?
+105:53 One more piece of trash.
+105:55 So a clock.
+105:55 It just goes on forever,
+this kind of game.
+105:58 But let's go ahead and consider.
+105:59 Let me close that.
+106:00 Let me go ahead and consider.
+106:02 How I went about implementing
+that from the get-go.
+106:05 So I will stipulate--
+106:07 let me open a few of these versions
+here-- that the very first thing I did
+106:11 was pretty much just
+implement the stage.
+106:13 Right?
+106:13 I was kind of procrastinating,
+so I poked around.
+106:15 I found the Sesame Street lamppost,
+and I dragged it into the world.
+106:18 And done.
+106:19 Version one is done.
+106:20 It didn't do anything, but at least
+I had the world sort of laid out.
+106:24 That is to say I took a
+baby step toward my goal.
+106:26 Then I started thinking
+about, all right,
+106:28 how do I bring the trash to life, even
+if it doesn't do much of anything else?
+106:32 And so I created another sprite
+by clicking the appropriate button
+106:34 in that bottom right-hand corner.
+106:36 And I thought about, well, what
+do I want this trash to do?
+106:38 I want it to just kind
+of fall from the sky.
+106:41 And so what I did here
+was the following.
+106:45 If I go to this trash piece
+here or-- actually, sorry.
+106:48 Out of order.
+106:49 What I actually did first was I
+didn't even have the trash fall.
+106:52 If I play this game, the trash
+just stays there in the air.
+106:55 But I can do this.
+106:57 I can drag it, and as before,
+as I touch the other sprite,
+107:01 I get the trash can lid to go up.
+107:03 So how do I do that?
+107:04 Well, let me click on Oscar
+down there, my first sprite.
+107:07 And here are the puzzle pieces
+via which I implemented this idea.
+107:11 I changed Oscar's
+costume, his appearance,
+107:13 to be just number one, which was one of
+the images I imported into the program.
+107:18 And then I forever did this.
+107:20 If Oscar is touching
+the mouse pointer, then
+107:22 change Oscar's costume to number
+two, otherwise change it back to one.
+107:26 So it's super simple animation.
+107:28 I'm just toggling between lid
+up, lid down, lid up, lid down,
+107:32 but it kind of feels interactive.
+107:34 And if I wanted to
+really make this pretty,
+107:36 I could have 30 different costumes where
+the lid is ever so slightly higher.
+107:41 Then it would look even more
+like a movie or fluid motion.
+107:44 But this was enough to
+get the job done, which
+107:47 is to say I didn't try to implement
+all of "Oscartime" together.
+107:50 I just took a second
+baby step toward my goal.
+107:52 And then my next version
+of "Oscartime" might
+107:55 have looked a little something
+like this, where now the trash--
+107:58 there's more going on here.
+107:59 Let's look at two of
+these blocks of code.
+108:02 The first thing I did was I
+enabled drag mode to draggable,
+108:05 and I had to Google to figure
+this out because otherwise it
+108:07 didn't let me drag the trash
+while playing the game.
+108:10 But once I figured that
+out, I tell the trash
+108:13 to go to a random
+x-coordinate between 0 and 240
+108:17 from left to right and
+then the y location 180
+108:20 because I always want the
+trash falling from the sky.
+108:22 And then what do I do?
+108:23 I told the trash to forever change its
+y-coordinate, its vertical coordinate,
+108:28 by negative 1, negative
+1, negative 1, one pixel
+108:31 at a time, which creates the
+illusion of it falling from the sky.
+108:34 But I needed to do one other
+thing, and let me scroll up.
+108:37 Each of your sprites can have
+multiple programs, multiple scripts,
+108:41 so to speak, that are not
+attached to one another.
+108:44 They will happen in parallel for you.
+108:46 The second one is saying this.
+108:48 Forever if the trash is touching
+Oscar, what should it do?
+108:53 Go to a completely different x
+and y location at the very top.
+108:57 Why?
+108:58 Well, as soon as I drag
+the trash over the Oscar,
+109:01 I want it to disappear as
+though it's going into the can.
+109:04 And I then want it to reappear
+at the top so more trash falls.
+109:07 So I just thought about
+what would it mean
+109:09 for the trash to go into the trash can.
+109:11 Well, who cares?
+109:12 What really matters to the
+human user is that it just
+109:14 disappears and teleports elsewhere.
+109:17 And so that's the idea
+I implemented here.
+109:20 So if you can reduce intuitive ideas to
+just basic building blocks like this,
+109:25 you can start to make things
+much more interactive.
+109:27 And lastly, if I look
+at this version here,
+109:30 you'll see that we've combined these.
+109:33 And so indeed, if I actually
+go ahead and play this now,
+109:36 not only is it falling.
+109:38 I can let it fall right on top
+of Oscar and watch it disappear.
+109:41 But notice Oscar doesn't pop out yet
+because that was the fourth version
+109:45 and then the fifth version.
+109:46 And then I added the annoying
+music and so forth but sort of
+109:49 composed this program
+step by step by step
+109:52 so as to accomplish my larger goal.
+109:53 And this is going to be true
+of all of the code you write,
+109:56 be it in Scratch, or C, or Python, or
+in the like, trying to come up with--
+110:01 or rather, trying to reduce your ideas,
+your grand vision to just baby steps,
+110:05 building blocks so that
+you start with version one,
+110:08 and maybe you submit version 10 or 20.
+110:10 But you don't try to implement
+version 10 or 20 at the get-go.
+110:13 You take those incremental steps.
+110:16 All right.
+110:16 How about one other?
+110:17 Well, let me propose this.
+110:20 Let me go ahead and open
+three games that represent one
+110:23 that your predecessors also implemented,
+which looks a little something
+110:28 like this in version zero.
+110:29 Suppose I wanted to
+implement a game that
+110:32 simply has these kinds of mechanics.
+110:34 I'm touching my arrow keys on my
+keyboard-- up, down, left, and right.
+110:37 And I'm moving the Harvard logo.
+110:38 Let me zoom in a bit.
+110:40 So if I hit the up arrow,
+the Harvard shield goes up.
+110:42 If I hit the down arrow,
+the shield goes down.
+110:45 If I go all the way to
+the left, it goes left
+110:47 until it hits the wall and
+same thing on the right.
+110:50 So this is like the beginnings
+of a game or a beginning
+110:52 of a maze, something like that.
+110:53 Well, how might I implement this?
+110:55 Well, let me look inside this one.
+110:57 And there's a lot going on, but,
+again, I sort of took simple steps.
+111:01 Notice that I've got three sprites--
+111:03 a left wall, which is
+just a straight line,
+111:05 the right wall, which
+is a straight line.
+111:07 And just intuitively, why did
+I implement those as sprites?
+111:11 Why do they need to exist
+as entities themselves?
+111:15 Yeah, in front.
+111:16 AUDIENCE: [INAUDIBLE]
+111:17 DAVID J. MALAN: Yeah.
+111:17 I want it to interact with the shield.
+111:19 So I need to be able to ask
+that Boolean expression, like,
+111:21 not touching mouse pointer but
+touching shield, for instance,
+111:25 a different type of yes/no question.
+111:27 And so what is the code for
+the shield actually doing?
+111:29 Well, there's a lot of duplication, and
+let me focus on the abstraction first.
+111:33 Notice that I've got this
+one green flag clicked.
+111:36 I want the shield to go
+dead center, 0 comma 0,
+111:38 and then forever listen for the human's
+keyboard, and feel for the wall.
+111:43 So I decided to implement my
+own pink puzzle pieces that
+111:46 implement the two separate ideas.
+111:47 One, just listen for the
+keyboard-- up, down, left,
+111:49 right-- and then do something.
+111:51 And then feel for walls is
+this idea of whenever I go up,
+111:54 down, left, or right,
+if I touch a wall, I
+111:57 need to stop doing whatever the
+keystrokes are telling me to do.
+112:01 So now if we dive into those
+implementation details, listen and feel
+112:06 are abstractions, custom puzzle pieces.
+112:08 Let's look at the
+implementation details.
+112:10 Well, here's the keyboard.
+112:11 If the key arrow up is
+pressed, change y by 1.
+112:16 If key down arrow is pressed,
+change y by negative 1.
+112:19 And you can probably
+see where this is going.
+112:21 Right arrow is x by 1.
+112:23 Left arrow is x by
+negative 1, and that's
+112:26 sort of all that's involved
+with up, down, left, right.
+112:29 But wait a minute.
+112:30 Why is there no loop in this
+listen for keyboard puzzle piece?
+112:36 I needed a loop last time
+so it constantly works.
+112:39 AUDIENCE: [INAUDIBLE]
+112:41 DAVID J. MALAN: Exactly.
+112:42 I put the loop in my
+main part of my program
+112:44 up top so something is telling me
+to keep listening again and again.
+112:48 So it's got to be somewhere,
+but it doesn't have
+112:50 to be in the actual implementation.
+112:52 And lastly, how about
+this feel for walls?
+112:54 Well, if touching left wall, which is
+just another sprite, change x by 1.
+112:58 So that is to say if I'm
+touching the left wall,
+113:01 I want to bounce it
+back the other direction
+113:03 and same thing on the right wall.
+113:05 If I'm touching the right
+wall, I want to bounce it
+113:07 back to the left, which effectively
+means that even if the human's hitting
+113:10 the key, it's like
+fighting with this code,
+113:12 but it's never going to go through
+the wall based on that math.
+113:15 It's going to stop it right there.
+113:17 All right.
+113:17 Let's add something else to the mix.
+113:19 Suppose I want the game to change
+to be a little something like this,
+113:22 where Yale is some kind of block
+in between me and the exit.
+113:25 So some dramatic race here.
+113:27 OK.
+113:28 I just got by, but the
+Yale logo doesn't seem
+113:30 to be doing all that
+much except bouncing.
+113:32 So I'm guessing there's a loop, maybe
+a conditional checking for those walls
+113:36 too.
+113:36 So let's go ahead and
+zoom out, see inside.
+113:39 Let's not worry about Harvard
+because it's pretty much the same.
+113:41 Let's look at the Yale puzzle pieces.
+113:44 And sure enough, go to the middle.
+113:46 0 comma zero.
+113:47 Point in direction 90, so
+point horizontally on the grid.
+113:51 And then if touching left
+wall or touching right wall--
+113:54 I'm kind of cheating this time, but
+cleverly, just spin around and do 180
+113:58 so you effectively bounce off the wall.
+114:00 This just tightened up my code.
+114:01 I don't need to do the
+negative 1 or the plus 1.
+114:03 I just say bounce in this
+form of code, otherwise just
+114:07 constantly move one step.
+114:08 Now, if this is a game where Yale
+is supposed to be better and faster,
+114:12 well, let's change the 1 to 5.
+114:14 Move 5 pixels at a time.
+114:15 Let's move it 10 back and forth.
+114:18 Let's maybe 100.
+114:19 Uh-oh.
+114:20 So what just happened?
+114:21 That is a bug, which we can
+avoid by just not doing that.
+114:25 But why did it break out of the wall?
+114:27 Yeah.
+114:28 AUDIENCE: [INAUDIBLE].
+114:30 At first it was [INAUDIBLE].
+114:31 DAVID J. MALAN: Exactly.
+114:32 Because I'm doing 100
+steps at a time, I'm
+114:34 never actually touching the
+other sprite because I'm
+114:36 sort of stepping way over it.
+114:38 So there's never a moment where
+they're actually touching.
+114:41 So previously, I was just getting
+lucky by doing fewer steps because it's
+114:45 gradually going over
+the wall, which gives me
+114:47 just enough time to detect as much.
+114:49 So I would have to kind
+of tinker, and he'll
+114:50 handle this a little bit differently.
+114:52 So it's a bug if it's too fast.
+114:54 But at least if I keep
+it slow and reasonable
+114:56 the math actually does work out, so
+long as it starts again in the middle.
+114:60 Well, let's do one final flourish here,
+whereby let's bring MIT into the mix.
+115:04 Right?
+115:05 They're super smart, so
+maybe they can kind of
+115:07 track us and follow wherever I'm going.
+115:11 So how might this work?
+115:13 All right.
+115:14 So nothing happens yet because we
+haven't finished composing the game.
+115:17 And notice here--
+115:17 OK.
+115:18 Now MIT is struggling.
+115:19 It's kind of twitching there because
+it's going just above, and below,
+115:22 and then above, and below.
+115:23 So we could fix that too if we want.
+115:25 But that's just a function of
+my math, one pixel at a time.
+115:28 Let me open up this one, see
+inside, and click on MIT.
+115:34 And it doesn't take much
+to implement MIT, it seems.
+115:37 So go to random position, forever
+point towards the Harvard logo outline,
+115:43 AKA the shield, and then move one step.
+115:46 So if I wanted to make MIT even smarter,
+even faster, what do I change here?
+115:51 AUDIENCE: [INAUDIBLE]
+115:52 DAVID J. MALAN: Yeah.
+115:52 Change one step to two steps to double
+their speed or five steps, 10 steps,
+115:56 or 100 steps.
+115:57 And the game is going
+to be over like that.
+115:58 But that's all it takes to now
+make these kinds of elements.
+116:01 So if you are a game player
+on your phone, or consoles,
+116:03 or computer, or whatever, if
+you think about almost any game,
+116:06 you can probably now start to
+think about how they implemented
+116:09 those mechanics because it's just being
+reduced to functions, conditionals,
+116:12 loops, variables, and
+the like in this case.
+116:16 So let's go ahead here and
+have maybe one final volunteer.
+116:21 We've got one more bag of Oreos here.
+116:22 OK.
+116:23 That was super fast.
+116:24 Do you want to come on up?
+116:25 All right.
+116:25 Brave volunteer.
+116:26 Come on up.
+116:31 All right.
+116:32 Let me find the full-fledged version
+of this that one of your predecessors
+116:37 made.
+116:38 And let me get the right one.
+116:40 OK.
+116:41 Here we go.
+116:42 We'll see some instructions on
+the screen in just a moment.
+116:45 And when we hit Play, you'll see that
+the mechanics are all combined now
+116:50 into one full-fledged game.
+116:52 But first, an introduction.
+116:55 It's on.
+116:56 SAM: Hi, everyone.
+116:57 I'm Sam.
+116:58 I live in [INAUDIBLE].
+116:59 I'm a freshman, and I'm from Nepal.
+117:01 DAVID J. MALAN: All right.
+117:02 Welcome to the stage.
+117:03 SAM: Thank you.
+117:04 DAVID J. MALAN: All right.
+117:05 So here we go.
+117:06 Yep.
+117:06 Go ahead and click the green flag.
+117:10 [MC HAMMER, "U CAN'T TOUCH THIS"]
+You can't touch this.
+117:14 DAVID J. MALAN: You see the
+grid is just bigger this time.
+117:18 (SINGING) You can't touch this.
+117:19 DAVID J. MALAN: Nice.
+117:20 Now there's that Yale element.
+117:22 (SINGING) You can't touch this.
+117:24 My, my, my my music hits me so hard.
+117:28 Makes me say, oh, my Lord.
+117:30 Thank you for blessing me with a
+mind to rhyme and two hyped feet.
+117:33 It feels good when you know you're down,
+a super dope homeboy from the Oaktown.
+117:36 DAVID J. MALAN: OK.
+117:37 Third Yale.
+117:39 All started at slightly
+different positions.
+117:41 (SINGING) I told you, homeboy.
+117:43 You can't touch this.
+117:44 DAVID J. MALAN: Nice.
+117:45 All right.
+117:45 There's MIT.
+117:46 (SINGING) And ya know
+you can't touch this.
+117:49 DAVID J. MALAN: Oh.
+117:51 (SINGING) You can't touch this.
+117:53 Yo.
+117:53 Let me bust the funky lyrics.
+117:54 DAVID J. MALAN: Gotta go fast.
+117:58 Oh.
+117:60 No.
+118:05 Oh.
+118:08 (SINGING) Cold on a
+mission, so fall on back.
+118:09 Let them know that you're too much,
+and this is a beat they can't touch.
+118:14 DAVID J. MALAN: Nice.
+118:16 (SINGING) You can't touch this.
+118:18 DAVID J. MALAN: No more
+walls but two MITs.
+118:20 (SINGING) Yo, sound the bell.
+118:22 School's in, sucker.
+118:23 DAVID J. MALAN: Princeton now.
+118:24 (SINGING) Give me a song or rhythm.
+118:26 Making them sweat, that's
+what I'm giving them.
+118:28 Now, they know you talk about
+the Hammer when you're talkin'
+118:31 'bout a show that's hyped and tight.
+118:33 Singers are sweatin', so pass
+them a wipe or a tape to learn.
+118:36 DAVID J. MALAN: Second to last level.
+118:38 (SINGING) The chart's legit.
+118:40 Either work hard, or
+you might as well quit.
+118:42 That's word because you
+know you can't touch this.
+118:48 You can't touch this.
+118:52 Break it down.
+118:53 DAVID J. MALAN: All right.
+118:54 Clear.
+118:55 There we go.
+118:55 Nice.
+118:56 Oh, oh.
+118:60 Oh.
+119:01 Few more lives.
+119:03 Oh.
+119:06 (SINGING) Stop.
+119:06 Hammer time.
+119:07 DAVID J. MALAN: Here we go.
+119:07 There we go.
+119:10 All right.
+119:10 Couple more tries.
+119:12 Yes!
+119:13 Oh, no.
+119:14 (SINGING) This is it for a winner.
+119:16 Dance to this, and
+you're gonna get thinner.
+119:18 Now move, slide your rump.
+119:19 DAVID J. MALAN: Starts
+getting stressful.
+119:20 (SINGING) Just for a minute,
+let's all do the bump.
+119:22 Bump, bump, bump.
+119:23 Yeah.
+119:24 You can't touch this.
+119:27 Look, man.
+119:28 You can't touch this.
+119:29 You'll probably get hyped, boy.
+119:31 DAVID J. MALAN: One more try.
+119:32 (SINGING) You can't touch this.
+119:33 Ring the bell.
+119:34 School's back in.
+119:35 DAVID J. MALAN: All right.
+119:35 A round of applause, nonetheless.
+119:37 Nicely done.
+119:38 Thank you.
+119:43 So as you might have
+noticed if your eyes started
+119:47 to wander to the light
+bulbs here, there's
+119:48 actually 64 of these light bulbs.
+119:51 And I'm wondering if you divide 64
+by 8, that's 8 bytes of light bulbs.
+119:55 And we now have some
+Unicode in our vocabulary.
+119:57 So might very well be
+the case that we've
+119:59 been spelling something out on the
+stage here for you all of this time.
+120:03 But before we adjourn for cake
+to be served in the Transept,
+120:07 allow me to introduce some
+of CS50's human friends,
+120:12 the Harvard Krokodiloes
+and the Radcliffe Pitches,
+120:17 to give us this exciting
+ending, "This is CS50."
+120:42 SPEAKER: (SINGING) There's a
+certain someone who I'm indebted to.
+120:51 And since the old [? BNC ?] has
+50, I have this friend for you.
+121:03 A two, three, four.
+121:09 Oh, rubber ducky, you're the one.
+121:12 You make [INAUDIBLE] so much fun.
+121:15 Rubber ducky, I'm awfully fond of you.
+121:18 [SCATTING] Rubber ducky, you make me
+smile, and you help my code compile.
+121:25 Rubber ducky, you're
+my very best friend.
+121:27 It's true.
+121:29 When I'm at a standstill, your
+debugging abilities stun me.
+121:34 When I'm at the end of my rope, you
+just snap, and my code's up and running.
+121:40 Rubber ducky, you're so fine,
+and I'm lucky that you're mine.
+121:45 Rubber ducky, you're
+my very best friend.
+121:47 It's true.
+121:49 You're my best friend.
+121:50 It's true.
+121:53 Rubber ducky, I'm awfully fond of you.
+122:09 SPEAKER: Good afternoon, CS50.
+122:10 We are the Harvard Krokodiloes,
+Harvard's oldest a cappella group,
+122:13 founded way back in 1946 at the
+historic Hasty Pudding Club.
+122:16 We'd love to make a big
+thank you to CS50 staff
+122:18 and to David Malan for having us
+perform here at Sanders Theater.
+122:21 And you enjoyed this performance,
+please come audition for us
+122:25 this weekend at Farkas Hall.
+122:36 SPEAKER: Hello, everyone.
+122:38 We are some of the Radcliffe
+Pitches, and we are also
+122:40 hosting auditions this weekend.
+122:42 You can find more information at
+our Instagram, @radcliffepitches.
+122:45 Now, let me tell you a little
+bit about just about a year ago
+122:49 today, when I was sitting in your very
+seats on my first day of CS50 lecture.
+122:53 And this is just about
+how I was feeling.
+123:07 (SINGING) It's the first day of
+class, and I'm brand new to code.
+123:12 Is this for me?
+123:14 So many people around.
+123:16 Can I get through the workload?
+123:19 But it's my dream.
+123:22 I tend to stick to English, not science.
+123:25 But my [INAUDIBLE] friends
+told me to try this.
+123:29 Hey, dancing robot dog, you kind of
+look like you have your life together,
+123:32 I guess.
+123:33 I really need some advice.
+123:36 (ALL SINGING) We know
+you're feeling unsure,
+123:38 but this is really the right call.
+123:41 In CS50, you'll meet new
+friends, get free food.
+123:45 You'll be all set for this fall in CS50.
+123:50 You have a thousand
+TAs who will help you.
+123:54 You'll get cupcakes,
+duckies, Chinese food.
+123:58 And you can always take
+this class and set aside.
+124:07 SPEAKER: This is CS50.
+124:09 Fist bump.
+124:17 DAVID J. MALAN: Thank you to the Kroks.
+124:18 Thank you to the Pitches.
+124:19 Cake is now served.
+124:20 Come on up to say hi if
+you'd like or meet Spot.
+124:23 See you next time.

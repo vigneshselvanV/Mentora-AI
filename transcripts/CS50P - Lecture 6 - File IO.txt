@@ -1,0 +1,2406 @@
+00:01 foreign
+00:25 this is cs50's Introduction to
+00:28 programming with python my name is David
+00:30 Malin and this is our week on file IO
+00:32 input and output of files so up until
+00:35 now most every program we've written
+00:37 just stores all the information that it
+00:39 collects in memory that is in variables
+00:41 or inside of the program itself a
+00:43 downside of which is that as soon as the
+00:45 program exits anything you typed in
+00:47 anything that you did with that program
+00:48 is lost now with files of course on your
+00:51 Mac or PC you can hang on to information
+00:53 long term and file i o within the
+00:55 context of programming is all about
+00:57 writing code that can read from that is
+00:59 load information from or write to that
+01:02 is save information to files themselves
+01:05 so let's see if we can't transition then
+01:06 from only using memory and variables and
+01:09 the like to actually writing code that
+01:11 saves some files for us and therefore
+01:12 data persistently well to do this let me
+01:16 propose that we first consider a
+01:17 familiar data structure a familiar type
+01:19 of variable that we've seen before that
+01:21 of a list and using lists we've been
+01:23 able to store more than in one piece of
+01:25 information in the past using one
+01:27 variable we typically store one value
+01:28 but if that variable is a list we can
+01:31 store multiple values unfortunately
+01:33 lists are stored in the computer's
+01:34 memory and so once your program exits
+01:37 even the contents of those disappear but
+01:39 let's at least give ourselves a starting
+01:40 point so I'm over here in vs code and
+01:43 I'm going to go ahead and create a
+01:44 simple program using Code of names dot
+01:47 Pi a program that just collects people's
+01:49 names students names if you will and I'm
+01:52 going to do it super simply initially in
+01:54 a manner consistent with what we've done
+01:55 in the past to get user input and print
+01:57 it back out I'm going to say something
+01:58 like this name equals input quote
+02:02 unquote what's your name thereby storing
+02:04 in a variable called name the return
+02:07 value of input as always and as always
+02:10 I'm going to go ahead and very simply
+02:11 print out a nice F string that says
+02:13 hello comma and then in curly brace's
+02:15 name to print out hello David hello
+02:17 world however happens to be using the
+02:20 program let me go ahead and run this
+02:21 just to remind myself what I should
+02:23 expect and if I run python names.pi and
+02:25 hit enter type in my name like David of
+02:27 course I now see hello comma David so
+02:30 suppose though that we wanted to add
+02:31 support not just for one name but
+02:33 multiple names maybe three names for the
+02:35 sake of discussion so that we can begin
+02:37 to accumulate some amount of information
+02:39 in the program such that it's really
+02:42 going to be a downside if we keep
+02:44 throwing it away once the program exits
+02:46 well let me go back into names.pi up
+02:49 here atub let me proactively give myself
+02:51 a variable this time called names plural
+02:53 and set it equal to an empty list recall
+02:56 that the square bracket notation
+02:57 especially if nothing's inside of it
+02:59 just means give me an empty list that we
+03:01 can add things to over time well what do
+03:04 we want to add to it well let's add
+03:05 three names each from the user and let
+03:08 me say something like this for
+03:10 underscore in range of three let me go
+03:13 ahead and prompt the user with the input
+03:16 function and getting their name in this
+03:18 variable and then using list syntax I
+03:21 can say names dot append name to that
+03:25 list and now I have in that list that
+03:28 given name one two three of them other
+03:31 points to note is I could use a variable
+03:33 here like I which is conventional but if
+03:35 I'm not actually using I explicitly on
+03:37 any subsequent lines I might as well
+03:38 just use underscore which is a pythonic
+03:40 convention and actually if I want to
+03:42 clean this up a little bit right now
+03:44 notice that my name variable doesn't
+03:46 really need to exist because I'm
+03:48 assigning it a value and then
+03:49 immediately appending it well I could
+03:51 tighten this up further by just getting
+03:53 rid of that variable altogether and just
+03:56 appending immediately the return value
+03:58 of input I think we could go both ways
+04:01 in terms of design here on the one hand
+04:03 it's a pretty short line and it's
+04:04 readable on the other hand if I were to
+04:05 eventually change this phrase to be not
+04:07 what's your name but something longer we
+04:09 might want to break it out again into
+04:11 two lines but for now I think it's
+04:12 pretty readable now later in the program
+04:15 let's just go ahead and print out those
+04:17 same names but let's sort them
+04:18 alphabetically so that it makes sense to
+04:21 be gathering them all together then
+04:23 sorting them and printing them so how
+04:25 can I do that well in Python the
+04:27 simplest way to sort a list in a loop is
+04:29 probably to do something like this for
+04:31 name in names but wait let's sort the
+04:34 names first recall that there's a
+04:36 function called sorted which will return
+04:38 a sorted version of that list now let's
+04:41 go ahead and print out an F string that
+04:43 says again hello bracket name close
+04:47 quotes all right let me go ahead and run
+04:49 this so python of names dot pi and let
+04:52 me go ahead and type in a few names this
+04:54 time how about Hermione
+04:56 how about Harry how about Ron and notice
+04:60 that they're not quite in alphabetical
+05:02 order but when I hit enter and that Loop
+05:04 kicks in it's going to print out hello
+05:06 Harry hello Hermione hello Ron in sorted
+05:09 order
+05:10 but of course now if I run this program
+05:12 again all of the names are lost and if
+05:15 this is a bigger program than this that
+05:17 might actually be pretty painful to have
+05:18 to re-input the same information again
+05:20 and again and again wouldn't it be nice
+05:22 like most any program today on a phone
+05:24 or a laptop or desktop or Cloud to be
+05:27 able to save this information somehow
+05:30 instead and that's where file i o comes
+05:32 in and that's where Files come in they
+05:34 are a way of storing information
+05:35 persistently on your own phone or Mac or
+05:38 PC or some Cloud servers disk so that
+05:41 they're there when you come back and run
+05:43 the program again so how can we go about
+05:45 saving all three of these names on in a
+05:49 file as opposed to having to type them
+05:51 again and again let me go ahead and
+05:53 simplify this file and again give myself
+05:55 just a single variable called name and
+05:58 set the return value of input equal to
+06:01 that variable so what's your name as
+06:03 before quote unquote and now let me go
+06:06 ahead and let me do something more with
+06:08 this value instead of just adding it to
+06:10 a list or printing it immediately out
+06:12 let's save the value of the person's
+06:14 name that's just been typed in to a file
+06:16 well how do we go about doing that well
+06:18 in Python there's this function called
+06:19 open whose purpose in life is to do just
+06:21 that to open a file but to open it up
+06:24 programmatically so that you the
+06:26 programmer can actually read information
+06:28 from it or write information to it so
+06:31 open is like the programmer's equivalent
+06:33 of like double clicking on an icon on
+06:34 your Mac or PC but it's a programmer's
+06:37 technique because it's going to allow
+06:38 you to specify exactly what you want to
+06:40 read from or write to that file formally
+06:43 its documentation is here and you'll see
+06:46 that its usage is relatively
+06:47 straightforward it minimally just
+06:49 requires the name of the file that we
+06:50 want to open and optionally how we want
+06:53 to open it so let me go back to vs code
+06:55 here and let me propose now that I do
+06:57 this I'm going to go ahead and call this
+06:59 function called open passing in an
+07:02 argument for names.txt which is the name
+07:04 of the file I would like to store all of
+07:07 these names in I could call it anything
+07:08 I want but because it's going to be just
+07:10 text it's conventional to call it
+07:12 something.txt but I'm also going to tell
+07:15 the open function that I plan to write
+07:17 to this file so as a second argument to
+07:20 open I'm going to put literally quote
+07:21 unquote W for right and that's going to
+07:24 tell open to open the file in a way
+07:26 that's going to allow me to change the
+07:28 contents and better yet if it doesn't
+07:29 even exist yet it's going to create the
+07:31 file for me now open returns what's
+07:34 called a file handle a special value
+07:36 that allows me to access that file
+07:38 subsequently so I'm going to go ahead
+07:40 and sign it equal to a variable like
+07:42 file and now I'm going to go ahead and
+07:44 quite simply write this person's name to
+07:47 that file so I'm going to literally type
+07:49 file which is the variable a linking to
+07:53 that file dot write which is a function
+07:55 otherwise known as a method that comes
+07:57 with open files that allows me to write
+07:60 that name to the file and then lastly
+08:02 I'm going to quite simply going to go
+08:04 ahead and say file Dot close which will
+08:06 close and effectively save the file so
+08:08 these three lines of code here are
+08:10 essentially the programmers equivalent
+08:11 to like double clicking an icon on your
+08:13 Mac or PC making some changes in
+08:15 Microsoft Word or some other program and
+08:17 going to file save we're doing that all
+08:19 in code with just these three lines here
+08:21 well let's see now how this works let me
+08:25 go ahead now and run python of names.pi
+08:29 and enter let's type in a name I'll type
+08:32 in Hermione
+08:34 enter all right where did she end up
+08:37 well let me go ahead now and type code
+08:40 of names.txt which is a file that
+08:43 happens now to exist because I opened it
+08:45 in right mode and if I open this in a
+08:47 tab we'll see there's Hermione well
+08:50 let's go ahead and run names.pi once
+08:52 more I'm going to go ahead and run
+08:54 python of names.pi enter and this time
+08:57 I'll type in Harry let me go ahead and
+08:59 run it one more time and this time I'll
+09:01 type in Ron and now let me go up to
+09:04 names.text where hopefully I'll see all
+09:07 three of them here
+09:09 but no I've just actually seen Ron
+09:12 What might explain what happened to
+09:15 Hermione and Harry even though I'm
+09:17 pretty sure I ran the program three
+09:19 times and I definitely wrote the code
+09:21 that writes their name to that file
+09:24 what's going on here do you think I
+09:27 think because we're not appending them
+09:29 we should append the names since we are
+09:31 writing directly it is erasing the old
+09:34 content and it is replacing with the
+09:36 last uh
+09:39 set of characters that we mentioned
+09:41 exactly unfortunately quote unquote W is
+09:44 a little dangerous not only will it
+09:45 create the file for you it will also
+09:47 recreate the file for you every time you
+09:49 open the file in that mode so if you
+09:51 open the file once and write Hermione
+09:53 that worked just fine as we saw but if
+09:55 you do it again for Harry if you do it
+09:56 again for Ron the code is working but
+09:58 each time it's opening the file and
+10:00 recreating it with brand new contents so
+10:03 we had one version with Hermione one
+10:04 version with Harry and one final version
+10:06 with Ron but ideally I think we probably
+10:08 want to be appending as bashal says each
+10:11 of those names to the file not just
+10:13 clobbering that is overwriting the file
+10:15 each time so how can I do this it's
+10:17 actually a relatively easy fix let me go
+10:19 ahead and do this as follows I'm going
+10:21 to first remove the old version of
+10:23 names.text and now I'm going to change
+10:25 my code to do this I'm going to change
+10:27 the W quote unquote to just a quote
+10:30 unquote a for append which means to add
+10:32 to the bottom to the bottom to the
+10:34 bottom again and again now let me go
+10:36 ahead and rerun python of names.pi and
+10:39 enter I'll again start from scratch with
+10:41 Hermione because I'm creating the file
+10:43 new notice that if I now do code of
+10:47 names.txt enter we do see that Hermione
+10:51 is back so we've after removing the file
+10:53 it did get recreated even though I'm
+10:55 using append which is good but now let's
+10:57 see what happens when I go back to my
+10:60 terminal and this time I run python of
+11:02 names.pi again this time typing in Harry
+11:04 and let me run it one more time this
+11:07 time typing in Ron so hopefully this
+11:09 time in that second tab names.text I
+11:11 should now see all three of them but but
+11:14 but but this doesn't look ideal what
+11:18 have I clearly done wrong
+11:20 foreign
+11:21 something tells me even though all three
+11:23 names are there it's not going to be
+11:24 easy to read those back unless you know
+11:27 where each name ends and Begins the
+11:30 English form it's not correctly
+11:33 the English format is not correct like
+11:35 it's a correct it's concatenating them
+11:38 it is it's it can it's well it appears
+11:42 to be concatenating but technically
+11:44 speaking it's just appending to the file
+11:46 first Hermione then Harry then Ron it
+11:49 has the effect of combining them back to
+11:51 back but it's not concatenating per se
+11:52 it really is just a pending let's go to
+11:54 another hand here what really have I
+11:57 done wrong or equivalently how might I
+11:60 fix
+12:01 it would be nice if there were some kind
+12:04 of gaps between each of the names so we
+12:05 could read them more cleanly Hello uh we
+12:09 should add a new line before we write
+12:12 new name good we want to add a new line
+12:15 ourselves so whereas print by default
+12:17 recall always outputs automatically a
+12:20 line ending of backslash n unless we
+12:21 override it with the named parameter
+12:23 called end write does not do that right
+12:26 takes you literally and if you say right
+12:28 Hermione that's it you're getting the H
+12:30 through the E if you say right Harry you
+12:32 get the H through the uh y you don't get
+12:34 any extra new lines automatically so if
+12:37 you want to have a new line at the end
+12:40 of each of these names we've got to do
+12:41 that manually so let me again close
+12:43 names.txt and let me remove the current
+12:46 file and let me go back up to my code
+12:48 here and I can fix this in any number of
+12:50 ways but I'm just going to go ahead and
+12:51 do this I'm going to write out an F
+12:53 string that contains name and backslash
+12:56 n at the end we could do this in
+12:57 different ways we could manually print
+12:59 just the new line or some other
+13:00 technique week but I'm going to go ahead
+13:02 and use my f strings as I'm in the habit
+13:04 of doing and just print to the name and
+13:06 the new line all at once I'm going to go
+13:08 ahead now and down to my terminal window
+13:09 run python of names dot Pi again enter
+13:12 we'll type in Hermione I'm going to run
+13:14 it again type in Harry I'm going to type
+13:17 it again and this time Ron now I'm going
+13:19 to run code of names.txt and open that
+13:22 file and now it looks like the file is a
+13:25 bit cleaner indeed I have each of the
+13:27 name on its own line as well as a line
+13:29 ending which ensures that we can
+13:32 separate one from the other now if I
+13:35 were you know writing code I bet I could
+13:37 parse that is read the previous file by
+13:39 looking at differences between lowercase
+13:41 and uppercase letters but that's going
+13:42 to get messy quickly generally speaking
+13:44 when storing data long term in a file
+13:47 you should probably do it somehow
+13:48 cleanly like doing one name at a time
+13:51 well let's now go back and I'll propose
+13:53 that this code is now working correctly
+13:54 but we can design it a little bit better
+13:56 it turns out that it's all too easy when
+13:59 writing code to sometimes forget to
+14:01 close files and sometimes this isn't
+14:03 necessarily a big deal but sometimes it
+14:05 can create problems files could get
+14:06 corrupted or accidentally deleted or the
+14:08 liked depending on what happens in your
+14:09 code so it turns out that you don't
+14:11 strictly need to call close on the file
+14:14 yourself if you take another approach
+14:16 instead more pythonic when manipulating
+14:20 files is to do this to introduce this
+14:23 other keyword called quite simply with
+14:26 that allows you to specify that in this
+14:29 context I want you to open and
+14:31 automatically close some file so how do
+14:34 we use with it simply looks like this
+14:36 let me go back to my code here I've
+14:38 gotten rid of the close line and I'm now
+14:40 just going to say this instead instead
+14:42 of saying file equals open I'm going to
+14:45 say with open then the same arguments as
+14:48 before and somewhat curiously I'm going
+14:50 to put the variable at the end of the
+14:52 line why that's just the way this is
+14:54 done you say with you call the function
+14:56 in question and then you say as and
+14:59 specify the name of the variable that
+15:00 should be assigned find the return value
+15:02 of open then I'm going to go ahead and
+15:04 indent the line underneath so that the
+15:07 line of code that's writing the name is
+15:09 now in the context of this with
+15:11 statement which just ensures that
+15:13 automatically if I had more code in this
+15:15 file down below no longer indented the
+15:18 file would be automatically closed as
+15:20 soon as line 4 is done executing so it
+15:23 doesn't change what has just happened
+15:24 but it does automate the process of at
+15:26 least closing things for us just to
+15:27 ensure I don't forget and so that
+15:29 something doesn't go wrong
+15:32 but suppose now that I wanted to read
+15:34 these names from the file all I've done
+15:36 thus far is write code that writes names
+15:38 to the file but let's assume now that we
+15:40 have all of these names in the file and
+15:42 heck let's go ahead and add one more let
+15:44 me go ahead and run this one more time
+15:46 python of names.pi and let's add in
+15:48 Draco to the mix so now that we have all
+15:51 four of these names here how might we
+15:53 want to read them back well let me
+15:55 propose that we go into names.pi now or
+15:57 we could create another program
+15:58 altogether but I'm going to keep reusing
+16:00 the same name just to keep us focused on
+16:02 this and now I'm going to write code
+16:04 that reads an existing file with
+16:07 Hermione Harry Ron and Draco together
+16:10 and how do I do this well it's similar
+16:12 in spirit I'm going to start this time
+16:14 with with open and then the first
+16:17 argument is going to be the name of the
+16:18 file that I want to open as before and
+16:20 I'm going to open it this time in read
+16:22 mode quote unquote R and to read a file
+16:25 just means to load it not to save it and
+16:28 I'm going to name the return value file
+16:30 and now I'm going to do this yes and
+16:32 there's a number of ways I can do this
+16:33 but one way to read all of the lines
+16:35 from the file at once would be this let
+16:37 me declare a variable called lines let
+16:40 me access that file and call a function
+16:42 or a method that comes with it called
+16:44 read lines so if you read the
+16:46 documentation on file i o and python
+16:48 you'll see that open files come with a
+16:50 special method whose purpose in life is
+16:52 to read all the lines from the file and
+16:54 return them to me as a list so what this
+16:57 line 2 is doing is it's reading all of
+16:59 the lines from that file storing them in
+17:02 a variable called lines now suppose I
+17:04 want to iterate over all of those lines
+17:06 and print out each of those names for
+17:08 line in lines this is just a standard
+17:11 for Loop in Python lines as a list line
+17:14 is the variable that will be
+17:16 automatically be set to each of those
+17:17 lines let me go ahead and print out
+17:19 something like oh hello
+17:21 uh comma and then I'll print out the
+17:24 line itself
+17:26 all right so let me go to my terminal
+17:28 window run python of names.pi now I have
+17:31 not deleted names.txt so it still
+17:34 contains all four of those names and hit
+17:35 enter and okay it's not bad but it's a
+17:39 little ugly here
+17:41 what's going on when I ran names.pi it's
+17:44 saying hello to Hermione to Harry to Ron
+17:46 to Draco but there's these gaps now
+17:48 between the lines
+17:51 what's explains that symptom if if
+17:54 nothing else it just looks ugly it
+17:56 happens because in the text file we have
+17:58 new line symbols uh in between those
+18:01 names and the print always adds another
+18:04 new line at the end so you you use the
+18:08 same symbol twice perfect and here's a
+18:10 good example of a bug a mistake in a
+18:12 program but if you just think about
+18:13 those first principles like how do each
+18:16 of the lines of code work that I'm using
+18:18 you should be able to reason exactly as
+18:20 Rafal did there to say that all right
+18:21 well one of those new lines is coming
+18:23 from the file after each name and then
+18:25 of course print all of these Weeks Later
+18:27 is still giving us for free that extra
+18:29 new line so there's a couple of possible
+18:31 solutions I could certainly do this
+18:33 which we've done in the past and pass in
+18:35 a named argument to print like end
+18:37 equals quote unquote and that's fine I
+18:40 would argue a little better than that
+18:41 might actually be to do this to strip
+18:43 off of the end of the line the actual
+18:46 new line itself so that print is
+18:48 handling the printing of everything the
+18:50 person's name game as well as the new
+18:52 line but you're just stripping off what
+18:54 is really just an implementation detail
+18:56 in the file we chose to use new lines in
+18:59 my text file to separate one name from
+19:01 another so arguably it should be a
+19:03 little cleaner in terms of design to
+19:05 strip that off and then let print print
+19:08 out what is really just now a name but
+19:10 that's ultimately a design decision the
+19:11 effect is going to be exactly the same
+19:14 well if I'm going to open this file and
+19:18 read all the lines and then iterate over
+19:20 all of those lines and print them each
+19:21 out I could actually combine this into
+19:23 one thing because right now I'm doing
+19:25 twice as much work I'm reading all of
+19:27 the lines then I'm iterating over all of
+19:30 the lines just to print out each of them
+19:32 well in Python with files you can
+19:34 actually do this I'm going to erase
+19:36 almost all of these lines now keeping
+19:38 only the with statement at top and
+19:41 inside of this with statement I'm going
+19:43 to say this for line in file go ahead
+19:47 and print out quote unquote hello comma
+19:49 and then line Dot R strip so I'm going
+19:52 to take the approach of stripping off
+19:53 the end of the line but notice how
+19:55 elegant this is so to speak I've opened
+19:58 the file in line one and if I want to
+20:00 iterate over every line in the file I
+20:02 don't have to very explicitly load all
+20:04 read all the lines then iterate over all
+20:06 of the lines I can combine this into one
+20:08 thought it in Python you can simply say
+20:10 for line and file and that's going to
+20:13 have the effect of giving you a for Loop
+20:14 that iterates over every line in the
+20:16 file one at a time and on each iteration
+20:18 updating the value of this variable line
+20:20 to be Hermione then Harry then Ron then
+20:24 Draco so this again is one of the
+20:27 appealing aspects of python is that it
+20:29 reads rather like English for line and
+20:30 file print this it's a little more
+20:33 compact when written this way well what
+20:36 if though
+20:37 I don't want quite this Behavior because
+20:39 notice now if I run python of names.pi
+20:41 it's correct I'm seeing each of the
+20:44 names and each of the hellos and there's
+20:45 no Extra Spaces in between but just to
+20:49 be difficult I'd really like us to be
+20:51 sorting these hellos really I'd like to
+20:53 see Draco first then Harry then Hermione
+20:56 then Ron no matter what order they
+20:58 appear in the file so I could go in of
+21:00 course to the file and manually change
+21:02 the file but if that file is changing
+21:03 over time based on who is typing their
+21:05 name into the program that's not really
+21:07 a good solution in code I should be able
+21:09 to load the file no matter what it looks
+21:10 like and just sort it all at once now
+21:14 here is a reason to not do what I've
+21:16 just done I can't iterate over each line
+21:20 in the file and print it out but sort
+21:22 everything in advance right logically if
+21:24 I'm looking at each line one at a time
+21:27 and printing it out it's too late to
+21:29 sort I really need to read all of the
+21:31 lines first without printing them sort
+21:34 them then print them so we have to take
+21:35 a step back in order to add now now this
+21:38 new feature so how can I do this well
+21:40 let me combine some ideas from before
+21:42 let me go ahead and start fresh with
+21:44 this let me give myself a list called
+21:46 names and assign it an empty list just
+21:49 so I have a variable in which to
+21:50 accumulate all of these lines and now
+21:53 let me open the file with open quote
+21:55 unquote names.txt and it turns out I can
+21:58 tighten this up a little bit it turns
+21:59 out if you're opening a file to read it
+22:01 you don't need to specify quote unquote
+22:03 r that is the implicit default so you
+22:06 can tighten things up by just saying
+22:07 open names.text and you'll be able to
+22:09 read the file but not write it I'm going
+22:11 to give myself a variable called file as
+22:13 before I am going to iterate over the
+22:15 file in the same way for line in file
+22:18 but instead of printing each line I'm
+22:21 going to do this I'm going to take my
+22:23 names list and append to it and this is
+22:26 appending to a list in memory not
+22:28 appending to the file itself I'm going
+22:31 to go ahead and append the current line
+22:32 but I'm going to strip off the new line
+22:35 at the end so that all I'm adding to
+22:37 this list is each of the students names
+22:39 now I can use that familiar technique
+22:42 from before let me go outside of this
+22:44 with statement because now I've read the
+22:46 entire file presumably so by the time
+22:48 I'm done with lines four and five again
+22:51 and again and again for each line in the
+22:52 file I'm done with the file it can close
+22:54 I now have all of the students names in
+22:56 this list variable let me do this for
+22:59 name in not just names but the sorted
+23:03 names using our python function sorted
+23:06 which does just that and do print quote
+23:09 unquote with an F string hello comma and
+23:11 now I'll plug in bracket name
+23:14 so now what have I done I'm creating a
+23:17 list at the beginning just so I have a
+23:19 place to gather my data I then on lines
+23:21 three through five iterate over the file
+23:23 from top to bottom reading in each line
+23:25 one at a time stripping off the new line
+23:27 and adding just the student's name to
+23:29 this list and the reason I'm doing that
+23:31 is so that on line seven I can sort all
+23:34 of those names now that they're all in
+23:35 memory and print them in order I need to
+23:38 load them all into memory before I can
+23:40 sort them otherwise I'd be printing them
+23:42 out prematurely and Draco would end up
+23:44 last instead of first so let me go ahead
+23:46 in my terminal window and run python of
+23:48 names.pi now and hit enter and there we
+23:51 go the same list of four hellos but now
+23:54 they're sorted and this is a very common
+23:56 technique when dealing with files and
+23:58 information more generally if you want
+23:60 to change that data in some way like
+24:02 sorting it creating some kind of
+24:05 variable at the top of your program like
+24:06 a list adding or appending information
+24:08 to it just to collect it in one place
+24:10 and then do something interesting with
+24:13 that collection that list is exactly
+24:15 what I've done here now I should note
+24:17 that if we just want to sort the file we
+24:19 can actually do this even more simply in
+24:21 Python particularly by not bothering
+24:23 with this names list nor the second for
+24:26 Loop and let me go ahead and instead
+24:27 just do more simply this let me go ahead
+24:29 and tell python that we want the file
+24:31 itself to be sorted using that same
+24:33 sorted function but this time on the
+24:35 file itself and then inside of that for
+24:37 Loop let's just go ahead and print right
+24:39 away our hello comma followed by the
+24:42 line itself but still stripping off of
+24:44 the end of it any white space therein if
+24:46 we go ahead and run this same program
+24:48 now with pythonupnames.pi and hit enter
+24:50 we get the same result but of course
+24:52 it's a lot more compact but for the sake
+24:54 of discussion let's assume that we do
+24:57 actually want to potentially make some
+24:59 changes to the data as we iterate over
+25:01 it so let me undo those changes leave
+25:02 things as is where by now we'll continue
+25:04 to accumulate all of the names first
+25:06 into a list maybe do something to them
+25:08 maybe forcing them to uppercase or
+25:10 lowercase or the like and then sort and
+25:12 print out each item
+25:13 let me pause and see if there's any
+25:15 questions now on file IO reading or
+25:17 writing or now accumulating all of these
+25:21 values in some list hi is there a way to
+25:24 sort the files but instead if you want
+25:27 it from alphabetically from A to Z is
+25:30 there a way to reverse it from zet to a
+25:32 is there a like a little extension that
+25:34 you can add to the end to do that or
+25:36 would you have to create a new function
+25:37 if you wanted to reverse the contents of
+25:40 the file yeah so if you instead of
+25:43 sorting them from a to z in ascending
+25:45 order if you're one of them in
+25:46 descending order
+25:47 is there an extension for the there is
+25:50 indeed and as always the documentation
+25:53 is your friend so if the goal is to sort
+25:55 them not in alphabetical order which is
+25:56 the default but maybe reverse
+25:57 alphabetical order you can take a look
+25:59 for instance at the formal python
+26:01 documentation there and what you'll see
+26:02 is this summary you'll see that the
+26:05 sorted function takes a first argument
+26:06 generally known as an iterable and
+26:09 something that's iterable means that you
+26:10 can iterate over it that is you can Loop
+26:12 over it one thing at a time what the
+26:14 rest of this line here means is that you
+26:16 can specify a key like how you want to
+26:18 sort it but more on that later but this
+26:20 last named parameter here is reverse and
+26:23 by default per the documentation it's
+26:25 false it will not be reversed by default
+26:27 but if we change that to true I bet we
+26:29 can do that so let me go back to vs code
+26:31 here and do just that let me go ahead
+26:33 and pass in a second argument to sorted
+26:35 in addition to this iterable which is my
+26:38 names list iterable again in the sense
+26:40 that it can be looped over and let me
+26:43 pass in Reverse equals true thereby
+26:46 overriding the default of false let me
+26:48 now run python of names Dot pie and now
+26:51 Ron's at the top and draco's at the
+26:53 bottom so there too whenever you have a
+26:55 question like that moving forward
+26:56 consider what does the documentation say
+26:59 and see if there's a germ of an idea
+27:00 there because odds are if you have some
+27:02 problem odds are some programmer before
+27:04 you have had the same question other
+27:06 thoughts
+27:09 um
+27:11 and the second question can we find a
+27:15 specific name really good question can
+27:17 we limit the number of the names in the
+27:19 file and can we find a specific one we
+27:21 absolutely could if we were to write
+27:24 code we could for instance open the file
+27:26 first count how many lines are already
+27:29 there and then if there's too many
+27:31 already we could just exit with sys.exit
+27:34 or some other message to indicate to the
+27:36 user that sorry the class is full as for
+27:38 finding someone specifically absolutely
+27:40 you could imagine opening the file
+27:42 iterating over it with a for loop again
+27:45 and again and then adding a conditional
+27:47 like if the current line equals equals
+27:49 Harry then we found the chosen run and
+27:52 you can print something like that so you
+27:53 can absolutely combine these ideas with
+27:55 previous ideas like conditionals to ask
+27:57 those same questions how about one other
+27:59 question on file IO uh so I just thought
+28:04 about
+28:05 this function like uh read all lines and
+28:09 it looks like it's uh like separate all
+28:14 the lines by this special character
+28:17 backslash n but it looks like we don't
+28:20 need it a character and we we always
+28:23 trip it and it looks like some bad
+28:27 design of function why why wouldn't we
+28:31 just strip it inside this function a
+28:35 really good question so we are in my
+28:37 examples thus far using our strip to
+28:39 reverse uh to strip from the end of the
+28:42 line all of this white space you might
+28:44 not want to do that in this case I am
+28:46 stripping it away because I know that
+28:49 each of those lines isn't some generic
+28:50 line of text each line really represents
+28:53 a name that I have put there myself I'm
+28:56 using the new line just to separate one
+28:57 value from another in other scenarios
+28:60 you might very well want to keep that
+29:02 line ending because it's a very long
+29:03 series of text or a parallel graph or
+29:05 something like that where you want to
+29:06 keep it distinct from the others but
+29:08 it's just a convention we have to use
+29:10 something presumably to separate one
+29:13 chunk of text from another there are
+29:15 other functions in Python that will in
+29:17 fact handle the removal of that white
+29:19 space for you read lines though does
+29:22 literally that though it reads all of
+29:23 the lines as is well allow me to turn
+29:26 our attention back to where we left off
+29:29 here which is just names to propose that
+29:31 with names.text we have an ability it
+29:34 seems to store each of these names
+29:35 pretty straightforwardly but what if we
+29:37 wanted to keep track of other
+29:39 information as well suppose that we
+29:41 wanted to store information including a
+29:44 student's uh name and their house at
+29:47 Hogwarts be it Gryffindor or Slytherin
+29:49 or something else well where do we go
+29:51 about putting that you know Hermione
+29:53 lives in Gryffindor so we could do
+29:55 something like this in our text file
+29:56 Harry lives in Gryffindor so we could do
+29:59 that Ron lives in Gryffindor so we could
+30:01 do that and Draco lives in Slytherin so
+30:03 we could do that but I worry here
+30:07 but I worry now that we're mixing apples
+30:09 and oranges so to speak like some lines
+30:11 or names some lines are houses so this
+30:13 probably isn't the best design if only
+30:15 because it's confusing or it's ambiguous
+30:17 so maybe what we could do is Adopt A
+30:19 convention and indeed this is in fact
+30:21 what a lot of programmers do they change
+30:23 this file not to be names.text but
+30:26 instead let me create a new file called
+30:28 names.csv CSV stands for comma separated
+30:31 values and it's a very common convention
+30:33 to store multiple pieces of information
+30:35 that are related in the same file and so
+30:38 to do this I'm going to separate each of
+30:40 these types of data not with another new
+30:42 line but simply with a comma I'm going
+30:45 to keep each student on their own line
+30:47 but I'm going to separate the
+30:48 information about each student using a
+30:50 comma instead and so now we sort of have
+30:53 a two-dimensional file if you will row
+30:55 by row we have our students but if you
+30:57 think of these commas as representing a
+30:60 column even though it's not perfectly
+31:01 straight because of the lengths of these
+31:03 names it's a little it's a little Jagged
+31:05 you can think of these commas as
+31:07 representing a column and it turns out
+31:09 these CSV files are very commonly used
+31:12 when you use something like Microsoft
+31:13 Excel Apple numbers or Google
+31:15 spreadsheets and you want to export the
+31:17 data to share with someone else as a CSV
+31:20 file or conversely if you want to import
+31:23 a CSV file into your preferred
+31:25 spreadsheet software like Excel or
+31:27 numbers or Google spreadsheets you can
+31:29 do that as well so CSV is a very common
+31:31 very simple text format that just
+31:34 separates values with commas and
+31:36 different types of values ultimately
+31:38 with new lines as well let me go ahead
+31:40 and run code of students.csv to create a
+31:43 brand new file that's initially empty
+31:45 and we'll add to it those same names but
+31:47 also some other information as well so
+31:49 if I now have this new file students.csv
+31:52 inside of which is one column of name so
+31:55 to speak and one column of houses how do
+31:57 I go about changing my code to read not
+31:59 just those names but also those names
+32:01 and houses so that they're not all on
+32:03 one line we somehow have access to both
+32:05 type of value separately play well let
+32:07 me go ahead and create a new program
+32:09 here called
+32:10 students.pi and in this program let's go
+32:13 about reading not a text file per se but
+32:15 a specific type of text file a CSV a
+32:18 comma separated values file and to do
+32:20 this I'm going to use similar code as
+32:22 before I'm going to say with open quote
+32:25 unquote
+32:26 students.csv I'm not going to bother
+32:28 specifying quote unquote R because again
+32:30 that's the default but I'm going to give
+32:31 myself a variable name of file and then
+32:34 in this file I'm going to go ahead and
+32:36 do this for line and file as before and
+32:39 now I have to be a bit clever here let
+32:41 me go back to students.csv looking at
+32:44 this file and it seems that on my loop
+32:47 on each iteration I'm going to get
+32:49 access to the whole line of text I'm not
+32:52 going to automatically get access to
+32:53 just Hermione or just Gryffindor recall
+32:56 that the loop is going to give me each
+32:58 full line of text so logically what
+33:01 would you propose that we do inside of a
+33:03 for Loop that's reading a whole line of
+33:05 text at once but we now want to get
+33:06 access to the individual values like
+33:09 Hermione and Gryffindor Harry and
+33:11 Gryffindor how do we go about taking one
+33:14 line of text and gaining access to those
+33:16 individual values do you think just
+33:17 instinctively even if you're not sure
+33:19 what the name of the functions would be
+33:21 you can access access it as you would
+33:23 and if you were using a dictionary like
+33:25 using a key and value
+33:27 so ideally we would access it using it a
+33:29 key in value but at this point in the
+33:30 story all we have is this Loop and this
+33:32 Loop is giving me one line of text that
+33:35 is the time I'm the programmer now I
+33:37 have to solve this there is no
+33:38 dictionary yet in question about another
+33:40 suggestion here
+33:42 um so you can somehow split the two
+33:44 words based on the comma yeah even if
+33:47 you're not quite sure what function is
+33:49 going to do this intuitively you want to
+33:51 take this whole line of text Hermione
+33:52 comma Gryffindor Harry comma Gryffindor
+33:55 and so forth and split that line into
+33:57 two pieces if you will and it turns out
+33:59 wonderfully the function we'll use is
+34:01 actually called split that can split on
+34:03 any characters but you can tell it what
+34:05 character to use so I'm going to go back
+34:07 into students.pi and inside of this Loop
+34:10 I'm going to go ahead and do this I'm
+34:11 going to take the current line I'm going
+34:13 to remove the white space at the end as
+34:15 always using R strip here and then
+34:18 whatever the result of that is I'm going
+34:20 to now call split and quote unquote
+34:23 comma so the split function or method
+34:26 comes with strings stirs in Python any
+34:29 stir has this method built in and if you
+34:32 pass in an argument like a comma what
+34:35 this strip split function will do is
+34:37 split that current string into one two
+34:39 three maybe more pieces by looking for
+34:42 that character again and again
+34:44 ultimately strip uh ultimately split is
+34:48 going to return to us a list of all of
+34:50 the individual parts to the left and to
+34:52 the right of those commas so I can give
+34:54 myself a variable called row here and
+34:56 this is a common Paradigm when you know
+34:58 you're iterating over a file
+34:59 specifically a CSV it's common to think
+35:02 of each line of it as being a row and
+35:06 each of the values they're in separated
+35:08 by commas as columns so to speak so I'm
+35:11 going to deliberately name my variable
+35:12 row just to be consistent with that
+35:14 convention and now what do I want to
+35:17 print well I'm going to go ahead and say
+35:19 this print how about the following in F
+35:23 string that starts with curly braces
+35:26 well how do I get access to the first
+35:29 thing in that row well the row is going
+35:31 to have how many parts two because if
+35:33 I'm splitting on commas and there's one
+35:35 comma per line that's going to give me a
+35:37 left part and a right part like Hermione
+35:39 and Gryffindor Harry and Gryffindor when
+35:42 I have a list like row how do I get
+35:44 access to individual values well I can
+35:47 do this I can say Row Bracket zero and
+35:51 that's going to go to the first element
+35:52 of the list which should hopefully be
+35:54 the student's name then after that I'm
+35:56 going to say is in and I'm going to have
+35:58 another curly brace here for Row Bracket
+36:01 one and then I'm going to close my whole
+36:03 quote so it looks a little cryptic at
+36:05 first glance but most of this is just F
+36:07 string syntax with curly braces to plug
+36:09 in values and what values am I plugging
+36:11 in well rho again is a list and it has
+36:14 two elements presumably Hermione in one
+36:17 and Gryffindor and the other and so
+36:19 forth so bracket zero is the first
+36:21 element because remember we start
+36:23 indexing at zero in Python and one is
+36:26 going to be the second second element so
+36:28 let me go ahead and run this now and see
+36:30 what happens python of uh
+36:34 students.pi enter and we see Hermione's
+36:38 in Gryffindor Harry's and Gryffindor Ron
+36:39 is in Gryffindor and Draco is in
+36:41 Slytherin so we have now implemented our
+36:44 own code from scratch that actually
+36:47 parses that is reads and interprets a
+36:51 CSV file ultimately here
+36:53 now let me pause to see if there's any
+36:55 questions but we'll make this even
+36:56 easier to read in just a moment
+36:59 any questions on what we've just done
+37:01 here by splitting by comma so my
+37:04 question is uh can we edit any line of
+37:07 code anytime we want or uh the only
+37:10 option that we have is to append uh the
+37:13 lines or let's say if we want to let's
+37:16 say change headies uh house to let's say
+37:20 Slytherin or some other house yeah a
+37:23 really good question what if you want to
+37:25 in Python change a line in the file and
+37:28 not just a pen to the end you would have
+37:31 to implement that logic yourself so for
+37:33 instance you could imagine now opening
+37:35 the file and reading all of the contents
+37:38 in then maybe iterating over each of
+37:40 those lines and as soon as you see that
+37:42 the current name equals equals Harry you
+37:44 could maybe change his house to
+37:46 Slytherin and then it would be up to you
+37:49 though to write all of those changes
+37:51 back to the file so in that case you
+37:53 might want to in simplest form read the
+37:55 file once and let it close then open it
+37:57 again but open for writing and change
+37:60 the whole file it's not really possible
+38:02 or easy to go in and change just part of
+38:04 the file though you can do it it's
+38:06 easier to actually read the whole file
+38:08 make your changes in memory then write
+38:10 the whole file out but for larger files
+38:12 where that might be quite slow you can
+38:14 be more clever than that well let me
+38:17 propose now that we clean this up a
+38:19 little bit because I actually think this
+38:20 is a little cryptic to read Row Bracket
+38:22 zero Row Bracket one it's it's not that
+38:25 well written at the moment I would say
+38:27 but it turns out that when you have a
+38:30 variable that's a list like row you
+38:32 don't have to throw all of those
+38:34 variables into a list you can actually
+38:36 unpack that whole sequence at once that
+38:39 is to say if you know that a function
+38:41 like split returns a list but you know
+38:43 in advance that it's going to return two
+38:46 values in a list the first and the
+38:48 second you don't have to throw them all
+38:50 into a variable that itself is a list
+38:52 you can actually unpack them
+38:54 simultaneously into two variables doing
+38:56 name comma house so this is a nice
+38:58 python technique to not only create but
+39:01 assign
+39:02 automatically in parallel two variables
+39:05 at once rather than just one so this
+39:08 will have the effect of putting the name
+39:09 in the left Hermione and it will have
+39:11 the effect of putting Gryffindor the
+39:13 house in the right variable and we now
+39:15 no longer have a row we can now make our
+39:17 code a little more readable by now
+39:18 literally just saying name down here and
+39:20 for instance house down here so just a
+39:23 little more readable even though
+39:24 functionally the code now is exactly the
+39:27 same
+39:28 all right so this now works and I'll
+39:31 confirm as much by just running it once
+39:32 more python of students.pi enter and we
+39:35 see that the text is as intended but
+39:38 suppose for the sake of discussion that
+39:39 I'd like to sort this list of output I'd
+39:43 like to say hello again to Draco first
+39:45 then hello to Harry then Hermione then
+39:47 Ron how can I go about doing this well
+39:50 let's take some inspiration from the
+39:52 previous example where we're only
+39:53 dealing with names and instead do it
+39:56 with these full phrases so and so is
+39:59 in-house well let me go ahead and do
+40:01 this I'm going to go ahead and start
+40:02 scratch and give myself a list called
+40:05 students equal to an empty list
+40:07 initially and then with open
+40:09 students.csv
+40:11 as file I'm going to go ahead and say
+40:14 this for line in file and then below
+40:17 this I'm going to do exactly as before
+40:19 name comma house equals the current line
+40:21 stripping off the white space at the end
+40:23 splitting it on a comma so that's exact
+40:26 same as before but this time before I go
+40:29 about uh printing the sentence I'm going
+40:33 to store it temporarily in a list so
+40:35 that I can accumulate all of these
+40:36 sentences and then sort them later so
+40:38 let me go ahead and do this students
+40:40 which is my list dot append let me
+40:43 append the actual sentence I want to
+40:45 show on the screen so another F string
+40:47 so name is in house just as before but
+40:51 notice I'm not printing that sentence
+40:52 I'm appending it to my list not a file
+40:55 but to my list why am I doing this well
+40:58 just because as before I want to do this
+41:00 for student in the sorted students I
+41:04 want to go ahead and print out students
+41:06 like this well let me go ahead and run
+41:09 python of students.pi and hit enter now
+41:12 and I think we'll see indeed Draco is
+41:14 now first Harry a second Hermione is
+41:16 third and Ron is fourth but this is
+41:19 arguably a little sloppy right it seems
+41:23 a little hackish that I'm constructing
+41:24 these sentences and even though I'm
+41:26 technically want to sort by name I'm
+41:29 technically sorting by these whole
+41:31 English sentences so it's not wrong it's
+41:34 achieving the intended result but it's
+41:36 not really well designed because I'm
+41:38 just kind of getting lucky that English
+41:39 is reading from left to right and
+41:41 therefore when I print this out it's
+41:42 sorting properly it would be better
+41:45 really to come up with a technique for
+41:46 sorting by the students names not by
+41:49 some English sentence that I've
+41:51 constructed here on line six
+41:53 so to achieve this I'm going to need to
+41:56 make my life more complicated for a
+41:58 moment and I'm going to need to collect
+42:00 information about each student before I
+42:03 bother assembling that sentence so let
+42:05 me propose that we do this let me go
+42:07 ahead and undo these last few lines of
+42:09 code so that we currently have two
+42:12 variables name and house Each of which
+42:14 has name in the student's house
+42:16 respectively and we still have our
+42:17 Global variable students but let me do
+42:20 this recall that python supports
+42:22 dictionaries and dictionaries are just
+42:24 collections of keys and values so you
+42:26 can associate something with something
+42:28 else like a name with Hermione like a
+42:31 house with Gryffindor that really is a
+42:33 dictionary so let me do this let me
+42:35 temporarily create a dictionary that
+42:38 stores this Association of name with
+42:40 house let me go ahead and do this let me
+42:43 say that the students here is going to
+42:45 be represented initially by an empty
+42:47 dictionary and just like you could
+42:48 create an empty list with square
+42:49 brackets you can create an empty
+42:50 dictionary with curly braces so give me
+42:53 an empty diction missionary that will
+42:54 soon have two keys name and house how do
+42:57 I do that well I could do it this way
+42:59 student Open Bracket name
+43:02 equals the student's name that we got
+43:05 from the line student bracket house
+43:08 equals the house that we got from the
+43:10 line and now I'm going to append to the
+43:13 students list plural that particular
+43:17 student now why have I done this I've
+43:19 admittedly made my code more complicated
+43:21 it's more lines of code but I've now
+43:23 collected all of the information I have
+43:25 about students while still keeping track
+43:28 what's a name what's a house the list
+43:30 meanwhile has all of the students names
+43:33 and houses together now why have I done
+43:35 this well let me for the moment just do
+43:37 something simple let me do for students
+43:40 in students and let me very Simply Now
+43:42 say print the following F string the
+43:45 current student with this name
+43:48 uh is in
+43:51 this current student's house
+43:53 and now notice one detail inside of this
+43:56 F string I'm using my curly braces as
+43:58 always
+43:59 I'm using inside of those curly braces
+44:01 the name of a variable as always but
+44:04 then I'm using not bracket zero or one
+44:06 because these are dictionaries now not
+44:08 list but why am I using single quotes to
+44:12 surround house and to surround name
+44:16 why single quotes inside of this
+44:20 F string
+44:23 to access those Keys yes um because you
+44:27 have double quotes
+44:29 in that in that line 12 and so you have
+44:32 to tell python to differentiate exactly
+44:35 because I'm already using double quotes
+44:37 outside of the F string if I want to put
+44:39 quotes around any strings on the inside
+44:41 which I do need to do for dictionaries
+44:43 because recall when you index into a
+44:45 dictionary you don't use numbers like
+44:47 lists 0 1 2 onward you instead use
+44:50 strings which need to be quoted but if
+44:52 you're already using double quotes it's
+44:54 easiest to then use single quotes on the
+44:56 inside so python doesn't get confused
+44:57 about what lines up with what so at the
+45:00 moment when I run this program it's
+45:03 going to print out those hellos but
+45:04 they're not yet sorted in fact what I
+45:07 now have is a list of dictionaries and
+45:11 nothing is yet sorted but let me tighten
+45:13 up the code too to point out that it
+45:15 doesn't need to be quite as verbose if
+45:17 you're in the habit of creating an empty
+45:19 dictionary like this on line six and
+45:20 then immediately putting in two keys
+45:22 name and house each with two values name
+45:25 and house respectively you can actually
+45:27 do this all at once so let me show you a
+45:28 slightly different different syntax I
+45:30 can do this give me a variable called
+45:32 student and let me use curly braces on
+45:35 the right hand side here but instead of
+45:36 leaving them empty let's just Define
+45:38 those keys and those values now quote
+45:41 unquote name will be name and quote
+45:43 unquote house will be house this
+45:46 achieves the exact same effect in one
+45:48 line instead of three it creates a new
+45:51 non-empty dictionary containing a name
+45:53 key the value of which is the student's
+45:55 name and a house key the value of which
+45:57 is the student's house nothing else
+45:59 needs to change that will still just
+46:01 work so that if I again run python if
+46:03 students.pi I'm still seeing those
+46:05 greetings but they're still not quite
+46:07 actually sorted well what might I go
+46:10 about doing here in order to what could
+46:13 I do to improve upon this further
+46:15 well we need some mechanism now of
+46:18 sorting those students but unfortunately
+46:21 you can't do this we can't sort all of
+46:25 the students now because those students
+46:27 are not names like they were before they
+46:29 aren't sentences like they were before
+46:31 each of the students is a dictionary and
+46:34 it's not obvious how you would sort a
+46:35 dictionary inside of a list so ideally
+46:39 what do we want to do if at the moment
+46:41 we hit line 9 we have a list of all of
+46:45 these students and inside of that list
+46:47 is one dictionary per student and each
+46:49 of those dictionaries has two keys name
+46:51 and house wouldn't it be nice if there
+46:53 were ran code to tell python sort this
+46:56 list by looking at this key in each
+46:59 dictionary because that would give this
+47:01 the ability to sort either by name or
+47:04 even by house or even by any other field
+47:06 that we add to that file so it turns out
+47:09 we can do this we can tell the sorted
+47:11 function not just to reverse things or
+47:14 not it takes another position National
+47:16 it takes another named parameter called
+47:19 key where you can specify what key
+47:22 should be used in order to sort some
+47:24 list of dictionaries and I'm going to
+47:26 propose that we do this I'm going to
+47:28 first Define a function temporarily for
+47:30 now called get name and this functions
+47:33 purpose in life given a student is to
+47:36 quite simply return the student's name
+47:38 from that particular dictionary so if
+47:41 student is a dictionary this is going to
+47:43 return literally the student's name and
+47:45 that's it that's the sole purpose of
+47:47 this function in life what do I now want
+47:50 to do well now that I have a function
+47:51 that given a student will return to me
+47:54 the student's name I can do this I can
+47:56 change sorted to say use a key that's
+47:60 equal to whatever the return value of
+48:02 get name is and this now is a feature of
+48:05 python python allows you to pass
+48:08 functions as arguments in two other
+48:11 functions so get name is a function
+48:14 sorted is a function and I'm passing in
+48:17 get name to sort it as the value of that
+48:21 key parameter now why am I doing that
+48:24 well if you think of the get name
+48:26 function as just a bunch a block of code
+48:28 that will get the name of a student
+48:30 that's handy because that's the
+48:32 capability that sorted needs when given
+48:34 a list of students Each of which is a
+48:36 dictionary sorted needs to know how do I
+48:38 get the name of the student in order to
+48:39 do alphabetical sorting for you the
+48:41 authors of python didn't know that we
+48:43 were going to be creating students here
+48:44 in this class so they couldn't have
+48:46 anticipated writing code in advance that
+48:48 specifically sorts on a field called
+48:50 student let alone called name let alone
+48:52 house
+48:53 so what did they do they instead built
+48:56 into the sorted function this named
+48:59 parameter key that allows us all these
+49:01 years later to tell their function
+49:03 sorted how to sort this list of
+49:05 dictionaries so now watch what happens
+49:08 if I run python of students.pi and hit
+49:11 enter I now have a sorted list of output
+49:14 why because now that list of
+49:16 dictionaries has all been sorted by the
+49:19 student's name
+49:20 I can further do this if as before we
+49:23 want to reverse the whole thing by
+49:24 saying reverse equals true we can do
+49:26 that too let me rerun python of
+49:28 students.pi and hit enter now it's
+49:30 reverse now it's Ron then Hermione Harry
+49:32 and Draco but we can do something
+49:34 different as well what if I want to sort
+49:36 for instance by house name reversed I
+49:40 could do this I could change this
+49:41 function from get name to get house I
+49:44 could change the implementation up here
+49:45 to be get house and I can return not the
+49:48 student's name but the student's house
+49:49 and so now notice if I run python of
+49:53 students.pi enter notice now it is
+49:57 sorted by house in reverse order
+49:60 Slytherin is first and then Gryffindor
+50:02 if I get rid of the reverse but keep the
+50:05 get house and rerun this program now
+50:08 it's sorted by house gryffindors first
+50:11 and Slytherin is last and the upside now
+50:13 of this is because I'm using this list
+50:15 of dictionaries and keeping the students
+50:18 data together until the last minute when
+50:20 I'm finally do doing the printing I now
+50:22 have full control over the information
+50:24 itself and I can sort by this or that I
+50:26 don't have to construct construct those
+50:28 sentences in advance like I rather
+50:29 hackishly did the first time all right
+50:32 that was a lot let me pause here to see
+50:34 if there are questions
+50:36 so when when we're starting the files
+50:39 should we every time should we use the
+50:42 loops or
+50:44 like uh like a dictionary or or any kind
+50:48 of list can be sort by just sorting not
+50:52 looping or
+50:54 any kind of stuff a good question and
+50:57 the short answer with python alone
+50:59 you're the programmer you need to do the
+51:02 Sorting with libraries and other
+51:04 techniques absolutely you can do more of
+51:06 this automatically because someone else
+51:08 has written that code what we're doing
+51:10 at the moment is doing everything from
+51:11 scratch ourselves but absolutely with
+51:13 other functions or libraries some of
+51:15 this could be made uh more uh easily
+51:18 done some of this could be made easier
+51:20 other questions
+51:22 on this technique here it's equal to the
+51:25 returned value of the function can it be
+51:29 equal to uh just uh a variable or a
+51:35 value it well yes it should equal a
+51:38 value so I'm speci and I should clarify
+51:40 actually since this was not obvious
+51:43 so when you pass in a function like get
+51:45 name or get house to the sorted function
+51:48 as the value of key that function is
+51:51 automatically called by the get by the
+51:54 sorted function for you on each of the
+51:57 dictionaries in the list and it uses the
+52:00 return value of get name or get house to
+52:02 decide what strings to actually use to
+52:05 compare in order to decide which is
+52:08 alphabetically correct so this function
+52:10 which you pass just by name you do not
+52:12 pass in parentheses at the end is called
+52:15 by the sorted function in order to
+52:17 figure out for you how to compare these
+52:20 same values how can we use nested
+52:24 dictionaries I have read about the
+52:28 nested dictionaries what is the
+52:30 difference between nested dictionaries
+52:32 and the dictionary inside a list I think
+52:35 it is sure
+52:37 um uh so we are using a list of
+52:39 dictionaries why because each of those
+52:41 dictionaries represents a student and a
+52:43 student has a name and a house and we
+52:45 want to I claim maintain that
+52:46 Association and it's a list of students
+52:48 because we've got multiple students four
+52:50 in this case you could create us a
+52:53 structure that is a dictionary of
+52:54 dictionaries but I would argue it just
+52:56 doesn't solve a problem I don't need a
+52:57 dictionary of dictionary I need a list
+52:59 of key value pairs right now that's all
+53:02 so let me propose if we go back to
+53:04 students.pi here and we revert back to
+53:07 the approach where we have get name as
+53:09 the function both used and defined here
+53:12 and that function Returns the student's
+53:14 name what happens to be clear is that
+53:17 the sorted function will use the value
+53:20 of key get name in this case calling
+53:23 that function on every dictionary in the
+53:26 list that it's supposed to soar and that
+53:28 function get name Returns the string
+53:31 that sorted will actually use to decide
+53:33 whether things go in this order left
+53:35 right or in this order right left it
+53:37 alphabetizes things based on that return
+53:39 value so notice that I'm not calling the
+53:42 function get name here with parentheses
+53:44 I'm passing it in only by its name so
+53:46 that the sorted function can call that
+53:49 get name function for me now it turns
+53:52 out as always if you're defining
+53:54 something be it a variable or in this
+53:55 case a function and then immediately
+53:57 using it but never once again needing
+54:00 the name of that function like get name
+54:02 we can actually tighten this code up
+54:05 further I can actually do this I can get
+54:07 rid of the get name function altogether
+54:09 just like I could get rid of a variable
+54:11 that isn't strictly necessary and
+54:13 instead of passing key the name of a
+54:16 function I can actually Pass Key what's
+54:19 called an a Lambda function which is an
+54:21 anonymous function a function that just
+54:23 has no name why because you don't need
+54:25 to give it a name if you're only going
+54:26 to call it in one place and the syntax
+54:29 for this in Python is a little weird but
+54:30 if I do key equals literally the word
+54:33 Lambda then something like student which
+54:36 is the name of the parameter I expect
+54:38 this function to take and then I don't
+54:40 even type the return key i instead just
+54:42 say student bracket name so what am I
+54:46 doing here with my code this code here
+54:49 that I've highlighted is equivalent to
+54:51 the get name function I implemented a
+54:54 moment ago the syntax is admittedly a
+54:56 little different I don't use def I
+54:58 didn't even give it a name like get name
+54:59 i instead I'm using this other keyword
+55:01 in pi python called Lambda which says
+55:04 Hey python here comes a function but it
+55:06 has no name it's Anonymous that function
+55:09 takes a parameter I could call it
+55:11 anything I want I'm calling it student
+55:13 why because this function that's passed
+55:16 in as key is called on every one of the
+55:19 students in that list every one of the
+55:21 dictionaries in that list what do I want
+55:23 this Anonymous function to return well
+55:25 given a student I want to index into
+55:28 that dictionary and access their name so
+55:30 that the string Hermione and Harry and
+55:33 Ron and Draco is ultimately returned and
+55:35 that's what the sorted function uses to
+55:37 decide how to sort these bigger
+55:40 dictionaries that have other Keys like
+55:42 house as well
+55:44 so if I now go back to my terminal
+55:45 window and run python of students.pi it
+55:48 still seems to work the same but it's
+55:51 arguably a little better design because
+55:52 I didn't waste lines of Code by defining
+55:54 some other function calling it in one
+55:56 and only one place I've done it all sort
+55:59 of in one breath if you will
+56:01 all right let me pause here to see if
+56:02 there's any questions specifically about
+56:04 Lambda or Anonymous functions and this
+56:08 tightening up of the code
+56:10 and I have one question like whether we
+56:12 could Define Lambda twice
+56:15 can you you can use Lambda twice you can
+56:18 create as many Anonymous functions as
+56:19 you'd like and you generally use them in
+56:22 context like this where you want to pass
+56:24 to some other function a function that
+56:26 itself does not need a name so you can
+56:29 absolutely use it in more than one place
+56:30 I just have only one use case for it how
+56:33 about one other question on Lambda or
+56:35 Anonymous functions specifically what
+56:37 what if our Lambda would take more than
+56:41 one line for example if sure if your
+56:45 Lambda function takes multiple
+56:47 parameters that is fine you can simply
+56:49 specify commas followed by the names of
+56:52 those parameters maybe X and Y or so
+56:54 forth after the name student so here too
+56:57 Lambda looks a little different from
+56:58 Death in that you don't have parentheses
+57:01 you don't have the keyword def you don't
+57:02 have a function name but ultimately they
+57:04 achieve that same effect they create a
+57:06 function anonymously and allow you to
+57:08 pass it in for instance as some value
+57:10 here so let's now change students.csv to
+57:14 contain not students houses at Hogwarts
+57:16 but their homes where they grew up so
+57:18 Draco for instance grew up in Malfoy
+57:20 Manor Ron grew up in the borough Harry
+57:25 grew up in uh number four
+57:28 privet drive and according to the
+57:31 internet no one knows where Hermione
+57:33 grew up the movies apparently took
+57:34 certain liberties with where she grew up
+57:36 so for this purpose we're actually going
+57:37 to remove Hermione because it is unknown
+57:39 exactly where she was born so we still
+57:41 have some three students but if anyone
+57:44 can spot the potential problem now
+57:48 how might this be a bad thing well let's
+57:50 go and try and run our own code here let
+57:52 me go back to students.pi here and let
+57:54 me propose that I just changed my
+57:56 semantics because I'm now not thinking
+57:58 about Hogwarts houses but the students
+57:60 own home so I'm just going to change
+58:01 some variables I'm going to change this
+58:03 house to a home this house to a home as
+58:06 well as this one here I'm still going to
+58:08 sort the students by name but I'm going
+58:10 to say that they're not in a house but
+58:13 rather from a home so I've just changed
+58:15 the names of my variables in my grammar
+58:17 in English here ultimately to print out
+58:19 that for instance Harry is from number
+58:21 four privet drive and so forth but let's
+58:24 see what happens here when I run python
+58:26 of this version of students.pi having
+58:28 changed students.csv to contain those
+58:32 homes and not houses enter
+58:35 huh our first value error like the
+58:38 program just doesn't work What might
+58:42 explain this value error the explanation
+58:44 of which rather cryptically is too many
+58:47 values to unpack and the line in
+58:49 question is this one involving split how
+58:53 did all of a sudden after all of these
+58:56 successful runs of this program did line
+58:58 five suddenly now break in the line
+59:02 instruments.csv you have three values
+59:04 there's a line that you have three
+59:06 values and incident yeah I spent a lot
+59:09 of time trying to figure out where every
+59:11 student should be from so that we could
+59:13 create this problem for us and
+59:15 wonderfully like the first sentence of
+59:17 the book is number four privet drive and
+59:20 so the fact that that address has a
+59:21 comma in it is problematic why because
+59:24 you and I decided some time ago to just
+59:26 standardize on commas CSV comma
+59:28 separated values to denote the uh
+59:33 we standardized on commas in order to
+59:35 delineate one value from another and if
+59:38 we have commas grammatically in the
+59:41 student's home we're clearly confusing
+59:43 it as this special symbol and the split
+59:45 function is now for just Harry trying to
+59:48 split it into three values not just two
+59:51 and that's why there's too many values
+59:53 to unpack because we're only trying to
+59:55 assign two variables name and house now
+59:58 what could we do here well we could just
+60:00 change our approach for instance like
+60:02 one Paradigm that is not uncommon is to
+60:05 use something a little more
+60:07 a little less common like a vertical bar
+60:10 so I could go in and change all of my
+60:12 commas to Vertical bars that too could
+60:14 eventually come back to bite Us in that
+60:16 if my file eventually has vertical bar
+60:18 somewhere it might still break so maybe
+60:20 that's not the best approach I could
+60:22 maybe do something like this I could
+60:24 escape the data as I've done in the past
+60:26 and maybe I could put quotes around any
+60:29 English string that itself contains the
+60:32 comma and that's fine I could do that
+60:34 but then my code students.pi is going to
+60:37 have to change too because I can't just
+60:39 naively split on a comma Now I'm going
+60:42 to have to be smarter about it I'm going
+60:44 to have to take into account split only
+60:46 on the commas that are not inside of
+60:48 quotes and oh it's getting complicated
+60:51 fast and at this point you need to take
+60:53 a step back and consider you know what
+60:54 if we're having this problem odds are
+60:56 many other people before us have had the
+60:59 same problem it is incredibly common to
+61:01 store data in files it is incredibly
+61:03 common to use CSV files specifically and
+61:07 so you know what why don't we see if
+61:09 there's a library in Python that exists
+61:11 to read and or write CSV files rather
+61:15 than reinvent a wheel so to speak let's
+61:17 see if we can write better code by
+61:19 standing on the shoulders of others who
+61:21 have come before us programmers passed
+61:23 and actually use their code to do the
+61:25 reading and writing of csvs so we can
+61:27 focus on the part of our problem that
+61:29 you and I care about so let's propose
+61:31 that we go back to our code here and see
+61:34 how we might use the CSV Library indeed
+61:36 within python there is a module called
+61:39 CSV the documentation for it is at this
+61:42 URL here in Python's official
+61:44 documentation but there's a few
+61:46 functions that are pretty readily
+61:48 accessible if we just Dive Right In and
+61:50 let me propose that we do this let me go
+61:53 back to my code here and instead of
+61:55 Reinventing this wheel and reading the
+61:57 file line by line and splitting on
+61:59 commas and dealing now with quotes and
+62:02 privet drives and so forth let's do this
+62:04 instead at the start of my program let
+62:07 me go up and import the CSV module let's
+62:11 use this library that someone else has
+62:13 written that's dealing with all of these
+62:15 Corner cases if you will I'm still going
+62:17 to give myself a list initially empty in
+62:19 which to store all these students but
+62:21 I'm going to change my Approach here now
+62:23 just a little bit when I open this file
+62:26 with with let me go in here and change
+62:29 this a little bit I'm going to go in
+62:31 here now and say this
+62:33 reader equals CSV dot reader passing in
+62:38 file as input so it turns out if you
+62:40 read the documentation for the CSV
+62:42 module it comes with a function called
+62:44 reader whose purpose in life is to read
+62:46 a CSV file for you and figure out where
+62:49 are the commas where are the quotes
+62:51 where are all the the potential Corner
+62:53 cases and just deal with them for you
+62:55 you can override certain defaults or
+62:57 assumptions in case you're using not a
+62:59 comma but a pipe or something else but
+63:01 by default I think it's just going to
+63:02 work now how do I iterate over a reader
+63:05 and not the raw file itself it's almost
+63:08 the same the library allows you still to
+63:10 do this for each row in the reader so
+63:14 you're not iterating over the file
+63:15 directly now you're iterating over the
+63:17 reader which is again going to handle
+63:19 all of the parsing of commas and new
+63:21 lines and more for each row in the
+63:23 reader what am I going to do well at the
+63:26 moment I'm going to do this I'm going to
+63:28 append to my students list the following
+63:31 dictionary a dictionary that has a name
+63:33 whose value is the current Row's First
+63:36 Column and whose house or rather home
+63:39 now is the Rose second column now it's
+63:42 worth noting that the reader for each
+63:45 line in the file indeed returns to me a
+63:47 row but it returns to me a row that's a
+63:49 list which is to say that the first
+63:51 element of that list is going to be the
+63:53 student's name as before the second
+63:55 element of that list is going to be the
+63:57 student's home as now before but if I
+64:01 want to access each of those elements
+64:02 remember that lists are zero indexed we
+64:04 start counting at zero and then one
+64:06 rather than one and then two so if I
+64:08 want to get at the student's name I use
+64:09 Row Bracket zero and if I want to get at
+64:11 the student's home I use Row Bracket one
+64:13 but in my for Loop we can do that same
+64:16 unpacking as before if I know this CSV
+64:18 is only going to have two columns I
+64:21 could even do this for name home in
+64:25 reader and now I don't need to use list
+64:27 notation I can unpack things all at once
+64:29 and say name here and home here the rest
+64:33 of my code can stay exactly the same
+64:35 because what am I doing now on line a
+64:37 I'm still constructing the same
+64:39 dictionary as before albeit for homes
+64:41 instead of houses and I'm grabbing those
+64:43 values now not from the file itself and
+64:45 my use of split but the reader and again
+64:48 what the reader is going to do is figure
+64:49 out where are those commas where are the
+64:51 quotes and just solve that problem for
+64:53 you so let me go now down to my terminal
+64:55 window and run python of students.pi and
+64:58 hit enter and now we see successfully
+65:00 sorted no less that Draco is from
+65:03 malform Manor Harry is from number four
+65:06 comma privet drive and Ron is from the
+65:09 borough questions now on this technique
+65:12 of using CSV reader from that CSV module
+65:17 which again is just getting us out of
+65:19 the business of reading each line
+65:20 ourself and reading each of those commas
+65:23 and splitting so my questions related to
+65:25 Something in the past
+65:27 um I recognize that you are reading a
+65:30 file every time you well you we're
+65:33 assuming that we have the CSV file to
+65:36 hand already in this case
+65:39 um is it possible to make a file
+65:43 readable and writable so in in in case
+65:47 if you want you could you could write
+65:50 some stuff to the file but then at the
+65:53 same time you could have another
+65:54 function that reads through the phone
+65:56 that's changes to it as you go along a
+65:59 really good question and the short
+66:00 answer is yes however historically the
+66:03 mental model for a file is that of a
+66:04 cassette tape years ago not really in
+66:06 use anymore but cassette tapes are
+66:09 sequential whereby they start at the
+66:10 beginning and if you want to get to the
+66:12 end you kind of have to unwind the tape
+66:14 to get to that point the closest analog
+66:16 nowadays would be something like Netflix
+66:17 or any streaming service where there's a
+66:19 scrubber that you have to go left to
+66:21 right you can't just jump there or jump
+66:23 there you don't have Random Access so
+66:25 the problem with files if you want to
+66:26 read and write them you or some Library
+66:29 needs to keep track of where you are in
+66:31 the file so that if you're reading from
+66:32 the top and then you write at the bottom
+66:34 and you want to start reading again you
+66:36 seek back to the beginning so it's not
+66:38 something we'll do here in class it's
+66:39 more involved but it's absolutely doable
+66:41 for our purposes we'll generally
+66:43 recommend read the file and then if you
+66:45 want to change it write it back out
+66:47 rather than trying to make more
+66:48 piecemeal changes which is good if
+66:50 though the file is massive and it would
+66:52 just be very expensive time wise to
+66:54 change the whole thing other questions
+66:56 on this CSV reader
+66:60 is possible to write a paragraph in that
+67:05 file
+67:05 absolutely right now I'm writing very
+67:08 small strings just names or houses as I
+67:10 did before but you can absolutely write
+67:12 as much text as you want
+67:14 indeed
+67:16 other questions on CSV reader
+67:22 IP like input key will be your name or
+67:26 home so short answer yes we could
+67:30 absolutely write a program that prompts
+67:31 the user for a name and a home a name
+67:34 and a home and we could write out those
+67:35 values and in a moment we'll see how you
+67:37 can write to a CSV file for now I'm
+67:40 assuming as the programmer who created
+67:43 students.csv that I know what the
+67:45 columns are going to be and therefore
+67:47 I'm naming my variables accordingly
+67:49 however this is a good segue to one
+67:51 final feature of reading csvs which is
+67:54 that you don't have to rely on either
+67:56 getting a row as a list and using
+67:58 bracket zero or bracket one and you
+68:00 don't have to unpack things manually in
+68:02 this way we could actually be smarter
+68:04 and start storing the names of these
+68:06 columns in the CSV file itself and in
+68:09 fact if any of you have ever opened a
+68:11 spreadsheet file before be it in Excel
+68:13 Apple Numbers Google spreadsheets or the
+68:15 like all odds are you've noticed that
+68:17 the first row very frequently is a
+68:19 little different it actually is bold
+68:21 face sometimes or it actually contains
+68:23 the names of those columns the names of
+68:25 those attributes below and we can do
+68:28 this here and students.csv I don't have
+68:30 to just keep assuming that the student's
+68:32 name is first and that the student's
+68:34 home is second I can explicitly bake
+68:37 that information into the file just to
+68:39 reduce the probability of mistakes down
+68:41 the road I can literally use the first
+68:43 row of this file and say name comma home
+68:47 so notice that
+68:49 name is not literally someone's name and
+68:51 home is not literally someone's home it
+68:53 is literally the words name and home
+68:55 separated by a comma and if I now go
+68:58 back into students.pi and don't use CSV
+69:01 reader but instead I use a dictionary
+69:04 reader I can actually treat my CSV file
+69:08 even more flexibly not just for this but
+69:09 for other examples too let me do this
+69:12 instead of using a CSV reader let me use
+69:14 a CSV dict reader which will now iterate
+69:18 over the file top to bottom loading in
+69:21 each line of text not as a list of
+69:24 columns but as a dictionary of columns
+69:27 what's nice about this is that it's
+69:28 going to give me automatic access now to
+69:31 those columns names I'm going to revert
+69:33 to just saying for Row in reader and now
+69:36 I'm going to append a name and a home
+69:38 but how am I going to get access to the
+69:41 current rows name and the current rows
+69:44 home well earlier I use bracket zero for
+69:47 the first and bracket one for the second
+69:49 when I was using a reader a reader
+69:52 returns lists addict reader or
+69:54 dictionary reader returns dictionaries
+69:56 one at a time and so if I want to access
+69:60 the current Row's name I can say row
+70:02 quote unquote name I can say here for
+70:05 home row quote-unquote home and I now
+70:08 have access to those same values the
+70:09 only change I had to make to be clear
+70:11 was in my CSV file I had to include on
+70:14 the very first row little hints as to
+70:16 what these columns are and if I now run
+70:19 this code I think it should behave
+70:21 pretty much the same python of
+70:22 students.pi and indeed we get the same
+70:25 sentences but now my code is more robust
+70:28 against changes in this data if I were
+70:31 to open the CSV file in Excel or Google
+70:33 spreadsheets or apple numbers and for
+70:35 whatever reason change the columns
+70:37 around maybe this is a file that you're
+70:39 sharing with someone else and just
+70:40 because they decide to sort things
+70:42 differently left to right by moving the
+70:44 columns around
+70:45 previously my code would have broken
+70:47 because I was assuming that name is
+70:49 always first and home is always second
+70:52 but if I did this be it manually in one
+70:55 of those programs or here home comma
+70:57 name and suppose I reversed all of this
+70:59 the home comes first followed by Harry
+71:01 the borough then by Ron and then lastly
+71:06 Malfoy Manor then Draco notice that my
+71:09 file is now completely flipped the First
+71:11 Column is now the second and the
+71:12 second's the first but I took care to
+71:15 update the header of that file the first
+71:17 row notice my python code I'm not going
+71:20 to touch it at all I'm going to rerun
+71:22 python of students.pi and hit enter and
+71:25 it still just works and this too is an
+71:28 example of like coding defensively like
+71:30 what if someone changes your CSV file
+71:32 your data file ideally that won't happen
+71:34 but even if it does now because I'm
+71:36 using a dictionary reader that's going
+71:38 to infer from that first row for me what
+71:41 the columns are called my code just
+71:44 keeps working and so it keeps getting if
+71:45 you will better and better
+71:48 any questions now on this approach yeah
+71:51 what is the importance of online CSV
+71:54 file what's the importance of the new
+71:56 line in the CSV file it's partly a
+71:58 convention in the world of text files we
+71:60 humans have just been for decades in the
+72:02 habit of storing data line by line it's
+72:05 visually convenient it's just easy to
+72:08 extract from the file because you just
+72:09 look for the new lines so the new line
+72:11 just separates some data from some other
+72:14 data we could use any other symbol on
+72:17 the keyboard but it's just common to hit
+72:19 enter to just move the data to the next
+72:21 line just a convention
+72:23 other questions it seems to be working
+72:25 fine if you just have name and home I'm
+72:28 wondering what will happen if you want
+72:30 to put in more data
+72:34 um
+72:35 say you wanted to add a house to both
+72:38 the name and the home
+72:40 sure if you wanted to add the house back
+72:42 so if I go in here and add house last
+72:44 and I go here and say uh Gryffindor for
+72:47 Harry Gryffindor for Ron and Slytherin
+72:51 for Draco now I have three columns
+72:54 effectively if you will home on the left
+72:56 name in the middle house on the right
+72:58 each separated by commas with weird
+73:00 things like number four comma privet
+73:02 Drive still quoted notice if I go back
+73:05 to students.pi and I don't change the
+73:07 code at all and run python of
+73:09 students.pi it still just works and this
+73:12 is what's so powerful about a dictionary
+73:14 reader it can change over time it can
+73:16 have more and more columns your existing
+73:18 code is not going to break your code
+73:21 would break would be much more fragile
+73:23 so to speak if you were making
+73:24 assumptions like the first column's
+73:26 always going to be named the second
+73:27 column's always going to be house things
+73:29 will break fast if those assumptions
+73:31 break down
+73:33 so not a problem in this case
+73:35 well let me propose that besides reading
+73:37 csvs let's at least take a peek at how
+73:39 we might write a csv2 if you're writing
+73:42 a program in which you want to store not
+73:44 just students names but maybe their
+73:45 homes as well in a file how can we keep
+73:47 adding to this file let me go ahead and
+73:50 delete the contents of students.csv and
+73:53 just re-add a single simple row name
+73:55 comma home so as to anticipate inserting
+73:59 more names and homes into this file and
+74:01 then let me go to students.pi and let me
+74:03 just start fresh so as to write out data
+74:05 this time I'm still going to go ahead
+74:06 and import CSV I'm going to go ahead now
+74:09 and prompt the user for their name so
+74:12 input quote unquote what's your name
+74:14 question mark and I'm going to go ahead
+74:16 and prompt the user for their home so
+74:19 home equals input quote unquote where's
+74:21 your home question mark now I'm going to
+74:25 go ahead and open the file but this time
+74:27 for writing instead of reading as
+74:29 follows with open quote unquote
+74:32 students.csv I'm going to open in append
+74:34 mode so that I keep adding more and more
+74:37 students and homes to the file rather
+74:39 than just overwriting the entire file
+74:40 itself and I'm going to use a variable
+74:42 name of file I'm then going to go ahead
+74:44 and give myself a variable called writer
+74:46 and I'm going to set it equal to the
+74:48 return value of another function in the
+74:50 CSV module called CSV dot writer and
+74:53 that writer function takes as its sole
+74:57 argument the file variable there now I'm
+75:00 going to go ahead and just do this I'm
+75:02 going to say writer dot right row and
+75:04 I'm going to pass into right Row the
+75:07 line that I want to write to the file
+75:09 specifically as a list so I'm going to
+75:11 give this a list of name comma home
+75:14 which of course are the contents of
+75:15 those variables now I'm going to go
+75:17 ahead and save the file I'm going to go
+75:19 ahead and rerun python of students.pi
+75:21 hit enter and what's your name well let
+75:24 me go ahead and type in Harry as my name
+75:26 and number four
+75:29 comma privet Drive enter now notice that
+75:33 input itself did have a comma and so if
+75:35 I go to my CSV file now notice that it's
+75:38 automatically been quoted for me so that
+75:40 subsequent reads from this file don't
+75:42 confuse that comma with the actual comma
+75:44 between Harry and his home well let me
+75:47 go ahead and run it a couple of more
+75:48 times let me go ahead and rerun python
+75:50 of students.pi let me go ahead and input
+75:52 this time Ron and his home as the
+75:55 borough let's go back to students.csv to
+75:57 see what it looks like now we see Ron
+75:59 comma the burrow has been added
+76:01 automatically to the file and let's do
+76:03 one more python of students.pi enter
+76:06 let's go ahead and give draco's name and
+76:09 his home which would be Malfoy Manor
+76:11 enter and if we go back to students.csv
+76:14 now we see that Draco is in the file
+76:16 itself and the library took care of not
+76:18 only writing each of those rows per the
+76:19 function's name it also handled the
+76:21 escaping so to speak of any strings that
+76:24 themselves contain the comma like
+76:26 Harry's own home well it turns out
+76:28 there's yet another way we we could
+76:29 implement this same program without
+76:31 having to worry about precisely that
+76:33 order again and again and just passing
+76:35 in a list it turns out if we're keeping
+76:37 track of what's the name and what's the
+76:39 home we could use something like a
+76:41 dictionary to associate those keys with
+76:43 those values so let me go ahead and back
+76:44 up and remove these students from the
+76:46 file leaving only the header row again
+76:48 named comma home and let me go over to
+76:51 students.pi and this time instead of
+76:53 using CSV writer I'm going to go ahead
+76:55 and use
+76:56 csv.dictriter which is a dictionary
+76:58 writer that's going to open the file in
+77:00 much the same way but rather than write
+77:02 a row as this list of name comma home
+77:06 what I'm now going to do is follows I'm
+77:08 going to first output an actual
+77:11 dictionary the first key of which is
+77:13 Name colon and then the value thereof is
+77:16 going to be the name that was typed in
+77:17 and I'm going to pass in a key of Home
+77:19 quote unquote the value of which of
+77:20 course is the home that was typed in but
+77:22 with dict writer I do need to give it a
+77:25 hint as to the order in which those
+77:27 columns are when writing it out so that
+77:30 subsequently they could be red even if
+77:32 those orderings change let me go ahead
+77:34 and pass in field names which is a
+77:37 second argument to dictwriter equals and
+77:39 then a list of the actual columns that I
+77:42 know are in this file which of course
+77:43 are name comma home those times in
+77:46 quotes because that's indeed the string
+77:48 names of the columns so to speak that I
+77:51 intend to write to in that file all
+77:53 right now let me go ahead and go to my
+77:54 terminal window run python of
+77:56 students.pi this time I'll type in
+77:59 Harry's name again I'll again type in
+78:01 number four comma privet Drive
+78:04 enter let's now go back to students.csv
+78:07 and voila parries back in the file and
+78:10 it's properly escaped or quoted I'm sure
+78:12 then if we do this again with Ron and
+78:14 the burrow and let's go ahead and run it
+78:16 one third time with Draco and Malfoy
+78:19 Manor enter let's go back to
+78:22 students.csv and Via this dictionary
+78:24 writer we now have all three of those
+78:27 students as well so whereas with CSV
+78:29 writer the onus is on us to pass in a
+78:33 list of all of the values we want to put
+78:35 from left to right with a dictionary
+78:37 writer technically they could be in any
+78:39 order in the dictionary in fact I could
+78:41 just have correctly done this passing in
+78:44 home followed by name but it's a
+78:46 dictionary and so the ordering in this
+78:48 case does not matter so long as the key
+78:50 is there and the value is there and
+78:51 because I have passed in field names as
+78:54 the second argument to dict writer it
+78:56 ensures that the library knows exactly
+78:59 which column contains name or home
+79:01 respectively
+79:03 are there any questions now on
+79:05 dictionary reading dictionary writing or
+79:08 csvs more generally
+79:10 India any specifics the specific
+79:13 situation for me to use a single
+79:15 quotation or double quotation because
+79:18 after the print we use a single
+79:20 quotation to represent the key of the
+79:23 dictionary but after the
+79:27 reading or writing we use the double
+79:29 quotation
+79:30 it's a good question in Python you can
+79:33 generally use double quotes or you can
+79:36 use single quotes and it doesn't matter
+79:37 you should just be self-consistent so
+79:39 that stylistically your code looks the
+79:41 same all throughout sometimes though it
+79:44 is necessary to alternate if you're
+79:46 already using double quotes as I was
+79:48 earlier for a long F string but inside
+79:50 that F string I was interpolating the
+79:53 values of some variables using curly
+79:55 braces and those variables were
+79:57 dictionaries and in order to index into
+79:60 a dictionary you use square brackets and
+80:03 then quotes but if you're already using
+80:04 double quotes out here you should
+80:06 generally use single quotes here or vice
+80:09 versa but otherwise I'm in the habit of
+80:11 using double quotes everywhere others
+80:13 are in the habit of using single quotes
+80:14 everywhere it only matters sometimes if
+80:17 one might be confused for the other
+80:21 other questions on dictionary uh writing
+80:23 or reading uh yeah I did my question is
+80:26 can we use multiple CSV files in any
+80:30 program
+80:31 absolutely you can use as many CSV files
+80:33 as you want and it's just one of the
+80:35 formats that you can use to save data
+80:37 other questions on csvs or file IO
+80:40 thanks for taking my question uh so when
+80:44 you're reading from the file the um you
+80:46 had the um as a dictionary you had the
+80:50 fields called
+80:52 um couldn't you just call it when you're
+80:53 reading could couldn't you just call the
+80:55 row in the previous version of the of
+80:56 the students uh Pi file
+81:00 um when you're reading the uh when
+81:03 you're reading each row you are
+81:04 splitting out the um the fields by name
+81:10 yeah so when you're appending to the uh
+81:12 to the students list can you just call
+81:14 the uh for row and reader
+81:16 students.append row rather than
+81:19 uh rather than naming each of the fields
+81:22 oh very clever uh short answer yes
+81:25 insofar as dick to reader returns one
+81:29 dictionary at a time when you Loop over
+81:32 it rho is already going to be a
+81:34 dictionary so yes you could actually get
+81:37 away with doing this and the effect
+81:39 would really be the same in this case
+81:41 good observation how about one more
+81:44 question on csvs
+81:46 yeah when reading in csvs from my past
+81:50 work with data a lot of things can go
+81:53 wrong I don't know if it's a fair
+81:55 question that you can answer in a few
+81:56 sentences but are there any best
+81:59 practices to double check that sort of
+82:03 no mistakes occurred it's a really good
+82:06 question and I would say in general if
+82:08 you're using code to generate the csvs
+82:11 and to read the csvs and you're using a
+82:14 good Library theoretically nothing
+82:15 should go wrong it should be 100 correct
+82:18 if the libraries are 100 correct you and
+82:22 I tend to be the problem like when you
+82:23 let a human touch the CSV or when Excel
+82:26 or apple numbers or some other tools
+82:28 involved that might not be aligned with
+82:30 your code's expectations things then yes
+82:32 can break the goal really sometimes
+82:35 honestly the solution is manual fixes
+82:37 you go in and fix the CSV or you have a
+82:40 lot of error checking or you have a lot
+82:41 of try except just to tolerate mistakes
+82:44 in the data but generally I would say if
+82:46 you're using CSV or any file format
+82:48 internally to a program to both read and
+82:50 write it you shouldn't have concerns
+82:52 there you and I the humans are the
+82:54 problem uh generally speaking and not
+82:56 the programmers the users of those files
+82:58 instead all right allow me to propose
+83:00 that we leave csvs behind but to note
+83:03 that they're not the only file format
+83:04 you you can use in order to read or
+83:07 write data in fact they're a popular
+83:08 format as is just raw text files dot txt
+83:11 files but you can store data really any
+83:13 way that you want we've just picked csvs
+83:16 because it's representative of how you
+83:17 might read and write from a file and do
+83:19 so in a structured way where you can
+83:21 somehow have multiple Keys multiple
+83:23 values all in the same file without
+83:26 having to resort to what would be
+83:27 otherwise known as a binary file so a
+83:30 binary file is a file that's really just
+83:32 zeros and ones and they can be laid out
+83:34 in any pattern you might want
+83:36 particularly if you want to store not
+83:38 textual information but maybe graphical
+83:40 or audio or video information as well so
+83:44 it turns out that python is really good
+83:45 when it comes to having libraries for
+83:47 really everything and in fact there's a
+83:49 popular Library called pillow that
+83:52 allows you to navigate image files as
+83:55 well and to perform operations on image
+83:58 files you can apply filters a lot
+83:60 Instagram you can animate them as well
+84:02 and so what I thought we'd do is leave
+84:04 behind behind text files for now and
+84:06 Tackle one more demonstration this time
+84:08 focusing on this particular library and
+84:12 image files instead so let me propose
+84:14 that we go over here to vs code and
+84:17 create a program ultimately that creates
+84:19 an animated gif these things are
+84:21 everywhere nowadays in the form of memes
+84:23 and animations and stickers and the like
+84:24 in an animated gif is really just an
+84:27 image file that has multiple images
+84:29 inside of it and your computer or your
+84:32 phone shows you those images one after
+84:34 another sometimes on an endless loop
+84:37 again and again and so long as there's
+84:39 enough images it creates the illusion of
+84:41 Animation because your mind and mind
+84:43 kind of fills in the gaps visually and
+84:45 just assumes that if something is moving
+84:47 even though you're only seeing one frame
+84:49 per second or some sequence thereof it
+84:52 looks like an animation so it's like a
+84:54 simplistic version of a video file well
+84:56 let me propose that we start with maybe
+84:58 a couple of uh costumes from another
+85:01 popular programming language and let me
+85:03 go ahead and open up my first cost team
+85:05 here number one so suppose here that
+85:07 this is a costume or really just a
+85:09 static image here
+85:10 costume1.jif and it's just a static
+85:12 picture of a cat no movement at all let
+85:15 me go ahead now and open up a second one
+85:18 costume2.jif that looks a little bit
+85:20 different notice and I'll go back and
+85:22 forth this cat's legs are a little bit
+85:25 aligned differently so that this was
+85:27 version one and this was version two now
+85:30 these cats come from a programming
+85:31 language from MIT called scratch that
+85:33 allows you very graphically to animate
+85:35 all this and more but we'll use just
+85:37 these two static images costume one and
+85:41 costume two to create our own animated
+85:43 gif that after this you could text to a
+85:45 friend or message them much like any
+85:48 meme online well let me propose that we
+85:51 create this animated gif not by just
+85:53 using some off-the-shelf program that we
+85:54 downloaded but by writing our own code
+85:56 let me go ahead and run code of
+85:59 costumes.pi and create our very own
+86:01 program that's going to take as input to
+86:03 or even more image file files and then
+86:06 generate an animated gif from them by
+86:08 essentially creating this animated gif
+86:10 by toggling back and forth endlessly
+86:13 between those two images well how am I
+86:15 going to do this well let's assume that
+86:17 this will be a program called
+86:18 costumes.pi that expects uh two command
+86:21 line arguments the names of the files
+86:23 the individual costumes that we want to
+86:25 animate back and forth so to do that I'm
+86:27 going to import sys so that we
+86:29 ultimately have access to sys.org V I'm
+86:32 then from this pillow Library going to
+86:33 import support for images specifically
+86:36 so from pil import image capital i as
+86:40 per the library's documentation now I'm
+86:42 going to give myself an empty list
+86:43 called images just so I have a list in
+86:45 which to store one or two or or more of
+86:47 these images and now let me do this
+86:50 for each argument in sis.org V I'm going
+86:55 to go ahead and create a new image
+86:56 variable set it equal to this image
+87:00 dot open function passing in ARG now
+87:04 what is this doing I proposing that
+87:07 eventually I want to be able to run
+87:08 python of costumes.pi and then as
+87:10 command line arguments specify
+87:12 costume1.jif space costume two dot shift
+87:14 so I want to take in those file names
+87:16 from the command line as my arguments so
+87:19 what am I doing here well I'm iterating
+87:21 over sys.org V all of the words in my
+87:24 command line arguments I'm creating a
+87:26 variable called image and I'm passing to
+87:28 this function image.open from the pillow
+87:30 library that specific argument and that
+87:33 library is essentially going to open
+87:35 that image in a way that gives me a lot
+87:37 of functionality for manipulating it
+87:39 like animating now I'm going to go ahead
+87:41 and
+87:42 append to my images list that particular
+87:48 image and that's it so this Loop's
+87:50 purpose in life is just to iterate over
+87:51 the command line arguments and open
+87:53 those images using this Library the last
+87:56 line is pretty straightforward I'm going
+87:58 to say this I'm going to grab the first
+87:60 of those images which is going to be in
+88:02 my list at location zero and I'm going
+88:04 to save it to disk that is I'm going to
+88:07 save this file now in the past when we
+88:09 use csvs or text files I had to do the
+88:12 file opening I had to do the file
+88:14 writing maybe even the closing I don't
+88:16 need to do that with this Library the
+88:17 pillow library takes care of the opening
+88:20 the closing and the saving for me by
+88:22 just calling save I'm going to call this
+88:24 save function and just to leave space
+88:26 because I have a number of arguments to
+88:28 pass I'm going to move to another line
+88:29 so it fits I'm going to pass in the name
+88:31 of the file that I want to create
+88:34 costume.jif that will be the name of my
+88:36 animated gif I'm going to tell this
+88:39 library to save all of the frames that I
+88:42 pass to it so the First costume the
+88:44 second costume and even more if I gave
+88:46 them I'm going to then append to this
+88:48 first image the image is zero uh the
+88:52 following images
+88:53 equals this list of images and this is a
+88:56 bit clever but I'm going to do this I
+88:58 want to append the next image there
+89:00 images one and now I want to specify a
+89:03 duration of 200 milliseconds for each of
+89:06 these frames and I want this to Loop
+89:08 forever and if you specify Loop equals
+89:10 zero that is Time Zero it means it's
+89:13 just not going to Loop a finite number
+89:15 of times but an infinite number of times
+89:17 instead and I need to do one other thing
+89:20 recall that sys.org V contains not just
+89:24 the words I typed after my program's
+89:26 name but what else does sys.org v
+89:29 contain if you think back to our
+89:31 discussion of command line arguments
+89:34 what else is insist.orgv besides the
+89:37 words I'm about to type like costume one
+89:39 dot GIF and costume two yeah so we'll
+89:43 actually get in that their original name
+89:45 of the program we want to run the
+89:47 costume set pie indeed we'll get the
+89:49 original name of the program costumes.pi
+89:52 in this case which is not a gif
+89:53 obviously so remember that using slices
+89:56 in Python we can do this if sys.orgv is
+89:59 a list and we want to get a slice of
+90:01 that list everything after the first
+90:02 element we can do one colon which says
+90:05 start at location one not zero and take
+90:09 a slice all the way to the end so give
+90:11 me everything except the first thing in
+90:13 that list which to McKenzie's point is
+90:15 the name of the program
+90:17 now if I haven't made any mistakes let's
+90:19 see what happens I'm going to run python
+90:21 of costumes.pi and now I'm going to
+90:23 specify the two images that I want to
+90:25 animate so
+90:27 costume1.jif and costume2.gif
+90:30 what is the code now going to do well to
+90:33 recap we're using the sys library to
+90:35 access those command line arguments
+90:36 we're using the pillow library to treat
+90:38 those files as images and with all the
+90:41 functionality that comes with that
+90:42 Library I'm using this images list just
+90:45 to accumulate all of these images one at
+90:47 a time from the command line and in line
+90:49 seven through nine I'm just using a loop
+90:51 to iterate over all of them and just add
+90:53 them to this list after opening them
+90:56 with the library and the last step which
+90:58 is really just one line of code broken
+90:59 onto three so that it all fits I'm going
+91:02 to save the first image but I'm asking
+91:04 the library to append this other image
+91:07 to it as well not bracket zero but
+91:09 bracket one and if I had more I could
+91:11 express those as well I want to save all
+91:13 of these files together I want to pause
+91:15 200 milliseconds a fifth of a second in
+91:18 between each frame and I want it to Loop
+91:20 infinitely many times so now if I cross
+91:24 my fingers as always hit enter
+91:27 nothing bad happened and that's almost
+91:29 always a good thing let me now run code
+91:32 of costumes dot Jif to open up in vs
+91:37 code the final image and what I think I
+91:40 should see is a very happy cat and
+91:43 indeed so now we've seen not only that
+91:45 we can read and write files be it
+91:47 textually we can read and now write
+91:49 files that are binary zeros and ones
+91:52 we've just scratched the surface this is
+91:53 using the library called pillow But
+91:55 ultimately this is going to give us the
+91:57 ability to read and write files however
+91:59 we want so we've now seen that via file
+92:01 i o we can manipulate not just textual
+92:03 files be it txt files or csvs but even
+92:05 binary files as well in this case they
+92:08 happen to be images but if we dived in
+92:10 deeper we could find explore audio and
+92:12 video and so much more all by way of
+92:14 these simple Primitives this ability
+92:15 somehow to read and write files that's
+92:19 it for now we'll see you next time

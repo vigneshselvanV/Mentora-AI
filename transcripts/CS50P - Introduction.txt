@@ -1,0 +1,153 @@
+00:24 DAVID MALAN: Hello, world.
+00:25 My name is David Malan, and
+this is CS50's Introduction
+00:28 to Programming with Python.
+00:30 Whereas CS50 itself is an introduction
+to the intellectual enterprises
+00:34 of computer science and
+the art of programming,
+00:36 this course is specifically focused
+on programming in Python itself.
+00:40 At the beginning of the
+course, we'll be focused
+00:42 on a topic in programming known as
+functions and variables, mechanisms
+00:46 via which you can write code
+that solves smaller problems,
+00:48 but you can compose those
+smaller solutions into solutions
+00:51 to larger problems still.
+00:53 We'll then transition to
+a look at conditionals,
+00:55 a way in code of expressing yourself
+logically, to maybe do something
+00:59 if some question has an
+answer of true, or not
+01:02 do something if the answer is false.
+01:04 We'll transition thereafter
+to introducing you
+01:06 to loops, the ability, in code,
+to do something again, and again,
+01:10 and again some number of times.
+01:12 We'll then transition to
+something a little more technical,
+01:14 known as exceptions.
+01:15 Unfortunately, a lot can go wrong
+when you're writing code, some of it
+01:18 your fault, some of it
+perhaps someone else's fault.
+01:21 But you can write code defensively,
+so to speak, and actually
+01:24 catch those kinds of
+exceptions, those errors,
+01:26 and handle them properly so that
+the users you're writing code for
+01:29 don't actually see the same.
+01:31 Thereafter, we'll take a look
+at libraries, third-party code,
+01:34 written by other people, often,
+or perhaps yourself in the past,
+01:37 that you can use and
+reuse in your own projects
+01:40 so as to avoid reinventing
+the wheel again and again.
+01:43 We'll look thereafter at
+something called unit tests.
+01:46 It turns out, you'll actually
+write code to test your own code.
+01:50 But you won't have to
+write tests for your tests.
+01:52 Indeed, this is a best practice in
+industry, writing tests for your code
+01:55 so that one, you can be sure that
+your code today is, hopefully,
+01:58 if your tests are
+correct, correct itself.
+02:00 But moreover, if you or someone else
+modifies your code tomorrow, or down
+02:04 the line, you can rerun
+those same tests to ensure
+02:07 that those new changes have not
+broken anything about your own code.
+02:11 We'll then take a look
+at something called
+02:13 File I/O, I/O for input
+and output, the ability
+02:16 to not just store information
+inside of a computer's memory,
+02:19 but rather save it persistently to
+disk, so to speak, to files and folders.
+02:24 We'll then take a look at
+another technique, known
+02:26 as regular expressions, whereby,
+in Python, you can define patterns
+02:30 and you can validate data to make sure
+the human typed something in as you
+02:33 expect.
+02:34 You can use regular expressions
+to extract data, perhaps
+02:36 from some data set
+you're trying to analyze.
+02:39 We'll then take a look, ultimately,
+at object-oriented programming,
+02:43 a paradigm, a way of writing code,
+whereby you can represent, in code,
+02:47 real-world entities.
+02:48 And this is in addition to other
+paradigms of programming that we'll
+02:51 also explore, among them
+procedural programming,
+02:53 where you write lots of
+those functions, procedures
+02:55 really, top to bottom, to
+solve problems step by step,
+02:58 and even something known as
+functional programming, as well.
+03:01 And then at the very end
+of the course will we
+03:03 equip you with all the more
+tools for your toolkit.
+03:06 and additional building
+blocks, additional vocabulary
+03:09 via which, after this same
+course, you can go off on your own
+03:12 and either take other courses
+or solve projects of your own,
+03:15 using all of these mechanisms.
+03:17 Now this course itself assumes
+no prior programming background.
+03:21 So you don't have to have written
+a single line of code in Python,
+03:24 or any language, yet.
+03:25 But this is also a course that you can
+take before, during, or even after CS50
+03:30 itself, if you'd like to get
+all the more versed with Python.
+03:33 Each week, via the courses
+lectures, will we introduce you
+03:36 to any number of
+concepts that we'll then
+03:38 drill down more deeply into in the
+form of problem sets each week.
+03:41 That is, programming
+projects that will enable
+03:43 you to apply some of those lessons
+learned to problems of your very own.
+03:47 And by the end of the
+course, you'll have
+03:50 solved so many problems that,
+ideally, are representative
+03:53 of problems you'll eventually
+encounter in the real world,
+03:56 whether you aspire to solve
+code in the technical world
+03:59 or perhaps in the arts, the
+humanities, the social sciences,
+04:01 the natural sciences, or beyond.
+04:03 You'll have, ultimately, the
+vocabulary and the technical skills
+04:07 via which to approach the same.
+04:09 This, then, is CS50.
+04:11 And this is CS50's Introduction
+to Programming with Python.
+04:15 

@@ -1,0 +1,4422 @@
+01:15 DAVID J. MALAN: All right, this is CS50.
+01:19 And this is week 2 our third together.
+01:21 Last week, of course, we introduced
+C on the heels of Scratch.
+01:24 And it might have indeed felt
+like things escalated quickly.
+01:27 But that's really because
+there was a lot of new syntax,
+01:29 especially if you've
+never programmed before.
+01:30 But keep in mind, that vis-a-vis
+what we did in week 0, there
+01:34 weren't that many new ideas.
+01:35 Last week, we just translated them
+literally to another language.
+01:39 There were still functions
+and loops and conditionals
+01:41 and variables and things like
+that, even though the syntax
+01:44 was, and will remain for some time until
+you get ample practice under your belt,
+01:48 quite different.
+01:49 Now, today, what we're
+going to do is try
+01:51 to take some of the magic
+out of what we did last week.
+01:53 So even though it might
+have seemed complicated,
+01:55 there was some sort of magic.
+01:57 Somehow, you write some code.
+01:58 You literally type make and then
+Enter, and a program somehow
+02:02 gets made, assuming there's
+no errors within the code.
+02:04 Well, today we'll take the
+hood off of that process,
+02:07 give you a better sense of what's going
+on, because at the end of the day,
+02:10 and by the end of the course, there
+really won't be any surprises.
+02:14 And even if you won't feel an
+expert at every little detail,
+02:16 you'll at least have this bottom up
+understanding of what's going on,
+02:19 so that once you're out of this
+class and in the real world,
+02:22 and maybe dabbling or doing
+full-time programming,
+02:24 you'll have a much better technique
+and mindset for actually solving
+02:28 real-world problems.
+02:29 So in fact, one of the
+real world problems
+02:31 we thought we'd begin with
+today is a specific domain
+02:34 like this, like reading levels.
+02:36 So if you look at a block of text, at
+what reading level is someone reading?
+02:40 Is it maybe kindergarten, first grade,
+middle school, high school, or the like?
+02:44 There's certainly a range there.
+02:45 And while all of us might
+have an instinct for what
+02:48 makes something easy to
+read versus harder to read,
+02:50 we'll see this week if we can't
+quantify that a little bit.
+02:53 And I thought we'd do this
+by way of some examples.
+02:56 In fact, if we could give
+us some mood lighting here,
+02:58 we'll introduce three of our
+volunteers, who stood up early in class.
+03:02 If you'd like to each say hello.
+03:03 STUDENT: Hello.
+03:05 I'm Eric.
+03:06 I'm from Philadelphia.
+03:07 And I'm in Hollis Hall.
+03:09 STUDENT: Hi.
+03:10 I'm Elizabeth.
+03:11 I'm from Baltimore.
+03:12 And I'm also in Hollis Hall.
+03:15 DAVID J. MALAN: But no one else seems
+to be from Hollis Hall this year.
+03:17 OK
+03:18 STUDENT: I'm Jesse.
+03:19 I'm from South Florida.
+03:20 And I'm in Canaday.
+03:23 DAVID J. MALAN: Wow--
+03:24 all Canaday.
+03:25 All right, so the first
+exercise we thought we'd do is,
+03:27 have Eric open the envelope that
+he has in front of him, inside
+03:31 of which is a reading snippet
+from a book with which many of you
+03:34 might be familiar.
+03:35 And we'll ask Eric to read
+this aloud, and then we'll
+03:37 ask you at what level
+Eric seems to read.
+03:41 He's turning on the POV glasses.
+03:44 We'll give you the
+microphone and read away.
+03:48 STUDENT: "One fish, two
+fish, red fish, blue fish."
+03:54 DAVID J. MALAN: Wonderful to Eric.
+03:55 So at what level would you say
+that Eric is currently reading?
+04:00 Yeah.
+04:01 STUDENT: First grade.
+04:01 DAVID J. MALAN: First grade.
+04:03 And why first grade?
+04:05 STUDENT: The words are really simple.
+04:07 There's not much complexity.
+04:08 DAVID J. MALAN: Yeah so the
+words are really simple.
+04:10 There's not much complexity.
+04:11 And if look at it textually, there
+is indeed very short sentences,
+04:14 very few words in each.
+04:15 And so if we adopt a
+heuristic, we could assume
+04:18 that this probably suggests
+with high probability
+04:21 that this is a lower reading level.
+04:22 And in fact, the correct answer,
+at least according to an algorithm
+04:25 you will explore in
+problem set 2 this week,
+04:27 is actually before grade 1, so
+maybe kindergarten or the like.
+04:31 But let's go ahead and
+do a second example here
+04:33 if, Elizabeth, you could read
+one of your favorite texts.
+04:36 STUDENT: "Congratulations.
+04:38 Today is your day.
+04:40 You're off to great places.
+04:42 You're off and away."
+04:44 DAVID J. MALAN: All right,
+so also Doctor Seuss.
+04:46 And does someone want to conjecture
+at what level Elizabeth reads?
+04:50 STUDENT: Advanced.
+04:51 DAVID J. MALAN: Advanced.
+04:53 OK, so give me a number, though.
+04:54 A grade level, perhaps.
+04:55 More advanced, for sure.
+04:57 Someone else.
+04:59 Yeah, in the middle.
+04:60 STUDENT: Third grade.
+05:01 DAVID J. MALAN: So third grade.
+05:02 And why.
+05:02 What's your instinct behind that?
+05:04 STUDENT: Still shorter
+sentences but longer words.
+05:07 DAVID J. MALAN: So still shorter
+sentences, but longer words.
+05:10 And indeed, the right answer, at
+least according to one measure,
+05:13 is indeed amazingly third grade.
+05:16 So let's do one final
+one with Jesse here,
+05:18 if you want to read your
+favorite text for us, turning
+05:21 on your second pair of glasses.
+05:23 STUDENT: "It was a bright, cold day in
+April and the clocks were striking 13.
+05:28 Winston Smith, his chin nuzzled into his
+breast in an effort to escape the vile
+05:33 wind, slipped quickly through the
+glass doors of Victory Mansions,
+05:36 though not quickly enough to prevent a
+swirl of gritty dust from entering along
+05:40 with him."
+05:41 DAVID J. MALAN: All right, and
+one final query of the audience.
+05:43 At what grade level
+does Jesse seem to read?
+05:47 STUDENT: 10th.
+05:48 STUDENT: Ninth.
+05:48 DAVID J. MALAN: 10th, ninth.
+05:50 STUDENT: 11th
+05:50 DAVID J. MALAN: 11th,
+05:51 STUDENT: 12th.
+05:52 DAVID J. MALAN: 12th.
+05:53 OK, so we're trying all numbers.
+05:54 The correct answer, according
+to one measure, is indeed 10.
+05:57 And why, you probably have an
+instinct for-- much longer words,
+06:00 longer sentences, full paragraph.
+06:02 And indeed that would seem to correlate
+with a higher reading level, indeed.
+06:05 But if we go back for just a moment--
+you can see this with your human eyes
+06:09 at a glance.
+06:10 But if this were actually digital, like
+in a Word document, a Google document,
+06:14 or a very simple text
+file, how could you
+06:16 actually go about writing code
+that applies the heuristics that
+06:19 came intuitively to all of you here,
+and actually spit out with printf,
+06:23 for instance, and see an actual number?
+06:25 So that's going to be among the goals
+for this coming week's problem set.
+06:28 In the meantime, maybe round of
+applause for our three volunteers.
+06:36 So beyond reading levels, we thought
+we'd explore this week other problems as
+06:40 well.
+06:41 And in fact, very much current
+and omnipresent nowadays
+06:44 is the art, the science of cryptography,
+the art of scrambling information,
+06:48 so as to communicate securely.
+06:50 Whether it's a private message
+you want to send, or maybe
+06:52 credit card information,
+or a password or the like,
+06:54 among the challenges for this week two
+after this week's introduction is going
+06:59 to be to apply these lessons to actually
+building some form of cryptography
+07:04 yourself.
+07:05 And here, for instance, is an example
+of a message, so-called ciphertext,
+07:09 that's been encrypted, that is scrambled
+somehow to make it harder to read.
+07:14 Now, there is a bit of
+a hint baked into this.
+07:16 It's not the most
+sophisticated algorithm,
+07:18 but does anyone want to conjecture what
+this secret message would seem to say?
+07:23 STUDENT: CS50.
+07:23 DAVID J. MALAN: So it does
+happen to say, this is CS50.
+07:26 And indeed, we're leaking
+information there.
+07:28 But why is it this is CS50?
+07:30 Well, you might have guessed that it has
+the right number of letters and words.
+07:33 But what comes before U?
+07:35 T. What becomes before I?
+07:38 H. What becomes what comes before J?
+07:40 I, and so it's not just random.
+07:43 It seems there's a pattern here.
+07:45 And insofar as if we keep playing that
+game, each of the letters on the screen
+07:49 is one away, rotated or shifted from
+the actual letter I claim it represents.
+07:55 I bet using some very simple arithmetic,
+we could write code to do just that.
+07:59 But what we don't yet have
+in our toolkit, so to speak,
+08:02 is the ability to manipulate text in
+programs, the ability to manipulate
+08:06 what we called last week strings.
+08:07 We could print a string
+like "Hello, world."
+08:09 We could get a string like
+David, but we didn't necessarily
+08:12 have the ability to
+analyze it letter by letter
+08:15 or do more interesting things with it.
+08:17 And that, of course,
+is what the whole world
+08:18 does when analyzing text, searching
+a database, searching the web itself,
+08:23 is actually analyze some
+of the text on the screen.
+08:25 We'll equip you with exactly
+that, so it will become clear,
+08:28 among other things, why this
+indeed says this is CS50.
+08:32 So how do we get there?
+08:34 Well, first let's understand some of
+the magic that took place last week.
+08:37 And recall that this
+was the process that
+08:39 was distilled into a
+very simple command,
+08:41 literally make-- make hello,
+make Mario, or whatever program
+08:45 you're trying to make.
+08:46 The input to that
+process was source code.
+08:48 It might still look cryptic to you,
+but it's at least English-like.
+08:52 The output of that process was
+machine code, zeros and ones,
+08:55 that really makes no sense to humans
+unless you pull out a paper, pencil
+08:58 and somehow convert it
+back to something else.
+09:00 But the compiler is the algorithm,
+step-by-step instructions
+09:05 for converting source code to
+machine code embodied in a program
+09:09 that you can run.
+09:10 So that was compilation, converting or
+translating source code to machine code.
+09:15 And the code, of course, that we played
+with mostly last week was something like
+09:18 this-- simplest program you can perhaps
+write in C, simply to print out "Hello,
+09:23 world."
+09:23 But the computer, of course, only
+understands the corresponding zeros
+09:27 and ones.
+09:27 So how do we actually get from
+source code to machine code?
+09:31 That is to say, what's actually
+happening underneath the hood
+09:34 when you run a command like make?
+09:36 Well, up until now, you
+literally, after making a file,
+09:39 like hello.c, you would type
+make hello, cross your fingers,
+09:43 hope there's no syntax
+errors, no typos of any sort.
+09:46 And then to run it,
+you would do ./hello.
+09:49 It's a little weird that you have to do
+that, but dot means the current folder,
+09:52 and dot slash means run the program
+called Hello in the current folder.
+09:56 This is the command line
+interface equivalent
+09:59 of double-clicking an icon on your Mac
+or PC, or tapping an icon on your phone.
+10:03 It just runs it with
+the keyboard instead.
+10:05 But I did reveal briefly last week
+that Make is not actually a compiler.
+10:11 It is a program.
+10:12 It is a useful program.
+10:14 But it automates the process of
+running an actual compiler for you.
+10:18 What is that compiler?
+10:19 Well, there's many different
+compilers in the world,
+10:21 but the one we use in class
+that's free and open source
+10:25 and therefore very popular
+in the world is actually
+10:27 called Clang, for C language.
+10:30 And so really what's happening
+when you run make hello,
+10:34 or any other such command,
+is that make in turn
+10:37 is running another program
+for you called Clang.
+10:41 The catch, though, is that
+this program by default
+10:43 is not nearly as user-friendly.
+10:45 It doesn't say what it does, let
+alone give you a useful output,
+10:49 because the output it gives you is
+actually a file by default called a.out
+10:53 for "assembly output,"
+whatever that means.
+10:56 Which is to say, if you use
+Clang directly instead make
+10:59 don't get a program called Hello, you
+weirdly get a program called a.out.
+11:04 So let's actually see that.
+11:05 But then let's fix that step backwards.
+11:08 So here I am in VS Code.
+11:09 I've hidden my activity
+bar in the file browser,
+11:12 but I'm going to go ahead
+and run code hello.c.
+11:14 And I'm going to very quickly
+recreate last week's program
+11:19 with including stdio.h.
+11:22 And then inside of int main void, I'm
+going to put printf, quote unquote,
+11:27 "Hello, world," backslash
+n and a semicolon.
+11:30 And now, instead of running make,
+I'm going to do clang hello.c, Enter.
+11:39 So notice I did do clang
+hello.c the name of the file.
+11:42 I didn't just say make hello
+the name of the program.
+11:45 So that's one change here.
+11:47 And now, what was actually made?
+11:48 Well, what was the command
+for listing files in a folder?
+11:51 STUDENT: ls.
+11:52 DAVID J. MALAN: So ls for list.
+11:53 And you'll see that not only do I
+have hello.c there, I also have a.out.
+11:57 And in fact, if I open up
+my File Explorer at left,
+12:01 there are those same two
+files-- hello.c and a.out.
+12:04 So hereon after it's all the same--
+12:07 dot a.out enter still works
+as exactly as I intend.
+12:11 It's just a stupid
+default name for a file.
+12:14 So how do we go about making this
+program just more user-friendly, more
+12:18 aptly named.
+12:19 Well, instead of running Clang,
+and then the name of the file,
+12:22 we can actually provide
+more arguments to Clang.
+12:25 And I haven't used this
+term in this context before,
+12:27 but there's a new term
+of art we'll explore
+12:29 today called command line arguments.
+12:31 And all that means is that, when you
+run a command in your terminal window,
+12:34 you can type not only
+the name of the command
+12:37 or program you're running,
+like ls or Make or Clang.
+12:40 You can give arguments that
+is input to that program.
+12:44 And I didn't use that
+phrasing last week.
+12:46 But when you run, for
+instance, make hello,
+12:51 the command line argument you're
+passing to make is indeed hello.
+12:54 And if there was a
+second word, that would
+12:56 be another argument,
+a third word, that'd
+12:57 be a third argument, and so forth.
+12:59 So command line arguments
+are inputs provided
+13:01 to commands at the so-called command
+line in your terminal window.
+13:05 So that's it, just a term of art.
+13:06 But instead of running make hello I
+just ran, of course, clang hello.c.
+13:09 That gave me the wrong
+file name as output.
+13:12 But there is a fix here.
+13:13 We simply need to know from its
+documentation, from a class,
+13:17 from a book, what other command
+line arguments Clang supports.
+13:21 And indeed, if I look that
+up or pay attention here,
+13:24 I can somewhat cryptically
+change my command
+13:27 to be clang -o in lowercase
+hello, then hello.c.
+13:33 And this is a very common technique
+in command line environments, whereby
+13:36 when you want to modify the behavior of
+the program by providing more arguments,
+13:40 you use things like
+flags or switches here,
+13:43 called different things
+by different people.
+13:45 But -o means output a file called
+hello when you compile hello.c.
+13:52 Eventually you memorize these things.
+13:54 But it's not intellectually
+interesting, other
+13:57 than this is how you
+can provide not one,
+13:59 but now three arguments to a program.
+14:02 Then that gives you indeed ./hello,
+so let me go ahead and do that.
+14:05 I'm going to go ahead now
+and clear my terminal window.
+14:09 Run now clang -o hello,
+and then hello.c Enter.
+14:14 Similarly, nothing seems to happen.
+14:17 If I type ls now, though
+you'll see three files.
+14:20 And in fact, /hello works
+exactly as it did last week.
+14:24 In fact, I don't need a.out, so there's
+different ways to delete things.
+14:27 I could go into my File Explorer.
+14:29 I could right click or Control
+click and select Delete explicitly.
+14:33 Or we didn't see this
+last week, but you might
+14:35 have learned it since, you can actually
+do rm, for remove, a.out, Enter.
+14:40 And even though this is a little
+verbose, remove regular file a.out,
+14:44 it's just asking you now
+for y or n, for Yes or No.
+14:47 And I can say Y, Enter.
+14:49 And now if I run ls one more time,
+I'll see just those two files.
+14:54 So that's how I might
+remove or delete a file.
+14:56 Obviously, just be careful when doing
+that if the file is otherwise important.
+15:00 So let me pause here and see if there's
+any questions on what we just did
+15:05 or what a command line
+argument actually is.
+15:10 Soon today, you'll have the ability to
+use and create these things yourself
+15:14 in your own programs.
+15:16 All right, so seeing none, that
+doesn't feel all that compelling.
+15:19 So we've saved a few keystrokes.
+15:20 Instead of typing make and instead of
+typing clang, I have to do -o hello.
+15:24 But that's again one
+of the upsides make.
+15:27 It's fine.
+15:28 It's not that hard to do -o hello.
+15:30 But why bother when you
+can use another program,
+15:32 Make, to automate that process
+for you and just save you time?
+15:35 And indeed, that's what these command
+line environments are all about,
+15:38 just saving the programmer
+or the technical person time
+15:41 as you get better and
+better with these things.
+15:43 All right, but now let's
+consider another ramification
+15:46 of what Make actually does for us
+by taking a look, for instance,
+15:50 at this same program, but consider
+what's going on underneath the hood step
+15:55 by step if we add a couple
+of more lines of code.
+15:58 So recall that the second program
+we wrote using C last week
+16:02 was this, whereby I
+added the CS50 library.
+16:05 And then I used a function we
+wrote for you called get_string.
+16:08 I stored the return value of get_string
+in a variable called name, for instance,
+16:14 of type string.
+16:15 And then we use this
+placeholder technique last time,
+16:18 whereby I plugged in the
+value of the person's name
+16:22 based on whatever they
+themselves typed in.
+16:24 Now, there's a lot going on here.
+16:25 But today, we'll peel back the layers
+of what's happening line by line
+16:29 and why we have to keep typing
+stuff like this at the top.
+16:32 Well, recall that when you compiled that
+program last week, all you had to do
+16:38 was run make hello.
+16:39 But that's because whenever
+you use third-party libraries,
+16:43 code that other people
+wrote, like CS50, then
+16:46 these commands, when
+you use Clang directly,
+16:48 just get slightly more annoying.
+16:50 If you want to compile that program
+from last week with Clang directly,
+16:55 you can do -o hello to
+specify the file name.
+16:58 You have to specify hello.c
+to compile that file.
+17:00 But now, somewhat annoyingly, you have
+to do -lcs50, no space in-between,
+17:06 to specify that you want to
+use the library called CS50.
+17:10 Why?
+17:11 Because that's specific to us.
+17:12 It's not globally available
+in the whole world,
+17:14 so the system doesn't know about
+it, unless we've pre-installed it.
+17:17 So this just tells it to support
+the CS50 library as well.
+17:21 Now, as an aside, some
+of you for problem
+17:23 set 1 probably used the
+math library, maybe to round
+17:26 some values or something like that.
+17:28 It turns out that you can also do
+-lm in order to use the math library.
+17:34 But the math library is so darn
+popular, and it actually comes with C,
+17:37 that you don't have to actually do -lm.
+17:40 But it's the same idea.
+17:41 It's just so common that they
+automate that process for you.
+17:43 But for third-party libraries,
+you have to do this.
+17:46 Now, at this point,
+this is really starting
+17:48 to increase the tedium
+of compiling your code.
+17:51 This is why we just say
+make hello last week, which
+17:54 automates the process of
+generating hidden for you
+17:57 this entire command underneath the hood.
+17:59 But that is what's happening
+to get a file called ./hello.
+18:03 So we're back to where we began.
+18:05 But what does it actually mean now to be
+compiling this code in the first place?
+18:09 So we keep saying, and I will
+keep saying, to compile your code,
+18:12 to compile your code, to translate
+source code to machine code.
+18:15 But that's actually an
+abstraction, so to speak.
+18:17 It's like a simplification
+of a multi-step process
+18:20 that the computer's
+actually doing for you.
+18:22 And this too will be
+briefly a deeper dive
+18:24 to look at this lower
+level of what's going on.
+18:26 But then again, after today, we can
+take for granted that this just works.
+18:31 But you'll understand
+hopefully better what's
+18:32 really happening underneath the hood.
+18:34 So again, there's no magic.
+18:36 So it turns out that when you run
+Make, and in turn it runs Clang,
+18:40 four separate things are
+happening, each of which
+18:43 does something a little different
+for you-- preprocessing,
+18:46 actual compiling,
+assembling, and linking.
+18:50 It's just the world combines all
+four of these terms into "compiling"
+18:53 by convention.
+18:54 So let's consider the first of these.
+18:55 What does it mean to preprocess a file?
+18:57 Well, even though we haven't
+used this word before,
+18:60 here's one of the programs
+we wrote last week.
+19:02 It was a little longer, but this
+was a program that three times,
+19:06 called a meow function,
+which I had ultimately
+19:08 implemented quite simply with
+this meow function of my own,
+19:12 that just says printf meow.
+19:14 And recall that I did a couple
+of things at the top of the file.
+19:17 I included stdio.h because I
+need print access to printf.
+19:21 But I also did this.
+19:23 And what did we generally
+call this second line?
+19:25 STUDENT: Prototype.
+19:27 DAVID J. MALAN: Sorry?
+19:28 STUDENT: Prototype.
+19:29 DAVID J. MALAN: A prototype.
+19:30 The prototype was just the first
+line of a function, semicolon.
+19:34 So nothing in between the curly braces.
+19:36 And recall that that's
+just a hint to the compiler
+19:39 that this function doesn't
+exist as of line 2.
+19:42 But I promise, it eventually will.
+19:44 And that was to avoid having to move
+the whole function from the bottom
+19:47 of the file to the top,
+because you can imagine,
+19:49 once you have three,
+four, 30, 40 functions,
+19:52 it's probably going to be hard to
+put all of them above the other.
+19:55 So this is a way to just
+tell the compiler in advance
+19:57 to expect that this thing will exist.
+19:60 So what is now going on in the
+very first step of compiling?
+20:03 Well, we called it preprocessing.
+20:05 And anything that starts
+with a hash sign like this
+20:08 is what's technically called
+a preprocessor directive.
+20:11 Now, a big mouthful, but
+that just says that there's
+20:14 something in that file
+that you want to get
+20:16 essentially copy-pasted into this one.
+20:18 So what's really happening now is--
+20:21 and let's actually consider--
+sorry, let me double back here.
+20:24 Let's actually consider a
+simpler example for a moment,
+20:27 namely the second program, again,
+whereby we used get_string to get
+20:30 the human's name, and we
+just said "hello" to them.
+20:32 This one had two
+preprocessor directives.
+20:35 So let's consider what's
+actually happening here.
+20:37 What did we say was inside
+of cs50.h last week.
+20:40 STUDENT: Get_string.
+20:41 DAVID J. MALAN: Get_string,
+but more specifically
+20:43 the prototype for
+get_string, a little bit
+20:46 of a hint that tells the
+compiler what it looks like,
+20:49 what's its name, what's
+its input or arguments,
+20:52 and what's its output or return values.
+20:54 So this file, technically, when
+you run the pre-processing step,
+20:60 compiler goes into that file, CS50--
+21:02 finds the relevant code, and essentially
+copy-pastes it into this current file.
+21:06 And in fact, it's not
+even that sophisticated.
+21:08 It essentially copy-pastes the entirety
+of cs50.h at the top of your code,
+21:13 so you don't have to manually
+copy-paste anything yourself.
+21:16 Meanwhile, this second line,
+stdio.h, this of course,
+21:19 is there for printf sake.
+21:21 But printf has a prototype.
+21:22 It's got a name, it's got
+inputs, it's got outputs.
+21:25 So that you don't have to go and
+find that file and copy-paste it,
+21:28 the pre-processing step
+goes into that file for you,
+21:31 finds the relevant code and some
+other stuff, and effectively copies
+21:34 and pastes it there as well.
+21:36 That then is pre-processing.
+21:38 It just saves you time so
+that you can reuse functions
+21:41 that someone else, besides
+you, perhaps wrote,
+21:43 and use and reuse them and
+automate the copy-paste process.
+21:47 Anything starting with a hash
+sign therefore gets pre-processed.
+21:51 OK, what happens next?
+21:53 The compiling step, which is, again,
+the catch-all term for all of this.
+21:56 But when we say your program is being
+compiled, what we mean now is this.
+22:00 Here's that same code after
+it has been pre-processed.
+22:04 And when you actually
+compile this code, this
+22:07 means it gets translated from
+one language, C in this case,
+22:11 to another language we
+haven't talked about.
+22:13 And after today, we're not
+really going to talk about it,
+22:15 but it gets translated from C into
+something crazy-looking called
+22:19 assembly code.
+22:20 And now if you take other
+courses in computer science--
+22:23 lower-level courses, so
+to speak, you'll actually
+22:25 learn a language that looks a little
+something like this, which at a glance
+22:28 is even more cryptic than C,
+which is why we don't spend
+22:31 all that much time on it in this class.
+22:33 But there are some interesting
+terms that I can highlight here.
+22:36 So even in this weird-looking
+language called assembly,
+22:40 there's a mention of main,
+there's mention of get_string,
+22:42 and there's mention of printf.
+22:44 And there's some other things
+worth highlighting here.
+22:46 They're a little more arcane.
+22:47 But there's some mention
+of pushing, moving,
+22:50 subtracting, calling, and so forth, even
+though there's some other letters like q
+22:55 in there as well.
+22:56 But it turns out that
+inside of your computer
+22:59 is that CPU, the central
+processing unit, Intel m or M1
+23:04 or M2 or M3 from Apple.
+23:06 Those CPUs, the brains of your
+computer, at the end of the day,
+23:10 they don't understand.
+23:11 C, they don't understand Scratch.
+23:13 They do understand zeros and ones,
+but what they really understand
+23:16 are specifically these commands.
+23:18 These commands have corresponding
+patterns of zeros and ones.
+23:21 But if you're actually
+building a computer,
+23:23 and you get the manual
+from Intel, there will
+23:25 be documentation for all of the
+low-level commands, the instructions
+23:30 that an individual
+CPU actually supports.
+23:33 And this might differ between Macs
+and PCs and phones and other devices.
+23:37 But this is what
+happens when you compile
+23:39 your code from C into this lower-level
+language called assembly code.
+23:43 All right, we'll never again see
+this, I think, for the most part.
+23:47 So what's the third step?
+23:48 The third step is to finally convert the
+assembly code to actual zeros and ones,
+23:53 because that's indeed what
+the computer understands.
+23:55 So here is that exact
+same assembly code.
+23:57 Once it is assembled,
+that means the computer
+23:59 outputs this, which most
+humans wouldn't understand,
+24:02 unless again, they pull
+out that same manual.
+24:03 But the computer will understand this.
+24:06 And the very last step
+is what's called linking.
+24:09 So what do we mean by linking?
+24:11 Well, take a look at this code again.
+24:12 And just from inference, how many
+files are presumably involved
+24:17 in the process of
+compiling this whole thing?
+24:20 And I mean compiling in the greater
+sense, like going from source code
+24:24 to zeros and ones total.
+24:26 How many files are implied
+by this screenshot?
+24:31 STUDENT: Three.
+24:31 DAVID J. MALAN: OK, three.
+24:32 Why three.
+24:33 I saw two here.
+24:34 But why three?
+24:34 STUDENT: Because the main program.
+24:36 DAVID J. MALAN: The main
+program, like hello.c.
+24:38 STUDENT: Yeah, and then cs50.h.
+24:40 DAVID J. MALAN: cs50.h,
+and of course stdio.h.
+24:43 So there's three different
+files involved in even compiling
+24:46 the simplest of programs like this.
+24:48 Now, I'll stipulate that somewhere
+on the server's hard drive,
+24:52 there is not only a .h file,
+which has those prototypes.
+24:55 There's also a cs50.c file.
+24:57 There's also a stdio.c file as well,
+which contains all of the actual code
+25:02 that we or other people wrote.
+25:04 It's not necessarily
+called exactly that,
+25:06 but there are C files containing
+all of those lines of C code.
+25:09 So what really happens now in the fourth
+and final step of building your program,
+25:14 compiling your program is this--
+hello.c cs50.c, and stdio.c,
+25:20 wherever the latter
+two are on the server.
+25:22 We pre-installed all this stuff for you.
+25:24 You only wrote in this story this file.
+25:26 When you finally compile, and once
+you have pre-processed, compiled,
+25:33 and assembled your
+files, you essentially
+25:35 have three sets of zeros
+and ones, each of which
+25:39 corresponds to each of those files.
+25:40 This is the code you wrote, once
+it's compiled to zeros and ones.
+25:44 This is the code that CS50 wrote.
+25:45 This is the code that came
+with C stdio.c itself.
+25:49 So the fourth and final
+step is literally linking.
+25:52 What does it mean?
+25:52 Well, you've got three
+sets of zeros and ones.
+25:54 You've got to somehow mash them
+together, link them together.
+25:57 And linking does exactly that.
+25:59 So this is such a mouthful
+to say that you write C code,
+26:02 and it ends up zeros and ones.
+26:04 But each of the steps
+can be very cleanly
+26:06 broken down like that,
+so you understand exactly
+26:09 what's going on underneath the hood.
+26:10 And now if you consider the
+command we talked about earlier,
+26:13 -o just specifies what file the
+linker outputs at the end of the day.
+26:19 Is it Hello?
+26:20 Is it a.out?
+26:21 Is it something else?
+26:22 And -lcs50 more specifically, doesn't
+just mean -l library, it means -l link,
+26:28 so link in CS50's library to ensure you
+have access to those zeros and ones.
+26:33 You don't have to do it for math.
+26:35 You don't have to do
+it for std I/O. But you
+26:36 do have to do it for third-party
+code that other people altogether
+26:40 wrote for you.
+26:43 Whew, OK, done with that deep dive.
+26:45 Questions, confusion,
+on any and all of that?
+26:52 Yeah, in the front.
+26:53 STUDENT: Are there ways to import
+art stuff like, let's say CS50?
+26:58 Like, if I'm not going to use a lot of
+things that's written in the CS50 file,
+27:02 but I only want one function, is there
+a way to just pull out just one thing?
+27:05 DAVID J. MALAN: A really good question.
+27:06 If you only want access to one
+function, and not all of them
+27:09 in a library like CS50's, can
+you extract just a subset.
+27:12 It depends.
+27:12 The compiler ideally would
+do some of that for you,
+27:15 and it would only dynamically
+link in what you actually need.
+27:18 If, though, by default you
+statically link everything,
+27:21 and you get all of the zeros
+and ones, this is actually now
+27:23 a more sophisticated answer to a
+question someone asked here last week,
+27:26 which was about the
+efficiency of all of this.
+27:29 And unfortunately, by
+default, you would typically
+27:31 get bigger and bigger files if you're
+linking in too much stuff unnecessarily.
+27:35 So yes, that's absolutely an
+optimization that is possible,
+27:38 but the compiler should be
+handling most of that for you,
+27:40 not you, the programmer,
+generally worrying about it.
+27:43 Yeah.
+27:43 STUDENT: In your prototype for the
+printf function, why was there,
+27:48 like, an int before that.
+27:49 DAVID J. MALAN: Oh,
+really good question.
+27:50 In the prototype for printf,
+why was there an int before?
+27:53 Let me come back to that.
+27:54 And we'll talk a little bit about
+something related in spirit today.
+27:57 Main, actually, all this time also
+has the word int in front of it.
+28:01 We'll explain that one first.
+28:03 All right, so what can we
+take, then, away from this?
+28:08 Well, if that is all compiling can
+we actually reverse the process?
+28:12 Can you go about decompiling code?
+28:14 That is to say, if you
+have a program installed
+28:16 on your computer or your phone, and
+it therefore contains all these zeros
+28:19 and ones, can you maybe
+reverse engineer it--
+28:22 that is, convert it back to source code?
+28:25 Well, is that possible-- well, sort of.
+28:27 In fact, here's an example of a
+program written in C that's already
+28:31 been compiled down into machine code.
+28:33 And by compiled, I mean it's already
+been pre-processed, compiled, assembled,
+28:36 and linked.
+28:37 And these are the zeros and ones.
+28:39 Well, it turns out that if you
+break these zeros and ones up
+28:42 into chunks of, like,
+eight or maybe 32 or 64,
+28:45 you could very tediously, or using
+some software to automate the process,
+28:49 look up in Intel's manual what all
+of those patterns of zeros and ones
+28:53 represent.
+28:54 And you probably could reconstruct
+the fact that, you know what?
+28:57 I bet this thing says "Hello, world."
+28:59 Like there's enough pattern in there
+to figure out something like that.
+29:03 And surely if it says "Hello, world,"
+we could generate source code that does
+29:06 the exact same thing.
+29:07 But what if there's some kind of
+loop in there, and "Hello, world"
+29:10 is actually getting printed two
+times or three times or four times,
+29:14 or an arbitrary number of times?
+29:15 I don't know if I could decompile
+the code quite as effectively.
+29:19 Why?
+29:19 Well, once I have it down to
+the levels of zeros and ones,
+29:22 I don't know if the programmer used a
+while loop, a for loop, a do while loop.
+29:27 There's ambiguity in
+that process ultimately.
+29:30 So while you can reverse some
+processes, at some point,
+29:33 it becomes harder or ambiguous to do so.
+29:36 And this is a relatively short
+program, even though there's
+29:38 some more zeros and ones not pictured.
+29:40 When you're talking about something
+like Microsoft Word or Excel,
+29:44 there are millions of zeros
+and ones inside of that.
+29:47 And honestly, in the amount of time it
+would take you to figure out tediously
+29:51 what those zeros and ones correspond
+to in C, or some other language,
+29:55 you're probably smart enough to just
+start writing the program yourself
+29:58 in the other direction.
+29:59 And that's the supposition when
+it comes to intellectual property
+30:02 and protecting your
+software's IP rights.
+30:05 The reality is, like
+the people who are going
+30:07 to be so good as to reverse
+engineer it probably could just
+30:10 recreate the software itself.
+30:12 So there's a bit of
+pushback there inherent.
+30:14 But later in the term, we're going
+to talk about other languages--
+30:18 HTML, CSS, and JavaScript.
+30:19 That stuff is not compiled into
+zeros and ones in any way like this.
+30:24 So that code is actually revealed
+to literally anyone on the internet.
+30:28 We could go on Harvard or Yale's website
+right now, look at the JavaScript code
+30:32 that powers parts of it, and
+actually see what's going on.
+30:35 But more on that in
+just a few weeks' time.
+30:38 So today is all about
+debugging ultimately, too--
+30:42 like finding and fixing
+mistakes in your code.
+30:46 And debugging actually does indeed
+mean removing mistakes from your code.
+30:50 There is mythically a story behind that.
+30:54 So this is Rear Admiral Grace
+Hopper from the United States
+30:57 Navy, who had her PhD from Yale, and
+actually is known for many things,
+31:02 but among them is for
+working on the Harvard Mark I
+31:05 computer that looks a little something
+like this in black and white.
+31:07 It's now housed across the river in
+the Science and Engineering Complex
+31:10 at Harvard, which you can visit if
+you hop across the river someday.
+31:13 But in the Harvard Mark II, another
+successor to this large mainframe
+31:18 computer, Dr. Hopper was responsible
+for keeping the log book.
+31:23 And pictured here is, if we zoom in
+here, the first actual case of a bug
+31:29 being found.
+31:30 Some kind of moth was physically
+found inside of the Harvard Mark II,
+31:33 disrupting its operations.
+31:35 And that's not literally
+what we mean, nowadays when
+31:37 it comes to bugs in software.
+31:38 And this really just
+popularized the term.
+31:40 It wasn't the origin of the term itself.
+31:43 But that's among the stories
+that gets tossed around typically
+31:45 when talking about bugs
+and, of course, debugging.
+31:49 So among the goals for today is
+to actually make your life easier
+31:52 when it comes to solving problems
+this week and onward, because odds are
+31:56 you were bit in the dark.
+31:57 If you had some mistake in your
+code last week, you could have,
+32:00 of course, asked the duck.
+32:01 You could have asked a teaching
+fellow or teaching assistant.
+32:04 You could have struggled through it.
+32:05 But let's actually give you more tools
+in your toolkit to solve problems.
+32:09 So here, for instance, was one of the
+simpler problems we did last week.
+32:12 And we'll keep it simple so we can focus
+on the debugging techniques and not
+32:15 the complexity of the code.
+32:17 And recall that this
+example was all about just
+32:19 printing, like, a column of bricks using
+hash symbols, otherwise known as ASCII
+32:23 art.
+32:24 Well, the first debugging technique we
+gave you, and encouraged you to use,
+32:27 last week was, of course, this
+virtual rubber duck, or even
+32:31 a physical rubber duck.
+32:32 In fact, on the way
+out today after class,
+32:34 we have not only these ducks,
+but hundreds of others,
+32:36 if you'd like to walk home to
+your dorms with a rubber duck
+32:39 and we'll bring them to those of
+you at Yale, you may at day's end.
+32:44 But the virtual version
+of this is, of course,
+32:46 powered by artificial intelligence.
+32:48 And not only will the duck
+listen to your questions,
+32:51 it will try as best as it can in English
+or some other human language to respond.
+32:56 But the general idea of rubber
+duck debugging, or rubber ducking,
+32:59 is to talk to an inanimate object
+like this, or nowadays an AI,
+33:04 and again, per week zero.
+33:05 In that process of sounding out
+your confusion and telling the duck,
+33:10 like a teaching assistant,
+what your problems are,
+33:13 odds are that proverbial
+light bulb will go off,
+33:15 and you'll realize some illogic, some
+mistake you've made, at which point
+33:19 you can actually solve it yourself.
+33:21 But when the problems get harder, and
+when the material is especially new,
+33:24 it's not going to necessarily come
+to you off the top of your head.
+33:27 So let's give you some more techniques.
+33:29 It turns out that one of the most
+common and useful ways to debug code
+33:33 is literally with a function
+we've used since week one printf.
+33:37 Because printf lets
+you print anything you
+33:39 want, including the contents of what's
+inside of the computer's memory,
+33:43 so to speak, inside of your
+variables and functions and the like.
+33:47 So let's go ahead and do this.
+33:48 Let me switch over to VS Code here.
+33:51 And let me go ahead
+and create a new file
+33:53 that deliberately is called buggy.c.
+33:56 So code buggy.c.
+33:58 And this will be relatively simple.
+34:01 Include stdio.h int main void.
+34:05 And then inside this, let
+me aspire to print out
+34:08 this column of bricks here-- of one,
+two, three bricks, top to bottom.
+34:13 All right, back in my code, I'm
+going to do for int, i equals 0.
+34:18 I want three of these, so I'm going to
+naively do i less than or equal to 3,
+34:22 i++.
+34:24 And then inside of a for loop, I'm going
+to do printf, quote unquote, hash sign
+34:30 backslash n, closed quote, semicolon.
+34:34 So if you're already pretty comfortable
+with C and for loops at this stage,
+34:37 you can probably see the bug already.
+34:38 But again, the focus here is on
+techniques, not the actual code.
+34:42 It looks like I've done
+something stupid, though,
+34:44 because when I do compile this code--
+34:46 and I'm going to do make buggy,
+instead of bothering with Clang,
+34:49 because we now can stipulate that
+we know there's more going on there,
+34:53 but we don't need to
+care about it every time.
+34:55 ./buggy is not going to print 3.
+34:58 It's going to print four
+of those hashes instead.
+35:00 All right, so how do I go about
+wrapping my mind around what's wrong?
+35:03 Well, I remember from class, I'm
+supposed to start counting from 0
+35:06 if I want to go up to 3.
+35:07 It's less than or equal to 3, so we
+could probably reason through this
+35:11 without much effort.
+35:11 But let's suppose that
+this is representative
+35:14 of more sophisticated problems.
+35:16 Well, printf here can be your friend.
+35:17 If you want to see what's
+going on inside of this loop,
+35:20 I would propose that you temporarily
+maybe add a second printf that
+35:24 says something like this.
+35:25 i is-- and then I'm going
+to use a placeholder,
+35:28 i backslash n, close quote, i.
+35:32 So if I just want to wrap
+my mind around what's
+35:35 going on every iteration of this
+loop, let me just literally print out
+35:38 the contents of that variable.
+35:40 So let me remake this--
+make buggy, ./buggy, Enter.
+35:45 OK, now let me enlarge my screen.
+35:48 What has happened? i is 0, I get a hash.
+35:50 I is 1, I get a hash. i is 2, I get a
+hash Oh, i is 3, I get another hash.
+35:56 So the solution here
+is one of a few things.
+35:59 I could either regress and
+start counting from one.
+36:02 But in general, I would propose do what
+programmers do start counting from 0.
+36:06 So if I leave i at 0, what
+is the correct fix here?
+36:10 STUDENT: [INAUDIBLE].
+36:13 DAVID J. MALAN: So just
+change it to less than 3
+36:15 instead, which again is the
+convention, even though it's
+36:18 by no means the only way to do this.
+36:20 If I go ahead and do that, let
+me clear my terminal window
+36:22 and make it larger temporarily.
+36:24 Make buggy again, ./buggy.
+36:27 OK, now I got it. i
+is 0, i is 1, i is 2.
+36:31 And I only get hash hash hash.
+36:32 So printf is your friend,
+just remember, certainly
+36:35 in the context of a class like homework
+and the context of the real world.
+36:39 Once you're done using printf to
+debug your code, go in and delete it,
+36:43 so it's not printing out a
+confusing message to the autograder,
+36:48 the correctness tests,
+or the like there.
+36:51 All right, so that's how you
+might use something like printf.
+36:55 But what if I did something a
+little more sophisticated here?
+36:58 Let me do this.
+36:59 Let me change up this program
+and get rid of for loop.
+37:03 And let me, for the sake of discussion,
+just make it a little more complicated.
+37:06 Let me go ahead and create an
+integer called h for height.
+37:09 Let me ask the human using get_int
+for the height of the column of bricks
+37:14 that they want.
+37:15 I immediately have to go in
+and add the CS50 library,
+37:19 because if I want to use get_int, that
+comes with CS50, not with stdio.h.
+37:24 Once I've done this, let me go ahead and
+call a function that doesn't yet exist,
+37:27 but will--
+37:28 print_column of height h.
+37:30 And this is where we
+concluded roughly in week 1,
+37:33 whereby I factored out
+some of the functionality
+37:35 for printing a row of bricks.
+37:37 Today, I'm flipping it around
+to say, print a column,
+37:39 because now I'm going to do this--
+37:41 void print_column.
+37:44 And then the input that this will
+take is going to be the actual height.
+37:47 But I could call that anything
+I want, so long as it's an int.
+37:50 And here I'm going to recreate the
+correct code for int i equals 0.
+37:54 I less than-- not 3, but height
+if I want to genericize it, i++.
+38:00 And then inside of the loop, I'm going
+to go ahead and quite simply print
+38:04 a single hash and a new line so
+that it gets hash, hash, hash, hash,
+38:09 one per line.
+38:10 But there's technically a bug here.
+38:12 Let me hide the terminal
+window and scroll back up.
+38:15 What one mistake have I still made?
+38:19 STUDENT: Prototype.
+38:20 DAVID J. MALAN: I'm
+missing the prototype,
+38:21 because if I compile this as is, the
+Clang, the compiler as we now know,
+38:26 won't know what print_column
+is, because when
+38:29 it sees it for the first time on
+line 7, it has never seen it before.
+38:33 So the solution, of
+course, is to copy-paste--
+38:35 and this is almost the only time
+copy-paste is acceptable and encouraged,
+38:40 that first line of the function itself.
+38:42 All right, let me open
+my terminal window.
+38:44 Let me run make buggy.
+38:46 It seems to work-- ./buggy, Enter.
+38:49 And it's gone ahead and done--
+38:52 let's see, 3.
+38:53 This is the correct version.
+38:54 So just a bit of a sanity check
+that it's working as intended.
+38:57 Now let's break it.
+38:58 Let me hide my terminal window.
+39:00 Let me make the same mistake as before.
+39:02 And let me say that printf,
+for now, is your friend.
+39:05 But by week three, week four,
+week five, in the real world,
+39:08 you're not going to want to just
+start printing everything out,
+39:11 because you're going to be
+printing so many darn things,
+39:13 you're going to have to then
+remember to delete the stuff.
+39:15 It's going to mess up the output.
+39:16 There are better tools.
+39:17 And even though this week, it will
+take you more minutes to play with
+39:22 and get comfy with what
+I'm about to show you,
+39:24 this will pay off in hours
+over the course of the term
+39:28 and in the real world.
+39:29 Spend a few extra minutes this week
+playing with a proper debugger, which
+39:33 is going to introduce you to
+more sophisticated techniques
+39:37 for debugging your code.
+39:39 We are going to run now a program called
+debug50, which sounds CS50-specific.
+39:43 But that's only because it
+automates the process of starting
+39:46 VS Code's built in debugger for you.
+39:49 So this is not a CS50 thing.
+39:50 This is representative
+of a debugging tool
+39:53 you would have in the real
+world available to you.
+39:55 And VS Code is among the most popular.
+39:58 So let me go back to my own code here.
+39:60 Let me open my terminal window.
+40:02 And let me confirm now, by recompiling
+buggy, Enter, and running ./buggy,
+40:08 now we're back to the problem
+where if I type height of 3,
+40:11 I'm getting four hashes.
+40:12 So how can I wrap my mind around why
+that is the case without using printf?
+40:16 Well, what I'm going to do now is this.
+40:18 I'm going to run debug50.
+40:19 And then I'm going to run the
+name of the program, ./buggy
+40:23 So debug50 is a program that expects
+its own command line argument.
+40:27 What program do you want
+me to help you debug?
+40:29 I'm going to go ahead and hit Enter.
+40:31 And I made my first mistake.
+40:34 Looks like you haven't
+set any breakpoints.
+40:36 Set at least one breakpoint by
+clicking to the left of a line number,
+40:38 and then rerun debug50.
+40:39 So what is a breakpoint?
+40:41 Well, let me hide my
+terminal for just a moment.
+40:43 A breakpoint is sort
+of a stop sign that you
+40:46 can add to any one of
+your lines of code,
+40:49 and tell the computer break
+execution at that point.
+40:53 That is, run my code, but pause
+temporarily here so I can poke around.
+40:58 So what I'm going to do is, because
+the first line of juicy code
+41:01 is at line 8, notice if I hover in
+the so-called gutter of VS Code,
+41:05 there's this little stop
+sign or red dot that appears.
+41:07 I'm going to hover over line 8.
+41:09 And as directed, I'm going to
+click, and it gets even redder.
+41:12 That is a breakpoint.
+41:14 It says, run my code, but stop at
+this point so I can poke around.
+41:18 Let me reopen my terminal window,
+clear it, and do this again--
+41:22 debug50 ./buggy, Enter.
+41:26 All right, so a whole bunch of stuff
+seems to be happening automatically.
+41:30 It's a little confusing at first glance.
+41:31 I'm going to zoom out just so
+we can see more of it here.
+41:34 I'm going to go back to the terminal
+window, because notice-- there we go.
+41:38 In my terminal window I have a
+blank window now, because why?
+41:42 Line 8 is about to prompt me for input.
+41:46 So what has happened here?
+41:47 Well, let me go over here to the code.
+41:49 This is still my buggy file.
+41:51 Notice that there's a Play icon here.
+41:54 There's some arrows.
+41:55 There's a Stop icon
+and some other stuff.
+41:57 Notice that line 8, as hoped,
+is highlighted because execution
+42:00 has been paused on line
+8 before it executes.
+42:03 Let's now actually see what's going on.
+42:06 At the top, though,
+there's some curiosities.
+42:08 All of my variables in this program
+that are currently in scope--
+42:12 that is, accessible between these
+curly braces, are summarized here.
+42:16 Where did 32,766 come from?
+42:21 Any instinct for why h
+apparently has this weird value,
+42:25 even though I haven't even typed in
+anything, let alone such a big number?
+42:29 Yeah, how about over here?
+42:31 STUDENT: The previous
+program had that number.
+42:33 DAVID J. MALAN: Yeah, I think that's
+a reasonable way to think about it.
+42:36 Maybe it's like a previous program
+used the same memory inside
+42:39 of the computer for something else.
+42:41 Maybe it was an integer.
+42:42 Maybe it was a string or something else.
+42:44 So what you're seeing
+is actually what we're
+42:46 going to start calling a garbage value.
+42:48 It's like remnants of what the
+memory was previously used for.
+42:51 It has no significance to us.
+42:53 It's not a big deal, because as soon
+as I let the debugger proceed one more
+42:57 line, the value of h is going to be
+changed to whatever the human actually
+43:01 types in.
+43:02 But what you're seeing is what's
+really going on inside the computer.
+43:05 You're certainly using and
+reusing the memory inside
+43:08 of your computer all day long,
+because you don't want to run out,
+43:11 so you need to reuse it.
+43:13 So the debugger is letting us see that.
+43:15 So now notice the arrows
+at the top of the screen.
+43:17 I can either hit Play to say, like,
+just keep running the whole program.
+43:20 Or I can do something like this--
+43:22 Step Over.
+43:23 So this second arrow here, Step
+Over, will actually run line 8,
+43:28 but then pause on the next line for me.
+43:30 And we'll see what else
+we can do in a moment.
+43:33 So I'm going to click Step Over.
+43:34 And now notice, in my terminal, I
+have been prompted for a height.
+43:38 Let's go ahead and type 3, Enter.
+43:40 Now I've typed in 3.
+43:42 What happened at top left?
+43:44 Now the local variable, so to speak--
+43:46 local in the sense that it's inside
+of these curly braces, is, in fact,
+43:50 what I would expect, which is 3.
+43:52 Notice now that line 9 is highlighted.
+43:54 It hasn't printed anything yet.
+43:56 So let's step over line 9, too, and
+see what happens with this value of h.
+44:01 Let me click Step Over again.
+44:03 The highlighted line becomes 10, which
+is almost at the end of the program.
+44:06 But unfortunately, I see 1, 2, 3, 4.
+44:09 Damn, like, it's still
+buggy in this case.
+44:11 And honestly, this wasn't
+really enlightening,
+44:13 setting the breakpoint there.
+44:15 I really have just slowed down
+the process of seeing my mistake.
+44:17 But it's still, in fact, there.
+44:19 So let's actually just run
+the program to completion.
+44:22 I'm going to hit the Play button.
+44:23 But I could just as
+soon hit the Stop button
+44:25 because they're equivalent, because
+the program is essentially over.
+44:28 All of that is going to close, but
+at my breakpoint is still at line 8.
+44:31 I'm going to do this.
+44:33 I'm going to leave that there.
+44:34 And I'm going to run debug50 once more.
+44:36 Let's actually step over
+this line as before to get
+44:40 my input of a height of, say, 3.
+44:42 But now on line 9, which is
+highlighted, let's not step over this,
+44:45 because obviously, that's
+just going to print out
+44:47 the same wrong thing instantly.
+44:49 Let's step into this function.
+44:51 Why this one?
+44:52 Because I wrote print_column.
+44:54 Ironically, I also wrote get_int.
+44:55 But I'm pretty sure
+get_int is not incorrect.
+44:58 I'm pretty sure print_column is
+incorrect, so let's step into it.
+45:03 The icon for that is the third icon
+here, the second arrow, Step Into,
+45:08 click.
+45:09 And now notice that execution has
+jumped into the print column function.
+45:14 Nothing is printed yet, because
+I haven't even started for loop.
+45:17 But now I can actually poke around here.
+45:19 And notice this.
+45:20 This is an even crazier value
+for i, but for the same reasons.
+45:23 It's just some garbage value left
+over from whatever this memory was
+45:27 being used for previously.
+45:28 But the moment I click Step Over now,
+the second icon, now notice at top left,
+45:34 i is 0, and we're about
+to print a single hash.
+45:37 Let me click Step Over once more.
+45:38 And watch the terminal
+window at the bottom.
+45:41 I currently have no hashes,
+but now I have one hash.
+45:44 Now the highlight's back on line 14.
+45:47 Let's step over that, and watch
+as I do, at top left, i is value
+45:50 is going to change from 0 to 1
+because that value just changed.
+45:55 Now I'm highlighting line 16.
+45:57 Let's click Step Over and
+watch the terminal window.
+45:59 There's my second hash.
+46:00 Let's step over line 14.
+46:02 Watch i at top left.
+46:04 i equals 2.
+46:05 Let's go ahead and step over line 16.
+46:07 There's my third hash.
+46:09 Let's now step over line 14 again.
+46:11 Watch the i at top left.
+46:12 Here's where you can see
+that, oh, i equals 3.
+46:15 But wait a minute.
+46:16 Line 16 is highlighted.
+46:18 I'm about to execute
+the darn thing again.
+46:20 Oh, that's why I'm
+getting the fourth hash.
+46:23 And if I do this one more time, Step
+Over line 14, watch what happens to i.
+46:28 i now disappears altogether.
+46:31 Why?
+46:31 Because I've jumped out of
+for loop, because i became 4.
+46:34 4 is not less than 3, so
+we're done with that for loop.
+46:37 And now if I go ahead
+and hit Play, it's just
+46:39 going to run to the end of the
+program, which is essentially already
+46:42 that because the curly
+brace was already there.
+46:44 So it's tedious to walk
+through a program in this way.
+46:48 But notice, it has given me the
+ability to step through my code,
+46:52 line by line by line,
+at a normal person pace,
+46:55 not at like a Mac or PC pace, which
+is over in the blink of an eye.
+46:59 To get rid of a breakpoint, you just
+click on the little stop sign again.
+47:02 It goes away, and your code will
+run as usual, even in the debugger.
+47:07 Questions, then, on this
+technique of debugging?
+47:14 Questions?
+47:17 OK, use debug50.
+47:19 OK, use the rubber duck.
+47:21 That, too, should be helpful over time.
+47:23 But let's actually now take
+these ideas out for a spin
+47:26 and actually see what's going on
+in the actual computer's memory
+47:29 with these new techniques.
+47:31 So recall from last time that when
+you write code, you can use strings,
+47:35 like hello world.
+47:36 You can use integers like
+the number 50, or 72, 73, 33.
+47:40 That is because C, like
+a lot of languages,
+47:42 supports different types of data.
+47:44 And think back to week
+0, when we stipulated
+47:46 that everything is zeros and ones.
+47:48 How does the computer know if that's
+a number, a letter, a color, an image,
+47:53 a video, a sound?
+47:54 Well, it's context-sensitive.
+47:55 And I simplified it in
+week 0 and said, well,
+47:57 if you open something in
+Photoshop, the zeros and ones
+47:59 are going to be interpreted as colors.
+48:03 But that was a bit of a white lie.
+48:04 The better answer is, when you open in
+Photoshop a bunch of zeros and ones,
+48:09 the programmers at Adobe, the people
+who wrote that software, specified
+48:13 in the code that those zeros and ones
+should be treated as colors, and not
+48:18 as numbers and text per se.
+48:19 So in the world of C,
+there are these data types.
+48:22 And we had this list up last week.
+48:24 And we focused particularly
+on string and int.
+48:28 We introduced briefly float for
+real numbers with decimal points.
+48:31 Longs are even bigger than integers.
+48:33 So you don't avoid, but you at
+least postpone integer overflow
+48:38 by using more bits.
+48:40 And here, for instance, is how big these
+data types in C typically are nowadays.
+48:45 Technically, it varies
+by computer or device.
+48:47 But typically, it's safe to
+assume these values here.
+48:51 So a Boolean, a true or false, takes up
+one byte, even though that's overkill.
+48:56 You technically just need one
+bit, but C uses a full byte.
+48:59 An integer is typically four bytes.
+49:01 Four bytes is 32 bits.
+49:02 That means you can count from
+0 to 2 to the 32nd power.
+49:06 That's 0 to 4 billion, or if you want
+to support negative numbers, negative 2
+49:10 billion to positive 2 billion.
+49:12 A long is 8 bytes.
+49:14 That's in the quintillions,
+depending on whether you want
+49:17 negatives or positive values as well.
+49:19 Float is 4.
+49:20 Double is 8.
+49:21 A char, a single character, is 1.
+49:23 That's going to be germane today.
+49:24 And a string, I'll propose,
+is unknown because it
+49:27 depends on how long the word is.
+49:29 If I type in D-A-V-I-D, it would seem
+to be of length 5 at first glance,
+49:33 or hi or just 2.
+49:35 A string is going to vary based on
+the actual contents of the memory.
+49:39 And here, then, is a picture of memory.
+49:41 So this isn't to scale
+at the moment, but this
+49:43 is what might be inside of your
+laptop or phone or desktop.
+49:46 And it would look similar in spirit,
+like a green circuit board or logic
+49:50 board with tiny little
+silver or gold traces
+49:53 that are essentially like
+tiny little wires that allow
+49:55 zeros and ones to flow back and forth.
+49:57 And there's these black chips
+that actually store the zeros
+50:01 and ones as your computer's memory.
+50:04 So if we actually zoom in
+on one of these black chips,
+50:06 I'll propose that no matter
+how big this chip is,
+50:09 I bet we could come up with addresses
+for all of the bytes therein.
+50:14 So if this thing is like 1
+gigabyte, 1 billion bytes,
+50:17 doesn't matter how we number them.
+50:18 But for the sake of discussion,
+maybe this is the first byte.
+50:21 This is the second byte.
+50:22 This is the third byte.
+50:23 This is the billionth byte for gigabyte.
+50:25 So you could imagine, if
+you got this many bytes,
+50:28 you can slap some numbers on them.
+50:30 Just like on a building
+in the real world,
+50:32 you can slap a unique address on it.
+50:34 Like 45 Quincy Street,
+Cambridge, Massachusetts, 02138,
+50:38 USA is where we are now.
+50:40 In the world of memory,
+let's keep it simple--
+50:42 0, 1, 2, 3 and so forth.
+50:46 So let's actually redraw this as a grid
+of sorts, whereby each of these squares
+50:50 represents a chunk of memory.
+50:52 So if you were to store a char in the
+computer's memory, that's one byte.
+50:56 So maybe if the human were just
+to type in a single character,
+50:59 maybe it would be stored up there in
+the top left corner, or who knows?
+51:02 Somewhere else.
+51:03 If you were to store an
+integer, which is 4 bytes,
+51:05 typically, maybe it
+would be stored there.
+51:07 But they are necessarily contiguous.
+51:09 You can't use one byte here,
+one byte here, one byte here.
+51:12 For data types like integers
+and strings and chars,
+51:15 they're all going to be
+back to back to back.
+51:17 So that's 4.
+51:18 What about a long, or a
+double for that matter?
+51:20 You might need 8 bytes.
+51:21 Those are all going
+to be contiguous here.
+51:23 Well, let's actually go ahead
+and abstract away the hardware,
+51:25 because it's not really that interesting
+that there's a physical circuit board.
+51:29 Let's think about
+memory more abstractly.
+51:30 It's just like a canvas,
+like in Photoshop, where
+51:33 every little dot can store some byte--
+51:36 some set of 8 bits.
+51:38 Let's zoom in here and consider
+what could go inside of those bytes.
+51:43 So for instance, how about
+three lines of code like this?
+51:46 Out of context, but suppose we
+whip up a program real quickly
+51:49 that allows me to calculate my
+average on, like, three homework
+51:52 assignments or three quizzes or three
+exams in this class or any other.
+51:56 Suppose I did so-so on the first two.
+51:58 Score one was 72, score two was
+73, score three not so good--
+52:02 33.
+52:02 What's my average grade as of now?
+52:05 Well, I think we could
+whip this up pretty easily.
+52:07 For instance, let me go
+over to VS Code here.
+52:11 And let me go ahead and
+create a new file called--
+52:15 how about scores.c?
+52:17 And in scores.c, I'm going to go
+ahead and do maybe a little something
+52:23 like this.
+52:23 Include stdio.h int main void.
+52:27 And inside of main, let's do int score
+1 equals 72, int score 2 equals 73,
+52:34 int score 3 equals 33.
+52:36 And now let's just print an average.
+52:38 And I'm going to make a comment
+to myself Print average,
+52:40 so I remember what's going on.
+52:42 Comments are just for the reader
+not for the computer's sake.
+52:45 Printf average colon--
+just to format it nicely.
+52:50 I want as many partial
+points as I can get,
+52:53 so I'm going to use a float
+instead of an int, backslash n.
+52:56 And then to compute the average,
+just like in the real world,
+52:59 I think I do score 1 plus score
+2 plus score 3 in parentheses,
+53:04 all divided by 3, and then a semicolon.
+53:08 So let's see if this works.
+53:09 I'm going to go down
+to my terminal window
+53:11 and do make scores, which
+will run Clang for me.
+53:14 But I screwed up already.
+53:15 Let me make this bigger.
+53:17 I'm not sure we've
+seen this error before.
+53:19 Let me rerun it more simply.
+53:22 What did I do wrong here,
+even though it's cryptic?
+53:25 Yeah, in back.
+53:26 Or just stretching?
+53:28 Just stretching.
+53:30 Yes, in there
+53:31 STUDENT: You're missing a parenthesis.
+53:34 DAVID J. MALAN: I'm
+missing a parenthesis.
+53:36 I don't think so.
+53:38 Not a bad instinct, but I'm not in
+this case, I think I'm balanced.
+53:41 STUDENT: The format is wrong.
+53:42 DAVID J. MALAN: The format is wrong.
+53:44 So the format code is wrong.
+53:46 I'm using %f, but it wants me to use
+%d, which technically means decimal,
+53:49 which is a synonym for %i for integer.
+53:52 But actually, no, I don't
+want it to be an integer.
+53:54 If I get partial credit, I want to be
+rounding up, not down, so to speak.
+53:59 So there's actually a more subtle error.
+54:01 And remember the issue
+last week of truncation,
+54:03 whereby if you've got int plus
+int plus int divided by int,
+54:07 what do you get back?
+54:08 You get an int.
+54:09 So you don't even round properly.
+54:11 It truncates everything
+after the decimal point.
+54:14 So one way to solve this problem
+would be to say, all right, really,
+54:17 I want to divide by 3.0.
+54:18 So long as you get a
+floating number involved,
+54:21 then the math will work correctly.
+54:24 Or I could do what I did last week too.
+54:25 I can cast the 3 to a float.
+54:29 But frankly, it's pretty
+equivalent and few keystrokes fewer
+54:32 to just say 3.0 as my denominator.
+54:34 And again, to be clear,
+the reason for that--
+54:36 I don't want integer division.
+54:38 I want a floating point value.
+54:40 So if I'm getting partial credit, it's
+point-something that's not thrown away.
+54:43 All right, let's try
+again-- make scores, Enter.
+54:46 It seems to work now-- ./scores, Enter.
+54:49 And my average is indeed,
+thank to you, 59 and one third.
+54:53 Still kind of failed, but at least
+it's not 59.0 truncated down.
+54:58 All right, so that's
+one way of doing this.
+54:60 But what's actually now going on
+inside of the computer's memory?
+55:03 Well, here is the computer's memory,
+abstracted away as just squares.
+55:06 When I create score 1
+as a variable, that's
+55:09 like asking the computer
+for four of these squares.
+55:12 Call it score 1, and
+plop, the number 72 there.
+55:15 When I ask for score
+2, that's like getting
+55:17 another 4 bytes of memory, probably
+next to it, but not necessarily.
+55:22 And when I create score 3, that gives
+me another chunk of memory, also
+55:25 4 bytes with the number 33.
+55:27 Again, because there's no other
+variables as of yet in this program,
+55:30 they probably will end
+up back to back to back.
+55:33 But that's not
+necessarily a requirement,
+55:35 depending on how you implement the code.
+55:38 Well, what is the computer
+really doing in the memory there?
+55:40 Well, it's really putting
+three patterns of bits--
+55:43 three patterns of 32 bits,
+because again, by default integers
+55:47 tend to use 4 bytes, or
+4 times 8, 32 bits total.
+55:52 So if that's what's going on
+inside of the computer's memory,
+55:57 it would seem to be correct.
+55:59 And indeed my math was correct.
+56:01 But what is badly designed
+about this program?
+56:05 It's super simple.
+56:07 There can't possibly be
+too many shortcomings.
+56:10 But what's bad?
+56:11 Yeah.
+56:12 STUDENT: You wanted to
+add more scores, you
+56:14 would just keep writing new
+variable initializations
+56:17 and you have to individually
+modify the averaging part.
+56:19 DAVID J. MALAN: Yeah, really well said.
+56:21 So if I wanted to add in more scores--
+like next week, a fourth score, then
+56:24 a fifth score, then a sixth score,
+well, I can just modify the code,
+56:27 and add a line, line, line here.
+56:29 But then, I have to add like
+variable, variable, variable here.
+56:32 It's not very well maintained.
+56:33 And honestly, if you let your mind
+extrapolate, what if I've got,
+56:36 like, 10 scores or 100 scores over
+the course of years of college?
+56:41 Does it really seem like good design
+to have int score45, int score46?
+56:48 There's got to be a
+better way than coming up
+56:50 with these stupidly named variables
+where I just manually add a number,
+56:53 add a number, add a number.
+56:54 Wouldn't it be nice to just call
+all of them collectively scores,
+56:58 and not have to create individually
+all of these unique names?
+57:02 And frankly, I don't have to
+call them score1, score2, score3.
+57:05 I could have called it A, B, C,
+or something arbitrary like that,
+57:09 but that's even less clear.
+57:11 It would be nice to just call
+them all collectively one thing.
+57:14 Well, it turns out that there
+is a way to address this.
+57:16 And to do better than
+this in code, we're
+57:18 going to introduce the
+first of our data structures
+57:21 this week in class, whereby we can
+introduce the notion of an array.
+57:25 An array is a sequence of values
+back to back to back in memory.
+57:31 An array is a sequence of values back
+to back to back or contiguous in memory,
+57:36 all of which are the same data type.
+57:38 So int, int, int or char, char, char,
+or something else along those lines.
+57:42 And the syntax for creating a single
+variable that contains not one,
+57:47 but any number of values,
+is relatively simple in C.
+57:51 You simply specify what type do
+you want the values to be-- int.
+57:54 What do you want the name
+of the variable to be?
+57:56 Scores plural, just for clarity.
+57:58 And how many integers do
+you want to be associated
+58:01 with this variable called scores?
+58:03 You use square brackets,
+which is something new now.
+58:06 But the square brackets
+indicate, hey compiler,
+58:09 this is an array of three integers
+that will give me access to all three
+58:14 back to back to back in memory.
+58:16 So if I want to now initialize
+each of these values to numbers,
+58:20 the syntax is pretty similar to before.
+58:22 But I don't have to come up with
+new variable names for each of them.
+58:26 I can instead keep using this
+square bracket technique as follows.
+58:29 To initialize the first score, I can say
+scores bracket 0 equals 72, semicolon.
+58:36 The second one is scores bracket 1.
+58:38 The third is scores bracket 2.
+58:40 They are zero indexed, so to speak.
+58:42 As before, we're almost always
+going to start counting from 0
+58:45 in C and in most other languages.
+58:47 So 0 is the first, 1 is
+the second, 2 is the third.
+58:50 But notice these aren't
+separate variable names.
+58:52 Now they're all called scores.
+58:54 But I am indexing into the array
+by jumping to a specific location--
+58:59 the first one, the second
+one or the third one,
+59:02 or first, middle, last so to speak.
+59:04 So if I want to use this technique
+now, let me actually go back to VS Code
+59:08 here, and let me modify my
+version of scores as follows.
+59:11 I'm not going to quite do what
+you recommended over there
+59:14 a moment ago, which is to avoid
+repeating myself a few times.
+59:19 But I am going to clean this up.
+59:20 I'm going to say int scores bracket 3
+to give me an array of three values.
+59:26 Then I'm going to manually
+say scores bracket 0 equals
+59:29 72, scores bracket 1 equals 73,
+scores bracket 2 equals 33, semicolon.
+59:37 And then down here, I have to change
+my formula to be scores bracket 0,
+59:42 scores bracket 1, scores bracket 3--
+59:47 sorry, scores bracket 2, and then
+divided by 3.0 for the same reason
+59:52 as before.
+59:53 If I open my terminal now,
+clear it, make scores,
+59:56 again seems to compile ./score.
+59:58 It still gives me the same value,
+but it's a little better-designed.
+60:02 I've got one variable now
+with three spots in it,
+60:05 instead of three
+variables-- and God forbid,
+60:08 even more if I want more
+and more of these values.
+60:11 Well, what is now going on
+in the computer's memory.
+60:14 Well, these three lines of code.
+60:15 Now look fundamentally the same--
+four bytes, four bytes, four bytes.
+60:19 But the names that the computer is
+giving them is scores bracket 0,
+60:23 scores bracket 1, scores bracket 2.
+60:26 And to be clear, it's one variable.
+60:28 But this is saying go to the
+first location, location 0.
+60:31 Go to the second location,
+a.k.a., location 1.
+60:34 Go to the third location,
+a.k.a., location 2.
+60:37 It's a little confusing that
+everything's off by one,
+60:39 but you get used to it over time.
+60:42 So if that's what's going on
+inside of the computer's memory,
+60:46 let's actually tinker with it further.
+60:48 And toward this end of making
+it even better ultimately,
+60:51 let me propose that we go back here
+and maybe modify this as follows.
+60:55 Instead of hard-coding my three scores--
+60:59 72, 73, 33, and then having
+to update this code next week,
+61:03 and then update it in two weeks by
+adding more and more scores to it,
+61:08 what would be the right programming
+technique here to just prompt me
+61:12 again and again?
+61:14 STUDENT: [INAUDIBLE]
+61:14 DAVID J. MALAN: Like, loop again?
+61:16 We don't have to write all of these
+lines of nearly identical code.
+61:19 So let me do this.
+61:20 Let me get rid of these three
+lines, which look like copy-paste,
+61:23 except for the changing number.
+61:24 Let's do 4.
+61:25 Int i is 0.
+61:27 i less than 3, so I'm not
+going to screw up this time--
+61:29 not less than or equal
+to but less than 3, i++.
+61:32 Then inside of this for loop, let's
+go ahead and use this syntax--
+61:36 scores bracket i equals--
+61:40 let's actually ask the user now
+for their score, rather than hard
+61:44 coded at all, using get_int like this.
+61:46 So we're using the square brackets
+now in a few different ways,
+61:49 even though the rest of
+the code is now the same.
+61:52 In this line of code, I'm declaring
+the variable called scores
+61:57 to be an array of size 3 integers.
+62:00 It's a mouthful, but that's
+all that's going on there.
+62:03 When I use the array later, I
+don't have to say int ever again.
+62:06 That was just to tell the
+computer once what types of values
+62:09 do I want to put in here.
+62:10 Hereafter, I can just
+say scores bracket i.
+62:13 Well, what is i?
+62:14 Well, on the first
+iteration of this loop,
+62:16 it's going to be 0,
+and then 1, and then 2.
+62:19 Like magically, it's going to
+plug into those square brackets.
+62:22 Exactly the number I want--
+62:23 0, 1, 2, on up.
+62:25 Get int is going to be called
+1, 2, 3 or more times, based
+62:29 on how many times I loop.
+62:30 So I don't have to type 72,
+73 or 33 in my code at all.
+62:34 Now, the code is still imperfect.
+62:36 I'm still cheating that
+I've got the 3 here.
+62:39 I've got three of these here.
+62:40 I've got the 3 here, the 3 here.
+62:42 This is still poorly
+designed, but it's better.
+62:44 It's poorly designed
+in the sense that I've
+62:46 got this magic number 3 everywhere that
+I am going to mess up at some point.
+62:52 If I change it to a 4, I bet you I'm
+going to miss one of those locations.
+62:55 So we should probably
+improve that as well.
+62:57 Well, let me go ahead and just confirm
+that I didn't make things worse--
+63:00 make scores.
+63:02 I did.
+63:03 What did I do wrong here?
+63:05 Error-- call to undeclared
+function get_int.
+63:08 STUDENT: Yeah, include cs50.h.
+63:10 DAVID J. MALAN: Yeah, I didn't include
+cs50.h That's why the compiler just
+63:13 doesn't know what a get_int even is.
+63:16 So that's an easy fix.
+63:17 Let me go ahead and type that in here.
+63:19 Clear my terminal, rerun make scores.
+63:21 OK, now we're back in
+business-- ./scores.
+63:23 Now I'll type them in
+when prompted by get_int.
+63:26 72, 73, 33, and I'm still
+getting the math correctly.
+63:30 But I can do a little better, so
+let me hide my terminal window.
+63:33 Let's get rid of this magic number 3.
+63:36 How can I do this?
+63:37 Well, I could do something like this--
+int and maybe capital N equals 3
+63:42 for a number that's not changing.
+63:44 But actually, there's a technique.
+63:45 If you want to tell the computer,
+don't even let me change this number,
+63:49 what can I write on line 6 before int?
+63:52 STUDENT: Const.
+63:53 DAVID J. MALAN: Const--
+63:54 we haven't used it much.
+63:55 But this is just a way of
+protecting you from yourself,
+63:58 or protecting your code
+from some dumb colleague who
+64:00 goes in and tries to change a number
+that they are not supposed to.
+64:03 So const int N equals 3 means this
+variable shall be forever the value 3.
+64:09 What can I then do with this?
+64:11 Well, I'm going to change the
+3 here to N, the 3 here to N.
+64:15 And down here, it's a step backwards.
+64:18 I don't want to do N just
+yet, but I can cast this
+64:20 to a float to make sure that 3
+is treated as though it's 3.0.
+64:26 Now, I capitalized N just by convention.
+64:28 Generally, when you use constants,
+humans tend to capitals.
+64:31 Why?
+64:31 Because it just jumps out to the reader.
+64:33 Wait a minute, like, this is
+capitalized for some reason.
+64:36 That usually means it's
+meant to be a constant, just
+64:38 as a little visual heuristic.
+64:41 This is still imperfect,
+because I'm still assuming
+64:44 that n is always going to be 3.
+64:46 But one problem at a time.
+64:47 Let me open my terminal-- make
+scores ./scores 72, 73, 33.
+64:53 Code still seems to be behaving
+correctly, except for notice this time,
+64:58 we're seeing a bit of an artifact.
+64:60 Now suddenly, I lost a 1, 10, 100,
+1,000, 10,000 one millionth of a point.
+65:07 So the rounding is a little different.
+65:08 But that's because fundamentally,
+when dealing with floats,
+65:11 they are going to be imprecise.
+65:12 They're maybe not very imprecise,
+but slightly imprecise.
+65:17 Thus far we were getting an
+additional 3 there, not a 2.
+65:20 That's just a side effect
+per last week's discussion.
+65:23 Well, let me go ahead and do this.
+65:24 Instead of typing this one
+out myself, let me go ahead
+65:28 and grab from the oven
+already cooked a program
+65:34 called scores version 5, which I wrote
+in advance, which now has everything.
+65:38 So this is a lot on the screen all at
+once, but let's focus on what's similar.
+65:41 I'm including cs50.h and stdio.h.
+65:44 I'm declaring a const.
+65:46 Notice, though, that I've put it at the
+top of my file instead inside of main.
+65:50 And that's OK.
+65:51 It is sometimes OK and a good
+idea to put your constants outside
+65:56 of functions, so that if I do
+want to change it somewhere,
+65:59 it's obvious where to change it.
+66:00 It's not buried in some function.
+66:02 It's at the very top of the file
+where it's more obvious to the reader.
+66:05 Notice now, I've introduced a
+function called average-- more on that
+66:08 in a moment, because
+the problem I still had,
+66:11 was even though I had
+3, 3, 3 in a variable,
+66:15 I was still manually adding
+score0, score1, score2.
+66:18 What about scores 3, 4,
+5, 6 as the program grows?
+66:22 Well, how am I solving this?
+66:23 Well, notice this.
+66:25 In main now, I'm giving
+myself access to N score.
+66:29 So whatever N is, make
+the array big enough.
+66:31 And this is a cool
+technique with arrays.
+66:33 If you don't know when you
+write the code what the size is,
+66:37 just use a variable.
+66:38 And the computer will give you
+an array of that many spots.
+66:42 The for loop is exactly the same
+here, exactly the same here.
+66:46 I'm just prompting the user again
+and again for each of their scores.
+66:49 The only thing I've changed
+now is fix the final problem.
+66:53 Instead of just printing
+out the average of score0
+66:55 plus score1 plus score2 divided by 3,
+I'm actually asking a helper function,
+67:01 so to speak-- another
+function that I wrote
+67:04 called average that takes two values.
+67:07 One is N because it's got
+to know how many values
+67:09 to average-- what's the denominator,
+and then the array itself.
+67:14 And this is the only new piece of
+syntax now with respect to arrays
+67:17 is how I'm passing this in.
+67:19 Let's focus on just
+the math for a moment.
+67:21 How do I calculate an average
+when I know don't in advance
+67:24 how many values there are, so I can't
+just do this plus this plus this
+67:27 all divided by 3?
+67:28 Well, let's create a
+variable called sum.
+67:31 Let's then iterate over
+the length of that array.
+67:34 Let's use some of last week's
+syntax to add to that sum
+67:37 the value at location i, location i,
+location i as i goes from 0 to 1 to 2
+67:43 on up.
+67:44 And then lastly, how do
+you calculate the average?
+67:46 Well, whatever that sum is divided
+by the length of the array.
+67:50 Cast it again to a floating point value.
+67:53 So the only thing here is a
+recollection from grade school
+67:56 that, to calculate the
+average, you just add, add, add
+67:60 all of the numbers in the numerator,
+and divide once by the denominator.
+68:03 So I've used some C code with a
+variable and a for loop to do just that.
+68:07 The only weird thing I'll
+call out here is this.
+68:12 Notice how I wrote the average function.
+68:15 It's called average.
+68:16 It returns a float, which
+we haven't seen before.
+68:19 But it stands to reason,
+if we can return INTs
+68:21 and if we return nothing like void,
+I could probably return a float.
+68:25 And that's correct.
+68:26 This is the output of this function.
+68:27 That is why I can return a value.
+68:30 But this is weird.
+68:31 Not only does average
+take two arguments.
+68:34 One of those arguments as
+of today is now an array.
+68:37 So I could call these arguments
+anything I want-- a, b, x, y.
+68:40 But I'm calling them more usefully the
+length of the array, and then the name
+68:44 I want to give this array.
+68:45 But I could call it anything.
+68:46 I could call it numbers.
+68:48 But I called it array for the sake
+in class of making super-explicit
+68:51 what an array is.
+68:52 But this is the weirdness.
+68:54 When a function takes as
+input someone else's array,
+68:58 you don't have to know in
+advance what the size is.
+69:01 So you just say open bracket, close
+bracket, and leave it at that.
+69:04 But you need to make sure that caller,
+the function who created the array,
+69:09 also tells you with a second
+argument how big it is.
+69:13 This is not true in Python.
+69:14 This is not true in JavaScript and
+certain other languages that some of you
+69:16 might be familiar with.
+69:17 But in C, if you pass an
+array as input, the function
+69:22 doesn't have to know how big it is.
+69:23 But you have to tell it how big it
+is by giving it a second argument.
+69:27 And that's it for this
+use of square brackets.
+69:30 We've used it to create the array,
+to access or index into the array,
+69:34 and now to pass the array.
+69:36 So square brackets
+almost always are going
+69:37 to hint there's an array going on here.
+69:42 I suppose we should run this to
+be sure that I didn't screw it up.
+69:45 So make, let's do this.
+69:49 Copy .src/scores5.
+69:53 So we haven't shown you this yet, but if
+I have a file secretly called scores5.c,
+69:58 and I want to rename it to
+scores.c, I can use the cp command,
+70:03 for copy for short.
+70:04 It's going to prompt me
+to overwrite scores.c Yes.
+70:07 And so now, if I open what
+was always called ./scores,
+70:11 I now have exactly the same file
+as we walked through a moment ago.
+70:15 So let's run this now--
+70:16 make scores ./scores 72, 73, 33.
+70:22 And we still get the
+same correct average.
+70:25 But now the code is arguably not
+only correct, it's better designed.
+70:29 Even though things escalated quickly,
+because to make this code better
+70:33 designed, I needed to generalize
+it to handle not 3, but ultimately,
+70:38 any number of exams or scores by
+changing the 3 to a 4 or a 5 or 100
+70:44 or anything else.
+70:45 And heck, if we really
+want, we could ask
+70:47 the user, how many scores do you have
+already by calling get in one more time,
+70:51 and then avoid the constant itself.
+70:55 Whew!
+70:56 OK, that was a lot just to
+calculate a very bad score.
+70:60 Questions?
+71:02 Yes?
+71:04 STUDENT: What happens if I try
+to access a point in the array?
+71:07 DAVID J. MALAN: A really good question.
+71:09 What happens if you try to
+access a point in the array that
+71:11 hasn't been given a value yet?
+71:12 We will see that actually soon.
+71:13 You can go there, but you don't
+know what you're going to expect.
+71:16 So just to be a little
+dramatic, why don't we
+71:18 go ahead and have some
+delicious animal crackers?
+71:21 Take a 10-minute break.
+71:22 And when we come back, we'll
+start building on these examples.
+71:25 All right, now that we have this
+new tool in our toolkit of arrays,
+71:32 let's see how we can take it
+out for a spin and rethink,
+71:35 and also solve different
+types of problems,
+71:37 starting with a super
+simple message of "Hi,"
+71:39 which is where we really began
+over the past couple of weeks too.
+71:42 So suppose I wrote some code
+in an actual program soon
+71:45 that just stores three chars.
+71:47 And I'll call them simply c1, c2, c3.
+71:49 Initialize them to H,
+I, exclamation point,
+71:52 which not coincidentally is exactly
+the numbers we've been playing with--
+71:57 72, 73, 33.
+71:58 Recall from our so-called
+ASCII charts from weeks past.
+72:02 So what's going on with code like this?
+72:04 Well, let's go ahead and try it out.
+72:06 Let me open up a new file
+called-- how about hi.c?
+72:10 And in VS Code, I'm going to quickly
+do include stdio.h int main void.
+72:16 And then inside of main, let's
+give exactly those three lines--
+72:19 so char, char C1 equals,
+quote unquote, "H."
+72:24 Char C2 equals, quote unquote, "I."
+72:26 Char C3 equals, quote
+unquote, exclamation point.
+72:30 And just to be clear, why am I using
+single quotes instead of double?
+72:34 STUDENT: It's a character, not a string.
+72:36 DAVID J. MALAN: So it's a
+character, not a string.
+72:38 So strings are double-quoted.
+72:39 Individual characters are single-quoted.
+72:41 All right, so with that
+said, let's actually
+72:43 just poke around these variables.
+72:45 So let me go ahead and use printf
+and print out three things,
+72:48 three placeholders-- %c%c%c backslash n.
+72:52 And let's plug in the value of
+each of those variables-- c1, c2,
+72:56 c3 just to see what's going on.
+72:58 Well, this one won't be
+all that enlightening.
+73:00 But if I do make hi, ./hi,
+I should see literally Hi!
+73:06 But I'm not printing it as a string.
+73:07 I'm printing it as char,
+char, char from left to right.
+73:11 All right, so can I maybe
+improve this a little bit?
+73:16 Well, let me go ahead
+and tinker like this.
+73:18 If I actually want to see the
+numbers that the computer is storing,
+73:21 let me first add some
+spaces here for clarity.
+73:26 Let me add some spaces
+here for clarity, and let
+73:28 me change the placeholders from c to i.
+73:31 Because it turns out
+that if characters are
+73:35 just numbers per our discussion of
+ASCII, and then more broadly Unicode,
+73:39 what's really stopping me from
+just telling the computer treat
+73:41 this sequence of bits not as a char
+anymore, but as the integer that it
+73:45 actually is?
+73:46 So we can use printf with %i
+instead to do exactly that.
+73:50 So let me rerun make hi, ./hi.
+73:52 And what should I see
+now when I hit Enter.
+73:54 STUDENT: [INAUDIBLE]
+73:57 DAVID J. MALAN: Probably 72,
+73, 33, which we keep using.
+74:01 And indeed, that's all that's going
+on underneath the hood, so to speak,
+74:04 of these three characters.
+74:06 In fact, if we take a
+look at this code now
+74:07 in the context of the computer's
+memory, a char, recall,
+74:11 is one byte by definition.
+74:12 So we need three such
+bytes for three chars.
+74:15 So that might end up being
+H, I, exclamation point here.
+74:18 Or who knows?
+74:19 Maybe elsewhere in memory with
+those three variable names now
+74:22 in describing those three locations.
+74:26 Well, once I've got
+that in place, what's
+74:28 really going on underneath the hood?
+74:29 Well, obviously, it's
+actually storing 72, 73, 33.
+74:32 And if we really go down
+lower level to where
+74:35 we began week 0, technically what's
+inside of the computer's memory
+74:39 is these three patterns
+of zeros and ones.
+74:42 But again, who cares about
+these zeros and ones?
+74:44 But they are there.
+74:45 But it's easier to think
+about them as numbers,
+74:47 or in the context of actual
+words characters instead.
+74:53 So what is a string?
+74:54 Well, we introduced a string last week
+as being a sequence of characters.
+74:59 But it turns out that we actually really
+know more so now what a string is.
+75:03 So for instance, here is an example of
+declaring a string called s and setting
+75:08 it equal to the value of "Hi!"
+75:10 let's actually put this into some code.
+75:12 Let me go back over to
+VS Code in hi.c, and let
+75:15 me just tweak this code by really
+throwing away all of these lines.
+75:19 Let's do string s equals, quote
+unquote, in double quotes now, "Hi!"
+75:25 And then print out %s backslash
+n and print out s itself.
+75:30 And just so I have access to
+it-- more on this another time,
+75:33 let me proactively include
+cs50.h at this stage.
+75:37 So all I've done is exactly this
+line-- string s equals "Hi!"
+75:40 And let's just print it back out,
+just like hello world before it.
+75:43 Make Hi, ./hi, and indeed,
+I see H-I exclamation point.
+75:49 But what's going on now inside
+of the computer's memory.
+75:51 Well, just like the sequence of H-I
+exclamation point, what is a string?
+75:56 Well, a string is a sequence
+of characters-- yes,
+75:58 which means back to back to
+back contiguous in memory.
+76:01 So if this is the computer's memory,
+and I have created a string called "Hi!"
+76:05 It is indeed going to be called s.
+76:06 And it's going to have H-I
+exclamation point back to back
+76:10 to back in the computer's memory.
+76:12 Well, what's noteworthy
+here is that this
+76:16 looks awfully similar to stuff
+we've been doing thus far.
+76:19 Like, in fact, if a string is,
+yes, a sequence of characters,
+76:23 could we slap another name on what a
+string actually seems to be as of today?
+76:26 STUDENT: Array.
+76:28 DAVID J. MALAN: An array of characters.
+76:29 It's a sequence of values
+contiguous in memory.
+76:32 Well, that's pretty much equivalent
+to what I've been calling a string.
+76:35 So I bet we could think about "Hi!"
+76:38 as really being three locations called
+s, where this is really s bracket 0,
+76:44 s bracket 1, s bracket 2.
+76:46 And it's not that hard to even
+reveal this with a bit of C code.
+76:50 Let me go back to VS Code here.
+76:52 Let me leave line 6 alone.
+76:54 But let's go ahead and do this.
+76:55 Instead of printing out one placeholder
+%s, let's print out %c%c%c backslash n,
+77:03 comma--
+77:04 and there's no c1, c2, c3 now.
+77:06 There's only s.
+77:07 So let's print out s
+bracket 0, s bracket 1,
+77:11 s bracket 2, close
+parenthesis, semicolon.
+77:14 Go down to my terminal window make
+hi, ./hi It's the same darn thing.
+77:19 So all of this time, as of last week,
+when we were playing with strings,
+77:23 we actually already were using arrays.
+77:25 We just didn't call them that.
+77:27 But a string is a
+sequence of characters.
+77:29 An array is a sequence of values.
+77:31 So really, a string is
+just a more precise type
+77:33 of array specifically
+containing characters.
+77:36 Well, what's really going on inside the
+computer's memory, then, is indeed this.
+77:40 You've just got one variable called s,
+but it's got indeed three locations.
+77:43 But the difference here
+between strings now
+77:47 and what we were
+playing with previously,
+77:49 scores, where we had one,
+two, three scores and we
+77:52 had to keep track of the number of
+scores with a variable-- like n,
+77:55 or by literally typing 3 into my code.
+77:58 If I only have one
+variable in this program
+78:01 s, and yet it's somehow working, how
+does the computer know where s starts
+78:06 and where s ends.
+78:08 Like when I print out
+s as a placeholder, why
+78:12 is printf not just
+printing out everything
+78:14 that's in the computer's memory?
+78:17 How could we solve this.
+78:19 Well, at the end of the
+day, there's no magic.
+78:22 All we have is this
+canvas of zeros and ones.
+78:24 And if you want to keep
+track of something,
+78:26 you have to spend some of these bits.
+78:27 You have to use some of these bytes.
+78:29 So it turns out that the way a computer
+keeps track of where the end of a string
+78:34 is, even if that string is three
+characters, the length of the string--
+78:39 the length of the array really that's
+storing the string, is technically 4.
+78:44 It's 1 plus whatever the
+actual length of the phrase is.
+78:48 So if s begins here, it's obvious
+to our human eye that s ends here.
+78:53 But how does the computer know that?
+78:55 It spends one extra byte always
+for strings, unbeknownst to you,
+78:59 and it fills them with all zeros.
+79:02 And so technically,
+s is, yes, length 3--
+79:06 H-I exclamation point.
+79:07 But it uses 4 bytes because
+of this special value--
+79:10 this sentinel value, this terminating
+character that indicates, hey,
+79:14 the string stops there.
+79:15 Now, this invites the question,
+well, how do you represent all zeros?
+79:18 More on that another time.
+79:19 But for now, we're just using
+all 0 bits as a special signal
+79:23 that string stops here.
+79:25 Now let's stop talking
+about bits all the time.
+79:27 This is really just the number 0.
+79:29 So technically, whatever the string
+is, the last byte in a string
+79:33 will always be 0.
+79:34 This, though, is a little not ambiguous.
+79:36 Like is this, like, 0 bits?
+79:38 Or is this like the
+number 0 on my keyboard?
+79:41 Like, do I want to see the 0?
+79:43 So typically, the convention is to
+put a backslash in front of the 0
+79:46 to make it clear that this
+is a special character.
+79:48 This is a special
+character like backslash n,
+79:51 like some of the other
+characters we've seen.
+79:53 That just indicates
+the string ends here.
+79:55 It's the same thing as all zeros,
+but it avoids that visual ambiguity.
+79:60 So we can actually see this.
+80:02 If this is what's actually
+going on underneath the hood,
+80:05 we can actually see the
+fact that this is there.
+80:08 Let me go back to VS Code here, and
+let's just get a little curious.
+80:12 Instead of printing out three of these
+things, let's go ahead and do this.
+80:16 Let's print out %i %i %i, as before.
+80:20 And this is no different
+from earlier make hi,
+80:23 ./hi There are those three numbers.
+80:25 But let's get curious and print
+out one more placeholder-- %i,
+80:29 and print out s bracket 3,
+which I'm assuming will exist
+80:34 because, as indicated, a string always
+gives you one extra byte for that
+80:37 special terminating
+character-- make hi, ./hi.
+80:42 Voila, there is the zero.
+80:44 Unbeknownst to us last week, and
+unbeknownst to us before break,
+80:47 it's always been there with
+any string underneath the hood.
+80:50 The variable keeps track
+of where the string begins.
+80:54 But zeros indicate
+where the string ends.
+80:58 Questions on this technique
+or this implementation detail?
+81:06 Yes.
+81:07 STUDENT: What would happen
+if we went to the next?
+81:09 DAVID J. MALAN: What would
+happen if you went to the next?
+81:11 A good question.
+81:12 And honestly, there's
+nothing really stopping us.
+81:14 So let's try going one more
+location, so s bracket 4.
+81:17 Let me go ahead and do make hi, ./hi.
+81:20 37 comes next, whatever that is.
+81:23 If we do one more, %i s bracket
+5, let's do make hi ./hi, Enter.
+81:30 105 comes next.
+81:32 So these are actually
+unpredictable, and are actually
+81:34 representative of those
+same kinds of garbage values
+81:36 that I alluded to earlier that
+don't really belong to us.
+81:39 Like, I really shouldn't be poking
+around places where I haven't asked
+81:43 for the computer to give me memory.
+81:44 But odds are, those are evidence
+of other values in this program,
+81:50 or maybe remnants of the
+memory having been used prior.
+81:53 But the only one we can
+trust will exist is 1 greater
+81:56 than the string's actual length.
+81:57 Really good question.
+81:59 All right, so what is this thing called.
+82:02 Well, conventionally,
+this thing is called null.
+82:06 So nul-- single L. We'll see
+another version of null that's
+82:09 spelled a little differently.
+82:10 And we've actually seen it before,
+even though we waved our hands at it.
+82:13 Here is the ASCII chart
+from week 0, in fact.
+82:17 And we focused on H-I exclamation point.
+82:19 But here's the first column.
+82:20 And notice, location
+0 in the ASCII chart
+82:23 has always been what
+humans call N-U-L, or nul,
+82:26 which is just a special sentinel
+character, a terminating character, that
+82:30 says, string ends there.
+82:32 All right, well, what if we have
+multiple strings, for instance,
+82:35 like one string s called
+hi with a value of "HI!"
+82:37 and one string t with a value of "BYE!"
+82:39 Let's actually play a little with that
+and see where things end up in memory.
+82:43 So let me go back to VS Code.
+82:44 Let me get rid of this long printf.
+82:47 And let me give myself another
+one, string t equals "BYE!"
+82:52 And I'll print out both of these--
+printf, quote unquote, %s backslash n,
+82:58 s, and then printf s
+backslash n, t semicolon.
+83:03 And now make hi, ./hi And we'll see, as
+you would expect, just "HI!" and "BYE!"
+83:09 on the screen.
+83:10 What's going on inside of the
+computer's memory, though?
+83:12 Well odds are we're going to see two
+chunks of memory in use-- s and t,
+83:16 respectively.
+83:17 Maybe s ends up here, which
+is the whole thing here.
+83:20 Technically, this is
+s bracket 0, 1, 2, 3.
+83:22 But who really cares at this point?
+83:24 It's just a string called
+s storing this value.
+83:26 And though this is up to the computer
+and the context when we write the code,
+83:30 odds are "BYE!"
+83:32 will end up right next to it in memory.
+83:33 It's too big to fit on the screen.
+83:35 So there's still another character
+here, but it's indeed here.
+83:38 So even though you and
+I only ever write "HI!"
+83:42 or "BYE!"
+83:43 point, the backslash
+0, the nul character,
+83:46 ends up being added
+automatically for free.
+83:49 And fun fact-- this is what
+the double quotes are implying.
+83:55 When you use double quotes, that's
+a visual cue to the language,
+83:59 oh, this is a string.
+84:00 Let me terminate it with backslash 0.
+84:03 You do not want a backslash
+0 for a single char,
+84:05 because single would mean one character.
+84:08 So single quotes distinguish
+that for the computer as well.
+84:13 All right, so now that we
+know this, we can actually
+84:15 solve other problems as well.
+84:18 In fact, let me go ahead and do this.
+84:20 Let me go ahead and
+syntactically play around here.
+84:22 So if I know that I have
+two variables here-- let
+84:26 me draw some inspiration
+from the scores example.
+84:29 If I have a whole bunch
+of strings, I probably
+84:31 don't want to call it, like,
+s, t, u, v and so forth.
+84:35 Let's just give myself one variable
+of type string called words.
+84:42 Let's give me two of them
+for the sake of discussion.
+84:45 And then let's have the first word--
+84:47 so words bracket 0 equal,
+quote unquote, "HI!"
+84:49 Let's have the second word--
+84:51 words bracket 1 equal,
+quote unquote, "BYE!"
+84:55 So just like I did with the scores,
+let's just consolidate all of these
+84:59 arbitrary variable names into just
+one that's a little more descriptive,
+85:02 like "scores," or in this case, "words."
+85:04 How do I now print these.
+85:06 Well, instead of printing s and
+t, I can print words bracket 0,
+85:10 and I can print words bracket 1.
+85:12 And if I go down to my
+terminal make hi again, ./hi,
+85:16 it still says the exact same thing.
+85:18 But here's where things get interesting.
+85:21 You can compose these
+ideas in different ways.
+85:25 This is not something that's useful,
+but it does speak to the fact
+85:28 that there's no magic.
+85:29 Now that you have these
+square bracket notation,
+85:31 you can start poking around wherever
+you want, for better or for worse.
+85:35 So, for instance, suppose I want to
+print out the three-letter word high.
+85:39 Well, I could change %s
+to be %c%c%c for "HI!"
+85:46 But wait a minute.
+85:47 How do I print out characters?
+85:49 Well, this is a neat feature.
+85:51 If words is the array, and words bracket
+0 is the first string in that array,
+85:57 well, what is a string?
+85:59 It's just an array itself.
+86:01 So if you want to go into the
+first character of the first word,
+86:06 you can actually do this syntax.
+86:08 Use brackets twice.
+86:10 The first set of brackets
+says what word do you want.
+86:12 The second set of brackets says
+what character do you want,
+86:15 because again, this is an array of
+strings, a.k.a., an array of arrays.
+86:21 So let's do words bracket 0
+bracket 1, words 0 bracket 2.
+86:28 And then down here, I know
+this is a four-letter word.
+86:30 So again, this doesn't
+really solve a problem.
+86:32 It just demonstrates what's going on.
+86:34 Here's a four-letter word.
+86:35 Let's change this to words
+bracket 1 location 0, words
+86:39 bracket 1 location 1, words bracket 1
+location 2, words bracket 1 location 3.
+86:46 So again, not something that's
+really compelling to use.
+86:49 But it does demonstrate
+that there's no magic.
+86:52 All that's happening is %s is saying go
+print a bunch of characters until you
+86:56 see the backslash 0 %C is letting
+me manipulate these things manually.
+87:00 So make hi ./hi, exact
+same thing as before,
+87:05 by just building on the assumption that
+these strings are really just arrays.
+87:10 OK, so how do we actually
+leverage this idea
+87:13 and figure out dynamically
+how long these strings are?
+87:16 Because I bet any time we want to start
+iterating over the length of text,
+87:19 maybe to determine the reading
+level of a chunk of text,
+87:21 we're going to have to be able to
+read the thing from left to right,
+87:24 and stop when the sentence or
+the paragraph actually ends.
+87:28 So how might we do this?
+87:29 Well, let me actually
+go back over to VS Code.
+87:31 Let's create a new file
+called length, and let's write
+87:34 a program that figures out
+the length of a string for us.
+87:36 So length.c shall be
+the name of this file.
+87:40 Let's go ahead and
+include cs50.h at the top.
+87:43 Let's include stdio.h at
+the top, int main void.
+87:47 And then inside of main, let's do this.
+87:49 Let's ask the user for their name--
+string name equals get_string.
+87:53 And then prompt them for their name
+with name colon, quote unquote.
+87:56 Then let's go ahead and figure
+out the length of this string.
+88:01 So how can I figure out the length?
+88:02 Well, bunches of ways, but
+loops come to mind if I
+88:05 want to iterate from left to right.
+88:07 So let me propose that we first
+initialize any variable to 0.
+88:10 I'll call it n for number, but I could
+call it length or count or whatever.
+88:14 Then let's do a for loop.
+88:15 Or no, let's do let's do a
+while loop actually, like this--
+88:18 while the name array at location n
+does not equal the nul character.
+88:30 Go ahead and increment n.
+88:34 And then at the very bottom
+here, let's just print it out--
+88:36 printf of %i backslash n.
+88:40 All right, so there's
+a bunch going on here.
+88:42 But it's a relatively simple idea.
+88:44 What do we have?
+88:45 So we're prompting the user
+on line 6 for their name.
+88:48 Pretty straightforward per last week.
+88:50 Line 8, we're just saying
+start a variable at 0.
+88:53 So all fingers are down or
+the stress ball bowl is empty.
+88:55 This is the only line that's a little
+weird to see for the first time,
+88:59 but it's just doing this.
+89:00 Line 9 is saying while it is the case
+that the name string at this location
+89:07 does not equal the null
+character, increment n.
+89:11 So it's like using a finger and
+pointing at the string from left
+89:14 to right, asking itself is this
+null, is this null, is this null?
+89:18 And if it is not null, then
+it's going to increment n.
+89:21 So if the first letter
+is h at location 0,
+89:25 well, h is not equal
+to the null character.
+89:27 So n gets incremented once.
+89:28 So the expression "HI!"
+89:30 has at least a length of 1.
+89:32 i does not equal the null character,
+so n is going to get incremented again.
+89:36 The length is now at least 2.
+89:38 Exclamation point does not equal
+nul character n is now three.
+89:42 But what comes after
+H-I exclamation point?
+89:45 The null character, so the
+character at location 3--
+89:49 name bracket 3, which is the fourth
+total location, because we started
+89:54 counting at 0, is the null character.
+89:57 This does not get incremented anymore.
+89:59 I've only got three
+fingers still held up.
+90:01 We're going to see the value 3.
+90:02 So this is a very mechanical,
+clunky, but very correct
+90:07 way of figuring out dynamically
+the length of a string
+90:10 by just looking, looking, looking,
+looking, and figuring out where it is.
+90:14 How does printf then know when to stop
+printing characters on the screen?
+90:17 When you just hand it
+the name of a variable,
+90:19 it is literally doing the same thing.
+90:21 It is looking at your string left
+to right and checking, is this null,
+90:25 is this null, is this null?
+90:26 And as soon as it is null, it
+stops printing words on the screen.
+90:29 It's been doing this
+for us since last week.
+90:32 So if I open my terminal window
+now, do make length, Enter ./length.
+90:38 Type in a name like David, Enter.
+90:41 And I do get back the number
+5-- not, 6 because I'm not
+90:44 including the null character.
+90:46 I'm stopping once I hit it.
+90:48 And therefore, I get 5.
+90:51 Syntax is a lot, but any
+questions on this here?
+90:59 All right, well let's make one
+tweak, and then make it even simpler.
+91:02 So in my code here, wouldn't
+it be nice if I could just
+91:06 call a function that
+figures this out for me?
+91:08 So for instance, suppose I want
+to get the length of the name.
+91:11 Well, let's just give myself
+a variable called int length,
+91:14 set it equal to the return value of a
+magical function that doesn't yet exist,
+91:19 called string_length, and pass
+in the name to that function.
+91:22 And then go ahead and print out with
+printf exactly that length with %i,
+91:28 length.
+91:28 So wouldn't it be nice if a
+string length function exists?
+91:31 Well, it's not that hard to create one.
+91:33 If I have a function
+called string_length
+91:35 that returns the length of a string,
+I want this function to return an int,
+91:38 so that's its output or return type.
+91:41 The name is going to be,
+of course, string_length.
+91:43 What's the input to this
+function going to be?
+91:45 Well, it expects a string as
+input and I can call it anything.
+91:48 So I'll keep it simple.
+91:49 I'll call it s for string.
+91:51 And then inside of this
+function, honestly, I
+91:53 think I can copy-paste
+that code from before.
+91:56 I just need to change name to s.
+91:58 And instead of printing n, what do I
+want to do at the very last line here?
+92:03 STUDENT: Return s.
+92:04 DAVID J. MALAN: Yeah, so return s.
+92:05 Hand it back to whoever
+is using this function, so
+92:09 that it gets passed from right
+to left, stored in this variable,
+92:12 and then printed.
+92:13 There's one thing I have to do.
+92:14 Again, it's silly, but copy-paste
+the prototype at the top of the file,
+92:19 so that the compiler knows about it.
+92:21 But I think now I've created my
+own string_length function that
+92:24 can just figure this out for me.
+92:25 And as before, with Scratch,
+out of sight, out of mind,
+92:28 I never again need to
+implement a string_length
+92:30 function if I've already done it once.
+92:32 But let's not be dramatic.
+92:33 Let's just undelete all
+of these blank lines.
+92:35 Let's now compile this code.
+92:37 So make length again.
+92:39 Oh, I messed up.
+92:42 What did-- ah, I don't want to return s.
+92:45 I screwed up.
+92:45 I want to return n, which is the number.
+92:47 s is the string.
+92:49 So that's what it's saying here.
+92:50 And we'll come back to, in a couple of
+weeks what these words, like "pointer"
+92:53 and "conversion" mean.
+92:54 Make length.
+92:57 There we go-- ./length
+D-A-V-I-D. I still get 5.
+93:01 Well, wouldn't it be nice if someone
+had solved this problem for us already?
+93:05 And it turns out there is.
+93:06 So recall from last week, there
+are some std libraries that
+93:09 come with C-- not just CS50, not just
+std IO, not just the math library.
+93:13 There's actually a string library that's
+got a bunch of string related functions
+93:17 in it that are super-helpful.
+93:19 In fact, in the manual
+pages, or man pages,
+93:21 for the string library at a URL
+like this, which is CS50's version,
+93:25 you'll see exactly an option
+called the strlen function--
+93:32 S-T-R-L-E-N for short.
+93:34 There's the documentation on the
+screen and sure enough, there
+93:37 exists a function called
+strlen that does exactly this.
+93:41 So in fact, I can actually
+wonderfully enough,
+93:43 get rid of most of the code I just
+wrote by deleting that, as well
+93:48 as its prototype.
+93:49 I do need to include one more
+header file, so string.h.
+93:52 But instead of calling string
+length, I can call strlen.
+93:56 And now my program is done.
+93:57 So here, this is evidence of why we
+stand on the shoulders of programmers
+94:01 before us.
+94:01 Someone else already
+solved this problem.
+94:03 It's intellectually interesting
+to understand how they solved it.
+94:06 But why bother reinventing
+the wheel again and again
+94:09 when you can use a library
+function to do exactly that?
+94:12 So this version of the code, I think,
+make length, ./length D-A-V-I-D, Enter.
+94:19 Still works, but it's, like,
+three lines of actual code now,
+94:22 instead of a dozen or more
+that it was for a moment.
+94:29 All right, questions on any of this?
+94:34 Questions in the back?
+94:36 All right, so let's do a
+different sort of problem,
+94:39 but still borrow code that
+others have written before.
+94:42 So besides the strlen function
+in the string library,
+94:44 there's another oddly named
+library called the ctype library,
+94:47 which is related to ctypes, so
+converting from one thing to another
+94:50 or detecting thing.
+94:51 So in the ctype library
+whose documentation is here,
+94:55 you'll actually see a
+whole bunch of functions.
+94:57 So if I go here, you'll
+see things like isalnum.
+95:01 It checks whether a
+character is alphanumeric.
+95:02 Isalpha-- check whether a
+character is alphabetical.
+95:05 Isdigit-- check whether
+a character is a digit.
+95:08 Isspace-- check whether a character
+is whitespace, and so forth.
+95:11 Toupper, tolower-- toconvert a
+char to lowercase, to uppercase.
+95:15 There's so many functions that
+someone else wrote that actually
+95:18 seem, at a glance, pretty useful.
+95:20 But how might those kinds
+of things be implemented.
+95:22 Well, here's that same
+ASCII chart as before.
+95:24 And notice this kind of curiosity.
+95:26 Here are the start of
+the uppercase letters.
+95:29 Here are the start of
+the lowercase letters.
+95:31 And just take a look at A. We
+know from week 0 that A is 65.
+95:36 And apparently, lowercase a is 97.
+95:38 Quick mental math-- how far
+apart are those numbers?
+95:42 97 negative 65.
+95:44 STUDENT: 32.
+95:46 DAVID J. MALAN: That's right 32.
+95:47 So they're 32 apart.
+95:48 But notice the pattern.
+95:50 How far apart are 98 and
+66, 99 and 67, and so forth?
+95:55 They're all 32 apart.
+95:57 And this is actually wonderful
+for the real geeks in the room.
+95:59 You can just change one bit out of
+eight and turn a number from uppercase
+96:04 to lowercase and back.
+96:06 But for the rest of us, notice
+that 32 is the constant here
+96:09 that explains how you get from
+uppercase to lowercase and back.
+96:12 Well, we could leverage this and
+implement our own function that somehow
+96:16 plays around with the cases of letters.
+96:19 So in fact, let me go
+back to VS Code here.
+96:21 And let's create a new program this time
+called string.c, just to play around.
+96:26 And in string.c, I'm going to go
+ahead and include my same header
+96:30 file-- so cs50 and in stdio.h.
+96:35 And I'm going to use string.h.
+96:38 And then in int main void, I'm
+going to go ahead and do this.
+96:43 Let's prompt the user for a
+string s by using get_string,
+96:48 and just ask them for input,
+whatever that input actually is.
+96:51 Let me just preemptively say
+printf, quote unquote, "Output."
+96:56 And let me just go ahead and close
+quote, close parenthesis, semicolon.
+97:03 And now what I want to do
+is convert the user's input.
+97:08 Actually, for now let's do it simple.
+97:09 Let's just print the exact same
+thing that the human types in.
+97:11 So we're going to keep
+it simple, just to make
+97:13 sure we have the framework
+for a program good to go.
+97:15 So for int i equals 0.
+97:18 i is less than strlen, s.
+97:22 Let's go ahead and do i++.
+97:25 And then inside of here, let's go ahead
+and just print out that character.
+97:31 So print out %c backslash.
+97:34 Let's no backslash n. %c,
+quote unquote, "s bracket i."
+97:39 So I think this code here will print out
+the i-th character of s from 0 to 1 to 2
+97:45 for however long it actually is.
+97:47 And at the very end of this program,
+let's go ahead and print out
+97:50 just a single backslash n.
+97:52 So this doesn't do anything
+that interesting yet.
+97:55 But let me go ahead now
+and run make string.
+97:59 I messed up because I'm typing too fast.
+98:02 This semicolon goes on the outside.
+98:04 Let me do make string, ./strong.
+98:07 And I'll type in D-A-V-I-D. And
+I get the exact same output,
+98:10 so not all that interesting.
+98:12 But before we start playing around
+with uppercase and lowercase,
+98:16 let's actually clean this up slightly.
+98:18 This program is correct
+if my goal in life
+98:21 is to just print the exact same thing
+as output as I was provided with input.
+98:25 But it's arguably not well designed
+yet for a very subtle reason,
+98:32 even though I am very
+cleverly practicing
+98:34 what I preached a moment ago using the
+strlen function from the string library.
+98:40 Now, this is super-subtle.
+98:42 But on line 9, recall
+how a for loop works.
+98:44 Like, you initialize I to 0.
+98:46 Then you check the condition,
+then you do something,
+98:49 then you increment, then
+you check the condition.
+98:51 You do something, you increment.
+98:53 Then you check the condition.
+98:54 You do something and you increment.
+98:56 What might rub you the wrong
+way design-wise about the story
+98:60 I just told, given that strlen is
+involved in that decision-making.
+99:04 Yeah.
+99:05 STUDENT: So it's the same every time
+but you're calculating it again.
+99:08 DAVID J. MALAN: Perfect,
+really good intuition.
+99:10 Like, the length of s is not changing.
+99:11 So why am I wasting everyone's time
+by calling the strlen function again
+99:15 and again and again?
+99:17 i is changing, so that part is correct.
+99:19 But why am I calling this function?
+99:21 And notice, because I have
+written strlen parenthesis
+99:24 s, it will call the function
+again and again and again.
+99:26 It's not going to very
+intelligent and be like,
+99:28 oh, well it hasn't changed necessarily.
+99:30 Let me just do that for you--
+unless you have a compiler that
+99:33 has a feature like that enabled.
+99:35 But at a glance, this just
+seems very inefficient.
+99:38 So how can I improve this?
+99:40 Well, I can do this in a
+couple of different ways.
+99:42 Let me go back to the code here.
+99:44 Let me grab strlen of s, and
+let me do this-- like, int
+99:47 length equals strlen of s.
+99:49 And then I could do this.
+99:51 So this is arguably
+marginally better because I'm
+99:53 calling strlen once, storing
+the return value in a variable,
+99:57 and then using it again and again.
+99:59 Now, that's fine, that's
+correct, that is better-designed.
+100:01 But this is such a common paradigm,
+there's another way to do this.
+100:05 Instead of doing strlen of s inside of
+the condition, you can instead do this.
+100:11 You can declare a second
+variable like length.
+100:14 Or heck, I'll keep it simple-- n, set
+it equal to the string length of s.
+100:19 And then all within for loop,
+you can do the comparison
+100:23 by having initialized not
+one, but two variables
+100:27 at a time, so long as those
+variables are both the same type.
+100:30 Now I'm declaring two integers at once.
+100:32 But the first part here,
+before the first semicolon,
+100:34 is only executed once, because
+that's the initialization.
+100:38 So again, subtle, but
+it speaks to efficiency
+100:42 because I'm not calling
+the darn function again
+100:44 and again when the string s is
+never actually changing in length.
+100:47 So it's subtle, but
+arguably better designed.
+100:50 Now, with that said, can
+we go and actually use
+100:53 this knowledge of the ASCII chart?
+100:56 Can we use this technique
+of optimizing with strlen
+100:59 to combine things, and start
+changing things to and from uppercase
+101:02 and lowercase?
+101:03 Well, let's try this.
+101:04 Let me go ahead and open up a
+new file called uppercase.c.
+101:09 And in uppercase.c, let's go ahead and
+use those same files include cs50.h,
+101:15 include stdio.h, include string.h,
+and now and int main void.
+101:21 Inside of main, let's go ahead
+and do the same kinds of things,
+101:25 but a little bit differently.
+101:26 String s equals get_string.
+101:29 And let's ask the user for input.
+101:31 We'll call it before.
+101:32 So what's the string before
+we do anything to it?
+101:35 Now let's go ahead and proactively
+print out the word "after,"
+101:38 just so that we can compare it.
+101:40 And I'm going to very
+cleverly use two spaces, just
+101:42 because before is longer than after.
+101:44 But I want them to line up
+perfectly above each other.
+101:47 So I'm adding two spaces
+there, just for aesthetics.
+101:49 Now let's do this.
+101:51 Let's iterate over the characters
+of s and check if it is lowercase.
+101:57 Let's turn it to uppercase.
+101:58 Otherwise, let's not touch it at all.
+101:60 So how can I express that-- for int i is
+0, i less than the string length of s,
+102:06 i++ and then in here.
+102:08 But wait a minute.
+102:09 Let me learn from what I just said.
+102:11 Let me avoid calling strlen
+again and again and again.
+102:14 Let's just call it n equals strlen
+of s, and then compare i against n.
+102:18 N is not changing.
+102:20 I is changing.
+102:21 So that condition is now
+handling the logic I want.
+102:24 Inside of the for loop now,
+I have to ask a question.
+102:27 Is the current character, the
+i-th character of s lowercase?
+102:31 If so, change it to uppercase.
+102:33 Now, that's a mouthful.
+102:35 But I can use last week's building
+blocks and this week's understanding
+102:39 of arrays to express exactly that.
+102:42 So if it is the case that s bracket
+i-- so the i-th character in s
+102:48 is greater than or equal to lowercase.
+102:53 And s bracket i is less than
+or equal to quote unquote, "z."
+102:59 then I want to go ahead and
+change s bracket i to uppercase.
+103:04 I don't know how yet, so
+I'm just putting a comment,
+103:06 putting in pseudocode.
+103:08 Else if it's not lowercase,
+then just print s bracket i.
+103:13 Now, let me go back to our
+little cheat sheet here.
+103:16 So we only have the beginnings
+of it highlighted at the moment.
+103:18 But we know that the
+difference here is 32.
+103:20 But more interestingly we know
+that lowercase starts at 97.
+103:25 And if I look in the shaded
+part, it goes to 122.
+103:28 So technically, I could actually do
+this arithmetically with numbers.
+103:32 And I could go in here and say,
+is greater than or equal to 97
+103:36 and less than or equal to 122.
+103:38 That's fine.
+103:39 But honestly, because we know from the
+previous example, a char is just an int,
+103:43 an int is just a char, and you
+can format them however you want,
+103:46 you can also manipulate them
+mathematically however you want.
+103:49 So it's arguably better design and
+clearer to you, clearer to the TF,
+103:53 clearer to the reader,
+the colleague, that, oh,
+103:55 you're comparing the ASCII
+values, not some random number
+103:58 that I don't remember
+from class years ago.
+104:01 So greater than or equal to lowercase
+a, less than or equal to lowercase z
+104:05 expresses exactly what we want.
+104:07 So I'm going to pluck
+off the easy one first.
+104:09 How do I just print s?
+104:10 Well, I do printf %c, s bracket i.
+104:14 That means just spit it out unchanged.
+104:16 It's not lowercase so
+there's no change to it.
+104:18 Let's just spit it out,
+whether it's already uppercase,
+104:20 or maybe it's punctuation
+or a number-- whatever.
+104:23 Now, this part is the last part.
+104:25 How do I go ahead and change a
+character from lowercase to uppercase.
+104:30 Well, I know minimally, I'm going
+to want to print some character.
+104:33 So let's just proactively
+do %c as my placeholder.
+104:37 I kind of want to print
+s bracket i, but I want
+104:39 to change s bracket i to uppercase.
+104:43 What could I do mathematically
+to a lowercase letter
+104:47 to make it uppercase
+according to the cheat sheet?
+104:51 STUDENT: [INAUDIBLE]
+104:52 DAVID J. MALAN: Yeah, just subtract 32.
+104:55 So subtract 32 here.
+104:58 And now let's add one final flourish.
+105:01 Let's just add a backslash n,
+just so the cursor finally,
+105:03 at the very end of all this,
+is at the bottom of the prompt.
+105:07 Let me go ahead and open my
+terminal-- make uppercase enter.
+105:11 OK, I did screw up.
+105:12 I did it again.
+105:13 I'm going too fast.
+105:14 Semicolon on line 14.
+105:16 Let me clear my terminal, rerun
+make uppercase-- good, ./uppercase,
+105:21 David with one capital letter,
+the rest lowercase, Enter.
+105:25 And voila, now we've
+uppercased everything, just
+105:29 by understanding the
+underlying implementation
+105:31 details of what's going on.
+105:33 Honestly, if you don't remember
+32 we can even abstract this away.
+105:36 Like, whatever the distance is
+between capital and lowercase,
+105:41 that's actually what I want to subtract.
+105:43 Or I could do b or c or z or whatever.
+105:46 32 is fine, but it's arguably
+better to do a minus A,
+105:50 because then you know it's going
+to be dynamic between the two,
+105:52 even if you forgot from class what
+the actual difference of 32 is.
+105:57 But this is a little silly
+that I'm doing all of this work
+105:60 just to change things to
+uppercase and check for lowercase.
+106:03 How can I make this a little better?
+106:04 Well, turns out that ctype
+library is actually our friend.
+106:08 Here, let me go back
+into this code here.
+106:12 Let me include my ctype library.
+106:15 And it's not necessary, but
+I tend to alphabetise things,
+106:17 just because then at a glance, I can see
+what header files am I actually using.
+106:21 And I'll know If something is missing.
+106:23 Let me go into my code here.
+106:24 And you know what?
+106:25 Instead of doing all of this, it
+turns out that in the ctype library
+106:29 there was a function called toupper.
+106:32 And if I read the
+documentation of toupper,
+106:35 it essentially takes as input per its
+prototype in our own documentation
+106:40 down here a char--
+106:41 call it c And it returns the
+uppercase version thereof.
+106:45 It technically returns an
+integer, but who cares?
+106:47 We know that this is functionally
+equivalent to the same thing.
+106:51 So let me go back to my code.
+106:53 And honestly, because I have
+now included ctype.h at the top,
+106:57 I can just say toupper of s bracket i.
+107:02 Let me open my terminal.
+107:03 Let me rerun make uppercase,
+./uppercase David.
+107:11 And now it's still the same.
+107:13 But even this is silly, because if I
+read the documentation for the toupper
+107:17 function more clearly,
+it actually says that it
+107:20 will handle this conditional decision of
+whether the thing is already uppercase
+107:24 or not, or whether
+it's lowercase or not.
+107:26 So I can actually change
+all of this messiness
+107:29 into just a single line
+of code in my loop.
+107:34 Printf, quote unquote, "%c"
+comma toupper s bracket i.
+107:40 Now semicolon at the end.
+107:42 Let me reopen my terminal window--
+107:44 make uppercase, ./uppercase David.
+107:48 Yet again, that too works.
+107:50 So again, libraries are your friend,
+or designing a function once, and then
+107:55 somehow reusing it-- which is another
+technique we'll introduce over time,
+107:59 will save you time in the long run.
+108:01 Once you have invented one wheel, you do
+not need another for the same problem,
+108:06 so to speak.
+108:07 Whew, OK, any questions on this exercise
+here-- the goal of which, to be clear,
+108:12 was really to paint the
+picture of, one, how
+108:15 you can manipulate all of
+these lower level details
+108:17 now by understanding the ASCII chart
+from week 0, and now arrays from week 2,
+108:21 and solve all of these problems by
+just using someone else's code already
+108:26 in the form of these libraries.
+108:28 OK, so let's come full
+circle to where we began,
+108:33 so that we also touch ultimately
+on a bit of that cryptography
+108:36 and the art of scrambling
+information to better prepare you
+108:39 for actually solving some of
+these problems with your own code.
+108:41 This notion of command line arguments
+that I mentioned earlier, command line
+108:44 arguments are, again, just words
+you can type at the command line
+108:47 to influence the behavior of a program.
+108:49 So make hello-- hello is
+the command line argument.
+108:53 Clang hello.c-- Hello.c is
+the command line argument.
+108:56 Hello, -o hello, hello.c
+-o, and hello and hello.c
+109:03 are the command line arguments, plural.
+109:05 So how do we actually write code that
+accesses words at the command line?
+109:10 Because thus far, we
+have not written any code
+109:12 or any programs that can do that.
+109:15 But Make can and Clang can,
+and other programs can as well.
+109:18 So how do we make our own?
+109:20 Well, up until now this has
+been how we've implemented main.
+109:23 We've been asking you to take on
+faith that it returns an int always,
+109:27 even though that hasn't been
+useful for anything yet.
+109:29 And we've always specified that main
+takes no input, so just write void.
+109:32 I've been literally typing
+this for every program,
+109:34 as did you presumably,
+for problem set 1.
+109:37 Well, it turns out that you can
+actually change the void in main
+109:40 to be something else.
+109:41 If you want your program to
+accept command line arguments,
+109:44 words at the prompt when
+you run your own code.
+109:47 And you can change this void--
+109:48 it's a bit of a mouthful, to
+be this whole thing instead.
+109:52 Now, it's long at a glance.
+109:53 But what is it?
+109:54 It's two arguments.
+109:55 One is an int.
+109:56 One is a string--
+109:58 technically, an array of strings.
+110:01 So this is why we introduced
+that syntax earlier.
+110:03 When you have an array being
+passed into a function,
+110:07 you just use square brackets
+and no number inside.
+110:09 So what this implies is
+that main can, if you want,
+110:13 take an integer and an array of strings.
+110:15 Now, technically you can call these
+things anything you want-- a, b, x, y.
+110:19 The convention, though, is
+to call it argc and argv,
+110:22 where argc means argument count,
+how many command line arguments have
+110:26 been provided.
+110:27 And argv stands for argument vector.
+110:30 A vector is often another
+word for an array,
+110:32 although there are subtle differences.
+110:34 But in this context,
+it just means array.
+110:36 Argument vector is an
+array of all of the words
+110:38 that the human typed
+at the command line.
+110:41 So how can we use this technique?
+110:44 Well, let's go ahead and
+do something like this.
+110:47 Let me go back into VS Code.
+110:49 And let's go ahead and create
+a program called greet.c.
+110:53 So in greet.c, let's write a
+program that just greets the user.
+110:56 But instead of using
+get_string, let's just
+110:58 ask them for their name at the command
+line, so they can type it all at once,
+111:02 hit Enter, and be done with it.
+111:03 They don't have to wait and be
+prompted, and then hit Enter.
+111:05 So let's go ahead and include cs50.h.
+111:08 Let's go ahead and include
+stdio.h, int main not void.
+111:17 Let's do void first, actually--
+void, just to compare and contrast
+111:22 what we did last week.
+111:23 What we did last week would have been
+literally answer equals get_string.
+111:28 Prompt the user for "What's your name?"
+111:31 space semicolon, and then printf,
+quote unquote, "hello, placeholder,"
+111:36 backslash n, answer.
+111:39 So this is week 1 stuff now,
+and we saw this same snippet
+111:42 at the start of today--
+111:43 make greet, ./greet.
+111:45 I am prompted for David.
+111:47 And now I am greeted, "Hello David."
+111:49 So that's the old way of doing it.
+111:51 What is now the new way
+using this prototype for main
+111:56 instead using the signature,
+which is essentially synonymous,
+111:59 which means now what if main takes two
+inputs and still returns one output?
+112:04 Let me go ahead and, in
+my second incarnation
+112:07 here, let's tweak this as follows.
+112:10 Let's get rid of all of this.
+112:11 Let's change the void to be int
+argc, string argv open bracket,
+112:19 close bracket to make clear it's
+an array, not a single string.
+112:22 It's an array of strings.
+112:23 And then inside of this function, let's
+do this-- printf, quote unquote, "hello,
+112:28 placeholder" backslash n, like always.
+112:30 But what do I want to print?
+112:31 Well if argv is an array, let
+me do argv bracket 0 maybe,
+112:39 semicolon, and that's it.
+112:41 Let me now open my terminal window.
+112:43 Let me again do make greet, ./greet.
+112:46 And this is going to look a little
+weird, but here we go-- ./greet David.
+112:49 You'd think this would
+now say, "Hello, David."
+112:51 But it says hello ./greet.
+112:55 All right, so wrong, given my intent.
+112:58 But what can you infer about what
+is stored in argv0, apparently
+113:03 by convention, by having
+just poked around here?
+113:05 STUDENT: [INAUDIBLE]
+113:07 DAVID J. MALAN: The name of the
+program, which hasn't been useful yet.
+113:10 But if you ever want to have
+documentation maybe built
+113:13 into your program, or maybe like
+an explanation of how to use it,
+113:16 it might be nice to reflexively
+know what is my name.
+113:19 And you can actually figure out
+the program's name dynamically,
+113:22 even if the user renames the file by
+using mv or right clicking or Control
+113:27 clicking on it, you can figure out
+what your name is in argv bracket 0.
+113:31 Well, where is the actual
+name that was typed in?
+113:34 Argv 1 is where the actual words begin
+that the human, like me, typed in.
+113:39 So let's recompile this.
+113:40 Let's do make greet
+again, ./greet David.
+113:45 And now I think I'll get
+a proper "Hello, David."
+113:49 I'm not using get_string,
+I'm not prompting the user.
+113:51 I'm doing it all in one breath.
+113:53 Unfortunately, if in the current moment
+I forget to provide a name-- let's
+113:57 just run greet enter, so nul.
+114:00 And this is not N-U-L. This
+is a different type of null--
+114:03 N-U-L-L.
+114:03 This just means no value.
+114:05 So this is not very pretty.
+114:06 Maybe we can defend against this.
+114:08 And we can.
+114:09 Let me go ahead and
+close my terminal window.
+114:11 Let me temporarily get
+rid of this line of code.
+114:13 And let's conditionally
+print that greeting out.
+114:15 So if the argument
+count equals equals 2,
+114:20 then you know that there's
+the name of the program, which
+114:23 is always going to be there no
+matter what, automatically for free.
+114:26 And another word is there, like the
+name of the human typing the program.
+114:30 Then let's go ahead and, OK,
+let's print out "hello so-and-so."
+114:35 else if the user has not provided their
+name or they provided too many words,
+114:39 let's just go ahead and give them
+a default value like "hello, world"
+114:44 semicolon.
+114:45 Let me open my terminal window.
+114:46 Clear the terminal.
+114:47 Make greet again, ./greet David.
+114:51 It still works as before, because the
+number of arguments in argv is two--
+114:57 the name of the program
+and whatever I typed in.
+114:59 But what if I try to be
+a little more formal?
+115:01 Greet David Malan, Enter.
+115:03 It just ignores that, because now the
+argument count is presumably three.
+115:07 And we didn't handle that, so I can't
+even greet people with last names.
+115:10 But that's fine.
+115:11 Similarly, if I just do ./greet
+and no name, that's also not two.
+115:15 So we again get the default value.
+115:17 But at least now there's no way this
+code is going to print out null.
+115:20 Weirdly, because I'm at
+least handling and checking
+115:24 how many characters there actually is.
+115:27 You can do other things
+with this too now.
+115:29 If I were to iterate over all of the
+words typed in, I could do this--
+115:32 for int i is 0, i less
+than argc, i++ plus.
+115:37 So a relatively simple for loop.
+115:38 I can print out %s comma
+n, and then argv bracket i.
+115:42 So what am I doing here?
+115:43 Well, let's just try.
+115:45 I did that fast.
+115:46 But let's do make greet,
+./greet David Malan.
+115:50 What am I going to see on the screen?
+115:52 Program name, my name, my last name.
+115:54 If I type in more words-- so maybe
+I do David middle initial J Malan,
+115:58 I just get one per line.
+115:60 So again, there's really nothing
+intellectually that interesting
+116:02 going on here.
+116:03 We just have a new integer,
+conventionally called argc,
+116:06 that tells us how many
+arguments there are.
+116:08 There is a new array called
+argv conventionally that's just
+116:11 an array of words that were typed in.
+116:12 So we can use last week's
+techniques with for loops,
+116:15 which are the exact same
+idea of loops from week 0,
+116:18 to just iterate over these things.
+116:19 So again, the syntax is new.
+116:21 It's going to be hard to remember it.
+116:22 Even I screwed up multiple times.
+116:24 But it's just going
+to come with practice.
+116:25 What's important is to understand
+the ideas underlying this
+116:28 and why these things work, not where
+the quotes and square brackets must be,
+116:32 because that will come
+indeed with practice.
+116:35 All right, so this is actually
+a fun way to demonstrate this.
+116:39 This is not educationally
+redeeming, but it's fun to show.
+116:42 Let me actually maximize
+my terminal window.
+116:44 It turns out that
+there's a lot of programs
+116:46 that come with systems
+like the operating system
+116:49 we're using called Linux, which
+is, again, the operating system
+116:51 running in the cloud underneath the
+hood of VS Code in your terminal window.
+116:54 ASCII art, which is a phrase I've
+tossed out there a couple of times,
+116:57 is like using the
+characters on your keyboard
+117:00 to depict things-- people, places,
+things, animals, or the like.
+117:03 Well, we can actually use a
+fun program called cowsay,
+117:06 which again, is really just for fun.
+117:08 But it does take command line arguments.
+117:10 And just for fun, I
+thought I'd share these.
+117:12 So if I want to go
+ahead and run cowsay--
+117:15 let me do cowsay moo, Enter.
+117:18 And apparently, this
+program's purpose in life
+117:20 is to print a cow using ASCII art,
+and then put the word you type
+117:24 as the command line argument in there.
+117:26 If I change the word to be longer, like
+"moo," Enter, the ASCII art adapts.
+117:30 So someone spent like a
+bunch of hours to figure out
+117:33 how to format this dynamically
+to make things look nice.
+117:35 They also added some
+other features whereby
+117:37 with additional command line
+arguments, it doesn't just
+117:39 have to be a cow saying things.
+117:41 It can be, like, a duck.
+117:42 So the program is still called cowsay.
+117:44 But if you change the mode to be that of
+duck, and then say something like quack,
+117:50 you'll see three command
+line arguments now.
+117:53 And thus, when I hit Enter, now we
+have a cute little duck quacking.
+117:58 And perhaps especially fun is this--
+cowsay -f dragon, like RAWR, Enter,
+118:05 and you get this crazy thing that
+took someone way too long to create.
+118:08 So again, there's nothing
+educationally redeeming here-- other
+118:11 than, hey kids, here's an
+example of command line arguments
+118:13 just to do silly things like this.
+118:15 It's a very common technique to more
+efficiently provide inputs to programs.
+118:19 So there's only one last thing to
+distill about main, which we've
+118:23 been asking you since
+last week to take on faith
+118:25 is, why does main return an
+int, even though we've not
+118:28 been doing anything with that?
+118:30 We didn't even know what the
+return values were initially.
+118:33 Well, it turns out that
+programs can have exit statuses.
+118:37 And we've not seen these visually yet.
+118:39 But even though we've seen. programs
+with side effects printing out "moo"
+118:42 or "quack" or "rawr" on
+the screen, technically,
+118:45 programs can also
+return secretly numbers.
+118:48 And those numbers are useful, usually
+to the programmers or to the computer,
+118:51 to signal more methodically whether
+something succeeded or failed.
+118:55 So case in point, if you've been using
+Zoom sometimes, when things are wrong,
+118:59 you might see weird Zoom error messages
+like this-- like an error code, 1132.
+119:03 That means nothing to the layperson.
+119:05 But odds are there's one or more
+employees at Zoom that, oh, shoot,
+119:09 they're seeing error code 1132.
+119:11 That is because we wrote code that
+returns this value in certain situations
+119:16 that indicate failure.
+119:18 This is a little different.
+119:19 But more of us are probably familiar
+with other numbers in the real world,
+119:22 like 404, whereby you go to a
+web page where the URL is wrong,
+119:26 the file has been deleted,
+you're in the wrong place.
+119:28 404 is similarly a number that, to a
+computer, indicates what has gone wrong,
+119:34 because some human decided 404 shall
+mean "file not found," for instance.
+119:39 So it's a little different
+from C code, but same idea.
+119:41 Numbers are used to standardize
+what can go wrong in programs.
+119:45 So if we look back at C, here is the
+way we define C main most recently.
+119:51 And we're now taking
+command line arguments.
+119:54 It turns out, though, that as
+before, main still and should always
+119:58 be returning an integer, even though
+we've done nothing with it, even if you
+120:02 don't have command line arguments.
+120:03 So in fact, we can take
+a step backwards there
+120:05 and consider exactly what
+this int does for us.
+120:10 Let me go back to VS Code, shrink down
+my terminal, and close our old example.
+120:15 Let's make one final
+program here called status.c
+120:18 because these integers are called
+status codes, for instance.
+120:22 Let's do this-- include cs50.h,
+include stdio.h int main--
+120:30 and I'll stick with void,
+because we're sort of done
+120:33 with command line arguments for now.
+120:35 No we're not.
+120:37 We will do int main, then int argc,
+string argv with square brackets.
+120:47 And now let's actually use
+exit statuses to indicate
+120:51 that something went wrong, as opposed to
+just printing something on the screen.
+120:55 So I'm going to do this.
+120:56 If argc does not equal 2-- so
+I'm inverting the logic now,
+121:01 instead of equaling 2.
+121:02 If it does not equal 2, let's
+go ahead and tell the user Yes,
+121:05 missing command line
+argument backslash n.
+121:10 But so that the computer knows
+that something went wrong too,
+121:13 let's also return any number other
+than 0 within a certain range.
+121:19 So it turns out that 1
+is a good place to start.
+121:22 Otherwise, if all went well and I
+can say in fact "Hello, placeholder,"
+121:28 and then plug in argv
+bracket, same as before,
+121:31 let's explicitly indicate to the
+computer that all is well and successful
+121:35 and return 0.
+121:37 And even though this feels a little
+backwards-- like, usually one is true
+121:41 or yes, and 0 is false or no, turns
+out that 0 means success by convention.
+121:47 And any positive number, and sometimes
+negative numbers, means failure.
+121:51 Why is this?
+121:51 Well, if everything's successful,
+it's either successful or not.
+121:54 But there are dozens, hundreds,
+thousands of things, as you know,
+121:57 that can go wrong in computer systems.
+121:59 That's why we're using
+every number except 0
+122:02 to describe erroneous situations.
+122:04 So I'm going to keep it
+simple, and use 1 and 0.
+122:07 I could use 1132 to be like Zoom.
+122:09 I could use 404 to be like a browser.
+122:12 But we'll keep it simple
+because I want to indicate
+122:14 failure or success, respectively.
+122:16 Unfortunately, you don't see this
+by default. If I do make status,
+122:20 Enter ./status, and then I will not
+provide a command line argument.
+122:28 I'm just going to go
+ahead and hit Enter.
+122:30 And I'm told missing
+command line argument.
+122:32 But I don't see a number 1.
+122:33 Similarly, if I run ./status, and I
+type in David, I see "Hello, David,"
+122:38 but I don't see a status of 0.
+122:40 But there is a way at your keyboard
+to see what the status code is.
+122:44 And we, CS50 will use for
+automatic grading, for instance,
+122:48 we will look at the status code
+with which your program executes
+122:51 to determine, oh, was
+this successful or not.
+122:53 In the real world, when
+you're automating tests
+122:55 to make sure the industry code works,
+you might secretly check, is it a 0,
+122:59 is it a 1, Is it 1132, is it 404?
+123:02 These status codes are
+very useful for automation,
+123:04 even though, practically
+speaking, for you and me,
+123:06 they won't be as useful day to day.
+123:08 But you can type this esoteric command--
+123:11 echo $?, and see what the exit
+status was of the most recent command
+123:17 that you ran.
+123:18 So, for instance, if I go
+into my terminal-- and again,
+123:21 let's just rerun make status
+to recompile it, ./status.
+123:25 And let's not provide a
+command line argument.
+123:27 Enter.
+123:28 I see the error.
+123:29 But if I now type this
+command, echo $?, Enter,
+123:34 I should see 1 because
+that is what I returned.
+123:38 If, by contrast-- let's clear this,
+I rerun ./status David, Enter, I see,
+123:45 "Hello, David."
+123:46 If I echo $?
+123:48 again, I now see 0.
+123:50 And just to emphasize
+the Zoom idea, if I
+123:52 do 1132, that's actually too big to
+be used here, that would show me 1132.
+123:58 But really it should be a smaller
+number in the context of these programs.
+124:01 But that indeed is what's
+going on underneath the hood.
+124:04 So we will very often in
+programs-- and problem sets
+124:07 prescribe that what you should
+have main return this number
+124:10 or this other number in
+certain cases so that, one,
+124:13 we're sort of doing things
+the conventional way.
+124:15 And two, we can also automatically
+detect exactly what has happened.
+124:19 All right, so let's come full circle
+to the last of the real-world domains,
+124:23 namely cryptography.
+124:24 And even though the way we
+encrypted This is CS50 earlier,
+124:27 it's pretty simple.
+124:28 We just changed every
+letter by one position.
+124:30 We now, all these minutes later,
+have the ability to analyze text.
+124:35 If a human types in
+something with get_string,
+124:37 you now have the tools to
+iterate from left and right
+124:41 to infer what's the reading
+level of this person,
+124:44 how do I convert this ciphertext to
+plain text, so to speak, or vice versa?
+124:49 We have the ability now to manipulate
+text already now in week 2.
+124:52 So how might this be useful?
+124:54 Well, encryption is the process
+of scrambling information,
+124:57 but in a reversible way.
+124:59 It's useless if you just scramble
+it and can't get the original back.
+125:01 So encryption is meant to be reversible.
+125:04 So here is the mental
+model you might have,
+125:06 whereby your inputs and outputs
+as always become plaintext,
+125:09 which is the original message in
+English, or whatever human language.
+125:12 The ciphertext is the
+scrambled version thereof.
+125:15 What's in the middle?
+125:16 The black box this week is always an
+algorithm, implemented perhaps in code.
+125:20 But a cipher is the type of
+function that enciphers information
+125:25 from plaintext to ciphertext.
+125:27 So it's just some terms of art here.
+125:30 But the catch with the cipher is
+that it must rely on a secret.
+125:33 And so there's a secret value,
+generally known as a key,
+125:36 that is provided to
+ciphers as a second input.
+125:39 After all, if all of us were using the
+exact same cipher in the exact same way,
+125:43 we could all decipher or
+decrypt each other's messages
+125:47 if it all works the same way.
+125:49 But not if we all choose a secret
+key, like a big random number
+125:54 that only I and the recipient.
+125:56 Then you guys can use
+the exact same algorithm.
+125:58 But without my key, you're
+going to be trying all day long
+126:01 to figure out what my key was--
+126:03 at least so long as we pick
+a big random enough value.
+126:06 So how does that work?
+126:08 Given the plaintext, given a key,
+we can encipher the information
+126:11 to spit out that ciphertext.
+126:13 So for instance, if the
+input plaintext is "Hi!"
+126:17 and the key for the sake of discussion
+is super simple and 1, what can we do?
+126:23 Well, the output would be IJ!, if you
+are using an encryption algorithm known
+126:29 as the Caesar cipher.
+126:30 So back in the day, when
+the whole world was not
+126:32 really familiar with
+encryption algorithms
+126:35 yet-- because we're talking
+hundreds of years ago,
+126:37 they didn't have to
+be that sophisticated,
+126:39 because if no one else
+was thinking to do this,
+126:41 you might as well just add 1 to all of
+your letters, or something like that.
+126:44 So generally, it's
+believed that Caesar was
+126:46 among those who used rotational
+ciphers like this, whereby A becomes
+126:52 B, B becomes C. Or maybe you use bigger
+numbers, and rotate more than one place.
+126:57 It's pretty secure if you're the only
+one on the planet doing it at that time.
+127:00 Meanwhile, 1 plus
+"HI!" would give us IJ!
+127:04 because H plus 1 gives us I, and I plus
+1 gives us J. And in this scenario,
+127:11 numbers, punctuation just
+gets passed through unchanged,
+127:14 which is why I leaked the number 50
+before, even though "this is CSS"
+127:18 was properly encrypted.
+127:20 Meanwhile, if we want to make
+things a little more sophisticated,
+127:23 we could use 13.
+127:25 And in fact, a special
+case of the Caesar cipher
+127:27 with an input of 13 on
+the internet is called
+127:30 ROT13, which just means
+rotate the letters 13 places.
+127:35 So adding 13 to H and
+I gives us U and V.
+127:39 If you got too close to
+the end of the alphabet,
+127:41 you just wrap around
+from Z to A. And in fact,
+127:44 one of the challenges for this coming
+week's problems is to figure out,
+127:47 if you're encrypting something with
+letters of the alphabet that are
+127:50 a little later, how do
+you indeed wrap around,
+127:52 so you get back to A's and B's and C's.
+127:54 Meanwhile, if we do something
+that's a little more compelling,
+127:57 like you wanted to pass a note
+to someone in class yesteryear,
+127:59 and you're worried about the
+teacher intercepting it--
+128:01 and that message is super
+sensitive, like, "I love you."
+128:03 Well, you probably want to
+use something bigger than 1--
+128:06 maybe 13, because a teacher, upon
+seeing this written on a sheet of paper,
+128:09 probably isn't going
+to try, and probably
+128:11 isn't going to care, to decrypt it.
+128:13 But they could.
+128:15 If we're only using a relatively
+small key of 1 or 13 or 14 or 15,
+128:21 they could, if they really cared,
+just brute force their way through it.
+128:24 And this is actually a technical
+term, much like in yesteryear,
+128:26 using a battering ram to brute
+force your way into a castle door,
+128:30 for instance.
+128:30 Brute force digitally means
+try 1, try 2, try 3, try 4--
+128:35 try all possible keys.
+128:36 And eventually, the plaintext is going
+to pop back out if you have enough time.
+128:41 So the world has much fancier encryption
+algorithms nowadays than this.
+128:45 But we begin by using this
+as representative of those.
+128:48 The math has, of course,
+gotten more sophisticated.
+128:50 This is not a good key to use.
+128:53 There's this internet joke for people
+in the know online and on Reddit.
+128:56 Like, oh, ROT26 is twice
+as secure as ROT13.
+129:00 Why is that funny?
+129:04 It's the same thing--
+129:05 A to A, B to B. This just literally
+gives you the same message.
+129:08 So don't believe everything
+you read, for instance, online.
+129:11 So what about decryption?
+129:12 Well, in the case of the Caesar
+cipher, it's just the opposite.
+129:15 Instead of adding 1 or adding 13,
+you subtract 1 or you subtract 13.
+129:19 So for instance, here might be
+a message, a little different
+129:21 from the one with
+which we began, whereby
+129:23 if we subtract 1 from each of
+those, we can decrypt this.
+129:26 So for a final flourish here, and for a
+taste of what lies ahead for problem set
+129:30 2, what happens if
+you subtract 1 from U?
+129:33 What do you get?
+129:34 STUDENT: T.
+129:35 DAVID J. MALAN: T, and then?
+129:36 STUDENT: H.
+129:37 DAVID J. MALAN: H, and then
+I and then S and then--
+129:41 ooh, W, A, S T, S. And this was CS50.
+129:47 We'll see you next week.

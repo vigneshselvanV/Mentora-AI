@@ -1,0 +1,3484 @@
+00:00 [MUSIC PLAYING]
+00:11 DAVID J. MALAN: All right,
+this is CS50 and this
+00:13 is lecture 6 and as you
+may recall, today we
+00:16 begin to transition away from
+this low-level world of C
+00:19 and command line programming
+into to a domain that's probably
+00:22 a little more familiar,
+that of the web, and yet
+00:24 all the ideas that we've been exploring
+thus far like functions and loops
+00:28 and conditions and so forth
+are still going to be relevant.
+00:31 It's just we're going to start using
+slightly different syntax and the user
+00:34 interface, or UI, is now going
+to be your browser instead
+00:38 of a black and white terminal window
+with just a simple textual prompt,
+00:42 but how did we get here?
+00:43 Well, recall that we've
+looked recently at structs
+00:45 and what was nice about structs
+in C was that we had the ability
+00:48 to make our own custom data types
+and to kind of encapsulate together
+00:52 related data, and that
+became pretty powerful
+00:54 when it came time for forensics to
+actually manipulate bitmap files
+00:58 or JPEGs, and even though this
+struct is way more complicated
+01:02 than a student structure,
+at the end of the day
+01:04 it's just individual data types
+that are all somehow interrelated,
+01:08 and by putting them in a struct
+you can move them all around
+01:11 and copy them and save them all
+together as you might have done as well,
+01:15 but then most recently did we
+introduce a somewhat fancier structure,
+01:19 which is still the same idea.
+01:20 It's got like one or
+more things inside of it,
+01:22 but now, more powerfully,
+one of those things
+01:25 had this star or asterisk, which gave
+us, of course, a pointer or an address,
+01:29 but what was so powerful about
+this simple idea and this seemingly
+01:33 simple symbol is that now we can kind
+of stitch together in our computer's
+01:37 memory any kind of structure we want.
+01:38 It doesn't have to just be one entity.
+01:40 It can somehow be linked
+to another and you
+01:42 can keep linking these structures
+together as well, and this of course
+01:47 was an improvement on perhaps our
+simplest of data structures early on,
+01:51 an array or a list,
+but of course, as soon
+01:53 as you have pointers can you
+begin to link things together
+01:56 until we got something like this
+and perhaps now with the dictionary
+02:00 implementation you yourself might be
+exploring a linked list, a hash table,
+02:04 a [? try ?] or some variant in between.
+02:07 And then lastly, there was this
+painting of a picture, whereby
+02:11 this is your computer's memory
+put a little more descriptively,
+02:14 and this is germane only
+insofar as your computer uses
+02:17 different chunks of memory differently.
+02:19 All of your function calls
+end up using the stack.
+02:22 All of your users of
+malloc and its cousins
+02:24 end up using the heap, and then
+of course there's this up here,
+02:28 and what was the text segment,
+which we didn't really dwell on?
+02:32 What was the text segment all about?
+02:35 Text-- you're being volunteered.
+02:38 Yes, what's the text segment?
+02:41 AUDIENCE: Files information?
+02:42 DAVID J. MALAN: Files information, yeah.
+02:43 Specifically, the 0s and 1s
+that compose the actual program.
+02:46 So when you compile your source
+code, like hello.c, into 0s and 1s,
+02:50 those end up getting stored
+in this location in memory
+02:53 while the program is running.
+02:55 So long-term they're stored on disk or
+your hard drive or whatever's inside
+02:58 of the computer or the server so that
+the files persist even when the power
+03:01 goes off or you walk
+away from the keyboard,
+03:04 but as soon as you double click a
+program on your Mac or PC or as soon
+03:06 as you do ./hello or
+some command like that,
+03:10 those same 0s and 1s get loaded
+into your computer's RAM,
+03:13 the picture we keep showing, and that's
+where they live while they're in use
+03:17 by your Mac or PC or the actual server,
+03:19 but thus far we've been running all
+of these programs with something like
+03:24 ./hello or some similar command and
+running them just in the so-called
+03:27 terminal window.
+03:29 But you are probably
+most familiar, certainly
+03:31 with more graphical apps
+on your phones these days
+03:34 and any time you visit a
+web browser on your phone
+03:36 or on your desktop or laptop, you're
+still interacting with a program.
+03:40 It's just that program is not
+only running on your Mac or PC.
+03:44 Your browser is, like Chrome
+or Edge or Firefox or Safari
+03:47 or whatever it is you use.
+03:48 That's running on your
+Mac or PC, but what
+03:51 you're communicating with
+is a program elsewhere,
+03:54 somewhere else on the internet and
+those programs are called web servers.
+03:57 A web server is just a piece of
+software that some human or humans wrote
+04:01 and their purpose in life
+is to serve web pages.
+04:04 When you request the
+homepage of Facebook,
+04:06 there is a server out there,
+a program someone wrote,
+04:08 that essentially spits out the 0s and
+1s that compose Facebook's homepage,
+04:13 but nicely enough, those 0s and
+1s are not written as 0s and 1s
+04:18 by Facebook engineers.
+04:19 They're actually written as
+something a little more English-like,
+04:22 a little more familiar, and it's
+not even programming code, per se.
+04:24 It's what's called markup language,
+and we'll soon see that and more today.
+04:29 So we've gone from compiling
+your code and running it
+04:31 like this to actually doing
+that in a web-based environment,
+04:34 but of course, when you're running your
+own programs in CS50 IDE down here,
+04:38 you're actually using
+another piece of software
+04:41 that fills the screen, CS50IDE, a.k.a.
+04:44 Cloud9, which is the program essentially
+running somewhere in the cloud.
+04:48 And we'll start to make this
+distinction and through examples
+04:51 will the distinction among these
+different types of software
+04:54 begin to make sense, but where is
+something like CS50IDE running?
+04:58 Where is Facebook running?
+04:59 Where is Google.com running?
+05:01 Well, back in 1998, Google.com
+was running on this.
+05:05 This was Larry and Sergey, the founders
+of Google's, very first implementation,
+05:10 apparently, of their
+first rack of servers.
+05:12 So servers are generally stored
+literally in a rack like this.
+05:16 It's usually like 19
+inches wide by convention
+05:19 and you just stack computer on top
+of computer on top of computer,
+05:22 but things were very bare
+bones back in the day of Google
+05:24 and so there weren't
+even plastic or metal
+05:26 cases around a lot of their computers.
+05:29 They were trying to minimize cooling,
+minimize cost, presumably, and cram
+05:32 as much hardware into that
+footprint as they could,
+05:36 and so you actually see a
+lot of the wires and hardware
+05:38 kind of sticking out, and this
+is on display now out west.
+05:41 Of course these days, fast forward
+just a decade or two, and this
+05:44 is one of Facebook's data centers
+where it's the exact same idea,
+05:48 but much fancier, much prettier,
+much better lit servers,
+05:51 but who serve, at the end of
+the day, the exact same role.
+05:54 There are bunches of servers
+around the world that are just
+05:56 sitting there waiting
+for you on the internet
+05:58 to make a request for a
+homepage, for an email,
+06:01 for any other type of
+information so that it ends up
+06:04 getting sent from server to client.
+06:06 And in fact, if you've ever thought
+about those words server and clients,
+06:10 which is probably the
+lesser used of the two,
+06:12 but a server-client relationship is what
+you have when you go into a restaurant,
+06:15 and you ask the waiter or
+waitress for something to eat.
+06:17 He or she brings something back
+to you, thereby serving you,
+06:20 the client, and the relationship on
+the web is pretty much the same thing.
+06:24 We are the clients.
+06:25 Our browsers are the
+clients and out there
+06:27 are servers like these who are
+serving up content and information,
+06:32 such as on Facebook.
+06:33 So let's consider how all
+this data even gets to us.
+06:35 So odds are, these days, if you want
+to visit Facebook.com on your laptop
+06:39 or desktop or phone without
+using the app, you probably just
+06:43 type in Facebook.com and hit Enter.
+06:45 If you're a little older
+school or literally older,
+06:48 you might just actually type out
+the entirety of www.Facebook.com.
+06:52 Both work and there are technical
+reasons for that related to the topic
+06:57 we'll talk about today,
+but both of these work just
+06:59 because Facebook has
+configured their website
+07:01 to work in either of those addresses.
+07:03 Now, as an aside, why are so many
+websites therefore prefixed with "www"
+07:09 if both of them actually work?
+07:14 Like, why have both?
+07:15 It seems just like
+redundant to type "www."
+07:18 if it's implied by Facebook.com.
+07:22 Yeah, what do you think?
+07:23 AUDIENCE: Is the "www" required?
+07:25 DAVID J. MALAN: Is it required?
+07:26 Nope, not required.
+07:28 Not required.
+07:29 Yeah?
+07:30 AUDIENCE: Is it to identify that
+it's part of the World Wide Web?
+07:32 DAVID J. MALAN: Kind of, yeah.
+07:32 It's to identify that it's
+part of the World Wide Web
+07:34 and no one really says
+World Wide Web these days.
+07:36 We of course just say web, but back in
+the day and back in my day, frankly,
+07:40 it wasn't obvious to
+a lot of human beings
+07:42 what Facebook.com might actually
+even mean, irrespective of the fact
+07:49 that it didn't exist at some point.
+07:51 And so there was this sort
+of signal to the world
+07:54 whereby you just started prefixing
+domain names with "www" just
+07:58 to make super clear to
+users, oh, this is a website!
+08:00 This is one of those things
+on the internet or the like,
+08:03 and also back in the
+day, there were also
+08:04 different services that have
+fallen into disuse these days,
+08:07 like FTP was quite popular
+and Gopher, we used it
+08:10 when I was here and other such things.
+08:12 And so "www" was just an arbitrary
+prefix that just kind of said what it
+08:15 is, but these days we humans pretty much
+know what a .com is and .net and .edu,
+08:21 but even that kind of road is
+changing again because there's dozens,
+08:24 hundreds of top-level domains.
+08:27 It's not just .com and
+.edu and others now.
+08:30 I mean, there's hundreds
+of these things out there
+08:32 and so it might even be
+non obvious to this day.
+08:34 So some people, therefore, go really
+all the way in and type out http://
+08:40 and then the address
+that they want to visit,
+08:43 but odds are most of us don't do this
+because our browsers just help us out
+08:46 and prefix that, but that's
+where our focus will be today.
+08:49 Like, this actually has
+significance because it specifies
+08:53 what protocol or language,
+what convention your computer,
+08:58 your laptop should use when
+talking to that server's address,
+09:01 and actually, if you want the
+communications to be secure,
+09:04 odds are your typing or your
+browser is doing it for you.
+09:06 Adding an s there, denoting secure
+or encrypted a la Caesar and Vigenere
+09:12 from some weeks ago and
+technically your browser
+09:14 is also probably adding
+a trailing slash even
+09:17 if it's not shown to you, which denotes
+you want the root of the server,
+09:22 like the default homepage
+or something else.
+09:24 In fact, maybe you do
+want something else.
+09:26 You don't want just Facebook's
+website, you want Mark's page,
+09:29 and so you could specifically /zuck
+or whatever the username actually is.
+09:33 So this is a very long way of
+saying all this kind of stuff
+09:36 that we type or autocomplete and
+take for granted these days actually
+09:39 has some very fundamental
+meanings, all of which
+09:43 make possible the entirety of the web.
+09:45 So what actually goes on with HTTP
+and what does that actually mean?
+09:49 So HTTP is a protocol.
+09:52 It is a set of conventions
+that dictate how a computer
+09:54 client, like a browser on your
+Mac or PC, talks to a web server,
+09:59 and it's a protocol in the sense
+that it's not a language, per se.
+10:02 It's really just a set
+of conventions and so
+10:04 like this is kind of an arbitrary
+and awkward human convention.
+10:07 Hello, I'm David.
+10:08 AUDIENCE: I'm Kara.
+10:09 DAVID J. MALAN: Kara, so Kara
+and I just introduced ourselves.
+10:12 I extended my hand and she
+kind of knew instinctively
+10:14 that it would be awkward not to
+shake my hands or to shake my hand
+10:18 and so we exchanged
+pleasantries and said hello.
+10:21 So this is just kind of
+a silly human convention
+10:23 whereby we've agreed sort
+of socially in advance
+10:25 how to greet each other in that way.
+10:27 So HTTP is pretty much the
+same thing, but in this case
+10:31 you're not actually physically
+doing something like that.
+10:33 You're kind of sending a
+message from client to server.
+10:36 You're putting a sort of handwritten
+note into an envelope this,
+10:40 addressing it somehow and then sending
+it off on the internet for Kara
+10:43 or for Facebook.com or
+Google.com to actually receive,
+10:47 and then when Google or Facebook
+or Kara receives that note,
+10:50 reads and sees what I want,
+the server or the human
+10:54 responds in some according way.
+10:57 So what then goes
+inside of this envelope?
+11:00 Well it turns out that
+when a web browser,
+11:02 like Chrome or Edge or Firefox,
+Safari, make a request,
+11:06 the message they put inside of one
+of those envelopes, albeit virtually,
+11:09 is literally this text.
+11:11 It's like if I had it written down on a
+piece of paper literally GET / HTTP/1.1
+11:14 Host: www.facebook.com
+and then the "..."
+11:20 just means there's other stuff in there,
+but it's less fundamentally interesting
+11:23 right now.
+11:24 So what's this all mean?
+11:26 GET is just a verb and it
+kind of says what it means.
+11:28 Go get something from the server.
+11:30 HTTP/1.1 mentions the version of HTTP
+that I am using or the human convention
+11:36 that Kara and I were
+actually implementing there,
+11:39 and so 1.1 tends to be the one most
+in use these days, and then /, again,
+11:43 it's just like the default identifier
+for the homepage of a website,
+11:48 the default page that you see in
+the absence of typing something like
+11:52 and /zuck or some other suffix.
+11:54 Host: Is the same thing as whatever's
+on the outside of the envelope.
+11:58 So if I'm sending a message
+to www.Facebook.com,
+12:01 I'm just making super clear inside of
+the envelope which server should expect
+12:07 this request just in case there
+are multiple websites running
+12:10 on the same physical server, which is
+possible for economic and performance
+12:13 reasons these days.
+12:15 So alternatively, if I were trying
+to visit Mark Zuckerberg's homepage,
+12:18 the request in that envelope's
+going to look almost the same,
+12:21 but I'm going to be more precise.
+12:22 /zuck instead of just /.
+12:25 Meanwhile, if I'm requesting
+something from Yale's homepage,
+12:28 the request would look like
+this, or from Harvard's web page,
+12:30 the request would look
+like this and so forth.
+12:34 So once Harvard or Yale
+or Facebook w actually
+12:37 received the request in that
+envelope, opened it up, look at it,
+12:40 how do they decide how to respond?
+12:42 Well at the end of the
+day, I'm probably expecting
+12:45 to get back from the web
+server some kind of, excuse me,
+12:48 web page whereby I want to
+see my news feed on Facebook
+12:52 or I want to see the
+search page on Google
+12:54 or I want to see Harvard's
+homepage, Yale's homepage
+12:56 or whatever it actually is.
+12:58 So there's a lot of information
+probably packed into that envelope,
+13:01 but there's also a
+conventional, a standard,
+13:04 response that looks literally like this.
+13:07 So at the very top, for instance, of
+the "letter" that comes back from Google
+13:11 or Facebook is a message like this.
+13:13 Got it.
+13:14 I'm speaking HTTP version 1.1 also.
+13:17 Everything is OK and 200.
+13:19 We'll come back to
+that in second and then
+13:21 the type of content
+inside of the envelope,
+13:24 if I keep digging
+deeper into it, is going
+13:26 to be text, but more
+specifically, HTML, and we're
+13:28 going to focus on that today too.
+13:30 HTML, Hypertext Markup Language.
+13:32 This is going to be the language in
+which web pages themselves are written.
+13:36 Then there's usually some
+other stuff and way down there
+13:39 is the actual contents of Yale's or
+Harvard's or Facebook's homepage,
+13:42 but let's zoom in on
+this for just a moment.
+13:44 200, odds are you've never seen or
+cared to see this kind of number before,
+13:49 but have you ever used the
+web and requested a web page
+13:52 and seen some number that for some
+reason keeps popping up in your life?
+13:55 AUDIENCE (IN UNSION): 404.
+13:56 DAVID J. MALAN: Yeah, 404.
+13:57 It's just kind of a weird thing
+that many of us in the room
+14:00 know 404 even if we're not
+necessarily technophiles
+14:03 and know what HTTP is, but it turns
+out that in these envelopes coming back
+14:07 from servers sometimes are
+not just 200 OK, but instead--
+14:12 dammit, typo.
+14:14 This would be much more effective
+if I said it's not this.
+14:17 It's not found.
+14:18 So inside of the envelope is 404
+not found, which means exactly that.
+14:25 The file was not found that
+you were actually seeking.
+14:29 You mistyped the URL,
+the page was deleted.
+14:32 Somewhere or other, there was
+some kind of typographical error
+14:34 and it turns out there's a lot
+of the status codes in HTTP
+14:38 and there are even more
+than these, but these
+14:39 are the ones we might
+see the most commonly.
+14:41 200 OK means all is indeed well.
+14:44 404 means not found.
+14:45 403 forbidden might be
+if you've not logged in
+14:48 or don't have the right access
+in order to access some folder
+14:52 or file on some website.
+14:53 This is really bad and we'll get to
+know this over the coming weeks as we
+14:56 ourselves start implementing
+code on a server.
+14:58 500 internal server error, if you will,
+shall be our new segmentation fault,
+15:02 but hopefully not too frequently.
+15:04 It means something is wrong
+in the code on the server.
+15:06 This was an April Fools' joke
+back in 1998 I believe, yeah.
+15:11 So April Fools', some humans decide it
+would be funny to announce to the world
+15:15 that there's yet another code,
+which is 418 I'm a Teapot,
+15:18 which kind of comes up from time to time
+in actual code and then there's this
+15:22 one--
+15:23 301 Moved Permanently.
+15:25 It's kind of a scary sounding
+thing, as though a website just
+15:27 kind of up and left and went elsewhere,
+but it's a powerful mechanism
+15:32 in the following way.
+15:33 If a server inside of
+one of these envelopes
+15:35 responds with a response
+like this, there
+15:39 tends to be one other piece
+of information at least.
+15:41 So if I visit a website
+like http://harvard.edu,
+15:47 I might get back in the response
+from Harvard's web server
+15:51 this answer, 301 Moved Permanently.
+15:54 Like where the heck did Harvard go?
+15:56 Well you can see the location
+based on this other line
+15:58 and all of these things
+collectively moving forward we're
+16:01 just going to call HTTP headers.
+16:03 Anytime you see a word
+and a colon, that's
+16:06 an HTTP header with a name
+and a value and the first one
+16:09 ones a little anomalous
+in that there's no colon,
+16:11 but that's the only
+one without the colon.
+16:13 So location colon
+http://www.harvard.edu.
+16:19 Well what's going on?
+16:20 Well, if I actually visit Harvard's
+homepage exactly as follows,
+16:24 let's take a look at what happens.
+16:26 I'm going to go to
+http://harvard.edu, Enter.
+16:31 And notice there's a whole bunch of more
+stuff happening on the screen thanks
+16:35 to what's called autocomplete, which
+is a feature of Chrome or my browser.
+16:37 It has nothing to do
+with the topic at hand.
+16:39 This is just Chrome trying to be
+helpful today as on your computer too
+16:43 and suddenly, even though I tried
+to go to http://hardvard.edu, ,
+16:50 where did I clearly end up?
+16:53 HTTPS, so they added the s somehow
+and what else has it added?
+16:56 [VARIOUS ANSWERS FROM AUDIENCE]
+16:58 DAVID J. MALAN: Yeah, the web.
+16:59 The www prefix was added.
+17:01 So this is not sort of all
+that important to the user
+17:04 like I got to my destination somehow
+but the reason for that is as follows.
+17:09 I'm going to go ahead and
+open up, in the IDE actually,
+17:13 just a terminal window here and I'm
+going to use a new program called Curl
+17:17 for connect to a URL
+://harvard.edu, Enter.
+17:23 And I get back some cryptic looking
+things and that's actually HTML,
+17:25 and we're going to come back
+to this in just a moment
+17:28 because it turns out there's two
+parts to the messages coming back.
+17:31 There's the headers and then there's the
+content, and we're seeing the content.
+17:35 So more on that in a bit.
+17:36 I want to look a little higher up in
+the response and literally just look
+17:39 at the headers, and to do that-- and
+you would only know this from reading
+17:42 the documentation--
+17:43 -I means show me just the
+headers that are coming back.
+17:48 So here now we see the
+headers coming back
+17:50 and you'll see indeed we got
+back a 301 Moved Permanently,
+17:53 and then there's some other stuff
+we haven't really focused on,
+17:56 but at the bottom is something we have--
+17:58 location, which says to the
+browser go to this URL instead.
+18:01 All right, so let me do that.
+18:03 Let me save time and just copy paste
+this and then do curl -I of this,
+18:09 Enter, and pretend to be a browser
+requesting that page now, but now
+18:13 where are they trying to send me?
+18:16 HTTPS.
+18:18 So this suggests via some
+mechanism, some human at Harvard
+18:22 decided one, uh-uh.
+18:23 We're not going to be
+called like harvard.edu.
+18:25 We shall be www.hardvard.edu
+for whatever reason
+18:29 and then they also decided that if a
+user visits us using HTTP, which is not
+18:34 encrypted, not secure, we're going
+to forcibly tell them to come back
+18:39 via secure channel, and we won't
+dwell today on how that's implemented,
+18:43 but much like in Caesar or Vigenere
+where was a way to encrypt or scramble
+18:47 information, browsers
+can do that too and it's
+18:49 implied by using the HTTPS
+instead of just HTTP.
+18:54 All right, so let's actually
+visit this one more time.
+18:57 Let me go ahead and
+highlight that location.
+18:60 curl -i of that address and now an
+overwhelming amount of information
+19:04 coming back, and that's why I kept
+putting the ...'s, but the juicy stuff
+19:08 is at the top.
+19:09 Now everything is 200 OK and
+indeed, if I run it without -I
+19:17 so I see the contents
+of the envelope, it's
+19:19 like looking deeper
+inside of the envelope,
+19:22 now I actually see a lot more
+content, which collectively
+19:25 composes Harvard's
+homepage, and it turns out
+19:29 we can see this even in Chrome.
+19:31 Let me go over to my browser again
+and if you've not done this before,
+19:34 it turns out that you can go
+to your View menu, Developer,
+19:37 and go to Developer Tools-- and we'll
+do this in upcoming problem sets--
+19:40 and I can go here and see a whole
+bunch of features, only a couple
+19:43 of which we might look at today.
+19:45 Specifically, I'm going to
+click on this Network tab.
+19:47 So to be clear, Developer Tools in
+Chrome still shows me the homepage,
+19:51 but it kind of dedicates
+part of the screen
+19:53 to these special developer tools that
+make it easy to understand and actually
+19:57 create websites.
+19:58 So eventually we'll
+start using this ourself,
+19:60 but what's nice about the Network
+tab is that you can sniff or monitor
+20:04 all of the requests going
+back and forth between browser
+20:07 and server in the so-called envelopes.
+20:09 So I'm going to hit a little
+Clear symbol here first just
+20:12 to get a clean slate.
+20:14 I'm going to click preserve log so
+I can actually see what's happening
+20:18 and now I'm going to go ahead--
+20:20 actually, I'm going to
+go ahead and do this.
+20:22 http://harvard.edu, so the sort of
+incorrect version that I'm going
+20:27 expect the browser to fix for me.
+20:29 I hit Enter.
+20:30 A whole bunch of stuff is
+flying across the screen
+20:34 and in fact if we zoom
+in on this, you can
+20:36 see that just visiting
+Harvard's home page
+20:39 requires 85 envelopes it would seem
+going back and forth with pieces
+20:44 of the webpage and we'll see soon
+with some of those pieces are,
+20:47 but it's not just one file coming back.
+20:49 It's bunches of files.
+20:50 Maybe images, maybe fonts,
+or some other things too,
+20:53 but I'm going to scroll
+up in this output
+20:55 and now notice the story
+that's been told here too.
+20:58 So the very first request,
+which I can hover over and see,
+21:01 came back with a 301, which we
+now know is Moved Permanently,
+21:05 or it's a redirect.
+21:06 Then if I hover over
+the second one, you'll
+21:08 see that it's a slightly more precise
+URL, www, but still with HTTP.
+21:13 So that got redirected and then lastly,
+if we look at the third line here,
+21:18 this is the one we
+ultimately ended up at
+21:20 and indeed it comes back 200, as do
+bunches of other results thereafter,
+21:25 and we'll see what those
+200s actually mean.
+21:28 Now, you can do a
+little better than this
+21:30 and it's perhaps fitting that our
+friends down the road indeed did.
+21:33 Let me go back to the IDE.
+21:35 Let me go ahead and clear this and
+instead of curling harvard.edu,
+21:39 let me do http://yale.edu
+and ask the question,
+21:44 what would be a better approach--
+knowing these ingredients that we now
+21:48 have of how redirects work.
+21:50 How could Harvard do better in terms
+of getting the user to the address
+21:55 that we intend them to be at?
+21:58 Yeah.
+21:58 AUDIENCE: By not forcing
+like, two redirects?
+22:00 DAVID J. MALAN: Yeah, by not
+forcing two redirects, right?
+22:02 Even if some of this
+material is new, we've
+22:04 long talked now about
+correctness and design and style
+22:06 and we've seen some messy style on
+the screen and that's fine for now.
+22:09 More on that later.
+22:10 It seems to be correct
+because it's working,
+22:12 but it feels like it
+could be better designed
+22:14 because why make one request
+then make another request just
+22:18 to fix the first request then
+make a third request just
+22:21 to fix the second request?
+22:22 Why not combine them?
+22:24 And, as it turns out, someone down
+the road had that same intuition
+22:26 and so we visit yale.edu with
+just HTTP and without the www,
+22:32 they, in one fell swoop,
+actually redirect us
+22:35 to the right place in this case.
+22:39 So, with that said, it's
+perhaps fitting that just
+22:43 a few years, well,
+some years ago now, you
+22:46 might have tried to visit
+this particular address,
+22:49 and this is something I
+can only do in Cambridge.
+22:53 If I go ahead and open a new browser
+and go to http:// shall we say
+22:59 safetyschool.org and hit
+Enter if you've never been.
+23:05 Oh, interesting!
+23:06 [STUDENTS LAUGH]
+23:11 DAVID J. MALAN: And apologies
+for those of you tuning in online
+23:13 live from New Haven.
+23:15 So how is this possibly working?
+23:17 It's actually a very simple heuristic.
+23:19 If instead of selecting Yale or
+Harvard or any other address,
+23:22 if I literally do like safetyschool.org,
+we can wrap our mind around
+23:26 what's going on underneath the hood
+safetyschool.org has moved permanently
+23:29 to New Haven it would seem, but it's via
+this very simple mechanism that someone
+23:34 back in 2000 registered
+this domain name,
+23:36 and so actually as I was looking
+this up in the history last night,
+23:39 I was amused to find that whoever bought
+the domain has been paying for this
+23:43 domain name now for 17 years for this
+joke annually, but it's well worth it,
+23:48 but I think it would be--
+23:49 [STUDENTS LAUGH]
+23:51 DAVID J. MALAN: But I
+think it's only fair now,
+23:53 it's only fair if we take
+a look at another one too.
+23:56 It turns out that if you visit
+harvardsucks.org, that one has also
+24:03 redirected, this time to www.
+24:05 So let's follow this little
+breadcrumb. curl -I harvardsucks.org,
+24:10 and this one's OK.
+24:11 So that means something
+lives at harvardsucks.org
+24:14 and it does not as cleverly
+redirect to harvard.edu,
+24:19 but to introduce this,
+let me actually introduce
+24:21 a friend of ours who's now very
+awkwardly visiting from New Haven
+24:23 today.
+24:23 Hi Natalie.
+24:24 Do you want to come on up and
+say hello for just a moment?
+24:26 So this is Natalie, who is our head
+of the class with Benedict Brown
+24:31 and [? Anushri ?] and with
+[? Staleos ?] in New Haven.
+24:34 If you'd like to say a quick hello?
+24:35 Hi, Hi, everyone.
+24:38 DAVID J. MALAN: So nice to have
+you here today and as you know--
+24:41 do you want to make mention of
+what we're about to see here?
+24:43 What happened back in 2004
+just a few years later?
+24:48 AUDIENCE: We did a
+prank back, basically.
+24:51 DAVID J. MALAN: OK, so perfect set-up.
+24:53 Thank you very much.
+24:54 Hello to Natalie.
+24:55 Let me go ahead and hit
+play on three minutes
+24:58 that are kind of hard
+to justify academically,
+25:00 but it's perhaps one of the best
+pranks that's ever been played.
+25:03 Long story short, our
+friends down the road
+25:06 got together with a few of themselves
+just before Harvard Yale, which
+25:09 was to be at Harvard
+that year and actually
+25:12 mapped out using software,
+a sort of grid system
+25:15 that lined up with all of the
+seats in the Harvard stadium,
+25:18 whereby you assume that a human
+each takes up some amount of space,
+25:21 and then they used special
+software to figure out
+25:23 how they might spell something
+out in the audience in a way that
+25:27 would be readable to the opponents,
+the Yalies, on the other side.
+25:30 So if we could dim the
+lights for this look back
+25:32 at yesteryear and a
+slight use of software.
+25:37 [MUSIC PLAYING]
+26:04 - All the way at the top.
+26:08 - This is for you Yale.
+26:10 We love you Yale.
+26:11 - We're here to cheer for Harvard.
+26:14 - Yeah!
+26:14 Let's go Harvard!
+26:16 - Yeah, Harvard!
+26:17 - Take the top one and pass it down.
+26:20 - It's not going to say
+something like Yale sucks is it?
+26:23 - It says Go Harvard.
+26:25 - We're nice.
+26:27 - You see that shit?
+26:28 Look at them, they have the paper!
+26:31 It's gonna happen!
+26:33 It's actually gonna happen!
+26:35 I can't [BLEEP] believe this.
+26:37 - What do you think of Yale?
+26:38 - They don't think good!
+26:40 - It may be a complete
+mess, I don't know.
+26:44 - Does everyone have it?
+26:45 Does everyone have their stuff?
+26:47 - The probability that it's
+gonna be legible is very small.
+26:49 - It's gonna happen!
+26:50 It's gonna happen!
+26:51 - It's too complicated.
+26:52 - Look, look at all the signs.
+26:54 - I know but it's too complicated.
+26:55 - Uh, what houses are you guys in?
+26:57 That's not a real house.
+26:59 - Ho-fo?
+27:02 - Yeah.
+27:04 You guys aren't from Harvard are you?
+27:06 - No, fo-ho.
+27:06 Pforzheimer!
+27:08 - Yeah, but he said ho-fo.
+27:09 - Let's just make sure everyone has it.
+27:11 - Well she's probably drunk.
+27:11 - Are all the cards disributed?
+27:13 - Almost!
+27:18 [APPLAUSE]
+27:27 [CHEERING]
+27:30 - Hold up your signs!
+27:31 - They [BLEEP] did it!
+27:33 [CROWD CHANTING "YOU SUCK!"]
+27:37 - They [BLEEP] did it!
+27:39 They [BLEEP] did it!
+27:41 [CROWD CHANTING "YOU SUCK!"]
+27:46 - What do you think of Yale sir?
+27:49 - They suck!
+27:51 - One more time!
+27:54 - One more time!
+27:59 - Oh and there it goes again!
+28:02 [CROWD CHANTING "HARVARD SUCKS!"]
+28:19 [END PLAYBACK]
+28:20 DAVID J. MALAN: All
+right, we've been talking
+28:21 about what goes on
+inside of this envelope,
+28:24 but what goes on on the outside?
+28:26 So when you hand off this envelope
+from your laptop or your phone
+28:29 to the internet, how does it
+actually get to its destination?
+28:32 Well you've probably heard this
+acronym IP, or internet protocol,
+28:35 and it turns out that every computer
+on the internet and every phone
+28:38 in this room and any very laptop
+in this room has a unique address.
+28:43 That unique address is known as an IP
+address and it's much like the address
+28:47 of a building in the real world, like
+the Science Center might be a 1 Oxford
+28:51 Street Cambridge, Mass 02138, USA.
+28:54 Down the road is the CS building.
+28:55 33 Oxford Street
+Cambridge, Mass 02138, USA.
+28:59 So those long strings
+uniquely identify buildings
+29:02 in the world for the
+mail service and the like
+29:04 and similarly do IP addresses uniquely
+identify computers on the internet.
+29:08 These addresses are much
+more succinct though.
+29:11 They're not long strings they're instead
+just numbers that have four parts
+29:14 and each of those numbers within the
+IP address are a value from 0 to 255.
+29:20 So the lowest IP address is all
+zeros and the biggest IP address
+29:24 is all 255s with some constraints.
+29:26 You can't quite use
+all of those numbers.
+29:28 So just as a sort of quick teaser,
+if the smallest number is 0
+29:33 and the biggest number for each of
+these sections of the IP address is 255,
+29:37 how many bits are being used
+for each of those four numbers?
+29:41 AUDIENCE: 8.
+29:42 DAVID J. MALAN: Yeah, 8.
+29:43 So remember like 8 bits gives you 2
+times 2 times 2 times 2 times 2 times
+29:47 2 times 2 times 2, which is 256, and
+indeed we have 256 total values from 0
+29:53 on up to 255.
+29:54 So an IP address is 8 plus 8
+plus 8 plus 8, or 32 bits total,
+29:59 or, just come really full circle
+with week zero, if you have 32 bits,
+30:03 roughly how high can you count?
+30:05 Like what's 2 to the 32 power?
+30:09 Yeah, it's roughly 4 billion.
+30:11 So, long story short, the implication
+of this very simple definition
+30:15 is that apparently there can only be,
+in this model, four billion computers,
+30:20 phones, refrigerators, internet of
+things, devices on the internet at once
+30:24 if they do all need an
+IP address that's unique.
+30:27 So I've been telling a
+slight white lie in that they
+30:29 don't have to all technically
+be unique because there's
+30:32 ways we can share
+addresses, and it turns out
+30:34 there's even bigger addresses these
+days that aren't just 32 bits but 128
+30:38 bits, which is just massive and daresay
+unpronounceable how big that number is.
+30:42 So we've gotten ahead of this issue, but
+you'll find that in a lot of locations,
+30:46 companies and internet service providers
+like Comcast and Verizon and the like
+30:50 and campuses like Harvard and Yale,
+you can notice that they tend to follow
+30:54 patterns, like many of the IP
+addresses here at Harvard start with
+30:58 140.247.something.something or 128.103.
+31:02 Down the road in New
+Haven, a lot of the IP
+31:04 addresses there start
+with 130.132 or 128.36,
+31:08 which is not at all interesting to
+the humans who are using these IP
+31:13 addresses, but it is useful to
+the servers or the devices that
+31:17 are actually routing these
+envelopes from one place to another.
+31:21 Meanwhile, in our homes and even
+sometimes on campus these days,
+31:24 there are also what are called
+private IP addresses, which
+31:27 are numbers within
+these ranges, and this
+31:29 has been a solution so that when
+you sign up for Verizon or Comcast
+31:33 back home or your parents
+do for internet service,
+31:36 you technically only get one IP address
+from your internet service provider.
+31:39 That's what you're paying for per
+month, but thanks to something
+31:42 called network address translation
+and other technologies,
+31:45 you can actually give all
+of your siblings and parents
+31:48 and family members or roommates in the
+household their own unique address.
+31:52 It's just private in the sense that
+no one else on the outside world
+31:55 can access it unless you
+initiate the connection.
+31:59 So this is generally why
+at home you can reach
+32:02 any website you want any service
+on the internet that you want,
+32:05 but you can't have like
+random people necessarily
+32:07 trying to get into your
+laptop or your device at home
+32:10 because there's a device, a home router,
+that translates these private addresses
+32:14 into otherwise public addresses,
+but for now the takeaway really
+32:18 is just that every computer on
+the internet has an IP address,
+32:20 and if you've ever poked around your
+Mac, like under System Preferences,
+32:24 you can actually see this.
+32:25 So I've just pulled up a screenshot here
+of a network control panel on Mac OS
+32:29 and if you look roughly
+there on your own Mac,
+32:31 you should see that your
+IP address is something.
+32:34 It will completely vary by
+person and by geography,
+32:36 but you'll see your IP address there.
+32:38 On Windows, at least Windows
+10, you can see your IP address
+32:41 under Settings here as highlighted here.
+32:43 So this has a very different
+address, but that's
+32:45 just because this person was on
+a different network all together.
+32:48 So, where did these IP
+addresses come from?
+32:51 Well back in the day
+someone would literally
+32:53 come to your home to set up your
+Comcast or your Verizon internet service
+32:57 and he or she would like type in
+these numbers into your Mac or PC
+33:01 and then leave, and you would
+have one computer on the internet.
+33:03 These days it's a lot more dynamic.
+33:06 You don't need someone coming by.
+33:07 That certainly doesn't scale very
+well because there's other protocols.
+33:11 HTTP is this protocol we talked
+about earlier about web pages,
+33:14 but there's other protocols like Dynamic
+Host Configuration Protocol, which
+33:18 is a mouthful but it just means that our
+Macs, our PCs, Android phones, iPhones
+33:22 and the like, if they speak
+this protocol, when you first
+33:25 turn on your phone or boot
+up your laptop it knows,
+33:29 if it has support for this protocol,
+to just announce to the internet,
+33:32 hello world.
+33:33 I'm awake.
+33:34 What should my IP address be?
+33:35 This just kind of broadcast message
+and if Harvard or Yale or Comcast
+33:40 or Verizon or wherever
+you are in the world
+33:42 has a DHCP server whose purpose in life
+is just to listen for those hellos,
+33:47 that server should respond using the
+same protocol with your actual IP
+33:51 address, and it figures out which one
+to give you based on and available pool
+33:56 of numbers typically.
+33:57 So that's how you might
+get this but there's
+33:59 other things in these control panels.
+34:01 In fact, if we look a little lower
+on Windows, there's DNS servers too.
+34:04 Domain Name System.
+34:05 Another acronym and a bit of a mouthful,
+but you can also see this on Mac OS/2
+34:11 if you actually click Advanced
+and actually take a look.
+34:13 Here, for instance, there's mention of
+something else altogether, a router.
+34:18 So there's lots of different
+addresses going on here
+34:20 and lots of different servers.
+34:22 So how do these all piece together?
+34:24 Well, DNS is an interesting
+one in that it's
+34:29 going to be the one that translates
+domain names to IP addresses, right?
+34:34 None of us ever probably visits
+http:// and then a number, right?
+34:39 Like, we visit facebook.com,
+google.com or the like,
+34:42 but that's because our computers knows
+how to translate one to the other.
+34:47 So in fact if I do this command,
+nslookup for name server look up
+34:51 and then I type in something like
+google.com, I'm asking the computer,
+34:56 in this case, the IDE, what is
+the IP address of google.com.
+34:59 I know it as the human as
+google.com, but the internet knows it
+35:02 by its numeric unique address, and
+it turns out Google has several,
+35:06 and even this is a bit of a white
+lie because they have thousands,
+35:09 but the ones that my
+computer is being told to use
+35:12 is, for instance, this one or this
+one or any of these other addresses.
+35:16 So let me see what
+actually happens here.
+35:18 If I highlight that address and open up
+a browser and go to http:// and that IP
+35:24 address and hit Enter, notice
+it actually seemed to work.
+35:30 Well, why is that?
+35:31 It's a little hard to see
+it in Chrome, but let's
+35:33 go ahead and open up the Inspect tab
+and go to Network just like before.
+35:38 Let me click Preserve Log so
+that it saves everything here,
+35:40 and I could be using curl.
+35:41 So the curl was just
+the simpler version.
+35:43 Now I'm using the more
+familiar graphical version.
+35:45 Let me go ahead and do that again and go
+to http:// and that IP address and hit
+35:51 Enter.
+35:52 A whole bunch of stuff flew by
+even just for Google's homepage,
+35:55 but notice what happened.
+35:56 On that very first-- whoops--
+35:58 request, if I hover over it, I see
+http:// and then the number that I
+36:04 typed in, but it's a 301
+because, what was the response?
+36:07 We can actually see these responses.
+36:08 Let me click on the status code
+here, or the row, go to Headers
+36:12 and notice here, if we zoom
+in, we'll see that Google
+36:17 responded with this location.
+36:19 So someone at Google
+just decided, OK, fine.
+36:22 You figured out one of our IP addresses.
+36:23 That's great, but we don't want
+you to see that in the URL.
+36:25 It's bad for branding.
+36:26 We don't want you to
+bookmark an IP address
+36:28 because it might change later on.
+36:30 So we're using the same
+mechanisms as before,
+36:32 but that's how we might do the
+lookup and we can see the same thing
+36:35 for any number of websites.
+36:36 Here we go nslookup of harvard.edu
+and we get back just a couple here.
+36:41 If I do the same on Yale, I'm going
+to get back different IP addresses.
+36:44 Yale has even more in
+this case and so this
+36:46 is how the computer's figuring
+out to where to send the data.
+36:49 So what goes on this
+envelope then, it's going
+36:51 to be not facebook.com
+harvard.edu or yale.edu,
+36:56 it's actually going to be
+the address like 1.2.3.4
+37:01 or whatever the actual IP address is
+of the server I'm trying to send to.
+37:05 Now, of course, I expect a
+response from the server.
+37:07 I want to get back my
+news feed or I want
+37:09 to get back Harvard or Yale's homepage.
+37:11 So what more should I probably
+put on this virtual envelope,
+37:14 just intuitively?
+37:15 Yeah.
+37:15 AUDIENCE: Your own IP address?
+37:17 DAVID J. MALAN: What's that?
+37:18 AUDIENCE: Your own IP address.
+37:18 DAVID J. MALAN: My own IP address, yeah.
+37:19 So just like in the human
+world, just in case something
+37:22 goes wrong with the post office, I
+might put my own address, 5.6.7.8,
+37:27 and actually put that on the envelope so
+that if something goes wrong or, better
+37:31 yet, if something goes right and
+they're ready to give me a 200 OK,
+37:34 it can actually come back to
+me because they know from which
+37:37 address this thing actually came from.
+37:39 So who is it or what is it
+that's doing all of this routing?
+37:42 Well it turns out there's servers
+on the internet called quite simply
+37:45 routers, otherwise known as
+gateways, which is just a synonym,
+37:48 and they're kind of artistically
+pictured here as just dots
+37:51 across the world, and there's
+hundreds, thousands, tens of thousands
+37:54 of routers.
+37:55 Odds are you yourself at home,
+if you had internet access,
+37:58 have at least one such router
+and its purpose in life,
+38:00 again, is to take data from inside your
+household and send it to the internet,
+38:04 and then any responses
+you get, to send it
+38:06 back to the appropriate
+laptop or desktop or phone
+38:09 or smart device that happens
+to be in your own home.
+38:13 And we can actually see this too.
+38:15 Let me go ahead and in CS50
+IDE, try one other command.
+38:19 I'm going to go ahead and
+type traceroute and I'm
+38:22 going to trace the route,
+say, to yale.edu from here,
+38:26 or technically from the IDE.
+38:28 So if I hit Enter here, we're
+going to see a few lines of output,
+38:31 and if you try this
+at home, just realize
+38:33 I've configured my IDE a little
+differently to simplify the output.
+38:36 So it looks like there's
+five steps between Cambridge
+38:39 and New Haven or technically
+the IDE and New Haven,
+38:42 but what are each of these steps?
+38:43 Well between here and Yale, if we
+continue that version of the story,
+38:47 there are, it seems, five routers.
+38:49 There are five computers that
+have like lots of RAM, big CPUs
+38:53 that can handle a lot
+of internet traffic
+38:55 that are figuring out how to
+get my envelope from this origin
+38:59 to this router, to this router, to
+this router, to this anonymous router,
+39:03 to this one.
+39:03 Sometimes the routers are configured
+not to answer these questions
+39:06 from this program traceroute.
+39:07 They sort of keep it
+to themselves, and you
+39:11 can see on the right of each of
+these IP addresses some numbers.
+39:14 So just take a guess, what do each
+of these numbers represent, perhaps?
+39:20 Whats that?
+39:21 No it's okay.
+39:22 AUDIENCE: Milliseconds?
+39:23 DAVID J. MALAN: Milliseconds, yep.
+39:25 So milliseconds that are
+measuring what do you think?
+39:27 Time to go, or time to
+reach that specific router.
+39:32 So we can kind of infer--
+39:34 and this is the kind of amazing thing.
+39:36 To get me to New Haven
+takes like two plus hours,
+39:39 but to get an email, to get
+an envelope with a message
+39:42 takes like 10.597 milliseconds
+to get data from here to there,
+39:49 and then hopefully back if
+it's a request for a page.
+39:51 Let's do something a
+little farther away.
+39:53 So let's do like stanford.edu,
+tracing the route here,
+39:57 and already we can see that the
+numbers are a little bit higher,
+40:00 and that makes intuitive
+sense in that Stanford's
+40:02 a little farther away than New Haven
+and it takes as many 41 milliseconds
+40:06 to reach that.
+40:07 If I go even further and I
+read like a company's news
+40:11 like cnn.co.jp, which is the top-level
+domain for a lot of servers in Japan,
+40:16 you can see a real uptick in just
+how many milliseconds it takes,
+40:20 and in fact, there's
+something curious here.
+40:22 Why does it take so much more time
+to get from router number three
+40:27 to router number four do you think?
+40:31 AUDIENCE: The ocean.
+40:32 DAVID J. MALAN: The ocean, yeah.
+40:33 So there's a really big body of water in
+between the US's west coast and Japan's
+40:39 coast, which probably explains why
+not just between three and four,
+40:43 but really every router thereafter
+is that many milliseconds away.
+40:47 So these aren't cumulative.
+40:49 We're measuring constantly
+from here to there,
+40:51 from here to slightly farther,
+from here to slightly farther.
+40:53 So it makes sense that
+once you cross that ocean,
+40:55 that's kind of the total value
+that you're actually going to see,
+40:59 and it's fascinating really.
+41:00 I mean, throughout
+the entire world there
+41:02 are not only wireless technologies
+today, but very much wire technologies
+41:07 and if we take just
+a few seconds, we can
+41:08 see this visualization of so many of the
+transoceanic cables that have actually
+41:14 been dropped by big ships that carry
+many, many, many, many bits from one
+41:19 coast to another.
+41:21 [VIDEO PLAYBACK]
+41:46 [MUSIC PLAYING]
+42:20 [END PLAYBACK]
+42:22 So, with all of those cables capable of
+transmitting data all around the world,
+42:26 it turns out there's
+still one more problem.
+42:28 Even if we want to do
+something simple like
+42:30 download an internet image
+of a cat because there's
+42:33 different types of servers out there.
+42:35 There's my computer here like my laptop.
+42:38 I'm running Mac OS or windows.
+42:39 There's all those servers
+in Google's data center
+42:41 and in their racks and
+Facebook's and the like
+42:43 and in between all of those
+servers there are lots of routers,
+42:46 but it turns out that those
+servers in those racks at Google,
+42:49 at Facebook, even at
+Harvard and Yale, there
+42:52 are servers that can do multiple
+things because technically,
+42:55 even though we humans tend to talk
+about servers as being physical devices,
+42:58 a server is, as we started
+today, really just a program.
+43:02 It is a piece of software that
+someone wrote that, when run,
+43:06 listens for requests on the internet
+and responds to those requests,
+43:10 generally by spitting out information,
+text or 0s and 1s or, in some cases,
+43:14 cats.
+43:15 So upon receiving an
+envelope, then, how is
+43:18 it that a server knows whether it's a
+request for a web page or it's an email
+43:24 or it's a chat message or a voice
+message or any number of other things?
+43:28 It turns out we need one more piece of
+information at least on this envelope.
+43:32 It turns out that the
+world has standardized
+43:34 via another protocol called TCP,
+Transmission Control Protocol, that you
+43:38 need at least one other
+number on these envelopes,
+43:40 and that number corresponds
+to the type of service
+43:43 that you're trying to
+access or the type of data
+43:45 that you're trying to send or receive.
+43:47 So, for instance, 22 is for
+something called SSH, Secure Shell.
+43:50 This is something that most CS majors
+might use, but most people in the world
+43:53 wouldn't use this because
+it's entirely command line
+43:55 and it allows you to connect
+securely to some remote server
+43:58 without using something like a browser,
+but all of us generally do use browsers
+44:02 and HTTP, it turns out, all this time
+has had a unique number associated
+44:07 with all of those requests.
+44:09 80 is the number and if we visited
+any URL starting with https,
+44:13 turns out there was a
+special number, 443,
+44:15 that humans years ago decided just
+uniquely identify encrypted web
+44:20 traffic requests and responses.
+44:22 587 is used for Simple Mail Transfer
+Protocol, which is for email.
+44:27 Excuse me, 53 itself is used for DNS.
+44:29 So if you ever send a
+message to a server saying
+44:31 what is the IP address
+of google.com, you're
+44:34 using number 53 to identify
+whatever machine or software can
+44:39 answer that type of question, and
+so we can actually see this too.
+44:42 If I go back to my IDE and I actually
+do curl -I https://www.harvard.edu,
+44:54 this of course, worked
+before and it was 200 OK,
+44:57 but it also will work if I more
+precisely say specifically send this
+45:02 request to TCP port, or number, 80 and--
+45:06 damnit.
+45:08 Oh, it's wrong because made a
+compelling pedagogical mistake.
+45:12 So what did I do wrong?
+45:15 AUDIENCE: Https.
+45:16 DAVID J. MALAN: Yeah, so I kind
+of screwed up my numbers here.
+45:18 So I said https, but I meant to
+say http if I'm using port 80
+45:23 or, conversely, if I want to talk
+to the secure port which is known,
+45:28 I actually want to say 443,
+and that one in fact works,
+45:31 and I can do it again even in Chrome.
+45:33 If I go up to my browser
+and go to http://yale.edu/80
+45:41 and let the redirects
+happen, that too will work.
+45:44 It's just browsers, to keep our minds
+focused on the website we're actually
+45:47 trying to visit and not distracted
+by technical details like :80
+45:50 or slashes or even
+sometimes http itself,
+45:54 just hide that from the URL bar.
+45:55 It's all there.
+45:56 It's all happening, but we humans
+are getting a little more comfortable
+45:59 with the internet over the years
+so Chrome and other browsers
+46:01 are just starting to hide some of these
+lower-level implementation details.
+46:05 So that really means, when I actually
+want to send a request to a web server,
+46:10 I should really write
+:80 on the envelope
+46:14 to make clear that that's
+going to a web server listening
+46:17 on port 80 or maybe 443,
+and then, you know what?
+46:20 It turns out, and we won't
+dwell too much on the details,
+46:22 even my Mac or your PC also has its own
+port number for all of these requests,
+46:27 right?
+46:27 And it would be pretty annoying if you
+could only visit one website at a time
+46:31 or you could use Gmail
+or Skype but not both
+46:34 at the same time, or Facebook
+Messenger or Google Chat but only one
+46:38 at the same time.
+46:39 That would be pretty
+limiting, especially when
+46:41 we have all this computing power.
+46:42 So it's also the case
+that your own computer,
+46:45 any time you send a
+request on the internet,
+46:47 chooses a random or pseudo-random
+number to uniquely identify
+46:52 the piece of software on your
+computer that's waiting for the reply.
+46:56 So this might be not port 80.
+46:57 This is going to be a
+bigger number like 1025,
+47:01 or some large-ish value all
+the way up to 65,000, even,
+47:05 or 32,000 that now uniquely
+identifies the port on my computer,
+47:09 and that's how your computer can
+do multiple things at a time,
+47:12 and when I get the response
+those values are just flipped,
+47:15 but there's one more piece.
+47:16 Like cats can be pretty high
+quality and videos certainly
+47:20 take up a huge amount of data.
+47:22 Netflix videos and any
+streaming videos are taking up
+47:25 a huge amount of
+information and it would
+47:26 be pretty annoying to your
+neighbors if any time you
+47:29 were watching a movie
+on Netflix, you had
+47:31 to be done watching the
+movie in order for a neighbor
+47:34 to also watch a video on
+his or her computer as well.
+47:38 So it turns out that what
+computers also do thanks to IP
+47:45 and TCP is, when they're used together,
+they offer one more feature still.
+47:50 It turns out that if I want to
+download a picture of a cat,
+47:53 and we have a nice
+printed version here, I'm
+47:56 not going to get the whole cat
+in the one envelope most likely.
+47:59 This cat or this video
+file or whatever it is
+48:02 is actually going to be divided
+up into a few different pieces.
+48:06 So this message might get chopped
+or fragmented into four pieces.
+48:14 Each of those four pieces now might
+go in each of one of these envelopes
+48:18 here, here, and then here
+with the third and fourth,
+48:24 and what's nice, though,
+about TCPIP is that it
+48:27 provides at least two features for us.
+48:29 One, IP ensures that every computer on
+the internet that speaks this protocol
+48:34 has an address.
+48:34 So IP handles the getting of
+the data to some destination.
+48:38 TCP, the other half of
+this, ensures or guarantees
+48:42 with high probability delivery--
+that the data actually gets there.
+48:45 Because as you might have gleaned
+from even the animation of all
+48:48 of the transatlantic cables and all
+of the interconnections among routers,
+48:51 things can go wrong, right?
+48:53 Routers, it turns out,
+can get overloaded.
+48:55 Their buffers can
+overflow such that they
+48:57 can't handle all of the traffic
+coming into them and in fact,
+49:00 if you try to watch Game of
+Thrones, some episode on HBO
+49:03 and you couldn't access it at some point
+or [INAUDIBLE] or some tool like that.
+49:06 If they're overloaded,
+what does that mean?
+49:08 It just means the server, or the
+routers between us and the server,
+49:12 are getting so many darn envelopes
+that they just can't keep up
+49:15 and can't hold onto them all at once,
+and so sometimes packets do get,
+49:19 so to speak, dropped, both
+physically and also digitally,
+49:23 and this means some packet is lost.
+49:24 And so what's nice about the internet
+is that when my computer here
+49:28 talks to the nearest Harvard router
+that may very well have antennas
+49:31 in a room like this or an access point,
+I might send off a packet here and here
+49:36 and let's send this all the
+way to the back if you could,
+49:39 but these packets, as you
+can see, don't necessarily
+49:42 need to travel the same
+[? path ?] because-- what's
+49:44 your name in the second row?
+49:45 AUDIENCE: Monsi.
+49:45 DAVID J. MALAN: Monsi.
+49:46 So Monsi is getting a little busy.
+49:47 So Kara, if you could
+route to someone else.
+49:50 This is literally the effect
+that happens on the internet.
+49:52 If one router, like Monsi,
+gets a little bit busy
+49:55 and her attention is elsewhere or just
+has too many packets to deal with,
+49:58 she won't even necessarily
+drop it but maybe
+50:00 their path will just
+be routed around her,
+50:03 and that's what's nice about having
+this mesh network around the internet.
+50:06 Now unfortunately, one of
+those packets can get dropped
+50:09 and in fact this is a perfect example.
+50:10 If you want to drop it, drop it.
+50:13 Uh-oh, a packet was dropped!
+50:15 What TCP does for us is the following.
+50:18 Once those envelopes reach
+hopefully one specific person--
+50:23 OK, you are the lucky winner.
+50:24 Whoever, wants to-- how many do we have?
+50:26 Two there?
+50:27 Where did the third go?
+50:28 That's OK.
+50:29 TCP can handle multiple
+packets being lost.
+50:32 AUDIENCE: It's over there.
+50:33 DAVID J. MALAN: Oh, and so packets also
+don't take the shortest path sometimes
+50:36 on the internet.
+50:38 So what might happen?
+50:39 So let's assume for
+the sake of discussion
+50:41 that those packets did make their way
+to at least one of our audience members
+50:44 here.
+50:45 He or she, upon receiving
+them, would also
+50:47 see not just the origin address
+and the destination address.
+50:51 There would also be some notation,
+like a memo line on the envelope saying
+50:54 1 of 4, 2 of 4, 3 of 4, 4 of 4,
+so that the recipient can infer
+50:59 from that little hint whether or
+not they received all 4 or just,
+51:03 as in this case, a subset
+thereof, and in that case,
+51:06 assuming the computer speaks
+TCP, it can simply say,
+51:09 hey David, resend me packet
+number 1 or packet number 3
+51:13 or whichever were actually lost.
+51:16 And so together all of this
+happens at blazing speeds.
+51:19 10 milliseconds to do all that
+back and forth to New Haven,
+51:23 let alone even faster here
+on campus, but those really
+51:26 are the basic principles
+and building blocks
+51:27 that are just getting our data
+from one place to another.
+51:30 Of course, the real
+interesting stuff happens
+51:32 when we dig deeper into this
+envelope and look at the contents.
+51:35 Not just the cat as in this case, but
+the language, HTML and something else
+51:39 called CSS which we'll
+do shortly, but I thought
+51:41 it might be fun, especially on the
+heels of our look at forensics,
+51:44 to take a look at just how
+sort of presumptuous Hollywood
+51:47 tends to be when presenting us
+humans with technical details
+51:50 that now you'll perhaps have an
+even better eye for in addition
+51:54 to the age-old "enhance" line.
+51:57 [VIDEO PLAYBACK]
+51:57 - It's a 32-bit IPP4 address.
+52:00 - IP as in internet?
+52:01 - Private network.
+52:02 [? Tamia's ?] private network.
+52:10 [STUDENTS LAUGHING]
+52:16 - She's so amazing.
+52:19 - Oh, Charlie.
+52:21 - It's a mirror IP address.
+52:22 She's letting us watch what
+she's doing in real time.
+52:27 [END PLAYBACK]
+52:27 DAVID J. MALAN: OK, so
+we'll hold it on this screen
+52:29 here because one, a few of you
+laughed when you saw the bogus IP
+52:32 address because the number was what?
+52:34 AUDIENCE: 275.
+52:35 DAVID J. MALAN: 275, which
+is too high and that one
+52:37 we could forgive because you don't
+want like random people pausing
+52:40 their videos on the internet then
+trying to hack into or get access
+52:42 to that URL, but even funnier is
+when the hacker is being described
+52:45 as doing this on the screen
+as part of their attack.
+52:48 This is like the source code in
+a language called Objective-C
+52:50 for some kind of drawing
+program, as suggested
+52:53 by the use of crayons in
+the code as a variable.
+52:56 So let's pause there and when we come
+back in five minutes, we'll take a look
+52:60 at HTML itself.
+53:03 All right, so we're back and we're
+about to learn a new language.
+53:08 Though this might feel like
+a lot to do in just an hour,
+53:11 this one's a markup language.
+53:12 So it's not a programming
+language, which
+53:14 means you're not going to see loops.
+53:16 You're not going to see functions.
+53:17 You're not going to see conditions
+or any of the kind of logic
+53:20 that we have built into C and
+into Scratch and eventually
+53:23 Python and JavaScript.
+53:24 You're instead going to see just
+what are called tags, pieces
+53:27 of English-like syntax that
+just tell the browser what to do
+53:31 and what to stop doing.
+53:33 So we're going to see tags that say
+start making this text centered.
+53:36 Stop making this text centered.
+53:37 Start making the text bold.
+53:39 Stop making the text bold.
+53:40 So these very deliberate
+kind of statements
+53:42 that we're going to express
+using something that's code-like,
+53:44 but it doesn't give you logical control.
+53:47 So as such, there's a pretty
+small language ahead of us
+53:49 and a lot of what you'll do
+when learning HTML is just
+53:53 check an online reference or an
+example online or look at the source
+53:56 code of actual web pages to just
+figure out how these things are done
+53:59 and today, we will focus
+on the fundamentals.
+54:02 So this is perhaps one of
+the simplest web pages you
+54:05 can write in a language called HTML.
+54:07 It's a text-based language.
+54:08 All of the tags resemble
+some English words
+54:10 and there's a pattern to the kinds
+of things that you might type.
+54:13 First of all, if you're using the
+very latest version of HTML, which
+54:16 happens to be version 5,
+it's been around for a while,
+54:19 you simply start every web page with
+this cryptic incantation at the top
+54:23 here.
+54:23 Open bracket, !doctype
+HTML female closed bracket,
+54:27 as those things are called.
+54:29 Angled brackets, which you've probably
+not had many occasions to type
+54:31 on your keyboard, but
+starting soon you will.
+54:33 Then after that, they start a pattern.
+54:36 So HTML > and then all the way at the
+bottom is what we'll call the opposite
+54:42 of that tag.
+54:42 If this is a start tag, this will be
+an end tag, or if this is an open tag,
+54:46 this will be a close tag, differing
+only with this forward slash that's
+54:51 inside of the tag.
+54:52 So this says, hey browser,
+here comes a web page.
+54:55 This says, hey browser,
+that's it for the web page.
+54:57 Again, this sort of starting
+and stopping mentality.
+54:60 Meanwhile, inside of the web
+page as denoted by the HTML tag,
+55:05 there are two parts, a head and a body.
+55:08 The head of a web page tends
+to contain very little.
+55:10 It's usually just like
+the title bar in the tab
+55:13 that we humans see when
+you visit a website,
+55:15 and the body is like 95%
+percent of the contents
+55:18 of the page, the actual viewport
+or the rectangular region
+55:21 that contains actual content.
+55:22 What is that content?
+55:23 Well here in the head
+we have a title that's
+55:26 going to be "hello, title"
+just because and then
+55:28 in the body of the web
+page, this web page,
+55:30 there's going to be "hello, body."
+55:33 That's it.
+55:33 That's HTML.
+55:34 If you save this text in a
+file, open it in a browser,
+55:37 you will see a really lame web page
+that says hello title and hello body,
+55:41 but that's a web page using
+HTML tags as they're called.
+55:44 Anything in these angled
+brackets are tags.
+55:46 So I can actually see this
+pretty clearly even on my Mac
+55:48 and you could do this
+on your PC as well.
+55:50 I've opened up TextEdit and I've
+configured it to be simpler than
+55:53 the default, so know that I've
+done a little something in advance,
+55:55 but you could use notepad on Windows
+or any other number of other programs,
+55:59 even Microsoft Word if you save it
+in the right way or Google Docs,
+56:02 but let me go ahead and just recreate
+this as !DOCTYPE html, open bracket,
+56:06 html, and just to kind
+of remember to do things,
+56:08 I'm going to tend to get ahead of
+myself and sort of start and finish
+56:11 the thought and then dive in inside.
+56:13 Let me go ahead and do head
+here, close head tag here,
+56:18 and I'm indenting, just for good
+measure, one, two, three, four tabs,
+56:21 though so long as you're
+consistent the browser will
+56:23 be perfectly content, as will we.
+56:26 hello, title, title, open bracket,
+open bracket body, closed bracket body,
+56:35 and then hello, body.
+56:38 So that's it.
+56:39 I've just typed out the
+exact same thing as before.
+56:41 Let me go ahead and save this
+as not hello.txt or certainly
+56:45 not hello.c but
+hello.html by convention.
+56:48 I'm going to hit Save.
+56:49 Mac OS is kind of warning me that this
+is text, not something called HTML,
+56:53 but I know what I'm doing and
+I'm going to say use HTML,
+56:55 and now I have a file called hello.html,
+and if I go to my desktop, here in fact
+57:01 it is.
+57:01 And if I double click on it, there, in
+fact, is that pretty simple web page
+57:05 and if I actually reveal
+the tab, there it is.
+57:07 Hello, title in the very top tab of
+the page and once I get rid of that
+57:12 do I see the body again.
+57:14 So that's it for HTML at least
+in terms of its basic structure,
+57:17 but there are some other features
+that we can take advantage of as well,
+57:21 and let's actually tease these apart.
+57:23 Notice, first of all, that
+there is indeed this symmetry.
+57:25 What is opened is almost always
+closed as well in the opposite order.
+57:30 Just as head here and
+title here, and then
+57:32 followed by body and then
+the contents therein,
+57:35 but because there is this
+structure, you can actually
+57:37 think about this in a relation
+to the past couple of weeks
+57:40 when we've talked about data structures.
+57:42 I would argue that this
+HTML on the left is
+57:45 kind of equivalent to
+this tree on the right,
+57:48 and we didn't spend a huge amount
+of time talking about trees,
+57:51 and even when we did we used
+them for algorithmic reasons
+57:53 like a binary search tree to
+search data pretty efficiently,
+57:56 but if you think about it, here
+is the document, which I'm just
+57:59 drawing with this shape
+here kind of arbitrarily
+58:01 and it has one child like the
+entire page as I'm drawing it,
+58:04 which is the HTML tag here.
+58:06 The HTML tag has two children,
+so to speak, to borrow
+58:09 our language from our data structures.
+58:12 So head and body from left to right.
+58:15 Head has a child called title and
+then title has a child of some sort,
+58:18 even though it's just raw text.
+58:19 It's not another tag
+with angled brackets,
+58:21 just as body has its own
+content there, just hello, body.
+58:25 So that hierarchy and the deliberate
+indentation, which is there just for us
+58:29 humans-- the browser does
+not care about whitespace--
+58:32 lends itself to an
+implementation in memory,
+58:35 and so long story short, when
+your browser receives an envelope,
+58:39 inside of which are not just those
+HTTP headers, outside of which
+58:42 are not just the IP
+address and TCP port,
+58:45 but inside of which is a text
+file containing HTML like that,
+58:50 all the browser does is
+load that file into memory,
+58:53 read it top to bottom, left
+to right and essentially build
+58:57 a tree structure in memory so
+that it knows how to represent it
+59:01 underneath the hood, so to speak.
+59:03 And in fact, you've
+seen HTML all around you
+59:06 even if you've just never looked
+underneath the hood, as we say.
+59:09 In fact, if I go to
+like harvard.edu and let
+59:11 the redirects happen in the usual way,
+let me go ahead and inspect the page.
+59:15 This is another way in
+Chrome and in other browsers
+59:17 to get at the developer tools.
+59:19 You can control click or right click
+on the web page and choose Inspect.
+59:23 That opens up the same tab.
+59:24 Previously, we used the network
+panel, but if I click on Elements
+59:29 you can actually see all of the
+HTML that composes Harvard's page,
+59:34 and it looks beautiful here.
+59:35 It's nicely color-coded.
+59:36 It's prettily indented.
+59:37 I can dive in deeper
+with all of these arrows,
+59:40 but that's probably not
+how the humans made it
+59:42 because if I also right click or control
+click and choose View Page Source,
+59:46 and you can do this in
+any browser as well,
+59:48 here is the mess that actually
+came back from Harvard's server.
+59:52 This is HTML and my
+god, like, it's a lot.
+59:55 I see no indentation, so
+style 0 here, but that's OK
+59:59 because it's a browser reading it.
+60:01 It's not a human in
+this case and similarly,
+60:04 if we visit something like yale.edu, and
+let's go ahead and open up their page
+60:09 source, it's similarly going to be
+kind of overwhelming and a lot of it,
+60:13 but rest assured that even though
+these web pages might look really,
+60:16 really sophisticated-- like, my god,
+we've never written a C program with
+60:19 500 plus lines of code--
+60:21 a lot of this stuff is
+generated, and in fact,
+60:23 one of the challenges of pset7 and
+pset8 when we explore web programming
+60:27 is going to be not to write hundreds
+of lines of HTML, which would just
+60:31 get mind numbing quickly, but
+to write a few lines of Python
+60:34 or a few lines of JavaScript that
+programmatically, like with loops,
+60:39 generates all of the
+structure of your web page.
+60:42 So if it's like a web page of
+photos like a Facebook photo album,
+60:45 Facebook doesn't have people writing
+out thousands of lines of HTML code
+60:48 every time you upload a photo.
+60:50 They have code in PHP
+or some other language
+60:53 that has a for loop that iterates
+over all of the photos you've uploaded
+60:57 and spits out the same HTML but
+different image for each of the photos
+61:01 you've uploaded, and that's where
+web programming comes into play.
+61:03 You're not writing the
+HTML, you're generating it
+61:07 by actually writing programs.
+61:08 So today we set the
+stage for that capability
+61:11 but first we just need a
+framework for actually doing this.
+61:13 So rather than use,
+now, my local Mac, which
+61:16 is kind of lame because I can open the
+web page but no one else in the world
+61:19 can access it, and in fact,
+if we do that again, you'll
+61:22 notice here, if I double click on
+hello.html and open the URL bar,
+61:29 it's curiously clearly
+not on the internet.
+61:32 Like, it's not http, it's not
+https, it's literally file://,
+61:37 which just means it's a
+file on my local computer.
+61:39 So none of you could reach
+that because of course
+61:42 this user jharvard on my laptop
+exists only on my local Mac.
+61:46 So fortunately we have a web-based
+IDE with which to put stuff
+61:50 on the internet, but there's a catch.
+61:52 The IDE itself, recall, is
+a web application, right?
+61:55 It's code that friends at Amazon
+wrote and that we added to that runs
+61:59 on a server somewhere and, as we'll
+see, somewhat in your browser too,
+62:04 but more on that when we
+talk about JavaScript,
+62:06 but CS50 IDE already has a URL like
+https://cs50.io or https://ide.cs50.io
+62:15 slash whatever your username is.
+62:17 So we're already using port 80
+or maybe 443 for the IDE itself.
+62:23 So how in the world could you
+write web pages in the IDE
+62:29 and then serve them on the
+internet if the IDE itself
+62:32 is already using the standard port?
+62:34 Well fortunately you can
+write on the envelopes,
+62:38 when trying to access your own web
+pages, a hardcoded TCP port number.
+62:41 It doesn't have to be 80,
+it doesn't have to be 443.
+62:43 Those are just the defaults.
+62:45 If I want to actually
+visit pages in my IDE,
+62:47 I can just run a web server
+on a different port number,
+62:51 like 8,080 by convention
+or 8,081, 8,082.
+62:56 Just a pretty big number that odds are
+no one else is using on some system.
+63:01 So let's see this as follows.
+63:02 Let me go ahead and in the
+IDE here create a new file.
+63:07 I'm going to call it
+hello.html and I'm just
+63:10 going to go into that text
+file, whoops, which I closed.
+63:15 Let me go ahead and just
+grab the code that we've
+63:18 been using here, which is
+right here, go back to the IDE,
+63:22 paste it into the text file here,
+click Save, and now I have in the IDE
+63:26 a file called hello.html, and
+indeed if I look at the file browser
+63:30 and I look on the left-hand side,
+there, in addition to the sample code,
+63:33 is hello.html, but if I double
+click this file it's not
+63:37 very useful because it's going
+to open the editor, which
+63:40 is not like a web page.
+63:41 It's the source code for my web page.
+63:43 So I actually now need
+to run a program that
+63:46 serves this file just like Facebook
+does, just like Google and Harvard
+63:50 and Yale do, and I'm going to do this
+literally by running http-server,
+63:57 and I'm going to say on port 8080.
+63:60 So -p in this particular
+program means port
+64:03 and I'm just going to say, hey CS50
+IDE, start a program called httpserver
+64:07 whose purpose in life is to listen
+for requests on the internet,
+64:10 but specifically on that port number,
+and serve up whatever requests come in.
+64:15 So I've gone ahead and hit Enter here.
+64:16 Starting up httpserver.
+64:18 It tells me the long URL
+that this is available at.
+64:20 Your URL will be a little
+different with your username
+64:22 and if I open this now in another tab,
+it's a little cryptic at first glance.
+64:27 I'm just seeing the index or contents
+of my directory and in there is like
+64:31 a secret .c9 for Cloud9 directory.
+64:33 Don't delete that or change that.
+64:35 That just has metadata
+related to the IDE.
+64:37 Source6 I downloaded earlier and you
+can too from the course's web site,
+64:41 but there's hello.html,
+and on the left-hand side
+64:44 here, you'll see some
+cryptic looking permissions.
+64:46 This has to do with who can read
+and who can write your files,
+64:48 but for today all I care
+about is that the file exists.
+64:52 So now, like a user on the internet,
+I'm going to go to here, click on it,
+64:56 and viola!
+64:57 There is my actual web page.
+64:58 So notice, the URLs are very similar.
+65:01 Here I am on cs50.io
+and here I am on cs50.io
+65:06 even though your user names
+will of course be different,
+65:08 but the IDE is running
+on the default port, 443.
+65:12 I'm now temporarily
+serving up my HTML files
+65:15 using port 8080 just
+because and so that's
+65:18 how a server can do multiple
+things and how you can do
+65:21 multiple things on the server at once.
+65:23 So let's do something else besides that.
+65:25 Let me actually introduce a
+few other fundamentals that
+65:27 might be handy when writing HTML
+and let's go ahead and do this.
+65:31 Let me go ahead and create a
+new file and we'll call this one
+65:36 paragraphs.html, and let me go ahead and
+just name this like paragraphs and down
+65:42 here I'm going to have
+some paragraphs of text,
+65:44 and I don't really know what I want
+to say so I'm going to Google some--
+65:48 so standard Latin-like text.
+65:51 Oh, I want like three paragraphs of
+Latin-like text and so here we go.
+65:55 Then there's a random
+website that just generates
+65:57 placeholder text in faux Latin.
+65:59 So, Paste.
+66:00 There are my three paragraphs.
+66:02 I'll be a little nice
+and tidy and indent them
+66:06 so it looks at least
+somewhat nicely styled.
+66:09 Save the file and now let me go back
+to the URL I was at a moment ago.
+66:13 Now notice I have two files being
+served by this HTTP server program.
+66:18 Click paragraph-- oh.
+66:19 OK, one, Chrome thinks
+the page is in Latin.
+66:23 [STUDENTS LAUGH]
+66:24 Actually, soccer inferior
+element estate planning time.
+66:33 Tomorrow soss quiver before as the--
+66:35 that does sound like the
+Latin I learned years ago.
+66:38 All right, so Show Original.
+66:41 So the point is not to focus on
+the Latin, but the apparent bug.
+66:44 Like, what's it not doing that maybe
+you thought it should a second ago?
+66:49 AUDIENCE: No indentation.
+66:50 DAVID J. MALAN: Yeah, there's no
+indentation and also there's no what?
+66:53 There's no break.
+66:53 I mean this is one big
+Latin-like paragraph.
+66:56 It's not three.
+66:57 Well this is simply because a browser
+only does what you tell it to do.
+67:02 Let me go ahead and shrink this
+window and, as an aside, what you're
+67:05 seeing here, all this mess in
+the bottom terminal window,
+67:08 as the httpserver program is running,
+it is logging all of the HTTP requests
+67:13 that come in from browsers just so
+you can kind of debug or diagnose,
+67:16 but we're going to just
+ignore that for now
+67:18 and let this thing run down
+here in the background.
+67:21 But if I want paragraphs I need
+to be a little more pedantic
+67:24 and actually say, hey browser, make a
+paragraph with what's called the p tag,
+67:29 and let me go ahead now and indent
+even though the indentation clearly
+67:32 doesn't matter.
+67:33 It's just to keep my code nice and tidy.
+67:35 So, hey browser, start a paragraph.
+67:36 Here's the text.
+67:37 Hey browser, stop the paragraph.
+67:39 Same thing here.
+67:39 Let me go ahead and start a paragraph.
+67:42 Then let me go ahead
+and stop the paragraph.
+67:43 Notice the IDE is trying to be helpful.
+67:45 This is not helpful.
+67:46 This is not a password, but it's
+trying to autocomplete my thoughts.
+67:49 That's fine.
+67:50 I'm just going to ignore it.
+67:51 Then let me go ahead and
+close the paragraph and save.
+67:54 So it's a little more verbose, but
+anything in the tags the human is not
+67:57 going to see, but when you reload the
+page, as with command or control+R,
+68:01 or if you go up here by
+clicking the reload icon,
+68:04 whatever it looks like in your browser.
+68:05 Now I have three Latin-like paragraphs.
+68:10 So it's a little more deliberate here.
+68:12 So that's all fine and good, but
+the web is kind of more interesting
+68:14 when you can actually link to things.
+68:16 So let's actually do that instead.
+68:18 Let me go ahead and create a new
+file called, let's say, link.html.
+68:23 Go ahead and paste this here and
+say we'll name the title link.
+68:28 Let me get rid of all of this
+just so I have some placeholder
+68:31 and I can say something
+like "Hello, world!
+68:33 My favorite school is..."
+68:37 and just to play it safe
+today, "stanford.edu."
+68:41 Save, reload, click
+link.html and nothing.
+68:48 So here too it looks like a domain
+name and it certainly is, and frankly,
+68:53 all of us now are probably conditioned
+in tools like Slack and Gmail and other
+68:57 tools and Facebook that just
+kind of figure out that, oh,
+68:59 if something looks like a
+domain name, make it a link,
+69:02 but that's because someone at Facebook,
+someone at Google knows HTML and knows
+69:06 how to use if conditions
+and elses and just says, oh,
+69:09 if a string that the human has typed
+in looks like a domain name ending
+69:12 in .edu, make it a link.
+69:14 But how do you make it a link?
+69:15 We can now do this manually.
+69:17 It turns out you need an
+anchor tag abbreviated as a
+69:20 and then I'm going to close the
+anchor tag at the end of the text
+69:24 that I want to anchor a link
+to, but this isn't enough.
+69:28 I need to be ever so explicit as
+to where I want this link to go,
+69:32 and so it turns out HTML also
+supports what are called attributes.
+69:36 So tags are the things
+in angled brackets.
+69:38 Attributes are also inside
+those angled brackets,
+69:40 but they come after the tag's
+name, and they just going
+69:43 to modify the behavior of the
+tag, and it makes sense here
+69:46 to need to modify the
+behavior because 20,
+69:48 30 years ago when HTML was
+invented, we didn't make up
+69:51 a tag that leads to stanford.edu.
+69:53 We made up a more generic tag
+that anchors to some destination,
+69:57 and so here I can now do
+www.stanford.edu, save the file,
+70:03 and notice, this is like saying
+to the browser, hey browser,
+70:05 here comes a link or hyperlink
+to Stanford's web site,
+70:09 and then the end here it says hey
+browser, that's it for the link,
+70:12 and thankfully it's not super verbose.
+70:14 You don't have to repeat
+the attribute at the end.
+70:17 You just repeat the
+tag's name, otherwise
+70:19 you'd be typing the same
+thing again and again.
+70:21 If I now go back here and reload the
+page as with command or control+R,
+70:27 now it becomes the familiar
+and blue underlined link,
+70:29 and if I click on that,
+notice first it's super small.
+70:33 You can see where the link
+is actually going to lead,
+70:36 and so if I click on this we'll
+see Stanford's website and voila.
+70:41 So now we've visited their page as well,
+but there's an interesting side note
+70:44 here, and if you want to kind of think
+about things called phishing attacks
+70:47 or frankly, Harvard once in a
+while and Yale once in awhile
+70:50 will email out warnings like
+"beware of this phishing attack."
+70:52 P-H-I-S-H-I-N-G.
+70:54 This is when people on
+the internet generally
+70:56 send you emails or some kind
+of spam trying to trick you
+70:59 into visiting a phony website to harvest
+your usernames, passwords, credit card
+71:04 numbers and whatnot, and honestly,
+most of those phishing attacks
+71:08 boil down to this
+10-line example of HTML
+71:13 because what's to stop me from
+saying something like "Hello, world!
+71:19 Confirm your password at..."
+71:22 and then we'll say like
+paypal.com and then
+71:26 over here, I can change this
+to like davidsphishingsite.com,
+71:32 which hopefully doesn't exist.
+71:35 One year I went to badplace.com and--
+71:38 anyhow, so--
+71:39 [STUDENTS LAUGHING]
+71:41 Here I've gone ahead and saved the file,
+reloaded, and the link is indeed blue,
+71:46 but before I click on it,
+only the most estute of users
+71:51 is going to even bother
+checking the bottom left hand
+71:53 corner to see where they're
+about to be whisked away to
+71:55 and even most of us in
+this room, myself included,
+71:57 are not so paranoid
+that we're constantly
+71:59 checking those kinds of things.
+72:01 Odds are, if I get an
+email like this, oh
+72:02 my god, my accounts been compromised.
+72:03 I've got to go confirm my password
+for PayPal to protect my money.
+72:06 You might very well
+just follow the link,
+72:08 but of course it can go anywhere you
+want just via this very basic building
+72:13 block, but this is just one
+way you can vet actually
+72:15 what's going on underneath the
+hood, but of course the internet
+72:17 is more interesting
+than just text alone.
+72:19 Let me go ahead and open up
+an example that I whipped up
+72:22 in advance here using image.html
+and we'll see another tag here.
+72:29 So here is another opportunity
+to use an attribute
+72:33 and one that's also not
+necessarily visible to the user.
+72:37 So here's an image tag.
+72:38 Humans years ago decided to be succint.
+72:40 It's img > for image, just
+like it's just a > for anchor.
+72:44 The source, src, of which is
+going to be that file, dan.jpeg,
+72:48 which I downloaded in advance
+from the URL up above,
+72:51 and in fact, this is gray in the cs50
+IDE because it's syntax highlighting it
+72:55 just like in C. This is
+what's a comment in HTML.
+72:58 So if you want to make notes
+to yourself or to viewers,
+73:01 some sentence or like
+a citation like this,
+73:04 you can use an HTML comment by doing
+! // // > and you can write anything
+73:11 between those things-- for
+the most part-- that you want.
+73:13 So just like in C do we have the //.
+73:15 So here's the source
+of this image and this
+73:18 is like an alternative explanation of
+it, alt. Why might this be compelling?
+73:25 I want to show the image to a user.
+73:26 Yeah?
+73:26 AUDIENCE: Is it for like if
+they hover their mouse over it,
+73:28 they can see what's happening.
+73:29 DAVID J. MALAN: Yeah,
+so a couple of reasons.
+73:30 If you hover over the image you can
+actually see some descriptive text.
+73:33 So like Handsome Dan
+here, like Yale's mascot.
+73:36 If the user has trouble
+seeing or is blind,
+73:39 you might need a screen
+reader to actually tell you
+73:41 what it is that's on
+the screen, and it's not
+73:43 obvious from dan.jpeg
+what that could be,
+73:46 but if you have this
+alternative text, a computer
+73:48 can recite verbally Handsome
+Dan, which might then
+73:50 jog the person's memory as to what
+it is that actually on the screen.
+73:53 Or if you have a really
+slow internet connection,
+73:55 sometimes you'll see a
+placeholder for an image
+73:57 that just says what it is before
+the image actually downloads.
+74:00 So being mindful of
+these kinds of things
+74:02 will just make, ultimately,
+your websites more accessible,
+74:04 and indeed if I go to this one now
+and go into my source6 directory
+74:08 where we have even more examples
+at our disposal and go to Image 6,
+74:12 here is their adorable Handsome
+Dan as of this past year.
+74:17 So there's an image.
+74:18 We can kind of do funky
+things now with nesting.
+74:21 So this is not all that interesting
+because it doesn't go anywhere,
+74:24 but I could just combine these ideas.
+74:27 I could do a href = http://www.yale.edu
+or, because I don't want the user
+74:34 to bother getting redirected,
+I could just proactively make
+74:38 it secure because I know Yale
+supports that per earlier,
+74:41 and I can nest these tags like this.
+74:43 Now if I go here, reload,
+it still looks the same
+74:46 but notice my cursor changes to like a
+pointer, and if indeed I click on that,
+74:51 now the image leads to Yale's web
+site, but I skimmed over something.
+74:55 One of these is not like the other.
+75:00 What detail have I
+kind of not mentioned?
+75:05 Yeah.
+75:05 AUDIENCE: The image file
+closes within itself.
+75:07 DAVID J. MALAN: Yeah, the image tag
+kind of closes in and of itself,
+75:10 and so there are some of
+these anomalies within HTML
+75:12 where there really isn't a notion
+of, like, start doing something
+75:15 and then eventually
+stop doing something.
+75:17 Like, an image is either
+there or it's not.
+75:19 Like, you can't kind of put
+something in between it conceptually,
+75:22 and so some of these tags in
+HTML are what are called empty.
+75:25 Like, they should not have
+anything after the open tag
+75:28 or before the close tag.
+75:29 So if you wanted to be really sort
+of precise you could say this,
+75:33 but you should not put
+anything where my cursor now
+75:36 is because it would make no sense to
+try to put something inside of an image,
+75:39 but this is just kind of lame to
+have this unnecessary verboseness.
+75:43 So you can just put the slash in
+there and technically in HTML5 you
+75:46 don't even need the slash in
+this case, but at least this way,
+75:50 and I think for pedagogical purposes,
+doing it, even for empty tags,
+75:52 makes sure and makes more clear
+visually, when and that your tags are
+75:56 balanced.
+75:57 So that's the only
+anomaly there and then
+75:59 there's bunches of others which we
+can fly through really quickly here.
+76:02 So if I go back to our examples
+here, I whipped up headings.html.
+76:05 So if you want to do
+something like this if you're
+76:07 writing like a book or a website
+that has like chapters and sections
+76:10 and subsections and so
+forth, HTML lets you
+76:14 easily format things as big and
+bold, slightly smaller and bold,
+76:17 slightly smaller and bold, and so
+forth by using the h1 through h6 tags.
+76:22 So if I go into headings, this
+is how I made this web page.
+76:26 I simply have h1, h2, h3, h4
+opened and closed and that's it.
+76:30 So any time you're reading
+some kind of online text,
+76:33 odds are they're using one or more
+of these tags to format the page.
+76:37 If we look at another example in here,
+we have something like list.html.
+76:42 Lists are not uncommon on the internet,
+you'll never believe number three,
+76:46 and here's how you might do something
+with a bulleted list by just marking up
+76:50 three words-- foo, bar and baz--
+76:52 and the HTML for this,
+if I open up list.html,
+76:56 simply looks a little more verbose
+in that we need a parent element so
+77:01 to speak, borrowing
+our tree terminology,
+77:04 but here we have an unordered
+list, or ul, each of which
+77:07 has one or more list
+items, or li, each of which
+77:11 open and close foo, bar and baz.
+77:13 And if I really want it
+numbered, I can also do this.
+77:15 I can change unordered list to ordered
+list, ol, reload and now the browser
+77:21 figures out the numbering for me,
+which is nice if you have lots of data
+77:24 and you don't want to deal with
+actually laying it out yourself.
+77:27 Meanwhile, we can go one or two
+steps further before we actually
+77:31 get to something functional.
+77:33 Here is kind of the
+most complicated of all,
+77:36 but it too just kind of
+tells the browser what to do.
+77:40 So before we look at the result, this
+says, hey browser, here comes a table,
+77:43 like tabular data.
+77:44 Rows and columns like Excel
+or Google Spreadsheets.
+77:47 Hey browser, here comes
+a table row, or tr.
+77:51 Hey browser, within that row,
+here comes some table data, a.k.a.
+77:54 a cell or column.
+77:56 Here comes another cell.
+77:57 Here comes another cell.
+77:58 So that's one, two,
+three cells in a row.
+78:01 Hey browser, here
+comes three more cells.
+78:03 Hey browser, here
+comes three more cells.
+78:05 Hey browser, here comes three
+more cells and if we actually
+78:08 render this in the browser, you can
+see the layout of a sort of old school
+78:16 phone pad on your phone.
+78:17 It's not very pretty, it's
+not very well formatted,
+78:19 but if we zoom in you really do see
+that it is lined up in rows and columns
+78:23 as I sort of verbally implied, but
+this is all very kind of underwhelming.
+78:28 Like, Google is cool
+because you can go to it
+78:30 and you can actually search for cats
+and find lots of cats on the internet,
+78:34 but how is it that this actually works?
+78:37 So, aww, bad news today.
+78:40 OK, so we'll just zoom in on this one.
+78:44 OK, so let's try to focus
+on the pedagogy here--
+78:48 of cats-- as follows.
+78:50 Let me go ahead and focus on really the
+URL, which is kind of long and cryptic,
+78:54 but let me just throw away honestly
+anything that kind of looks confusing
+78:58 or I don't understand.
+78:59 I have no idea what source means
+so I'm going to get rid of that.
+79:02 I have no idea what
+the rest of this means.
+79:03 I'm going to get rid of that and I'm
+going to try to distill-- granted,
+79:05 with some foresight because I
+knew how Google works here--
+79:08 I changed the URL to something
+much, much, much simpler.
+79:11 Cats,f where it's
+www.google.com/search?q=cats.
+79:20 It seems that, somehow or
+other, Google's behavior
+79:24 is controlled by information
+that's conveyed in the URL,
+79:26 and it's not just that I'm searching.
+79:28 It's that I'm searching for cats.
+79:30 So in fact, on a whim, I'm going
+to search for dogs instead and hit
+79:33 Enter, and indeed a few things change.
+79:36 We have all these dog images
+appear here on the right.
+79:39 We have the text
+pre-populated up here and we
+79:42 can search for any
+number of other things
+79:43 here, like Harvard
+Yale prank 2004, Enter,
+79:50 and there you have a Wikipedia
+article on the video we saw earlier.
+79:54 So it seems that you can
+parameterize the behavior of Google
+79:57 just by understanding
+how this URL works.
+79:59 So here is kind of the path
+that's being requested,
+80:01 the file or folder or whatever that is.
+80:03 A question mark says, hey
+browser, or hey server,
+80:05 rather, here come some HTTP parameters.
+80:09 Some inputs from a human who's either
+filled out a form or apparently
+80:13 is kind of hacking the URL bar here,
+and then the name of the parameter
+80:16 comes next. q, meaning query, and this
+is what Larry and Sergey decided years
+80:19 ago for their search
+box, an equals sign,
+80:22 and then whatever it
+is the human typed in.
+80:24 Now it got a little funky here quickly.
+80:25 Now you see %20.
+80:27 That is the web's way
+of encoding a space so
+80:31 that it's not a physical space,
+it's all one contiguous string.
+80:34 So it's just one contiguous string for
+the server to actually look at or read,
+80:38 and so why is this useful?
+80:40 Well it turns out I can
+leverage this information
+80:43 and kind of implement my
+own Google pretty easily.
+80:46 Let me go ahead and go into search.html,
+one of the other examples I whipped up,
+80:52 and you'll see another tag all together.
+80:55 Inside of the body of this
+page is an HTML form tag,
+80:59 and the form tag takes a
+couple of attributes I know.
+81:02 One is action, which
+is the URL to which you
+81:05 want to send the form's
+information, and the other
+81:08 is the method that you want to use.
+81:09 Now it's a little inconsistently
+lowercased here just because,
+81:13 but we did see that verb before.
+81:15 Where?
+81:18 Where did we see this verb?
+81:23 This was like the somewhat arcane
+message that was going, supposedly,
+81:26 inside one of these envelopes when
+we said GET in all caps /http1.1
+81:32 and so forth.
+81:34 So it seems that if you
+want, as the web developer,
+81:38 to create an HTML form that has text
+boxes and maybe checkboxes and dropdown
+81:42 menus and so forth that submits its
+information when the user clicks Enter
+81:46 or a button to this address, and you
+want it to go inside of a virtual
+81:49 envelope using that GET verb, you
+literally just say method=GET.
+81:53 And then down here I seem to have
+two inputs, one of whose names
+81:56 is q, the type of which is a
+text box, and the other of which
+82:00 is a submit type, whatever that
+is, the value of which is search.
+82:03 Now you would only know what these
+things mean by seeing them demoed
+82:06 or looking at some online reference, but
+if we pull this up to see the results
+82:09 we have a super simple--
+82:11 and I'll zoom in--
+82:12 very, very simple
+version of Google, right?
+82:14 It don't even have the logo, but it does
+have, I claim, all of the functionality
+82:19 because watch what happens if I type in,
+for instance, whoops, birds and click
+82:25 Search.
+82:26 Oh my god, I implemented Google
+with just like 15 lines of code,
+82:31 but not really, right?
+82:32 Like, I've implemented
+the front end of Google,
+82:35 which I got to start Googling
+these things in advance
+82:37 OK, uh, these are very sad stories.
+82:39 [STUDENTS LAUGH AT MORBID NEWS
+ HEADLINES]
+82:41 DAVID J. MALAN: OK, so the point though
+is, the point-- look up, look up.
+82:49 The point is that the
+URL is what I generated.
+82:54 So using those HTML tags coupled
+with the human's cooperation
+82:57 and actually clicking
+a button did I then
+82:60 generate this URL, whisk
+the user away from the IDE
+83:03 to google.com, where Google
+is handling the back end,
+83:06 like all of the hard work,
+actually checking their database,
+83:09 rendering the HTML, but
+I made the front end,
+83:11 the user interface via which you can
+actually interact with Google's search
+83:16 engine there.
+83:17 And it boils down to just
+these basic heuristics,
+83:20 but of course this is a pretty
+ugly search engine, right?
+83:22 Black and white text box, a
+gray button and that's it.
+83:26 Like, even Google, simple though it
+is, has a little bit of style and color
+83:31 to it and things are centered
+and kind of spaced differently.
+83:34 So there's an art to this
+ultimately and indeed
+83:36 being a web designer in
+itself is a profession
+83:39 and in fact, you'll find in
+industry that some people are
+83:42 good at front end design.
+83:44 Some people are bad at it.
+83:45 I'm among the ones worse.
+83:46 Like, my web pages look like that
+search box just a moment ago,
+83:50 but some people really prefer the
+non-graphical stuff, the back-end,
+83:52 the database stuff, and indeed one of
+the takeaways over the next few weeks
+83:56 will be for you to figure out for
+yourselves if you like any of this
+83:58 at all certainly, but also
+like what your preferences are.
+84:01 And you might hear terms
+in industry these days
+84:03 like front-end developer,
+back-end developer.
+84:05 That just means do you work on what
+the user sees in their browser or app
+84:10 or do you work on the back-end,
+the database stuff that's
+84:12 really important and
+sometimes quite difficult,
+84:15 but that the user doesn't
+interact with directly.
+84:18 Or are you a full-stack
+developer, which means you just
+84:20 do all of this, which
+all of you from CS50
+84:23 are effectively, albeit after just
+one or so semesters of background.
+84:27 So how do we start, though,
+to make things prettier?
+84:30 Well it turns out that HTML, for the
+most part, is just a markup language.
+84:34 It's for structuring a web page
+and semantically tagging things,
+84:38 and by semantically
+tagging things I mean
+84:40 like, hey browser, here's
+the head of my page
+84:42 and that's a concept, semantically.
+84:44 Hey browser, here's the body
+of my page, and that too
+84:46 is a concept, semantically.
+84:48 I didn't say anything about bold
+facing or font size or colors
+84:52 or all this stuff that's important
+for a good user experience, or UX,
+84:56 but that can be decoupled
+from HTML, and in fact,
+84:59 one of the challenges as you
+learn HTML for the first time
+85:02 is to try to make your way through
+various online resources and references
+85:06 will sometimes combine these ideas.
+85:07 So, again, today we'll focus not just
+on correctness, getting things to work,
+85:11 but design as well.
+85:13 So here, for instance,
+is a super simple web
+85:15 page for someone named
+John Harvard that has
+85:17 a header and a main part and a footer,
+and header is distinct from head.
+85:21 It's sort of poorly named here.
+85:23 Head of the web page is just the tab
+bar and other such things up top,
+85:26 but semantically you might have
+a page with like three parts.
+85:28 Like the header, like the title
+on the body of the page itself,
+85:32 like the main part where
+the actual contents
+85:35 are, and then a footer like a copyright
+symbol or something like that.
+85:38 So this might be a general
+division of a page,
+85:39 but notice I've styled
+it a little differently.
+85:42 Let me go ahead and open this up in
+a browser as I did just a moment ago
+85:47 and go to, sorry, I'm going back
+through my entire internet history here.
+85:54 Let's go ahead and open this up
+just as we did before at this URL
+85:59 so that we can go ahead
+and open up CSS0.html.
+86:05 Notice that, oh, this is already
+marginally better than the pages
+86:08 we've looked at before if only because
+it's centered, which is a step forward
+86:11 from everything just being left.
+86:13 The first line is a little bigger.
+86:14 The second line is kind of medium
+and the bottom line is the smallest.
+86:18 So there's a little bit of style
+here, but not all that much.
+86:21 So how did I actually do this?
+86:22 Well take a look at the code here.
+86:24 I have added, now, a style
+attribute to several of my tags.
+86:29 So the header, the main
+and the footer really
+86:31 aren't styled in any specific way.
+86:33 They're just a way of
+telling the browser this
+86:34 is the important stuff
+for the title, this
+86:36 is the important stuff
+for the main part,
+86:37 this is the important
+stuff for the footer,
+86:39 but the stylization or aesthetics
+come from this yellow text
+86:43 here, thanks to the IDE
+syntax highlighting it,
+86:45 and notice this text
+follows a different pattern.
+86:47 Up until now, we've been using
+angled brackets and words
+86:50 and equals signs and quotes.
+86:52 Now, inside of those quotes,
+we also have another pattern
+86:57 when you're using this second
+of two languages today, CSS.
+86:60 fontsize:large is the stylization for
+this particular element's content.
+87:06 Text align should be center.
+87:08 These are two CSS properties.
+87:11 CSS, cascading style sheets, and
+we'll see what that means in a moment,
+87:14 but this is just how you configure
+the style of those elements,
+87:17 and indeed that's why one is a little
+bigger and then a little smaller
+87:20 and then even smaller because, notice,
+I did fontsize:large, fontsize:medium,
+87:25 fontsize:small.
+87:26 All right, but as we've often done,
+let's iteratively improve upon this.
+87:30 Even if you've never
+seen HTML or CSS before,
+87:32 there's some poor design
+manifest in this simple example.
+87:37 What might you say seems wrong or
+seems a little copy paste-like?
+87:43 Yeah.
+87:44 AUDIENCE: They're all
+centered [INAUDIBLE]..
+87:47 DAVID J. MALAN: Yeah,
+they're all centered
+87:49 and I literally like copied and pasted
+that CSS property, its key value
+87:53 pair, its name and
+value, again and again
+87:55 and again, but remember
+the hierarchy of HTML
+87:57 and the DOM, Document Object Model,
+the tree we drew a little bit ago.
+88:01 All of these elements--
+header, main, and footer--
+88:03 have a parent element called what?
+88:05 AUDIENCE: Body.
+88:06 DAVID J. MALAN: Yeah, body.
+88:07 So one level higher,
+which is indented this way
+88:10 or in the tree is higher up in that
+family tree-like drawing, all of these
+88:14 are children of body.
+88:16 So why don't I just move or
+factor out text align center
+88:19 into the elements above it?
+88:20 And herein lies the cascading of CSS.
+88:22 Cascading style sheets means that
+if you have a property up here,
+88:26 it will cascade down to all of the
+children and descendants below it
+88:30 and it means another thing, too.
+88:31 You can even override
+these properties somehow,
+88:33 but we'll see that before long.
+88:35 So if I go ahead now
+and open up CSS1.html,
+88:39 notice that I did
+exactly that improvement.
+88:41 The code's a little tighter now.
+88:43 It's fewer characters,
+easier to maintain
+88:45 because now if I want to change
+it to left or right or center,
+88:48 I change it one place, not three.
+88:50 And so this is kind of consistent with
+some of our design takeaways from C
+88:53 and indeed, if I visit this page,
+CSS1.html, it looks the same,
+88:58 but it's better design
+underneath the hood.
+89:01 But we can do a little better still.
+89:03 If I open up CSS2.html,
+notice that I've done this.
+89:08 I rather like this design now
+because it's even more succinct.
+89:12 I'm not using the style
+attribute anymore.
+89:15 I'm using a different
+attribute called class,
+89:18 and class is kind of a way to define--
+89:20 much like a struct in C lets you define
+your own data types, a class in CSS
+89:24 allows you to define a name for
+a whole bunch of properties,
+89:28 and so here I just said let's call
+this class large, medium, and small,
+89:32 and I don't know what
+those mean, and frankly I
+89:34 might be working with a friend
+who's much better at design
+89:36 than I am so I'm going to let him or
+her actually define these meanings.
+89:40 I'm just going to kind of tag
+things in this way semantically,
+89:43 but if we scroll up in this file, you'll
+see that for now I have no such friend,
+89:46 and so I implemented it myself,
+and here's, for the first time,
+89:50 one other thing in the head of the page.
+89:52 Up until now, we've just had
+the title, but it turns out
+89:55 you can have a style tag.
+89:57 Not just an attribute, but
+a style tag inside of which,
+90:00 it's a little cryptic at first glance,
+but there's some pattern here, clearly.
+90:04 You have all of those properties,
+but the new syntax here
+90:08 is that if you want to define
+a word called centered,
+90:11 you literally do a period
+and then the word centered.
+90:13 If you want a word like
+large, you say .large.
+90:16 So it's similar in spirit, though not
+quite the same as like typedef in C,
+90:20 but you say .center,
+.large, .medium, .small.
+90:23 You use our old friends curly braces,
+which we will only see in CSS,
+90:27 and this just defines
+one or more properties
+90:30 to be associated with that new keyword.
+90:32 And so, if we scroll
+down here to the bottom,
+90:35 you'll see that I centered the body.
+90:38 I made large the head, medium
+the main, and small the footer,
+90:43 and the result is going
+to be exactly the same.
+90:45 Very underwhelming, but
+again, marginally better
+90:48 design because now we are just one
+step away of really improving this.
+90:52 If I do finally have
+that friend, it's not
+90:54 going to be very easy to
+collaborate, ultimately,
+90:58 if we're both working on the
+same file and moreover, it
+91:01 seems unnecessary to
+introduce these semantics.
+91:03 Like, why do I have to have tags
+like header and main and footer
+91:08 and classes called large and
+medium and small and centered?
+91:12 Like, why don't I leverage the
+names of these tags themselves?
+91:15 And this is where HTML
+can be pretty powerful.
+91:18 Notice I've simplified
+some of my CSS up top.
+91:21 I've dropped the period,
+which was like typedef.
+91:23 Like, give me something called large,
+give me something called medium.
+91:26 Now I'm just saying literally a word,
+but those words are identical to what?
+91:31 AUDIENCE: The tags.
+91:32 DAVID J. MALAN: The tags themselves.
+91:33 So preexisting tags, if I just
+mention them by name without a period,
+91:37 which gives me a new name--
+91:38 I just mention the body, the
+header, the main and footer,
+91:40 and then, inside of the curly
+braces, define my properties,
+91:43 now I can just stylize the actual
+tags as they exist in my page,
+91:48 and this now looks like really
+readable, maintainable HTML.
+91:52 There is no aesthetics associated
+with the markup language here,
+91:56 but rather there's useful tag
+names that come with HTML--
+91:60 you can't just make up your own tags.
+92:01 They're in, sort of, the documentation,
+but now it's just much more readable,
+92:04 and this might look different on my
+phone or your phone or your laptop,
+92:07 but my friend who's good at
+stylization can figure out
+92:10 how to style all of these things, and
+better yet, he or she doesn't even
+92:13 need my file.
+92:15 In the fifth example here,
+notice that's it for the page.
+92:19 We've gotten rid of the big style tag
+and replaced it apparently with what?
+92:25 AUDIENCE: Href, a link?
+92:27 DAVID J. MALAN: Yeah, link href,
+which is a horrible, horrible name
+92:30 because it's not like a link
+in the page and hyperreference
+92:33 was already used for a link in a page,
+but this is what we're stuck with.
+92:36 This just says, hey browser,
+include this CSS file
+92:42 that is elsewhere on the server.
+92:43 The name of this file
+is arbitrarily CSS4.css
+92:46 because this is our fifth
+example here-- zero index.
+92:51 The relationship of
+this file to this page
+92:55 is that it's a style sheet, which is
+just a list of aesthetics or properties
+92:59 that should characterize its layout
+and indeed, if I open up CSS4.css,
+93:04 I just copied and pasted
+everything in there,
+93:06 but this is nice now in
+principle, even though we're just
+93:09 creating work for ourselves
+today, because now I
+93:11 can share this file with someone else.
+93:13 He or she can work on it on their own.
+93:14 Then we can merge our work together
+because my work's in the HTML file.
+93:17 Their work's in the CSS file.
+93:19 Better still, if we're making a whole
+website that has a dozen pages or 100
+93:23 pages, consider this.
+93:25 Just like in a C header
+file, I can include bitmap.h
+93:29 in all sorts of programs.
+93:31 Similarly can I include
+CS4.css in all of my web pages.
+93:35 So if I want to change the
+font size or the layout
+93:37 or whatever in all of my website
+all at once, I change in one place,
+93:42 not in every darn web page that might
+have been created by me or by someone
+93:47 else, and so there's just that
+maintainability to it too,
+93:50 but we can do even better than
+that because even the CSS we're
+93:53 looking at here is only so
+good, and what's really nice
+93:57 is if we go to bootstrap-- let
+Google tell me where to go.
+93:60 We're safe.
+94:00 OK, so Bootstrap is a library--
+formerly from Twitter, now
+94:04 a much larger community-- that's
+a whole bunch of CSS libraries.
+94:08 So just as in C, we have code and
+functions that other people wrote.
+94:12 So in the world of web
+development do we have
+94:14 code that other people wrote and we
+use that for JavaScript and Python,
+94:17 but even for aesthetics are
+there sites like Bootstrap
+94:20 and other popular things that
+allow us to make our sites prettier
+94:25 and build them more quickly
+without having to reinvent wheels.
+94:28 So for instance, if I go down to let's
+say Content and I go to Typography
+94:35 and skim through here, you'll
+indeed see like h1, h2 and h3,
+94:39 but if you want things even bigger than
+that there's like a display heading.
+94:43 There's this fancy version,
+which has a fancy display heading
+94:45 with some faded secondary text.
+94:47 So pretty marginal, but I don't have to
+figure out how to do that now myself.
+94:51 If I want to actually have tables,
+I can do much prettier tables
+94:54 than I did with my little old
+school phone pad a moment ago.
+94:57 Like I can make things different colors.
+94:59 I can shade the columns like this and
+in fact, you can do even fancier things.
+95:02 If I go ahead and open
+up a web page and go
+95:05 to our big board for
+speller.cs50.net, you'll
+95:09 see that this is a pretty good
+looking table as tables go.
+95:12 Certainly much better than
+the one before, but that's
+95:14 because we're using
+the Bootstrap library,
+95:16 and even more compelling
+than the aesthetics are
+95:20 that suppose that you visit
+speller.cs50.net on your phone,
+95:23 it starts to get pretty ugly
+once your window gets smaller,
+95:26 but notice stuff can
+just disappear magically
+95:29 when you're on a mobile
+device or, in this case,
+95:31 simulating it by using just
+a smaller browser window.
+95:33 So using CSS and the aesthetic
+power that it provides,
+95:36 we can also dynamically change our
+files to just render differently
+95:41 on different devices, and then
+lastly, let me open up, for instance,
+95:44 this under Components.
+95:45 This is where the really juicy stuff is.
+95:47 If you want fancy alerts to yell at
+the user or say everything is OK,
+95:51 you get nice little
+colored boxes like this.
+95:53 The forms are much prettier.
+95:55 I mean, already this looks much
+more like the web you and I use
+95:58 and not the mess of a form
+that I created a moment ago
+96:01 and long story short,
+just like in C it's
+96:04 pretty easy to include these things
+in your own site, so can I do this.
+96:08 Let me go ahead and open up
+form0.html, and this is literally
+96:12 an approximation of the very
+first web application I made,
+96:16 even before web application
+was a phrase, in 1997.
+96:20 I had taken CS50 and CS51.
+96:22 I hadn't learned web stuff at the time.
+96:24 I just kind of taught
+it to myself and learned
+96:25 from some friends and
+the first thing I did
+96:27 was build an interactive website
+via which first years could register
+96:31 for intramural sports because literally
+that year in 1996 it was paper-based.
+96:35 You'd walk across the yard, open
+up Wigglesworth, one of the dorms,
+96:38 slide a piece of paper--
+old school-- under the door
+96:40 and you were registered for a sport.
+96:42 We could do better even in 1997,
+and so we did it with the web,
+96:45 and so this form0 back in the day looked
+a little something ugly like this,
+96:50 but there's a text box where
+you could type in your name
+96:53 and then there's the dorm
+where you could select Matthew.
+96:55 So I could actually do David Malan
+and Matthews and then click Register,
+96:59 but we don't yet have the
+ability to make backbends yet.
+97:01 So this form goes nowhere
+for today, but you at least
+97:04 get these kinds of aesthetics, which
+are kind of 1997 aesthetics, literally.
+97:08 But if we go into this
+other example, form1.html,
+97:11 it looks pretty, pretty better now.
+97:15 It's maybe a little big in retrospect,
+looking at the display font,
+97:18 but all I've done is now use this
+Bootstrap library, and notice,
+97:22 it's a little hard to see
+on the projector here,
+97:24 but everything's kind
+of like nicely outlined.
+97:26 There's like Mark Zuckerberg
+sample text there which
+97:28 we can override by actually typing
+in our own email address here.
+97:33 We have a prettier looking box, a
+prettier looking button, and that's
+97:36 just because if we
+open up, as down here,
+97:43 form1.html, notice that
+in addition to my HTML
+97:47 down below and in addition
+to a couple of other things
+97:50 that I've added to make things
+more mobile-friendly in particular,
+97:53 I just added this.
+97:54 I read the documentation
+on getbootstrap.com
+97:56 and I went ahead and added
+Bootstrap's library to my own code
+98:00 in order to have access
+to its actual features,
+98:05 and then down here, it's a little
+overwhelming at first glance,
+98:08 but I just followed the directions.
+98:10 There's something called div in
+HTML for a division of the page.
+98:12 It means give me this
+invisible rectangular region.
+98:15 The class I associated with
+it is called form group.
+98:17 I didn't make this word up.
+98:18 This comes from Bootstrap.
+98:19 I just did what they told me to do.
+98:21 I then have a label, which
+makes things more accessible
+98:23 and you can click in different places.
+98:24 I have another class here
+but long story short,
+98:26 I just read the documentation
+because I know what tags are,
+98:29 I know what attributes are.
+98:32 I know a little bit of CSS
+now and I know how HTTP works,
+98:35 and so really I have enough building
+blocks in order to work on this myself.
+98:41 So that then is CSS and there's one
+last detail I thought I'd show us here.
+98:45 In all of these John Harvard
+examples, as in just a moment ago,
+98:49 we had something like
+this at the very bottom.
+98:53 This {} ampersand #169;.
+98:57 What was that rendering as, if
+you notice, in the web page?
+99:00 AUDIENCE: Copyright.
+99:01 DAVID J. MALAN: Yeah,
+the copyright symbol.
+99:02 There is, on my US keyboard,
+no copyright symbol.
+99:05 So you need kind of a
+pattern of characters
+99:08 with which to represent those in HTML.
+99:10 So just like we have /n and other
+special escape characters in C,
+99:14 you have what are called HTML entities
+in HTML that you would only know from
+99:17 reading the documentation, but
+that's the copyright symbol,
+99:20 but I thought it was rather timely to
+point that out because just yesterday
+99:24 or this morning, Apple announced that
+with the very new version of iOS that
+99:28 you can soon download, they added even
+more damn Emojis to the Emoji character
+99:32 set.
+99:33 So these are certainly
+in vogue these days
+99:35 and not only do we see, now, a way to
+represent special characters that you
+99:39 couldn't otherwise type using
+HTML, it turns out all this time
+99:43 that Emojis are actually
+just characters, chars,
+99:47 but they're not 8 bits.
+99:48 Recall that C as we've
+been using it uses
+99:51 ASCII, which uses only 7 or 8
+bits total and Emojis, my god.
+99:55 There's so many of them right
+now and we need more than 8 bits
+99:58 to represent them, and thus was
+born something called Unicode.
+100:00 Well, that is not why
+Unicode was invented,
+100:03 but this is what Unicode is now being
+used for because these emojis are
+100:07 simply like ASCII characters but
+multiple bytes, generally two bytes,
+100:11 maybe three bytes, and in
+fact, if you go on unicode.org,
+100:14 you can see that if the number in hex
+1F600 represents the grinning face,
+100:22 which happens to be implemented
+differently by different companies
+100:24 on different devices,
+but if in closing here,
+100:27 I open up this same file and I change
+this to 1F600 in hex, 1-F-6-0-0, save,
+100:37 and I go back to my browser
+and I go back to CSS0,
+100:42 now we have a very
+happy web page for you.
+100:44 So that's it for today.
+100:45 I'll stick around for questions
+and we'll see you next time.

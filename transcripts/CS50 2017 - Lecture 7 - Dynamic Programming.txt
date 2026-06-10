@@ -1,0 +1,1891 @@
+00:00 [MUSIC PLAYING]
+00:11 SPEAKER: OK.
+00:12 So what is dynamic programming?
+00:14 Normally, of course, I like
+to ask you to contribute ideas
+00:17 that we can discuss.
+00:18 But in this particular case,
+the point that I want to make
+00:22 is either you already knew
+the answer, or you're wrong.
+00:27 Dynamic programming is designed
+to be buzzword compliant.
+00:34 It's something that was
+invented by Richard Bellman,
+00:36 and he came up with the name.
+00:38 And it's actually-- and this is
+according to his own autobiography--
+00:46 the problem was that Rand
+is a defense contractor,
+00:50 so he was working at Rand,
+working on computer algorithms,
+00:54 and Rand worked for the Air
+Force, and still works for--
+01:00 it's part of the big
+industrial military complex--
+01:04 which meant that their budget depended
+on ultimately the Secretary of Defense.
+01:09 And if the Secretary of Defense
+didn't like what he was doing,
+01:12 or Congress didn't like what he
+was doing, and they got wind of it,
+01:15 that would be the end of it.
+01:19 So apparently, according to Bellman,
+the Secretary of Defense at the time
+01:25 had a pathological aversion to research.
+01:29 The way he described it is that he
+would suffuse and become red in the face
+01:35 if you mentioned the word
+research in his presence.
+01:38 And he really didn't like it if you
+said something like mathematics.
+01:42 And so Bellman wanted to be sure that
+whatever he was doing if this showed up
+01:45 in a Congressional report or in a
+report that landed on the Department
+01:49 of Defense's-- on the
+Secretary of Defense's-- desk,
+01:52 that it wouldn't say
+anything objectionable.
+01:55 So he came up with this term
+programming, which in the math world,
+01:59 means optimization-- find
+the best answer to a problem.
+02:03 And dynamic and the idea
+of dynamic, was this
+02:07 is an adjective that, yes, it sort of
+expresses that things are changing,
+02:11 but mostly it has no
+negative connotations.
+02:16 Dynamic just sounds good.
+02:20 So that's where the name comes from.
+02:22 So dynamic programming
+is basically a name
+02:25 that nobody could possibly
+object to, and therefore
+02:29 decide to cancel the project.
+02:37 There is a term that is much more
+descriptive of what's going on,
+02:46 which is a lookup table.
+02:49 So what dynamic programming really
+is, when it comes down to it,
+02:52 is it's a way of looking at
+certain kinds of problems.
+02:57 With linked data
+structures, linked lists,
+02:59 tries, hash tables, all of these sort of
+fall into a category of data structure
+03:03 that you use when you've
+got data and you want
+03:05 to map the connections between them.
+03:08 And so there's a whole category
+of different data structures
+03:11 that involve using pointers to map
+the connections between things.
+03:16 Dynamic programming is
+a category of algorithms
+03:20 where you say, in my problem,
+when I want to solve it,
+03:24 I end up asking the same question over
+and over again as part of solving it.
+03:29 The same question with the
+same parameters, if you will.
+03:32 And so rather than doing all the
+same work over and over again,
+03:37 let me just remember the answer
+after I figure it out once,
+03:41 and the next time I
+ask the same question,
+03:42 I'll just go look up
+what the answer was.
+03:45 That's the idea of dynamic programming.
+03:49 And of a lookup table.
+03:53 You've already used lookup tables.
+03:56 For example, going way back
+to the beginning of the class,
+04:13 Here's a for loop.
+04:16 for(i=0, i less than strlen of some
+string variable that I've called str,
+04:23 i++.
+04:25 this.
+04:25 Is a loop the loop
+through every character
+04:27 of this string, str, one by one.
+04:31 But the problem is every
+time you go through the loop,
+04:34 you recalculate the
+length of this string.
+04:36 And calculating the
+length of the string in C
+04:39 takes some time because you have to
+walk down the whole string until you
+04:42 reach that null character at the end.
+04:46 So going all the way back again
+to the beginning of the class,
+04:49 remember, we talked about, it would be
+better from a performance perspective
+04:55 not to keep recalculating
+the length of the string.
+04:59 Instead, why not say something
+like int length=strlen(str),
+05:13 and save that value to a variable, and
+just look up that value every time we
+05:23 go through the loop and are checking--
+have we reached the last value of i?
+05:32 There, length you can think of as a
+lookup table that stores one value.
+05:39 There's already an
+example that you've seen.
+05:42 We're going go to
+lookup tables that store
+05:44 the answer to more than one thing.
+05:48 And so I'm going to go through today
+a few different examples of problems
+05:54 that you can solve using
+dynamic programming.
+05:57 So these are problems where you
+can break them down in a way
+06:01 that you keep asking the same
+question over and over again
+06:04 and just look up the answer
+in a table or an array.
+06:11 And the first such problem I want
+to talk about is rod cutting.
+06:16 Now the idea of this is I have
+a rod of something valuable,
+06:21 so maybe it's a Tootsie
+Roll, or plutonium,
+06:29 there's a wide range of things that
+come as sort of like a long cylinder.
+06:32 And you want to chop it up
+into shorter pieces to sell.
+06:36 And what you know is that different
+length pieces, different length rods,
+06:40 sell for different amounts.
+06:42 And the question is, how
+should I cut this long thing up
+06:45 into smaller pieces to maximize
+the money that I can sell it for?
+06:55 So if I know, for example, that a rod
+that's one inch long sells for $1,
+06:60 and a rod that's two inches long
+turns out to be a lot more valuable,
+07:03 I can sell that for $5.
+07:06 And when it's three inches
+long I can sell for $8.
+07:08 Now there's a lot more demand for
+things that are three inches long
+07:11 then things that are four inches long.
+07:13 So if it's four inches
+long, I can sell it
+07:15 for $9, which is a little
+more but not a lot more.
+07:20 And then comes the question--
+07:21 I've got a rod of length 10--
+07:23 how should I chop it down into 1s and
+2s and 3s and 4s to maximize the profit.
+07:28 And there's different
+ways I could do this.
+07:30 I could chop it into 10 little one
+inch rods, and sell each one for $1
+07:35 and I've made $10.
+07:38 I could chop it into five two inch
+rods, and it would get 5 times 5 is $25.
+07:46 That's a lot more money.
+07:49 So being the unabashed capitalist than
+I am, that's what I'm likely to do.
+07:57 And there are some in-between options
+that might make me some money.
+07:60 The question is, how
+to quickly figure out
+08:03 what I should chop this rod
+into to maximize my profit
+08:08 and be sure that that's
+the most that I can sell it
+08:11 for There wasn't some other way to
+chop this up that would be better.
+08:18 And one way to think
+about the problem is,
+08:21 if I've got a rod that's 10 inches
+long and I can chop it once an inch,
+08:26 there are 1, 2, 3, 4, 5, 6, 7, 8, 9
+possible places I could cut the rod.
+08:36 And any one of those places I
+could either decide to make a cut
+08:39 or not make a cut.
+08:41 And that will affect the end result.
+08:44 So that's kind of 9 bits--
+08:46 I either cut or I don't.
+08:47 They're a 1 or a 0.
+08:50 So I end up in terms of the
+possible different combinations
+08:53 of how I could cut this with
+every possible 9-bit number
+08:59 in binary, which has 2 to the 9th
+possible values, which is 512.
+09:04 So I could try 512 possible
+different ways to cut this rod.
+09:10 And I can figure out
+which one does the best.
+09:18 And then I could try having a rod
+that was 20 inches long instead,
+09:22 and discover there's 19 possible
+places to decide I'm going to cut it
+09:25 or I'm not, and there's 2
+to the 19th possibilities
+09:28 now, which is about 500,000.
+09:34 2 to the 10th is about 1,000, 2 to the
+20th is about a million, 2 to the 19th
+09:39 is about a million divided
+by 2, it's about 500,000.
+09:44 So in general, if we said
+this rod is n inches long,
+09:50 so that there's n places or n minus 1
+places where I could make a decision
+09:54 to cut it, there are 2 to the n
+approximately possible different ways
+09:60 of making combinations of cuts.
+10:02 And that's a lot of things to try.
+10:05 At the same time, you can sort of
+see that splitting it into rods
+10:10 of 1, 1 5, 5, and 9 inches long--
+10:14 this is not the only combination
+of cuts that would give me that.
+10:19 There are other combinations that would
+also give me two 1s, two 5s, and--
+10:26 sorry, a 4 inch long.
+10:28 Two 1s, two 2s, and a 4.
+10:31 I could do a 4 and then
+two 2s and then two 1s.
+10:35 I'd get the same value out of it.
+10:36 So a lot of the possible
+ways that we could cut--
+10:41 they would give the same
+result in terms of the value.
+10:46 And so maybe I want to
+reorganize the problem
+10:48 where I don't have to try everything,
+because I realize a lot of times
+10:53 I'm just recalculating the same thing.
+10:59 And one way to do that--
+11:01 and this is where this concept of
+dynamic programming or a lookup table
+11:04 comes in--
+11:06 is to say, let me decide first where
+to cut where the left most cut will be.
+11:15 So instead of deciding, am I
+going to cut it 1 inch or not,
+11:18 am I going to cut it 2 inches or not,
+am I going to cut it 3 inches or not,
+11:21 I'm going to decide what's the
+first place that I'm going to cut?
+11:25 That could be at 1 inches or 2
+inches or 3 inches or 4 inches
+11:28 or 5 inches or 6 or 7
+or 8 or 9 inches, or I
+11:32 could decide I'm not
+going to cut at all,
+11:34 I'm just going to leave the rod whole.
+11:38 So with his rod of length 10, there's 10
+possible places to make the first cut.
+11:42 And the thing that I'm going to decide
+is that that splits the rod into two--
+11:49 the part on the left I'm
+not going to cut again.
+11:53 I'm not going to cut this 2 part--
+11:57 or the 3 part--
+11:58 I'm making that decision.
+11:59 This is the first piece
+that I'm going to sell.
+12:03 So the total value
+that I can get will be
+12:06 whatever I can sell the piece on the
+left for like $1 or $5 or $8 or $9,
+12:13 plus whatever I can get for the right
+part if I chop it into smaller pieces
+12:19 the best possible way.
+12:23 So the part on the
+left I won't cut again.
+12:25 I can just look up what is the value
+of a rod of this length in the table.
+12:30 But I also need to figure out
+for the part on the right, what
+12:34 is the best way to cut this up.
+12:42 And even that, if you draw
+out all the possibilities,
+12:46 you're going to end up
+with the same 2 to the n,
+12:49 except you can start
+seeing some commonalities.
+12:53 So for example, if you decided
+to cut a rod of length 2,
+13:01 you've got eight leftover, and you
+want to find the best way to cut it.
+13:05 Now, if you only chopped off one
+inch first, that was your first cut,
+13:11 and then you did another cut where
+you chopped off another inch,
+13:15 suddenly you're end up with what is the
+best way to cut a rod of length eight.
+13:22 So in the possible ways of
+chopping this thing of length 9,
+13:29 one possibility is, again,
+we take one inch off to sell,
+13:33 and we have eight inches left.
+13:36 If right from the start
+we've taken two inches off,
+13:38 we would also have eight inches left.
+13:43 And so we're asking the
+same question both times.
+13:46 We've said, I've got some stuff I've
+already cut that I'm going to sell,
+13:51 and now I've got an eight inch rod left.
+13:53 How do I cut that?
+13:55 There's no point
+figuring that out twice.
+13:58 We could just keep a little
+array in which we store, what's
+14:01 the best way to cut a rod of length 8?
+14:03 What's the best way to cut around
+of length 9, of 7, 6, of 5,
+14:06 of 4, and for each one of those,
+we just look in the array and say,
+14:11 have we put a value in there yet?
+14:13 If so, we just use it.
+14:15 We don't recompute it.
+14:23 And the result is, if
+you start looking at it,
+14:28 we've got 10 choices for our first
+cut, and then on average we've
+14:32 got something like up to nine
+choices for our second cut,
+14:36 and up to eight choices
+for our third cut.
+14:40 And so for each of the possible
+10 choices the first time,
+14:44 we've got nine choices to make for
+our second cut, we're up to 90.
+14:54 But this would get us exponential.
+14:55 The problem is a lot of these
+cuts end up being the same.
+14:58 And so you end up saying,
+I only have to deal
+15:00 with sort of 10 choices of what to make
+as the first cut for right of length
+15:04 10, and nine choices to make for
+the first cut of a rod of length 9,
+15:09 and eight choices for the first
+cut to make on a lot of length 8,
+15:13 because after that I'm getting
+down to something shorter.
+15:16 I'll figure that out eventually.
+15:19 And you end up with
+something like n squared.
+15:22 So for rod of length 10, I'd
+have roughly 10 times 10 choices
+15:26 that I actually have to do work for.
+15:29 And so you get down to n
+squared as opposed to n cubed.
+15:35 Another way to do this is to say,
+let me start with a rod of length 1.
+15:38 I have no choices for how to
+cut it, so I know the answer
+15:42 for how I'm going to sell that.
+15:44 For a rod of length 2, I can either
+do the cost for rod of length 1,
+15:49 and make a cut, and then have
+a rod of length 1 leftover.
+15:57 I can look up what that costs.
+15:59 And I'll store then which of those was
+the best value for rod of length 2.
+16:02 I'll say, for rod of length 2, I
+can get $5, and the way to do that
+16:06 is to not cut.
+16:10 And now for a rod of length three, well,
+I could decide to cut it after 1 inch,
+16:14 and I've got 2 inches leftover.
+16:16 So we'll look and say, well, the best
+thing to do with a rod of 2 inches
+16:19 is get $5 for it, so great.
+16:22 For something with 3 inches, I can
+get $6 by making a cut after one inch.
+16:28 If I make the cut after 2 inches, I
+get $5 for selling a rod of length 2,
+16:32 and then I look up what do
+I do with a rod of length 1,
+16:34 and the answer is you just sell
+it for $1, that gets me $6.
+16:38 I look up, and what happens if
+I just sell a rod of length 3--
+16:42 and that's $8.
+16:43 So I'll record-- great, for rods
+of length 3, don't chop it up,
+16:47 just sell it.
+16:49 For a rod of length 4, now
+I can chop it after 1 inch.
+16:54 I look up, ah, for a rod
+of length 1, I sell it
+16:58 for $1, plus what do I do
+with a rod of length 3?
+17:03 I just sell it.
+17:06 I'm done.
+17:07 I've found that that gets me $9.
+17:11 What if I cut at 2 inches?
+17:14 Well I've got a two
+inch bar I sell for $5,
+17:17 and then I look up how do I recover
+the right half, it's 2 inches long.
+17:22 I won't bother.
+17:23 My table says just keep it. .
+17:27 And after I've tested all of those,
+I know that cutting 4 into 2 and 2
+17:34 is going to be the best thing to do.
+17:41 So what's going to happen
+is, as you build this up,
+17:45 eventually you get to where you're
+dealing with your rod of length 10.
+17:50 For every cut that
+you make, you can just
+17:52 look up the left half
+you know you're going
+17:54 to say as a single thing, the right
+half you can look up in a table
+17:57 and say, what's the maximum
+value I can get for this?
+18:00 And the table will say, you
+can get this many dollars,
+18:04 and here's where you make the first cut.
+18:05 And then you've got a
+shorter piece left over,
+18:07 and you can look up where
+to make the next cut.
+18:17 Questions?
+18:25 So I'm going to move on
+to some other examples.
+18:27 And the next one I'm going
+go through fairly quickly.
+18:31 And the one after that, I'm
+going to go into more detail
+18:34 even than I did the rod cutting.
+18:35 And we'll draw out that table,
+filling in some of the values.
+18:41 If you remember to
+networking last week, we've
+18:44 got all sorts of computers that are
+connected together-- for instance,
+18:47 my computer, at least
+when I'm in my office,
+18:51 is probably hooked up through
+a department-wide server,
+18:56 or maybe just through
+Yale's University server,
+18:58 and Natalie also has a
+computer that's connected,
+19:00 and because our offices are close,
+they may actually have a connection
+19:04 directly to each other.
+19:06 Now, David and Doug up in the CS50
+office at Harvard, or their computers
+19:11 may also be directly
+connected to each other.
+19:13 So they can send messages
+back and forth directly,
+19:17 and they're also connected
+to Harvard's server.
+19:21 But if I want to send a
+message to David, I will need--
+19:27 and that might be an HTTP
+request, for example,
+19:30 if he's running a web
+server on his computer--
+19:34 I'm going to need to find a way
+to hop from computer to computer.
+19:36 I can't talk directly
+to David's computer,
+19:38 because there's no wire
+running between them.
+19:41 So I need to find some computer where
+I say, I've got a message for David,
+19:46 do you know how to deliver that?
+19:48 And it will say, yeah,
+I can do that for you.
+19:50 And then it will pass it
+on to some other computer,
+19:52 saying this is for David,
+and it keeps getting
+19:55 passed from server to server, until
+it gets to one that is actually
+19:59 connected to David's computer.
+20:02 And the problem of how to find who to
+pass that message to is called routing.
+20:08 And it's one of the
+problems in networking.
+20:09 And it's particularly
+difficult because networking,
+20:12 you have to deal with other people.
+20:15 When you're just writing a program
+of your own on your laptop,
+20:20 if something goes wrong,
+it was probably your fault,
+20:23 and you can probably fix it.
+20:26 If you're talking about
+a network, it could
+20:27 be that somebody turned off
+the lights somewhere else,
+20:30 or unplugged their
+computer without warning.
+20:33 That's completely out of your control.
+20:36 But you still have to deal with it.
+20:41 And so how do you get from my
+computer to David's computer
+20:44 is something that you
+have to keep track of
+20:46 and may keep changing, and to
+get there, we need to find--
+20:53 I need to be able to find not just
+how I could get to David's computer,
+20:57 but essentially who to pass that
+message to to get it there the fastest.
+21:02 I may have more than
+one way of doing it.
+21:05 And one way to do it
+is going pretty fast,
+21:07 and the other way is going to
+go through China and Sierra
+21:10 Leone and a congested undersea cable
+to Africa which has very poor internet
+21:14 links, and it will take a long time
+for the message to get to David.
+21:19 Unless, of course, somebody
+from MIT went and found
+21:22 the cable that connects Harvard
+to Yale and snipped it just
+21:24 for fun, in which case I might be stuck
+taking the longer route for a while
+21:28 because something broke
+outside of my control.
+21:34 And the question I want
+to talk about today
+21:36 is, how do you figure out
+who to pass that message to?
+21:41 And this is another place where
+dynamic programming turns out
+21:44 to be really helpful.
+21:48 So the idea is, it's
+not just that I need
+21:50 to know how to get to
+David's computer, I
+21:52 need to know how to get to
+everywhere on the internet.
+21:55 And everywhere else on
+the internet also needs
+21:58 to know how to get to
+everywhere on the internet.
+22:01 Everybody is trying to solve this
+problem of how to find the quickest
+22:05 way to get to any other computer.
+22:09 And to start out, I'm just plugged in,
+I don't even know who I'm connected to,
+22:17 let alone who else is out there.
+22:21 So the process is, rather than me
+trying to go snooping and exploring
+22:27 the entire internet--
+22:29 and by the time I'm done, somebody
+will have unplugged their computer
+22:32 and the process will need to change--
+22:35 I want to try and make
+sure that we are all
+22:37 doing this work together and sharing
+as much information as possible.
+22:42 So what I will do is I will
+just broadcast a message to all
+22:49 of my neighbors, saying
+haha, I'm here, I'm Benedict,
+22:53 and now Natalie will know,
+and Yale server will know,
+22:56 aha, Benedict's computer is
+connected directly to us.
+23:02 So if we need to get a message to
+Benedict, we can just give it to him.
+23:06 Now at the same time, everybody
+else is going to do that.
+23:08 So I'll get a message
+from Natalie, saying haha,
+23:11 here I am, and I'll get one from
+Yale saying haha, here I am.
+23:17 And now, I know that I'm connected
+directly to Natalie and Yale.
+23:23 This is what we call being one hop away.
+23:27 So if I need to send a message,
+it needs to make one hop,
+23:31 just like an airplane
+makes one hop from city
+23:33 to city, to get to the next computer.
+23:37 And as far as I know, that's
+all there is in the world.
+23:42 But everybody's just done this, so now
+everybody knows all of the computers
+23:46 that they're adjacent to.
+23:50 The next thing is, we can all send
+that information around, and say, here
+23:55 I am, and oh, by the way, here's
+everybody that I'm connected to.
+23:59 So if you give me a message
+for any of those people,
+24:03 I'm saying, anybody who passes a message
+to me that needs to go to Natalie--
+24:08 I can get it to her in one hop.
+24:14 So then you can figure out how many
+hops it takes you one more hop than that
+24:18 if you pass the message to me.
+24:22 So after we share that
+we can update our lists.
+24:25 And what will happen is Yale
+server has learnt from me, hahaha,
+24:30 I can get a message to Natalie for
+you, just give it to me and in one hop,
+24:33 I'll get it to Natalie.
+24:35 And Yale server says, yeah, but I
+can just give it to Natalie myself,
+24:39 so why bother doing that?
+24:41 So Yale server will keep in its list, I
+just found a way to get Natalie in two
+24:45 hops, I don't care.
+24:48 I can get there in one hop by just
+giving it straight to Natalie.
+24:54 However, I will have learned that Yale
+can reach Qwest's server in one hop.
+25:01 And so if I need to pass a message to
+Qwest, I can give the message to Yale
+25:09 and ask it to give it
+to Qwest and that's
+25:11 the fastest way I know to get there.
+25:16 And so each step everybody
+sends a pretty short message
+25:18 to all their neighbors.
+25:21 It takes a fixed amount of time.
+25:24 And we're accumulating this
+information and always keeping
+25:26 track of, what was the shortest--
+25:29 what is the fewest number of hops
+it takes us to get to a server,
+25:32 and who do we give the
+message to to get there?
+25:40 And as long as I give
+the message to Yale,
+25:42 Yale can worry about how it gets
+to Qwest, it's just promised me it
+25:45 takes one hop.
+25:47 If I do this again, now it turns out
+I can get to Google in three hops.
+25:51 I can get to Harvard in three hops.
+25:53 But all I care about is, I can get
+there in three hops and the way I do it
+25:56 is I give the message to Yale's server.
+26:00 Yale's server doesn't even know
+directly how to talk to Harvard's server
+26:05 or to Google's server.
+26:07 It just knows to pass the
+message to Qwest's server.
+26:10 Qwest, by the way, owns a
+lot of the big fibers that
+26:13 connect big data centers and things.
+26:16 So when I traced what
+happens if I try and connect
+26:19 to Google's server from my office,
+it goes up through a departments--
+26:22 CS department-- server, then a
+Yale server, then it goes to Qwest,
+26:27 and then it goes to Google.
+26:32 There are some other
+ones, like Internet2,
+26:35 which connects a lot of
+universities, and America Online
+26:42 used to own a lot of this, I don't
+know if they ever sold it off.
+26:48 There's a few companies that
+own most of those cables.
+26:54 And eventually, after four rounds, I
+find out that I can even reach David
+26:60 and Doug in four hops by
+giving the message to Yale.
+27:03 And Yale knows that
+it needs to just give
+27:05 that message to Qwest, which
+gives that message to Harvard,
+27:11 and then Harvard knows how
+to pass the message on.
+27:15 And this is in fact how the
+major routers on the internet
+27:19 share this information.
+27:22 Now, your computer or my
+computer, what they typically know
+27:25 is any message I need to send, I just
+send it to the server I'm connected to,
+27:28 to the wireless access point.
+27:30 And the wireless access point basically
+says, I send it to Yale's server.
+27:36 Or maybe there's a very small--
+it knows the following laptops are
+27:39 connected directly to me and anything
+else I just send to Yale's server.
+27:42 But when you get up to the level of
+all of Yale University, for example,
+27:49 it may well start to participate in
+this process of sharing this information
+27:56 to know, I could talk to Qwest,
+I could talk to Internet2,
+28:01 I could talk to Comcast, there's
+a bunch of people I could talk to.
+28:05 Which cable should I
+send this message out
+28:07 on to make sure it
+gets where it's going?
+28:11 And the dynamic programming
+aspect of this is, at each step
+28:17 I'm reusing all the information
+that was computed before
+28:21 to just add another layer on top.
+28:23 How do I get to places in three hops?
+28:26 I'm not recomputing the route
+to get from Yale to David,
+28:32 let's say, when I figure out that
+I can get there in four hops.
+28:36 I'm just using the information that I
+know that the Yale server can do it.
+28:40 And so that reduces the amount
+of actual work that I have to do.
+28:50 Any questions?
+29:02 Now, the third category of algorithm
+that I want to talk about--
+29:06 and I'm going to talk about this
+one in a little more detail,
+29:09 and I'm going to talk about a few
+different applications of exactly
+29:12 the same algorithm, so not
+just of dynamic programming
+29:15 but of this specific algorithm, of
+different problems that it can solve.
+29:20 And the one I'm going to start
+with is DNA sequence alignment.
+29:25 You also do this for
+aligning protein sequences.
+29:29 If you have a strand
+of DNA, it's made up
+29:33 of a chain of what are called
+bases, which are chemicals.
+29:38 They're molecules.
+29:39 And there's four of them
+that are used in DNA.
+29:43 There's adenine, and thymine
+and guanine and cytosine.
+29:47 And we'll typically just
+abbreviate each one with a letter.
+29:53 So if you were to
+unroll a strand of DNA,
+29:57 and just write down the list of
+these bases of these molecules
+30:01 that are connected in a
+long chain, you essentially
+30:04 get a string that's
+made up of four letters.
+30:07 So it's a string of some combination
+of the characters A, C, G, and T.
+30:15 Now, it might be that I know by
+heart the entire genome of a mouse
+30:23 and I know what every single gene does.
+30:25 Or at least I know what some of them do.
+30:29 Now, over time we diverged from mice and
+various mutations happened to our DNA,
+30:35 because whenever it gets copied,
+we sometimes make mistakes,
+30:38 and somehow we ended up instead
+of being a proto mouse we ended up
+30:41 being a modern human.
+30:44 And that same proto mouse whatever
+ended up being a modern mouse.
+30:47 through different mutations.
+30:49 So if I start sequencing
+my DNA, I might find
+30:54 a strip of it that corresponds
+to a particular gene,
+30:57 and I don't know what it does,
+but I'd like to find out.
+31:01 One way to do that would be
+to try and match it and find
+31:07 the best possible place for this
+to match which gene of mouse DNA
+31:12 does this match the best?
+31:14 Keeping in mind that there might be some
+gaps, a gene might have disappeared,
+31:17 a gene might have reappeared, or gotten
+added, and sometimes one of these bases
+31:22 might have gotten replaced
+by a different one.
+31:24 So we might have a mismatch.
+31:25 So there's different
+things that could happen
+31:27 in the process-- it won't be a perfect
+identical gene in the mouse to what's
+31:31 in the human, it will
+just be mostly the same.
+31:34 And I could use that to
+say, what's the best match,
+31:37 and then use that to predict
+what this gene codes for,
+31:43 or what the function of the
+protein it codes for is.
+31:46 You can do the same thing with proteins,
+they're made up of amino acids.
+31:49 You can look at that chain and look
+for similar things between one protein
+31:54 and a database of proteins
+where you know what they do
+31:56 to see if you can predict the function.
+32:02 But the problem is there's a lot
+of different ways of doing it.
+32:11 So let me write these on the
+board we've got AAC, AGT, TACC.
+32:28 Now, let me try and come up with
+the worst possible match that I can.
+32:39 TAAGGTCA.
+32:56 So there's different possible ways
+that I could line these strings up.
+33:01 They're not the same length, so I'm
+going to need some gaps somewhere.
+33:04 There's different places I
+could try and put them and see
+33:08 how the characters line up.
+33:10 And the rule is going to be--
+33:12 and this is based, in
+fact, on how common
+33:16 it is for a mutation
+to occur where one base
+33:20 switches to another one, versus a
+base is actually deleted or added
+33:24 in genetic mutations.
+33:26 It turns out that saying, it's roughly
+twice as likely that a base just
+33:29 changes to another base than to have a
+base completely disappear or appear out
+33:36 of nowhere.
+33:37 during mutation.
+33:39 So we will say that when
+we line up the strings,
+33:41 any time we have a mismatch
+between two characters--
+33:44 so two bases that are not the same--
+33:46 we're going to have that a penalty of 1.
+33:51 And we're a cost of one.
+33:53 That's what we pay to force the
+strings to match up that way.
+33:57 And any time we've got a gap, where,
+say, the C from the first string or DNA
+34:08 strand doesn't match
+anything in the second one,
+34:11 so that corresponds to a base
+getting inserted or deleted,
+34:16 we're going to assign that
+a penalty or a cost of 2.
+34:20 So we'd rather have two mutations--
+34:23 two things were base turned
+into something else--
+34:26 that seems about as likely as having
+something just get added or deleted.
+34:32 And then I can add up
+all those costs, and I
+34:34 get the cost of that particular
+way of matching the strings.
+34:39 And I'm looking for the way to do this
+with the lowest cost possible match.
+34:43 This is also called edit
+distance, because it's also
+34:48 measuring how many edits
+would have to make to a text,
+34:50 how many changes would I have to make
+to the text to turn it from one thing
+34:53 into another.
+34:56 This doesn't just have
+to be these four letters.
+34:59 This could be anything.
+35:03 But the thing that I've written on
+the board that I want you to see
+35:06 is the worst possible way I could
+match these would be to say,
+35:10 what if I just deleted the
+entire gene from the mouse
+35:16 and then did a bunch of insertions to
+produce the entire gene from the human?
+35:21 So each one of these characters,
+we say, matches to a Gap.
+35:26 That is one possibility.
+35:27 It's not a very good one.
+35:29 That would be 2 plus 2 plus 2 plus
+2 plus 2 plus 2 blah blah blah blah
+35:32 blah blah blah.
+35:34 That would cost a lot.
+35:35 That's a very unlikely way that we
+would have gotten from this to this,
+35:38 and we're looking for
+the most likely way.
+35:43 But what it does say is that there's
+not really any point inserting yet more
+35:48 gaps in the middle, because
+those things line up perfectly,
+35:51 they won't change the matching score.
+35:54 That's kind of silly.
+35:55 Once this thing is completely
+gone, I might as well
+35:58 start adding the new one in.
+36:01 So the longest possible sequence where
+we try and line the two of these up
+36:05 is the length of 1 plus the length
+of the other which here is about 18.
+36:11 And now if we look at
+each of these columns.
+36:13 We sort of had a choice.
+36:15 The same way with a rod, we had a
+choice-- do we cut or do we not cut?
+36:19 Here we have a choice
+of do we do a deletion--
+36:23 so we had a letter on the
+first string, and we're
+36:26 going to match it to a gap on the second
+string, as if this letter got deleted.
+36:31 Or we could do an insertion, in which
+case it's kind of like this situation
+36:35 where we had nothing
+and we added a letter.
+36:38 We could do that at the
+beginning of the string.
+36:40 Or we could actually try
+and match two letters.
+36:44 So at each point here, we've
+got three choices we can make--
+36:49 an insertion, a deletion, or a match.
+36:53 And if we could make that
+choice independently,
+36:58 between each of the letters we'd have
+three to the 17th possible combinations
+37:03 of things to try.
+37:05 That's a lot.
+37:07 How much is 3 to the 17th?
+37:14 Nobody knows this off
+the top of your head?
+37:20 OK, the technical term is a lot.
+37:22 That's a number.
+37:23 It's defined as 3 of the 17th.
+37:28 So again, we don't want to keep--
+37:31 we don't want to try everything.
+37:35 And we really want to do this.
+37:37 Computational biologists
+really want to figure out, look
+37:41 through a database of
+genes or of proteins
+37:46 and try and match something to
+figure out what it might do.
+37:50 Which parts of the genome
+that we just sequenced
+37:53 or the DNA strand that we just
+sequenced are worth zeroing in on
+37:57 and doing more studies on, because they
+might code for something important?
+38:05 It turns out that we like
+to do this also on occasion,
+38:07 or at least we do do it, when we want
+to look at two people's submissions
+38:13 and see how similar they are.
+38:17 So fundamentally,
+cheat checkers do this.
+38:23 They want to quickly compute
+how many changes would I
+38:26 have to make to one student's program to
+turn it into another student's program?
+38:36 And once we've computed all of that, we
+want to look and find the ones where--
+38:41 for most people maybe
+it took 1,000 edits,
+38:44 but here we've got a pair
+where it only took two.
+38:48 And that's kind of suspicious.
+38:57 So I'm going to sort of
+rephrase the problem.
+38:60 And it's going to be similar to rod
+cutting, where I'm going to say,
+39:03 let's pretend that I already know
+how to match the right portion of two
+39:10 of the strings.
+39:13 So if I already know the best
+way to match from GTTACC to GTCA,
+39:23 then to figure out the best
+way to match the whole thing
+39:26 is I just have to figure out
+how to do the first part.
+39:29 And this is kind of like
+saying, let me decide
+39:31 where I'm going to put the
+first letter of the first word,
+39:37 where I want to put the first gap,
+let's say, or the first insertion,
+39:42 and then figure out the rest of it.
+39:44 But I'm phrasing it going
+from the end to the beginning.
+39:51 And I'm phrasing it going
+to the end to the beginning
+39:53 kind of like I've shown here
+just because when we actually
+39:57 compute the table, that's
+going to end up putting
+40:00 the answer in a more logical place.
+40:05 So we can kind of say, at the
+last position in this match,
+40:11 are we going to have an insertion,
+are we going to have a deletion,
+40:15 or are we going to try
+and match two characters?
+40:19 And that gives us three possibilities.
+40:22 And each one has a cost.
+40:26 And so whatever the best way to
+line up these two strings is,
+40:31 the last thing that happens is going
+to be one of these three things--
+40:37 those are the only three possible
+ways for the last part of the match
+40:43 to happen--
+40:43 has to be an insertion
+or a deletion or a match
+40:45 because they're the only options.
+40:50 So if we know the
+costs of those, then we
+40:51 can say the cost of matching the entire
+string is the cost of doing whichever
+40:57 choice we make here plus the best edit
+distance cost, or the best alignment,
+41:04 of whatever's left.
+41:07 Which is slightly different
+in each of these three cases.
+41:12 Except that if, for instance, we do
+a deletion, and then for this choice
+41:23 where we're got TAAGGTCA at the
+bottom, the next time around we
+41:28 tried to do an insertion, and
+then the best of whatever's left,
+41:33 we would have AACAGTTACC matching
+to TAAGGTC, go figure that out.
+41:40 And then we would have
+insert A then delete C.
+41:45 Sorry, we would we would end
+up with these two strings.
+41:47 But instead of having
+to try to match C to A,
+41:49 we would have modeled one
+insertion and one deletion.
+41:52 We'd have the same thing left here.
+41:57 So as we build these
+things up, we're going
+41:60 to try avoiding finding the best match
+for the same pair of strings twice.
+42:09 And, realistically what's going to
+happen is we can start with, well,
+42:15 what if both strings were empty?
+42:19 Then they match perfectly.
+42:22 No problem.
+42:25 What happens if, at
+the end, I would like
+42:30 to have the string C or the
+character C, be deleted.
+42:36 So I would like to do
+some sort of match here
+42:44 where the very last thing
+that happens is C is deleted,
+42:52 and the rest of that TAA blah blah
+blah blah is somewhere over here.
+42:57 But I'll worry about where later.
+43:01 So in that case, we have a cost
+of 2, and when we were done,
+43:12 we would have used up this
+character C, because we deleted it.
+43:16 And so what we're left with after that
+is what is in the corresponding cell
+43:24 to the right in the table, which is the
+cost of matching nothing to nothing.
+43:29 Similarly, if we said the last thing
+that we want to have in the table
+43:33 is CC matching to
+nothing, the cost of that
+43:39 is 2 for the match, the deletion of
+C, plus the cost of matching nothing,
+43:47 C to nothing, which was
+this cell in the table.
+43:50 So we have 2 plus the cost
+of 2 that's right here is 4.
+43:55 So in general, what's going to
+happen is if I look at the cell
+43:58 where the little hand is right now--
+44:02 that just disappeared-- right
+here, this is the cost--
+44:06 we'll ultimately record the
+cost of matching GTTACC GGTCA.
+44:16 And it will say, in order to get
+the best match between these,
+44:22 so the smallest edit
+distance, if you will,
+44:26 here's what the total cost
+will be, and it will tell you
+44:29 should you try and match those two G's
+to each other, or should you do it as--
+44:34 should you have a
+deletion or an insertion?
+44:37 That's what's going to be stored
+in this cell of the table.
+44:40 And ultimately that means
+in entry 0, 0 of your array
+44:44 at the beginning of the
+table, will tell you the cost
+44:46 of matching AACAGTTACC to TAAGGTCA.
+44:53 It will tell you what
+the total cost is, and it
+44:55 will tell you whether you
+should start with the insertion
+44:58 or deletion or a match.
+44:59 And depending on which one, that's
+going to use up characters from one
+45:04 or both of the strings, which will move
+you to a new cell in the table that
+45:08 will tell you what to do next.
+45:14 So once it's primed, I can say,
+well, at the end, if I just
+45:19 look at the end of each string, I have
+to match the letter C to the letter A.
+45:26 And what is the best way to do that?
+45:29 Well, I've got three options.
+45:32 One option is I could delete the
+C. Oh, there's an error here,
+45:43 this should read i plus 1.
+45:45 So I could say, let me
+go over to cost i plus 1.
+45:48 So I've used up the C.
+But I'm going to stay in--
+45:53 sorry, i plus 1 is this row, but
+I'm going to stay in column j--
+45:59 so I'm going to come down to here,
+which says I've used up the A,
+46:02 so this A right here got matched to
+a gap, which is like an insertion.
+46:09 It says somewhere at
+the end of the table,
+46:12 I'm going to end with that
+A from the second string.
+46:18 And, oh, I still have
+the C floating around.
+46:30 So let me switch back
+to some white chalk.
+46:37 But leftover, we still have a C here.
+46:42 Because we were trying to
+match A to C, and so far we
+46:46 haven't dealt with that
+C. So we would have
+46:51 the cost of matching
+A to a gap, which is
+46:53 2, plus whatever the cost of
+matching C to nothing is, which is 2.
+46:59 Or we could say what if,
+instead of doing that, we did C
+47:18 and we'll delete C as
+opposed to inserting A,
+47:22 but it means we still have an A floating
+around here that we haven't used yet.
+47:26 That was an alternative way of matching
+C and A. So then we have a cost of 2,
+47:31 because we're doing a deletion.
+47:35 Plus we have left over
+the cost from the cell
+47:41 to the right in the table of
+matching the string A to nothing,
+47:46 so that would be a cost of 4.
+47:51 Or we could try and match C and
+A. And when you match C and A,
+48:06 well the cost of this is zero if
+the letters are the same and one
+48:09 if they're different.
+48:11 So in this case it's one, because
+c and A are not the same letter.
+48:15 And we're left with two empty strings,
+because we've used up the C and the A.
+48:19 So we end up with 1 plus the
+cost of whatever's over one
+48:24 and down one in the table, which is 0.
+48:28 So that total cost is 1.
+48:30 And of those three possibilities,
+we just take the smallest one.
+48:34 We say, ah, the smallest one was if I
+went diagonal-- if I matched A to C.
+48:38 So that's what I'll record in the table.
+48:41 Total cost of matching A to C
+is one, and the best thing to do
+48:46 is to actually try and
+match these two characters.
+48:48 It would be a mismatch.
+48:50 And then look up in the table
+what to do with whatever is left.
+48:59 And now I could say, well, what
+about matching the string CC to A?
+49:03 I can do the same question.
+49:07 I could say, I could start by matching
+the letter C and the letter A,
+49:11 and now I've got a C leftover.
+49:14 I could delete the first C and now
+I've got an A and a C leftover.
+49:23 That would be going this way.
+49:26 Sorry, if I match both.
+49:27 I might have a C leftover.
+49:28 If I delete-- if I just first
+start with a C and do a deletion,
+49:32 I end up with a C and A leftover.
+49:34 If the first thing I do is insert
+the A, I've got a CC leftover.
+49:39 So each one of those
+I've got a penalty of 2
+49:42 to go right, 2 to go down, one to go
+diagonal, that I add to whatever's
+49:46 in that table.
+49:47 I discover that if I try and match
+A to C I pay a penalty of one,
+49:51 and I've got a C leftover
+that I have to delete,
+49:54 so there's a total cost of three.
+49:56 And that was as good
+an option as I had, so
+49:58 that's what I filled in to the table.
+50:03 And then I can try and figure
+out for the string ACC to A,
+50:11 and just work backwards through
+this table and up the rows
+50:15 until it's all filled in.
+50:18 And the nice thing about this is
+every time when I look at the table,
+50:22 I need three pieces of information.
+50:25 I need the piece of information
+in the column just to my right.
+50:29 I need the piece of information
+in the column in the row
+50:32 immediately below me--
+50:33 the cell immediately below me--
+50:35 and I need the piece of information
+that's one down and one to the right.
+50:39 And because I'm working
+backwards to the table,
+50:41 it's nice and easy because
+the data's already there.
+50:45 I started filling in the bottom
+row in the last column, which
+50:50 are sort of special
+cases, and now I just
+50:53 have some loops that run
+backwards through this.
+50:56 And if one string is n letters
+long, that's n is in number,
+51:02 and the other string is m,
+which is m as in the mnemonic,
+51:06 then the total is m times n.
+51:11 And I see Doug smiling at mnemonic.
+51:13 I have to attribute that particular joke
+to Professor Mitzenmacher from Harvard,
+51:19 as reported to me by my roommate,
+because I wasn't actually
+51:21 in the class where he made the joke.
+51:24 But I liked it.
+51:26 So you can fill up the table.
+51:30 And now, instead of having 3 to
+the n, essentially, things that you
+51:35 had to try, you only have n squared.
+51:38 So 18 letters.
+51:41 18 squared is a little
+less than 20 squared.
+51:44 And 20 squared is 400.
+51:47 So we've got at the most
+about 400 but in this case
+51:54 it's not even n plus m squared,
+it's really just n squared.
+51:58 It's really like 10 squared.
+51:59 It's like 100.
+52:00 So we've got roughly 100 different
+steps to find the answer.
+52:07 If we tried everything,
+we'd be doing the same work
+52:10 over and over and over again,
+and we'd do more like 3
+52:13 to the 20th, which again,
+is a really big number.
+52:15 2 to the 20th is a million.
+52:18 And 2 to the 3rd is like--
+52:23 3 is like 2 to the 1.2 or something,
+let's say, so it's roughly a million
+52:32 to the 1.2.
+52:35 It's about 130 million, there you go.
+52:37 I knew we had an idiot
+savant in the room somewhere.
+52:44 And again, each one of
+these cells in the table--
+52:47 it tells you essentially what to do.
+52:49 Do you match this first pair of letters?
+52:51 Do you do a deletion?
+52:52 Or do you do an insertion?
+52:54 And from that you can figure out how
+much of each of the strings is left.
+52:58 And then you look up in the next
+cell of the table that corresponds
+53:01 to that what the next thing to do is.
+53:07 And so to figure out exactly
+how these things match up
+53:10 as well as just what is the
+cost of matching them up
+53:14 in the best possible way, you
+work your way through the table.
+53:19 Rather than trying to store all
+that information in each cell
+53:21 and store the same information
+over and over again,
+53:24 you store only one piece
+of the answer in each cell.
+53:29 Questions?
+53:33 Yes.
+53:34 AUDIENCE: In the runtime, it says
+there's omn, is the m a constant,
+53:39 or is it another--
+53:43 what is that [INAUDIBLE]?
+53:45 SPEAKER: Right, so in this
+running time, where it says OMN,
+53:47 and what does that mean?
+53:49 What we're saying is we've
+got two different strings.
+53:51 One of them is n characters long,
+the other one is m characters long.
+53:57 So in terms of the
+function of the input,
+54:00 we're just being slightly
+more precise and saying,
+54:02 we've got two words that
+are each n letters long.
+54:06 And then it's sort of n squared.
+54:08 Saying maybe they're
+very different lengths,
+54:10 and so we can be a little more precise
+as to how many steps they take.
+54:15 But the key thing there is you
+see one thing times another,
+54:19 so that's kind of like
+something squared.
+54:22 As you think about, as these
+strings get longer and longer,
+54:26 how much work is this?
+54:29 So this is not too bad.
+54:32 And it's really actually pretty
+feasible to do this for DNA sequences
+54:37 that might be a few
+hundred base pairs long.
+54:41 It's feasible to do
+this for a source file
+54:45 from homework for cheat checking--
+is maybe a few thousand characters.
+54:49 No big deal, even though
+we've got 1,000 students,
+54:54 and we've got all the past submissions,
+so we've got 10,000 submissions,
+54:58 so we've got roughly a
+million pairs of files.
+55:03 Something like that, and that's
+not a big deal for a computer.
+55:08 And each one of those takes
+somewhere like a million steps,
+55:12 because you've got 1,000
+characters times 1,000 characters.
+55:15 We can manage that.
+55:20 Other questions?
+55:25 Yes.
+55:26 AUDIENCE: Do you have to gain brute
+force to fill out the table intially?
+55:30 SPEAKER: So do you have to do brute
+force to fill up the table initially?
+55:33 That depends on how
+you define brute force.
+55:36 You do have to fill up all
+the cells of the table.
+55:40 Because in order to find
+the answer at the top left,
+55:45 even though you're ultimately only
+going to use the value from one
+55:47 of these three, you need
+to look at all three
+55:49 values-- the one to the
+right and the two below.
+55:54 So in order to find
+the final answer, you
+55:56 have to have filled up the whole table.
+55:58 And there's m by n entries in the table,
+which is where you get to this m times
+56:03 n or n squared-ish kind of thing.
+56:05 But compared to what you might
+think of as brute force of try
+56:08 every possible alignment
+of the two strings
+56:12 which involves lots
+of subalignments, lots
+56:14 of parts that align the same
+way, in lots of different places,
+56:18 we're not redoing those over and over.
+56:19 So we're not doing this
+really brutal brute force that
+56:23 would say there's something
+like 3 to the 2000 steps
+56:27 to compare a single pair of files, and
+then we have to do a million of those.
+56:32 That would be a problem.
+56:36 Other questions?
+56:45 So I've sort of folded
+two applications into one
+56:48 right there with edit distance.
+56:50 One is this computational biology where
+you treat a DNA strand or a protein
+56:56 sequences as a string.
+56:58 And the other was some sort
+of fancy file comparison
+57:04 you might use for search and replace.
+57:06 You might use this for
+spelling checking to figure out
+57:08 the best word in the dictionary.
+57:10 Not just is the word
+there, but of the words
+57:12 that are in the dictionary,
+which one is most likely what
+57:17 I meant to type based on some model of
+how frequent different kinds of errors
+57:22 are.
+57:25 And you could compute the edit distance
+to every word in the dictionary
+57:30 to propose a list of suggestions.
+57:34 But there's another application
+that I want to talk about,
+57:39 which is image stitching.
+57:41 This is what happens when
+you take out your cell phone
+57:43 and you build a panoramic image.
+57:45 So you sweep the camera around
+and it's going to take a video
+57:49 or it might just end up taking a
+series of pictures every second or two.
+57:55 And then it stitches them
+together into one big image.
+57:59 And there's a few parts to that process.
+58:01 One part is each of the pictures
+that got taken, figuring out
+58:04 how your camera moved between each one.
+58:07 So it can sort of transform
+the images as if--
+58:10 to where they overlap in
+just the right places.
+58:14 But even then, they won't line up
+perfectly, because maybe somebody's
+58:20 walking around in the
+scene, or it turns out
+58:23 that if you're actually walking
+along with your camera like this,
+58:28 as opposed to just rotating
+around, you get a parallax effect
+58:32 where things that are closer to
+you appear to be moving faster
+58:35 than things that are further away.
+58:38 So right now I see part
+of the middle chair.
+58:41 The right hand side of it to
+me is hidden behind the tripod.
+58:45 But if I walk over here, that's come
+into view and the left side of the seat
+58:50 is hidden behind the tripod.
+58:52 So within that panorama, maybe there's
+no perfect way to light up the images,
+58:57 because there's different information
+visible even in the overlapping areas.
+59:03 And to resolve that problem,
+the key is once you figure out
+59:08 how the two images overlap,
+you want to figure out and take
+59:13 part of that overlapping area
+from one image and part of it
+59:18 from the other image.
+59:20 So there's a seam between the two.
+59:21 And a seam is just a
+connected line of pixels.
+59:24 And everything on one side comes from
+image A, everything on the other side
+59:28 comes from image B. And the question
+is where should that seam go?
+59:36 Now, that seam should go, ideally,
+somewhere where we won't notice it.
+59:41 So let's switch from one
+image to the other at a place
+59:44 where they are really
+similar, and somewhere
+59:47 where I'm seeing the parallax
+from the tripod moving,
+59:51 or somebody was walking
+along in the scene.
+59:55 I try and make this seam where I
+connect the two images go around that.
+60:02 So it's not picking up sort of a jump
+where the two images were actually
+60:09 different.
+60:12 Well, the simplest way
+to do that is to look
+60:15 at a pair of this overlapping
+rectangle, and say, let's draw this seam
+60:20 where pixels are really similar.
+60:24 And I could do that by looking,
+for instance, at the difference
+60:27 in the pixel color between the two.
+60:30 In this case, it's nice and easy because
+the images are black and white right
+60:33 here, so I just take the
+difference in intensity,
+60:37 which is a number between
+0 and 255, and I'll
+60:40 get a different number that's
+between 255 and negative 255.
+60:45 So I might subtract white from black.
+60:47 I take the absolute value of that.
+60:49 If that's 0, it means that pixel
+was the same color in both images.
+60:54 If it's really big, it means the
+colors were really different.
+60:60 And now, I could say
+the cost of a seam going
+61:06 through a particular pixel is that
+difference in values between the image
+61:15 pixels--
+61:15 the difference in intensity.
+61:18 And so for the total seam, I
+want to figure out from there,
+61:20 should I go right?
+61:22 Should I go down?
+61:24 Or should I go down and to the right?
+61:26 Which I can do by
+looking up in the table
+61:30 the cost of a seam passing through the
+pixel to the right or the pixel down
+61:33 and to the right or
+the pixel to the left.
+61:36 Here's the table, it's just
+that now, a cell in the table,
+61:42 instead of saying the cost of
+matching ACCC for example to TCA,
+61:48 filling in a cell in the table.
+61:50 What that-- I'm going to
+interpret that cell as is
+61:53 the cost of having the image seam run
+from here to the lower right corner.
+62:00 And so in that sense, if you're
+looking at image stitching,
+62:03 you can see that matrix.
+62:06 It's this rectangle of overlapping
+pixels between the two images.
+62:12 And the algorithm to find the optimal
+seam is identical to edit distance.
+62:20 Absolutely identical.
+62:22 The only difference-- even though
+I said it was absolutely identical,
+62:25 there is of course a difference,
+otherwise it would be no fun--
+62:30 but the difference and the reason
+I say the algorithm is identical
+62:33 is this cost function to decide what
+is the total cost of this cell based
+62:38 on the cost of the thing to the
+right, down and to the right
+62:41 and down below, is different.
+62:44 That cost function for edit
+distance was some number
+62:47 depending on whether they
+matched or mismatched
+62:49 or it was an insertion or deletion
+plus the cost of the thing to the right
+62:55 or down or diagonal.
+62:56 So there was a different
+penalty that you
+62:59 paid for moving right in this
+table, or down, or diagonal.
+63:03 With this image stitch right now,
+the way that I've defined it,
+63:08 the cost is the same.
+63:09 The penalty that you pay for having
+a seam go through a particular pixel
+63:13 is the same even if you then go on
+to the right or diagonal or down.
+63:17 It's just the difference in intensity.
+63:20 So you would take the minimum of--
+63:23 you would take difference in
+intensity plus the minimum
+63:26 of what's to the right, what's down
+below, or what's diagonal to the right.
+63:31 Slightly different cost function,
+but really the same algorithm.
+63:37 And there's ways to implement
+this where you can essentially
+63:40 say to the algorithm, OK,
+go fill in this table.
+63:42 Use this cost function, so that you
+could use exactly the same code.
+63:49 You implement this once and
+you can do edit distance
+63:52 and you can also do image stitching.
+63:57 And this is one of the
+respects in which algorithms
+63:59 and the abstraction of
+computer science becomes
+64:02 really interesting is when you start
+to see two problems that seem really
+64:06 unrelated and turn out to be the same.
+64:10 And it's even more
+fun when you can write
+64:12 one program that does two
+completely different things for you
+64:15 and don't even have to re-implement it.
+64:18 So any questions?
+64:28 I'm going to end, then, with a
+demo of one more algorithm that
+64:34 uses dynamic programming--
+64:37 and you can find various demos of this
+on the web-- this is just one of them--
+64:42 called seam carving.
+64:43 This is very similar to
+image stitching, where
+64:49 we found that seam going from the upper
+left corner to the lower right corner.
+64:54 The idea here is that we want to
+resize the image on the right.
+65:08 And you did this in p set 3.
+65:09 You resized images--
+or p set 4, excuse me.
+65:12 You resized images.
+65:13 And if you made them narrower,
+they got kind of squashed,
+65:17 and if you made them wider,
+they got kind of stretched,
+65:20 and everything looked wrong.
+65:22 Wouldn't it be nice if
+we could resize the image
+65:24 but have it still look normal?
+65:29 So the idea of the
+seam carving algorithm
+65:31 is essentially to resize the image.
+65:35 Instead of scaling every pixel to be
+a little narrower than it was before,
+65:39 let's just take a row
+of pixels and delete it.
+65:44 And so we might take in this row
+right here, or this column of pixels,
+65:47 and delete it, and maybe
+nobody would notice.
+65:52 The problem is you can only do
+this so many times in an image
+65:55 before somebody notices.
+65:58 Because you get some sort of jump,
+where you've deleted useful information.
+66:03 And one of the reasons for that is that,
+for example, in this column right here,
+66:13 in the water you could get
+away with deleting a pixel.
+66:16 In the sky you could get
+away with deleting a pixel.
+66:19 But in the balloon, you
+better not delete a pixel,
+66:22 because that would be really obvious.
+66:23 The balloon will start to
+look really funny really fast.
+66:27 So instead of finding a straight
+line of pixels to delete,
+66:31 let's find a wiggly line.
+66:34 We're still deleting one
+pixel from every row,
+66:38 so every row will end up being one
+pixel smaller than it was before,
+66:44 which means the image will still be
+rectangular, but we have a choice.
+66:50 If we delete a particular pixel at the
+top of the image, on the next row down
+66:55 we could either delete the
+pixel right below it or the one
+66:58 to the left or the one to the right.
+67:02 So this is also pretty much--
+we've got these three choices,
+67:04 just like we had before--
+67:06 slightly different cost function.
+67:08 And then you've got-- you could start
+by deleting any one of the pixels
+67:12 at the top.
+67:13 You pick the one that's going
+to have the lowest cost.
+67:16 And that cost might be how different
+are you than your neighboring
+67:18 pixels on the left and right.
+67:20 So if you're pretty much the same
+color as the thing you're left
+67:23 and the thing to your right,
+nobody will notice if you go away.
+67:28 And with just a little
+bit of extra work,
+67:32 you can then update that
+information, that table,
+67:36 to reflect the fact that you've
+deleted this one pixel from every row.
+67:40 You can patch up all
+of the seams that that
+67:44 would have affected to figure
+out if I need to squashed
+67:48 by another pixel, what do I throw out.
+67:53 And you can start resizing the image.
+67:58 And you can see, it's
+deleting a lot of sky.
+68:01 It's deleting a lot of water.
+68:03 It's being pretty careful about
+how it thins out these bushes.
+68:07 And thinning them a lot less
+than it thins some other things,
+68:10 trying to do them in sensible ways so.
+68:12 The stuff that we're used to seeing is
+mostly staying normal and empty space
+68:19 is getting squashed.
+68:20 But that empty space
+is in different places
+68:23 depending on where you are in the image.
+68:26 And down here, for example, we
+don't have a lot of empty space.
+68:29 It's hard to delete grass
+without you knowing it,
+68:32 because you're going to get half a blade
+of grass and it's going to look funny.
+68:35 And there's only so much water you can
+delete before that becomes obvious.
+68:38 So somewhere we had to start deflating
+the reflection of the balloon.
+68:44 So it looks funny, but it looks less
+funny than if everything had just
+68:47 been squashed by an equal amount.
+68:57 As long as you save the information
+about what you were deleting,
+69:00 you can re-expand it.
+69:03 So you see, even if we'd
+squashed a whole bunch,
+69:06 this balloon is still
+whole, because it's
+69:11 so easy to delete pixels in the sky
+and still have the sky look good
+69:15 that there's no need
+to shrink the balloon.
+69:18 The reflection of the balloon-- that
+got harder because we're balancing it
+69:21 off with deleting stuff in the grass.
+69:27 So it takes just a little bit
+of work beyond that image seam
+69:31 and edit distance problem
+to do this seam carving.
+69:36 And it takes just a
+little bit more work to be
+69:37 able to resize both horizontally and
+vertically, which is pretty cool.
+69:44 And this is something that was published
+at the ACM Siggraph Conference, which
+69:48 is a giant computer graphics conference
+every August, about 10 years ago,
+69:54 I want to say.
+69:58 I can tell you the exact date
+by looking for the reference--
+70:04 2007.
+70:05 So yes, 10 years ago.
+70:07 And it's actually a pretty short paper.
+70:09 And it's really easy to understand,
+because it's a pretty simple algorithm.
+70:14 And it's a really cool idea.
+70:17 And so it's one of these
+rare papers that you
+70:18 can sit down and read and understand.
+70:21 You can go to the talk and understand.
+70:23 And you can go home afterwards.
+70:25 And if you've got it a little bit
+of a background in computer science,
+70:29 and particularly in computer
+graphics, you can understand this.
+70:33 And you can just sit down and
+in an hour you can implement it.
+70:36 And so you get these web
+demos that popped up.
+70:39 Photoshop can do this.
+70:41 And it started appearing all
+over the place really fast,
+70:43 because it was a really good idea.
+70:46 It worked surprisingly well.
+70:50 And it does that through
+this dynamic programming.
+70:52 Let's not recompute information about
+how to get from some particular point,
+70:58 how to delete a scene from
+there down to the bottom.
+71:01 It doesn't compute that
+for every possibility
+71:04 It just sort of figures out, well
+from here, the best thing to do
+71:07 would be to go down or the best thing
+to do would be to go down and left.
+71:10 And that pixel worries about
+how to go on from there.
+71:16 Any questions?
+71:22 OK, well thank you all for coming.
+71:24 Remember that tomorrow morning
+there will be another lecture
+71:26 streamed from Harvard.
+71:27 And if you're at Harvard, you
+can always have fun going.
+71:31 We'll talk about an
+introduction to Python,
+71:34 which is another
+programming language like C.
+71:35 It's got slightly different
+syntax, but the same basic deal.
+71:40 It tends to get used for
+certain kinds of programs
+71:43 where its syntax makes it a
+little bit easier to write them.
+71:46 Then you will be getting instead
+of a programming assignment,
+71:51 you'll be getting a fun more
+sort of written exercise
+71:53 to work on over the weekend.
+71:55 Remember your exam.
+71:57 So that will come out
+after lecture tomorrow.
+71:60 And you'll have three days for that.
+72:03 Then next week at Yale, there are no
+sections because of our fall break.
+72:08 So there will be no sections
+Tuesday or Wednesday.
+72:12 You've got some time off.
+72:13 You've got some time to recover.
+72:14 You've got some time for sleep.
+72:17 And next Friday, which
+is during our fall break,
+72:21 there will be another
+lecture streamed from Harvard
+72:23 that will be more about Python.
+72:26 And p set 6 will be coming out.
+72:28 It's likely to tie a lot of the things
+we've been talking about this week
+72:32 and next week together into
+a programming assignment.
+72:35 And you will of course have
+10 days to work on that.
+72:39 So you can look at it when it
+comes out, but it doesn't have
+72:43 to ruin the rest of your fall break.
+72:44 I promise.
+72:46 And with that, again,
+thank you for coming.
+72:48 This was CS50.

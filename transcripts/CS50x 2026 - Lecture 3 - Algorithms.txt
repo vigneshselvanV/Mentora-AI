@@ -1,0 +1,3437 @@
+02:12 All
+02:14 right,
+02:15 this is CS50.
+02:16 This is week 3,
+02:18 and this was an artist's rendition of what
+02:20 various sorting algorithms look and sound like.
+02:23 Recall from week 0 that an algorithm is just step
+02:25 by step instructions for solving some problem to sort information,
+02:28 as in the real world just means to order it
+02:30 from like smallest to largest or alphabetically or some other heuristic.
+02:34 And it's among the algorithms that we're going
+02:35 to focus on today in addition to searching,
+02:37 which of course is looking for.
+02:38 Information as we did in week 02.
+02:41 Among the goals for today are to give you
+02:42 a sense of certain computer science building blocks like
+02:45 there's a lot of canonical algorithms out there that
+02:48 most anyone who studied computer science would know,
+02:50 anyone who leads a tech interview would ask.
+02:53 But more importantly,
+02:54 the goal is to give you different mental models for and methodologies
+02:58 for actually solving problems by giving you a sense of how these,
+03:01 uh,
+real world algorithms can be translated to actual computers.
+03:04 You and I can control.
+03:05 We thought we'd begin today with an actual algorithm
+03:09 for sort of taking attendance.
+03:10 We of course do this with scanners outside,
+03:12 but we can do it old school whereby I just
+03:13 use my hand or my mind and start doing 123456789,
+03:18 1011,
+03:19 12,
+03:19 and so forth.
+03:20 That's going to take quite a few steps because
+03:22 I've got to point at and recite a number for
+03:24 everyone in the room so I could kind of
+03:26 do what my like grade school teachers taught me,
+03:27 which is count by 2s,
+03:29 which would seem to be faster.
+03:30 So like 2468,
+03:32 1012,
+03:32 1416,
+03:33 1820,
+03:34 and clearly that sounds and is actually faster,
+03:37 but I think with a little more
+03:39 intuition and a little more thought back to week zero,
+03:43 I dare say we could actually do much better than that.
+03:45 So if you won't mind,
+03:47 I'd like you to humor us by all standing up
+03:50 in place
+03:51 and think of the number one,
+03:53 if you could,
+03:53 and join us in this here algorithm.
+03:56 So stand up
+03:58 in place
+03:59 and think of the number 1.
+04:01 So at this point in the story,
+04:02 everyone should be thinking of the number 1.
+04:05 Step 2 of this algorithm for you is going to be this pair off with someone standing,
+04:10 add their number to yours,
+04:12 and remember the sum.
+04:15 Go
+04:20 OK.
+04:22 At this point in the story,
+04:24 everyone,
+04:24 except maybe one lone person if we've got an odd number of people in the room,
+04:28 is thinking of what number?
+04:30 2,
+04:31 OK,
+04:31 so next step,
+04:33 one of you
+04:34 in each pair
+04:35 should sit down.
+04:41 OK.
+04:42 Good.
+04:43 Never seen some people sit down so fast.
+04:45 So,
+04:45 those of you who are still standing,
+04:46 the algorithm's still going.
+04:48 So the next step for those of you still standing is this,
+04:51 if still standing,
+04:53 go back to step
+04:54 2.
+04:56 Ergo repeat or loop if you could.
+05:06 Um
+05:11 And notice if you've gone back to step 2,
+05:13 that leads you to step 3,
+05:14 that leads some of you to step 4,
+05:16 which leads you back to step 2.
+05:19 So this is a loop.
+05:28 Keep going.
+05:28 If still standing,
+05:29 pair off with someone else,
+05:31 still standing,
+05:32 add together,
+05:32 and then one of you sit down.
+05:34 So with each passing second,
+05:36 more and more people should be sitting down.
+05:40 And fewer and fewer are standing.
+05:42 OK.
+05:43 Almost everyone is sitting down.
+05:44 You're getting farther and farther away from each other.
+05:46 That's OK.
+05:48 I can help with some of the math at the end here.
+05:53 All right.
+05:53 I see a few of you still standing,
+05:54 so I'll help out and I'll I'll join you together.
+05:57 So I see you in the middle here.
+05:58 What's your number?
+06:01 32.
+06:02 OK,
+go ahead and sit down and I'll pair you off with what's your number?
+06:05 20.
+06:06 OK,
+you can go ahead and sit down.
+06:08 Uh,
+who's still
+06:10 Then you're still standing.
+06:13 27?
+06:13 OK,
+you can sit down.
+06:16 You guys are still adding together,
+06:17 who's gonna stay standing?
+06:18 OK,
+what's your number?
+06:20 The worst part is doing like arithmetic across a crowded room,
+06:22 but
+06:23 27 also?
+06:25 47.
+06:26 OK,
+you can sit down.
+06:26 Is anyone still standing?
+06:27 Yeah.
+06:29 Nice,
+06:29 15.
+06:30 OK,
+you can sit down.
+06:31 Anyone still standing?
+06:33 OK,
+06:34 so all I've done is sort of automate the process of pairing people up at the end here.
+06:38 When I hit enter,
+06:40 we should hopefully see,
+06:42 oh,
+the numbers are a little,
+06:43 what's going on there?
+06:43 There we go.
+06:45 When I hit enter,
+06:46 we'll add together all of the numbers that were left.
+06:49 And if you think about the algorithm that we just executed,
+06:52 each of you started with the number 1 and then half of you handed off your number.
+06:55 Then half of you handed off your number,
+06:56 then half of you handed off your number.
+06:58 So theoretically all of these ones with which we
+06:60 started should be aggregated into the final count,
+07:03 which if this room weren't so big,
+07:04 would just be in one person's mind,
+07:06 and they would have declared what the total number of people in the room is.
+07:09 I'm going to speed that up by hitting enter on the keyboard,
+07:11 and if your execution of this algorithm is correct,
+07:15 there should be.
+07:17 141 people in the room.
+07:19 According to our old school human though,
+07:22 Kelly,
+07:22 who did this manually one at a time,
+07:25 the total number of people
+07:27 in the room,
+07:28 according to Kelly,
+07:29 if you want to come on up and
+07:31 shouted into the microphone is of course going to be,
+07:33 I don't know,
+07:33 something around 160,
+07:35 I think 160,
+07:36 so not quite the same.
+07:37 OK,
+but that's pretty good.
+07:38 OK,
+round of applause for your,
+07:40 your accuracy.
+07:45 OK,
+so ideally counting one at a time would have been perfectly correct.
+07:48 So we're only off by a little bit.
+07:50 Now,
+07:50 presumably that's just because of some bugs in execution of the algorithm,
+07:54 maybe some mental math didn't quite go according to plan,
+07:57 but theoretically your third and final algorithm wherein you all participated,
+08:00 should have been much faster than my algorithm or Kelly's algorithm,
+08:03 whether or not we were counting one at a time or two at a time.
+08:06 Why?
+08:07 We'll think back to week zero when we did the whole phone book example,
+08:09 which was especially fast in it.
+08:11 Final form because we were dividing and conquering,
+08:14 tearing half of the problem away,
+08:15 half of the problem away.
+08:16 And even though it's hard to see in a room like this,
+08:19 it stands to reason that when all of you were standing up,
+08:22 we took a big bite out of the first problem and half of you sat down,
+08:25 half of you sat down,
+08:26 half of you sat down,
+08:27 and theoretically there would have been if you were closer in
+08:30 space,
+08:31 one single person with the final count.
+08:33 So let's see if we can analyze this
+08:36 just a little bit by considering We did.
+08:38 So here's that same algorithm.
+08:40 He recall is how we motivated Week zero's
+08:43 demonstration of the phonebook in either digital form,
+08:45 as you might see in an iPhone or Android device,
+08:47 looking for someone,
+08:48 for instance,
+08:48 like John Harvard who might be at the beginning,
+08:50 middle,
+or end of said phonebook,
+08:52 but we analyzed that algorithm just as we can now this one.
+08:55 So in my very first verbalized algorithm,
+08:57 1234,
+08:59 you could draw that as a straight line because the relationship between the number
+09:02 of people in the room and the of time it takes is linear.
+09:06 It's a straight line with each additional person in the room.
+09:09 It takes me one more step.
+09:10 So if you think to sort of high school math,
+09:12 there's sort of a slope of one there.
+09:14 And so this N number denoting number of people in the room is indeed a straight line.
+09:19 And on the x axis,
+09:20 as in week 0,
+09:20 we have the size of the problem in people and the time to
+09:23 solve in steps or seconds or whatever your unit of measure is.
+09:26 If and when I started counting 2 at a time,
+09:28 2468,
+09:29 10.
+09:30 And so forth.
+09:31 That still is a straight line because I'm taking two bytes consistently out of
+09:35 the problem until maybe the very end where there's just 1 person left,
+09:38 but it's still a straight line,
+09:39 but it's strictly faster.
+09:40 No matter the size of the problem,
+09:42 if you sort of draw a line vertically,
+09:44 you'll see that you hit the yellow line well before you
+09:46 hit the red line because it's moving essentially twice as fast.
+09:49 But that third and final algorithm,
+09:51 even though in reality it felt like it took a while and I had to
+09:54 kind of bring us to the exciting conclusion by doing some of the math.
+09:57 That looked much more like our 3rd and final phone book
+10:00 example because if you think about it from an opposite perspective,
+10:04 suppose there were twice as many people in the room.
+10:06 Well,
+it would have taken you all theoretically just one more step.
+10:10 You know,
+granted one more loop and there might be some substeps in there if you will,
+10:13 but it's really just fundamentally one more step.
+10:15 If the number of people in the room quadrupled,
+10:17 4 times as many people,
+10:19 well,
+that's 2 more steps.
+10:21 equivalently,
+10:22 the amount of time it takes to solve the Attendance problem using that 3rd and final
+10:27 algorithm grows very slowly because it takes a huge number of more people in the room
+10:33 before you even begin to feel the impacts of that
+10:37 growth.
+10:38 And so today indeed,
+10:39 as we talk about not only the correctness of algorithms,
+10:41 we're going to talk about the design of algorithms as well,
+10:43 just as we have code because the smarter you are with your design,
+10:48 the more efficient your algorithms ultimately are going to be and the slow.
+10:51 Where their cost is going to grow and by cost I mean time like here maybe it's money,
+10:57 maybe it's the amount of storage space that you need.
+10:59 Any limited resource is something that we can ultimately measure,
+11:02 and we're not going to do it very precisely.
+11:04 Indeed,
+we're going to use some broad strokes and some
+11:06 standard mechanisms for describing ultimately the running time,
+11:10 the amount of time it takes for an algorithm or in turn code to actually run.
+11:15 So how can we do this?
+11:17 Well,
+last week we're called,
+11:17 we set the stage.
+11:19 for talking about something called arrays which were the simplest
+11:22 of data structures inside of a computer where you just take
+11:24 the memory in your computer and you break it up
+11:26 into chunks and you can store a bunch of integers,
+11:28 a bunch of strings,
+11:29 whatever,
+11:30 back to back to back to back,
+11:31 and that's the key characteristic for an array.
+11:33 It is a chunk of memory wherein all of the values they're in are back to back to back,
+11:39 so right next to each other in memory.
+11:41 So we drew this fairly abstractly by drawing a grid like this and I said,
+11:44 Well,
+maybe this is byte 0 and this is by.
+11:45 1 billion,
+11:46 whatever the total amount of memory is that you have,
+11:49 we zoomed in and looked at a little something like this a canvas of memory.
+11:53 We talked about what and where you can put things,
+11:55 but today let's just assume that we want 1234567 chunks of memory for the moment,
+12:01 and inside of them we might put something like these numbers here.
+12:05 Well,
+the interesting thing about computers is that even though if I were
+12:08 to ask you all find the number 50 in this array,
+12:11 I mean,
+our eyes quickly.
+12:12 See where it is because we sort of have this bird's eye
+12:15 view of the whole screen and it's obvious where 50 is,
+12:17 but the catch with computers and with code that we write
+12:21 is that really these arrays,
+12:23 these chunks of memory,
+12:24 are equivalent to a whole bunch of closed doors and the computer
+12:28 can't just have this bird's eye view of everything.
+12:30 If the computer wants to see
+12:32 what
+12:33 value is at a certain location,
+12:35 it has to do the metaphorical equivalent of going to that location,
+12:38 opening the door,
+12:39 and looking.
+12:40 Then closing it and moving on to the next.
+12:42 That is to say,
+12:42 a computer can only look at or access one value at a time.
+12:46 Now that's in the simplest form.
+12:47 You can build fancier computers that theoretically can do more than that,
+12:50 but all of the code we write generally is going to assume that model.
+12:53 You can't just see everything at once.
+12:54 You have to go to each location in these here lockers,
+12:57 if you will.
+12:58 Starting today too,
+12:59 when we talk about the locations in memory,
+13:01 we're going to use our old zero indexing vernacular.
+13:06 That is to say we start counting from 0 instead of 1.
+13:09 So this will be
+13:10 locker 0,
+13:11 locker 1,
+13:11 locker 2,
+13:12 all the way up to locker 6.
+13:14 So just ingrained in your mind that if you hear something like location 6,
+13:17 that's actually implying that there's at least 7
+13:20 total locations because we started counting at 0.
+13:22 So that's intentional.
+13:24 We don't have in the real world yellow lockers,
+13:26 so we're going to make this metaphor red instead.
+13:28 We do have these lockers here and suppose that within these 7 lockers physically.
+13:32 On stage
+13:33 we've put a whole bunch of money,
+13:35 monopoly money,
+13:36 if you will,
+13:37 but the goal initially here is going to be to search for
+13:39 some specific denomination of interest and
+13:41 use these physical lockers as a metaphor
+13:43 for what your computer is going to do and what
+13:45 your code ultimately is going to do if we're searching for
+13:48 the solution to a problem like this.
+13:50 The input to the problem at hand is 7 lockers,
+13:53 all of whose doors are metaphorically closed,
+13:55 the output of which we want to be a bull,
+13:57 true or false answer.
+13:58 Yes or no,
+13:59 that number is there or no,
+14:01 it is not.
+14:02 So inside of this black box today is going to be the first of our algorithms,
+14:06 step by step instructions for solving some problem where the
+14:08 problem here is defined among all of these dollar bills,
+14:11 specifically the $50 bill.
+14:13 If we could get two volunteers to come on up who are ideally really good at monopoly.
+14:18 OK,
+how about over here in front and uh how about let me look a little farther and back.
+14:22 OK,
+over here,
+14:23 there and back.
+14:24 Come on down.
+14:25 All right,
+14:25 as these volunteers kindly come down to the stage,
+14:28 we're going to ask them in turn to search for
+14:31 specifically the $50 bill that we've hit in in advance.
+14:34 And if my colleague Kelly could come on up too because we're going to do this twice,
+14:38 once searching
+14:40 in one with one algorithm and a second time with another.
+14:43 Let me go ahead and say hello
+14:45 if you'd like to introduce yourselves to the group.
+14:47 Hey,
+I'm Jose Garcia.
+14:49 Hi,
+14:50 I'm Caitlin Cow.
+14:51 All right,
+14:52 Jose and Caitlin,
+14:52 nice to meet you both.
+14:53 Come on over and let me go ahead and propose that Jose,
+14:57 um,
+the first algorithm that I'd like you to do is
+14:59 to find the number 50 and let's keep it simple.
+15:01 Just start from the left and work your way to the right.
+15:03 And with each time you open the door,
+15:05 stand over to the side so people can see what's inside and
+15:07 just hold the dollar amount up for the world to see.
+15:10 All right?
+15:11 The floor is yours.
+15:12 Find us the $50 bill.
+15:16 20
+15:18 No,
+that's good.
+15:18 That's good acting too.
+15:19 Thank you.
+15:20 No,
+you can shut it
+15:21 just like the computer,
+15:21 all right.
+15:25 No,
+15:26 very clear,
+15:27 thank you.
+15:30 Mm,
+15:31 still no $10 bill.
+15:34 Next locker.
+15:37 $5 bill,
+15:37 not going well.
+15:41 $100 bill,
+15:43 but not the one we want.
+15:45 This 1
+15:47 $1 bill,
+15:48 still no $50.
+15:49 Of course,
+15:49 you've been sort of set up to fail,
+15:51 but here,
+15:52 amazing,
+15:52 a round of applause,
+15:53 Jose found the $50 bill.
+15:57 All right,
+15:58 so let me ask you,
+15:59 Jose,
+15:59 you found the $50 bill.
+16:00 Um,
+it clearly took you a long time.
+16:02 Just describe in your own words what was your algorithm,
+16:05 even though I nudged you.
+16:06 Yeah,
+so my algorithm was basically walk up to the first door available,
+16:10 open it,
+16:11 check if the dollar bill was the dollar bill that I was looking for,
+16:14 and then put it back and then go.
+16:15 The next one.
+16:16 OK,
+16:17 so it's very reasonable because if the $50 bill were there,
+16:20 Jose was absolutely going to find it eventually,
+16:23 if slowly.
+16:23 In the meantime,
+16:24 Kelly's going to kindly reshuffle the numbers behind these doors here.
+16:27 And even though Jose took a long time here,
+16:30 I mean,
+what if Jose like wouldn't have been smart to start from the other end instead,
+16:34 do you think?
+16:35 Um,
+16:35 not necessarily because we don't know if the 50 is going to be at that end.
+16:39 Exactly.
+16:40 So he could have gotten lucky if he sort of
+16:41 flaunted my advice and didn't start on the left,
+16:44 but instead started on the right,
+16:45 boom,
+16:45 he would have solved this in one step.
+16:46 But in general,
+16:47 that's not really going to work out.
+16:48 Maybe half the time it will,
+16:49 you'll get lucky,
+16:50 half the time it won't,
+16:51 but that.
+16:51 Not really a fundamental change in the algorithm whether you go left to right,
+16:54 right to left,
+16:55 to Jose's point,
+16:56 if you don't know anything a priori about the numbers,
+16:59 the best you can probably do
+17:01 is just go through linearly left to right or right to left,
+17:05 so long as you're consistent.
+17:06 Now,
+could you have jumped around randomly?
+17:09 Uh,
+I guess I could have,
+17:10 but if again,
+17:11 if they weren't in any like specified order,
+17:13 I don't think it would have helped either.
+17:15 Yeah,
+17:15 so and additionally,
+17:16 if he just jumped around to random order,
+17:19 then you might get lucky and it might be in the very first one,
+17:21 might have taken fewer steps ultimately,
+17:23 but
+17:23 presumably you're going to have to then keep track
+17:25 of like which locker doors have you opened.
+17:27 So that's going to take some memory or space.
+17:30 Not a big deal with 7 lockers,
+17:31 but if 70 lockers,
+17:32 700 lockers,
+17:33 even random probably isn't going to be the best job.
+17:36 So let me go ahead and take the mic away and hand it over to Caitlin.
+17:39 You can stay on the stage with us.
+17:40 Caitlin,
+17:40 what I'd like you to do is approach this a
+17:42 little more intelligently by dividing and conquering the problem,
+17:46 but we're going to give you an advantage over Jose.
+17:48 Kelly has kindly sorted
+17:50 the numbers from smallest to largest from left to right.
+17:54 So accordingly,
+17:55 what's your strategy going to be?
+17:57 Start in the middle,
+17:58 OK,
+17:58 please.
+18:01 And go ahead as before and reveal to the audience what you found,
+18:04 not the 50,
+18:04 the 20,
+18:05 but what do you know,
+18:05 Caitlin,
+18:06 at this point?
+18:06 Correct.
+18:10 So the 20 is going to be to the left.
+18:11 So where might you go next with this 3 locker problem?
+18:14 Let me propose that
+18:15 you maybe go to the middle of
+18:18 the 3.
+18:19 There we go,
+18:20 the middle of the middle.
+18:21 Like that would have been good,
+18:22 but let's.
+18:23 Oh no,
+18:24 oh no,
+18:24 it's up 100 instead.
+18:25 You failed,
+18:26 but what do you know?
+18:27 It's in the middle that I should have just let you,
+18:30 but.
+18:31 Now we have a big round of applause for Kaitlin for having found
+18:34 the 50 as well.
+18:36 OK.
+18:39 So the one catch with this particular demo is that
+18:41 because they know presumably what monopoly money denominations are,
+18:44 because we just did this exercise and we had the whole cheat sheet on the board,
+18:47 you probably had some intuition as to where the 50 was going to be,
+18:50 even though I was trying to get you to play along.
+18:52 But in the general case,
+18:52 if you don't know what the numbers are and that they are the specific denominations,
+18:56 but you do know that they're going from smallest to largest,
+18:59 going to the middle,
+18:60 then the middle of the.
+19:00 Middle,
+19:01 then the middle of the middle again and again would have
+19:03 the effect of starting with a big problem and having it,
+19:05 having it,
+19:06 having it just like the phone book as well.
+19:09 So thanks to you both,
+19:10 we have these wonderful parting gifts that we found in Harvard Square.
+19:13 If you like Monopoly,
+19:14 you'll love the Cambridge edition filled with Harvard Square
+19:18 name spots.
+19:19 So thank you to you both,
+19:20 and a round of applause for our volunteers here.
+19:27 All right,
+19:28 so let's see if we can't formalize a little bit these two algorithms known as
+19:33 linear search insofar as Jose was searching essentially along a line left to right,
+19:37 and binary search by implying 2 because we were having
+19:40 that problem in 2 again and again and again.
+19:43 So for instance.
+19:44 Linar search from left to right or equivalently right to left,
+19:47 we could document our pseudo code as follows.
+19:51 For each door from left to right,
+19:53 if the 50 is behind the door,
+19:55 well then we're done.
+19:56 Just return true.
+19:57 That's the boolean value which was the goal of this exercise to say yes,
+20:00 here is the 50.
+20:02 Otherwise,
+20:03 at the very bottom of this pseudo code,
+20:05 we could just say return false because if you get all the way through
+20:08 the lockers and you have never once declared true by finding the 50,
+20:12 you might as well default at the very end to saying false,
+20:15 I did not find it.
+20:16 But notice here,
+20:17 just like in week zero when we talked about pseudo code for.
+20:19 Searching the phone book,
+20:20 my indentation of all things is actually very intentional.
+20:24 This version of this code
+20:25 would be wrong
+20:27 if I instead used our old friend if else and made this conditional decision.
+20:32 Why is this code now in red wrong
+20:35 in terms of correctness?
+20:36 Yeah.
+20:39 Exactly,
+20:40 because if the number 50 is not behind the first door,
+20:43 the E is telling you right then and there return false.
+20:45 But as we've seen in C code,
+20:47 whenever you return a value like that's it for the function,
+20:50 it is done doing its work.
+20:51 And so if you return false right away,
+20:53 not having looked at the other six lockers,
+20:55 you may very well get the answer wrong.
+20:57 So the first version of the code where there
+20:59 wasn't an L but rather this implicit line of
+21:02 code at the or this explicit line of code at the very end that just says if you.
+21:05 Reach this line of code returned false,
+21:07 that addresses that problem.
+21:09 And to be clear,
+21:09 even though it's right after an indented return true when you return a value as in C,
+21:15 that's it like execution stops at that point,
+21:18 at least for the function or in this case the pseudo code in question.
+21:21 All right,
+so here's a more computer sciencey way of describing the same algorithm
+21:25 and even though it starts to look a little more arcane,
+21:27 the reality is when you start using variables
+21:29 and sort of standard notation you can actually.
+21:31 Express yourself much more clearly and precisely,
+21:33 even though it might take a little bit of practice to get used to.
+21:36 Here is how a computer scientist would
+21:38 express that exact same ideas instead of saying
+21:41 for each door from left to right we might throw some numbers on the table.
+21:44 So for I,
+21:45 a variable apparently from the value zero on up through the
+21:49 value and minus 1 is what this shorthand notation means.
+21:53 If 50 is behind doors bracket I,
+21:56 so to speak,
+21:57 so now.
+21:57 Sort of treating the notion of doors as an array using our notation from last week.
+22:03 If 50 is behind doors bracket I return true.
+22:06 Otherwise,
+22:06 if you get through the entirety of that array of doors,
+22:10 you can still return false.
+22:12 Now notice here N minus 1 seems a little weird because aren't there end doors?
+22:17 Why do I want to go from 0 to N minus 1 instead of 0 to end?
+22:20 Yeah.
+22:21 Because um 0 is the first.
+22:24 Exactly,
+22:24 if you start counting at 0 and you have n elements,
+22:27 the last one is going to be addressed as n minus 1,
+22:30 not N,
+22:31 because if it were N,
+22:31 then you actually have N + 1 elements,
+22:34 which is not what we're talking about.
+22:35 So again,
+22:36 just a standard notation and it's a little terser this way.
+22:38 It's a little more succinct and frankly it's a little more adaptable to code.
+22:42 And so what you're going to find is
+22:43 that as our problem sets and programming challenges.
+22:47 We assign sort of get a little more involved.
+22:48 It's often helpful to write out pseudo code like this using an amalgam of English,
+22:53 and C,
+22:54 and eventually Python code,
+22:56 because then it's way easier after to just translate your pseudo code
+22:59 into actual code if you're operating at this level of detail.
+23:03 All right,
+23:03 so in the second algorithm where Caitlin kindly searched for 50 again,
+23:07 but Kelly gave her the advantage of sorting the numbers.
+23:10 Advance now she doesn't have to just resort to brute force,
+23:13 so to speak,
+23:14 trying all possible doors from left to right.
+23:16 She can be a little more intelligent about it
+23:18 and pick and choose the locker she opens.
+23:20 And so with binary search as we call that,
+23:22 we could implement the same pseudo code or we
+23:24 could implement pseudo code for it as follows.
+23:27 We might say if 50 is behind the middle door,
+23:31 then
+23:31 go ahead and return true.
+23:33 Else if it's not behind the middle door,
+23:35 but 50 is less than that number
+23:37 behind the middle door,
+23:38 we want to go and search the left half so that
+23:41 didn't happen in Caitlin's sense because we ended up going right,
+23:44 so that's just another branch here.
+23:46 LA 50 is greater than what was at the middle door.
+23:49 We want to search the right half,
+23:52 but there's going to be one other condition here that we should probably consider,
+23:55 which is what?
+23:57 Is it here,
+23:58 is it to the left,
+23:59 or is it to the right?
+24:00 But there's another a corner case that we'd better.
+24:04 Keep track of
+24:06 what else could happen
+24:08 if it's not in the ray or really like we're out
+24:10 of doors so we can implement this in a different way.
+24:12 I left myself some space at the top because
+24:15 I shouldn't do any of this if there are no doors to search for,
+24:18 so I should have this sort of sanity check whereby if
+24:20 there's no doors left or no doors to begin with,
+24:23 let's just immediately return false.
+24:25 And why is that?
+24:26 Well,
+notice that when I say search left half and search right half,
+24:30 this is implicitly telling me just do.
+24:32 This again,
+24:33 just do this again,
+24:33 but with fewer and fewer doors,
+24:35 and this is a technique for solving
+24:37 problems and implementing algorithms that we're going
+24:39 to end today's discussion on because what
+24:41 seems very colloquial and very straightforward,
+24:44 OK,
+search the left half,
+24:45 search the right half,
+24:45 is actually a very powerful programming technique that's going
+24:48 to enable us to write more elegant code,
+24:50 sometimes less code,
+24:51 to solve problems such as this and more on that
+24:54 in just a little bit.
+24:55 But how can we Now formalize this using some of our array notation.
+24:58 Well,
+it looks a little more complicated,
+25:00 but it isn't really.
+25:01 Instead of asking questions in English alone,
+25:04 I might say if 50 is behind doors bracket middle.
+25:07 This soda code presupposes that I did some
+25:09 math and figured out what the numeric address,
+25:13 the numeric index is of the middle element and how can I do that?
+25:16 Well,
+if I've got 7 doors and I divide by 2,
+25:19 what's that?
+25:19 7 divide by 2.
+25:22 3.5,
+25:23 3.5 makes no sense if I'm using integers to address this,
+25:26 so maybe we just round down,
+25:28 so 3,
+25:29 so that would be locker number 0123,
+25:33 which indeed if you look at the seven lockers is in fact the middle.
+25:36 So this is to say using some relatively simple arithmetic,
+25:39 I can figure out what the address is,
+25:42 the index is of the middle door.
+25:44 How many there are and I divide by 2 and round down.
+25:46 Meanwhile,
+25:47 if I don't find 50 behind the middle door,
+25:49 let's ask the question.
+25:50 If 50 is less than the value at the middle door,
+25:54 then let's search,
+25:56 not the left half per se in the general sense,
+25:59 more specifically search doors 0 through doors bracket
+26:04 middle minus 1.
+26:06 Otherwise,
+26:07 if 50 is greater than the value at the middle door,
+26:09 go ahead and search doors bracket middle plus 1 through doors bracket and minus 1.
+26:16 Now let's consider these in turn.
+26:17 So searching the left half,
+26:19 as we described this earlier,
+26:21 seems to line up with this idea like start start searching from doors
+26:24 0,
+26:24 the very first one,
+26:26 but why are we searching
+26:27 doors
+26:29 bracket middle minus 1 instead of doors bracket middle?
+26:34 Yeah.
+26:36 Yeah,
+26:37 exactly.
+We already checked the middle door by asking this previous question,
+26:39 so you're just wasting everyone's time if you divide the
+26:42 half and still consider that door as checkable again.
+26:46 And same thing here.
+26:47 We check middle + 1
+26:49 through the end of the locker's array
+26:51 because we already checked the middle one.
+26:52 So same reason,
+26:53 even though it just kind of complicates the look of the math,
+26:56 but it's really just using variables and arithmetic
+26:58 to describe the locations of these same lockers.
+27:02 But let's consider.
+27:02 Now what we mean by running time,
+27:04 the amount of time it takes for an algorithm to run,
+27:07 and consider which and why
+27:09 one of these algorithms is better than the other.
+27:12 So in general,
+27:13 when talking about running time,
+27:14 we can actually use pictures like this.
+27:15 This is not going to be some like very low
+27:17 level mathematical analysis where we count up lots of values.
+27:20 It's going to be broad strokes so that we can communicate to colleagues,
+27:23 to other humans,
+27:24 generally,
+27:25 whether an algorithm is better than another and how you might compare the two.
+27:29 So here for instance is a pictorial analysis of two different algorithms the
+27:33 phone book from week zero and then the attendance taking from today itself.
+27:38 And let's generally,
+27:39 as we've done before,
+27:40 sort of label these things.
+27:41 So the very first algorithm took end steps in the very worst case if I had
+27:45 to search the whole phone book or if I had to count everyone in the room.
+27:48 So the first algorithm took indeed end steps.
+27:50 The second algorithm took half as many plus 1 maybe,
+27:52 but we'll keep it simple.
+27:54 So we'll call that N over 2.
+27:55 The third and final algorithm both in week 0 with the phone
+27:58 book and today with attendance is technically logbase 2 of N.
+28:02 And if you're a little rusty in your logarithms,
+28:04 that's fine.
+28:04 Just take on faith that logba 2 alludes to taking a problem of size N
+28:10 and dividing it in half and half and half as many times as you can
+28:13 until you're left with one person standing or one page in the phone book.
+28:17 That's how many times you can divide in half
+28:19 a problem of size N.
+28:20 Well,
+it turns out that we're a little more
+28:22 detailed than most computer scientists care to get
+28:26 when describing
+28:27 the efficiency of algorithms.
+28:29 So in fact we're going to start to use some notation.
+28:33 Instead of worrying precisely mathematically about how many
+28:35 steps today's and the future's algorithms take,
+28:37 we're going to talk in broader strokes about how many steps there are on the order of,
+28:42 and we're going to use what's called big O notation,
+28:44 which literally is like a big O and then some parentheses,
+28:47 and you pronounce it big.
+28:48 of
+28:49 such and such.
+28:50 So the first algorithm seems to be in big O of n,
+28:53 which means
+28:54 it's on the order of N steps,
+28:56 give or take some.
+28:57 This algorithm here,
+28:59 you might be inclined to do something similar.
+29:01 It's on the order of N divided by 2 steps,
+29:03 and this one's on the order of log based 2 of N steps,
+29:07 but it turns out what we really care about
+29:09 with algorithms is how
+29:11 the time
+29:12 grows as the problem it.
+29:14 Self grows in size.
+29:16 So the bigger end gets,
+29:17 the more concerned we are over how efficient our algorithm is.
+29:21 If only because today's computers are so darn fast,
+29:24 whether you're crunching 1000 numbers or 2000 numbers,
+29:27 like it's going to take like a split second no matter what.
+29:29 But if you're crunching 1000 numbers versus
+29:31 a million numbers versus a billion numbers,
+29:33 like that's where things start to actually be noticeable by us
+29:36 humans and we really start to care about these values.
+29:39 So in general,
+29:40 when using big O.
+29:41 like this,
+29:42 you ignore lower order terms or equivalently you only worry about
+29:46 the dominant term in whatever mathematical expression is in question.
+29:50 So big event remains big event.
+29:52 big O of N over 2,
+29:54 it's the same thing really as like big O over n.
+29:56 Like it's not really,
+29:58 but
+29:59 they're both linear in nature.
+30:00 One grows at this rate,
+30:01 one grows at this rate instead,
+30:03 but it's for all intents and purposes the same.
+30:05 They're both growing at a constant rate.
+30:08 This one too uh it's on the order of log of n where the base is who cares?
+30:12 In short,
+30:13 what does this really mean?
+30:14 Well,
+imagine in your mind's eye that we were about to zoom out on this graph
+30:19 such that instead of going from 0 to like a million,
+30:22 maybe now the x axis is 0 to a billion,
+30:25 and same thing for the y axis 0 to a million.
+30:27 Let's zoom out so you're seeing.
+30:28 0 to a billion.
+30:30 Well,
+in your mind's eye,
+30:30 you might imagine that as you zoom out,
+30:33 essentially things just get more and more compressed visually
+30:36 because you're zooming out and out and out,
+30:37 but these things still look like straight lines.
+30:39 This thing still looks like curved lines,
+30:40 which is to say as n gets large,
+30:44 clearly this green algorithm,
+30:45 whatever it is,
+30:46 is more appealing,
+30:47 it would seem
+30:48 than either of these two.
+30:49 Algorithms and if we keep zooming out like at some point the ink is going to be
+30:52 so close together that they all are for all
+30:54 intents and purposes pretty much the same algorithm.
+30:57 So this is to say computer scientists don't care about lower order
+31:01 terms like divide by 2 or base 2 or anything like that.
+31:04 We look at the most dominant term that really matters is N gets bigger and bigger.
+31:08 So that then is big O notation.
+31:11 And
+31:11 it's something we'll start to use pretty much recurringly any time we
+31:14 analyze or speak to how good or how bad some algorithm is.
+31:18 So here's a little cheat sheet of common running times.
+31:20 So for instance,
+31:21 here's our friend big O of N,
+31:23 which means the algorithm takes on the order of end steps.
+31:26 Here is one that takes on the order of log N steps.
+31:29 Here are some others we haven't seen yet.
+31:30 Some algorithms take n times logn steps.
+31:33 Some algorithms take squared steps,
+31:35 and some algorithms just take one step,
+31:38 maybe,
+or maybe 2 steps or 4 steps or 10,
+31:40 but a constant number of steps.
+31:43 So let me ask,
+31:44 if the algorithms we've looked at thus far,
+31:46 for instance,
+31:47 linear search being the very first today,
+31:50 what is the running time of linear search
+31:53 in big O notation?
+31:56 That is to say,
+31:56 if there's people,
+31:57 or if there's N lockers on the stage,
+31:60 how many steps might it take us to find a number among those
+32:04 N
+32:05 lockers?
+32:06 They go of,
+32:07 yeah.
+32:09 Big O of N in fact is exactly where I would put linear search.
+32:13 Why?
+32:13 Well,
+if you're using linear search in the very worst case,
+32:17 for instance,
+32:17 the number you're looking for,
+32:18 as with Jose,
+32:19 might be all the way at the end.
+32:20 So you might get lucky.
+32:21 It might not be at the very end,
+32:23 but generally it's useful to use this big O notation
+32:26 in the context of worst case scenarios because that really gives
+32:30 you a sense of how badly this algorithm could perform
+32:33 if you just get really unlucky with your data set.
+32:36 So even though BigO really just refers to an upper bound,
+32:39 like how many steps might it take,
+32:41 it's generally useful to think about it in
+32:42 the context of like the worst case scenario,
+32:44 like,
+ah,
+32:45 the number I care about is actually way over here.
+32:47 But what about binary search?
+32:50 Even in the worst case,
+32:52 so long as the data is sorted,
+32:53 how many steps might binary search take by contrast?
+32:57 Big O of log in.
+32:58 So binary search we're going to put here,
+32:60 which is to say that in general,
+33:01 and especially as N gets large,
+33:03 binary search is much faster.
+33:05 It takes much less time.
+33:06 Why?
+33:07 Because assuming the numbers are sorted,
+33:08 you will be dividing in half and half and half,
+33:11 just like with the phone book in week 0,
+33:12 that problem,
+33:13 and you will get to your solution
+33:15 much faster.
+33:17 Why should you not use binary search though
+33:19 on an unsorted array of lockers?
+33:24 Like a random
+33:31 set of numbers,
+yeah.
+33:32 Exactly,
+33:32 you're making these decisions based on inequalities less than or greater than,
+33:36 but based on like no rhyme or reason.
+33:38 You're going left going right,
+33:39 but there's no reason to believe that smaller numbers
+33:42 are this way and bigger numbers are that way.
+33:43 So you're just making incorrect decision after incorrect decision,
+33:46 so you're probably going to miss the number altogether.
+33:48 So binary search on an unsorted array is just incorrect,
+33:51 incorrect usage of the algorithm.
+33:52 But like Kelly did,
+33:53 if you sort the data in advance or you're handed sorted data,
+33:56 well then you can in fact apply binary search perfectly and much more efficiently.
+34:04 Sure there is more efficient.
+34:07 Absolutely.
+34:08 Is Linear search sometimes more efficient if it's going to take you more time
+34:13 to sort the data and then use binary search?
+34:16 Absolutely.
+34:16 And that's going to be one of
+34:17 the design decisions that underlies any implementation
+34:20 of an algorithm because if it's going to take you some crazy long time,
+34:23 not to sort like 7 numbers,
+34:24 but 70,
+34:25 700,
+34:25 7000,
+34:26 7 million,
+34:27 but you only need to search the data once,
+34:29 then what the heck are you doing?
+34:30 Like why are you wasting time sorting.
+34:31 Data,
+if you only care about getting an answer once,
+34:34 you might as well just use linear search or heck,
+34:36 do it even randomly and hope you get lucky if you don't care about reproducing
+34:40 the same result.
+34:41 Now,
+in general,
+34:41 that's not how much of the world works.
+34:44 For instance,
+34:44 Google's working really hard to make faster and faster algorithms because we
+34:48 are not searching Google once and then never again doing it.
+34:53 We're doing it again and again and again so they can amortize.
+34:56 So to speak,
+34:56 the cost of sorting data over lots and lots of searches,
+35:00 but sometimes it's going to be the opposite.
+35:01 And I think back to graduate school,
+35:03 where I was often writing code to analyze large sets of data,
+35:05 and I could have done it the right way,
+35:07 sort of the CS 50 way,
+35:08 by fine tuning my algorithm and thinking really hard about my code,
+35:12 but honestly,
+35:13 sometimes it was easier to just write really bad but correct code,
+35:16 go to sleep for 7 hours,
+35:17 and then my computer would have the answer by morning.
+35:20 The downside,
+35:21 as admittedly happened more than once,
+35:22 is if you have a bug in your code and you go to sleep
+35:24 and then 7 hours later you find out that there was a bug,
+35:26 you've just wasted the entire evening,
+35:28 so there too a trade off sometimes when making those resource decisions.
+35:31 But that's entirely what today is about making
+35:33 informed decisions and sometimes maybe it's smarter and wiser
+35:37 to make the more expensive decision,
+35:39 but not unknowingly,
+35:39 at least knowingly.
+35:41 All right,
+35:42 so there we have our first two algorithms,
+35:45 but let's consider another way of describing
+35:47 the efficiency of an algorithm.
+35:49 Big O is an upper bound,
+35:51 sort of how bad can it get in these
+35:54 cases where maybe the data is really not working to our advantage.
+35:58 Omega,
+35:58 a capital Omega symbol here is used for lower bounds.
+36:01 So maybe how lucky might we get in the best case,
+36:04 if you will,
+36:05 how few steps might an algorithm take?
+36:07 Well,
+in this case here,
+36:08 here's just a cheat sheet of common run times,
+36:10 even though there's an infinite number of others,
+36:12 but we'll generally focus on
+36:16 functions like these.
+36:17 Let's consider those same algorithms.
+36:19 So with linear search from left to right,
+36:22 how few steps might that algorithm take?
+36:26 For instance,
+36:27 in like the best case scenario.
+36:29 Yeah,
+is this uh hand about to go up?
+36:32 Yeah,
+so one step why because maybe Jose could have
+36:34 gotten lucky and opened the door and voila,
+36:36 that was the 50.
+36:37 It didn't play out that way,
+36:39 but it could have.
+36:40 In the general case,
+36:41 the number you're looking for could very well be at the beginning.
+36:44 So we're going to put linear search at omega of 1.
+36:47 So one step,
+36:48 and maybe it's technically a few more than that,
+36:50 but it's a fixed number of steps that Nothing to do with the number of lockers.
+36:54 Case in point,
+36:55 if I gave you not 7,
+36:56 but 70 lockers,
+36:57 you could still get lucky and still take just one step.
+36:59 So Omega is our lower bound,
+37:01 Big O is our upper bound.
+37:03 Ah,
+37:04 spoiler,
+37:05 what is binary search is lower bound.
+37:09 Well,
+apparently it's also omega of 1,
+37:11 but why?
+37:13 That is in fact correct,
+37:14 yeah.
+37:16 Same reason you could get lucky in the best case,
+37:18 and it's just smack dab in the middle of all of the data.
+37:21 So
+37:21 the fewest number of steps binary search might take is also actually one.
+37:25 So this is why we talk about upper bound and lower bound because you get kind of a,
+37:28 a sense of the range of performance.
+37:31 Sometimes it's going to be super fast,
+37:32 which is great,
+37:33 but something tells me in the general case we're not
+37:35 going to get lucky every time we use an algorithm,
+37:37 so it's probably going to be closer to those upper bounds,
+37:40 the big.
+37:40 Now,
+37:41 as an aside,
+37:41 there's a 3rd and final symbol that we
+37:44 use in computer science to describe algorithms,
+37:45 that of a capital theta.
+37:47 Capital theta is jargon you can use when big O and Omega happen to be the same,
+37:54 and we'll see that today,
+37:55 not always,
+37:56 but here's a similar cheat sheet.
+37:58 None of the algorithms thus far can be described in this way with theta notation
+38:03 because they are not all the same.
+38:04 With their big O and Omega,
+38:05 they differed in both of our analyses,
+38:08 but we'll see at least one example of one where it's like,
+38:10 OK,
+we can describe this in theta,
+38:12 and that's like saying twice as much information with your words
+38:15 to another computer scientist rather than giving them
+38:17 both the upper and the lower bounds.
+38:19 The fancy way of describing all of what we're talking about here,
+38:21 big O,
+38:22 omega,
+38:23 and theta
+38:23 is asymptotic notation,
+38:25 and asymptotic notation refer or.
+38:28 Asymptoticle refers to a value getting bigger and bigger and bigger and bigger
+38:33 but not necessarily ever hitting some boundary as N gets very large.
+38:38 In short,
+38:38 is what we mean when we deploy this here asymptotic notation.
+38:43 All right,
+38:43 so with the first of these things like linear search,
+38:48 let's actually kind of make this a bit more real.
+38:50 Let me actually go over to in just a moment.
+38:52 Uh my
+38:53 other screen here,
+38:55 OK,
+38:55 in VS code,
+38:56 let me go ahead and create a program called Search.c.
+38:58 and in search.c,
+38:59 let's go ahead and implement a fairly simple version of Linar search initially.
+39:03 So let me go ahead and include,
+39:05 for instance,
+39:05 CS50.h. Let me go ahead and include standardio.h.
+39:10 Then let me go ahead and do main void,
+39:12 so we're not going to bother with any command line arguments for now.
+39:15 And then let me go ahead and just give myself an array of numbers to play with.
+39:19 And we did this briefly last week in answer to a question,
+39:22 but I'm going to do it now concretely rather than use something
+39:26 more manual to get all of these numbers into the array.
+39:28 I'm going to say give me an array called numbers,
+39:31 and the numbers I want to put in this array initially are
+39:34 going to be the exact same denominations we've been playing with 20,
+39:37 500,
+39:38 10,
+39:38 5,
+39:39 100,
+39:39 1,
+39:40 and 50.
+39:41 Again,
+39:41 this is a notation that I alluded to in answer to a question last week whereby
+39:45 if you want.
+39:45 To statically initialize an array that is give it all of your
+39:49 values up front without having the human type them all in manually.
+39:52 You can use curly braces like this,
+39:54 and the compiler is pretty smart.
+39:55 You don't have to bother telling the compiler how many numbers you want 1234567
+40:02 because it can obviously just count how many numbers are in the curly braces,
+40:05 but you could explicitly say 7 there so long as you're counting is in fact correct.
+40:09 So on line 6 this gives me an array of 7 numbers.
+40:12 Initialize to precisely that list of numbers from left to right.
+40:16 All right,
+let's ask the human now what number they want to search for,
+40:19 just as I did our two volunteers and say in N equals get in,
+40:23 then let's just ask the user for the number that they want to search for.
+40:26 Then let's implement linear search.
+40:28 And if I want to implement linear search in
+40:30 terms of the programming constructs we've seen thus far,
+40:33 like what
+40:34 type,
+40:34 what keyword in C should I use?
+40:37 What programming technique,
+40:39 yeah.
+40:40 Yeah,
+so maybe a 4 loop or a Y loop,
+40:42 but 4 loop is kind of my go to lately.
+40:45 So let's do 4 in I equals 0 because we'll start counting from the left.
+40:49 I is less than 7,
+40:51 which isn't great to hard code,
+40:52 but I'm not going to use the 7 again,
+40:54 so I think it's OK in one place for this demo.
+40:56 Then I + plus,
+40:57 then inside of this array.
+40:59 Let's go ahead and ask a question just like Jose was
+41:02 by opening each of the doors by saying if numbers 1
+41:07 equals equals the number we asked about N,
+41:11 well then let's go ahead and print
+41:13 out some informative message like found backslashn.
+41:17 And then for good measure,
+41:18 like last week,
+41:19 let's return 0 to signify success.
+41:21 It's sort of equivalent
+41:23 to returning true,
+41:24 but in main recall you have to return an in.
+41:27 That's why we revealed at the end of week 2 the return type of main
+41:31 is an in because that is what gives the computer its so-called exit status,
+41:35 which is zero if all is well,
+41:36 or anything other.
+41:37 0 if something went wrong,
+41:39 but I think finding the number counts is all is well.
+41:41 But if we get through that whole loop and
+41:44 we still haven't printed found or returned 0,
+41:47 I think we can go ahead and safely say not found backslashn,
+41:52 and then let's just return 1 as our exit status
+41:54 to indicate that we didn't find the actual number.
+41:57 So in short,
+41:57 I think in See this is linear search.
+42:00 Let me open up my terminal window again.
+42:02 Let me make search enter.
+42:05 Let me do search enter,
+42:08 and I'll search for,
+42:09 as I asked Jose,
+42:10 the number 50,
+42:11 and
+42:12 we indeed found it at the end.
+42:13 Let me go ahead and rerunear and let's search
+42:16 for the other number at the beginning 20.
+42:19 That then works.
+42:20 And just to get crazy,
+42:21 let's search for a number we know not to be there like 1000.
+42:24 And that in fact
+42:25 is not found.
+42:26 So I think we have an implementation then of linear search,
+42:29 but let me pause here and ask if there's any
+42:32 questions
+42:34 with this here code and the translation of algorithm to.
+42:38 See,
+42:39 yeah,
+in the back.
+42:42 Why I did not specify the length of the array.
+42:45 So it is not necessary
+42:47 when declaring an array
+42:48 and
+42:49 setting it equal to some known values in advance to specify in the square
+42:53 brackets how many you have because like the compiler is not an idiot.
+42:56 It can literally count the numbers inside.
+42:58 Of the curly braces and just infer that value you could put it there,
+43:02 but arguably you're opening up the possibility that you're going to
+43:05 miscount and you're going to put 7 here but 8 numbers
+43:08 over there or 6 numbers there so it's best not to
+43:10 tempt fate and just let the compiler do its thing instead.
+43:13 A good question.
+43:14 Other questions
+43:16 on this code so far.
+43:19 All right,
+43:20 if none,
+43:21 let's go ahead and maybe convert this linear
+43:24 search to one that's maybe a little more interesting
+43:26 that involves like searching for strings of text.
+43:28 After all,
+43:29 we started the class in week zero by searching
+43:31 for names in a phone book like John Harbert.
+43:33 Let's see if we can adapt our code for searching for strings instead of integers.
+43:39 So in my code here,
+43:40 let's go ahead and delete everything inside of
+43:42 Maine just to give myself a clean canvas.
+43:44 Let me go ahead and give me another array,
+43:46 this one called,
+43:47 let's just call it strings because that's the goal of this exercise,
+43:50 and set them equal to some familiar
+43:53 pieces from the game of Monopoly if you might have played.
+43:55 So there's like a battleship piece in there.
+43:58 There's a boot in there,
+43:60 there's a cannon in there,
+44:01 an iron,
+44:02 a thimble,
+44:04 and a top hat,
+44:05 though it does vary nowadays based on the addition that you have.
+44:07 So kind of a long array,
+44:09 but I have 123456 total values in this array of strings.
+44:15 Now let's ask the user for a string.
+44:17 We'll call it S for short and say with get string,
+44:20 what string are you looking for among those 6.
+44:24 Then I think we can do a 4 loop again for in I equals 0,
+44:27 I less than 6,
+44:30 I plus plus,
+44:31 and then inside of this loop,
+44:33 let's do the same thing
+44:35 if
+44:35 Uh,
+44:36 let's say strings
+44:40 bracket i
+44:42 equals equals
+44:44 the strings that the human typed in.
+44:46 I think we can go ahead and say print found backslashn and then as before return.
+44:52 0 to signify success,
+44:53 and if we don't,
+44:54 after that whole 4 loop,
+44:56 let's print print F not found backslash and down here and return 1 to signify error.
+45:02 So it's really the same
+45:03 thing at the moment,
+45:05 except that I'm actually using strings instead.
+45:08 Integers.
+45:08 All right,
+let me go ahead and open up my terminal window again and clear it.
+45:11 Let me go ahead and recompile this code.
+45:13 MakeSearch.c.
+45:15 Seems to compile OK.
+45:16 Let me do search and let's go ahead and search for the first one.
+45:21 How about battleship enter.
+45:25 Huh,
+45:26 not found.
+45:26 All right.
+45:27 Well,
+45:27 let's maybe a typo,
+45:29 maybe.
+Let me search for something easier to spell,
+45:31 boot.
+45:32 Not found.
+45:33 That's weird.
+45:34 Both of those are at the very start of the array.
+45:35 Let's do slashear again and search for top hat.
+45:38 Enter.
+45:40 Not found.
+45:41 What is going on?
+45:43 Well,
+this isn't actually that obvious as to what I'm doing wrong,
+45:46 but it turns out that when we actually compare strings instead of integers and see,
+45:51 we're actually going to have to use this other library,
+45:53 at least today,
+45:54 that we saw briefly last week.
+45:56 Last week we introduced it because of a function called Stirling,
+45:59 which gives us the length of a string.
+46:01 Turns out that string.
+46:02 H also comes per its documentation with
+46:04 another useful function called Stircom for string.
+46:07 Compare and its purpose in life is to actually compare two strings
+46:12 left and right to make sure they are in fact the same.
+46:15 So for today's purposes,
+46:16 suffice it to say you cannot use equals equals apparently to compare two strings.
+46:21 Intuitively,
+46:22 why is that?
+46:23 Well,
+46:23 for a computer it's super easy to compare two integers
+46:25 because they're either there or they're not in memory.
+46:28 But with a string,
+46:29 it's not just a character and another character,
+46:31 it's like 7.
+46:33 Characters over here and a few characters over here.
+46:35 Maybe it's a few,
+46:36 maybe it's more,
+46:37 you have to compare each and every character in a
+46:40 string to make sure they're in fact the same.
+46:43 So Stir Compare
+46:44 does exactly that,
+46:45 probably in the implementation of Stir Co from like years ago
+46:48 someone wrote a wild loop or a floor loop that looks at
+46:50 each string left to right and compares each and every one of
+46:53 the characters they're in and then gives us back an answer.
+46:57 So how do we go about using this?
+46:59 Well,
+to use stir compare,
+47:01 what I can actually do in VS code here is
+47:04 go and change my code as follows.
+47:06 Instead of using equals equals,
+47:08 I'm going to actually use this function
+47:10 per its documentation.
+47:11 I'm going to call stir compare,
+47:13 then I'm going to pass in one of the strings,
+47:15 which is in strings bracket I.
+47:17 Then I'm going to pass in the second string,
+47:18 which is S.
+47:20 However,
+47:20 having read the documentation,
+47:22 and this is a little nonobvious,
+47:24 it turns out that
+47:25 Comp will return 0 if the strings are equal.
+47:29 Otherwise it's going to return a positive number
+47:32 or a negative number.
+47:33 So what I care about for now is does the
+47:36 return value of stir comp when given those two strings,
+47:40 give me back zero?
+47:41 If so,
+47:42 they are equal and I'm going to say unquote found.
+47:45 So let's go ahead and open the terminal again.
+47:47 Let me go ahead and clear it and do make search to recompile my code
+47:51 and huh.
+47:52 I've done something wrong.
+47:53 Let's see.
+47:54 Let me scroll up to the very
+47:56 first line in line 11 error call to undeclared library function stir comp
+48:01 would type in and something something which gets more complicated after that.
+48:05 Why is line 11 not working despite what I just preached?
+48:09 Yeah.
+48:12 Yeah,
+I just did something stupid.
+48:13 I didn't include the string.h header library,
+48:15 so all
+48:16 clang our compiler is doing when invoked by Make
+48:20 is it's encountering literally the word stir comp and
+48:23 not knowing what it is because we haven't taught
+48:25 it what it is by simply saying include string.
+48:28 H at the top.
+48:29 OK,
+48:29 let me reopen my terminal window,
+48:31 clear that message.
+48:31 Way to make search again.
+48:33 Now it's compiling search enter.
+48:36 Now I'm going to go ahead and search as I did before for Battleship.
+48:39 Ah,
+48:40 now it's finding it.
+48:41 Let me run ear again.
+48:42 Search for boot.
+48:43 Ah,
+48:44 OK,
+that's found.
+48:45 Let me go ahead and search for top hat.
+48:47 That too is in there.
+48:48 Let me go ahead and search for something that's not there like the number 50.
+48:51 Not in fact found,
+48:53 so I think we've actually fixed that their problem.
+48:55 But if we go back to this code for a moment,
+48:57 it's indeed the case for the documentation that equals equals 0 is what I want to do.
+49:01 Why in the world would Stir comp
+49:03 be designed to return a positive or a negative number 2?
+49:07 It's not returning true or false,
+49:09 it's returning one of three possible values zero,
+49:12 negative or positive.
+49:15 Why might it be useful?
+49:16 Yeah.
+49:17 Um,
+49:18 you could kind of like compare which of the ring is like.
+49:21 Yeah,
+49:22 super clever.
+49:22 So if you're passing in two strings,
+49:24 it's great to know if they're equal,
+49:25 but wouldn't it be nice if this same function could also help us
+49:28 sort these strings ultimately and tell me which one comes first alphabetically?
+49:32 And technically it's not going to be alphabetically,
+49:34 it's going to be a cute phrase askibetically because
+49:37 it's actually going to look at the asy values of
+49:39 the characters and do some quick arithmetic and tell you
+49:42 which one comes first and which one comes later,
+49:45 which is enough.
+49:46 We'll eventually see for actually sorting these strings as well.
+49:49 So in short,
+49:49 the documentation will tell me that I should check
+49:51 not only for zero if I care about equality,
+49:54 but if I care about inequality,
+49:55 that's checking if one comes first or last,
+49:58 I should check whether something is less than 0 or greater than.
+50:01 But for this demonstration,
+50:02 implementing linear search,
+50:04 I don't care about comparing them
+50:06 for inequality.
+50:07 All I care about is that they are in fact the same
+50:10 or Not
+50:11 in this case.
+50:13 All right,
+well,
+50:13 let's go ahead and do one other
+50:15 example of sort of linear search,
+50:17 but let's make the problem more like that actually
+50:19 in week zero of searching a phone book.
+50:20 So let me go back to VS code here.
+50:23 Close search.c and let's make an actual phone book.
+50:26 So I'm going to say code of phonebook.c and then
+50:29 inside of phonebook.c let's use our same header file.
+50:31 So include CS50.
+50:33 H,
+50:34 includes standard IO.
+50:36 Dot and let's include an advance
+50:38 string.h.
+50:40 Then let's as before do in main void,
+50:43 no command line arguments today.
+50:45 Then inside of here,
+50:46 let me give myself first an array of strings.
+50:48 How about some names in the phone book?
+50:50 So I'm going to say string,
+50:51 names,
+50:52 equals,
+50:53 and then three names just to make a demonstration.
+50:56 Kelly and David and say John Harvard here.
+50:59 But if it's a phone book,
+51:00 I need more than just names.
+51:01 So let me go ahead and give myself another.
+51:04 Array string of numbers open bracket close bracket equals and
+51:08 now the same phone numbers we used in week zero
+51:11 for the three of us plus 1 617495 1000
+51:16 same for both Kelly and me,
+51:17 so plus 1,
+51:18 617495
+51:21 1000.
+51:22 And then as before,
+51:22 if you'd like to text or call John directly,
+51:25 you can do so at plus 1-949-4682750 and semicolon.
+51:32 So
+51:33 one question first,
+51:34 I obviously declared our names to be
+51:38 an array of strings because that's what text is.
+51:41 Why have I also declared phone numbers to be strings and not integers because
+51:46 a phone number is like literally a number in the name of it,
+51:49 yeah.
+51:51 Yeah,
+51:52 so even though we have phone numbers in the US,
+51:55 even though we have Social Security numbers and a
+51:57 bunch of other things that we call numbers,
+51:59 if you have other non-digits in those,
+52:03 in those values,
+52:04 you have to actually use strings because if it's not an actual integer,
+52:07 but it does have things like pluses or dashes
+52:09 or parentheses or any other form of punctuation,
+52:12 as is common in the US and other countries for phone numbers in particular,
+52:15 you're going to actually want to use strings and not.
+52:18 as well as for corner cases like if there are if you're in the habit back home,
+52:21 if you're not from say the US and you actually have
+52:24 to dial 0 1st to make like a local regional call,
+52:27 you don't want to have a leading zero
+52:30 in an
+52:31 integer because mathematically,
+52:33 as we know from grade school like leading zeros,
+52:35 number 0s that come first have no mathematical meaning,
+52:37 they're going to disappear
+52:38 effectively from the computer's memory unless we store them
+52:41 in fact as characters in strings in this way.
+52:45 OK,
+52:45 with that said,
+52:46 let's go ahead and ask the human now after having declared those two
+52:49 arrays for the name they want to look up the number of.
+52:52 So let's say string name equals get string,
+52:54 and let's go ahead and ask the human
+52:57 for the name for which to search.
+52:59 Then let's use a 4.
+53:00 As before,
+53:01 for in i equals 0,
+53:02 I less than 3,
+53:04 which again for demonstration purposes I'm just hard coding today I + plus and
+53:08 then in the 4 loop I'm going to use our new friend Stircom if
+53:11 the return value of stircompare passing in names bracket I.
+53:16 And the name the human typed in equals equals
+53:19 zero signifying that they are in fact the same.
+53:22 Well,
+that means we found
+53:23 the location I
+53:25 where the person's name is.
+53:27 So let's go ahead and print out found,
+53:29 but just to be fun,
+53:30 let's print out whom we found.
+53:32 So percent F.
+53:33 Backslash N and then output there
+53:36 the number which is going to be in the corresponding numbers array at that
+53:40 same location I will return 0 and at the very end of this program,
+53:44 let's go ahead and print out not found if we get that far
+53:48 and return 1.
+53:50 All right,
+53:51 so a little more complexity this time,
+53:52 but notice I'm comparing the names just like a normal person would in
+53:56 your iOS app or your Android app when looking for someone's name,
+53:59 but what I care about is getting back the number.
+54:01 So that's why two lines later,
+54:03 I'm printing out the number that I found at location I,
+54:07 not the name,
+54:09 because I already know the name.
+54:10 All right.
+54:11 In my terminal window,
+54:12 let's go ahead and make this phone book.
+54:15 phonebook.
+54:16 Let's go ahead and search for John,
+54:17 whose number is hopefully
+54:19 indeed exactly that number.
+54:21 So suffice it to say this code 2 does work.
+54:24 This is a linear search because I'm searching left to right.
+54:26 These aren't actually sorted alphabetically by name or let alone number.
+54:30 So I think we're doing well here
+54:33 but
+54:34 I don't necessarily love this implementation
+54:38 even if you're new to programming,
+54:40 what might you not like
+54:42 about how I've implemented a phone book in the computer's memory?
+54:48 Why is this maybe not the best design,
+54:50 yeah.
+54:55 OK,
+54:56 yeah,
+and I would say,
+54:56 so you're pointing out that we have this duality.
+54:60 We've got two arrays.
+55:00 They're the exact same length,
+55:02 and it just so happens that location zero's name lines up
+55:05 with location 0's number and location 1 and location 2,
+55:08 but we're kind of on the honor system here whereby the
+55:10 onus is on us to make sure we don't screw this
+55:13 up and we make sure we always have the same number
+55:15 of names and the same number of numbers and better and moreover
+55:19 that we may get the order exactly.
+55:21 right,
+55:22 we are just trusting that when we print out the IT number,
+55:24 so to speak,
+55:25 that it lines up with the IT name.
+55:27 So that's fine.
+55:28 And honestly for 3 people who really cares,
+55:30 it's fine,
+55:30 but if you think about 30 people,
+55:32 300,
+55:33 3 million,
+55:33 well we're not going to hard code them all here,
+55:35 but even in some database
+55:37 that will store them in later in the course feels like just trusting
+55:41 that we're not going to screw this up is asking for trouble.
+55:43 And indeed a lot of programming is just that,
+55:45 like not trusting yourself.
+55:46 And definitely not trusting your colleague not to mess something up,
+55:49 but programming a bit more defensively and trying to encapsulate
+55:53 related information a little more tightly together and not just assume,
+55:57 as on the honor system that these two independent arrays will line up.
+56:01 But at this point we have no means of solving this problem
+56:05 unless we give ourselves just a bit new functionality and syntax.
+56:10 So I used this phrase earlier to kick things off.
+56:12 Data structures.
+56:13 It's like how you structure your data in the computer's memory.
+56:15 Arrays are the simplest of data structures.
+56:17 They just store data back to back to back from left to right contiguously in memory,
+56:21 but they all have to be,
+56:22 as we've seen,
+56:23 the same kinds of values in,
+56:24 in,
+in,
+56:25 or string,
+56:26 string string.
+56:27 There's no mechanism yet for storing an in and a string together,
+56:30 and then another in and another string together,
+56:32 or let alone two strings,
+56:33 2 strings,
+56:34 2 strings
+56:35 that are somehow a little bit different.
+56:37 But
+56:38 it would be nice if C gave us an actual data type to store
+56:41 people in a phone book such that we could create an array called people
+56:46 inside of which is going to be a whole bunch of persons,
+56:48 if you will,
+56:49 back to back to back,
+56:50 and I want two of them.
+56:51 So wouldn't it be nice if I could literally use this code and see?
+56:54 Well,
+decades ago when Sem was invented,
+56:55 they didn't give us a person data type.
+56:57 All we have is in and float and char and bull and string and so forth.
+57:03 Person was not among the available data types,
+57:06 but we can invent our own data types it turns out.
+57:09 So in see what we can do if we want persons to exist
+57:13 and every person in the world shall have a name and a phone number for now,
+57:17 we can do this.
+57:19 Name string number.
+57:20 Now that's a decent start,
+57:22 but it's going to be kind of a stupid implementation
+57:24 if I then just do name string name 1,
+57:26 string name 2,
+57:27 string name 3,
+57:28 string name 4.
+57:29 We've already
+57:30 started down that road last week and decided arrays were a better solution.
+57:34 But here's an alternative when you want to just store related data together.
+57:38 I can use these two keywords and see type death struct,
+57:42 which albeit terse,
+57:43 just means define a new type
+57:45 that is a data structure.
+57:47 So multiple things together
+57:49 inside the curly braces you literally put the
+57:51 two things you want to relate together.
+57:53 Name string number and then outside the curly braces you specify
+57:56 the name you want to give to this brand new custom type
+57:59 that you have invented.
+58:01 Technically,
+58:01 stylistically,
+58:02 you'll see that Style 50 prefers that the name
+58:04 actually be on the same line as the last curly brace,
+58:07 which looks a little weird to me,
+58:08 but that's what industry tends to do so
+58:10 so be it.
+58:11 But these several lines together tell C
+58:15 invent for me a new data type called person and assume that every person
+58:19 in the world has a string called name and a string called number.
+58:23 And now I can use this new data type
+58:26 in my own code to solve this problem
+58:29 a little bit better.
+58:30 So in fact,
+58:31 let me go ahead and do this as follows.
+58:33 I'm going to go back to VS code here and at the
+58:35 very top of my code above main just to make this.
+58:38 Available to not only main but maybe any future functions I write.
+58:42 I'm going to say type destruct,
+58:44 as we saw on the screen.
+58:45 Inside of my curly braces,
+58:46 I'm going to say string name and
+58:48 string number,
+58:50 and then I'm going to name this thing person.
+58:52 Now I'm going to go about using this and I'm going to go ahead and delete my previous
+58:57 honor system approach of having names and numbers in separate arrays,
+59:01 and I'm instead going to give myself an array
+59:04 of people.
+59:05 We can call it persons,
+59:06 but I'm trying to be somewhat grammatically correct,
+59:08 so I'm going to say people bracket 3
+59:10 to give myself an array,
+59:12 call people
+59:13 inside of which is room for 3 persons,
+59:15 inside of which is room for a name and number each.
+59:19 So how do I now initialize these values?
+59:21 Well,
+I'm going to hard code them,
+59:22 that is type them manually,
+59:23 but you can imagine using get string or get or some
+59:26 other function to get this data from the human themselves.
+59:29 I'm going to say
+59:30 go to the people array at location 0.
+59:32 And access the name field,
+59:35 and this is syntax we haven't seen yet,
+59:36 but it's not that hard.
+59:37 You literally use a dot,
+59:39 a single period,
+59:39 to say go inside of that structure and access the name field,
+59:44 the name attribute,
+59:45 so to speak,
+59:46 and let's set that equal to Kelly.
+59:48 Then let's go into that same array location,
+59:51 people bracket 0 and set the number for the zeroth person
+59:55 to be plus 1617495 1000.
+59:60 Then let's go ahead and do the same thing for people 1.
+60:03 Set that person's name to,
+60:05 for instance,
+60:05 mine,
+60:06 David.
+60:07 Then let's do people bracket 1.n number equals quote unquote,
+60:10 same as Kelly because we're both in the directory.
+60:12 So plus 1 617495
+60:15 1000.
+60:16 And then lastly,
+60:17 people bracket 2.name equals quote unquote for John Harvard,
+60:22 people 2.n number equals plus 1.
+60:27 949-4682750 in this case.
+60:33 And now the rest of the code is almost the same.
+60:35 I'm going to now on the new line 24 still ask the user what name they want.
+60:39 I'm going to still iterate from 0 to 3 because there's still 3 elements in this array,
+60:43 even though each has two values within,
+60:45 and I'm Compare now not names,
+60:48 but people bracket I.name to go access the name of that person
+60:55 and compare it to the name
+60:57 that the human has typed in.
+60:58 And when I find that person,
+60:60 I'm going to go into the people array at location I but print out
+61:03 the number instead.
+61:05 So all we've done here is add this dot notation which
+61:08 allows you to access the inside of a data structure,
+61:11 and all we've done is introduce up here some new C keywords that let you
+61:15 invent your own data types inside of which you can put most anything you want.
+61:19 I have chosen a string name and a string number.
+61:23 All right,
+61:23 let me go ahead and open my terminal window and clear it from before.
+61:26 Let me do make Phonebook to make this version.
+61:28 So far so good.
+61:29 Make Phonebook enter.
+61:31 I'm going to go ahead now and search for say John.
+61:33 And I have again found his number,
+61:35 so this is still correct,
+61:37 but even though this took more minutes in terms of
+61:39 the voiceover and it took more lines of code,
+61:42 it's arguably better designed now because at people bracket
+61:45 0 is an actual person in everything about them.
+61:48 At people bracket 1 is another person in everything about them.
+61:52 And so forth.
+61:53 This is what we mean by encapsulate,
+61:55 you can think of these curly braces as sort of hugging
+61:57 these
+61:58 data types inside of the data structure together so as to keep them together
+62:03 in the computer's memory as well.
+62:06 All right,
+62:07 well,
+just to set the stage,
+62:09 uh,
+62:10 literally,
+62:11 as we'll strike the lockers and put something else up,
+62:14 the efficiency of binary search as implemented by Caitlin was predicated
+62:18 on Kelly having in advance sorted the values up front.
+62:22 But of course we've only considered now the running
+62:23 time of searching for information using two algorithms,
+62:26 and there can be many others.
+62:27 In the real world,
+62:28 but those are two of the most canonical.
+62:30 We found that binary search was faster
+62:32 than linear search,
+62:33 but it required that we sort the data.
+62:35 So to your question earlier,
+62:36 maybe we should consider just how expensive it is in terms of time,
+62:40 money,
+62:41 space,
+62:41 humans to sort data,
+62:43 especially a lot of data,
+62:44 and then decide whether or not it's worth using
+62:46 something like binary search or perhaps even something else.
+62:49 So.
+The next problem we'll solve today ultimately is given generic input and output.
+62:53 The input to our next problem is going to be unsorted data,
+62:55 so like numbers out of order,
+62:57 the output of which should be sorted data.
+62:59 So for instance,
+62:59 if we pass in 72541,
+63:02 603,
+63:03 I want whatever black box is implementing
+63:05 my sorting algorithm to spit out 01234567.
+63:10 So that's going to be the question we answer.
+63:12 But first I think it's time for some delightful Hello Pandass chocolate biscuits.
+63:16 Uh,
+let's take a 10 minute break and snacks are now served.
+63:19 All
+63:20 right,
+63:20 we are back and recall that the cliffhanger on which we
+63:23 left was that how do we go about sorting numbers?
+63:25 Well,
+here are some numbers,
+63:26 8 of them in fact,
+63:27 from 0 to 7,
+63:28 but currently unsorted.
+63:30 Um,
+we don't quite have enough monopoly boards for everyone,
+63:32 but we do have some delightful,
+63:34 uh.
+63:35 For Mario Brothers Pez dispensers,
+63:36 if I could get 8 volunteers for this final demo up here,
+63:39 oh,
+and not a lot of hands.
+63:41 OK,
+63:41 all right,
+123456,
+63:46 and let's go farther back 7 and 8.
+63:49 How about alright,
+63:49 come on up
+63:51 hopefully I counted properly.
+63:53 Come on over.
+63:55 Upon arrival at the stage,
+63:57 go ahead and grab your favorite illuminated number
+64:00 and stand in that same order at the front of the stage if you all could.
+64:06 Welcome to the stage.
+64:07 All right,
+64:07 grab your favorite number,
+64:08 stand in that same order.
+64:12 All right.
+64:15 Good.
+64:15 And 123456.
+64:18 I definitely said 1 through 8.
+64:20 Who is the number 8 then?
+64:21 OK,
+we need an 8.
+64:22 Come on down.
+64:23 All right.
+64:23 Well,
+technically we need a 4,
+64:24 but come on down.
+64:26 Yeah.
+All right,
+64:27 grab the 4 and let me start from this end first if you
+64:29 want to give a quick hello and a little something about you.
+64:31 Uh,
+64:32 hi,
+my name is Cameron.
+64:33 I'm a first year and I want to study mechanical engineering.
+64:38 Welcome.
+64:39 Hi,
+64:39 I'm Charlotte.
+64:40 I'm also first year and I'm in Canada F.
+64:43 Welcome.
+64:44 Hi,
+I'm Ella.
+64:45 I'm also a first year and I'm in Thayer.
+64:48 Hi,
+I'm Precious.
+64:49 I'm also a first year.
+64:50 I'm in the.
+64:52 Hi,
+I'm Michael.
+64:53 I'm just an Eventbrite guest.
+64:56 Hi,
+64:56 I'm Marie.
+64:57 I'm a first year and I'm in Canada.
+65:00 Welcome.
+Hi,
+65:00 I'm Rick.
+65:01 I'm a first year and I'm in Holworthy.
+65:04 Nice.
+I'm Jay.
+65:06 I'm a 1st year in Holworthy and I really like free stuff.
+65:09 OK,
+65:09 well,
+65:10 let's see then,
+65:11 uh,
+if we can't award all these supermarket,
+65:13 but there's Pez dispensers.
+65:14 The first notice,
+65:15 of course,
+65:15 that all 8 of our volunteers are completely out of order,
+65:17 but in an ideal world we would have the smallest number over here.
+65:20 So
+65:22 go over there,
+65:23 number 0.
+65:24 Wait a minute.
+65:26 7,
+65:26 take over here.
+65:28 2,
+65:29 OK,
+65:29 OK,
+make yourselves look like that.
+65:34 No pez.
+65:35 It's OK.
+65:36 All right,
+65:36 so 72541603.
+65:40 OK,
+65:40 we won't do the introductions again,
+65:41 but now we have a list of numbers completely out of order
+65:44 and wouldn't it be nice if zero were eventually over here?
+65:47 7 were all the way over there and
+65:48 everything else was sorted from smallest to largest.
+65:51 Well,
+65:51 if you all could go ahead and sort yourselves from smallest to largest,
+65:55 go.
+66:01 Alright,
+66:01 and uh Jayden,
+66:02 what was your algorithm for doing that?
+66:04 Um,
+66:05 I
+66:06 I,
+66:07 I,
+I know that I have the least number because I
+66:09 don't think anybody has the number less than 0,
+66:11 so I put myself at the
+66:13 last bottom line.
+66:14 OK,
+and I assume Precious,
+66:15 what was your algorithm?
+66:17 I knew I had the largest numbers,
+66:18 so I just had to be at the end of the.
+66:21 OK,
+66:21 fair.
+So you guys got the easy ones.
+66:23 Uh,
+number 4.
+66:24 How about
+66:26 You knew 3 was before me and 5 was after me.
+66:29 Nice.
+And number 4 didn't actually have to move coincidentally,
+66:31 but as for 5 and 3 and 2 and 1 and 6,
+66:34 they probably had to take into account some additional information.
+66:36 Who's to their left,
+66:37 who's to their right,
+66:38 and it just kind of worked,
+66:39 but it didn't look very algorithmic,
+66:40 if you will.
+66:41 It looked very organic and obviously correct,
+66:43 but I'm not sure that same approach would work well if we
+66:45 had not 8 but 80 or 800 or 8000 pieces of data.
+66:49 So let's see if we can't form.
+66:50 I this a little bit.
+66:51 Let me take the mic and if you guys could reset yourselves to those
+66:54 same original positions from 7 on the left to 3 on the right,
+66:58 let me propose a couple of algorithms,
+67:00 canonical ones if you will,
+67:01 but see if maybe we can't formalize step by step what to do.
+67:04 So the first one I'm going to do,
+67:06 given all of these numbers,
+67:07 is just try to select the smallest number.
+67:09 Why?
+67:09 To Jayden's point earlier,
+67:10 I just want to put the smallest number over here.
+67:13 At least that's a problem I can solve.
+67:15 Well defined.
+67:15 It's a nice bite out of the problem.
+67:17 So 7,
+67:18 OK,
+it's the smallest so far.
+67:19 2,
+67:20 that's that's smaller.
+67:21 So I'm going to remember that 2 is the now smallest number I've seen,
+67:24 not 5,
+67:25 not 41 is even smaller.
+67:26 So I'm going to remember 1,
+67:27 not 60.
+67:28 That's pretty good,
+67:29 but I'm going to check the whole list.
+67:30 Maybe there's -1 or something like that,
+67:33 but no,
+67:33 3.
+67:33 So I'm going to remember that 0 was the smallest element I found.
+67:36 Let's select Jaden and put Jayden over here,
+67:39 but
+67:39 Before Precious or anyone else moves,
+67:41 we don't really have room for you.
+67:43 Like Precious is in the way because if this is an array
+67:46 of 8
+67:47 values for integers,
+67:48 well,
+we can't just kind of make room over here because if you think back to last week,
+67:51 we might have some garbage values there or something else is going on.
+67:55 We don't want to change data that doesn't belong to us.
+67:57 So what to do with?
+67:59 Well,
+67:59 maybe precious,
+67:59 maybe you can go over there.
+68:01 So you just take Jade in spots and we'll swap these two values.
+68:03 Accordingly,
+68:04 now though,
+68:05 Jayden is in the right space,
+68:07 which is good because now I can move on to the second problem.
+68:09 What's the next smallest element that's presumably greater than 0?
+68:12 Well,
+at the moment 2 is the next smallest element,
+68:15 not 5,
+68:16 not 401 is the next smallest element.
+68:18 I'm going to remember that not 6,
+68:19 not 7,
+68:20 not 3.
+68:21 OK,
+so number 1,
+68:22 if you could go to the right location,
+68:24 but I'm afraid we're going to have to evict number 2 to make room.
+68:27 All right,
+let's do this again.
+68:28 0 and 1 are in good shape,
+68:30 so now I think I can ignore them as complete.
+68:33 5 is the current smallest.
+68:34 No,
+68:35 4 now is no.
+68:36 2 now is
+68:37 67,
+68:38 no,
+68:39 3,
+68:39 no.
+OK,
+68:39 so 2 is the next smallest.
+68:41 So let's swap 2 and 5,
+68:43 and now I've solved 3 out of the 8 problems.
+68:45 Let's do this again.
+68:46 4 is at the moment the smallest,
+68:48 not 5,
+68:48 not 6,
+68:49 not 3 is the now smallest.
+68:51 So let's swap 34 and 3.
+68:53 Which unfortunately is making the 4 problem a little worse,
+68:56 like he belongs there,
+68:57 it would see,
+68:57 but I think we can fix that later.
+68:59 So now half of the list is sorted.
+69:02 5 is the next smallest,
+69:03 6 and 74,
+69:04 and then we've got to fix the 4,
+69:05 so 4 goes back there.
+69:07 Now I messed up the 5,
+69:07 but it will come back to that.
+69:09 All right,
+67,
+69:10 OK,
+5.
+69:11 Let's put you where 6 is,
+69:13 and One more mistake to fix,
+69:15 so 7,
+69:16 OK,
+6 and 7 need to swap.
+69:17 And now I've solved 8 problems in the aggregate,
+69:21 so it's complete.
+69:22 Now to be fair,
+69:22 my approach is clearly way slower than your approach,
+69:25 but you all were working in parallel,
+69:27 whereas I was doing it more methodically step by step,
+69:29 and I dare say my algorithm is probably going to be more translatable to code.
+69:33 And indeed what I Just acted out is what the
+69:35 world would call selection sort whereby on each iteration,
+69:39 each pass in front of the humans,
+69:41 I was selecting the smallest element I could find.
+69:44 All right,
+69:45 what,
+69:45 how else could I do this though?
+69:47 Let's do something that's maybe a little more
+69:49 organic like your approach where you were actually comparing who was next to you.
+69:52 Go ahead and reset yourselves one final time to this arrangement.
+69:55 7 on the left,
+69:56 3 on the right,
+69:57 and let me propose again to walk through the list again and again,
+69:60 but let me focus more narrowly on the problem right in front of me
+70:03 because I felt like I was taking a lot of steps back and forth,
+70:06 back and forth.
+70:07 Maybe we can chip away at some of that wasted time.
+70:09 Let's compare 7 and 2.
+70:11 They're obviously out of order,
+70:13 so let's just immediately swap you two if we could.
+70:16 All right,
+70:16 now 7 and 5,
+70:17 clearly out of order.
+70:18 Let's swap these two.
+70:20 7 and 4 out of order.
+70:21 Let's swap these 27 and 1 out of order,
+70:23 let's swap these 2.7 and 6 out of order.
+70:27 Let's swap these 2.7 and 0 out of order,
+70:30 swap these two.
+70:32 73 out of order,
+70:33 swap these two.
+70:35 So a lot of work for Precious there,
+70:36 but I've now indeed solved one of the eight problems.
+70:40 Moreover,
+70:40 I don't need to keep addressing the 7 problem because notice that Precious
+70:44 has essentially bubbled her way up to the end of the list.
+70:47 And indeed that's going to be the operative term here.
+70:49 Another algorithm
+70:50 that computer scientists everywhere know is called bubble sort,
+70:54 whereby the goal is to get the biggest elements to just bubble their way up to the.
+70:57 Top of or the end of the list one at a time.
+71:00 Now,
+am I done?
+71:02 No,
+71:03 clearly not.
+71:03 There's still stuff out of order except for Precious.
+71:05 Indeed,
+71:06 I have solved one of these eight problems and now fine,
+71:09 I'll go back and I'm just going to try this same logic again 2 and 5,
+71:12 good,
+71:13 5 and 4,
+71:14 nope,
+swap those 5 and 1,
+71:15 nope,
+swap those
+71:17 5 and 6 are good.
+71:18 6 and 0,
+71:19 nope,
+swap those 6 and 3,
+71:21 nope,
+swap those.
+71:22 And I already know that.
+71:23 Precious is where she needs to be,
+71:24 so I think I'm done with the second of 8 problems,
+71:26 and I'll do this a little faster now.
+71:28 2 and 44 and 1 swap,
+71:30 4 and 5 are good,
+71:31 5 and 0 swap,
+71:32 5 and 3 swap,
+71:34 and now we've solved 3 problems.
+71:36 Let me reset 2 and 1 swap,
+71:38 2 and 4 are good,
+71:39 4 and 0 swap,
+71:41 4 and 3 swap,
+71:43 and now I've solved half of the problems.
+71:44 4 out of 8,
+71:45 we're almost done.
+71:46 1 and 2 are good,
+71:47 2 and 0 swap.
+71:49 2 and 3 are good,
+71:50 OK,
+and now we're done with 5 out of the 8 problems,
+71:53 1 and 0 swap.
+71:55 Uh,
+1 and 2 are good.
+71:57 Those are all good.
+71:58 And let me just do a final sanity check.
+72:00 Everything now is sorted,
+72:03 so now I'm done solving all eight of those problems.
+72:06 So you all were wonderful.
+72:07 We need the numbers back,
+72:08 but Kelly has some delightful Pez dispensers for you on
+72:10 the way out if you want to head that way,
+72:11 just leave the numbers on the shelves and a round of
+72:13 applause for our 8 volunteers for helping to act this out.
+72:19 Thank you.
+72:21 So
+72:22 let's see if we can't formalize what these volunteers kindly just did with us,
+72:28 starting with the first of those algorithms,
+72:29 thank you,
+72:30 namely selection sort.
+72:31 Let's see if we can't slap some pseudo code on this,
+72:34 thinking of our humans now as more generically in array.
+72:37 So we had the first person at location 0 and
+72:40 we had the last person at location N minus 1.
+72:42 And just for clarity so that you've kind of seen the symbology,
+72:46 this obviously is going to be location N minus 2.
+72:49 Location and minus 3 and so forth until it's sort of
+72:52 you hit the other end that we've already written out.
+72:55 So that's just how we refer to all of our
+72:56 8 volunteers' locations or in this case 1234567 locations,
+73:01 but in the middle connoting that this can be a much,
+73:04 much larger array.
+73:05 So here's some pseudo code for the first algorithm
+73:07 selection sort for I from 0 ton minus 1.
+73:12 So from the first element
+73:13 to the last element,
+73:14 find the smallest number between.
+73:17 The numbers bracket I and numbers
+73:19 and minus 1.
+73:20 In other words,
+73:22 if you're starting I at 0,
+73:24 look at specifically every lighted number between 0 and location N minus 1.
+73:31 When you have found that smallest element,
+73:33 swap it
+73:34 with the number at location I,
+73:36 which starts again at 0.
+73:37 That's how we got,
+73:38 I think,
+73:38 Jaden into place at the very beginning.
+73:41 Then I,
+73:42 by nature of how 4 loops work,
+73:44 gets updated from 0 to 1 so that we do the same thing.
+73:46 Find the smallest number between numbers 1,
+73:49 so the second element through the 8th element because this
+73:52 number is unchanged and is the total number of values,
+73:55 so the end point there is not changing.
+73:57 Once we found the second smallest person,
+73:58 we swap them with.
+73:60 Location I aka 1,
+74:02 and that's how we got the number 1 into position and then
+74:04 the number 2 and then the number 3 and number 4.
+74:07 So this then was selection sort in pseudo code form
+74:10 and that allowed us to actually go through this list
+74:13 again and again and again in order to find the next smallest element.
+74:17 So what was happening a little more methodically if it helps just to map
+74:21 that symbology of the bracket notation in the eyes,
+74:24 if this is where we started with location I
+74:26 and we did everything between location and minus 1.
+74:29 Essentially I traversed this whole list from left to right,
+74:32 literally walking in front of our volunteers looking at each element,
+74:35 and the first element I saw was 7.
+74:37 At the moment that was the smallest element I had found,
+74:40 and who knows,
+74:40 in a different list.
+74:41 Maybe 7 would be the smallest element,
+74:43 so I kind of stored it in a variable in my mind,
+74:46 but I checked then 2 and remembered,
+74:47 no,
+no,
+74:47 no,
+2 is clearly less than now I'm going to remember 2.
+74:50 OK,
+74:50 now I'm going to remember one when I find it,
+74:52 and then I'm going to remember 0 when I find it,
+74:54 and then what I did once I found jade in it with the value of 0,
+74:59 light it up.
+74:60 I moved that location to here
+75:03 and then evicted Precious recall and moved Precious over
+75:06 to that location that we had freed up.
+75:08 Why?
+75:08 Why all this sort of back and forth?
+75:10 Well,
+75:10 you have to assume with an array that you're not entitled to the memory over here.
+75:14 You're not entitled to the memory over here if you've
+75:17 already decided that you have 7 lockers or 8 people,
+75:20 you have to commit to the computer in advance.
+75:21 That's why we put the number typically in the square brackets or the
+75:24 compiler infers from the curly brackets how big the array actually is.
+75:29 All right,
+and suffice it to say when I went through this again and again and again,
+75:32 I did the same thing over and over.
+75:34 Now you might have thought me sort of dumb for having
+75:37 asked the same.
+75:38 Questions again and again like I was surprised to discover the number 1.
+75:41 I was surprised to discover the number 2,
+75:43 even though on my very first pass I literally looked at all eight of those numbers.
+75:47 But you have to think about what memory I'm actually using
+75:50 now.
+I certainly could have memorized all of the numbers and where they are,
+75:53 but I proposed that just very simply I was using like a single
+75:56 variable in my brain just to keep track of the then smallest element.
+75:60 And once I'm done finding that
+76:02 and solving that problem,
+76:03 I moved on to do it again and again.
+76:05 But that's going to be a trade off,
+76:06 and this is going to be thematic in the coming weeks whereby,
+76:09 well,
+sure you could use more memory and I could have been smarter about it
+76:12 and maybe that would have improved or hurt the running time of the algorithm.
+76:16 There's often going to be a trade-off between how much memory or how much time
+76:21 you actually use.
+76:22 So we'll discover that over time.
+76:24 So how fast or slow is selection sort?
+76:27 Well,
+76:27 consider when I had 8 humans on stage,
+76:29 I first went through.
+76:31 Uh,
+all of them,
+76:33 but how many comparisons did I make?
+76:34 Really,
+I was doing N minus 1 comparisons because if I've got N people,
+76:38 I've got to compare the smallest number I found against everyone else,
+76:42 and you compare
+76:43 N people left to right,
+76:44 N minus 1 times total.
+76:46 So the first pass I was making,
+76:47 I was asking N minus 1 questions.
+76:49 Is this the smallest?
+76:50 Is this the smallest?
+76:51 Is this the smallest N minus 1 times?
+76:53 Once I solved one problem when we got Jayden into Jayden's right place,
+76:57 then
+76:57 I had one fewer problem,
+76:58 then.
+One fewer fewer problem and so forth.
+77:00 So it was like n minus 1 steps plus
+77:03 N minus 2 steps plus N minus 3 steps plus one final
+77:08 step once I got to the final of the eight problems.
+77:11 Now if you remember kind of the cheat sheet at the back of your math books,
+77:14 say growing up,
+77:15 you'll note that this series here can be more simply written as N times N minus 1,
+77:20 all divided by 2.
+77:21 And if you've not seen that before,
+77:22 just take on faith that this is identical to this series of numbers up here.
+77:27 So now we can just kind of multiply this out.
+77:29 So that's technically n2 minus N all divided by 2,
+77:32 which is great if we multiply that out,
+77:34 that's n2d over 2 minus n over 2.
+77:36 We're getting 2 into the weeds.
+77:37 Let's whip out our big O notation now whereby we
+77:40 can wave our hands at the lower order terms,
+77:43 only care about the biggest,
+77:45 most dominant term which mathematically in this expression,
+77:48 if you plug in a really big value of n,
+77:50 which is going to matter more the N squared,
+77:52 the 2,
+77:53 the N,
+77:53 or the 2.
+77:55 Like the N squared,
+77:56 like the others absolutely contribute to the total value,
+77:60 but if you plug in a really big value,
+78:01 the dominant force is going to be this n squared
+78:04 because that's really going to blow up the total value.
+78:06 So we can say that selection sort when analyzed in this way,
+78:09 ah,
+78:10 it's on the order of n squared steps because I'm doing so many comparisons
+78:15 so many times.
+78:17 So if that's the case,
+78:18 the question then is,
+78:20 Um,
+78:20 what is indeed not just its upper bound but
+78:23 maybe it's lower bound as we'll eventually see.
+78:25 So for selection sort for now,
+78:26 let's stipulate that it's indeed in big O of N2,
+78:29 and that's actually the worst of the algorithms we've seen.
+78:31 Like that's way slower than linear search because at
+78:33 least linear search was big O of N.
+78:36 Selection sort is n square,
+78:37 which of course is n times n,
+78:39 which is and will feel much,
+78:40 much slower than that.
+78:42 So what if though we consider the lower bound of selection sort?
+78:47 All right,
+maybe it's bad in the worst case,
+78:48 but maybe it's really good when the numbers are mostly sorted.
+78:51 Unfortunately this is the same pseudo code for selection sort.
+78:54 We make no allowance for checking the list to make sure it's already sorted,
+78:59 and in fact that's kind of a perverse case to consider for any algorithm.
+79:02 What if the problem's already solved?
+79:03 How's your algorithm going to perform?
+79:05 All of my volunteers,
+79:06 as they kind of almost did accidentally,
+79:08 they started lining up roughly in order.
+79:10 Suppose they literally had been in order from 0 to 7.
+79:13 Well,
+my stupid algorithm would still have me walking back and forth,
+79:16 back and forth,
+79:17 back and forth.
+79:18 Why?
+79:18 Because the code literally tells me do this this many times
+79:22 and every time I do that find the smallest element.
+79:25 So it's going to be sort of a stupid output
+79:26 because the list is not going to be any change,
+79:28 any any at all changed,
+79:30 but my code is not
+79:32 taking into account in any way.
+79:34 The original order of the numbers.
+79:36 So no matter what,
+79:37 this is to say that if we consider whether the lockers or the humans,
+79:40 the omega notation for this algorithm,
+79:42 even in the best case where the data is already sorted,
+79:45 is crazily
+79:46 also
+79:47 n squad.
+79:48 Now I could certainly change the pseudo code,
+79:50 but selection sort as the world knows it is more of a.
+79:53 Constrative algorithm or sort of a quick and dirty one,
+79:56 its running time is going to be in omega of N2,
+79:59 and now we can actually deploy our fader notation
+80:02 because the big O notation is N2d and the omega notation is n2 1 and the same.
+80:06 We can also say that selection sort is in theta of N2,
+80:09 which is not great because that's annoyingly slow.
+80:12 So maybe the solution here is don't do that.
+80:15 Let's use bubble sort instead.
+80:16 The second algorithm where I just compared everyone side by side again and again.
+80:20 Well,
+here's some pseudo code for bubbleor,
+80:22 which you can assume applies to the same kind of array
+80:25 from 0 on up to n minus 1.
+80:27 Here's one way to write bubble sort.
+80:29 Repeat the following N times.
+80:31 For I,
+80:32 from 0 ton minus 2,
+80:35 if the number at location I
+80:37 and the number at location I + 1 are out of order,
+80:41 swap them.
+80:42 And there's kind of an elegance to this algorithm and that like that's
+80:44 it and you just assume that when you go through the list,
+80:47 this is how from I from 0 ton minus 2,
+80:50 this is how I was effectively comparing elements 0 and 11 and 22 and 33 and 476 and 7,
+81:02 but notice I didn't say 8,
+81:03 there were 8 total people.
+81:04 Why do we go from 0 ton minus 2 instead of
+81:08 from 0 ton minus 1?
+81:11 Uh,
+yeah.
+81:13 Yeah
+81:14 You already checked the glass.
+81:17 Not quite.
+81:18 So it's not that we've already checked the last one.
+81:20 I'm saying with this line of code here,
+81:21 we never even go to N minus 1 technically.
+81:24 If we have N minus 345,
+81:26 and it's going to compare against N minus 1 because that's.
+81:30 Exactly,
+81:31 because we're doing this simple arithmetic here,
+81:32 we're checking current location I plus 1.
+81:35 You can think of these as my left and right hand.
+81:36 Left hand is pointing at 0,
+81:38 right hand's pointing at 1.
+81:39 I don't want to do something stupid and have my left hand point at N minus 1
+81:43 because then my right hand arithmetically when you add 1 is going to point at N,
+81:47 which does not exist.
+81:48 That's beyond the boundary of the array because the array goes from 0
+81:51 ton minus 1.
+81:52 So just a live.
+81:54 A bit of a safety check there to make sure we don't walk right off the end of the array,
+81:58 but we do this end times because recall that Precious ended up being where
+82:03 7 needed to be at the very end of the list,
+82:05 but that didn't mean there weren't 77 more problems still to solve 0 through 6.
+82:10 So I did it again and I did it again and per its name bubble sort,
+82:13 the biggest element bubbled up first,
+82:15 then the next biggest,
+82:16 then the next biggest,
+82:17 then.
+82:18 biggest that is 7,
+82:19 then 6,
+82:20 then 5,
+82:20 then 4,
+82:21 and we got lucky on some of them,
+82:22 but eventually we finished with 0.
+82:24 So how do we analyze this thing?
+82:26 Well,
+we could also technically do this N minus 1 times as an aside if
+82:30 you're thinking through that I'm wasting some time because we get one for free.
+82:33 Once we get to
+82:34 solving 7ve problems,
+82:35 you get the 8th 1 for free because that person is obviously where they need to go.
+82:39 So when we had these numbers initially,
+82:41 And we were comparing them with bubbleword again,
+82:43 left hand right hand.
+82:44 It's like treat this as I,
+82:45 this is I plus 1,
+82:46 and we just kept swapping
+82:48 pair wise numbers if in fact they were out of order.
+82:51 So all this is saying is what our humans were doing for us organically.
+82:56 So how do we actually analyze the running time of this?
+82:59 Last time I just kind of spitballed that it was minus 1 steps plus N minus 2 steps.
+83:04 Well,
+you can actually look at pseudocode sometimes and if it's neatly written,
+83:07 you can actually Infer from the pseudo code how many steps each line is going to take.
+83:12 For instance,
+83:13 how many steps does this first line take?
+83:15 I mean,
+like literally n minus 1.
+83:16 The answer is right there because it's saying to the computer or to me acting it out,
+83:20 repeat the following N minus 1 times.
+83:22 All right,
+so that's helpful.
+83:23 How many lines,
+83:24 how many steps does this inner loop
+83:27 induce?
+83:28 Well,
+you're going from 1 ton minus 2,
+83:30 so that's actually N minus 1,
+83:33 total steps,
+83:34 not n.
+83:35 And then this question here,
+83:37 if numbers bracket 1 and numbers 1 are out of order,
+83:40 it's a single question.
+83:41 It's like our Boolean expression,
+83:42 we'll call it one.
+83:43 I mean,
+maybe you need to do a bit of more work than that,
+83:46 but it's a constant number of steps.
+83:47 Doesn't matter how big the list is,
+83:49 comparing two numbers is always going to take the same amount of time.
+83:51 And then swapping them,
+83:53 oh,
+I don't know,
+83:53 it's going to take like 1 or 2 or 3 steps,
+83:56 but constant doesn't matter which the numbers are,
+83:59 takes the same amount of work.
+84:00 So let's stipulate,
+84:01 let me rewind,
+84:02 stipulate that the real things that matter
+84:04 are the loops,
+84:05 these constant number of steps,
+84:06 who really cares?
+84:08 But the loops are what are going to add up as N gets large.
+84:10 So this really then is.
+84:11 If this is the outer loop
+84:13 and this is the inner loop,
+84:14 think about our two dimensional Mario square from week one.
+84:16 We did something on the outside and then something
+84:18 on the inside to get our rows and columns.
+84:20 This is equivalent to N minus 1 times N minus 1.
+84:23 If we do our little foil method N2 minus N minus N + 1 combined like terms,
+84:28 N2 minus 2 N + 1,
+84:30 who cares?
+84:31 This is ultimately going to be on the order of big O of.
+84:37 N squared only because again if you ask yourself when
+84:39 I plug in a really big value for N,
+84:41 which of these is really going to contribute most to the answer,
+84:45 it's obviously going to be n2d again and we can ignore the lower order terms.
+84:48 So this doesn't seem to have made any progress.
+84:50 Like selection sort was on the order of big events was on the order of N2d.
+84:55 Bubble sort,
+84:56 based on this analysis is.
+84:57 Also on the order of N2d,
+84:59 maybe we're getting lucky in the lower bound.
+85:00 So on the upper bound for bubble sort,
+85:02 it's indeed N2d,
+85:03 as was selection sort.
+85:05 But with this pseudo code for bubble sort,
+85:07 unfortunately
+85:09 we,
+or rather unfortunately we were not doing anything clever
+85:12 to catch that perverse case where maybe the list was already sorted.
+85:15 After all,
+85:16 consider if the list was sorted from 0 to.
+85:18 I was still asking all the same darn questions.
+85:21 Even if I did no work,
+85:23 I was going to repeat that n minus 1 times back and forth,
+85:26 making no swaps,
+85:27 but making all of those comparisons.
+85:29 But here's an enhancement to Bobble So that we can
+85:31 add that selection So didn't really have room for.
+85:34 I can say after one pass of this inner loop walking from left to right,
+85:39 if I made no swaps,
+85:40 quit.
+85:41 So put another way,
+85:42 if I traversed the list from left to right,
+85:45 I make no swaps.
+85:46 I might as well just terminate the algorithm then.
+85:48 Because
+85:49 there's no more work clearly to be done.
+85:52 All right,
+so based on that
+85:53 modification,
+85:54 the lower bound of bubble sorts running time
+85:59 would be said to be an omega then of.
+86:02 And
+86:04 because I'm minimally going to need to make one pass through the list.
+86:08 You can't possibly claim that the list is sorted unless you actually check it once.
+86:11 And if there's an elements,
+86:12 you're going to have to look at all of them to make sure that it's in order.
+86:15 But after that,
+86:16 if you've done no work and made no swaps,
+86:18 no reason to traverse the list again and again and again.
+86:22 So
+86:22 a bubble sort can be said to be an omega of N because indeed we can just terminate.
+86:27 After that single pass if we've done no work,
+86:29 we can't say anything about theta because they're not
+86:31 one and the same big O and Omega,
+86:33 but that does seem to have given us some savings.
+86:36 Unfortunately,
+86:36 it really only saves us time when the list is already or mostly sorted,
+86:40 but in the average case and in the worst case,
+86:42 odds are they're both going to perform just as bad on the order of n2.
+86:46 In fact,
+86:47 let's take a look at a visualization that will make this
+86:49 a little clearer than our own humans and voices might have.
+86:53 Explained here is a bunch of vertical purple bars made
+86:56 by a friend of ours in the real world,
+86:58 and this is an animation that has a bunch
+86:59 of buttons that lets us execute certain algorithms.
+87:02 A small bar represents a small number.
+87:04 A big bar represents a big number,
+87:06 and the goal is to get them from small numbers or
+87:08 small bars to big numbers or big bars left to right.
+87:11 So I'm going to go ahead and click on selection sort initially,
+87:14 and what you'll see from left to right
+87:16 is in pink the current smallest element.
+87:20 That's been discovered,
+87:21 but also in pink,
+87:22 the equivalent of my walking across the stage left to right
+87:25 again and again and again trying to find
+87:27 the next smallest element and you'll see clearly
+87:30 just like when we put Jayden at the far left,
+87:32 the smallest element ended up over here,
+87:34 but it might take some time for Precious,
+87:36 for instance,
+87:36 or number 7 to end up all the way over on the right because
+87:39 with each pass we're really just fixing one problem at a time and there's N
+87:44 problems total,
+87:46 which is giving us on the order of.
+87:47 N squared steps and now the list is getting shorter,
+87:50 so we're at least doing some work that you don't have to
+87:52 keep touching the elements you already sorted with just like I was.
+87:55 So now selection sort is complete.
+87:57 Let's visualize instead bubble sort.
+87:59 So let me re-randomize the array just so we're starting with a random order.
+88:02 Now let's click on bubble sort and you'll
+88:04 see the pink bars work a little differently.
+88:05 It connotes which two numbers are being compared at that moment in time,
+88:09 just like my left hand and right hand going left to right,
+88:12 and you'll see that even though it's not quite as pretty.
+88:14 A selection sort where I was getting at least
+88:17 the smallest elements all the way to the left.
+88:19 Here we're just fixing pair wise problems,
+88:22 but
+88:23 the biggest elements like Precious's number 7 are indeed
+88:26 bubbling their way up to the top one after
+88:29 the other.
+88:30 But as you can see,
+88:31 and this is where n2d is sort of visual visualizable,
+88:34 we're touching these elements or looking at them so many times again and again.
+88:39 We are making so many darn comparisons.
+88:42 This is taking frustratingly long,
+88:44 and this is only what,
+88:45 a few dozen bars or numbers.
+88:47 You can imagine how long this might take with hundreds,
+88:49 thousands or millions of values.
+88:51 I dare say we're gonna have to do better than bubble sort and
+88:56 Selection sort because we're not stun even yet,
+88:59 just trying to give the satisfaction of getting to the end and now we are,
+89:03 but neither of those algorithms seems incredibly performing because
+89:06 it's still taking us quite a bit of time
+89:09 to actually get to that there solution.
+89:12 So how can we actually do better than that?
+89:14 Well,
+89:15 we can try taking a fundamentally different approach,
+89:18 and this is one technique that you might have
+89:19 encountered in math or even in the real world,
+89:21 even if you haven't sort of applied this name to it.
+89:25 Recursion
+89:26 is a technique in mathematics and in programming that allows you to take
+89:29 sort of a fundamentally different approach to a problem and in short,
+89:33 a recursive function is one that's defined in terms of itself.
+89:37 So if you had like F of X equals F of
+89:39 something on the right hand side of a mathematical expression,
+89:41 that would be recursive in that
+89:43 the function is dependent on itself.
+89:45 More practically in the world of programming,
+89:47 a recursive function is a function that calls it.
+89:50 Self.
+89:51 So if you are writing some function in C
+89:53 and in that function you call yourself.
+89:56 You actually have a line of code that says call that same function by the same name,
+90:01 that function is recursive.
+90:02 Now
+90:03 this might feel a little weird because if a function is calling itself,
+90:06 it feels like this is the easiest way to get into an infinite
+90:08 loop because why would it ever stop if the function is calling itself,
+90:11 calling itself,
+90:11 calling itself,
+90:12 calling itself?
+90:13 We're going to have to actually address that kind of problem.
+90:15 But in the real world.
+90:16 We've actually,
+90:17 or rather in this class already,
+90:18 we've actually seen implicitly an example of this,
+90:21 including today as well as in week 0.
+90:23 So here's that algorithm for searching
+90:25 the doors of the lockers and recall that after we did this
+90:30 check at the very top if there are any doors left,
+90:32 returned false,
+90:32 if not,
+90:34 we did these
+90:36 conditions.
+90:37 We said if the numbers behind the middle door returned true because we found it,
+90:40 but things got interesting here.
+90:41 I said if else if the number is less than the middle door,
+90:45 then search the left half.
+90:47 Else if the number is greater than the middle door,
+90:49 then search the right half.
+90:51 Well,
+at that point in time,
+90:51 you should be asking me or yourself,
+90:53 well,
+how do I search the left half?
+90:56 How do I search the right half?
+90:57 Well,
+here you go.
+90:58 Like on the screen right now is a search algorithm,
+91:02 and even though it says down here search the left half or search the right half,
+91:06 which is like,
+91:06 well,
+how do I do?
+91:07 That we'll just use the same algorithm again
+91:10 and this is how in terms of my voiceover you end up searching the left half
+91:14 of the left half or the right half of the left half or any such combination.
+91:19 This line here search left half,
+91:21 this line here search right half is representative of
+91:24 a recursive call.
+91:26 This is an algorithm or a function that calls itself,
+91:30 but why does it not induce an infinite loop?
+91:33 Like why is it important that this line and this line are written exactly as they are,
+91:38 so as to avoid this thing just forever searching
+91:41 aimlessly,
+91:42 yeah.
+91:45 We do have this condition at which it stops,
+91:47 but more importantly,
+91:48 what is happening before I make these recursive calls?
+91:55 Exactly,
+91:55 I'm recursing,
+91:56 that is calling myself,
+91:57 but I'm handing myself a smaller problem,
+92:00 a smaller problem,
+92:01 a smaller problem.
+92:03 It would be bad if I just handed myself the exact
+92:06 same number of doors and just kept saying search these,
+92:08 search these,
+92:08 search these because you would never make any progress.
+92:10 But
+92:11 just like our volunteers earlier,
+92:12 so long as we did divide and conquer and
+92:14 we searched smaller and smaller numbers of doors,
+92:17 eventually indeed we're going to bottom out and
+92:18 either find the number we're looking for or
+92:21 we're not.
+92:22 So.
+92:23 we're going to call these kinds of conditions that sort of
+92:25 just ask a very obvious question and want an immediate answer
+92:28 base cases.
+92:30 Base cases are generally conditionals that ask a question to which the
+92:33 answer is going to be yes or no right then and there.
+92:36 A recursive case,
+92:37 by contrast,
+92:38 these two down here is when you actually need to do
+92:40 a bit more work to get to your final answer.
+92:43 You call yourself,
+92:44 but with a smaller version of the problem.
+92:48 So we could have in fact in week 0 have written this.
+92:51 Sort of similarly,
+92:52 if you go back to in your mind to week 0,
+92:54 we had more of a procedural approach,
+92:56 so to speak.
+92:56 When we were searching the phone book,
+92:57 I proposed that this induced what we called loops on line 8 and line 11,
+93:01 which is literally said go back to line 3,
+93:03 and that was more of a mechanical way of sort of inducing a loop structure.
+93:07 But if I really wanted to be elegant,
+93:08 I could have
+93:10 said,
+93:10 well,
+you know what,
+93:11 7 and 8 together really just means search the left half and
+93:14 10 and 11 together really mean just search the right half.
+93:16 So let's condense these.
+93:19 Pairs of lines into shorter instructions.
+93:22 Search the left half of the book,
+93:23 search the right half of the book.
+93:24 I can then delete two blank lines,
+93:26 and now I have a recursive algorithm for searching a phone book.
+93:30 It's a little less obvious because you have to ask yourself when you get to line 7 or 9,
+93:34 Wait a minute,
+93:34 how do I search the left half or the right half?
+93:36 And that's when you need to realize
+93:37 you start the same algorithm again but with a problem that's half as large.
+93:42 In week 0 we do the procedural approach where we
+93:44 literally tell you what line of code to go to.
+93:47 But today
+93:48 we're offering a different formulation,
+93:49 a recursive approach where it's more implicit what you should do.
+93:53 And we'll see now a couple of examples from the real world,
+93:56 so to speak.
+93:56 So here's a screenshot from Super Mario Brothers
+93:59 1 on the original Nintendo Entertainment System.
+94:02 Let me go ahead and get rid of some of the distraction,
+94:04 like the ground and the mountains there,
+94:07 and here we have a sort of half pyramid,
+94:09 not unlike that you implemented in Problems set 1,
+94:11 but this is an interesting real world physical structure
+94:15 in that you can define it recursively,
+94:18 like what is a pyramid of height.
+94:20 4,
+94:20 if you will.
+94:21 Well,
+94:22 just to be a little,
+94:23 a little difficult,
+94:24 a pyramid of height 4 is really just a pyramid of height 3
+94:27 plus one more row.
+94:29 OK,
+94:29 well,
+what is a pyramid of height 3?
+94:31 Well,
+a pyramid of height 3 is really just a pyramid of height 2 plus one more row.
+94:36 Well,
+what's a pyramid of height 2?
+94:38 Well,
+a pyramid of height 2 is really just a pyramid of height 1 plus one more row.
+94:42 Well,
+what's a pyramid of height 1?
+94:44 A single brick on the screen.
+94:47 And I sort of changed my tone with that last remark to convey
+94:49 that this could then be our base case whereby I just tell you
+94:53 what the thing is without sort of kicking the can and inviting you
+94:56 to think through what a smaller structure is plus one more row,
+94:59 whereas every other
+95:01 definition I gave you then of a pyramid of some height
+95:04 was defined in terms of
+95:06 that same structure,
+95:07 albeit a smaller version thereof.
+95:10 So we can actually
+95:12 see this in the real world.
+95:13 Let me go ahead and pull up one thing here.
+95:15 I'm going to go to.
+95:17 Give me one sec before I flip over.
+95:19 Here I am on Google.com,
+95:20 if you'd like a little computer science humor here.
+95:23 Uh,
+if you ever Google search for recursion and hit enter,
+95:27 you'll see
+95:28 uh a joke that
+95:30 computer scientists at Google find funny.
+95:33 Ha ha,
+95:34 12,
+95:35 lasts.
+95:35 Does anyone see the joke?
+95:37 I did not make a typo,
+95:38 but Google's asking me,
+95:40 did I mean recursion?
+95:41 And if I click on that,
+95:42 I just get the same ha ha page.
+95:45 OK,
+95:46 all right,
+that didn't go over well.
+95:47 Anyhow,
+95:48 so
+95:48 there are these Easter eggs in the wild everywhere because
+95:51 computer scientists are the ones that implement these things.
+95:53 But let's go ahead and actually
+95:55 implement,
+95:56 for instance,
+95:56 a version of this in code.
+95:58 Let me go back over here in a moment to VS code,
+96:00 and in VS Code,
+96:02 let me propose that in my terminal window.
+96:03 Let me create one of two final programs.
+96:06 This one's.
+96:06 Going to be called iteration.c just to make
+96:09 clear that this is the iterative that is loop-based
+96:12 version of a program whose purpose in life is to print out a simple Mario pyramid.
+96:17 I'm going to go ahead and include CS50.
+96:19 H at the top as well as standardio.h.
+96:22 I'm not going to need string.h.
+96:24 I don't need any command line arguments today,
+96:26 so this is going to start off with main void.
+96:28 And now I'm going to go ahead and ask a question like,
+96:30 uh,
+96:31 give me a variable called height of type integer
+96:34 and ask the human for the height of this Mario like pyramid.
+96:38 And then let's assume for the moment
+96:39 that I've already implemented a function called
+96:41 Draw whose purpose in life is to draw a pyramid of that height semicolon.
+96:45 So I've abstracted away for the moment the notion of drawing that pyramid.
+96:49 Now let's actually implement Dra,
+96:50 whose purpose in life again is to print out a pyramid akin to
+96:54 the one we saw a moment ago like this here on the screen.
+96:57 Well,
+in order to print out a pyramid of a given height,
+96:60 I think I need to say void.
+97:03 Uh,
+97:03 drawn for instance because I'm not going to bother returning a value.
+97:08 I just want this thing to print something on the screen,
+97:10 so void is the return type,
+97:11 but I do want to take as input an integer like the height of the thing I want to print.
+97:15 I can call this argument or parameter anything I want.
+97:17 I'll call it N for number.
+97:19 So how can I print out a pyramid that again looks like this?
+97:23 Well,
+I'll do this quicker than you might have in problem set 1,
+97:25 but it seems obvious that like on the first row I want 1 brick.
+97:28 On the second row I want 2.
+97:30 On the 3rd I want 3.
+97:31 On the 4th,
+97:31 I want 4.
+97:32 So it's actually a little easier than problem set
+97:34 1 in that it's sloped in a different direction.
+97:36 So let me go ahead and do exactly this in code.
+97:38 Let me say 4
+97:40 NI equals 01 less than n,
+97:43 the height,
+97:44 I plus plus.
+97:45 So this is going to be really
+97:47 for each row of the pyramid
+97:50 pyramid.
+97:50 Let me go ahead now
+97:52 and in an inner loop for in J equals 0,
+97:56 let's do J less than.
+97:59 I plus 1 for reasons we'll see in a moment and then J++ and then inside of this loop,
+98:04 let's just print out a single hash,
+98:05 no new line,
+98:07 but at the end of the row,
+98:08 let's print out a single new line to move the cursor to the next line.
+98:12 Now why am I doing this?
+98:13 Well,
+this represents
+98:15 for each column of
+98:17 pyramid,
+98:18 and if you think about it on the first row,
+98:20 which is row 0,
+98:22 I actually want to print not zero bricks but one brick.
+98:25 That's why I want to go ahead here and go from 0 to I plus 1,
+98:30 because if I is +01 + 1 is 1,
+98:33 so my inner loop is going to go from 0 to 1,
+98:35 which is going to give me 1 brick.
+98:37 It's a little annoying to think about the math,
+98:38 but this just makes sure that I'm actually getting bricks in the order I want them.
+98:42 And then it's going to give me 2 bricks and then 3 and then 4,
+98:45 and between each of those rows it's going to print a new line.
+98:47 So let's go ahead and do make iteration to compile this code.
+98:50 Ah,
+98:51 I messed up.
+98:53 Why do I have a mistake online?
+98:56 8 of this code.
+98:57 Let me hide my terminal and scroll back up.
+98:60 It seems clang.
+99:00 My compiler does not like my draw function.
+99:03 Yeah.
+99:06 Yeah,
+99:06 I forgot the prototype.
+99:07 So this is the one and only time where it seems reasonable to copy paste.
+99:10 Let's grab the prototype of that function up here
+99:13 and go ahead and teach the compiler from the
+99:15 get-go what this function is going to look like,
+99:17 even though I'm not defining it now until line 13 onward.
+99:20 All right,
+let's go ahead and make iteration again.
+99:22 Ah,
+99:23 iteration enter.
+99:25 Let's do a height of say 4 and voila.
+99:27 Now I've got that there pyramid.
+99:29 So I did it a little quickly and it's certainly to be expected if it
+99:31 took you hours on problems set one to get the other type of pyramid printed,
+99:35 but the point for today is really to demonstrate how we can
+99:37 print a pyramid like this using indeed what I'd call iteration.
+99:41 Iteration just means using loops to solve some problem,
+99:45 but we can.
+99:46 Alternatively use recursion by reimplementing our draw function in
+99:50 a way that's defined in terms of itself.
+99:53 So let me go into my code here
+99:55 and I'm actually going to leave the prototype the same.
+99:58 I'm going to leave main the same,
+99:60 but what I'm going to go ahead and do is delete
+100:02 all of this iterative code that's doing things very procedurally,
+100:06 step by step by step with loops,
+100:08 and I'm instead going to do something
+100:10 like this.
+100:11 Well,
+100:12 if I want to print a pyramid of height N.
+100:16 What did I say earlier?
+100:17 Well,
+a pyramid of height N is really just a pyramid of height N minus 1 plus 1 more row.
+100:23 So how do I implement in code that idea?
+100:26 Well,
+let me go back in code here and say,
+100:28 well,
+100:29 if a pyramid of height N first requires drawing a pyramid of height N minus 1,
+100:33 I think I can just write this,
+100:35 which is kind of crazy to look at,
+100:36 but
+100:37 because you're calling yourself in yourself,
+100:39 but let's see where this takes us.
+100:40 Once I have drawn a pyramid of height and minus 1.
+100:44 That is a height 3 for instance.
+100:46 What remains for me to do is to myself print one more row.
+100:50 And so to print one more row,
+100:52 I think I can do that really easily with fewer loops.
+100:54 I can do 4 in,
+100:55 I equals 01 less than N I plus plus,
+100:59 and then very simply in this loop I can.
+101:01 Print out a single hash one at a time.
+101:04 At the end of this loop,
+101:05 I can print out a new line,
+101:06 but no more nesting of loops.
+101:08 What I've done is
+101:10 print one more row,
+101:13 and here
+101:14 I've done print
+101:16 a pyramid of height and minus 1.
+101:20 I'm not quite done yet,
+101:22 but I think this is consistent with my verbal definition that a pyramid of height 3
+101:25 is a pyramid of a pyramid of height 4 is a pyramid of height 3,
+101:30 which I can implement
+101:31 per line 16.
+101:33 Just draw me a pyramid of height and minus 1,
+101:36 and then I myself will take the trouble to print the 4th and final row.
+101:41 But something's missing in this code.
+101:44 Let me go ahead and try running it.
+101:45 Let's see what happens.
+101:46 Make,
+101:47 oh darn it.
+101:48 I meant to call this something else,
+101:50 so I'm going to do this.
+101:51 I'm going to close this version here.
+101:53 I'm going to rename iteration.c to recursion.c to
+101:56 make clear that this version is completely different.
+101:59 Let me now go ahead and make the recursion version
+102:03 and huh,
+102:04 Klang is noticing that I have screwed up on line 14,
+102:07 it says error.
+102:08 All paths through this function will call itself,
+102:11 and Klang doesn't even want to let me
+102:12 compile this code because that would mean literally
+102:14 just forever.
+102:16 Loop
+102:17 effectively by calling yourself.
+102:19 So what am I missing in my code here if I open up what we're now calling recursion.c.
+102:24 In my editor
+102:26 What's missing here over here?
+102:28 Yeah,
+I'm missing a base case,
+102:30 and I can express this in a few different ways,
+102:32 but I would propose that before I do any drawing of anything at all,
+102:36 let's just ask ourselves if there is anything to draw.
+102:38 So how about if N equals equals 0?
+102:42 Well then don't do anything,
+102:44 just return.
+102:44 You don't return a value when your return value is void,
+102:47 it means you don't return anything,
+102:48 so you just return period or return semicolon.
+102:52 Or just to be super safe,
+102:53 I could actually do something like this,
+102:55 which is arguably better practice just in case I get into
+102:57 this perverse scenario where someone hands me a negative number,
+103:00 I want to be able to handle that and not print anything either.
+103:03 So just to be safe,
+103:04 I might say less than or equal to 0.
+103:06 I'm not doing one
+103:08 because if I did do one,
+103:09 then I would want to at least myself print out one brick,
+103:12 which is fine,
+103:12 but I have to like
+103:13 change all of my code.
+103:14 Little bit,
+103:15 so I think it's safer if my base case is just
+103:18 if n
+103:20 is less than or equal to 0,
+103:22 you're done.
+103:22 Don't do anything.
+103:23 And this then ensures that even though thereafter,
+103:26 I keep calling draw again and again and again and the problem's
+103:29 getting smaller and smaller from 4 to 3 to 2 to 1,
+103:32 as soon as I hit 0,
+103:34 the function will finally
+103:37 return.
+103:38 So let's go ahead and open up my terminal,
+103:41 rerun make recursion to make this version did compile this time recursion enter.
+103:45 Let's type in 4 cross my fingers,
+103:48 and this too prints the exact same thing.
+103:51 And even though it doesn't look like fewer lines of code,
+103:53 I would offer that there's an elegance to what I've just done,
+103:56 whereas with the iterative version with all the loops,
+103:58 it was very clunky,
+103:59 like step by step,
+103:59 just print this and print that and have a nested loop inside of another.
+104:03 But with this,
+104:04 especially if we distill it into its essence.
+104:06 By getting rid of my comments like this and
+104:09 frankly I can get rid of the unnecessary curly braces
+104:12 only because for single lines in conditionals you don't need them.
+104:15 Like this is arguably like a
+104:17 very beautiful implementation of drawing Mario's pyramid
+104:21 even though it's calling itself and arguably because it is calling
+104:25 itself.
+104:26 Questions then on this idea of recursion or this implementation
+104:30 of Mario,
+104:34 yeah.
+104:35 Call
+104:37 Good question.
+104:38 Are there any scope issues involved?
+104:39 Short answer No.
+104:41 However,
+104:41 the current value of I,
+104:43 for instance,
+104:44 will not be visible
+104:45 to the next time the function is called.
+104:47 It will have its own copy of I
+104:50 if that's what you mean.
+104:50 And we'll next week talk in more detail about what's going on here.
+104:53 And in fact,
+104:54 I probably can't break this in class very easily,
+104:57 but
+104:58 it turns out if I use a very large version for heights,
+105:01 let's just hit a lot of zeros and see what happens.
+105:03 That was too many.
+105:04 Let's see what happens.
+105:05 That's also too many.
+105:06 Let's see what happens
+105:08 there.
+105:09 That's the first time at least I and class have encountered this error.
+105:12 You might have encountered this weird bug in office hours or in your problem set,
+105:16 and that's fine if you did.
+105:17 We'll talk about what this means next week too,
+105:19 but this is bad.
+105:20 Like this clearly hints at a problem in my code.
+105:22 However,
+105:23 the iterative version of this program would not have that same error.
+105:27 So this relates to something involving memory because it
+105:29 turns out as a little teaser for next week.
+105:31 Each time I call Draw,
+105:33 I'm using a little more memory,
+105:34 a little more memory,
+105:35 a little more memory,
+105:35 a little more memory,
+105:36 and my computer only has so much memory.
+105:38 This program in its current form is using too much memory.
+105:41 There are workarounds to this,
+105:42 but that is a trade off to the elegance we're gaining in this solution.
+105:47 So what's the point of all this and how do we get sidetracked by Mario?
+105:50 There's another sorting algorithm,
+105:51 the 3rd and final one that we'll consider today that actually Is recursion
+105:55 to solve the problem not only elegantly
+105:58 arguably,
+105:59 but also way faster somehow
+106:01 than bubble sort and selection sort.
+106:03 And in essence it does so by making far fewer comparisons and wasting a lot less work.
+106:09 It doesn't keep comparing the same numbers again and again.
+106:12 Here in its essence is the pseudo code for merge sort.
+106:16 Sort the left half of the numbers.
+106:18 So the right half of the numbers,
+106:20 then merge the sorted halves,
+106:21 and this is kind of a weird implementation of
+106:23 an algorithm because I'm not really telling you anything.
+106:25 It seems like you're asking me how do I sort numbers,
+106:27 and I say,
+106:28 we'll sort the left half,
+106:29 sort the right half.
+106:29 It's like someone being difficult
+106:31 and yet implicit in this third line is apparently some magic,
+106:35 this notion of merging halves that are somehow already.
+106:39 is actually going to yield a successful result.
+106:42 As an aside,
+106:42 we're actually going to need one base case here too.
+106:44 So if you're only given one number,
+106:46 you might as well quit right away because there's nothing to do.
+106:49 So we'll toss that in there as well.
+106:50 And base cases are often for 0 or 1 or some small num sized problem.
+106:55 In this case it's a little easier to express it as one because if you have one element,
+106:58 it's indeed already sorted.
+107:00 So what does it mean to merge two sorted halves?
+107:04 Well,
+let's actually consider this.
+107:05 I'm going to reuse some of these same numbers here.
+107:07 I'm going to put my 1,
+107:09 my 3,
+107:10 my 4,
+107:11 and my 6 on the left,
+107:13 and these together represent a list that is indeed
+107:16 sorted of size 4.
+107:18 And then I'm going to put 4 other numbers
+107:19 on the right there that are similarly sorted.
+107:21 As well,
+107:22 and by merging these two lists,
+107:24 I mean
+107:26 start at the left end of this list,
+107:28 start at the left end of this list,
+107:29 and just decide one step at a time which number is the next smallest,
+107:33 and then I'm going to put it on the top shelf to make clear what is sorted.
+107:36 So if my left hand's pointing at this list,
+107:38 my right hand's pointing at there,
+107:39 which hand is obviously pointing to the smaller element,
+107:41 left or right.
+107:43 Like the right,
+107:44 so I'm going to grab this and I'm going to use a little more space up top here
+107:47 and put the 0 in place and then I'm going to point to the next element there.
+107:50 So my left hand has not moved yet.
+107:51 It's still pointing at the 1.
+107:52 My right hand is pointing at the 2,
+107:54 which number comes next clearly?
+107:56 Left,
+107:56 so I'm going to grab the 1 and put it up there and update where my left hand is pointing.
+108:00 So now I'm pointing at the 3 here and the 2 there.
+108:03 What comes next?
+108:04 Obviously the 2.
+108:05 What comes next?
+108:07 Obviously the 3.
+108:08 What comes next,
+108:09 obviously the 4.
+108:11 What comes next,
+108:12 obviously the 5,
+108:14 but notice my hands are not going back and forth,
+108:16 back and forth,
+108:16 back and forth like any of the algorithms thus far.
+108:19 I'm just taking baby steps,
+108:20 moving them only to the right,
+108:22 effectively pointing at for a final time each number once and only once.
+108:27 What comes next,
+108:27 6,
+108:28 and now my left hand is done.
+108:29 What comes last,
+108:31 the number 7.
+108:32 What I just did is what I mean by
+108:34 merge the sorted halves.
+108:36 If you can somehow get into a scenario where you've
+108:39 got a small list sorted and another small list sorted,
+108:42 it's super easy now to merge them together using that left right approach,
+108:47 which I'll claim only takes end steps.
+108:49 Why?
+108:50 Because every time I asked you a question,
+108:51 I was taking one.
+108:52 Out of the problem,
+108:53 there's 8 bytes total.
+108:54 I asked you 8 questions or I would have if I verbalized them all.
+108:57 So it's N steps total to merge lists of that size.
+109:01 So
+109:02 what then is merge sort?
+109:03 Mergesort is really all three of these steps together,
+109:06 only one of which we've acted out,
+109:08 2 of which are sort of cyclical in nature.
+109:11 They're recursive by design.
+109:13 So what does this mean?
+109:14 Well,
+let's start with this list of eight numbers,
+109:16 which is clearly out of order 63,
+109:18 4152,
+109:19 70 and let's apply
+109:21 mergesor to this set of numbers and I'll do it digitally here because
+109:24 it'll take forever to keep moving the numbers up and down physically.
+109:27 So let's move it to the top just to give ourselves a little bit more room
+109:30 and let me propose that we apply mergesort.
+109:33 What was the very first step in mergesort,
+109:36 at least that we highlighted,
+109:36 the juicy steps.
+109:39 What's the first step in mergesor?
+109:42 Sort the left half,
+109:43 yeah.
+109:43 And then the second step was going to be sort the right half
+109:45 and then the third step was going to be merge the sorted halves.
+109:48 So let's see what this means by actually acting it out on these numbers.
+109:51 So here's my 8 numbers.
+109:52 Let's go ahead and sort the left half.
+109:54 Well,
+the left half is obviously going to be the 4 numbers on the left,
+109:58 and I'm just going to pull them out just to draw our attention to them over here.
+110:01 Now I have a list of size 4,
+110:04 and the goal is to sort the left half.
+110:06 How do I sort a list of size 4?
+110:10 Uh,
+110:11 be what was yes,
+110:13 but just be more pedantic.
+110:14 Like how do I sort any list using merge sort?
+110:18 Sort the left half.
+110:18 So let's do just that.
+110:20 So of the list of size 4,
+110:22 how do I sort this?
+110:23 Well,
+I'm going to sort the left half.
+110:25 How do I sort a list of size 2?
+110:27 Sort the left half,
+110:28 right,
+110:29 well,
+I'm just gonna write the 6 here.
+110:30 How do I sort a list of size 1?
+110:34 I just don't.
+110:34 I'm done.
+110:35 That was the so-called base case where I just said return,
+110:37 like I'm done sorting the list.
+110:40 OK,
+110:40 so
+110:41 here I here's the story recap.
+110:43 So the left half,
+110:45 sort the left half,
+110:46 sort the left half,
+110:47 and I just finished sorting this.
+110:48 So what comes next?
+110:50 Sort the right half,
+110:52 which is this,
+110:53 and now I've sorted the left half of
+110:56 the left half of the left half,
+110:59 which is a big mouthful,
+111:01 but what do I do as a third and final step when sorting this list of size 2.
+111:06 Merge them.
+111:06 This part we know how to do.
+111:08 I point left and right,
+111:09 and I now take the smallest element first,
+111:11 which is the 3.
+111:12 Then I take the 6 and now this list of size 2 is sorted.
+111:15 So if you remind in your mind's eye what step are we on,
+111:18 well,
+we have now sorted
+111:20 the left half of the left half.
+111:22 So what comes after
+111:24 the left half is sorted?
+111:26 We sort the right half.
+111:27 So we're sort of rewinding in time,
+111:29 but that's OK.
+111:30 I'm keeping track of the steps in my mind.
+111:32 I want to now
+111:33 sort this list of size 2.
+111:35 How do you sort a list of size 2?
+111:36 Well,
+111:36 you divide it into a list of size 1.
+111:38 How do you sort this?
+111:39 You're done.
+111:40 You then take the other right half and you sort it.
+111:42 Done.
+111:43 Now you merge the two sorted halves.
+111:45 So I point at the 4 and the 1,
+111:46 obviously the one comes first,
+111:47 then the 4.
+111:48 Now I have sorted the right half of the uh the right half
+111:53 of the left half of the original numbers.
+111:56 What's the next step now that I have the left and right halves of this list of 4 sorted?
+112:03 Merge those,
+112:03 so same idea but fewer elements.
+112:05 I'm pointing at the 3 and the 1.
+112:06 Obviously the 1 comes now I'm pointing at the 3 and the 4.
+112:09 Obviously the 3 comes next,
+112:11 pointing at the 6 and the 4,
+112:12 the 4 comes next,
+112:13 and now the 6 comes last.
+112:14 Now I have sorted the left half and it's intentional that 1346 is the
+112:20 original arrangement of the lighted numbers I had on the shelves a moment ago.
+112:23 All right,
+it's a long story it seems,
+112:25 but what comes after you sorting the left half of the original list?
+112:29 You sort the right half.
+112:30 So let's put some,
+112:31 uh,
+112:32 put those numbers over here.
+112:33 How do I sort a list of size 4?
+112:34 Well,
+112:35 you sort the left half.
+112:36 How do you sort this thing of size 2?
+112:37 You sort the left half,
+112:38 you sort the right half,
+112:39 and now you merge
+112:41 those together.
+112:42 How do I now sort the right half of the right half?
+112:45 Well,
+112:45 I sort the left half,
+112:48 I sort the right half,
+112:49 and then I merge those together.
+112:52 Now,
+112:53 I have sorted the left half and the right half
+112:56 of the right half of the original elements.
+112:58 What's next?
+112:59 The merging,
+112:60 025.
+113:02 And 7.
+113:03 Now we're exactly where we were originally with the lighted numbers.
+113:06 I've got 1346,
+113:08 the left half sorted,
+113:09 02 57.
+113:10 The right half sorted.
+113:11 What's the third and final step?
+113:13 Merge those two halves,
+113:14 of course,
+113:14 0123456.
+113:20 And 7
+113:21 And hopefully even though there's a lot of words that
+113:23 come out of my mouth as acting this out,
+113:25 there wasn't a lot of back and forth.
+113:27 Like I definitely wasn't like walking back and forth physically and
+113:29 I also wasn't comparing the same numbers again and again.
+113:32 I was doing sort of different work at different conceptual levels,
+113:35 but that was like only what,
+113:37 like 3 levels total.
+113:38 It wasn't N
+113:39 levels on the board visually.
+113:41 So where does this get us with merge sort?
+113:44 Well,
+with mergesort,
+113:45 it would seem that
+113:47 we have an algorithm that I claim is doing a lot less work.
+113:50 The catch.
+113:51 Is that merge sort requires twice as much space just as we saw
+113:54 when I needed two shelves in order to merge those two lists.
+113:58 So how much less work is actually going to be possible?
+114:01 Well,
+let's consider sort of the analysis of the original list and how we
+114:06 might describe its its running time in terms of this big O notation.
+114:09 Hopefully it's not going to be as bad as n2d ultimately.
+114:12 So here are some like bread crumbs that if I hadn't kept
+114:15 updating the screen and deleting numbers once we move them around,
+114:18 here's sort of like traces of every.
+114:20 Bit of work that we did,
+114:21 we started up here,
+114:23 we did the left half,
+114:24 the left half of the left half,
+114:25 the right half of the right half,
+114:26 and then everything else in between,
+114:28 and you'll see that essentially I took a list of size 8 and I did
+114:32 3 different passes through it at this conceptual level,
+114:36 at this conceptual level,
+114:37 and at this one.
+114:38 And each time I did that I had to merge elements
+114:40 together and if you kind of think about it here,
+114:42 I pointed at 4 elements here and 4 elements here and in total I pointed at 8 elements.
+114:47 So there was end steps here for merging
+114:49 and if you.
+114:50 Trust me,
+114:51 I'll claim that on this level conceptually there were also 8 steps.
+114:53 I wasn't merging lists of size 4,
+114:56 but I was merging 2 lists of size 2 over here and 2 more lists of size 2 over there.
+115:00 So if you add those up,
+115:01 those are in total steps or or merges if you will.
+115:04 And then down here this was kind of silly.
+115:06 I was,
+115:07 but I was merging ultimately 8 single lists altogether
+115:12 into the higher level of
+115:14 of conceptually.
+115:16 So from a list of size 8 we sort of had 3 levels of work.
+115:20 And on each level we did n steps,
+115:22 the merging.
+115:23 So whereas 3?
+115:24 Well,
+it turns out if you have 8 elements up here,
+115:27 the relationship between 8 and 3 is actually something formulaic,
+115:30 and we can describe it as log base 2 of n.
+115:32 Why?
+115:32 Because if n is 8,
+115:34 if you don't mind doing some logarithms here,
+115:36 logba 2 of 8 is the same thing as logbase 2 of 23 power.
+115:40 The log 2 and the 2 cancel itself out,
+115:42 which gives you exactly the number 3.
+115:44 That I sort of
+115:46 visualized with those traces on the screen,
+115:49 which is to say,
+115:50 irrespective of the specific value of N,
+115:52 the big O running time of merge sort is apparently not n squared,
+115:57 but it's log n
+115:59 times n or more conventionally n times log n.
+116:04 Because you're doing things,
+116:06 log n times technically based 2,
+116:09 but we don't care about that generally for big O notation.
+116:11 And indeed in big O notation we would say that
+116:14 merge sort is on the order of N log N.
+116:17 That's its big O running time sort of at the upper bound.
+116:19 What about the lower order bound?
+116:21 Well,
+116:21 there's no clever optimization in our current
+116:23 implementation as there was for bubble sort,
+116:25 and so it turns out
+116:26 the lower bound would be in omega of N log N
+116:29 and in theta,
+116:31 therefore,
+116:31 Of and log in as well because Big O and Omega are in fact in this case one and the same.
+116:36 And if we actually go back to our visualization from earlier,
+116:39 give me just a moment to pull that up here in
+116:41 our earlier implementation or an earlier demonstration of these algorithms,
+116:46 we had
+116:48 a side by side comparison of all of the comparisons,
+116:50 but here if I go ahead and randomize it and click Merge sort,
+116:53 you'll see a very different and clearly faster algorithm,
+116:56 even though the computer speed has not changed.
+116:59 But it's touching these elements so many fewer times it's wasting a lot less time
+117:04 because of this cleverness where it's instead dividing and conquering
+117:07 the problem into smaller and smaller and smaller pieces.
+117:10 And to give this a final flourish,
+117:12 since that was,
+117:13 yes,
+117:14 faster,
+117:14 but not necessarily obviously faster than other things that we've done,
+117:18 how might we actually compare these things side by side by side?
+117:22 Well,
+in our final moments together,
+117:23 let's go ahead and.
+117:24 Amatically and for no real reason,
+117:26 just dim the lights so that I'll hit play on a visualization that at the
+117:29 top is going to show you selection sort with a bunch of random data.
+117:33 On the bottom it's going to show you show you bubble sort with a bunch of random data
+117:36 and in the middle is going to show you merge sort and the takeaway
+117:39 ultimately for today is the appreciable feel of difference between big O of N2d
+117:46 and now the big O of N log N.
+118:56 All right,
+118:56 the music just makes sorting more fun,
+118:58 but that's it for today.
+118:59 We will see you next time.

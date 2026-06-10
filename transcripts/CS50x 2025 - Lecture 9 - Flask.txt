@@ -1,0 +1,4230 @@
+00:00 [VIDEO PLAYBACK] [MUSIC PLAYING] 
+01:12 [END PLAYBACK]  DAVID MALAN: All right. This is CS50 and this is our
+last week in this year's studio
+01:20 as we focus finally on web
+programming using not only Python, but a framework within
+Python called Flask,
+01:27 and combining with web programming-- HTML, CSS, perhaps some
+JavaScript-- and so many
+01:32 of the ideas that we've been
+exploring over the past several weeks. Indeed, today is really about combining
+all of those various building blocks
+01:39 so that ultimately you can
+build something of your own not only for this week's problem
+set, but perhaps if you so
+01:44 choose, for your final project as well. Now let's consider where we
+left off last time, which was introducing HTTP, hypertext transfer
+protocol, whereby we introduced you
+01:54 to how the browsers of the world and
+the web servers of the world inter communicate using HTTP and a whole bunch
+of other protocols underneath those
+02:02 like IP and TCP in particular. So last week, though, when we began
+to write HTML and CSS and even
+02:09 a little bit of JavaScript, recall
+that we served up the web pages that we wrote by using a very
+simple command in VS Code
+02:16 that we pre-installed for
+you, namely http-server. This was a little program
+whose purpose in life
+02:21 was just to listen for HTTP requests
+coming from your browser, or really any browser, and respond to them
+by sending the contents of files
+02:30 from your code space to the browser. Typically a .html file, but if you
+had an image like a PNG or a GIF,
+02:36 it too could get sent, a
+JavaScript file, a CSS file. Really, any files stored
+in your code space
+02:42 could be served up by
+http-server statically. And indeed, that's the key word here
+is that everything we did last week
+02:49 was, within the context
+of HTML and CSS, static. We wrote it, we saved
+it or autosaved it,
+02:56 and then we loaded it in our browser. If we wanted to make a change,
+we would go edit the file, resave it or let it autosave, and
+we would reload in the browser.
+03:04 But only once we got to JavaScript
+did we have any kind of dynamism. When I demonstrated, for instance, very
+briefly how we might implement something
+03:11 like autocomplete, searching
+for all of the words that start with C-A-T in that big
+dictionary from problem set five.
+03:18 But today, we're going to focus
+on things more server side. In fact, even a little bit of
+JavaScript that we introduced last week
+03:24 was all client side. That JavaScript code was written once on
+the server, downloaded to the browser, and then executed in the browser.
+03:31 But as a result, that JavaScript code
+didn't have access to, for instance, any information that might
+be stored in a database,
+03:37 unless somehow we enable
+it to somehow communicate again and again with that server.
+03:43 So really what we're
+going to do today is dive into the world of
+web programming where we're actually going to write code
+in Python using functions and loops
+03:51 and conditionals. And unlike last week,
+we are going to use code to generate our HTML for us so that
+we can stop doing everything by hand,
+04:00 especially for websites
+that might have dozens, hundreds, thousands of web pages. There's no human in manually
+generating each of those web pages.
+04:08 It's somehow dynamically
+generated through web programming. So let's begin where we
+began last time, focusing
+04:14 on the structure of how we
+might request web pages, because we're going to make
+a little tweak this week. In particular, last week, we looked
+at a canonical URL like this.
+04:22 Https-- which is the
+protocol or scheme-- ://www.example.com/.
+04:29 And recall that the slash typically
+indicated that we wanted the default web page for the website.
+04:35 Now, that wasn't really
+germane last week when we were playing with
+a whole folder of files, but if you were to request the
+default web page on a website,
+04:43 it's typically, by
+convention, literally a file called index.html, at least
+on a lot of platforms.
+04:49 Sometimes it might be
+called index.htm, sometimes it might be called default.aspx.
+04:54 There's different conventions, but
+very often when you just request slash, you're technically referring
+to a very specific file that
+05:01 has been configured on the server to
+be the default page that's served up. But you can, of course, be specifying
+specific files or even folders.
+05:09 So we looked at URL formats like this. If you want file.html, you simply
+append that to the end of the slash.
+05:14 If you want the default web page inside
+of a folder, you might do /folder/,
+05:19 and the server would serve
+that file up for you. If you want it to be more explicit, you
+could specify /folder/file.html so that
+05:27 you can actually grab a specific
+file from a specific folder. And suffice it to say, you can
+nest these things again and again
+05:32 if you've got multiple
+folders and subfolders. But today, and really
+onward, we're going to start talking about everything
+after the TLD as really being the path
+05:42 that the browser is requesting. So /path is just meant to generically
+mean whatever files and/or folders are
+05:48 being requested in URLs. And we're also going to introduce
+slightly different nomenclature
+05:54 this week to that,
+yes, technically that's a path specifying a specific file in
+a specific folder or a set of folders.
+06:00 But in the context of web programming,
+what's especially powerful, those files and folders
+don't actually need to exist.
+06:07 Using web programming,
+using Python, for instance, you can specify specific paths that
+don't actually exist in your code space,
+06:15 but that represent a resource-- indeed, Uniform Resource
+Locator for URL--
+06:21 a resource that you want to be
+able to access via your browser. So route generically means, what path
+do you want to select on a web server?
+06:30 Now, what's this going to mean for us? Well, once we have
+configured a route in code,
+06:36 we can even specify that
+that route takes user input. And recall that from last time, we
+introduced you to how google.com works.
+06:43 And we didn't implement
+the back end of Google. We let Google do that. But we did implement our
+own front end for Google
+06:49 that allowed you to fill out a
+very simple form, click Enter, and the web browser would then send
+automatically a request to Google server
+06:57 that somehow had key equals value. Particularly Q for query
+equals, for instance, cat.
+07:04 And all of that followed
+a question mark. So this same URL format here whereby we
+have /route, which refers to some path,
+07:10 and then question mark key equals value,
+and maybe an ampersand and more key equals values, means that today we're
+going to have the ability to implement
+07:19 the back end of Google if we so aspire. Or really, the back end of a website. And back end just means the
+part that really the programmer
+07:26 implements and touches. Front end generally means the part that
+the human, the user, interacts with.
+07:32 All right. So with that said, let
+me propose that if we want to be able to read
+URLs of this format that
+07:39 have some key equals value and
+maybe some other key equals value, we actually do need to
+introduce a bit of code.
+07:44 So let's consider now how this
+request, this HTTP request, is getting to the server.
+07:50 Well, recall that when you request
+something like cats via web page submitting to Google via form,
+technically inside of that virtual
+07:58 envelope is a message
+like GET /search?q=cats. Then some mention of the
+version of the protocol being
+08:05 used, like version 2 of HTTP. Maybe a reminder of
+the host of the server that's specifically being requested.
+08:12 And then a bunch of other stuff
+that we saw last time as well. And ideally, we want the server
+to respond to that request.
+08:19 But here's where things get interesting. How in the world do you go about
+writing code that opens up that virtual
+08:24 envelope, reads that get line and the
+/search and the question mark and all of those keys and values?
+08:30 Well, we could write code very
+methodically, maybe using a for loop and iterating over every character,
+but that sounds like a lot of work.
+08:37 And in fact, it's been
+much better in CS50 alone that once you understand some
+concept, rather than reinvent that wheel
+08:44 yourself, use a framework, or
+rather, use a library instead. And indeed, that's what
+we're going to focus
+08:50 on today is a very popular micro
+framework in the world of Python, which means a relatively small library
+that solves some very common problems
+08:60 and saves us the trouble of having
+to write all of the code that reads the insides of those virtual envelopes
+and figure out exactly what web page is
+09:08 requested or route and exactly what
+keys and values were passed in. To do so, we're going to
+go ahead ultimately and not
+09:15 use http-server anymore. That recall is a command that
+only serves up static content.
+09:20 Starting today, we're actually going
+to run a command, namely flask run. So not only is Flask a
+library, as we'll soon see,
+09:27 which means we have functions
+and other features of it we can use in our own code. It's also, once you
+install it, a command
+09:33 that you can run in a terminal
+window like your own code space. And so ultimately, instead
+of running http-server today,
+09:40 we're going to run flask run
+to still start a web server, but a web server that's even smarter
+than http-server because it's not just
+09:47 going to spit out the raw
+contents of files to the browser. It's actually going to execute your and
+my Python code to generate those web
+09:56 pages dynamically. So in order to get to
+that point, we're going to have to start creating
+some files of our own
+10:03 and really writing some
+programs of our own. And the convention when using Flask,
+this popular micro framework-- which,
+10:10 again, is just a library that
+standardizes how you and I solve some common problems-- we're going
+to need typically at least two files,
+10:16 one by convention called
+app.py and a second one called requirements.txt or T-X-T. And
+each of these files in conjunction
+10:25 will be understood by that
+flask command because Flask knows to look for a file like
+app.py and knows how to execute it.
+10:33 And as we've done so many
+times in past languages here, for instance, now in Python,
+while using the Flask framework,
+10:40 is how we might implement the
+simplest of web applications. So at a glance, this is going to
+look a little strange because there's
+10:46 a lot going on on the screen. But clearly that first
+line indicates that we are importing, from a library
+called Flask, some kind of feature
+10:54 known as Flask capital F. So it's a little weird, but
+that's often a convention to import from something
+lowercase, something that's
+11:00 capitalized to make
+clear that it's really what's called a class in the world
+of object oriented programming.
+11:05 But more on that down the line. And then the second line
+of code says to Flask,
+11:10 please turn this file
+into a web application. So this is a little arcane, but
+underscore underscore name underscore
+11:18 underscore is something we saw so
+briefly a few weeks back in week six when I said at the time, you sometimes
+need to check what the name of this file
+11:27 is and does it equal, quote, unquote
+"underscore underscore main underscore underscore." because that enables you
+to more correctly implement libraries
+11:35 of your own. Which we did not do,
+but I just mentioned that you might see it in the wild. Well, here it is again
+in a different form.
+11:41 Underscore underscore name
+underscore underscore is essentially a special variable that refers
+to the name of this current file.
+11:48 So the second line of
+code is essentially telling Flask, please turn this
+file into a web application
+11:53 and let me refer to it via
+variable called, quite simply, app. A-P-P. Now, after that,
+there's some new weird syntax,
+12:01 but this is technically just Python,
+a feature we haven't yet seen. Technically, you're seeing now at
+sign for probably the first time, app,
+12:09 which is that same variable, dot
+route, then an argument there too. So this is what's an example in
+Python of what's called a decorator.
+12:16 And a decorator is a feature
+of Python whereby you can wrap one function inside of another.
+12:22 For our purposes today, what this third
+line of code essentially means is, hey, Flask, please turn
+the following function
+12:29 into a route that can be served
+up by the server to a browser. What is that function?
+12:35 Well, the function that I want
+to associate with that route is literally a function called index,
+but I could call it anything I want.
+12:42 I could call it foo, bar, baz, or
+anything, but index makes sense. If this is meant to be
+the index of my website.
+12:47 And the only thing that
+function does for now is literally return a string
+or str, in Python speak.
+12:53 Namely, quote, unquote "hello world." So that is it. And the fact that the argument to the
+app.route function whereby route is
+13:02 a function or method inside of that
+app variable or object, the quote, unquote "slash" just tells flask
+whenever the user visits example.com/,
+13:12 please call this function and send
+to the browser whatever this function
+13:17 returns. Now, long story short, this is not the
+only way to implement a web application, but this is the way to do it using
+Flask, this very popular microframework.
+13:26 If you were to use something
+else-- like in Python, there's a framework called
+Django, and there's many others in many other languages as well.
+13:32 This just standardizes for us
+what are the conventions when I want to create a route and
+I want to return some HTML,
+13:37 because you can solve that
+problem any number of ways. But what's important today is really
+the application of last week's ideas,
+13:45 even though we're using a
+very particular framework. And this is not meant to say that
+you're learning Flask in CS50, per se,
+13:50 but you're learning a
+web framework that's going to be representative of
+many others out there as well.
+13:56 But we chose one that's both
+popular and relatively simple. So with that said, I think let's go
+ahead and implement the very first
+14:02 of our web applications here, namely
+by switching over to VS Code here. And within my VS Code environment,
+I've sort of hidden some distractions.
+14:10 I've already closed my activity bar and
+I've closed the File Explorer so that, as always, we have
+room for some code tabs
+14:16 and we have my terminal at the bottom. But like last week, I also
+have an additional tab inside of my terminal area here for not only
+the terminal window itself, but also
+14:25 these here ports. Recall that last time we
+talked about TCP ports in particular, unique integers that
+identify certain services like 80
+14:34 for web servers or 443 for the
+secure version, HTTPS thereof. Here again we see port 1337,
+which is meant to connote leet,
+14:43 because this is a CS50
+specific use of this TCP port. But soon we'll see another
+port, just like we did
+14:49 last week when I launched HTTP server. So let's go ahead first and create
+a file, for instance, called app.py.
+14:57 And just to keep things simple, I'm
+going to isolate all of these files to a specific folder. So I'm going to create
+a new folder with mkdir,
+15:03 and I'm going to call it hello for
+my first application called hello. I'm going to cd into hello.
+15:08 And indeed, now I'm in there. And now I'm going to run
+code of app.py to begin writing the contents of
+this here web application.
+15:15 And for this, I'm pretty
+much just going to use the contents of the sample program we
+saw a moment ago by doing the following.
+15:22 I'm going to say from flask, import
+Flask, lowercase f and uppercase F
+15:27 respectively. Then I'm going to say app equals
+capital Flask underscore underscore name underscore underscore, which
+is the line of code that says, hey,
+15:35 Flask, turn this file
+into a web application and give me a variable called
+app via which to reference it.
+15:41 And then down here, I'm going to do
+at app.route, and then in parentheses pass in a single argument.
+15:47 Slash. I could use single quotes,
+I could use double quotes. For consistency with C,
+as we did in week six,
+15:53 I'm going to keep using double
+quotes most of the time. Now I'm going to go ahead and define
+a function in Python called index,
+15:59 but I could call it anything I want. This particular function is not
+going to take any arguments, so all it's going to do is return a
+string or str of text, hello comma world
+16:09 and that's it. Now, just to be consistent
+with style50, I've actually deliberately
+left a couple of lines
+16:15 a blank in between my function
+and everything above it. And that's just a stylistic
+convention in Python. But otherwise, this is just some
+relatively little Python code,
+16:24 albeit using a couple of
+new features, a new library and using a new piece of syntax, the
+at sign, for that so-called decorator.
+16:31 And again, to be clear, all a decorator
+does in Python or in this particular case, is it says, hey, Python, turn the
+following function into one that should
+16:40 be called automatically whenever
+the user requests the /route.
+16:46 All right. I need to do one more thing,
+at least on some systems. Let me go ahead and run
+code of requirements.txt.
+16:53 And in this file, I'm going to simply
+specify what are all of the libraries that I want this web application to use.
+16:59 And I'm quite simply going
+to say Flask, capital F here. But strictly speaking, it's not
+necessary because in cs50.dev
+17:06 because we've pre-installed
+Flask for you. But in general, and certainly in
+the real world, what I'm doing now
+17:11 is associating with this application
+zero or more list of dependencies, libraries that I want
+someone to install in order
+17:19 to ensure that this thing here works. That's all I need to put in this file. But even though it's already been
+installed, what I can do is this.
+17:26 Let me go ahead and maximize
+my terminal window here and let me run that command we
+ran briefly back in week six
+17:31 when we wanted to install libraries. I'm going to do pip install, and instead
+of installing cowsay or something
+17:37 silly like that again, I'm going to
+do pip install -r requirements.txt. And what this command would do for
+me if Flask is not already installed
+17:46 is it would install it for
+me on this here system. So I'm not going to bother executing
+that because I already did it
+17:52 earlier for everyone's
+code space, but that's indeed how we could use
+that requirements file to automatically install things
+without the manually typing
+17:59 that and other things out. All right. Well, let's go ahead now and
+do something incorrectly.
+18:05 Suppose I'm in the habit
+of forgetting things and I run http-server server
+in my terminal window.
+18:11 I can certainly run
+it and it's certainly going to work, especially if I override
+this helpful reminder we put in place
+18:18 to discourage you from doing this. But I'm going to say, nope, I
+want to go ahead and run it. I'm going to see the same kind
+of output as I saw last week.
+18:25 I'm going to be prompted to open in a
+browser that particular web application. But that particular web application
+is not really my own, per se.
+18:32 It's just the contents of this folder. So if I go ahead and zoom in on the
+directory index of that there folder,
+18:39 we see my two files, app.py
+and requirements.txt. If I click on app.py, I'm not
+going to get a hello world.
+18:46 In fact, it was a little subtle,
+but what my Mac just did was it downloaded app.py, which
+is not the goal I want.
+18:52 And in fact, you've just let the
+world access your source code if there's anything sensitive
+in that their program
+18:57 because the browser doesn't know
+what to do with an app.py file inside of my browser.
+19:02 So that was incorrect. So I'm going to go
+ahead and go back here. But just to make clear that we do
+indeed have a second port running now,
+19:09 just like last week, because http-server
+can't use port 80 or 443 because code
+19:15 spaces-- that is cs50.dev-- is
+already using that for you. It did choose the default port
+of 8080, which is commonly
+19:23 used for development purposes. And that's why we see not only
+1337, but 8080 now as well.
+19:28 So let me go ahead and back
+to my terminal window, hit Control-C to interrupt http-server. And let me now do things the right
+way by running flask run, Enter.
+19:38 And what we'll see now
+is that my application is running not on 8080,
+but on 5000, which happens
+19:45 to be Flask's default choice of ports. But you can override
+this if you so choose. But I'm going to stick with that one.
+19:51 And now, even though it's a little
+underwhelming, I'll zoom in. Now I see hello comma world.
+19:57 And in fact, if I right
+click or Control click on Chrome here or your browser more
+generally and, for instance, View Page
+20:05 Source, you will see that there's
+really no even HTML here, just text, because what I've essentially
+sent to the browser
+20:11 is just literally hello comma world. But already we have a
+building block here.
+20:16 Clearly I can write
+Python code that generates output that is sent to the browser.
+20:21 So really, there's nothing stopping
+me from now sending not just raw text
+20:26 but actual HTML to the browser. Let's do this poorly at first. Let me go ahead and
+hide my terminal window
+20:32 just so we can focus on
+code now for a moment, even with Flask actually running. And this is going to look deliberately
+ugly for the moment, but let me go ahead
+20:39 and do this. If I want to send the
+browser a proper web page-- heck, I remember some
+HTML from last week.
+20:45 So open bracket, exclamation
+point, DOCTYPE html, close bracket, and then open bracket html, then lang
+equals quote, unquote "en" for English.
+20:56 Then I'm going to go ahead and
+do head for the head of the page, and then title for the title therein. And I'm just going to say something like
+hello comma title, like I did last time.
+21:06 Let me close that title tag. Let me close that head tag. Let me open now my body tag.
+21:12 Inside the body I'll
+say hello comma body. I'll close the body tag, I'll close
+the HTML tag, and I'll close my quotes.
+21:20 But I'm going to be careful here. Notice that I used an attribute
+value in here with double quotes.
+21:26 That's probably going to
+confuse Python because I have these outermost double quotes,
+so I can fix this in a couple of ways.
+21:32 I'm going to go ahead and
+use therefore single quotes on the outside of this Python string,
+which unlike C is fine for strings,
+21:38 not just chars as in C, and I think
+that will at least assure that the quote marks don't get confused.
+21:44 All right. This is probably not going
+to be the best design, and hopefully this is not
+how we generate web pages.
+21:50 But let me go ahead
+back to my other browser tab, which previously said hello world.
+21:55 Let me reload now. And I seem to have changed not only
+the output of this web program,
+22:02 but really, the contents
+underneath the hood as well. Let me right click or Control-click on
+the white portion of my screen here.
+22:10 And there is some proper HTML. It's not particularly pretty printed. There's no new lines,
+there's no indentation.
+22:15 But if I scroll from left
+to right in my browser here, there is a well-formed
+web page as I intended.
+22:23 So again, not particularly
+fun, not particularly pretty, but we seem now to have the capability
+of writing code that generates not only
+22:30 text but HTML as well. So how can we go about
+improving this program further?
+22:36 Well, let me do this. This is not really the nicest
+design, so let me go ahead and highlight all of this HTML
+I just wrote and let me go ahead
+22:44 and cut it to my clipboard. And let's come back to
+that code file in a moment.
+22:49 Let me go ahead and reopen my terminal. I don't want to kill flask
+run just because it's convenient to keep it running.
+22:54 So I'm to create a second
+terminal window by clicking plus, and I can toggle between
+them at right here.
+22:59 So one is still running Flask, the
+other is now a blinking prompt. I'm in the wrong
+directory by default, so I
+23:04 do need to go back into my
+hello folder with cd hello. But in here, what I'm
+going to do now is this.
+23:11 I'm going to go ahead and create
+another folder inside of this that, by convention, is called templates.
+23:17 And when I hit Enter here, I'm going to
+then do cd templates to go inside of it. And now I'm going to create
+an actual full fledged HTML
+23:25 file, index.html by convention. Enter. And inside of this file, I'm
+going to go ahead and paste
+23:31 that long string of HTML, and I'm
+going to go ahead and clean it up to look a little bit more
+like it looked last week.
+23:36 And I'm going to even stylize
+it further here so everything's very pretty printed and human readable.
+23:42 And I'm going to put the head up there. I'm going to put the body down here. And below that, I will
+close my HTML tag.
+23:49 So no different in terms
+of the content, but now I have all my HTML in an actual file. All right.
+23:54 What do I now do with this? Well, wouldn't it be nice if
+I could go back into app.py
+23:60 and say, don't return just hello world. Don't return this long,
+messy string of HTML.
+24:05 But return the contents of
+a file called index.html.
+24:11 Well, to do that, I can import not just
+Flask capital F from the Flask library.
+24:17 I can also import a function
+called render template. This is a function specific to
+Flask, but it does exactly that.
+24:24 It will render a template
+for you in the sense of it will go open an HTML file for you.
+24:30 It will then send it
+from server to browser. And as we'll soon see, it can even
+do some fancier stuff than that.
+24:35 But now instead of returning quote,
+unquote "hello world" or quote, unquote a big long string of HTML, what
+I'm actually going to do is something
+24:42 like this. I'm going to say HTML
+equals render_template. And what template do I want to render?
+24:49 Index.html. And I'm going to store that template,
+so to speak, in an HTML variable.
+24:54 And then I'm going to
+return that variable. Of course, as we've seen in C
+and Python and even JavaScript,
+25:01 we don't really need variables,
+per se, if we're just defining them and using them once.
+25:06 So I can actually tighten this up a bit. Let me go ahead and highlight the actual
+function call, get rid of the variable,
+25:12 and let me just immediately return
+the return value of render_template passing in index.html.
+25:18 Now notice the subtlety. If I back to my terminal
+window, recall that I created index.html inside of
+my templates folder, which
+25:26 is inside of my hello folder. But render_template is smart. As its name implies,
+its purpose in life is
+25:33 to render a so-called template-- more on
+what we really mean on that in a moment. But by default, Flask
+knows that if you're
+25:40 trying to render a template, oh, sure,
+it must be in your templates folder.
+25:45 It's got to be all lowercase, templates. Your file has to be exactly
+named as I'm specifying here. But this is now how a web server
+can associate a route like slash
+25:55 with a specific file
+on the actual server, no matter what folder it might be in.
+26:01 So let me go and go
+back to my other tab. Let me go ahead and cross my
+fingers as always and click reload.
+26:08 And so far so good. And in fact, just to prove to you that
+this is the new version of my HTML that was pretty printed, let
+me go to View Page Source.
+26:16 And there indeed it is,
+printed in the browser's memory just as I wrote it on the server.
+26:24 All right. So now let's take a look at the code
+as we left it, whereby for the /route,
+26:29 we are returning the return value of
+the render_template function once passed
+26:35 an argument of index.html. And let's see if we can't make our
+web application truly more dynamic
+26:41 so that it's not just saying hello
+title, hello body all of the time, but ideally saying hello
+to a particular person.
+26:48 Now, how can I possibly pass
+user input to a web application? Because my users on the
+internet certainly don't have
+26:53 access to my keyboard, let
+alone my terminal window. They only have access to
+my website via browser.
+26:60 But of course, as we saw
+in the Google example, if you were to pass in
+somehow at the end of the URL
+27:06 not just a route but also a question
+mark and key equals value, maybe an ampersand, key equals value, maybe
+another ampersand, key equals value,
+27:13 we can somehow send from the
+browser to the server user input. Of course, that user
+input ideally does not
+27:19 come from the human typing
+it in manually to the URL, but filling out a form, hitting
+Enter, and letting the browser
+27:25 convert that form to the
+appropriate get request in the URL. But let's start to
+simulate this for now.
+27:31 Let me go back to this URL here,
+put my cursor at the end of it, and say question mark name
+equals, for instance, David.
+27:38 The intent being that I want this
+site to say hello David instead of hello title and hello body.
+27:44 Enter. Unfortunately, when I hit
+Enter, nothing changes. And I can confirm as
+much by viewing source,
+27:49 and indeed, nothing about the
+page has changed because we haven't done anything dynamic in code.
+27:55 But I do think we can fix this. Let me go back over to
+VS Code here and let me propose that we go into the template
+first, which currently only says
+28:03 hello title, hello body. Let's go ahead and
+simplify the title for now and focus on just dynamically
+changing the body.
+28:08 And let me propose that what I
+really want this thing to say is hello and then a placeholder.
+28:14 So I don't want to literally say
+placeholder, where placeholder is just something into which we plug
+in a value, because now I'm
+28:20 going to see a website that
+says hello comma placeholder. So the syntax you're about to
+see is a little bit different,
+28:25 but it's going to be
+a technique via which I can tell Python, specifically Flask,
+to substitute a value for this here
+28:34 placeholder. And the syntax for that
+when using Flask is to do two curly braces on the left
+and two curly braces on the right.
+28:43 It's a little different from our f
+strings or format strings in Python alone, but in the context of an HTML
+template, the way you specify hey Flask,
+28:52 substitute a value here, is
+indeed with two curly braces on the left and the right. Now, of course, nothing's going to
+happen yet until I go back to app.py
+29:01 and actually tell the template
+somehow to plug in a value therein. Now, how can I go about doing this?
+29:07 Well, the simplest way,
+which is as follows. In addition to importing
+Flask and render_template,
+29:14 I'm also going to import another
+variable that comes with the Flask framework called request.
+29:20 And this is a special object
+that's going to give me access to all of the HTTP parameters,
+the user input in the HTTP request
+29:28 that's causing this code to be executed. So how do I use that? Well, let me go down here and let me
+create a variable called anything,
+29:35 but I'll call it name. And I'm going to go ahead and
+set that equal to something like request.args, open bracket
+quote unquote name, close quote.
+29:46 Now, what in the world is going on here? Well, it turns out what
+we've introduced here now is a special variable, request.args,
+that somehow magically automatically
+29:58 stores all of those key value pairs. And here again is why we're using a
+framework like Flask, because it's not
+30:04 going to be particularly
+fund code to have to write code that opens that virtual
+envelope, reads the HTTP message
+30:09 inside of it, parses-- or that is analyzes and figures
+out what is each key, what is each value, what route is requested.
+30:16 Like, every website on
+the internet practically is probably doing exactly that nowadays. We might as well not reinvent
+that wheel ourselves.
+30:22 So in request.args, we
+have this special variable that comes with Flask that just
+gives us a Python dictionary that
+30:30 contains all of those key value pairs. And in fact, think
+back to week five when I proposed that dictionaries
+or dics in Python
+30:37 are so very useful because they allow
+you to associate keys with values, keys with values. That's what Flask is doing here.
+30:44 So if I go back to my
+code, what we really see is that I'm creating
+a variable called name and I'm setting it equal to the value of
+the name key inside of this dictionary.
+30:55 That is request.args is a
+Python dictionary at this point. How now do I pass in the value
+of that variable to my template
+31:05 so that we actually see hello comma
+David or hello comma someone else? Well, in app.py, I have to pass now
+a second argument to render template.
+31:13 And the convention for that
+is placeholder equals name. In other words, I can
+use Python's feature
+31:20 for named parameters,
+which we've seen before. Like the print function in Python has
+that end parameter that we can use
+31:26 to override the line ending,
+which is by default /n. Here I'm passing in a positional
+parameter in Python, which just
+31:34 means the first one, first position. But then I'm passing in a second
+parameter that has an explicit name,
+31:40 and the name I'm giving it
+is literally placeholder. Why? Because I want Flask
+to replace placeholder
+31:46 in this template with the actual
+value of the name variable. So if I go back to my second
+tab here, which previously
+31:54 said hello title, hello
+body, but notice a moment ago we passed in question mark name equals
+David, which was previously ignored.
+32:02 Now if I reload this page, having
+changed my Python code in app.py, there is my hello David and my
+tab is more simply now just hello.
+32:13 All right. Unfortunately, this is
+not the best solution. Why? Because suppose that a
+user doesn't visit this URL
+32:20 and certainly doesn't have the
+wherewithal to type in manually question mark name equals David. Let me go ahead and delete that
+HTTP parameter, the key value pair.
+32:29 Let me go ahead and
+reload this page now. And now I got a bad
+request, a 400 error,
+32:35 which means I did not request
+this website correctly. Now that's just kind of bad
+design, because surely the user
+32:43 should be able to visit the URL without
+having to manually type in parameters. So how do we fix this? Let me go back to my
+other tab for VS Code.
+32:50 Let me go ahead and open up app.py. It seems to be the case that I'm
+just blindly assuming on lines eight
+32:56 and nine at the moment that
+there will be a key called name inside of this dictionary, and
+clearly that's not the case.
+33:02 If the user has not visited a URL that
+has question mark name equals something. So I think we just want
+to use some week one style
+33:10 logic using Python syntax specifically
+to say something like this. Let me go ahead and change line
+eight to ask a question first.
+33:18 If there is a name key
+inside of request.args,
+33:23 then and only then go ahead and create
+a variable called name whose value is request.args quote, unquote name.
+33:32 Else, if there is no name
+key in that dictionary, we've got to handle that situation,
+which I wasn't a moment ago.
+33:38 All right, fine. Let's create a name variable and set it
+equal to some default value like world.
+33:43 And now line 12 can remain
+unchanged because no matter what, I'm passing in a legitimate
+value for name that's either
+33:50 whatever the human typed in
+the URL bar, for instance, or it is, by default, world. So if I go back now to my other tab
+and without changing the URL I just
+33:58 click reload, now we're back to
+something correct, if underwhelming, that says hello comma world.
+34:05 Of course, this is a little maybe
+suboptimally designed in that, well,
+34:10 I've used my placeholder already. What if I want to say two placeholders
+or three placeholders or more?
+34:16 I probably shouldn't be
+in the habit of literally using the word placeholder in my
+template, even though that's what it is.
+34:22 Let me go ahead and be a
+little more descriptive, just like with our variable names in general. And let me go ahead and
+say what I really want here
+34:29 is hello comma name, where I want
+the value of name to be interpolated, just like in an f string, inside
+of these double curly braces.
+34:37 But I now need to change my code,
+because I've now changed my placeholder to literally be name. This is going to look a little
+weird, but the convention
+34:45 in using this library is quite
+often to say now name equals name.
+34:50 Why? Because the name of the parameter I'm
+passing in to the left of the equal sign
+34:55 must match the name of the parameter
+that I'm using in my template, though the value that I want to pass
+in for that placeholder can be anything
+35:05 I want. It can literally be
+quote, unquote David. But if the value is in a
+variable, then what I want to do
+35:11 is pass in the name of that variable. So this looks a little
+stupid, admittedly, but this is the convention,
+for better or for worse.
+35:17 Name equals name means plug
+in the value of the name on the right for the template
+placeholder called name on the left.
+35:25 That's all. But this is indeed a common convention. Now, is there a better way to do this? Well, this feels a little bulky
+to have four lines of code,
+35:32 if this, else that, just to check
+if an HTTP parameter was passed in. And in fact, there is.
+35:38 The convention in Flask would actually
+be to not bother with this explicit if else but instead to
+do something like this.
+35:44 Name equals request.args,
+and then specifically call a method or a function called
+get, whose purpose in life
+35:51 is to get the value of a key. What key? Well, the name key. And what the get function also does for
+us is if it can't find a value there,
+35:60 you can specify a default value. So if you want the
+default value to be world, you pass that in as a second argument.
+36:06 So the behavior now is
+going to be no different, but if I go back to my
+other tab and click reload,
+36:11 nothing changes but it's still working. It's not showing some error. However, if I go into my URL bar at top
+and add slash question mark name equals
+36:19 David, zoom out, and hit Enter, it's
+still working in that case as well.
+36:24 But I've distilled those
+four lines of logic now into something a little simpler
+by actually having now a use of the
+36:32 get method, which is doing
+more of that logic for me. All right. So suffice it to say this too is not
+the best design, because you certainly
+36:41 don't want to make a web application
+where your users to provide user input have to manually edit the URL.
+36:46 That would be like
+searching for Google by only being able to edit the URL by adding
+slash search question mark q equals cats
+36:52 any time you want to search for
+cats, let alone some other value. And certainly if you want to
+type in your email address
+36:57 or a credit card number
+or anything that we're in the habit of typing
+into forms on the web, you don't want to have to manually
+do that instead in the URL.
+37:04 Which is to say, how can we make this
+now a more typical web application that still takes user input but
+takes it via proper web form?
+37:12 We saw how to make forms last week. For instance, we made
+a front end for Google. Let's now implement
+the back end thereof.
+37:18 So let me go back over
+to VS Code here now and let me propose that we will
+create an actual form in index.html.
+37:26 So index.html's purpose
+in life is no longer to be a template that says
+hello comma so-and-so.
+37:32 All it's going to display is a template. So let me go ahead and
+delete this line here and let me delete this
+use of a placeholder,
+37:38 and let me go into index.html
+and remove the body here that we had for that placeholder.
+37:44 And let's actually now in this
+here body create a web form. So I'm going to do form, and
+then inside of the form tag
+37:52 I'm going to create an input,
+and the name of that input is going to be name, because
+I want the human's name.
+37:58 And the type of that text-- the type of that input
+is going to be text, even though that's the implied default.
+38:03 But recall from last time,
+there's some nice features I can enable anytime I make a form. I can turn off autocomplete so it
+doesn't remember the previous person's
+38:11 name. I can autofocus that input so that the
+cursor is blinking and ready to go.
+38:17 And so that the human
+knows what to do with it, I can say placeholder
+equals quote, unquote name so that there's little gray
+text that's explanatory text.
+38:25 Now, notice there's some
+potential confusion here. My use of name here is to define
+the name of the HTTP parameter
+38:33 that I do want to end up in the URL. The name here is the name of the HTML
+attribute that comes with the input tag
+38:42 if you want to use it. Placeholder here is another attribute
+that can be used with the input element.
+38:47 So even though we're seeing lots
+of names and lots of placeholders, they're the same idea, but they mean
+different things in different contexts.
+38:53 Now we're looking at HTML alone. All right? Besides that input field, let
+me go ahead and create a button.
+38:59 The type of this button is going to be
+submit so it knows to submit this form. And I'm going to have
+that button say greet,
+39:04 so it's obvious that I click on this
+button to greet that person's name. All right. What more do I need in here?
+39:10 Well, this is just a form,
+which is fine visually, but I haven't told the browser
+where to submit it just yet.
+39:16 And if I don't specify
+that, it's actually going to submit back to
+the same URL, for instance, slash, if that's what's serving this up.
+39:23 So if I actually want to change the
+action that the browser should really take, there turns out there is indeed
+an action attribute which allows me
+39:31 to specify where I'm submitting this. And I'm not going to submit it to
+Google, for instance, this week. I'm instead going to submit it to my
+very own route, which doesn't yet exist,
+39:38 but it will in a moment, /greet. And the method I want to use
+is going to be specifically
+39:44 get in contrast with
+post, because I do want to use get so that the parameters
+very visibly appear in the URL,
+39:51 if only so that I can
+show you what's happening. If I were to use post instead, recall
+that sort of hides the input still
+39:57 in the envelope but
+more deeply inside of it so it's not exposed in the URL, which
+is appropriate for anything personal.
+40:03 Maybe an email address, maybe a credit
+card number, a password or the like. But this is just a person's name, so I'm
+OK for now with revealing it in the URL.
+40:11 All right. Let's now go back to my other tab. If I delete the URL parameters
+there and hit Enter and go back
+40:18 to my default template, I see, indeed,
+a form asking for a name and a button
+40:23 to greet someone. So I'm going to type in my name,
+David, and I'm going to click greet. And notice what happens
+to the URL at top.
+40:30 It does automatically bring
+me to /greet?name=David.
+40:35 So I, the human, did not need to
+type all of that in as I have been. The browser knows when submitting
+a form via get, do that.
+40:43 Unfortunately, I get a 404 not found. Why? Because my app.py file only
+has one route for slash.
+40:49 There is no root yet for /greet. So I think we can fix that
+too by just practicing what
+40:54 I've been preaching here as follows. Let's go into app.py and say
+app.route quote unquote "/greet."
+41:02 And here too, I could
+call it anything I want, but I want parity with
+what I just put in my form. And inside of this, under
+this decorator, so to speak,
+41:11 I now need to specify
+exactly what function I want to be called when
+this route is visited.
+41:17 I can call this function anything
+I want, but to keep myself sane, I'm going to use a name for the function
+that kind of matches the route itself.
+41:24 So I'm going to call
+this function greet, even though it can be anything I want. And then after this function, which
+is not going to take any arguments,
+41:31 I'm going to go ahead and do this. I'm going to say in here, name equals
+request.args.get quote, unquote name
+41:39 to get the value of the name
+parameter from the get string. But if there's no such value there,
+let's grab a default value of world.
+41:48 And then as before, I'm going to return
+the return value of render_template. But this time, I'm going to render a
+different template that, to be fair,
+41:56 does not yet exist, but I
+can solve that problem too. Greet.html. And I'm going to pass
+into that template,
+42:02 once it exists, the value of name
+equaling the value of that variable.
+42:07 So same ideas as before, but
+I've now moved a lot of my logic into a brand new function
+and route called greet.
+42:15 All right. So what's now going to happen here? Well, let me go back to my browser,
+which previously was 404 not found
+42:21 because the route didn't even exist. I'm going to click reload and
+I'm going to see a new problem, I think, because the route exists, but
+I don't think that template exists,
+42:29 greet.html yet. So let me hit reload. And now I've got an
+internal server error,
+42:34 which, welcome to web programming. This is going to be the new
+segmentation fault of C,
+42:40 but in the context of web programming. When you see 500 internal
+server error, as much
+42:45 as you might like to hope
+otherwise, it is your fault. You have made a mistake
+somewhere, as I just did.
+42:51 So let's see how to diagnose this. Let me go back to my other tab. Let me reopen my terminal window.
+42:56 And thankfully, within
+my terminal window, I should see, among any number of other
+errors, some hint as to what went wrong.
+43:05 So to be clear, when you see
+a 500 error in your browser, internal server error, one, it's
+your fault. But two, there's
+43:12 probably diagnostically useful
+hints in your terminal window. If you've created two
+terminal windows, that's fine.
+43:19 You have to realize that your
+commands are going to be left alone. You have to go back to
+your other terminal window
+43:24 where flask run is still running and
+you might want to scroll up and down, look at the most recent error
+in there, and hopefully you'll
+43:31 see something useful. And indeed, I do think I do. Template not found, greet.html.
+43:38 And that's pretty much hitting the
+nail on the head and telling me exactly what there is wrong.
+43:43 But interestingly, we
+haven't seen this word yet. Jinja exceptions. Exceptions, we've seen before.
+43:48 You might recall that we can try to
+do something, but if an error happens, an exception might indeed be raised.
+43:53 Jinja, though, is a new term and this
+is just referring to another library that anyone on the internet can use.
+43:59 But the folks who invented Flask decided
+to adopt this other library themselves called Jinja.
+44:05 And what Jinja is is essentially
+a templating library. Its purpose in life is just to handle
+everything inside of that template's
+44:13 directory. So if I go back to my
+own, index.html, it is technically a library
+called Jinja that
+44:21 is reading that template top
+to bottom, left to right, looking for, among other
+things, pairs of curly braces
+44:27 so that Jinja can do the
+substitution for you. Now why is Flask using Jinja?
+44:33 Well, Flask realized the
+folks who invented it, we don't have to reinvent
+the wheel of templating because some other
+people on the internet
+44:40 already created a templating
+library called Jinja, so we might as well use
+those in conjunction. And this is going to be
+more and more common.
+44:46 Even though when we started using
+libraries in C, they were very small and well defined and only did one
+thing, once you get to web programming
+44:53 and really software
+engineering in the real world, you're going to be using
+multiple libraries, often in conjunction with each
+other, some of which
+44:60 are dependencies for other libraries. So we're just seeing an example of that. So this is to say ultimately
+this problem is still mine.
+45:08 Internal server error means I messed up. We know now from my terminal window
+that the template is not found. So what's the solution?
+45:13 Well, let's go ahead and
+create that template. Well, let me go back into my terminal
+window, but not the one with the error,
+45:20 but my other terminal window that gives
+me access to a working command prompt. Let me go ahead and type code
+greet.html and hit Enter.
+45:28 And just to make the point, let me
+pedantically type out this whole file again. So open bracket exclamation
+point DOCTYPE html.
+45:36 Then below that, html lang equals en. Then below that, let's
+put the head of this page.
+45:44 Inside of that, let's put
+the title of this page. We'll call it greet, just so I
+know which template is which.
+45:49 Then let's put the
+body of the page here. And then let's go ahead
+and do hello comma name,
+45:56 using the same placeholder as before. So in essence, my
+greet.html template is now
+46:01 what my index.html template used
+to be before I deleted the latter and replaced it with that
+interactive web form.
+46:09 But now if I go back
+to app.py, we'll see that greet.html, which is to be
+rendered, should now work as intended.
+46:16 And I'm passing in name
+equals name so that I can have that template use of
+this placeholder substituted
+46:24 with the actual person's name. All right. Let's cross our fingers, go back to
+my other tab, and reload this page.
+46:31 And there we have it. Hello comma David. Let's now go back to the code via which
+this current application is implemented
+46:39 and consider what could be done better. In fact, let me reopen
+my terminal window and clear it temporarily and type
+in ls in my templates folder,
+46:47 just to confirm that I
+do indeed have two files. Let me do cd dot dot
+ls in my hello folder just so that you can see
+what files are therein.
+46:55 And in fact, what you see here now
+is a pretty representative structure for a web application implemented
+in Python using the Flask framework.
+47:02 Before long, we'll see
+one more folder in here. Not just templates, but something
+called static, because up until now,
+47:07 we haven't served up any images,
+any JavaScript files, any CSS files. We can, and by convention,
+those such files
+47:14 will be stored in another
+folder called static. So indeed, what you're seeing here
+is the representative list of files
+47:20 and/or folders that you typically
+need to create at some point when building a Flask application.
+47:26 But I dare say, even though we're
+following these conventions, we haven't necessarily
+done things the best way.
+47:31 Why? Well, case in point, let
+me hide my terminal window and open up again index.html.
+47:37 Let me go ahead and open up greet.html. And if I toggle back
+and forth between these,
+47:42 you can clearly see that they're
+not changing all of that much. There's a lot of commonality.
+47:48 The DOCTYPE at the top, the html
+tag, the head tag, the title tag, the body tag.
+47:53 It's really only the contents
+inside of the latter, head, title, and body, that are actually changing.
+47:59 Moreover, let me point this out. Let me go back to my
+user interface here. Let me go back to my web form here.
+48:06 And you'll see that I've zoomed in a
+few times, so everything's very visible. But let me go ahead and
+open up this feature.
+48:11 Let me go to right click or
+Control-click on my viewport. Let me click Inspect
+to open the developer
+48:17 tools that we talked about last time. And notice that I can actually
+click this button here
+48:22 at top left, which is a useful toggle
+for changing the type of device you're visiting a website on.
+48:28 So for instance, if I type
+this now, what you'll see, if I shrink my developer tools, you'll
+see a mobile version of this web page.
+48:37 So what that button does
+in Chrome at least-- and other browsers
+have similar features-- you see what this web page would
+look like on a mobile device.
+48:45 And suffice it to say, I can
+barely tell what's on the page. The default font is clearly way too
+small, and at least on my phone,
+48:52 there really is no easy
+way to zoom, zoom, zoom. You can tinker with
+the settings, but you don't want your users having to
+zoom in just to use your website.
+48:60 Which is to say that my
+website, as implemented now, is not responsive to the type
+of device that's visiting it.
+49:07 It is not mobile friendly. Now, there's many different ways to
+address this, including using libraries,
+49:12 but minimally a solution
+to this problem typically is to go in and add an additional
+tag to the head of your web pages.
+49:20 So let me go back to index.html. Let me go into the head here. This is a bit of a
+mouthful, but I'm going
+49:26 to use a tag called meta,
+which refers to metadata. I'm going to give it an attribute called
+name and set that equal to viewport.
+49:34 Why? I'm just following the documentation. Then I'm going to specify that
+the content of this meta--
+49:41 of the content for this meta tag is
+going to be cryptically initial-scale
+49:46 equals 1 comma width
+equals device-width. This is a mouthful, and technically
+I'm reading it off of a sheet
+49:53 of paper because I can never
+remember exactly what to type here. But this tag alone will
+make my application,
+49:59 and my website more generally,
+more mobile friendly. It's not going to fix all
+of my potential problems, but it is going to tell the browser
+in particular that it should
+50:07 size things to the specific
+device width, be it an iPhone, an Android device, an iPad, a
+tablet of some sort, or the like.
+50:15 And case in point, if I now
+go back to my other tab, which is still in my mobile view
+mode, let me click reload now.
+50:22 And notice, even though
+there's the tiniest of forms up there in the top
+corner, when I reload now,
+50:27 now it's at least more usable. It's still relatively small, but
+it's at least readable at this point.
+50:33 So that one meta tag
+alone goes a long way to making your website
+responsive in the sense that things are going to be resized
+automatically by the browser based
+50:42 on the device's type. I mentioned that only because it's going
+to lead to another design opportunity.
+50:48 Let me close my developer tools. Let me go back to VS Code here. And you know what? My greet template still doesn't have
+that mobile friendly tag, so, all right,
+50:57 fine. Let me just save myself some keystrokes. Let me highlight this whole line six. Let me go into greet, into
+its head, paste that there.
+51:04 And OK, now I could argue that I've
+solved this problem on this page too. But where are we going with this? Well, most any time in CS50 when
+I've copied and pasted something,
+51:12 it's almost always been the
+wrong solution to a problem. It suggests a poor design
+because why Copy-Paste
+51:19 if I can somehow factor
+out commonalities? And indeed, this is the
+point now to be made.
+51:25 If we toggle back and forth
+between these two files, index.html and greet.html,
+there is so much commonality.
+51:32 I dare say now, all of this
+is common from line one
+51:37 through part of line seven. All of this is common from
+line 15 down through line 17.
+51:44 Wouldn't it be nice if in HTML, we
+can somehow factor out that code too? And here is where templates start to
+get very powerful, because the answer is
+51:52 indeed yes. We can actually factor out all of those
+common lines of HTML in such a way
+51:59 that we don't need to
+type them again and again. So now let me propose that
+we'll create one more file,
+52:06 even though this will allow us to make
+these two files simpler, as follows.
+52:12 I'm going to go into my terminal
+window where I have a command prompt. I'm going to cd back
+into my templates folder
+52:18 and I'm going to create
+a new file called layout.html, which is a file name you
+need to adhere to when using Flask
+52:23 because that's the default name. All lowercase, one word. Layout.html. Enter. I've now got a new tab.
+52:29 I'll close my terminal window. And for the last time, hopefully,
+I'm going to type out DOCTYPE html.
+52:35 Then I'm going to do html
+lang equals quote, unquote en. Then inside of that I'm going to have
+the head of my page, inside of which I'm
+52:42 going to have the title of my page. And because this
+application doesn't really need to change that much,
+I'm just going to say
+52:48 the title for every page in
+this application is hello. But we could parameterize
+that if I wanted.
+52:53 I'm also, though, going
+to add that meta tag. So meta name equals
+quote, unquote viewport. Content equals quote,
+unquote initial-scale
+53:01 equals 1 comma width equals
+device-width, close quote, close bracket.
+53:06 And then I'm going to
+have the body of my page. But here is where the website
+really varied by template.
+53:12 In index.html, it was a form. But in greet.html, it
+was hello so-and-so. So what I really want is a whole block
+of content potentially to go in here.
+53:21 So in fact, what I'm going
+to do inside of the body is use some weird looking syntax. This is more Jinja syntax.
+53:27 And I'm going to say this. Open curly brace, percent sign, block
+body, close percent, close curly brace.
+53:36 And then with nothing
+in between there, I'm again going to go open
+curly brace, percent sign. And this time I'm going to say endblock.
+53:43 One word, no space. Percent sign, close curly brace. So this is weird syntax.
+53:48 You'll have to look it up
+to remember it over time. But this is the way to specify to Flask,
+plug in the contents of another template
+53:56 here. Not just a variable's value,
+but another file should go here. You can call this anything you want.
+54:03 I could call this foo
+or bar or baz, which are the go-to terms in computer science. But I'm going to call it
+body only because, one,
+54:11 I only have one such
+placeholder for now. And it's in my body,
+so let's just say this is the placeholder for
+the body of this web page.
+54:17 Keep it simple. So now, what can I do in my other files? Now that I have that template here,
+I can go back to, for instance,
+54:26 my index.html, and I can delete all
+of this and I can delete all of this.
+54:33 So now in index.html is
+literally only the form that is going to vary
+for this particular page,
+54:40 though I now need to tell Flask how to
+embed this snippet into my full layout.
+54:48 And the way to do that is as follows. At the top of your template,
+open curly brace, percent sign,
+54:54 extends, as a verb, quote,
+unquote layout.html. And this is a line of saying--
+this is a way of saying in Flask,
+55:02 please extend layout.html with
+the contents of this file. I do need to do one more thing.
+55:09 I need to define the block of code
+that I want Flask to substitute for me. And so here too, I'm going to say block
+body, just like I did a moment ago.
+55:18 And then in here, I'm going to--
+below this, I'm going to say endblock.
+55:23 And it's weird. This is a Jinja thing. It's block space body up here,
+but it's just endblock down here.
+55:30 The word E-N-D is prepended
+to the name of this Jinja tag. Just to be a little nitpicky, I'm going
+to go ahead and indent this properly
+55:38 so it's only indented once there. And that's it. And admittedly, this looks a
+little weird, but what's important
+55:43 is that now I've only
+implemented in this file the minimum amount of HTML that
+differs for this particular route.
+55:51 What am I going to do in greet.html? Well, I'm going to delete
+all of this up here,
+55:57 and I'm going to delete
+all of this down here. At the top of this file I'm
+again going to say extends quote,
+56:03 unquote layout.html, close quote,
+and then another percent sign and close curly brace.
+56:09 Below that, I'm going to say block
+body, percent sign, close curly.
+56:14 And then down here, I'm going to say
+as before endblock and close that tag. I'm going to fix the indentation
+here just to be consistent.
+56:23 And now I have a second block that will
+be plugged in when greet.html is used.
+56:31 So again, these files now differ only
+in terms of the contents of that block. So if I toggle back and
+forth here, you'll see that--
+56:38 let me add spacing just
+for consistency here. Index.html has the form. Greet.html has the hello and
+the placeholder for name.
+56:47 All right. After all of that work, let me
+go back to app.py, and surprise. Don't need to change anything.
+56:53 Because I'm using the
+render_template function, it knows not only how to handle
+those curly braces with variables
+56:60 as placeholders, it
+also understands curly brace percent signs,
+percent signs curly brace,
+57:06 as per the documentation
+for Jinja itself. So in fact, what I'm going to go ahead
+and do now is go back to my web page
+57:12 without changing anything in app.py. Just for good measure,
+I'll reload this page here.
+57:18 Wasn't expecting this to happen,
+but I've clearly induced a problem. I'm now getting one of these
+500 internal server error.
+57:25 So how do I diagnose this? Well, a good programmer would know
+to go back to their terminal window,
+57:30 go specifically to the
+one that's running Flask. And here we have another Jinja
+exception, template syntax error.
+57:38 Expected token end of
+statement block, got string. Now where is that?
+57:43 Let's go back into my layout.html. And this looks correct.
+57:48 Let me go back into index.html. Ah. Super subtle.
+57:54 I did something dumb. Can anyone spot the
+mistake before I reveal?
+58:01 Anyone see it? Very subtle. And I think, yes, we have
+someone pointing it out.
+58:08 I stupidly forgot my double quotes. So that's all. And that's why it was seeing a
+string or a str instead of the tags,
+58:14 as it expected. So subtle, and I was holding
+my breath that I was actually going to be able to solve
+that in front of everyone. But the solution was clearly--
+or the hint to the solution
+58:22 was clearly in my terminal window. So now let's hide my terminal window, go
+back to my other tab, cross my fingers,
+58:27 which maybe I forgot to do
+before which is the problem. Reload. There we go. Index.html is working, and if I type in
+my name and hit Enter or click Greet,
+58:35 now the whole thing is working again. But more importantly,
+if I View Page Source, notice that I indeed see that
+the same template has been used,
+58:44 the same blueprint, if
+you will, for this page, as well as, if we go look at
+the other, all of this stuff
+58:50 is common to these files. Now as an aside, once you're
+in the browser viewing the output from the server,
+it's OK if not everything
+58:58 is pretty printed perfectly. What matters when it comes to
+style with web programming, as with programming in general,
+is what you and other developers
+59:05 see on the server. The browser is perfectly OK with
+there being less or more whitespace just because it was all
+dynamically generated.
+59:12 But indeed, if I go back now not just
+to hello, not just to my greet route, but this one and View
+Page Source, you'll
+59:19 see that what's been
+generated by the server is indeed almost the
+same up until a point.
+59:26 All right. So up until now, we've
+only been using HTTP get requests, whereby any user
+input, whether it's from the form
+59:33 or manually typed in, is indeed
+being sent from browser to server via the URL itself. But it turns out there are other
+methods that we can use besides get.
+59:41 Recall that there's also post. And post treats your data little
+more privately in the sense that it still kind of puts it
+into that virtual envelope,
+59:48 but it shoves it down deeper such that
+it doesn't appear in the user's URL bar. This, of course, is compelling if it's
+a password, credit card, or anything
+59:56 personal or private. So how can we switch our own
+application, for instance, from using get to using post instead?
+60:03 Well, let me propose that we
+go back first to index.html, because it's in index.html
+that we explicitly
+60:10 specified a method of get before. So it's very easy in
+HTML to change the method
+60:15 that this form is going
+to use from get to post. Now weirdly, again, in HTML you
+should lowercase get and post
+60:21 even though when you see them
+inside the actual virtual envelope or in your developer
+tools, it's capital,
+60:27 it's an uppercase GET
+and an uppercase POST. But that said, let's
+go ahead and see what happens when I make that simple change
+from get to post in my form alone.
+60:35 Because I've changed my HTML,
+I'm going to reload the page just to make sure I have the latest
+HTML in my browser's memory.
+60:42 I'm going to type my name as before
+and I'm going to click Greet. And notice this time that the
+URL is not going to display name
+60:49 equals David, because I've
+switched from get to post. Enter. But even though I'm ending up at /greet
+and I'm not seeing question mark name
+60:58 equals David. The method is not allowed. This is a weird 405 error. Now why is that?
+61:04 Well, it turns out if I go
+into app.py, by default, when you create a route using Flask as
+in line 6 or in line 11, by default,
+61:14 only get is going to be supported. But if you read the documentation
+or follow along here, you can tell Flask what additional
+methods, if any, to actually support.
+61:23 So in fact, if I want this greet
+method to actually support not get, but instead post, what I can do
+is pass in a second argument, a named
+61:32 parameter, and say
+methods equals, and then pass in a Python list of
+methods that I want to support.
+61:39 If I only want to support post, I can
+literally just do quote, unquote post. If I want to support get and post, I
+can do both as a comma separated list
+61:47 inside of this Python list. Because again, from week six,
+recall that square brackets imply that this is indeed a Python list.
+61:53 But for now, I'm fine
+with just supporting post. And so I just pass in, as the value of
+methods, a list with one value quote,
+62:02 unquote POST in all caps. All right. Let's now go back to my browser tab. Let's go back to the form.
+62:08 Let me type in my name again,
+crossing my fingers, and greet. And now, ugh, so close.
+62:14 The error is gone, but
+it's not greeting me. It's using that default
+value, hello comma world.
+62:21 Now, this makes sense at a
+glance because clearly there's no parameter being passed into the URL. But my code, it turns out, was
+assuming that if there were a parameter
+62:30 it would come in via get, not via post. And this is among the weirder
+design decisions in Flask.
+62:36 But whereas get parameters are
+stored in request.args, as we saw,
+62:42 a dictionary that gives
+you all of those key value pairs from the URL, post
+requests' key value pairs
+62:49 are stored in Flask using request.form. So it makes sense that
+they come from the form,
+62:55 but it's a little ambiguous at least to
+me why we say args here and form here. You just kind of have to
+memorize it or look it up.
+63:01 Request.args is for get. Request.form is for post. The implication then is if
+I go back to VS Code here,
+63:07 it's a pretty simple change. I just have to change
+request.args to request.form so I look in the right place
+for that key value pair.
+63:15 Let me go back to my other
+browser tab, click reload. Noticing that, the browser
+is now going to caution me,
+63:22 are you sure you want
+to resubmit this form? And that's useful because you
+don't want to accidentally pay
+63:27 for something twice on a website by
+submitting your credit card twice. You don't want to type in your
+password maybe more times than needed.
+63:33 And so in this-- or send your
+password more times than needed. So the browser is cautioning me, because
+I'm using post underneath the hood,
+63:40 do I actually want to
+resubmit this form? So yes, in this case. So I'm going to click Continue.
+63:45 And now I do see hello
+comma David, because it's been passed in underneath
+the hood, if you
+63:51 will, inside more deeply that envelope. And we can actually see this. Let's do one other thing here. Let me go back to the form.
+63:57 Let me right click or
+Control-click on my viewport and click Inspect to open
+up the developer tools.
+64:02 Let me go under Network here,
+and let's go ahead and do this. Let me go ahead and type in
+my name and then click Greet.
+64:09 And like last week when we were
+poking around all of the HTTP requests going back and forth
+from browser to server,
+64:15 let's see what the browser
+is actually sending. When I click Greet, I indeed see that
+the URL at the top changed to /greet,
+64:22 but there's no mention of David or name. But if I go down here into my developer
+tools and click on that HTTP request
+64:29 in my log, I can now
+scroll down and see, ah, the request method was apparently post.
+64:36 And if I scroll down further,
+I'll see not only the response, but if I keep going, I'll also see the
+request headers, which are sent inside
+64:44 of that envelope as well. But what I really care about
+in this case is payload.
+64:49 If I click on payload,
+this is a term of art that means what inputs are you
+sending from browser to server.
+64:55 You'll see a list here of all of
+the form data, name colon David. So you can actually see in
+your browser's developer
+65:02 tools exactly what was sent. And you can do this on any website. The next time you log in to a
+website, buy something online,
+65:08 you can poke around the Network
+tab of your developer tools and see all of the key value pairs. And frankly, you're going to
+probably see many more values
+65:16 than you might have expected
+because browsers, of course, have lots and lots of features. More than we're implementing
+in these simple examples,
+65:22 but it's just key value
+pairs again and again. All right. So we've solved a bunch of problems now.
+65:29 In fact, we've even
+added a layer of privacy, if you will, insofar as the
+data is still being sent, yes. But it's not showing
+up in the URL, which
+65:35 means it's not going to end up in my
+autocomplete, which means it's not going to end up in my history in the same
+way, which is indeed great for anything
+65:41 private, like credit cards or the like. But what more can we do here? Well, as we've often
+done in the past, let
+65:46 me see if we can tighten
+up our code a little bit. For instance, could
+we use a single route
+65:52 and still implement
+the same application? Now, this might not be
+desirable, so consider this
+65:57 an example of how you could collapse
+some of your code into fewer lines. But this isn't necessarily to say
+it's the right way or the only way
+66:04 to do things. But I do think it's
+compelling in some cases. As you'll see, for
+instance, in the problem set for this coming week, wherein
+we adopt a similar paradigm
+66:12 to try to keep the code
+a little bit simpler. So let me go back into app.py
+and let me propose to do this.
+66:18 Let's just have one
+route slash that does everything, including
+presenting the form and also displaying hello so-and-so.
+66:25 But let's support both get
+and post for this route. So I'm going to say methods equals,
+and then in a Python list quote,
+66:33 unquote GET comma quote, unquote
+POST, overriding the default, which, again, is just get.
+66:39 Then inside of this function,
+what I'm going to do is this. If request.method equals equals
+POST, then let's do this.
+66:49 Else, let's do this. In other words, if the request
+coming in happens to be post--
+66:55 and this is just another special
+variable inside of the request object which we imported earlier.
+67:02 Turns out there's another variable,
+if you will, called method, and you can check what is the
+method that came from the browser.
+67:08 Is it get, is it post,
+is it something else too? And if it is, let's
+go ahead and do this. Else if it's not, it's presumably
+get, so let's just render
+67:16 the default template. So what can I now do? I can grab this code
+from greet and delete it.
+67:23 Let me delete the greet
+function entirely. And I think what I can do is just move
+all of this functionality in here.
+67:29 Let me fix my indentation. But now, if the request
+method is post, then I'm
+67:35 going to do exactly what we did before. Else, I'm going to display
+the form to the user.
+67:41 So what more do I need to change? Let me go back to my index.html,
+wherein previously I had an action value
+67:48 of /greet. But this is no longer applicable. There is no more greet route. I just want to submit to slash.
+67:54 And frankly, at this point, I
+can also just get rid of action altogether because the browser,
+by default, will assume,
+68:00 you want to submit to the
+same URL from whence you came. But to be explicit, I'll go
+ahead and leave it for now.
+68:06 Let me go back now to my
+browser tab and go back. Let me reload to get the
+very latest of everything.
+68:12 Let me go ahead and type in David. And watch now that the URL does
+not, in fact, change to /greet.
+68:18 But I am, in fact, greeted. There's no /greet anymore,
+but it was, in fact,
+68:24 sent from browser to server using
+post and my web application now, using just a single route, is handling
+both methods now in this case.
+68:36 All right? So we've tightened things up, which
+might be useful for larger web applications wherein we might
+want to not have as many functions
+68:45 and complexity in our app.py. But what more can we now do? Well, it turns out Jinja, the
+templating library that Flask uses,
+68:53 has its own documentation page. And frankly, it's
+super long, but there's some fairly simple features documented
+therein, and I'll show us at least one
+69:01 of them here. So in Jinja, thus far, it
+allows us to place values inside
+69:06 of those curly braces. It also allows us to do that
+block feature, which is really templating by definition, to grab
+the contents of layout.html and plug
+69:15 in this particular
+templates block of code. But we can do other things,
+conditionally, even, in Jinja as well.
+69:23 So for instance, suppose I want an
+app.py to just get rid of this logic
+69:29 whereby I am not only
+getting the form from-- the value from the form, I'm also
+passing in a default value in app.py.
+69:37 Suppose that I want to relegate these
+default values to the templates, because after all, if the templates
+are what the humans actually see,
+69:45 it's pretty reasonable, then, for
+whoever's creating the templates, put the default values closest
+to the user in those templates.
+69:53 So this is to say, let me just get rid
+of this default value for name of quote,
+69:58 unquote world. And just no matter what is in
+the form, go ahead and just pass it into the template.
+70:04 And frankly, as before, we don't
+strictly need this variable at all. I can get rid of this whole line
+nine and just replace name equals
+70:11 and then the return
+value of request.form.get quote, unquote name in
+order to get that value.
+70:17 Same thing, just getting rid
+of a variable, if nothing else. But I have gotten rid of two, the
+default value, quote, unquote world.
+70:24 How can I restore that? Well, here's what's cool about Jinja
+and templating techniques in general with web programming.
+70:30 If I go back to greet.html, I don't want
+to just blindly say hello comma name, because name might be blank.
+70:37 It might not have an actual value. But it turns out that's OK. What I'm going to do
+here is the following.
+70:42 Instead of just saying hello,
+I'm going to go ahead and say hello comma, and then, if there is
+a name value, then let's go ahead
+70:51 and spit it out inside of
+these double curly braces. Else if there is no name
+value, then let's go ahead
+70:58 and spit out the word world. And then, as before, use end and the
+same name as the first tag, endif.
+71:05 So we haven't seen the syntax yet,
+but it's clearly similar in spirit to the block syntax. And this is Jinja's syntax for
+doing something conditionally.
+71:15 If name has a value that's not
+empty, like quote, unquote, then go ahead and just
+display the name right here.
+71:22 Else if it is a blank
+value or absent altogether, go ahead and spit out world instead.
+71:28 And that's it for the if conditional. Now, notice I've used several lines
+of code here, which seems weird
+71:35 because I don't want
+it to say hello comma and then the person's
+name on the next line. But remember how HTML works.
+71:40 It's going to ignore anything
+more than a single whitespace. So even though the name or the
+word world are on different lines,
+71:48 all of that whitespace is going to
+get collapsed into a single space visually for the user in the browser.
+71:53 So if I did this right, let's go back
+over to my tab here and let's go ahead and hit reload on the page itself by
+clicking on the URL and hitting Enter.
+72:03 I didn't want to hit Command-R
+or Control-R because I don't want to resubmit the form. I want to reload the page, and
+the best way to do that would be,
+72:09 indeed, to just go ahead and
+click on the URL and hit Enter. Let me go ahead and type my name
+in and click Greet, and hopefully--
+72:17 there I am again. Hello comma David. If I view page source here,
+notice you see the template,
+72:23 and you even see that
+my name is on a new line because that's where it
+was in the conditional. But the browser doesn't care.
+72:28 It's consolidating all of that multiple
+whitespace into a single whitespace instead.
+72:34 So that's a lot of examples
+just to say hello world. But the overarching
+goal here thus far has
+72:39 been to implement, really, the
+simplest of web applications that takes user input,
+produces dynamically HTML
+72:46 that corresponds to that
+input, effectively implementing our very first back end. Of course, all of these examples
+thus far really just say hello world
+72:54 to the user. So let's go ahead, though, take a
+break, and when we come back in, say--
+72:59 let's say five minutes, we will see
+how you could implement your very own website for a freshman
+intramural sports program,
+73:07 just as I did, like, 25 years
+ago by teaching myself web programming after having taken CS50.
+73:13 Unfortunately, the internet back in
+the late '90s looked quite like this. I don't know to this day why I
+used a repeating background image,
+73:20 but that's what the web looked like. But we'll see ultimately how you
+can implement something like this when we return in five minutes.
+73:26 See you soon. All right. We are back. So back in 1997, the way
+that Harvard undergraduates
+73:33 would register for freshman intramural
+sports, otherwise known as Frosh IMs, was they would pick up a piece of paper.
+73:39 They would write down their name on it. They would check off a
+box for any of the sports that they wanted to participate in.
+73:44 And then they would walk
+across Harvard Yard, open up one of the dormitory
+doors, and slide the sheet of paper
+73:50 under the door of what's known as
+a proctor, a resident advisor who was running the sports that year.
+73:55 Suffice it to say there was an
+opportunity to move all of this online, even though the internet itself
+was still rather in its infancy,
+74:02 or at least as we now know it. However, I had already
+taken CS50 in fall of 1996.
+74:08 This was probably the
+spring or fall thereafter. And I decided, even
+though CS50 at the time didn't even introduce
+people to web programming,
+74:15 I actually tried to learn
+a bit of it on my own, and I undoubtedly did not do things very
+well, and certainly not the best way
+74:22 possible. But at the time, I taught myself
+a language called Perl, which was very popular for web programming.
+74:27 Nowadays we have languages like Python
+and PHP and Java and Ruby and JavaScript
+74:32 and many others as well. But the point is that even after just
+CS50 and maybe one other programming
+74:37 course, you really should have
+this solid foundation via which to teach yourself new languages,
+much like the trajectory
+74:43 we've had you on from Scratch to
+C to Python to SQL to JavaScript,
+74:49 and now bringing it all together
+in the context of web programming. So let's, without the
+ugliness, recreate a little bit
+74:56 of what I built way back
+when to allow students to register for frosh IMs via web
+browser instead of a piece of paper.
+75:03 Let me flip over here to VS Code,
+where, in advance of this demonstration, I prepared a few files based
+on the hello demos from before.
+75:11 In particular, in a frosh IMs
+directory, which I created anew, I have the following files already.
+75:18 App.py, requirements.txt, and templates. And inside of templates, I have
+index.html and layout.html.
+75:26 And let me go ahead and
+hide my terminal window. You can see in the latter
+the following layout, which is identical to what we used a
+moment ago for our hello examples,
+75:33 but I've changed the title
+from hello to froshims. The index template, meanwhile,
+extends that layout or equivalently
+75:41 inherits from that layout. But I haven't put any body
+inside of this block here. I deleted what we had
+before just so I don't have
+75:48 to type as much to get us started now. And then in app.py, similarly, I copied
+the first couple of lines of code
+75:54 but deleted all of my routes
+just so that I, again, don't have to type all of those from scratch.
+75:59 But let's go ahead now and implement
+the simplest of registration forms for some number of sports.
+76:05 And what I'm going to
+do is the following. I'm going to go over to
+my index.html, which, again, extends already layout.html.
+76:12 And let's begin to put
+together a registration form. I want this page to very
+clearly be about registration.
+76:17 So I'm going to use an h1 tag and
+I'll say register, for instance. And then below that I'm going
+to have the start of a form tag,
+76:24 the action of which I could make
+anything, including slash itself. But let's keep things clear and let's
+have the action be /register for this
+76:33 one. And the method for this one
+will be quote, unquote post. Inside of this form tag, notice
+now I'm going to have an input.
+76:40 I'm going to turn off
+autocomplete, as before. I'm going to turn on
+autofocus for that input.
+76:46 And I'm going to specify
+that the name of this input is itself name, because this is going
+to be for the students' name who's
+76:52 registering. The placeholder value I'm going
+to use is capitalized name to make clear in gray text
+what they should type in.
+76:58 And the type of this,
+just to be explicit, is indeed going to be a text box. Now I'm going to introduce
+another form element
+77:05 that you see all over
+the place on the web, even if we haven't necessarily
+had occasion to use it ourselves.
+77:10 I'm going to have a select menu,
+which is equivalent to a dropdown menu in a browser. And the name for this
+menu is going to be sport,
+77:17 because I want this dropdown
+menu to be a list of sports that the student can select. Inside of that, let's come
+up with three sports for now.
+77:25 Option value equals basketball. And then inside of the open
+tag and close tag for option,
+77:32 I'm going to just repeat myself. Basketball. Then below that I'm going
+to have another option
+77:38 whose value is going to be soccer,
+American football in this case. Then I'm going to type soccer inside
+of the open tag and close tag.
+77:45 And then the third and final
+option will have a value of quote, unquote ultimate frisbee.
+77:50 And then inside of that open and close
+tag, I'll say again ultimate frisbee.
+77:55 So this clearly evinces some redundancy. However, what this reveals is that with
+a select menu, much like with links,
+78:03 with the anchor tag, you can
+have the human see one thing, but the value actually used is another.
+78:09 Even though for simplicity, I'm
+keeping them exactly the same. Now let me go ahead and go into
+my other tab, which, up until now,
+78:17 has been saying hello
+David and hello world. But I haven't stopped running Flask. And so if I keep doing this and
+reload, if I keep visiting this URL,
+78:28 I'm going to keep seeing that form. And if I type in David, I'm going to
+click Greet, because my previous web application is still running.
+78:34 So I can't just start
+making a new web application and expect that this browser
+tab is going to work, even though it's still port 5000.
+78:39 Let me go back to VS Code,
+open my terminal window, go to my very first terminal, wherein
+we see all of the logs from Flask
+78:46 that have been running. And in fact, among the
+error messages there is actually some diagnostically
+useful output sometimes.
+78:52 What Flask is showing you
+in this terminal window, even though I've hidden
+it most of the time, is a log that is a recording
+of all of the get requests
+79:01 and all of the post requests that
+came from a browser to the server. And you're seeing dates and times, the
+IP address and so forth, some of which
+79:09 is going to be not very
+useful in this environment because we're using a
+codespace instead of putting
+79:14 this website on the actual web publicly. Everything is private now to me, but
+there is some diagnostically useful
+79:19 information there. For instance, this get request at the
+top returned a status code of 200,
+79:25 as did every post and get below that. But this, too, is, again,
+where we'll see any errors. And if we start introducing
+SQL before long,
+79:32 we'll even see copies of
+our SQL queries so that we can diagnose any problems in those.
+79:38 But this is all to say that I don't want
+Flask to be running in my hello folder anymore, so I'm going to hit
+Control-C to interrupt that.
+79:44 I'm going to hit cd to get
+back to my default folder. I'm going to type cd froshims now,
+which my other terminal was already in.
+79:52 And indeed, if I type ls in
+here, I see those same files. But now I'll clear my
+terminal, and I'm going to rerun flask run in
+my froshims folder.
+80:00 Turns out that's going to open up the
+same port 5000 by default. So in fact,
+80:06 I can just directly go back to this
+tab, which previously was my hello app. And just by reloading that URL,
+Enter, now I see, huh, not found.
+80:15 404. So I've clearly broken something. But why is that? Well, I don't have any routes
+in this froshims application
+80:22 yet because I started
+almost from scratch. So let me go ahead and close my terminal
+window for now and go back to app.py,
+80:29 and let's just start serving up
+that default template quite simply. Let's do app.route as
+before, quote, unquote slash.
+80:36 Let's create a function
+as before called index, though we could call it
+technically anything we want. And let's have this
+function do very little.
+80:43 Let's just return render_template
+passing in index.html. Now for this new web
+application, that /route exists.
+80:51 Which means if I go
+back to my other tab, hopefully it will be
+found when I click reload.
+80:57 And sure enough, there is my
+registration form with a name field, and the cursor is autofocused inside
+of it with the cursor blinking.
+81:03 And there is my select menu. Indeed, if I click on it,
+I see basketball, soccer, and ultimate frisbee.
+81:09 So this form doesn't
+really do anything yet, and frankly, I'm not
+sure I love the fact that basketball is the implied sport.
+81:17 It would be nice to maybe see a
+default value or a blank value. That's just an aesthetic detail. If I go back to VS Code
+here, go back into index,
+81:24 there's a few ways I could fix this. I could do, for instance, option value
+equals quote, unquote maybe nothing,
+81:31 because it's a default value. And I could just say
+something like sport to be sort of a title for that dropdown.
+81:36 Let me go back to my browser, reload. And yeah, sure enough, I now
+have sports as the top option.
+81:43 But this is a little weird
+because I don't want the user to be able to register for sport. I don't really want it to
+be a selectable option.
+81:50 So it turns out there's
+some other attributes we can play with in this context. And in fact, if we want to
+display a title like that, sport,
+81:57 we can actually specify that
+the option itself is disabled. But it is selected by default. So these
+are two other HTML attributes that you
+82:06 can use with the option tag in HTML. They don't need values, so they don't
+need equal signs or quote marks.
+82:12 You can just say disabled and selected. But now when I go back to
+this tab and reload once more,
+82:17 notice that it indeed still
+says sport, but it's grayed out. So I can't actually submit that value.
+82:23 I can only choose from
+these three things here. And using libraries
+like bootstrap for CSS,
+82:30 you can style these things even
+more beautifully than this, but this is perhaps the
+simplest way to at least have a title for that there select menu.
+82:37 All right. I need one more thing in this form. Let me, below my select menu here,
+let's do a button, the type of which
+82:43 is submit. And then that's going to be a
+register button now instead of greet. So if now I go back here
+and reload one more time,
+82:49 now I have the name, the sport dropdown,
+and the registration button as well. But we're not yet in a position to
+do anything with that information
+82:57 until I think we
+implement another route. So let me go back to VS Code.
+83:02 Let me open up app.py. And in addition to my index route,
+which is just serving up that web page,
+83:08 let's create another route,
+app.route, quote, unquote register. This one, just for privacy reasons,
+is going to use post instead of get.
+83:17 So I'm going to say, quote, unquote
+post inside of a Python list there. Let's define another
+function called register.
+83:24 Though again, it can be anything I want,
+but I like to name them exactly the same as the routes themselves to
+keep things straightforward.
+83:30 And then let's go ahead and do this. Let's go ahead and check whether
+the user has registered or not,
+83:37 and then tell them whether we're
+successful or there's a failure. So for now, let's actually--
+83:44 well, let's do this. How about we return
+this to keep it simple? Return render_template, and
+let's pretend like a template
+83:49 exists for success.html. This suggests that I should probably
+have a template called success dot HTML,
+83:56 so let's whip one up really quickly. And in success.html, let me do this.
+84:01 First, let me open my terminal and
+get to a prompt so I can type code.
+84:06 Actually, first, cd templates to
+make sure it's in the right place. Then code, success.html.
+84:13 In this file, I do need
+a bit of boilerplate. So extends quote, unquote layout.html,
+with the close quote this time.
+84:21 Then block body over here. Then I'll do an end bloody body.
+84:27 Oh, so close. Block body. Then let's endblock down here.
+84:32 And inside of here, let's
+just say something successful like you are registered.
+84:37 Well, not really, because we haven't
+actually done the hard part yet. Let me go back now to
+app.py just to confirm that,
+84:45 OK, when this route is called,
+no matter what for the moment, we will render success.html.
+84:51 So let's try it. Let's go back to the
+browser here, type in David. Let's choose, say, basketball for
+the sport, and click Register.
+84:57 And ugh, internal server error
+500, which we know is my fault. So let's go back to VS Code.
+85:04 Let us open up my terminal window. Let's go to the first one
+that's running flask run. And ugh, I did it again somehow.
+85:11 A template syntax error,
+unexpected curly brace. All right, well, where could that be?
+85:16 I did it again, but this time
+with a different character. OK. So I was so focused on adding
+the double quote, I did not add,
+85:23 in fact, the curly.
+85:29 I was so focused on
+adding the double quote, I did not add the second percent sign. So now let's go back to
+my internal server error.
+85:37 Click reload. Resubmit the form that I just submitted. And now I'm told you are registered.
+85:43 Well, not really. That's because the route's not doing
+anything intellectually interesting yet. It's just rendering
+that template blindly.
+85:49 All right, well, let's
+improve upon that. I think what we should require
+is that to register for a sport,
+85:55 the student should have to provide
+a name and have to provide a sport. Unfortunately, that is
+not a current requirement.
+86:00 For instance, if I go back to the
+form and I don't type in a name and I don't type in a
+sport and click Register,
+86:06 I'm still told you are registered. To be fair, I'm told, well, not really. So let's make clear that this is a bug.
+86:12 Let's get rid of the parenthetical. Let's go back to the form. Let's not type a name. Let's not choose a sport
+and click Register.
+86:19 Now it's clearly buggy because
+I am not in fact registered. I've done nothing with this information. All right. Let's go back to VS Code here.
+86:26 Let's go back to app.py. And let's express this idea
+of if there's not a name
+86:31 or there's not a sport, it is a failure. Do not let the user register. So let's try this.
+86:37 We can express this in a few
+different ways in Python. I'm going to propose to do it like this. If there is not a value for
+request.form.get quote, unquote name,
+86:47 or there is not a value for
+request.form.get quote, unquote sport,
+86:52 then go ahead and return render_template
+quote, unquote failure.html.
+86:60 Else if there is a value for
+name and for sport, great. Let's go ahead and render
+template success.html.
+87:08 Now I can tighten this up slightly. Strictly speaking, if I'm conditionally
+returning a template in line 14,
+87:15 I don't really need the else. So just to type this out, I'm
+going to remove that altogether. But this is just the same kind of logic
+we could have done in C or in Python
+87:26 before we introduced
+Flask or in JavaScript. This is equivalent to an if else
+because returning, of course,
+87:31 immediately returns from
+this register function, so you don't strictly need the else. I'm doing this just to tighten up the
+code, but it's not logically necessary.
+87:38 Of course, failure.html
+does not yet exist, so let me save a couple of keystrokes here. Let me copy the contents
+of success.html.
+87:46 Let me go into my terminal, create
+another file called failure.html.
+87:51 I'm going to go ahead, just
+to save a moment in class to Copy-Paste that there. But I'm going to say in this
+template, you are not registered.
+87:59 Now, granted, I'm copying and pasting,
+which almost always is a bad thing. But when it comes to using templates
+in Flask using Jinja here you,
+88:07 do still need lines one, three,
+and seven to make this work. So those are necessarily
+Copy-Pasteable or retypeable.
+88:14 But now I think we have two scenarios. Let me now go back to the form. Let me go ahead and type in my name
+and choose my sport and click Register,
+88:23 and we're still good. We haven't done anything with the data,
+but at least the human cooperated. But if I go back now, reload the page,
+don't type a name, don't choose a sport,
+88:31 and click Register. Aha. Now we're at least telling the
+user they are not registered. All right, so we're making progress.
+88:37 We are conditionally checking
+whether or not the user has actually registered for a sport.
+88:43 Let's now make sure
+that they can't really hack us or do something
+malicious, because right now,
+88:51 if they type in their name and they
+type in a sport, we will register them, or as we say.
+88:56 But recall that anything client
+side isn't necessarily robust.
+89:01 In fact, let me go back to index.html
+and let me actually do this. Let me add the required
+attribute here and let
+89:09 me add the required attribute here. You don't need to give it a value
+within an equal sign and quote unquote.
+89:15 Let me go back to my
+browser and click reload. And now let me try to click on Register
+without giving a name or a sport.
+89:22 Unfortunately, the browser prevents me--
+or fortunately, the browser prevents me. So let me type in David.
+89:28 Let me not choose a sport. Register. OK. So we seem to have error checking now,
+preventing the human from submitting
+89:34 this form without valid data. But not quite, because indeed, all
+of this is happening client side.
+89:40 If I View Source in my browser,
+I can see the required attribute
+89:45 at the end of the input tag and
+at the end of the select tag here. But recall that this is
+my copy of that HTML.
+89:53 And if I want to be malicious, I
+could Control-click or Command-click on my viewport and choose Inspect
+to open my developer tools.
+89:60 Recall from last time, I can
+look at the elements of this page pretty printed like this.
+90:05 And notice here-- let me shrink
+the CSS part of this window. Notice that I can actually
+edit this HTML if I want.
+90:12 For instance, I can click on required,
+click Delete, and then save it. And now the required attribute is gone.
+90:21 I can do the same here on the
+select field and get rid of that, and now it's gone. And now I can type in David, but I
+can, for instance, skip the sport
+90:29 and click Register. And it doesn't stop me anymore
+from doing that because I've
+90:36 disabled client side validation. Moreover, things can
+get even more malicious. Suppose that in a
+protest vote I don't want
+90:43 to register for basketball or American
+football, a.k.a. soccer, or Frisbee. Like, I want to register
+for actual football.
+90:51 So in the European sense, for instance. So let me go into my attributes here.
+90:57 Let me change the value
+of soccer to football. Let me change what the user
+sees from soccer to football.
+91:04 And now let me go ahead and save that. Now, let me confirm that
+I've still got my name.
+91:10 But notice now I can register
+for football instead of soccer, click register, and now I'm registered
+for a sport that at least semantically
+91:18 is not even supported in
+the web application itself. And frankly, by that logic, I
+could have registered for any sport
+91:23 that I happen to type in
+into the web page's HTML. Which is to say we need
+server side validation.
+91:29 It is fine to use client
+side validation as by adding the required
+attribute in places if you just want to give
+the user immediate feedback
+91:36 and prevent good users from doing
+something incorrect or foolishly. You can't prevent the
+adversaries, the malicious users
+91:44 from messing around with your form
+using client side techniques alone.
+91:49 So let's go into VS Code again and
+let's this time open up app.py.
+91:55 And in app.py, let's go ahead and make
+a canonical global variable containing all of the sports that are
+officially offered this semester.
+92:03 So let me create a variable. And I'll call it sports in all caps. Even though Python does
+not have constants, per se,
+92:09 still conventional to capitalize the
+variable, just to make clear that you shouldn't change this and it's global.
+92:14 Let me go ahead and set this equal
+to the following Python list. This list is going to contain
+basketball, quote, unquote, soccer,
+92:25 quote, unquote, and ultimate
+frisbee here as well.
+92:31 It's often conventional
+to have a trailing comma even after the last element,
+just to make it easier to Copy-Paste and
+reorder things and code,
+92:38 even though logically it's
+not, in fact, necessary. What am I going to go
+ahead and do next now? Well, if I have now this variable
+containing all of these sports,
+92:46 I don't actually need to hard
+code them into my template. So I'm actually going to do this. Let me pass in a placeholder called
+sports into this index template
+92:55 and set it equal to that
+global variable's value. And now in index.html, let
+me go ahead and, instead
+93:03 of enumerating all of
+these sports manually, let's use another
+feature of Jinja, which is going to make our life
+easier and much more dynamic,
+93:11 whereby I can use a
+Jinja for loop instead. So let me go into my select tag
+here below that disabled option.
+93:19 Let me use open curly brace
+percent sign for sports in sports.
+93:24 So notice this is Jinja syntax, per the
+curly brace and per the percent signs. But it's very Python-like.
+93:31 It's very similar to the exact
+syntax you would use in Python, but there's no colon, and strictly
+speaking, we're inside of the template
+93:37 here. Below that, let me just
+proactively say endfor. And it's a little weird, but again,
+this is how Jinja does things.
+93:44 You end the name of the Jinja tag that
+you began per its documentation to.
+93:49 And then inside of this loop, let's
+just generate one option at a time. So open bracket, option
+value equals quote, unquote.
+93:55 And this is where templating
+gets really powerful. Curly brace, curly brace, sport,
+curly brace, curly brace, close quote.
+94:02 And then so that the
+human sees the same, let's do it again out there as well. But technically, those could
+be different values from what
+94:08 the human sees and the browser sends. So now we don't have three
+sports here manually typed in.
+94:14 We're doing this
+dynamically because we're passing in a placeholder called sports. But instead of just spitting out
+its value, we're using a for loop
+94:21 in Jinja to iterate over that
+loop and generate one, two, three options programmatically instead.
+94:28 So here is the programming
+in web programming. We are generating all the more
+HTML now using some logic.
+94:35 All right. Let's now go back to my other
+tab, go back to the original page, and click reload.
+94:41 I screwed up somewhere else. All right, so let's go back to VS Code. Let's open up my terminal window.
+94:46 Let's click on the first
+terminal and, oh, name error. Sport is not defined. Did you mean sports?
+94:52 So now Python is very graciously
+trying to be nice to me here.
+94:57 Yes, I did mean that somewhere. So let's go back to app.py. Stupid mistake.
+95:02 Sports equals sports. So now if I go back to my browser, click
+on reload, now I have another error.
+95:10 So we go back to VS Code,
+reopen the terminal. Now I'm just an idiot.
+95:16 So it's not sports with two
+S's, so that was a misclick. Let's delete that and let me
+stop touching the keyboard.
+95:21 Let me go back to the browser. Let me reload a third time. And there we have it.
+95:27 Very impressive, I know. So now I've got my-- thank
+you for the applause. Now we've got the name field, the sport
+field, all of which are still there,
+95:35 but they were dynamically generated
+based on the value of that variable. So what's valuable about that technique?
+95:40 Well, one, I'm not manually typing
+out all of these options anymore. And think about the extreme. If it's not three sports, but 30
+sports or 300 sports or whatever,
+95:49 you don't want to manually
+type all of that out. You probably just want to have a
+simple Python list of those values.
+95:54 Or heck, we could even put it in a
+text file or a database if we wanted. But moreover, now that the server
+knows what the valid sports are,
+96:02 we don't have to just naively
+check if there is a value for sport as we previously did.
+96:09 I could probably do
+something logically now where I make sure that the sport we
+did get is one of the supported values.
+96:16 So now we have server
+side validation as well. So how can we do this?
+96:21 Well, relatively straightforward. If we have this variable called
+sports, capital S at the end,
+96:28 I can instead do something like this. I can change my logic to say if
+there is not a value for name
+96:36 or the current sport is
+not in the sports variable,
+96:42 then consider it a failure. It's a very nice Pythonic way
+to let Python essentially search
+96:48 through the whole list of valid
+sports, checking for the value that the human actually sent. And if it's not there, we are going
+to return the failure template.
+96:56 So now if I go back to
+froshims, let's reload to get the fresh copy of the form. Let's type in David.
+97:01 Let's go ahead and not choose
+a sport and click Register. Ugh, I still have the
+client side validation.
+97:08 That's fine, but let me go ahead
+and hack that by removing it. Let me open up Inspect.
+97:14 Let me go under elements
+inside of this form. Let's get rid of the requirement for
+the name, even though I gave one.
+97:20 Let's get rid of the requirement
+for the sport, even though-- so that I don't have to give one. Close my developer tools.
+97:26 Notice I still have not chosen a sport. Click Register. It goes through, but we catch
+it and we tell the user, no, you
+97:34 are not registered. Moreover, watch this. Let me go back to my developer tools. Let me go into the form again.
+97:41 Let me not only delete the required
+aspect of this from both of those tags. Let's also change soccer
+to football, which,
+97:49 while technically the same
+sport across countries, is not the same string
+that we want in the server.
+97:55 So let's change soccer to football
+here and soccer to football here. And now close my developer
+tools, type in my name,
+98:01 but choose an invalid sport that
+the server does not know about. Click register.
+98:07 Still catches it, because now we
+are doing server side validation. And I cannot express this enough.
+98:12 If you proceed after CS50 or even for
+your final project, let alone problem set nine, to implement
+validation of user input,
+98:20 you should never, ever trust what
+the human themselves are sending and you should never rely on
+client side validation alone.
+98:27 It's all too easy for
+someone who's just taken a single introductory course to disable
+all of your client side validation.
+98:34 So if you value the safety of your
+server, the integrity of your data, always check server
+side for valid values.
+98:43 All right. So what more can we do to
+improve this kind of application?
+98:49 Well, we can tinker with the
+user interface, a little bit, if only so that you've seen different
+UI, user interface mechanisms.
+98:55 Let me go back to the form here, and
+indeed we have now this dropdown menu, otherwise known as a select menu.
+98:60 Well, there's other ways we
+could get input from the user. In fact, let me go
+back to my index.html.
+99:06 And we don't have to strictly
+use, for instance, a select menu. We can actually use input tags to
+achieve what are called radio buttons,
+99:14 those little circular things
+that you can choose among, sort of like old timey car radios
+where you would push one button
+99:20 and it would pop another out. You push in that button and
+it pops another one out. Same thing with radio
+buttons in the web.
+99:25 They are mutually exclusive. You can choose one but not
+multiple radio buttons by design.
+99:31 So how can I do this? Well, in my index.html, let me go
+ahead and get rid of the select tag
+99:37 there and the select tag here. Let me go ahead and get
+rid of the disabled option.
+99:42 And then let me just go ahead and
+still iterate over all of the sports, but instead of spitting
+out an option tag which
+99:49 is only relevant for the
+select menu, let's go ahead and spit out an input tag whose name is
+quote, unquote sport, the type of which
+99:57 is no longer text but
+radio, the value of which is the current sport in this current
+iteration of the loop, quote, unquote.
+100:06 And then to the right of it, just so the
+human has something to look at, let's also repeat the name of the sport.
+100:11 So again here, we're
+making a distinction, just like with anchor tags
+for links, what the human sees and what the server sees.
+100:18 But they can be one and the same. Let me go back to my other tab. Let me go ahead and reload this,
+and my select menu will now
+100:24 be replaced with some pretty ugly
+but still functional radio buttons.
+100:30 Let me go ahead and zoom out
+so it all appears on one line. And now if I type in my
+name and I select something
+100:35 like basketball and click Register,
+everything else is the same, but I've changed the front
+end by changing the HTML.
+100:42 Of course, whether we're using
+select menus or radio buttons, we're still never actually
+telling the user why they're not
+100:47 registered in those cases
+where something goes wrong, where, for instance, they
+accidentally leave a field blank,
+100:52 or even maliciously, they
+try changing those fields. So how can we go about being
+a bit more informative?
+100:58 Well, let me go back to VS Code here. And inside of our register route,
+which is doing the validation,
+101:04 let's do a little more validation
+than we are at the moment. Let me propose this. Let's be a little more verbose
+with our error checking.
+101:10 And how about this? Let's first go ahead and grab the
+name that the user typed in, if any. So name equals request.form.get
+quote, unquote name.
+101:21 And then let's ask a question
+just like we did before, but with a shorter block of code. If not name, then go ahead
+and return render_template.
+101:30 But instead of just simplistically
+returning failure.html with no clarity as to
+what has gone wrong,
+101:36 let's return a different
+template, error.html. And let's pass in a specific
+error message to the template
+101:42 that the human will see
+that's somewhat informative. And in this case, I'll
+say aptly, missing name,
+101:48 quote, unquote, just so that
+there's more informative errors. Otherwise, let's go ahead and do this.
+101:54 Let's first get the sport from the
+user, from request.form.get quote, unquote sport.
+102:00 And then as before, if not
+sport, let's go ahead and return an error but this time with a message. Return render_template
+quote, unquote error.html.
+102:09 But the message this time
+will be missing sport. But there is something else
+that can go wrong here.
+102:14 If the sport the user typed in is not in
+our sport's global array or global list,
+102:21 then let's return render_template
+quote, unquote error.html. But the message this time
+will be invalid sport.
+102:29 Now, ideally, users should
+never see this latter message, at least because only if they tried
+to hack our HTML, so to speak,
+102:36 would they actually be able
+to submit an invalid sport. But for good measure, you
+should assume the worst and you should absolutely
+be handling this error
+102:43 even if you don't, strictly
+speaking, need a user friendly error message for those same adversaries.
+102:50 But otherwise, I think we can
+assume it's a success, as before. But we do need to create
+this here template.
+102:56 So let's do this. Let me go ahead and close success.html.
+103:01 Let me go ahead and open
+failure.html but now close it. And let me go ahead
+in my terminal window,
+103:06 create a new file, code of error.html,
+paste the contents of failure.html
+103:13 just so we have a starting point. But in error.html, let's actually
+have a more useful message.
+103:19 Instead of just saying
+you are not registered, let's instead say
+something like h1 error, to make clear that
+this is an error page,
+103:25 and then maybe put a paragraph of text
+below it, even though it's succinct, and plug in that message that
+we passed in via get template.
+103:33 OK. Let's now try to induce
+this here problem. Let's go back to index.html.
+103:39 Let's get rid of the
+required attributes so that I don't have to keep hacking my own HTML. But let's now go back to the tab with
+the web application, go back to the form
+103:48 itself, which in its
+most recent incarnation is indeed these radio buttons. And let me not type a
+name and not type a sport.
+103:54 Click Register in just a moment,
+at which point previously I saw you are not registered. Hopefully this time I'll
+see a more useful error.
+104:01 Indeed, missing name. It's not a very pretty page, but at
+least it's giving me some information. So let me go back and type in my name.
+104:07 Now let me click Register
+without choosing a sport. Aha. Missing sport. And if I did again hack my HTML, so to
+speak, by changing soccer to football,
+104:16 that too would show an error but
+invalid sport according to my logic. Now, just for fun we could
+make these error pages
+104:23 look a little more interesting. And in fact, what I'm
+going to go and do is this. Let me go back into VS Code.
+104:30 Let me go ahead and open up error.html,
+and below that informative error
+104:35 message, let's use an image tag. Let's specify that the
+source of this image tag is going to be that of a file,
+maybe a picture of a cat.
+104:43 However, as I hinted earlier, when
+we have static files like images
+104:48 or CSS files or JavaScript
+files, by convention they should be in a
+folder called static.
+104:54 So in my HTML, I'm going to
+literally say /static/cat.jpeg.
+104:59 I happen to know already that this
+is going to be a Grumpy Cat, hence the error message. So I'm going to give an
+alternative text for accessibility
+105:06 of Grumpy Cat, who's internet famous. And now I'm going to
+open up my terminal.
+105:11 I am going to clear it. cd dot dot to go back into
+froshims, where again at the moment
+105:16 we have just app.py,
+requirements.txt, and templates. I'm then going to go ahead
+and make a new directory
+105:22 called static, all lowercase. I'm going to cd into it. And then with a wave
+of my hand, I'm going
+105:27 to go ahead and copy from
+today's distribution code a copy of cat.jpeg so
+that now when I type ls,
+105:35 I indeed have a cat.jpeg that
+I came prepared with earlier. Let's now go back to my browser tab.
+105:41 Let's click reload to still submit
+a form that's missing a sport. But now we should see, per
+the image tag we've introduced
+105:49 and the cat.jpeg in the
+static folder, that I indeed now see a very Grumpy Cat
+for this error message.
+105:57 Now using some CSS and
+such, I can make it prettier and make the cat not take
+up the entire web page. But for now we've at
+least demonstrated how
+106:04 we can have a static file alongside
+dynamically generated content by putting
+106:09 that static file in the static folder. All right. So now let's actually do the most
+useful thing and start storing in memory
+106:17 these names and sports for
+which students have registered. Let's go back to app.py
+and acknowledge that
+106:24 at the bottom of this
+register route, all I'm doing is blindly
+saying success.html.
+106:29 You are registered. Even though I've not done
+anything with the actual data. So it's in app.py that we have the
+opportunity to save some of that data.
+106:36 And so what I'm going to do is this. At the very top of the file
+but below my sports variable,
+106:42 let's create one other variable
+in all cap, REGISTRANTS. And I'm using all caps again to signify
+that this is a global variable, even
+106:48 though it's not constant. Let me set that equal to open
+curly brace, close curly brace. Which even though we've
+been doing those curly
+106:54 braces all over the place in
+our templates per Jinja syntax, we are just in app.py now.
+107:01 This is Python syntax
+from week six wherein I've now created an empty
+dictionary or dict object in Python
+107:08 by using curly braces. This is the same thing as saying
+dict, open paren, close paren, which
+107:13 just returns to me an empty dictionary,
+but it's a little more Pythonic just to use the syntax of open
+curly brace, close curly brace.
+107:20 But why this? Well, if I've got names and
+sports, names and sports, that's like keys and values.
+107:26 I might as well store that kind
+of data in a Python dictionary where the keys are the names
+and the values are the sports.
+107:32 So how do I do this? It's actually pretty simple. Right before I declare that
+the student is registered,
+107:38 let's just go into
+that registrants array. Sorry. Let's just go into that
+registrants dictionary.
+107:45 Let's index into it
+at the name, location that I want to put into
+the dictionary, and set
+107:50 it equal to the value of that sport. And I'm simply using
+the variables that I created earlier for the
+purposes of doing error checking
+107:58 and using the name and
+sport in different places. But I'm now using that same variable
+name and that same variable sport
+108:05 as my key and value pair. Now, as an aside, this
+is a little naive of me, and it's not the best implementation.
+108:12 As written, this will not
+let two Davids, for instance, register for two different sports.
+108:17 Why? Because we're allowing one name to
+overwrite another identical name.
+108:23 So if two Davids try to register
+for these sports, probably not a good outcome because we're
+going to clobber or overwrite
+108:28 the previous person's registration. But let's consider a simple
+world in which there's only one of any name in the world so that we
+don't have to worry about that just yet.
+108:36 Now let's go back to my other
+browser tab, clicking back in that.
+108:41 So we get back to the form. Let's type in David. Let's type in basketball and register.
+108:46 Says that I'm registered,
+but who knows at this point? Let me go back to the form. Let me type in Yulia and let's
+register Yulia for soccer.
+108:55 Click register. Claims that she too is
+registered, even though who knows. But hopefully in app.py before
+success.html is rendered,
+109:04 we're indeed adding David and
+then Yulia and then anyone else to that global dictionary. And so long as the server stays running,
+that dictionary of keys and values
+109:13 is just going to get bigger
+and bigger and bigger. But let's see if we can't show
+ourselves those registrants.
+109:19 Well, maybe the simplest way to do this
+is to give ourselves a third route. So let me say app.route
+quote, unquote registrants.
+109:26 And then below that decorator,
+let's say def registrants to define a new function called exactly that.
+109:33 And let's keep it simple. Return register. Sorry. Return render_template quote,
+unquote registrants.html.
+109:43 But I've got to pass in those
+registrants to the template so it knows what registrants to show. That's fine.
+109:48 Registrants equals
+REGISTRANTS in all caps. So same convention as before, but I'm
+providing the registrants.html template
+109:56 with that global dictionary
+of names and sports. Of course, I need another template.
+110:03 So let's do that. Let me open up my terminal window. Let's go back out of
+the static directory.
+110:09 Let's go into the templates directory. Let's create a template
+called registrants.html.
+110:14 I'll close my terminal,
+and up here I'm going to do the same boilerplate as before. Extends quote, unquote layout.html.
+110:21 And I'm going to type every
+keystroke correct this time. Then I'm going to say begin--
+110:27 no, I'm not. Then I'm going to say block body
+percent sign, close curly brace.
+110:34 Down here I'm going to say
+endblock, and then the same. And in here I'm going to output
+a list of all of the registrants.
+110:42 And I can do this in a
+number of different ways, but frankly, I think it
+suffices to maybe just do
+110:48 maybe a bulleted list initially. So how might I do this? Well, I could do something
+like an unordered list tag
+110:55 there, inside of which I have a
+whole bunch of list items or li tags. How? Well, I could do something like this.
+111:01 For name in registrants, which is the
+placeholder or the rather the variable--
+111:07 the parameter, which was the
+parameter that was passed in. Then let me proactively
+close that for tag in Jinja.
+111:13 And then in here let's do li, and
+then inside of the open and close tag,
+111:19 let's just do name for now. Before we take a look at
+the effect of these changes, though, I am going to
+open my terminal window
+111:26 and I'm going to hit Control-C
+just to stop the server, and then I'm going to
+rerun flask run just to ensure that Flask
+knows about this very
+111:33 latest version of my code into which
+I've added that global dictionary. Now I'm going to go back
+to my same browser tab
+111:38 as before, which is still
+running on TCP port 5000, and I'm going to try to
+register a couple of people.
+111:43 So I'm going to register myself
+for basketball, for instance, and I seem to be registered. I'm then going to go back and I'm
+going to try to register Yulia,
+111:51 say, for soccer, and I'm
+going to click Register. And now my hope is that
+both David and Yulia are in the server's memory in that
+global dictionary as key value pairs.
+112:00 So if I go up to my URL
+here and zoom in and I change register to
+registrants and hit Enter,
+112:08 I indeed see now a bulleted list
+of all of the names of people who have registered for sports thus far.
+112:14 Now, it doesn't have to
+be a simple bulleted list because it would be nice to know
+what sports we registered for,
+112:19 but that's just a matter of HTML. Let me go back into VS Code
+and hide my terminal window. Let me go into registrants.html, and
+we can go all out in this if we want.
+112:28 For instance, let me
+go ahead and do this. Let me get rid of the
+unordered list tag there. Let's give ourselves a proper title
+of registrants, this time in an h1.
+112:37 Let's then begin a table inside of which
+is going to be a table head initially.
+112:42 And inside of that table
+head will be a table row. And inside of that table row will
+be two table headings, namely name
+112:49 as well as another
+table heading of sport. In other words, I want to have a
+two column table, if simplistic,
+112:55 that shows me name, sport, name, sport,
+or more generally, key value pair. Below the table head, let's go
+ahead and do a tbody for table body.
+113:03 Inside of that table body, let's now
+iterate over that same dictionary. But let's do it a little
+more pedantically such
+113:10 that I'm going to do for
+each name in the dictionary, in that registrants dictionary,
+then let's proactively
+113:16 put an endfor below that. And inside of this for loop, let's
+create a table row for each person.
+113:23 Let's create a table data inside
+of that row inside of which is going to be that current name.
+113:28 Then, in the second column
+via second table data tag, let's go ahead and put the value
+of that key, the syntax for which,
+113:37 just like in Python, is
+registrants, but index into that dictionary at that specific
+name with curly braces on both sides.
+113:45 As in Python, when I iterate
+over a dictionary in Jinja here in this here template, I'm
+indeed iterating over all
+113:51 of the keys in that dictionary. So if I want to get at
+the value, I need to use that key that is named to index
+back into that dictionary.
+113:59 Now if I go back to my browser tab
+here, previously I saw all of this as an unordered list. But if I now click reload
+on my registrants route,
+114:06 I now see a big, bold
+h1 tag, registrants, followed by a simple HTML table, one
+column for name, one column for sport.
+114:14 It's not the best
+formatted, but I think if we introduce some CSS, whether my
+own or Bootstrap, for instance, we
+114:20 could make that even prettier as well. All right. With all that said, I think we've an
+opportunity for maybe one final version
+114:29 of froshims whereby we
+can actually store all of these registrations in a database.
+114:34 The problem at the moment being this. If I go back to VS Code here and open my
+terminal window and either intentionally
+114:40 or accidentally hit Control-C such
+that the server stops, or worse, the server loses power, or somehow
+the server reboots, everything
+114:49 I've stored in the server's
+memory and that global dictionary is going to get erased
+by default because I'm going to get a brand new dictionary
+when the server restarts.
+114:56 In fact, if I rerun the
+server now with flask run, go back to that very same tab which
+had David and Yulia and click reload,
+115:04 all of a sudden we're gone and the
+table is empty except for that heading. So that's not the best
+way to persist data.
+115:10 In fact, if that could
+happen, we might as well go back to yesteryear's pieces of
+paper to keep track of everything.
+115:15 But I think we can fix this. So wouldn't it be nice if we could
+use a proper SQL database instead to store all of these key value pairs?
+115:22 Well, in fact, let me
+go back to VS Code here. And inside of VS Code, let
+me show you a database file that I prepared in advance.
+115:29 Let me maximize my terminal window. And I've just copied over already
+a file called froshims.db,
+115:34 which is a database just
+for these intramural sports. Let me run our old friend
+sqlite3 on froshims.db.
+115:41 That puts me inside
+of the SQLite program. And recall that if I type dot schema, I
+can see what table or tables are inside
+115:47 of this database. Sure enough, there's just one
+table here called registrants, and it seems that that
+table has three columns.
+115:55 An ID column, which is an integer,
+presumably the primary key, a name column, which is
+text that cannot be null,
+116:02 and a sport column that's
+also text that cannot be null. And sure enough, the primary key of
+this table is that first column, ID.
+116:09 So if I now take on faith
+that this table exists, even though, at the moment,
+select star from registrants
+116:16 seems to have no rows in it,
+I think I can write some code to put registrants there.
+116:21 So let me go back to app.py here. And at the top of my
+file, let's do this. From CS50, import its SQL feature.
+116:28 And then down here a
+few lines later, let's go ahead and create a connection to
+that database via variable called db.
+116:34 Set it equal to SQL, quote, unquote,
+sqlite colon slash slash slash.
+116:40 So even though it looks like a URL,
+you do need the third in this case. Froshims.db.
+116:45 And recall that from week seven, this is
+how I'm going to be able, from Python, talk to that SQL database.
+116:53 Let's now scroll down to this
+REGISTRANTS variable, which previously I was using to store these key value
+pairs, and let's just get rid of it
+116:59 altogether because I don't want to keep
+storing these registrations in memory. Let's go down further
+to my register route
+117:06 and get rid of the use
+of that dictionary, because instead I want to
+do something now with SQL. In particular, I'm going to do this.
+db.execute quote, unquote insert
+117:16 into registrants maybe two things. Name comma sport. I'm going to let SQLite automatically
+fill in with autoincrement
+117:25 the ID column therein. The values I want to plug
+in though are these two, with two placeholders, question
+mark, question mark, close quote.
+117:32 And the two values I want to plug
+in for those placeholders in SQL are name and sport respectively.
+117:40 So here too, I'm using the same terms,
+placeholder, but in the context of SQL, not in the context of Jinja.
+117:45 The syntax and the purpose
+is a little bit different, but that's exactly what we explored
+in week seven with SQL and Python.
+117:51 Now after that, I think we're
+good with the register route. What we do still need to do is get rid
+of this final use of that dictionary.
+117:59 Previously, I was passing
+into my registrants route that global dictionary, so I
+have all of those key value pairs.
+118:05 Now a SQL table is not all that
+different from a dictionary if we focus on just two of
+its columns, name and sport.
+118:11 So how can I get at those columns
+inside of my registrants route? Well, let's create a registrants
+variable, set it equal to db.execute--
+118:20 and this part's easy. Select name comma sport from registrants
+to select exactly those two columns.
+118:29 That's going to hand me
+back a list of dictionaries, each of which itself represents
+a name value and a sport value.
+118:37 So if I now change this
+value from REGISTRANTS in all caps to registrants
+lowercase, this
+118:43 is the variable being
+passed into the template. This is the value thereof.
+118:48 And I think if I go now
+into registrants.html, I just need to make a tweak whereby
+now if I'm iterating over those return
+118:58 values from db.execute, I need
+to be a little more explicit. So instead of iterating over
+a dictionary as I did before,
+119:05 I'm going to more generally
+iterate over a registrant in that list of dictionaries, and I'm
+going to spit out here registrant.name,
+119:15 and down here I'm going to
+spit out registrants.sport. And it turns out in some contexts
+I can use either the square bracket
+119:22 notation or even the dot notation,
+the dot notation being a little easier to read because there's less syntax.
+119:27 But the reason I can do that is because,
+again, the registrants variable that I'm passing into this template is
+itself a list of dictionaries,
+119:36 and each of those dictionaries
+represents a row from the SQL table. And so if I want to access
+the name column therein,
+119:43 I can say registrant dot
+name, or the sport column therein, I can access
+registrant, singular.
+119:49 This one is about to be my next typo. Registrant.sport. And so now, crossing
+fingers big time this time,
+119:56 let me go ahead and go
+back to the form itself. Let me go ahead and register
+myself for basketball
+120:03 because we cleared the
+memory when switching to SQL. Let me now go back again and register,
+say, Yulia, this time for soccer.
+120:10 And register. And now let me manually change
+my URL to be registrants. Big time crossing my finger.
+120:17 And there we have it. Now, David and Yulia. I was as surprised as
+it worked this time.
+120:22 But David and Yulia are registered. And more importantly,
+if I go back to VS Code here, select star from registrants in
+my database, there are those two rows.
+120:33 Moreover, if I exit out of SQLite and
+I go into my other terminal and even
+120:38 Control-C and restart Flask with
+flask run and go back to /registrants
+120:44 in my browser and reload,
+the data is still there. We have made now a full fledged
+web application, if ugly,
+120:51 that is actually storing
+data permanently, full time, that survives clearing of
+memory and even reboots of the server.
+120:59 All right. Still more to come. Let's go ahead and take a five
+minute break, and when we come back, we'll add some of-- lastly, some
+of the most familiar features
+121:05 that you see in today's
+actual web applications. See you in five. All right.
+121:11 So up until now, even though we've
+been building an application that's very specific to froshims, it's
+actually representative of a paradigm
+121:18 when it comes to web programming and
+software engineering more generally. In fact, up until now, what
+we've really been implementing
+121:25 is a couple of concepts. One is what we would generally know in
+software engineering as a controller.
+121:30 So app.py is representative
+of a type of program that you might call a controller
+for exactly that reason.
+121:36 It's controlling everything
+about your application. It contains the so-called business
+logic for your application.
+121:42 Meanwhile, though, there is
+a part of the application that the user sees and interacts
+with, and that's generally
+121:47 known in some circles as a view. So everything in the templates
+folder really is a so-called view.
+121:53 But in that most recent
+example with the froshims, once we started writing and reading
+data to and from a database,
+121:60 we introduced a third
+piece of the puzzle, which is generally known as a model. And model refers to the
+database or some kind of storage
+122:08 that you're using to
+read and/or write data. And collectively, these three ideas
+of model and view and controller
+122:15 are generally referred to as
+MVC, model view controller. And it just describes
+one type of architecture
+122:21 when it comes to implementing
+a web application or really other types of application whereby,
+when you sit down to design them,
+122:27 you don't just implement everything
+in one massive file, which we've kind of been doing throughout much of CS50. But rather, you separate concerns.
+122:35 You put all of your templates,
+a.k.a. views, over here. You put all of your model
+related code over here.
+122:40 And then you have a controller that's
+somehow orchestrating between those two concepts. It doesn't change
+anything we've yet done,
+122:46 but it does slap some industry
+standard labels on top of them. Speaking of industry, it turns out
+it's incredibly common on websites,
+122:54 of course, to log in to them as
+your-- like your Gmail account, for instance, if you use, or Office
+365 or some other email service.
+123:02 Or really any website nowadays for
+which you have a username and password and log in. And indeed, up until now, neither
+of the applications we wrote,
+123:10 the hello world application or froshims,
+had any notion of individual users.
+123:15 There was no login, which means
+anyone who sits down at the keyboard could type in some input.
+123:20 What that means similarly is
+that anyone who's at the keyboard can see all of the information
+therein, including the form
+123:26 itself, the list of registrations,
+the confirmation pages. And that might not be
+ideal because if we really
+123:31 are implementing the idea
+of those paper based forms back in the day, well, really only
+that resident advisor or proctor should
+123:37 have access to the forms
+once they're submitted. Everyone shouldn't be able to just
+change their URL to /registrants and be
+123:43 able to see something. Which is to say if we did want to
+add the ability to log into a website
+123:49 so as to exercise finer grained
+access control so that I can see this, you can see that, we need to
+somehow add more functionality
+123:58 to these applications, much like Google
+has added to their own Gmail page. Unfortunately, the way
+HTTP is designed is
+124:05 that every piece of information
+that goes between browser and server has to be sent all at once for
+the browser to know about it.
+124:12 And yet when the user then clicks on
+another link, ideally in some cases the server would like to remember, oh,
+wait a minute, this is the same user
+124:20 and I already logged them in before. You don't want to have the user to
+have to log in every time they click
+124:26 a link or every time they
+submit a form to prove to you that they are who they claim to be.
+124:32 In other words, you'd like
+to be able to remember that someone has already logged in. So, for instance, in
+the real world, if you
+124:37 go into a club, an
+amusement park, or a bar, sometimes they put a little bracelet on
+you or sometimes they stamp your hand.
+124:43 And that hand stamp is meant
+to confirm if you come and go through the same door, oh,
+we've already authenticated you.
+124:49 We've already checked who you are so
+that we don't have to pull out your ID and look at it again. So, in fact, I actually have
+a little hand stamp here.
+124:57 And so if you imagine that
+here is my hand with no stamp on it being presented to get
+into some fun amusement park.
+125:03 Once I've shown them my ticket or my
+ID, what they might very well do is, if not a bracelet, put a stamp on
+my hand like this here smiley face.
+125:10 And so long as I show that to
+the bouncer or the ticket taker again and again, they will remember
+that I have already authenticated myself
+125:18 by showing them my ticket or
+showing them my ID in the past. Now it turns out that
+HTTP, funny enough,
+125:25 can implement exactly this same
+idea, albeit more technically. Recall that when using HTTP, you see a
+message like this in the browser being
+125:33 sent to the server, for instance. For instance, when you log
+in to Gmail specifically, inside of that virtual
+envelope goes a post message
+125:41 followed by slash or some such route,
+followed by the version number of HTTP,
+125:46 and then maybe some reminder as to
+what hostname is being posted to. Meanwhile, the server
+hopefully responds,
+125:53 as we saw last week, with HTTP 200,
+which is a status code meaning OK.
+125:58 But wait a minute. If we have already
+this mechanism whereby the browser can talk to the server and
+the server can talk to the browser,
+126:04 could we implement, from the server to
+browser, this notion of a hand stamp? Well, we can.
+126:10 We haven't dwelled on
+these too much, but recall that inside of that virtual
+envelope, such as one pictured here,
+126:15 is a HTTP header. One or more of those things--
+and in fact, every time I've pulled up developer tools,
+there's actually been a whole bunch.
+126:22 This is just a key value pair. So maybe if we could somehow
+implement this notion of a hand stamp
+126:27 as a key value pair, we could
+remember that someone has logged in. Moreover, we can remember who
+has logged in somehow as well.
+126:35 And in fact, the way that
+HTTP has browsers and servers do that is as follows.
+126:40 When you log into Gmail
+or really any website, what that server does in its response
+message to you is unbeknownst to you,
+126:48 really, is it stamps your hand. Specifically, it includes
+in the virtual envelope among all of those HTTP
+headers, another key value pair.
+126:56 Namely set-cookie, colon,
+and then some value.
+127:01 And while you could somewhat foolishly
+just put the user's email address, like set-cookie, colon, session
+equals malan@harvard.edu.
+127:11 Generally the value
+inside of that HTTP header is like a big random value, a
+big string of text and/or numbers
+127:18 that somehow the server keeps track of
+and remembers that, OK, I gave David this big random number.
+127:24 I gave Yulia this big random number. So we don't all get the exact
+same smiley face hand stamp.
+127:29 But the next time the user from
+that same browser clicks a link, submits a form, unbeknownst to you, the
+browser sends another header in addition
+127:38 to the usual, namely a cookie header. Cookie, colon, and then
+the exact same string.
+127:44 Session equals value, for instance. And session itself is
+kind of a term of art. Session refers to the concept of
+maintaining state between the browser
+127:54 and server, even though HTTP, by
+design, is really meant to be stateless. Once the browser icon
+stops spinning, you've
+128:01 gotten all the data you're
+going to get from the server. But so long as the browser knows
+that once it receives a cookie,
+128:07 send it back to the server,
+send it back to the server, include it in every
+subsequent virtual envelope.
+128:12 The server can remember that, oh,
+I've seen that smiling face before. I've seen that big random number before.
+128:19 That must be David. That must be Yulia. And so it's a very clever way of just
+reminding the server who you are.
+128:25 And to be clear, the cookie itself
+could be your email address. Heck, you could even use your password
+just to constantly remind the server.
+128:32 Here's my username, here's my
+password, here's my username, here's your password. But that's generally not a
+good idea, and you should not
+128:38 be doing that nowadays because
+it's all too easy potentially for the data to get intercepted. And certainly don't send usernames
+and passwords over the internet
+128:45 more often than you need to
+just as a good principle. So with that said, if
+we have the ability
+128:51 to stamp the user's hand in this way and
+to remind the user what's there, what
+128:56 you're looking at, indeed, are cookies. And in fact, this class
+is so long already, it's a good thing we brought
+some snacks for today.
+129:02 So these here cookies, these
+are what cookies actually are. And all of us have probably heard about
+cookies in the context of the internet
+129:10 for some time, whereby cookies get
+saved on your computer from the servers
+129:15 that you actually visit. Well, what is a cookie? There's really no academic
+value to what I'm doing here. But what is a cookie in
+the context of the web?
+129:23 Well, it is just typically a big random
+value that's stored on your computer.
+129:28 And it doesn't have to be random. It can be, for instance, your username. It can be your email address.
+129:33 Hopefully it's not your password. But if you've ever checked that box
+that might remember your email address and autopopulate it, it may
+very well be the server that's
+129:40 reminding you of that same value. The reason that cookies
+get kind of a bad rap, though, is that there's a lot of cookies
+typically being stored on your browser
+129:48 from servers around the world,
+and a lot of those cookies are used to track you and me.
+129:53 Now it stands to reason that if I've
+logged in to a website, well, of course, the website's going to be able to
+track my behavior on that website
+129:59 because I literally told them who I am. But in the world of
+advertising, for instance, it turns out that even if you're
+not logged into a website,
+130:06 there are enough unique features to your
+computer and your browser and the way that you use it that
+servers can typically
+130:13 plant cookies on your computer,
+even without your logging in. And even though they don't know
+that I am David and that is Yulia,
+130:20 they do know that I'm the
+same user again and again, and they can effectively
+build a profile of who you are
+130:26 based on all of your clicking behavior. So if you recall last week
+when I first was demonstrating
+130:32 various features of HTML and the
+like, I was actually deliberately using incognito mode sometimes because
+I wanted to start with a fresh slate.
+130:39 And so among the things that
+incognito or private browsing mode typically does is it gives you a brand
+new empty cookie jar, so to speak.
+130:47 It clears the browser's
+memory just for that window that you've opened
+privately, and it makes sure that you have no cookies by default and
+you have no other settings by default
+130:55 being sent back and forth to
+the server, effectively ensuring that you're starting from scratch. But if you're using the same
+non-incognito or non-private tab again
+131:04 and again and again, you really are
+accumulating a lot of these cookies. And in fact, if you open up developer
+tools, you can see under the Storage tab
+131:12 or thereabouts in other browsers
+all of the key value pairs that servers are storing
+on your computer.
+131:18 So with that said, let's use cookies,
+though, not for evil but for good, and to actually use them to remember
+that a user has logged into a website.
+131:25 And to do that, we're going to
+leverage a feature of Flask that is built on top of these cookies
+known as a session, which is, again,
+131:32 just some form of memory
+that keeps track of that fact that we have seen some user before. In effect, a session
+is the technical way
+131:39 to describe something
+like a shopping cart. Any time you've bought something online
+or added something to your shopping cart, you could come back a few
+minutes, a few hours, a few days later
+131:46 and, depending on how the
+website is implemented, it can remember what is in your
+cart thanks to these cookies.
+131:53 Similarly, we can remember that you're
+logged in via these cookies using this here feature.
+131:58 So let me go into VS Code here,
+and in advance during break I went ahead and created the beginnings
+of a login based application.
+132:06 If I type ls in my login
+directory here, we'll see app.py, requirements.txt,
+and a templates directory
+132:12 inside of which, as before, is
+just index.html and layout.html.
+132:17 But let's go ahead and
+implement a website that now knows if I'm logged in
+or not, albeit simplistically.
+132:24 Let me go ahead and open up
+my index template in templates and I'll close my terminal window.
+132:29 And in here I'm going to use some
+Jinja syntax that we've seen before. If the current user has a name,
+well, then they're clearly logged in.
+132:37 So let's go ahead and say, you
+are logged in as name, period.
+132:43 And if it's not the case that there's
+a name value, then let's go ahead and say you are not logged in, period.
+132:50 And I'm going to add an endif down here. So at the moment I'm just
+assuming that name is a thing
+132:56 and that it actually
+exists, but I'm going to need to implement
+now that logic next. So let me go into my
+terminal window again,
+133:02 this time opening up my app.py,
+which isn't really doing much yet,
+133:08 and start to make a few changes.  In addition to importing Flask
+and render_template and request,
+133:17 I'm also going to import
+a feature called session. And then down here
+I'm going to configure
+133:22 Flask to use sessions as follows. And this is the kind of thing you
+can Copy-Paste from documentation or these are examples.
+133:28 But I'm going to say app.config, quote,
+unquote SESSION_PERMANENT equals False.
+133:35 Capital F for false in Python. And app.config, quote,
+unquote SESSION_TYPE equals,
+133:43 quote, unquote filesystem in lowercase. This essentially enables the
+ability to store sessions.
+133:50 Put another way, this turns cookies
+on for this web application. It ensures that the cookies
+are not permanent in the sense
+133:56 that what cookies I'm using should
+disappear when the user quits their browser, ultimately. But I'm using, on the
+server, the file system,
+134:04 like the files and folders locally,
+to keep track of who is logged in. And then lastly, I'm going
+to say session capital S
+134:11 and specify app there too. And I'm going to import one other line
+that I forgot from flask_session import
+134:21 Session capital S. Again, there's
+some hoops to jump through here. I too have to check the documentation
+or my own examples to remember what.
+134:29 But in short, I'm importing
+Flask's support for sessions. I'm importing this session
+specific library as well.
+134:35 I'm specifying these
+configuration options, and I'm now turning on sessions
+with this final line of code.
+134:42 Of course, for this to work, I
+actually need another requirement. So let me open up requirements.txt,
+which, up until now,
+134:48 we've not needed because we
+already put Flask in there. But I actually now want to use
+the Flask session library as well.
+134:54 Strictly speaking, you don't
+need to do this in cs50.dev because we've pre-installed it. But for a typical real
+world application,
+135:00 we would need to tell the server
+that we indeed have another library, and install it with pip.
+135:05 All right. So that's mostly
+Copy-Pasteable boilerplate. Let's go ahead now
+and implement a route.
+135:11 So app.route quote, unquote
+slash for my default route. Define a function
+called index, as before.
+135:17 And let's very simply return
+render_template, quote, unquote, index.html.
+135:22 And then that is it for now. Let me hide my terminal, go back to my
+other browser tab, which still shows
+135:30 the previous application froshims. But so long as I run flask run in
+this tab here and go back to that tab
+135:37 and click reload, I should
+now see this new application. And indeed, I do. It just says you are not logged in,
+because I haven't done anything related
+135:43 to logging in yet. Well, that's OK. How do I want to go about
+implementing this then instead?
+135:49 Well, let me propose that if we
+want the user to be able to log in, we need a form via which they
+can tell us who they are.
+135:54 So let me go back to VS Code. I'm going to go back to my
+second terminal window here. And I'm going to cd into my login
+folder to be in the same place,
+136:03 into my templates folder
+to be in that place, and I'm going to create one
+more template called login.html.
+136:08 Inside of login.html I'm going to very
+quickly carefully type extends, quote, unquote layout.html,
+close quote, percent sign.
+136:17 Down here I'm going to
+say block body as always. And then endblock down here.
+136:23 And then in here, I'm going
+to whip up a very simple form. So form action equals
+quote, unquote slash login.
+136:29 The idea being, in a moment, I
+will create a new login form. The method I'm going to use for
+logging in, for privacy's sake,
+136:35 is going to be quote, unquote post. Then inside of this
+form, I'm going to have a text field where autocomplete is off.
+136:41 Also, for privacy's sake. Autofocus is on, for convenience's sake. The name of this field is
+named for the user's name.
+136:48 The placeholder they'll
+see is quote, unquote name. And the type of this field,
+to be clear, is text. For simplicity's sake, I'm not
+going to bother with the password.
+136:56 In fact, we'll see that
+in the next problem set. But for now, I'm just
+going to allow the user to log in just by telling us
+their name and no password.
+137:03 So I'm going to have a button,
+the type of which is submit, and then the label for that
+button shall be log in.
+137:08 How now do I actually
+render this template so that the user sees it
+when it's time to log in?
+137:14 Well, I think this is
+fairly straightforward. If I go back to app.py, I can
+create another route down here.
+137:20 App.route quote, unquote /login. Then I can create a function called,
+for instance, login, to keep it simple.
+137:27 And then I can simply do render_template
+quote, unquote login.html.
+137:34 Now I could go manually to
+/login to access that page,
+137:40 but let's make this template a little
+more user friendly that we began with. Let's actually give the user a link.
+a href equals quote, unquote /login,
+137:49 and then inside of that
+anchor tag, log in, period. Otherwise, let's proactively do
+this. a href quote, unquote, logout,
+137:59 and then inside of that
+anchor tag, log out. That is backwards.
+138:05 So let's do it correctly this time. Here, we're going to say log
+out if the user is logged in.
+138:10 Down here, we're going to say
+log in if the user is logged out. So I think now it's consistent with
+the English I already had earlier.
+138:17 Let's go back to the original URL
+whereby it says you are not logged in, but it now gives me a link to log in.
+138:22 If I hover over that, super tiny,
+but in the bottom of my screen, I will see that it's
+going to the /login route.
+138:28 And indeed, if I click on that,
+I find myself at the first-- well, the 10th of many errors today.
+138:34 So let's go back into VS Code. Let's open up my terminal window,
+click on the one that's running Flask.
+138:40 And, ah, the view function for log
+in did not return a valid response. The function either return none or
+ended without a return statement.
+138:48 So user error on my part. Let's scroll down, and sure
+enough, I did something dumb. I need to return the return
+value of render_template.
+138:56 All right. Let's hide that. Let's go back. Let's click reload, enter,
+and now we see the login form.
+139:01 Of course, it doesn't
+do anything useful. If I type in David and click Log
+In, it goes to the login route. But it's saying method not allowed
+because I haven't done anything yet
+139:09 with post. That's fine too. Let's go back to my login
+route and let's do this.
+139:15 If the request.method equals equals
+post, the implication being the human
+139:21 clicked the Log In button after typing
+in their name, then let's do this. Session, then in square brackets,
+name equals request.form/get quote,
+139:34 unquote name. And then we will, let's say, return
+redirect quote, unquote slash.
+139:43 So what's going on here? If the user indeed
+submitted the login form using a request method of post, which
+is implicit because that is the method
+139:52 I'm using in login.html,
+thereby allowing me to distinguish between whether
+the user just visited the form
+139:58 or they submitted the form. If I go back to app.py, I am, in
+the case of submitting the form,
+140:04 going to store, in a special global
+variable which I imported up here on line one, a key called name.
+140:13 And I'm going to set the value
+of that key equal to whatever the human's name actually is.
+140:18 Now, as an aside, I'm not
+bothering with error checking now, so it's possible to just click
+the button and not type in a name.
+140:23 But imagine from froshims
+we could borrow some of that if not logic to make sure that
+the human gave us a valid name.
+140:30 But the point here is that this
+special global variable that I've now imported and enabled by
+way of these lines of code
+140:37 here is essentially giving
+me a global variable that's, in essence, a global dictionary in
+which I can store any key value pairs.
+140:45 The first key I'm storing is name. The first value I'm storing
+is the human's actual name.
+140:50 And what I can now do more
+interestingly is this. When it comes to displaying the default
+page, which, recall, is index.html,
+141:01 recall that I was checking, is
+there a name being passed in? Well, there can be. Instead of just rendering
+the template index.html,
+141:09 let's pass in the user's actual name by
+using session.get quote, unquote name.
+141:16 And here too, I'm using a feature
+of this session global variable whereby it too, like
+request.args and request.form,
+141:24 comes with a get method
+built in that allows me to get the value of that specific key.
+141:30 And as an aside, if
+there is no such value, it will at least return None capital n
+in Python, which is similar in spirit
+141:36 to null but unrelated to memory. But it's a special value that indicates,
+uh-uh, there was no such name.
+141:41 But so long as I'm using this logic in
+index.html, checking if there is a name, that's either going to be a
+valid name or blank or missing.
+141:50 In either case, I will display
+the user's name, I think. So if I've done
+everything correct here--
+141:58 which I haven't, but I
+caught myself this time. I did one last thing on line 20.
+142:03 If the user has submitted the
+form via post and, per line 19, I've remembered in my session
+that they're logged in,
+142:11 that's sort of equivalent
+to stamping their hand, storing their name in the session,
+effectively remembering who they are.
+142:18 The last thing I'm going to do is
+redirect the user back to slash. Why? Well, think about most
+any website you log into.
+142:24 If you try to visit a page and
+you're not logged in, you log in, hit Enter, and you're
+usually redirected back
+142:29 to the home page or the default page. How can you do that? Well, slash represents
+the default home page,
+142:36 so I just need to import one more
+feature of Flask, the redirect function.
+142:41 So I'm going to add that to my
+comma separated list on line one. And that gives me the
+ability to send, if you
+142:47 recall from last week, one
+of those 301 status codes or 300 something that tells the
+browser that the website has
+142:57 moved to this other location. For instance, from
+this to this other one. All right.
+143:02 Let me go back now to the browser here. Let me click back to the main page such
+that I'm told you are not logged in.
+143:09 Let me click on Log In. Let me type in my name. Crossing my fingers. Enter.
+143:14 And now, ugh, darn it. I'm still getting method not allowed. But this is something we've seen before.
+143:19 That's just because I'm trying to use
+the login route for both get and post. So I think I need to add methods,
+equals, quote, unquote, get and quote,
+143:28 unquote, post. Just as with froshims. And now if I go back and I try to
+resubmit this form and click Continue,
+143:36 now you are logged in as David, period. There's still a bug, or
+really a missing feature.
+143:42 If I click Log Out, I go to
+/logout, which is not found at all. But that's just because
+that route doesn't exist.
+143:48 That's fine. Let me go back to VS Code here. Let me create one final route
+app.route quote, unquote /logout.
+143:56 And then in this route, let's
+define a function called logout to keep it simple. And in here, I just need
+to clear the session.
+144:03 I need to clear off the
+hand stamp from the user so as to tell them, stop
+sending me this cookie.
+144:09 And so we can actually
+do a function called session.clear, which clears
+the contents of the session.
+144:15 And then I can go ahead and return
+redirect, quote, unquote slash so that once you log out, you're just
+sent back to the home page again.
+144:22 So if I try this again over here, 404. Let me go back to where I was. Let me click Log Out now.
+144:28 And notice I'm still at slash,
+but I'm no longer logged in. I can do it again all day long.
+144:34 Type in David. Log in. Click Log Out. I can log in now as Yulia.
+144:40 Log in. Now she is logged in. And now she's logged out. And even though I keep saying slash,
+recall that browsers are typically just
+144:47 in the habit of hiding values that don't
+really need to be there all the time. So if you see nothing
+after the TLD in the URL,
+144:53 it's implied that you're
+visiting slash, the default page.
+144:58 All right. So with that said, what
+we've just introduced then is this idea of a session
+whereby, because of how HTTP works
+145:07 and because of how cookies can be
+sent back and forth from browsers and servers, and because Flask
+is used by so many people,
+145:15 they've implemented all
+of the functionality for us to keep track of those
+cookies and reading them
+145:20 and figuring out who is who. What's nice about the
+session global variable is
+145:25 that you can implement
+one web application, and if you want to store something
+in memory for a specific user,
+145:32 you can store it in
+the session dictionary instead of in a global variable,
+instead of in a database.
+145:39 So if you want to keep track of who
+is logged in on a per browser basis, you use session. If by contrast, you were to use a
+global variable like registrants
+145:46 like we did a little bit ago,
+every user of your website would have access to that
+memory, which you don't want.
+145:53 So session is sort of
+like a per user variable, and you don't have to know
+or care how it's implemented.
+145:59 But being in CS50, you know now
+that that session abstraction, that per user global variable is
+really implemented under the hood
+146:08 because Flask is opening
+that virtual envelope, looking for the set cookie and
+the cookie headers back and forth
+146:13 and taking care of all of that to
+ensure that you can just use session as we intended on a per user basis.
+146:22 All right. So let's go ahead and implement another
+application that also implements a very common feature using
+sessions, but this time
+146:28 to implement full
+fledged shopping carts. For instance, if you want to implement
+a bookstore online via which people
+146:34 can add books to their shopping cart. Well, let's see where to begin. In advance, I've created this folder
+called store, and inside of it,
+146:40 I've got a few files. App.py, requirements.txt, store.db,
+which is new, and templates.
+146:46 And inside of templates is the
+usual index.html and layout.html. Let me go ahead and use
+SQLite to open store.db.
+146:54 Let me go ahead and
+maximize my terminal window and simply do a dot schema
+to see what's inside here.
+146:60 It seems that there's a single table
+in store.db called books that has three columns--
+147:05 that has two columns. One is an ID, which will be a unique
+identifier a.k.a. primary key,
+147:11 the other of which is title. If I want to select star from
+books, I can see all of them. And in this database, there's only five.
+147:17 Five of my favorite books, if you will. All right. So now that we know that
+we have that database, can we go about implementing our
+own version of Amazon, if you will?
+147:25 Our own shopping cart
+to buy these books. Let's go ahead and open
+up requirements.txt, and as before, let's also include,
+as a dependency, Flask-Session,
+147:33 even though it's already
+installed on the server. But if you use this
+application anywhere else, you'll need to install that too via pip.
+147:39 Now let's go ahead and open
+up app.py, close my terminal, and let's add some of those
+same features up here.
+147:46 Let's import as well redirect, as
+well as request, as well as session. Let's, above that, go
+ahead and import from CS50
+147:54 the SQL feature, as we've used earlier. And let's also import from flask_session
+the feature called Session capital S.
+148:02 Then down here, let's
+proactively connect to the database with the SQL function,
+specifying SQLite, colon, slash, slash,
+148:08 slash, store.db. Let's then configure sessions
+as before with app.config quote,
+148:14 unquote SESSION_PERMANENT equals False.
+148:20 Then let's specify app.config quote,
+unquote SESSION_TYPE equals quote,
+148:26 unquote filesystem, all lowercase. And then lastly to enable
+sessions, session passing in app,
+148:32 essentially wrapping the web application
+with the session functionality. Now let's do something
+simple, a very simple template
+148:38 that just spits out all of the books. So let's define a route for slash. The function therein shall
+be called index as before.
+148:47 Inside of that function, let's do this. Create a variable called books,
+set it equal to db.execute,
+148:52 quote, unquote select star
+from books, to keep it simple. And then let's return
+render_template, passing
+148:60 in the template books.html,
+HTML, I'll create momentarily, and passing in those books,
+as we've done many times now,
+149:06 with a key and a value
+as a named parameter. OK. Let me open my terminal.
+149:11 Let me open up a file in
+templates called books.html so that I can create now this template.
+149:18 And this one will be
+relatively short but dynamic in that we're going to do the following. Let's extends layout.html,
+as we keep doing.
+149:28 Let us then define a block
+called body as always. End the block down here.
+149:33 And inside of this block, let's do this. How about a nice big h1 that says,
+books, to list what's in the catalog.
+149:40 Then let's do this. For each book in the
+books parameter that was passed into this template-- and
+proactively I'll do endfor down here.
+149:48 Let's go ahead and output, how
+about each of the books titles?
+149:54 So how might I do this? Well, let's go ahead and maybe start
+like we did earlier with a ul tag
+149:60 down over here. And inside it, let's do a bunch
+of li's, where inside of the li
+150:07 I'm going to go ahead and do the
+books.title to spit out its title.
+150:13 All right. Now I'm going to go back
+to my terminal window, and as before, I'm
+going to do flask run, having previously stopped the other
+instance of Flask in my other tab.
+150:21 Enter. And now I'm going to go ahead and
+open up the application as always, and when I hit reload, we should see no
+longer our login application but store.
+150:30 And sure enough, there is a very
+simple, if unuseful, bookstore that just lists all of the titles therein.
+150:37 All right. Well, let's make this
+more interesting now. Let's actually enable the user
+to add things to their cart.
+150:42 We can do the user interface
+in a bunch of different ways, but let me propose that we do this. Instead of a ul tag,
+let's do an actual form.
+150:50 So let's actually do-- how about this? For each book in books, let's go
+ahead and output an actual usable form
+150:59 for every book. Even though this is not
+necessarily the only way to do it, it's perhaps the simplest to start with.
+151:05 For this book, let's go ahead and
+output an h2 tag with its title. So book.title.
+151:11 And then down here, let's
+do a form for this book. Form action equals quote,
+unquote cart, which I'll claim
+151:19 is a route we'll implement in a moment. The method I want to use for privacy's
+sake is going to be post for this form.
+151:25 Now I'm going to go ahead and include
+a button whose type is submit,
+151:31 and the value of that button
+is going to be Add to Cart. And now I need to actually specify
+what I want to send to the server
+151:39 so that it knows what
+book to add to the cart. So I can do this. For instance, input name equals title of
+the book, the value of which is quote,
+151:49 unquote the book's title, as before. And the type of this box could be text.
+151:57 Now let me go over to
+the store tab again. Let me hit reload.
+152:03 And if I haven't messed up, I think
+I should, if ugly, have for each book an input that shows its title
+and a button that will allow
+152:11 me to submit that title to the server. Now this is silly because I
+already have the book's title here,
+152:16 and it certainly shouldn't
+be the case that I can change the title of a
+book to add it to my cart, so I don't think I want
+an input of type text.
+152:23 So there's another way I can do this. I can actually make those inputs hidden
+by changing the inputs type from text
+152:29 to hidden. Now if I go back to that tab and click
+reload, I still have the buttons, and underneath the hood I
+still have the book's titles
+152:39 such that when I click Add to Cart, the
+book's title will be sent to the server. But this too is a little
+sloppy because recall
+152:46 that the database that we're using, if
+I cd in my other tab into the bookstore
+152:51 and do SQLite of store.db and
+do select star from books, recall that I have
+for each book not only
+152:58 a title but also a unique identifier. And this is good because even
+though this database is small,
+153:04 what if two books have the same title? That's definitely the
+case in the real world, but they might have different authors,
+and they definitely have different IDs.
+153:11 So much better practice than
+sending a string of text is to use what we learned in our
+week on SQL, use the primary key
+153:19 to uniquely identify these books. And so by this I mean let's
+change our template here
+153:25 to pass in not a hidden
+title, but a hidden ID so that what's actually
+going to be submitted
+153:31 is the number one or two or three on up. So if now I go back to
+that other tab and reload,
+153:36 visually nothing has changed, but notice
+if I right click or Control-click, View Page Source, I indeed have
+a bunch of forms on this page.
+153:43 But notice this form will
+submit value 1 to the server.
+153:49 This form will submit value 2. This form will submit value 3. This is exactly how websites
+like Amazon and the like work,
+153:58 such that when you click
+Add to Cart, your browser is sending a unique identifier for that
+book or whatever it is to the server.
+154:05 And the server is then saving
+that ID in its database or its session or
+somewhere else to remember
+154:11 what book or item is in your cart. So we too can do that. Let me go back to VS Code
+and let me go into app.py,
+154:18 and let's add a bit more
+logic that's going to allow me to add those numbers to my cart.
+154:23 Well, what is the cart going to be? Well, we have to implement
+a route for this. So let's define app.route
+quote, unquote /cart.
+154:31 And then down here, let's
+define a function called cart. And then in here, let's
+do a couple of things.
+154:37 Let's first say if request.method equals
+equals post, the implication of which
+154:43 is the user clicked a
+button to submit a form. Then let's go ahead and
+get the ID from that form.
+154:50 I'm going to get request.form.get
+quote, unquote ID. Now just to keep myself sane,
+I'm going to call it book_id,
+154:57 just so I know it's a book's ID and not
+some other identifier here in Python. As always, I'm going to
+do some error checking.
+155:04 If the book ID exists, then I'm going
+to add that book_id to the shopping
+155:12 cart in my session by
+appending it to that cart.
+155:17 Now, what's going on here? I'm assuming at the moment that there's
+already a shopping cart in my session.
+155:24 What is the type of that cart? Well, because I'm using a pen,
+which we have used in the past, it's a method that allows you to
+append a value to a list of items.
+155:33 Turns out, I'm assuming at
+the moment that my shopping cart underneath the hood is
+implemented as a simple Python list.
+155:39 But to do that, I need
+to make sure it exists. I don't want this to be
+some global variable. I just need in my route to check
+that the cart exists for this person.
+155:48 So what I'm going to do is this. If the cart key does not exist in this
+user's session, then let's go ahead
+155:57 and create a shopping cart
+for this user in their session that equals an empty list.
+156:03 And again, you can think of a
+session as a global variable for this specific user.
+156:10 And it's Flask that handles
+all the cookie stuff to make sure that abstraction works. But the very first time someone
+accesses your shopping cart
+156:18 and tries to put something
+in it, it literally won't exist because the session
+itself is completely empty.
+156:23 But I can put a key in there, the
+value of which is an empty list, and then subsequently I can add
+anything I want to that list,
+156:30 just as I'm doing with this
+append function down here. Once now something has been
+added to the shopping cart,
+156:36 let's return the user by redirecting
+them to their shopping cart.
+156:42 Otherwise, if the request
+method is not post and it's get, which is to say the user
+just visited the cart,
+156:48 let's show them the
+contents of their cart. Let's create a variable called books,
+set it equal to db.execute quote,
+156:55 unquote select star from books where-- and here's where we can
+use more SQL skills.
+157:01 The ID of the book is
+in this list of IDs, using a placeholder and
+parentheses to make clear in SQL
+157:10 that I want to check if
+it's in a list of values, much like we talked about
+nested queries in week seven.
+157:15 But what list of values
+do I want to pass in? Well, that's easy. Session quote, unquote cart.
+157:20 Pass in the list that
+I've called cart to which I've been appending all of these IDs.
+157:28 And once I have those books-- and recall that db.execute
+returns a list of dictionaries.
+157:33 I can return render_template
+of quote, unquote cart.html,
+157:39 passing in those books as the
+value of that named parameter.
+157:45 And so if I now want to actually
+see what is in that cart,
+157:52 we need just one more template. So let me open my terminal window. Let me exit out of SQLite.
+157:58 Let me go into my templates folder
+and create a cart.html template.
+158:03 Hide my terminal window. Extends layout.html.
+158:09 Close quote and percent sign. Then block body as always.
+158:14 Then down here, endblock, as always. And then in here, let's
+do something super simple. H1 for cart, to make clear this
+is your shopping cart and not
+158:22 the catalog of books. Let's do an ordered list just so we
+can see the order in which things were inserted.
+158:27 And now we'll do for book in books. And inside of this
+Jinja for loop, endfor,
+158:33 let's go ahead and specify a
+list item of that book's title.
+158:40 And again, you can use
+different syntax in Jinja. You can do book.title or you can
+do book quote, unquote title,
+158:47 indexing into it in that way. But I'll use slightly simpler syntax,
+as we've been doing for a while.
+158:53 All right. If I've now made no mistakes,
+which is low probability, let's reload the application itself.
+158:59 The cart, we now see the
+same catalog of books. Let me proactively go to /cart
+in my URL up top and hit Enter,
+159:08 and you'll see that my cart
+is empty at the moment. But because of all of the logic
+I've added to my cart route,
+159:15 watch what happens if we
+add these to the cart. Let's try adding the very first book,
+The Hitchhiker's Guide to the Galaxy.
+159:21 Click. All right. I screwed up here. I did get redirected to cart. But, but, but, that
+method is not allowed.
+159:28 We know I'm using post because
+that is what was in my form, but I think this is an easy fix.
+159:33 If I'm using method equals post here,
+I need to support that route here, so I need to specify the methods I
+want to support are indeed not just get
+159:42 but also post for my cart route. All right. Let's go back again, back to the
+catalog, and click Add to Cart.
+159:50 Aha. Not only has it been added to the
+session, I've been redirected to /cart,
+159:55 and because it's in my session,
+there is the first book. Let me hit back now. Let's add the last book to the book--
+160:02 to the cart. Mostly harmless. Click. And now I have those
+two books in my cart.
+160:07 Now, to be clear, these are
+only stored in the session. They're not yet stored in a database.
+160:12 So this isn't like the
+user has placed an order. It's more like they have added
+something indeed to their shopping cart
+160:18 temporarily. And in fact, you can kind of see what's
+been going on all this time as follows.
+160:23 If I cd back to my store directory-- let me clear the terminal-- and type
+ls, notice this other folder magically
+160:30 appeared called Flask session. And in fact, if I look
+inside a Flask session, you'll see it turns out
+a couple of files now.
+160:38 Because I've been using
+this for some time, I've created two sessions
+over time and I essentially
+160:43 have two cookie values
+stored in this folder that's keeping track of what the user
+has been doing on my website.
+160:50 In short, these files that are
+stored temporarily in that folder are the result of having
+configured the session as follows.
+160:58 To use a file system based
+session so that Flask is creating these files
+for you and storing
+161:04 in those files as much information as it
+needs to remember what is in whose cart.
+161:10 And it uses cookies ultimately
+to main that kind of state.
+161:15 All right. I think we have time for one final
+set of examples whereby we'll connect all of the dots
+to you from week six
+161:22 and week seven together in a final
+implementation of an application.
+161:28 Let's do this. Let me close all these tabs here. Let me open my terminal window. Let me hit Control-C on flask and go
+into now our final example called shows.
+161:38 And in my shows directory,
+which I created in advance, I have similar files but not the same. App.py and requirements.txt,
+shows.db, which
+161:47 is our old friend from SQL wherein we
+have thousands of TV shows from IMDb
+161:53 as well as my templates
+folder, which, as before, has index.html and layout.html as well.
+162:00 What I'm going to do now, though, is
+go ahead and introduce that much bigger database and make an
+application that's going
+162:07 to let us search IMDb, albeit with
+a simpler UI than at imdb.com.
+162:12 So how might I do this? Well, let's go ahead and
+implement app.py first. Let me open up app.py
+and hide my terminal.
+162:20 And from this list, from this
+starting point, let's do this. Add to it from CS50, import SQL.
+162:27 And down here, let's go ahead and create
+a connection to that there database. Db equals SQL quote, unquote sqlite,
+colon, slash, slash, slash shows.db.
+162:38 Now I'm going to go
+ahead and create a route. App.route, quote, unquote slash my
+default. Define an index function.
+162:46 And this function's purpose
+in life, quite simply, is to return render_template
+of quote, unquote index.html.
+162:54 Now, what's that route
+actually going to do? Well, that index.html is going
+to be very simply a search form.
+163:01 So let's implement that. Let me open my terminal
+and go into templates and then open up index.html, which
+has the starting point of our body
+163:11 as before. And in here, let's do this. Form action equals quote,
+unquote slash search,
+163:18 which will be the next
+route that I implement. The method I'll use now
+is get, just to make clear what's going back and forth
+between the browser and server.
+163:25 Let's create, as we have in the past,
+an input with autocomplete equaling off, autofocus on for this field.
+163:31 The name of this field will be q, just
+like our Google example from last time,
+163:36 the placeholder for which will be
+query for q, and the type of this, just to make it slightly
+better, is search,
+163:43 which is almost the same
+as text, but it usually gives you a little x you can
+click to clear the search box.
+163:48 Then I'm going to have a button,
+the type of which is submit, and the label on that
+button will be search.
+163:54 And that's it for that form. Now, this isn't fully functional
+yet, but let's test it out. Let's go back to my terminal
+window, back to my shows folder.
+164:02 Run flask, run in this
+one after making sure that it's not running in my other tab.
+164:08 And in my other tab too, I'm
+going to go into my shows folder, but only in one of these am
+I going to run flask run.
+164:16 All right. I'm going to go back now to my other
+tab, which still shows my shopping cart. I'm going to shorten the URL
+to just slash and hit Enter,
+164:23 and now we see my shows application. Of course, if I search for
+something like The Office, enter,
+164:29 nothing actually happens. Why? Because even though the browser
+brought me to /search?q=office,
+164:36 there's no search route yet. So let's go back to VS Code. And in VS Code, let's go back to
+app.py and implement that route.
+164:44 Now in this route I'm
+going to go ahead and-- in app.py, I'm going to create
+app.route quote, unquote /search.
+164:51 So creating the route is super easy. Define a function called
+search or whatever. And then now let's go
+ahead and search for titles
+164:58 that match what the user typed in. So shows equals db.execute
+quote, unquote select star
+165:04 from shows where the title equals
+question mark as my placeholder. Let's now pass in
+request.args.get quote, unquote q,
+165:13 which is the query that the
+human typed in to the form. I could create a variable, but
+it's a short enough line of code.
+165:19 It fits on the screen. I'm going to leave it as that. Then I'm going to return render_template
+quote, unquote search.html, comma,
+165:30 and let's pass these shows into
+this template, shows equals shows. Now, I don't have a search.html template
+yet, so let's go and create that.
+165:39 In search.html I just want
+to print out those titles. So let me go into my terminal window,
+specifically the one not running Flask.
+165:47 Let me cd into templates. And then let me go ahead
+and run code of search.html.
+165:54 Hide my terminal, and really quickly do
+an extends quote, unquote layout.html.
+165:59 Then let me do a block body. Then let me do an endblock, as always.
+166:05 And in here, let's just
+do a simple unordered list of these titles of
+shows for show in shows
+166:13 where shows is the variable I
+passed in as my named parameter. And let's end that for loop. Then inside of here,
+a list item passing in
+166:21 show.title as my value to interpolate. All right.
+166:27 Let's see what happens now. Let me go back to my other
+tab, back to the form itself.
+166:32 Let's search for office. Search. Huh. Nothing.
+166:37 So no actual results on the page. In fact, if I View Page Source by
+right clicking or Control-clicking,
+166:42 notice that I've got a
+ul but no list items. All right, well, technically, the show
+is not called office, but The Office.
+166:50 So let me do that. The Office. Search. Oh. We actually have a bunch
+of versions of The Office
+166:56 which we saw, not only the American one,
+but the British one and others as well. So it seems that my
+equal sign in MySQL query
+167:03 is behaving exactly as
+we learned in week seven, whereby I'm literally
+searching for a specific title
+167:08 that I'm plugging in
+for that placeholder. So I think we can improve this slightly. Recall that you can make things a
+little more flexible by not using
+167:16 equals, but we could actually use like. Unfortunately we need
+to, when using like,
+167:21 use those wildcard characters
+like a percent sign to the left and/or right of the
+thing that we want to match on.
+167:27 So the easiest way to do
+this might actually be this. Let me create a new
+variable here called query
+167:33 and set it equal to, sure,
+request.args.get quote, unquote q.
+167:39 However, let me actually prepend to
+that a percent sign to be my wild card,
+167:45 and I'm going to use plus, which recall
+is the concatenation operator in Python. Alternatively, we could use an f
+string or some other technique.
+167:51 But to be pedantic, I'm going
+to literally add to this string another percent sign at the end
+as well as the beginning there.
+167:57 So if I type in office, this will
+just construct a Python string or str that's percent, O-F-F-I-C-E percent.
+168:06 These percents have nothing
+to do with Jinja templates. They have everything to do
+with SQL per week seven, which
+168:11 are wildcard characters. Then over here, I can plug in not the
+raw value that the human typed in,
+168:17 but I can pass in that query so that
+it is placed where the question mark is and it is properly escaped to
+avoid any SQL injection attacks.
+168:25 So now let's go back to
+my other tab and hit back. And instead of searching for The
+Office, let's search for office.
+168:32 Click. Now I get back not only
+all of those offices, but also every TV show that has
+ever had the word O-F-F-I-C-E in it,
+168:43 or a substring thereof. So maybe overkill, maybe not
+what I want, but it did, in fact, make the search a little more versatile.
+168:50 But it turns out we can improve
+upon even this user interface. But notice up until now, what
+we've really been doing now
+168:56 is combining Python
+and SQL and HTML and-- well, no CSS, and everything's
+quite ugly for it.
+169:03 But we've combined almost everything. What if we introduce to the mix a
+little bit of JavaScript code as well?
+169:09 Whereby I could move
+away from this model where every time I want the
+browser to talk to the server,
+169:14 I don't necessarily need to
+send data from browser to server and then reload the whole
+page, perhaps at a new URL.
+169:21 Much like our autocomplete
+example at the end of week eight, recall that we could populate the body
+of the web page, the DOM or document
+169:30 object model, using JavaScript as well. So in fact, even though
+we haven't done this yet, I bet I could write a little bit of
+JavaScript code that talks to the server
+169:39 and says, give me more
+results, give me more results, and just displays them instantly
+in the existing web page
+169:45 without having to generate
+everything server side. In other words, you can actually use
+JavaScript to generate some code client
+169:53 side as well. So let's see how this might look. I'm going to go ahead now and implement
+in this next example, the following.
+170:02 So let me propose to tweak our
+implementation of index.html such
+170:07 that it still has a
+form, but it additionally has some JavaScript code that
+goes and fetches from the server
+170:13 any book titles that match
+what the human has typed in. Rather than have any
+submit button at all
+170:19 that sends the whole form to the
+server and lets the server generate all of the HTML together, let's
+instead do a little more client side.
+170:27 So I'm going to go into index.html here. And inside of this template. I'm going to change the way
+this form here is implemented.
+170:35 And I'm going to simplify it as follows. I'm going to get rid of all of
+this, this traditional form, and I'm just going to give
+myself inside of the block body
+170:43 an input type for which
+autocomplete as before is off, which is autofocused as before,
+whose placeholder is still
+170:50 quote, unquote, query, whose
+type is actually search. What I'm not going to bother doing,
+though, is giving this thing a name,
+170:57 because I don't intend to submit
+this form to the server, per se. I just need a form field that I can
+use JavaScript to grab the value from.
+171:06 What I'm next going to do is create,
+weirdly, an empty unordered list with nothing in it.
+171:11 But I'm going to fill it dynamically
+with JavaScript, ultimately. In fact, here comes a script tag,
+as we saw at the end of last week,
+171:18 whereby inside of this script tag I
+can write some actual JavaScript code. And this is going to look
+a little cryptic at first,
+171:23 but I'll walk us through it as follows. First, let me create a variable
+called input in JavaScript
+171:29 and set it equal to
+document.queryselector quote, unquote input. This code will grab from the web
+page's DOM or document object model--
+171:38 that is the tree that's been built
+up in the computer's memory-- the tag of type input.
+171:44 So this will give me JavaScript
+access to this here HTML tag. Now I'm going to listen to
+that input for any keystrokes.
+171:52 And I'm going to say
+input.addEventListener.
+171:58 And I'm going to listen
+for the input event, which just means I've inputted a keystroke. So I'm not caring about
+key down or key up.
+172:05 I'm just saying when
+something's been inputted, go ahead and call this function. So I'm going to use a
+slightly new feature today
+172:11 that's called async, which
+means what's about to happen is going to be asynchronous
+for reasons we'll soon see.
+172:16 Inside of this function, I'm
+going to now do the following. I'm going to create another
+variable called response
+172:21 and set it equal to the result of
+waiting for a function in JavaScript
+172:26 called fetch that will know how to
+request via HTTP a specific route.
+172:33 Specifically /search?q= and then
+some value that I'm going to append.
+172:39 And what I'm going to append
+is the value of that input box. In other words, this line of code is
+going to make an HTTP request from
+172:48 JavaScript to the server requesting
+/search?q=office or whatever I've typed
+172:54 in. But I'm therefore using
+code to simulate and induce an actual HTTP request without the
+human actually clicking Submit.
+173:04 After that, I'm going to say let shows
+equals await response.txt, which just
+173:10 means wait for a moment until I get
+back the text of this HTTP response in JavaScript.
+173:15 And then I'm going to do
+document.queryselector quote, unquote ul.
+173:21 I'm going to fix my capitalization. And I'm going to change the
+inner HTML of that ul element,
+173:26 as we did once last week, to be equal to
+whatever the text in that variable is.
+173:32 In other words, these lines
+of code do the following. This line of code listens for
+human input in that text box.
+173:39 This line 13 makes an HTTP request
+from JavaScript to the server asking
+173:44 for /search?q=something, where the
+something is whatever the human typed in. Line 14 waits for the
+response from the server.
+173:52 Line 15 uses the response and plugs it
+into the inner HTML of the ul element,
+173:58 effectively putting a whole
+bunch of li tags therein. Unfortunately, search as a route does
+not quite do what we need just yet.
+174:06 So I'm actually going to
+go back into app.py here and I'm going to modify
+the behavior of app.py
+174:11 such that it behaves as what we
+generally call an API, an application programming interface, which is a way
+of standardizing how you provide input
+174:21 to a service and get output there from. The API here is going
+to be super simple.
+174:26 All I'm going to do now is this. I'm going to go ahead and search for,
+as before, some shows in the database
+174:34 as I've done here. And what I'm then
+going to do is actually render the same template, search.html.
+174:41 But now that I've confirmed that that
+part itself doesn't need to change,
+174:46 I am going to change the template. In search.html, instead of sending
+a proper ul tag, which I don't need,
+174:53 I'm just going to send a whole
+bunch of li elements instead. A snippet of HTML, if you will.
+174:60 Now I'm definitely going to
+cross my fingers this time. I'm going to go back to
+shows here and click back. I'm going to reload the
+form, and that still works.
+175:07 But notice I indeed
+got rid of the button. I didn't bother using a Submit button. Why? Because when I type in O-F-F-I-C-E,
+what I want to have happen underneath
+175:17 the hood is autocomplete. I want to get back every
+result that says office.
+175:23 Now, what just happened? Well, let me actually go into
+the developer tools of Chrome.
+175:28 Let me go into the Network tab,
+and let me actually start over. Let me click the reload button here.
+175:34 Let me clear my log here. And notice last time I specifically
+clicked on doc because I only want
+175:40 to get the top level document requests. Today I'm going to click all so I
+can see even these JavaScript based
+175:47 HTTP calls. And very simply, I'm going to type
+in O. It indeed takes a moment, but notice in the logs
+here of my Network tab,
+175:55 I can see the request that was
+sent from JavaScript to the server. If I click on that, you can
+see in this query here--
+176:02 and it's a big one, so
+we're seeing a little spin. Under the Response tab, I don't
+have a fully formed web page.
+176:08 I have a whole bunch of li tags and
+the titles of those shows in there,
+176:13 hundreds of them, if not thousands of
+them, which is why it was a bit slow, whereby the server generated not
+a full fledged web page, but just
+176:20 a snippet of HTML instead. And so this is an example of indeed
+what's really an API, albeit a naive
+176:26 one, that's just returning
+a minimal amount of HTML that you need to populate
+your own unordered list.
+176:32 But generally speaking, this isn't
+really the best way to do this. Really, when it comes
+to APIs, you should be not sending back snippets of
+HTML, but really the raw data.
+176:41 And so in fact, very common in the
+world of APIs is to use something called JSON, JavaScript Object Notation.
+176:48 A bit of a mouthful, but what it
+means is that instead of sending back all of that HTML, what you
+should probably send back
+176:54 is really the equivalent
+of a Python dictionary. JavaScript doesn't have
+dictionaries, per se. JavaScript has what the
+world calls objects.
+177:01 But for our purposes
+here, they are the same. And in fact, what you
+see on the slide here is a snippet of
+JavaScript Object Notation
+177:09 that wonderfully happens
+to be the same format that we use in Python for dictionaries.
+177:15 Kind of a coincidence,
+but probably deliberate. But finally, things
+are looking the same. And in fact, if I select
+all of the columns
+177:22 from my shows table
+in that database, I'll get back not just the titles,
+but the IDs of the shows,
+177:29 the year in which they started,
+as well as the number of episodes. So in VS Code, I'm going to
+first go up to the very top
+177:35 and import one last feature from flask,
+namely a function called jsonify, which as the name kind of suggests,
+it's going to turn into JSON anything
+177:43 you pass into it. So for instance, if I
+pass to it a list, I'm going to get back a JSON
+version of that list.
+177:48 If I pass in a list of
+dictionaries, I'm going to get back a JSON version
+of a list of dictionaries.
+177:54 In short, it converts
+whatever is in Python's memory to the corresponding
+JavaScript Object Notation.
+177:60 So let me scroll down
+now to my search route and let's make a change as follows.
+178:05 Let's go into the last line, and instead
+of rendering a whole template of HTML, let's actually return the
+return value of jsonify passing
+178:14 in all of those shows. Though, for good measure, let's actually
+fix a couple of other things as well.
+178:19 If, for instance, the user did
+not actually type something in, we probably don't want to search
+blindly for some value we know is empty.
+178:29 So let's actually tweak
+even this part as follows. I'm going to go into my
+search route further. I'm going to define query.
+178:35 Whoops. Query equals request.args.get
+quote, unquote q.
+178:40 But then I'm going to ask a question. If there is in fact a value for
+that query, then let's go ahead
+178:47 and query the database for that query
+but prepend to it a percent sign first,
+178:54 plus the query itself, plus a
+percent sign after close parentheses.
+178:60 Else if there is no query, that is
+they didn't type in anything at all, then let's go ahead and specify that
+the show's list is really empty.
+179:07 There's no results. So that at least when it comes
+time to jsonify that variable, we're jsonifying either an actual
+set of results or nothing at all,
+179:17 but consciously so. And just to speed things up too,
+instead of selecting thousands of shows that might contain the letter
+O, let's limit this to the top 50,
+179:27 just to speed things up, even
+though in the real world, you'd probably want all of them. All right. With that said, let's now
+go back into our index.html,
+179:35 which previously was expecting
+back a snippet of HTML, namely all of those li tags. But let's change it now to actually
+expect a proper JSON response.
+179:45 In fact, to do so, what I'm going
+to do is a couple of things. One, I'm going to tell my
+JavaScript code-- on line 14
+179:51 is tell JavaScript to treat that
+response indeed as JSON and not text, because what I don't
+want is a big string.
+179:57 What I really want in the browser's
+memory is a proper array of objects. That is to say, a proper list of
+dictionaries in the browser's memory.
+180:07 But after that I don't want
+to just blindly plug that code into the inner HTML of the ul.
+180:12 Rather, I want to build
+up my HTML myself. So I'm going to do this as follows. I'm going to create with let another
+JavaScript variable called HTML
+180:21 and set it equal to quote, unquote. I could use double quotes, but
+I'm using single quotes for parity with JavaScript conventions.
+180:27 But it's just an empty
+string at this point. Then I'm going to say in a for loop
+in JavaScript, for let show of shows--
+180:36 and this is going to be my way of
+iterating now over all of those shows. The of preposition's a
+little weird in JavaScript,
+180:42 but this allows me to iterate over
+each of the objects in that array. So let's go ahead and do this.
+180:49 Let me go ahead and append to
+that HTML string with plus equals
+180:55 or concatenate a li tag of my own
+making, followed by that show's title,
+181:02 followed by a close li
+tag of my own making. And then outside of that for loop,
+let's do document.queryselector quote,
+181:11 unquote ul to get access to
+that same empty ul element that we do still have and
+change its inner HTML not
+181:18 to be what came back from the
+server but my own dynamically generated HTML instead.
+181:24 Now, as an aside, I should
+note that it's possible that this code might be a little buggy
+because if the show's title contains
+181:30 any special characters,
+like the less than sign or certain other characters that
+have special meaning in HTML,
+181:36 things might very well
+break, and I should probably replace any such characters with
+their corresponding HTML entities.
+181:43 For now, I'm going to
+wave my hand at that just to keep the code
+relatively simple, but know that we might need to
+do that kind of escaping
+181:50 of the strings we're pasting in. Let me now go back to my browser here. Let me reload the page so I get
+the latest version of the code.
+181:57 And let me go ahead and type
+something like O for office. And there we have it, an unordered list
+generated not by the server but by me
+182:04 client side, such that now I can
+search for O or office or anything else and all of that is happening
+now by generating the list items
+182:14 for that ul within the browser itself. And in fact, if I reload here and open
+up my developer tools again via Inspect
+182:21 and go to the Network tab and search
+for O, I can click on that row, and under the Response
+tab, I can see that I'm not
+182:28 getting back any HTML, per se. I'm getting back JSON,
+albeit pretty printed here.
+182:34 And in fact, that then reveals to me
+that, indeed, I'm getting back JSON and I'm plugging it in to
+the browser accordingly.
+182:41 So all that said, it seems that now we
+have the ability, using HTML and CSS
+182:47 and JavaScript, with a bit
+of Python, with a bit of SQL, can we build full
+fledged web applications
+182:52 that increasingly are being used not
+just on our desktops and laptops, but also on our phones as well.
+182:58 In fact, using all of
+these languages, can you build a back end and a
+front end that communicate with each other to build things like
+your own freshman intramural website,
+183:07 your own problem set nine, or,
+we hope, your own final project. That's it for CS50.
+183:12 We will see you back in
+Sanders Theater one more time. 
+183:18 [MUSIC PLAYING] 

@@ -1,0 +1,2161 @@
+00:00 [MUSIC PLAYING] 
+01:02 DAVID MALAN: All right, one last time. This is CS50, and we realize this
+has been a bit of a fire hose
+01:10 over the past-- thank you. [APPLAUSE]  Thank you.
+01:16 We realize this has been
+a bit of a fire hose. Indeed, recall that we
+began the class in week 0, months ago with this
+here MIT hack, wherein
+01:23 a fire hose was connected
+to a fire hydrant, in turn connected to a water fountain. And it really spoke to
+just how much information
+01:30 we predicted would be sort of flowing
+at you over the past few months. If you are feeling all these
+weeks later that it never actually
+01:36 got easy, and with pset 1 to
+pset 2, pset 3 on to pset 9, you never quite felt like
+you got your footing,
+01:43 realize that it's kind of by design
+because every time you did get your-- every time you did get
+your footing, our goal
+01:49 was to ratchet things
+up a little bit more so that you feel like
+you're still getting something out of that final week.
+01:54 And indeed, that final
+week is now behind us. All that remains ahead of
+us is the final project. And what we thought we'd do today is
+recap a little bit of where we began
+02:02 and where you hopefully now are. Take a look at the
+world of cybersecurity, because it's a scary place out
+there, but hopefully you're
+02:08 all the more equipped
+now with a mental model and vocabulary to evaluate threats in
+the real world, and as educated people,
+02:15 make decisions, be it in
+industry, be it in government, be it in your own personal
+or professional lives.
+02:20 And we hope ultimately,
+too, that you've walked away with a very practical
+skill, including how to program in C, how
+to program in Python,
+02:27 how to program in SQL, how
+to program in JavaScript in the context, for instance, of
+even more HTML, CSS, and the like.
+02:33 But most importantly, we hope
+that you've really walked away with an understanding of how to program. Like, you're not going to have CS50 by
+your side or even the duck by your side
+02:42 forever. You're going to have really, that
+foundation that hopefully you'll walk out of here today having
+accumulated over the past few months.
+02:48 And even though the world's
+languages are going to change, new technologies are going
+to exist tomorrow, hopefully,
+02:53 you'll find that a
+lot of the foundations over the past several months
+really do stay with you and allow you to bootstrap
+to a new understanding,
+02:59 even if you never take
+another CS course again. Ultimately, we claim that this
+was all about solving problems.
+03:05 And hopefully, we've kind of cleaned
+up your thinking a little bit, given you more tools in your toolkit
+to think and evaluate and solve
+03:11 problems more methodically, not only in
+code, but just algorithmically as well. And keep this mind too.
+03:18 If you're still feeling like, oh, I
+never really quite got your footing-- my footing, think back to how hard Mario
+might have felt some three months ago.
+03:26 But what ultimately matters in
+this course is indeed, not so much where you end up relative
+to your classmates, but where you end up relative
+to yourself when you began.
+03:34 So here we are, and
+consider that there delta. And if you don't believe me, like,
+literally go back this weekend
+03:40 or sometime soon, try
+implementing Mario in C. And I do dare say it's going to come
+a little more readily to you.
+03:46 Even if you need to Google
+something, ask the duck something, ask ChatGPT something just to
+remember some stupid syntactic detail,
+03:52 the ideas hopefully are
+with you now for some time. So that there hack is actually
+fully documented here in MIT.
+03:59 Our friends down the
+road have a tradition of doing such things every year. One year, one of my favorites
+was they turned the dome of MIT
+04:06 into a recreation of R2-D2. So there's a rich history of going
+to great lengths to prank each other,
+04:13 or even us here Harvard folks
+akin to the Harvard Yale video we took a look at last time.
+04:19 And this duck has really become
+a defining characteristic of late of CS50, so much so that last
+year, the CS50 Hackathon, we invited
+04:26 the duck along. It posed, as it is here, for
+photographs with your classmates past.
+04:32 And then around like, 4:00 AM, it
+disappeared, and the duck went missing.
+04:38 And we were about to head off
+to IHOP, our friends from Yale. Your former classmates
+had just kind of packed up
+04:44 and started driving back to New haven. And I'm ashamed to say our first
+thought was that Yale took it.
+04:50 And we texted our TA friends on the
+shuttle buses, 4:30 AM asking, hey,
+04:55 did you take our duck because we kind
+of need it next week for the CS50 fair? And I'm ashamed to say that we thought
+so, but it was not in fact, them.
+05:02 It was this guy instead, down the road. Because a few hours later after I
+think, no sleep on much of our part,
+05:09 we got the equivalent of a ransom email. "Hi, David, it's your friend, bbd.
+05:15 I hope you're well and not too
+worried after I left so abruptly yesterday night after such a successful
+Hackathon and semester so far.
+05:22 I just needed to unwind a bit and take
+a trip to new places and fresh air. Don't worry though, I will
+return safe, sound, healthy, home
+05:29 once I am more relaxed. As of right now, I'm just spending
+some few days with our tech friends up Massachusetts Avenue.
+05:34 They gave me a hand on moving tonight. For some reason, I could never find my
+feet, and they've been amazing hosts.
+05:40 I will see you soon and I will miss
+you and Harvard specially our students. Sincerely yours, CS50 bbd."
+05:46 So almost a perfect hack. They didn't quite get the
+DDB detail quite right.
+05:52 But after this, they proceeded to make
+a scavenger hunt of sorts of clues here.
+05:58 This here is Hundredville. And so in Hundredville, they handed
+out flyers to students at MIT,
+06:03 inviting folks to write a Python
+program to solve a mystery. "The CS50 duck has been stolen. The town of Hundredville
+has been called on you
+06:10 to solve the mystery
+of the-- authorities believe that the thief stole the
+duck and then shortly thereafter took
+06:15 a walk out of town. Your goal is to identify who the thief
+is, what school the thief escaped to, and who the thief's accomplice
+is who helped them escape.
+06:23 This took place on December 2, 2022,
+and took place at the CS50 Hackathon."
+06:29 In the days to come, we proceeded to
+receive a series of ransom postcards as the duck traveled, not only to MIT
+to Professor John Guttag 6.100B class,
+06:40 which is a rough equivalent
+of CS50 down the road. Pictured there our CS50 duck
+with some tape on its torso.
+06:47 But then the duck took,
+apparently, a ride, either in actuality or with
+Photoshop, not only there,
+06:54 took a tour of the Charles
+River in front of Harvard, the Charles in front of Boston.
+06:59 It went all the way over to Yale. We then received this
+postcard from Princeton all the way over from Stanford.
+07:07 Duck took a flight according
+to this photo here, and then saw a bit of the world as well.
+07:12 So eventually, we received a
+follow-up email saying, "Hi, David. I intend to arrive for the fair
+between 8:37 AM and 9:47 AM.
+07:19 It would be easier for my MIT hacker
+friends to bring me to the right location if there's someone waiting
+there with a sign that says 'Duck'."
+07:26 I'm not sure if we actually stood
+there with a sign holding duck, but it turns out they came
+actually earlier in the morning
+07:32 to escape detection altogether. The duck found its home and
+everyone lived happily ever after.
+07:37 And here the duck is again today. But our props to our
+friends down the road at MIT for returning the duck safely and
+for going to such crazy lengths
+07:45 to put us in the annals
+of MIT's Hacks Gallery. In fact, in exchange for this,
+we sent them a little package.
+07:53 And without telling you what
+it is, you can read more about this here hack that's
+now been immortalized on hacks.mit.edu at this URL here.
+08:01 So maybe round of
+applause for our friends down the road for having
+pulled that off a year ago. [APPLAUSE]
+08:07 So before we dive into
+some of today's material,
+08:13 I wanted to give you a sense
+of what lies ahead as well. So this year's CS50 Hackathon
+is an annual tradition,
+08:18 whereby students here at Harvard
+and our friends from Yale who will take buses in the
+other direction to join us in about a week's time for an epic
+all-nighter, starting roughly at 7:00
+08:26 PM ending roughly at 7:00
+AM will be punctuated by multiple meals, first meal-- first
+dinner around 9:00 PM, second dinner
+08:33 around 1:00 AM. And those of you who
+still have the energy and are still awake around 5:00
+AM, we'll hop in a shuttle bus
+08:38 and head down to IHOP, the
+larger one down the road, not the one in the square, and have
+a little bit of breakfast together.
+08:44 The evening typically
+begins a little bit like this with a lot of
+energy, the focus of which is entirely on final projects.
+08:50 The staff will be
+present, but the intent is not to be 12 hours of office hours. Indeed, the staff will be working
+on their own projects or psets,
+08:57 final projects, and the like, but
+to guide you toward and point you in the direction of solutions
+to new problems you have.
+09:04 And we do think that the duck, and
+in turn, AI, CS50.ai and other tools
+09:09 you'll now be able to use, including
+the actual ChatGPT, the actual GitHub Copilot, or other AI tools
+which are now reasonable to use
+09:17 at this point in the semester
+as you off board from CS50 and enter the real world. Should be an opportunity for you to
+take your newfound knowledge of software
+09:25 out for a spin and build something
+of your very own, something that even maybe the TFs and myself
+have never dabbled in before,
+09:31 but with all of this now
+software support by your side. This here is our very own CS50 shuttles
+that will take us then to IHOP.
+09:38 And then a week after
+that is the epic CS50 fair, which will be an opportunity
+to showcase what it is you'll
+09:44 pull off over the next few
+weeks to students, faculty, and staff across campus. More details to come, but you'll
+bring over your laptop or phone
+09:51 to a large space on campus. We'll invite all of your friends,
+even family if they're around. And the goal will be simply
+to have chats like this
+09:57 and present your final
+project to passersby. There'll be a bit of an
+incentive model, whereby anyone who chats you
+up about their project,
+10:04 you can give a little sticker to. And that will enter them into
+a raffle for fabulous prizes to grease the wheels of
+conversations as well.
+10:11 And you'll see faculty from
+across campus join us as well. But ultimately, you walk out of that
+event with this here CS50 shirt,
+10:19 one like it, so you too, can proudly
+proclaim that you indeed took CS50. So all that and more to come, resting
+on finally, those final projects.
+10:27 But how to get there. So here are some general advice
+that's not necessarily going to be applicable to all final projects.
+10:32 But as we exit CS50 and
+enter the real world, here are some tips on what you
+might read, what you might download,
+10:38 sort of starting points so that
+in answer to the FAQ, what now? So for instance, if
+you would like to begin
+10:45 to experience on your own Mac or PC
+more of the programming environment that we provided to you, sort of turnkey
+style in the cloud using cs50.dev,
+10:54 you can actually install command line
+tools on your own laptop, desktop, or the like. For instance, Apple has their own.
+10:60 Windows has their own. So you can open a terminal
+window on your own computer and execute much of the same commands
+that you've been doing in Linux
+11:06 this whole term. Learning Git, so Git is
+version control software. And it's very, very popular in industry.
+11:13 And it's a mechanism for saving
+multiple versions of your files. Now, this is something you
+might be familiar with if still,
+11:19 even using file names in the real
+world, like on your Mac or PC-- maybe this is resume
+version 1, resume version 2,
+11:26 resume Monday night version, resume
+Tuesday, or whatever the case may be. If you're using Google documents,
+this happens automatically nowadays.
+11:34 But with code, it can happen
+automatically, but also more methodically using this here tool.
+11:39 And Git is a very popular tool for
+collaborating with others as well. And you've actually
+been secretly using it
+11:45 underneath the hood for
+a lot of CS50's tools. But we've abstracted
+away some of the details. But Brian, via this video and
+any number of other references,
+11:52 can peel back that abstraction and
+show you how to use it more manually. You don't need to use cs50.dev
+anymore but you are welcome to.
+11:59 You can instead install VS
+Code onto your own Mac or PC. If you go to this first URL
+here, it's a free download.
+12:04 It's actually open source. So you can even poke around and
+see how it, itself is built. And at CS50's own
+documentation, we have some tips
+12:11 for making it look like CS50's
+environment even if longer term, you want to cut the cord entirely.
+12:17 What can you now do? Well, many of you for
+your final projects will typically tackle websites, sort
+of building on the ideas of problem
+12:25 set 9, CS50 finance and the like,
+or just generally something dynamic. But if you instead want to host a
+portfolio, like just your resume, just
+12:33 projects you've worked on and
+the like, a static websites can be hosted for free
+via various services.
+12:38 A popular one is this URL
+here, called GitHub pages. There's another service that
+offers a free tier called
+12:43 Netlify that can allow you to host
+your own projects statically for free. But when it comes to more dynamic
+hosting, you have many more options.
+12:51 And these are just some
+of the most popular. The first three are some of
+the biggest cloud providers nowadays, whether it's Amazon or
+Microsoft Azure or Google services.
+13:00 If you go to this fourth URL here,
+this is GitHub's education pack, they essentially broker with
+lots of different companies
+13:06 to give students,
+specifically, discounts on or free access to a lot of tools. So you might want to sign up
+for that while you're eligible.
+13:13 And then lastly, here are two
+other popular third-party, but not free services, but
+that are very commonly
+13:18 used when you want to host
+actual web applications. So maybe it's Flask, maybe it's
+something else, but something that involves some input and output.
+13:26 Questions meanwhile-- so there's
+just lots of communities. If you want to keep an eye
+on what's happening in tech,
+13:32 these are just some of
+the popular options. And undoubtedly, if you
+have some techie friends, they'll have suggestions as well.
+13:38 But you might find some of
+these destinations of interest. Of course increasingly, will you just
+ask questions of software itself,
+13:45 AI, whether it's ChatGPT,
+GitHub Copilot, or the like.
+13:50 And then classes, we're clearly a little
+biased here with what's on the screen. So these aren't college classes per
+se, but freely available OpenCourseWare
+13:58 courses that CS50's team
+has put together over time. And in a nutshell as you can infer
+from the suffix of each of these URLs,
+14:04 if you want to learn
+more about Python, CS50 has got a free, open online
+class for that, or SQL, thanks
+14:09 to Carter, web and AI stuff, thanks to
+Brian, a games class, thanks to Colton, cybersecurity, which will
+extend where we leave off today.
+14:18 And then if you're
+more interested, not so much in coding and going
+more deeply into software,
+14:23 but want to take a step higher level and
+focus more on intersections of computer
+14:28 science with business
+or law or technology, those two are freely
+available, if you're looking for something to do over January
+the summer or just to dabble over time.
+14:36 And there's innumerable
+other free resources from other folks on the
+internet as well certainly too.
+14:42 All right, so a few
+invitations and thank yous. So one, after today, after we dive
+into and out of cybersecurity,
+14:49 please do stay in touch via any
+of CS50's online communities. As we start to recruit next year's
+team for teaching fellows, teaching
+14:56 assistants, course assistants,
+we'll be in touch via email for those opportunities as well.
+15:01 And now some thanks for the group before
+we then dive into here today's topic. So one, allow me to thank
+our hosts here for giving us
+15:08 access to such a wonderful, privileged
+space to just hold classes in, the whole team for Memorial Hall.
+15:14 Our thanks too, to ESS, which is the
+team that makes everything sound so good in spaces like this with music,
+mics, and the like, our friends,
+15:21 of course, Wesley down the road
+at Changsho, where we went most every other Friday this semester. If you've never actually been,
+or if you're hearing this online,
+15:28 please join our friends at Changsho
+show on Mass Ave down the road any time you might like. And then especially, CS50's
+team-- there's quite a few humans
+15:36 operating cameras in the room, both
+here and way in back, as well as online. My thanks.
+15:41 [APPLAUSE] Thank you to them for making
+this look and sound so good.
+15:48 And what you don't see is
+when I do actually screw up, even if we don't fix it in
+real time, they very kindly
+15:53 help us go back in time, fix things,
+so that your successors have hopefully, an even improved version as well.
+15:59 And then as well, CS50's
+own Sophie Anderson, who is the daughter of one
+of CS50's teaching fellows
+16:06 who lives all the way over in
+New Zealand, who has wonderfully brought the CS50 duck to
+life in this animated form.
+16:12 thanks to Sophie, this duck is now
+everywhere, including most recently, on some T-shirts too.
+16:18 But of course, we have this
+massive support structure in the form of the team. This is some of our past
+team members, but who
+16:24 wonderfully via Zoom you'll
+recall in week seven, showed us how TCP/IP works by
+passing those envelopes up,
+16:31 down, left, and right. I commented at the time,
+disclaim, that it actually took us quite a bit of effort to do that.
+16:37 And so I thought I would share
+as a representative thanks of our whole teaching team, whether
+it's Carter and Julia and Ozan and Cody
+16:45 and all of C50's team members
+in Cambridge in New Hey, thought I'd give you a look behind
+the scenes at how things go indeed,
+16:53 behind the scenes that
+you don't necessarily see. So let me switch over here and hit play.
+16:58 [VIDEO PLAYBACK] [INAUDIBLE] [INAUDIBLE] Buffering. OK.
+17:04 Josh? Nice. Helen? Oh. [CHUCKLING]
+17:11  [INAUDIBLE] Moni-- no, oh, wait. 
+17:20 That was amazing, Josh. 
+17:26 Sophie. 
+17:33 Amazing. That was perfect. Moni. [LAUGHTER] I think I--
+17:43 [INTERPOSING VOICES] - Over to you, [INAUDIBLE]. Guy.
+17:48  That was amazing.
+17:53 Thank you all. - So good. [END PLAYBACK] DAVID MALAN: All right,
+these outtakes aside, my thanks to the whole teaching team
+for making this whole class possible.
+18:01 [APPLAUSE] So cybersecurity, this
+refers to the process
+18:06 of keeping secure our systems,
+our data, our accounts, and. More and it's something that's going
+to be increasingly important, as it
+18:13 already is, just because of the
+sheer omnipresence of technology on our desks, on our laps,
+in our pockets, and beyond.
+18:19 So exactly what is it? And how can we, as students of computer
+science over the past many weeks, think about things a little more
+methodically, a little more carefully,
+18:28 and maybe even put some numbers to the
+intuition that I think a lot of you probably have when it comes to deciding,
+is something secure or is it not?
+18:35 So first of all, what does it
+mean for something to be secure? How might you as citizens of the
+world now answer that question?
+18:42 What does it mean to be secure? AUDIENCE: Resistant to attack. DAVID MALAN: OK, so resistant to
+attack, I like that formulation.
+18:48 Other thoughts on what
+it means to be secure? What does it mean? Yeah.
+18:53 AUDIENCE: You control
+who has access to it. DAVID MALAN: Yeah, so you control
+who has access to something. And there's these techniques known
+as authentication, like logging in,
+19:02 authorization, deciding
+whether or not that person, once authenticated, should
+have access to things. And, of course, you
+and I are very commonly
+19:08 in the habit of using fairly
+primitive mechanisms still. Although, we'll touch
+today on some technologies
+19:14 that we'll see all the more of in the
+weeks and months and years to come. But you and I are
+pretty much in the habit of relying on passwords for
+most everything still today.
+19:21 And so we thought we'd begin
+with exactly this topic to consider just how secure or
+insecure is this mechanism and why
+19:28 and see if we can't
+evaluate it a little more methodically so that we can make
+more than intuitive arguments, but quantitative compelling
+arguments as well.
+19:35 So unfortunately we humans are
+not so good at choosing passwords. And every year, accounts
+are hacked into.
+19:42 Maybe yours, maybe your friends,
+maybe your family members have experienced this already. And this unfortunately happens
+to so many people online.
+19:48 But, fortunately, there
+are security researchers in the world that take a look at
+attacks once they have happened,
+19:54 particularly when data from attacks,
+databases, are posted online or on the so-called dark web
+or the like and downloaded
+20:01 by others for malicious purposes,
+they can also conversely provide us with some insights as to
+the behavior of us humans
+20:07 that might give us some insights
+as to when and why things are getting attacked successfully. So as of last year, here, for
+instance, according to one measure
+20:15 are the top 10 most popular, a.k.a. worst passwords-- at least
+according to the data
+20:22 that security researchers
+have been able to glean-- by attacks that have already happened. So the number one password as of last
+year, according to systems compromised,
+20:30 was 123456. The second most, admin.
+20:35 The third most, 12345678. And thereafter, 123456789, 1234, 12345,
+password, 123, Aa123456, and then
+20:51 1234567890. So you can actually infer-- sort of goofy as some of these are--
+you can actually infer certain policies
+20:59 from these, right? The fact that we're taking such
+little effort to choose our password seems to correlate really
+with probably, what's
+21:05 the minimum length of a
+password required for systems? And you can see that
+at worst, some systems
+21:11 require only three digit passwords. And maybe they might require
+six or eight or nine or even 10.
+21:18 But you can kind of infer corporate or
+policies from these passwords alone. If you keep going through the list,
+there's some funnier ones even down
+21:26 the list that are
+nonetheless enlightening. So, for instance, lower on the
+list is Iloveyou, no spaces.
+21:32 Sort of adorable, maybe
+it's meaningful to you. But if you can think of
+it, so can an adversary,
+21:38 so can some hacker, so much so that
+it's this popular on these lists. Qwertyuiop, it's not quite English, but
+its derivative of English keyboards.
+21:49 Anyone? Yeah, so this is, if you look
+at a US English keyboard, it's just the top row
+of keys if you just hit them all together left or right
+to choose your, therefore, password.
+21:57 And then this one,
+"password," which has an at sign for the A and a zero for the O,
+which I guess I'm guessing some of you
+22:05 do similar tricks. But this is the thing too, if you
+think like you're being clever, well, there's a lot
+of other adversaries,
+22:11 there's a lot of adversaries out there
+who are just as good at being clever. So even heuristics like this
+that in the past, to be fair,
+22:18 you might have been taught
+to do because it confuses adversaries' or hackers' attempts,
+unfortunately, if you know to do it,
+22:24 so does the adversary. And so your accounts aren't necessarily
+any more secure as a result.
+22:30 So what are some of our
+takeaways from this? Well, one, if you have these lists
+of passwords, all too possible
+22:37 are, for instance, dictionary attacks. Like we literally have
+published on the internet--
+22:42 and there's a citation in the
+slides if you're curious-- of these most popular
+passwords in the world. So what's a smart adversary going to do
+when trying to get into your account?
+22:49 They're not necessarily going
+to try all possible passwords or try your birthday
+or things like that. They're just going to start with
+this top 10 list, this top 100 list.
+22:57 And odds are, statistically,
+in a room this big, they're probably going to get into
+at least one person's account.
+23:02 But let's consider maybe a little more
+academically what we can do about this.
+23:08 And let's start with something
+simple like the simplest, the most omnipresent device we might
+all have now is some kind of mobile device like a phone.
+23:14 Generally speaking, Apple
+and Google and others are requiring of us
+that we at least have a passcode or at least
+you're prompted to set it up
+23:21 even if you therefore opt out of it. But most of us probably have a
+passcode, be it numeric or alphabetic
+23:27 or something else. So what might we take away from that? Well, suppose that you
+do the bare minimum.
+23:33 And the default for years
+has generally been having at least four digits in your passcode. Well, what does that mean?
+23:39 Well, how secure is that? How quickly might it be hacked? And, in fact, Carter, would
+you mind joining me up here?
+23:44 Perhaps we can actually decide
+together how best to proceed here.
+23:50 If you want to flip over
+to your other screen there, we're going to ask everyone to go to--
+23:55 I'll pull it up here-- this URL
+here if you haven't already. And this is going to pull
+up a polling website that's
+24:03 going to allow you in a moment to
+answer some multiple choice questions. This is the same URL as earlier
+if you already logged in.
+24:10 And in just a moment, we're
+going to ask you a question. And I think, can we show the
+question before we do this?
+24:17 Here's the first question
+from Carter here. How long might it take to crack--
+24:22 that is, figure out-- a four-digit
+passcode on someone's phone, for instance?
+24:28 How long might it take to
+crack a four-digit passcode?
+24:33 Why don't we go ahead and flip
+over to see who is typing in what. And we'll see what the
+scores are already.
+24:42 All right, and it looks like
+most of you think a few seconds. Some of you think a few minutes,
+a few hours, a few days.
+24:47 So I'd say most of you are about
+to be very unpleasantly surprised. In fact, the winner here is
+indeed going to be a few seconds,
+24:53 but perhaps even faster than that. So, in fact, let me
+go ahead and do this. Thank you to Carter. Let me flip over and
+let me introduce you
+24:60 to, unfortunately, what's a very real
+world problem known as a brute force attack. As the word kind of
+conjures, if you think
+25:05 to-- back to yesteryear when there
+was some kind of battering ram trying to brute force their
+way into a castle door,
+25:11 it just meant trying to hammer
+the heck out of a system. A castle, in that case, to
+get into the destination.
+25:18 Digitally though, this might
+mean being a little more clever. We all know how to write code in a
+bunch of different languages now.
+25:24 You could maybe open up a text editor,
+write a Python program to try all possible four-digit codes from 0000 to
+9999 in order to figure out exactly,
+25:36 how long does it actually take? So let's first consider this. Let me ask the next question.
+25:42 How many four-digit passcodes are there? Carter, if you wouldn't mind
+joining me and maybe just staying up with me here to run our second
+question at this same URL.
+25:50 How many four-digit passcodes
+are there in the world? On your phone or laptop, you
+should now see the second question.
+25:57 And the answers include 4, 40, 9,999,
+10,000, or it's OK to be unsure.
+26:06 Let's go ahead and flip
+over to the results. And it looks like most
+of you think 10,000. And, indeed, that is the case.
+26:11 Because if I kind of led you with 0000
+to 9999, that's 10,000 possibilities.
+26:16 So that is, in fact, a lot. But most of you thought it'd take maybe
+a few seconds to actually brute force
+26:22 your way into that. Let's consider how we might measure
+how long that actually takes. So thank you.
+26:27 So in the world of a
+four-digit passcode-- and they are, indeed, digits,
+decimal digits from 0 to 9--
+26:32 another way to think about it is there's
+10 possibilities for the first digit, 10 for the next, 10 to the 10.
+26:38 So that really gives us 10 times
+itself four times or 10,000 in total. But how long does that actually take?
+26:44 Well, let me go ahead and do this. I'm going to go ahead and open
+up on my Mac here, not even--
+26:49 not even Codespaces or cs50.dev today. I'm going to open up VS Code itself. So before class, I went ahead and
+installed VS Code on my own Mac here.
+26:58 It looks almost the same as
+Codespaces, though the windows might look a little different
+and the menus as well.
+27:04 And I've gone ahead here and
+begun a file called crack.py. To crack something
+means to break into it,
+27:09 to figure out in this case
+what the passcode actually is. Well, how might I write some code to
+try all 10,000 possible passcodes?
+27:17 And, heck, even though
+this isn't quite going to be like hacking
+into my actual phone, I bet I could find a USB or a lightning
+cable, connect the two devices,
+27:25 and maybe send all of these passcodes
+to my device trying to brute force my way in. And that's indeed how a hacker
+might go about doing this
+27:32 if the manufacturer doesn't
+protect against that. So here's some code. Let me go ahead and do this. From string, import digits.
+27:39 This isn't strictly necessary. But in Python, there is a
+string library from which you can get all of the
+decimal digits just so I don't
+27:45 have to manually type out 0 through 9. But that's just a minor optimization. But there's another
+library called itertools,
+27:51 tools related to iteration, doing
+things in like a looping fashion, where I can import a cross product
+function, a function that's
+27:59 going to allow me to combine
+like all numbers with all numbers again and again and again for
+the length of the passcode.
+28:04 Now I can do a simple
+Python for loop like this. For each passcode in the cross product
+of those 10 digits repeated four times.
+28:14 In other words, this is just
+a programmatic Pythonic way to implement the idea of combining
+all 10 digits with itself
+28:22 four times in a loop in this fashion. And just so we can visualize
+this, let's just go ahead and print out the passcode.
+28:28 But if I did have a lightning cable
+or a USB cable, I wouldn't print it. I would maybe send it through
+the cable to the device
+28:34 to try to get through
+the passcode screen. So we can revisit now
+the question of how long might it take to get into this device.
+28:40 Well, let's just try this. Python of crack.py. And assume, again, it's
+connected via cable. So we'll see how long this program takes
+to run and break into this here phone.
+28:49 Done. So that's all it took
+for 10,000 iterations. And this is on a Mac that's not
+even the fastest one out there.
+28:57 You could imagine
+doing this even faster. So that's actually not necessarily
+all the best for our security.
+29:02 So what could we do
+instead of 10 digits? Well, most of you have probably
+upgraded a lot of your passwords
+29:07 to maybe being alphabetical instead. So what if I instead were to ask
+the question-- and Carter, if you
+29:14 want to rejoin me here in a second--
+what if I instead were to consider maybe four-letter passcodes?
+29:19 So now we have A through Z four times. And maybe we'll throw into
+the mix uppercase and--
+29:26 well, let's just keep it four letters. Let's just go ahead and do
+maybe uppercase and lowercase,
+29:31 so 52 possibilities. This is going to give us 52
+times 52 times 52 times 52.
+29:39 And anyone want to
+ballpark the math here, how many possible four-letter
+passcodes are there, roughly?
+29:49 7 million, yeah, so roughly 7 million,
+which is way bigger than 10,000. So, oh, I spoiled this, didn't I?
+29:58 Can you flip over? So how many four-letter
+passcodes are there?
+30:03 It seems that most of you, 93% of
+you, in fact, got the answer right. Those of you who are
+changing your answer-- there
+30:10 we go, no, definitely not that. So, anyhow, I screwed up. Order of operations matters in computing
+and, indeed, including lectures.
+30:17 So 7 million, so the
+segue I wanted to make is, OK, how long does that
+actually take to implement in code?
+30:22 Well, let me just tweak
+our code here a little bit. Let me go ahead and go back into
+the VS Code on my Mac in which I
+30:30 had the same code as before. So let me shrink my terminal window,
+go back to the code from which I began.
+30:36 And let's just actually
+make a simple change. Let me go ahead and simply change digits
+to something called ASCII letters.
+30:42 And this too is just a
+time saving technique. So I don't have to type out A through
+Z and uppercase and lowercase like 52
+30:48 total times. And so I'm going to change
+digits to ASCII letters. And we'll get a quantitative
+sense of how long this takes.
+30:55 So Python of crack.py,
+here's how long it takes to go through 7 million possibilities.
+31:01 All right, clearly slower because we
+haven't seen the end of the list yet. And you can see we're going through
+all of the lowercase letters here.
+31:08 We're about to hit Z. But now we're
+going through the uppercase letters. So it looks like the answer this time
+is going to be a few seconds, indeed.
+31:15 But definitely less than a
+minute would seem, at least on this particular computer. So odds are if I'm
+the adversary and I've
+31:20 plugged this phone into
+someone's device-- maybe I'm not here in a lecture,
+but in Starbucks or an airport or anywhere where I have physical
+opportunity to grab that device
+31:27 and plug a cable in-- it's not going
+to take long to hack into that device either. So what might be better than just
+digits and letters from the real world?
+31:36 So add in some punctuation,
+which like almost every website requires that we do. Well, if we want to add punctuation
+into the mix, if I can get this segue
+31:45 correct so that we can now
+ask Carter one last time, how many four-character passcodes
+are possible where a character is
+31:53 an uppercase or lowercase letter or a
+decimal digit or a punctuation symbol?
+31:58 If you go to your
+device now, you'll see-- if we want to flip over to the screen-- these possibilities.
+32:04 There's a million, maybe, a
+billion, a trillion, a quadrillion, or a quintillion when it comes
+to a-- oh, wrong question.
+32:13 Wow, we're new here, OK. OK, we're going to escalate things here. How many eight-character
+passcodes are possible?
+32:19 We're going to make things more
+secure, even though I said four. We're now making it
+more secure to eight.
+32:26 All right, you want to
+flip over to the chart? All right, so it looks
+like most of you are now
+32:32 erring on the side of
+quintillion or quadrillion. 1% of you still said million, even
+though there's definitely more
+32:38 than there were a moment ago. But that's OK. So quadrillion-- quintillion
+is still winning. And I think if we go and
+reveal this, with the math,
+32:45 you should be doing is
+94 to the 4th power. Because there's 26 plus 26
+plus 10 plus some more digits,
+32:53 some punctuation digits
+in there as well. So it's actually, oh, this is
+the other example, isn't it?
+33:01 This is embarrassing. All right, we had a good run
+in the past nine weeks instead. All right, so if you were curious as to
+how many four-character passwords are
+33:09 possible, it's 78 million. But that's not the question at hand. The question at hand was, how many
+eight character passcodes are there?
+33:15 And in this case, the
+math you would be doing is 94 to the 8th power,
+which is a really big number.
+33:22 And, in fact, it's
+this number here, which is roughly 6 quadrillion possibilities.
+33:27 Now, I could go about actually
+doing this in code here. So let me actually,
+for a final flourish,
+33:33 let me open up VS Code
+one last time here. And in VS Code, I'm going to go
+ahead and shrink my terminal window,
+33:40 go back into the code, and I'm going to
+import not just ASCII letters, not just digits, but punctuation
+as well, which is
+33:46 going to give me like
+32 punctuation symbols from a typical US English keyboard. And I'm going to go ahead and just
+concatenate them all together in one
+33:53 big list by using the
+plus operator in Python to plus in both digits and punctuation.
+33:59 And I'm going to change the 4 to an 8. So this now, it's what
+four actual lines of code
+34:04 is, all it takes for an
+adversary to whip up some code, find a cable as step two,
+and hack into a phone that
+34:09 even has eight-character passcodes. Let me enlarge in my
+terminal window here, run
+34:15 for a final time Python of crack.py. And this I'll actually
+leave running for some time.
+34:21 Because you can get already sort of
+a palpable feel of how much slower it is-- because these characters
+clearly haven't moved--
+34:28 how long it's going to take. We might actually do--
+need to do a bit more math. Because doing just four-digit
+passcodes was super fast.
+34:34 Doing four-letter passcodes was
+slower, but still under a minute. We'll see maybe in time how
+long this actually runs for.
+34:41 But this clearly seems to be better,
+at least for some definition of better.
+34:47 But it should hopefully not be
+that easy to hack into a system. What does your own device probably do to
+defend against that brute force attack?
+34:57 Yeah. AUDIENCE: Gives you a
+limited number of tries. DAVID MALAN: Yeah, so it gives
+you a limited number of tries. So odds are, at least once in your
+life, you've somehow locked yourself out
+35:06 of a device, typically after typing
+your passcode more than 10 times or 10 attempts or maybe it's your
+siblings or your roommate's phone
+35:13 that you realize this is a feature of
+iPhones and Android devices as well. But here's a screenshot
+of what an iPhone might
+35:19 do if you do try to input the wrong
+passcode maybe 10 or so times. Notice that it's really telling
+you to try again in one minute.
+35:27 So this isn't fundamentally
+changing what the adversary can do. The adversary can absolutely use those
+same four lines of code with a cable
+35:34 and try to hack into your device. But what has this just done? It's significantly increased
+the cost to the adversary,
+35:41 where the cost might be measured
+in sheer number amount of time-- like minutes, seconds,
+hours, days, or beyond.
+35:46 Maybe it's increased the
+cost in the sense of risk. Why? Because if this were like
+a movie incarnation of this
+35:51 and the adversary has just
+plugged into the phone and is kind of creepily looking
+around until you come back, it's going to take way too long for
+them to safely get away with that,
+36:00 assuming your passcode
+is not 123456, it's somewhere in the middle of
+that massive search space.
+36:06 So this just kind of fundamentally
+raises the bar to the adversary. And that's one of the biggest
+takeaways of cybersecurity in general.
+36:13 It's completely naive to think
+in terms of absolute security or to even say a sentence like
+"my website is secure" or even
+36:19 "my home is physically secure." Why? Well, for a couple of reasons,
+like, one, an adversary with enough time, energy,
+motivation, or resources
+36:27 can surely get into most any system
+and can surely get into most any home. But the other thing to
+consider, unfortunately,
+36:34 that if we're the good people in
+this story and the adversaries are the bad people, you and
+I rather have to be perfect.
+36:40 In the physical world, we have
+to lock every door, every window. Because if we mess up just one
+spot, the adversary can get in.
+36:48 And so where there's
+sort of this imbalance. The adversary just has
+to find the window that's ajar to get into your physical home.
+36:54 The adversary just needs
+to find one user who's got a really bad password to
+somehow get into that system.
+36:60 And so cybersecurity is hard. And so what we'll see
+today really are techniques that can let you create a gauntlet
+of defenses-- so not just one,
+37:08 but maybe two, maybe three. And even if the adversary gets in,
+another tenant of cybersecurity is at least, let's have
+mechanisms in place that detect
+37:16 the adversary, some kind of
+monitoring, automatic emails. You can increasingly see this
+already in the real world.
+37:22 If you log into your Instagram
+account from a different city or state suddenly because maybe
+you're traveling, you
+37:27 will-- if you've opted into
+settings like these-- often get a notification or
+an email saying, hey, you seems to have logged in from
+Palo Alto rather than Cambridge.
+37:36 Is this, in fact, you? So even though we might not be
+able to keep the adversary out, let's at least minimize the
+window of opportunity or damage
+37:43 by letting humans like us know
+that something's been compromised. Of course, there is a downside here.
+37:48 And this is another
+theme of cybersecurity. Every time you improve something,
+you've got to pay a price.
+37:55 There's going to be a tradeoff. And we've seen this with time and space
+and money and other such resources
+38:00 when it comes to
+designing systems already. What's the downside of this mechanism?
+38:07 Why is this perhaps a bad thing
+or what's the downside to you, the good person in the story? Yeah.
+38:12 AUDIENCE: [INAUDIBLE] DAVID MALAN: Yeah, if you've
+just forgotten your passcode, it's going to be more
+difficult for you to log in.
+38:20 Or maybe you just really need
+to get into your phone now and you don't really
+want to wait a minute.
+38:25 And if you, worse, if you
+keep trying, sometimes it'll change to two minutes,
+five minutes, one hour.
+38:30 It'll increase exponentially. Why? Because Apple and Google figure
+that, they don't necessarily
+38:36 know what the right cutoff is. Maybe it's 10, maybe it's
+fewer, maybe it's more. But at some point, it
+is much more likely
+38:43 that this is a hacker trying to get in
+than it is for getting your passcode. But in the corporate world,
+it can be even worse.
+38:49 There's a feature that lets phones
+essentially self-destruct whereby rather than just waiting
+you wait a minute, it will wipe the device,
+more dramatically.
+38:56 The presumption being that, no, no, no,
+no, no, if this is a corporate phone, let's lock it down further
+so that it is an adversary,
+39:02 the data is gone after
+10 failed attempts. But there's other mechanisms as well.
+39:07 In addition to logging
+into phones via passcodes, there's also websites
+like Gmail, for instance.
+39:13 And it's very common, therefore,
+to log in to websites like these. And odds are,
+statistically, a lot of you
+39:19 are in the habit of reusing passwords. Like, no, don't nod if you are. We have cameras everywhere.
+39:25 But maybe you're in the
+habit of reusing it. Why? Because it's hard to remember
+really big long cryptic passwords.
+39:31 So mathematically, there's
+surely an advantage there. Why? Because it just makes it so much
+harder, more time-consuming, more risky for an adversary to get in.
+39:38 But the other tradeoff is
+like, my God, I just can't even remember most of my
+passwords as a result unless I reuse the one good password
+I thought of and memorized already
+39:47 or maybe I write it down on
+a post-it note on my monitor, as all too often happens
+in corporate workplaces. Or maybe you're being clever
+and in your top right drawer,
+39:54 you've got a printout
+of all of your accounts. Well, if you do, like ha-ha,
+so do a lot of other people. Or maybe it's a little
+more secure than that,
+40:01 but there are sociological side effects
+of these technological policies that really until recent years
+were maybe underappreciated.
+40:08 The academics, the IT administrators
+were mandating policies that you and I as human users were
+not necessarily behaving properly
+40:16 in the face of. So nowadays, there are things
+called password managers. And a password manager is just
+a piece of software on Macs,
+40:22 on PCs, on phones that manage
+your passwords for you. What this means
+specifically is when you go
+40:28 to a website for the very
+first time, you, the human, don't need to choose
+your password anymore. You instead click a button or
+use some keyboard shortcut.
+40:35 And the software generates a really
+long cryptic password for you that's not even eight characters.
+40:41 It might be 16 or 32 characters, can
+be even bigger than that, but with lots of randomness.
+40:46 Definitely not going to be on
+that top 10 or that top 100 list. The software thereafter
+remembers that password
+40:52 for you and even your username, whether
+it's your email address or something else. And it saves it onto your Mac or your
+phone or your PC's disk or hard drive.
+41:01 The next time you visit that
+same website, what you can do is via menu or, better yet, a keyboard
+shortcut, log into the website
+41:08 without even remembering or
+even knowing your password. I mean, to this day, I'll
+tell you, I don't even
+41:13 know anymore 99% of my own passwords. Rather, I rely on software like
+this to do the heavy lifting for me.
+41:20 But there's an obvious
+downside here, which might be what if you're doing this?
+41:26 Yeah. AUDIENCE: [INAUDIBLE] DAVID MALAN: Right, so what if
+they find out the one password
+41:32 that's protecting this software? Because unstated by me up until now
+is that this password manager itself
+41:37 has a primary password that protects all
+of those other eggs in the one basket, so to speak.
+41:43 And my one primary password
+for my own password manager, it is really long and hard to guess.
+41:48 And the odds that
+anyone's going to guess are just so low that I'm
+comfortable with that being the one really difficult thing
+that I've committed to my memory.
+41:56 But the problem is if someone does
+figure it out nonetheless somehow or, worse, I forget what it is.
+42:01 Now, I've not lost access to one
+account, but all of my accounts. Now, that might be too
+high of a price to pay.
+42:07 But, again, if you're in the habit
+of choosing easy passwords like being on that top 10 list, reusing
+passwords, it's probably a net
+42:13 positive to incur this single
+risk versus the many risks you're incurring across the board
+with all of these other sites.
+42:21 As for what you can use,
+increasingly our operating systems come with support for this, be it in the
+Apple world, Google, Microsoft world,
+42:28 or the like. There's third party software
+you can pay for and download. But even then, I would beware. And I would ask friends
+whose opinion you trust or do
+42:35 some googling for reviews and the like. All too often in the software
+world have password managers
+42:42 been determined to be buggy themselves. I mean, you've seen in weeks of CS50
+how easy it is to introduce bugs.
+42:48 And even the best of programmers
+still introduce bugs to software. So you're also trusting that the
+companies making this password
+42:55 management software
+is really good at it. And that's not always the case. So beware there too. But we'll also focus today
+on some of the fundamentals
+43:03 that these companies can be using
+to better protect your data as well. But there's another mechanism, which
+odds are you're in the habit of using.
+43:09 Two-factor authentication,
+like most of us probably have to use this
+for some of your accounts--
+43:14 your Harvard account, your Yale account,
+maybe your bank accounts, or the like. So what is two-factor
+authentication in a nutshell?
+43:22 Yeah. AUDIENCE: [INAUDIBLE] DAVID MALAN: Yeah, you
+get a second factor
+43:27 that you have to provide to
+the website or application to prove that it's you
+like a text to your phone or maybe it's an actual application that
+gets push notifications or the like.
+43:35 Maybe in the corporate
+world, it's actually a tiny little device with a screen on
+it that's on your keychain or the like.
+43:40 Maybe it's actually a USB dongle that
+you have to plug into your work laptop. In short, it's some second factor.
+43:45 And by factor, I mean
+something technical. It's not just a second password,
+which would be one factor.
+43:51 It's a second fundamentally
+different factor. So generally speaking in the world of
+two-factor authentication or 2FA or MFA
+43:58 is the generalization as
+multi-factor authentication, you have not just a password,
+which is something you know,
+44:04 the second factor is
+usually something you have-- whether it's your phone or that
+application or the keychain.
+44:10 It might also be biometrics like
+your fingerprints, your retinas, or something else physically about you.
+44:15 But it's something that significantly
+decreases the probability that some adversary is going
+to get into that account.
+44:20 Why? Because right now, if you've
+only got a username and password, your adversaries are literally
+every human in the world
+44:27 with an internet connection, arguably. But as soon as you
+introduce 2FA, now it's only people on campus or, more
+narrowly, only the people in Starbucks
+44:35 at that moment who might
+physically have access to your person and your
+second factor, in this case.
+44:40 More technically, what those
+technologies do is they send you a one-time passcode, which is further
+secure because once it's used,
+44:48 there's hopefully some database
+that remembers that it has been used and cannot be used again. So an adversary can't like
+sniff the airwaves and replay
+44:55 that passcode the next
+time they, indeed, expire, which adds some additional defense. And you might type it into a
+phone or maybe a web app that
+45:02 looks a little something like this. So passwords thus far, some defenses,
+therefore, any questions on this
+45:11 here mechanism? No? All right, well, let's consider this. Odds are, with some frequency, you
+forget these passwords, especially
+45:19 if you're not using a password manager. And so you go to Gmail
+and you actually have to click a link like
+this, Forgot Password.
+45:25 And then it typically
+emails you to initiate a process of resetting that password.
+45:31 But if you can recall, has anyone
+ever clicked a link like that and then got an email with
+your password in the email?
+45:40 Maybe if you ever see
+this in the wild, that is to say in the real world, that
+is horrible, horrible design.
+45:45 Why? Because well-designed websites,
+not unlike CS50 Finance, which had a users table, should
+not be storing username-- rather,
+45:53 should not be storing passwords
+in the clear, as it actually is.
+45:60 It should somehow be
+obfuscated so that even if your database from CS50
+Finance or Google's database
+46:05 is hacked and compromised
+and sold on the web, it should not be as simple
+as doing like select star
+46:11 from Account semicolon to see
+what your actual passwords are. And the mechanism that
+well-designed websites use
+46:17 is actually a primitive back
+from like week 5 when we talked about hashing and hash tables. This time, we're using it for
+slightly different purposes.
+46:25 So in the world of passwords, on the
+server side, there's often a database
+46:30 or maybe, more simply, a text
+file somewhere on the server that just associates
+usernames with passwords. So to keep things simple, if there's
+at least two users like Alice and Bob,
+46:39 Alice's password is maybe apple. Bob's password is maybe banana, just
+to keep the mnemonics kind of simple.
+46:44 If though that were
+the case on the server and that server is compromised,
+whoever the hacker now
+46:50 has access to every username and
+every password, which in and of itself might not be a huge deal because maybe
+the server administrators can just
+46:58 disable all of the accounts, make
+everyone change their password, and move on. But there's also this attack
+known as password stuffing, which
+47:05 is a weirdly technical term, which
+means when you compromise one database, you know what? Take advantage of the
+naivety of a lot of us users.
+47:12 Try the compromised Apple
+password, the banana password not on the compromised
+website, but other websites
+47:18 that you and I might have
+access to, the presumption being that some of us
+in this room are using
+47:24 the same passwords in multiple places. So it's bad if your password
+is compromised on one server
+47:29 because, by transitivity, so can all
+of your other accounts be compromised. So in the world of hashing,
+this was the picture
+47:35 we drew some time ago, we can apply
+this same logic whereby, mathematically, a hash function is like some
+function F and the input is X
+47:42 and the output or the
+range is F of X. That was sort of the fancy way
+of describing mathematically hashing as a process weeks ago.
+47:49 But here, at a simpler level,
+the input to this process is going to be your actual password. The output is going to be a
+hash value, which in week 5
+47:57 was something simple
+generally like a number-- 1 or 2 or 3 based on the first letter.
+48:02 That's not going to be quite
+as naive an approach as we take in the password world. It's going to look a
+little more cryptic.
+48:08 So Apple weeks ago might have just
+been 1, banana might have been 3. But now let me propose that in the
+world of real world system design, what
+48:16 the database people
+should actually store is not apple, but rather
+this cryptic value.
+48:21 And you can think of this as sort
+of random, but it's not random. Because it is the result of an
+algorithm, some mathematical function
+48:27 that someone implemented and
+smart people evaluated and said, yes, this seems to be
+secure, secure in the sense
+48:32 that this hash function
+is meant to be one way. So this is not encryption, a
+la Caesar Cipher from weeks
+48:38 ago whereby you could just add 1 to
+encrypt and subtract 1 to decrypt. This is one way in the
+sense that given this value,
+48:45 it should be pretty much impossible
+mathematically to reverse the process and figure out that the user's
+password was originally apple.
+48:53 Meanwhile banana, back in week 5 for
+simplicity, for hashing into a table, we might have had a simple
+output of 2, since B
+48:59 is the second letter of
+the English alphabet. But now the hash value of banana, thanks
+to a fancier mathematical function,
+49:05 is actually going to be
+something more cryptic like this. And so what the server really does is
+store not apple and banana, but rather
+49:12 those two seemingly cryptic values. And then when the human,
+be it Alice or Bob,
+49:19 logs in to a web form with their actual
+username and password, like Alice, apple, Bob, banana, the
+website no longer even
+49:28 knows that Alice's password is
+apple and that Bob's is banana. But that's OK.
+49:33 Because so long as the
+server uses the same code as it was using when these
+folks registered for accounts,
+49:41 Alice can type in apple, hit Enter,
+send it via HTTP to the server. The server can run that same
+hash function on A-P-P-L-E.
+49:48 And if the value matches, it can
+conclude with high probability, yes, this is in fact, the original Alice
+or this, in fact, is the original Bob.
+49:56 So the server never saves the password,
+but it does use the same hash function to compare those same hash values again
+and again whenever these folks log in
+50:06 again and again. So, in reality, here's a simple
+one-way hash for both Alice's
+50:11 and Bob's passwords in the real world. It's even longer, this
+is to say, than what I used as shorter examples a moment ago.
+50:18 But there is a corner case here. Suppose that an adversary is
+smart and has some free time
+50:23 and isn't necessarily interested
+in getting into someone's account right now, but wants
+to do a bit of prework
+50:29 to decrease the future cost of
+getting into someone's account. There is a technical term
+known as a rainbow table,
+50:34 which is essentially like a dictionary
+in the Python sense or the SQL sense, whereby in advance an adversary could
+just try hashing all of the fruits
+50:44 of the world or, really, all of the
+English words of the world or, rather, all possible four-digit, four-character,
+eight-character passcodes in advance
+50:51 and just store them in two columns-- the password, like 0000
+or apple or banana,
+50:57 and then just store in
+advance the hash values. So the adversary could effectively
+reverse engineer the hash
+51:04 by just looking at a hash, comparing it
+against its massive database of hashes,
+51:09 and figuring out what password
+originally correspond to that. Why then is this still relatively safe?
+51:18 Rainbow tables are concerning. But they don't defeat
+passwords altogether.
+51:23 Why might that be? Yeah. AUDIENCE: [INAUDIBLE]
+51:30  DAVID MALAN: OK, so
+the adversary might not know exactly what hash
+function the company is using.
+51:36 Generally speaking, you would not
+want to necessarily keep that private. That would be considered
+security through obscurity.
+51:42 And all it takes is like one bad
+actor to tell the adversary what hash function is being used.
+51:47 And then that would put
+your security more at risk. So generally in the
+security world, openness when it comes to the
+algorithms in process
+51:54 is generally considered best practice. And the reality is, there's a few
+popular hash functions out there
+51:59 that any company should be using. And so it's not really
+keeping a secret anyway.
+52:04 But other thoughts? Why is this rainbow
+table not such a concern? AUDIENCE: It takes a lot
+longer for the [INAUDIBLE]..
+52:10 DAVID MALAN: It takes a lot
+longer for the adversary to access that information
+because this table could get long.
+52:15 And even more along those lines--
+anyone want to push a little harder? This doesn't necessarily put
+all of our passwords at risk.
+52:22 It easily puts our
+four-digit passcodes at risk. Why? Because this table, this dictionary
+would have, what, 10,000 rows?
+52:29 And we've seen that you can
+search that kind of like that or even regenerate all
+of the possible values. But once you get to
+eight-character passcodes,
+52:36 I said it was 4
+quadrillion possibilities. That's a crazy big dictionary
+in Python or crazy big list
+52:43 of some sort in Python. That's just way more RAM or memory than
+a typical adversary is going to have.
+52:48 Now, maybe if it's a particularly
+resourced adversary like a government, a state more generally, maybe
+they do have supercomputers
+52:54 that can fit that much information. But, fine, then use a
+16-character passcode and make it an unpronounceable
+long search space
+53:01 that's way bigger than 4 quadrillion. So it's a threat, but only if you're
+on that horrible top 10 list or top 100
+53:08 or short passcode list that
+we've discussed thus far. So here's though a related threat
+that's just worth knowing about.
+53:14 What's problematic here? If we introduce two more
+users, Carol and Charlie, and just for the semantics of it,
+whose password happened to be cherry.
+53:23 What if they both happened to have
+the same password and this database is compromised?
+53:29 Some hacker gets in. And just to be clear, we wouldn't be
+storing apple, banana, cherry, cherry. We'd still be storing, according
+to this story, these hashes.
+53:37 But why is this still concerning? AUDIENCE: [INAUDIBLE]
+53:43  DAVID MALAN: Exactly. If you figure out just one of
+them, now you've got the other. And this is, in some sense,
+just leaking information, right?
+53:50 I don't maybe at a glance what I
+could do with this information. But if Carol and Charlie have
+the same password, you know what?
+53:57 I bet they have the same password
+on other systems as well. You're leaking information that
+just does no good for anyone.
+54:02 So how can we avoid that? Well, we probably don't want to
+force Carol or Charlie to change their password, especially
+when they're registering.
+54:09 You definitely don't want to say, sorry,
+someone's already using that password, you can't use it as well. Because that too would leak information.
+54:16 But there's this technique
+in computing known as salting whereby we can do this instead.
+54:21 If cherry we in this scheme hashes
+to a value like this, you know what?
+54:27 Let's go ahead and sprinkle a
+little bit of salt into the process. And it's sort of a metaphorical salt
+whereby this hash function now takes
+54:33 two inputs, not just the password,
+but some other value known as a salt. And the salt can be generally something
+super short like two characters even,
+54:40 or something longer. And the idea is that this
+salt, much like a recipe, should of perturb the
+output a little bit,
+54:46 make it taste a little bit
+differently, if you will. And so concretely, if we take the word
+cherry and then when Carol registers,
+54:54 for instance, we randomly choose a
+salt of 50, 5-0, so two characters, the hash value now--
+because there's two inputs--
+55:01 might now be this value. But if for Charlie, we still have
+cherry, but we change the 50,
+55:07 we might see this instead. Notice that for this
+first example, Carol, 50, the salt is preserved in the hash
+value, just so you know what it was
+55:15 and you can sprinkle the same amount
+of salt, so to speak, next time. But that's the whole hash
+value for Carol in this case.
+55:21 But if Charlie also has a password
+of cherry, but we change the salt to,
+55:26 say, 49 arbitrarily, that
+whole hash value changed.
+55:32 And so now in my hash database, I'm
+going to see different salts there, different values, which is going
+to effectively cover up the fact
+55:39 that Carol and Charlie
+have the same password. Now, if we have so many users
+that we run out of salts,
+55:45 that still might leak some information. But that's kind of a we can kick down
+the road and probabilistically not going to happen if you require passwords
+of sufficiently long length, most
+55:54 likely. So any questions on
+salting, which to be clear, is just a mechanism for
+decreasing the probability
+56:01 that an adversary is
+going to glean information that you might not want them to have?
+56:08 So what does this mean concretely? When you get an email from a
+website saying "click this link to reset your password," it's not
+the website, if well designed,
+56:17 is being difficult or shy and
+not telling you your password, the web administrators just do
+not know, ideally, your password.
+56:24 So what are they doing? They're probably sending you
+a link, similar in spirit to a one-time password, there's
+some random unique string in there
+56:31 that's unique to you. They've stored that in their database. So as soon as you click on that
+link, they check their database
+56:36 and be like, oh, wait a minute, I know
+I set this link a minute ago to David. Let me just trust now-- because
+probabilistically there's no way
+56:43 someone guessed this
+URL within 60 seconds-- let's trust that whatever he wants
+to type in as his new password
+56:49 should be associated with that
+Malan account in the database. But if, conversely, you ever get an
+email saying your password is 123456
+56:56 or whatever it is, it is clearly
+not being hashed, let alone salted, on the server.
+57:02 And that is not a website to do
+anything particularly sensitive with. All right, so what more can we do?
+57:09 Well, let's pick up where we left off
+in week two on the art of cryptography, this art, the science of scrambling
+information, but in a reversible way.
+57:17 So whereas hashing, as we've described
+it here, is really tends to be one-way,
+57:22 whereby you should not be able to
+reverse the process unless you cheat and make a massive table
+of all of the inputs and all of the outputs,
+which isn't really so much
+57:29 reversing as it is just looking it up. Cryptography, like in
+week 2, can actually
+57:35 be a solution to a lot of
+problems, not just sending messages across a crowded room. We, weeks ago, really focused
+on this type of cryptography
+57:44 whereby you've got some
+plain text message. You've got a key, like a secret
+number 1 or 13 or something else.
+57:50 The cipher, which might be a rotational
+cipher or a substitution cipher, some algorithm, and then
+ciphertext was the term
+57:57 of art for describing
+the scrambled version. That should look like random
+zeros and ones or letters of the alphabet or the like.
+58:03 This though was reversible,
+whereby you could just input the ciphertext with the key
+and get back out the plain text.
+58:11 Maybe you have to change a positive
+number to a negative number. But the key is really the same. Be it plus 1 minus 1 or plus 13
+minus 13, the process was symmetric.
+58:19 And, indeed, what we
+talked about in week two was an example of something called
+secret key cryptography, where
+58:24 there's, indeed, one secret
+between two parties, a.k.a. symmetric cryptography.
+58:29 Because encryption is pretty much
+the same as decryption, but maybe you change the sign on the key itself.
+58:36 But this is not necessarily all we want. Because here's that general process. Here's the letter A.
+Here's the key of 1.
+58:43 We outputed in week 2 a value
+of B. That's not necessarily the solution to all of our problems.
+58:48 Why? Well, if two people want to communicate
+securely, they need some shared secret. So, for instance, if I wanted to
+send a secret message to Rongxin
+58:55 in the back of the room
+here, he and I have better agreed upon a secret in advance. Otherwise, how can I possibly send
+a message, encrypt it in a way
+59:03 that he can reverse? I mean, I could be like,
+(WHISPERING) let's use a key of 1. (SPEAKING NORMALLY) But
+obviously, anyone in the middle
+59:09 has just now heard that. So we might as well not
+communicate securely at all. So there's this kind of
+chicken-and-the-egg problem,
+59:14 not just contrived here in lecture. But the first time I want to
+buy something on amazon.com with my credit card, I would like
+my credit card to be encrypted,
+59:20 scrambled somehow. But I don't know anyone personally
+at amazon.com, let alone someone that I've prearranged some secret
+for my Mac and their servers.
+59:29 So it seems that we fundamentally
+can't use symmetric cryptography all of the time, unless we have some
+other mechanism for securely generating
+59:37 that key, which we don't have as
+the common case in the world today. Thankfully, mathematicians
+years ago came up
+59:44 with something known as
+asymmetric cryptography, which does not require that you use the
+same secret in both directions.
+59:50 This is otherwise known as
+public key cryptography. And it works essentially as follows.
+59:56 When you want to take some
+plaintext message and encrypt it, you use the recipient's public key.
+60:02 So if Rongxin is my colleague
+in back and he has a public key, it is public by definition. He can literally shout
+for the whole room
+60:10 to hear what his public key
+is, which effectively is just some big, seemingly random number. But there's some mathematical
+significance of it.
+60:17 And I can write that down. Heck, you can all write it down if you
+too want to send him secure messages. And out of those two inputs, we
+get one output, the ciphertext,
+60:24 that I can then hand off to people in
+the room in those virtual envelopes. And it doesn't matter if all of
+you have heard his public key.
+60:30 Because you can perhaps
+guess where this is going. How would Rongxin reverse this process? He's not going to use one public key.
+60:37 He's going to use, not surprisingly,
+a corresponding private key. And so in asymmetric cryptography
+or public key cryptography,
+60:45 you really have a key pair, a
+public key and a private key. And for our mathematical
+purposes today, let
+60:50 me just stipulate that there's
+some fancy math involved, such that when you choose that
+key or, really, those keys,
+60:56 there's a mathematical
+relationship between them. And knowing one does not really give
+you any information about the other.
+61:03 Why? Because these numbers are so darn
+big it would take adversaries more time than we all have on Earth
+to figure out via brute force
+61:11 what the corresponding private key is. The math is that good. And even as computers
+get faster, we just
+61:16 keep using bigger and bigger
+keys, more and more bits to make the math even
+harder for adversaries.
+61:21 So when Rongxin receives that
+message, he uses his private key, takes the ciphertext I
+sent him through the room,
+61:27 and gets back out the plaintext. So this is exactly how
+HTTPS works effectively
+61:34 to securely establish a channel
+between me and Amazon.com, gmail.com. Any website starting with https://
+uses public key cryptography to come up
+61:44 with, initially, a secret. And in practice, it turns
+out, mathematically, it's faster to use secret key crypto.
+61:50 So very often, people
+will use asymmetric crypto to generate a big shared key and then
+use the faster algorithms thereafter.
+61:57 But it does solve
+asymmetric cryptography, that chicken-and-the-egg problem, by
+giving us all public keys and private
+62:04 keys. If you've heard of RSA, Diffie-Hellman,
+elliptic curve cryptography, there's different algorithms
+for this that you can actually
+62:10 study in higher level,
+more theoretical classes. But there's a bunch of different ways
+mathematically to solve this problem.
+62:15 But those are the primitives involved. And how many of you have
+heard of now passkeys, which
+62:21 is kind of only just catching
+on in recent months, literally. If I had to make any
+prediction this semester,
+62:26 odds are, you're going to see
+these in more and more places. And in fact, the next time you register
+for a website or log into a website,
+62:33 look for a link, a button that
+maybe doesn't say passkeys, per se.
+62:38 It's often called passwordless login. But it's really referring
+to the same thing. Passkeys are essentially a newish
+feature of operating systems,
+62:46 be it Mac OS or Windows or Linux
+or the OS running on your phone, that doesn't require that you choose
+a username and password anymore.
+62:54 Rather, when you visit a
+website for the very first time, your device will generate a
+public and private key pair.
+63:02 Your device will then send
+to the website for what you're registering your public key
+so that it has one of the values,
+63:09 but you keep your private
+key, indeed, private. And using the same mathematical
+process that I alluded to earlier,
+63:16 you can therefore log into
+that website in the future by proving mathematically that
+you are, in fact, the owner
+63:22 of the corresponding private key. So, in essence, if we
+use a picture like this, when you proceed to log in to
+that website again-- and, again,
+63:30 that website has stored
+your public key-- it essentially uses something
+known as digital signatures-- you're familiar with this term,
+you've heard it in the wild--
+63:37 whereby the website will
+send you a challenge message, like some random number
+or string of text.
+63:44 It's just some random value. If you then effectively encrypt it with
+your private key or run both of those
+63:50 through a particular algorithm,
+you'll get back a signature. And that signature can be verified by
+the website by using your public key.
+63:57 So digital signatures are kind
+of an application of cryptography but in the reverse direction.
+64:03 In the world of encryption,
+you use someone's public key to send a message encrypted. And they use their
+private key to decrypt it.
+64:10 In the world of signatures,
+or really passkeys, you reverse the process, whereby you use
+your private key to effectively encrypt
+64:16 some random challenge you've been sent. And the website, the third
+party, can use your public key to verify, OK, mathematically,
+that response came from David.
+64:25 Because I have his public key on file. So what's the upside of this? We just get out of the business
+of passwords and password managers
+64:31 more generally. You do have to trust and
+protect your devices, be it your phone or your laptop
+or desktop all the more.
+64:37 And that's going to open
+another possible threat. But this is a way to chip away
+at what is becoming the reality
+64:42 that you and I probably have dozens,
+hundreds of usernames and passwords that's probably not
+sustainable long-term.
+64:48 And, indeed, we read to often about
+hacks in the wild as a result.
+64:54 Questions then on
+cryptography or passkeys?
+65:00 All right, just a few more building
+blocks to equip you for the real world before we sort of maybe do a final
+check for understanding of sorts.
+65:07 So when it comes to encryption, we
+can solve other problems as well. And in this too is a feature you
+should increasingly be seeking out.
+65:15 So end-to-end encryption refers
+to a stronger use of encryption than most websites are
+actually in the habit of using.
+65:22 Case in point, if you're using
+HTTPS to send an email to Gmail, that's good because no one
+between you and Gmail servers
+65:29 presumably can see the message
+because it's encrypted. It just looks like
+random zeros and ones. So it's effectively secure
+from people on the internet.
+65:37 The emails are not secure from
+like nosy employees at Google who do have access to those servers.
+65:43 Now, maybe through corporate policy,
+they shouldn't or physically don't. But, theoretically,
+there's someone at Google
+65:49 who could look at all of your
+email if they were so inclined. Hopefully it's just not
+a long list of people.
+65:54 But end-to-end encryption
+ensures that if you're sending a message from A to B, even if
+it's going through C in the middle--
+66:01 be it Google or Microsoft or
+someone else-- end-to-end encryption means that you're encrypting it between
+A and B. And so even C in the middle
+66:08 has no idea what's going on. This is not true of services
+like Gmail or Outlook. This is true of services
+like iMessage or WhatsApp
+66:16 or Signal or Telegram or other
+services where if you poke around, also you'll see literally mention
+of end-to-end encryption.
+66:23 It's a feature that's becoming
+a little more commonplace, but something you should seek out when
+you don't necessarily trust or want
+66:28 to trust the machine in
+the middle, the point C between A and B. So, indeed,
+when sending messages on phones
+66:36 and even video
+conferencing nowadays too. And here's something where
+sometimes you kind of have to dig. Most of us are familiar
+with Zoom certainly by now.
+66:43 And if we go into Zoom
+settings, which I did this morning to take this screenshot,
+this is what it looks like as of now.
+66:48 Here's the menu of options
+for creating a new meeting. And toward the bottom
+here-- it's a little small-- you'll notice that you have
+two options for encryption.
+66:56 And funny, enough the one
+that's typically selected by default, unless you opt in to the
+other one, is enhanced encryption.
+67:03 Brilliant marketing, right? Who doesn't want enhanced encryption. It is weaker than this encryption
+though, which is end-to-end encryption.
+67:10 End-to-end encryption
+means that when you're having a video conference
+with one or more people, not even Zoom can see or hear
+what you're talking about.
+67:18 Enhanced encryption
+means no one between you and Zoom can hear or see
+what you're talking about.
+67:25 So end-to-end ensures that it's A
+to B, and if Zoom is C In the story, even Zoom can't see what you're doing.
+67:31 Now, there are some downsides. And there's some little fine print here. When you enable end-to-end encryption
+on a cloud-based service like Zoom,
+67:39 you can't use cloud recordings anymore. Why? Well, if Zoom by
+definition mathematically can't see or hear your meeting, how
+are they going to record it for you?
+67:47 It's just random zeros and ones. You can still record it
+locally on your Mac or PC, but end-to-end encryption
+ensures that you
+67:53 don't have to worry about prying eyes--
+be it a company, be it a government, a state more generally. And so societally, you'll start to
+see this discussed probably even
+68:01 more than it already is when it comes
+to personal liberties and freedom among citizens of countries
+and states because
+68:08 of the implications for actual
+privacy that these primitives that we've been discussing and
+that you even explored in week 2,
+68:13 albeit weakly, with these ciphers
+we used in the real world. But encryption has one other use
+that's worth knowing about too and yet
+68:21 another feature to turn on. So when it comes to deleting files,
+odds are, most everyone in the room
+68:27 knows on a Mac or PC that when you drag
+a file to the trashcan or the recycle bin, it doesn't actually go
+away unless you right click
+68:35 or Control click or go to the
+appropriate menu and empty the trash. But did anyone know that even when
+you empty the trash or recycle bin,
+68:42 the file also doesn't really go away. Your operating system typically
+just forgets where it is.
+68:47 But the zeros and ones that compose
+the file or files you tried to delete are still there for the
+pickings, especially
+68:54 if someone gets physical or
+virtual access to your system. So, for instance, here is a
+whole bunch of ones and zeros.
+68:60 Maybe it's representing
+something on my hard drive. And suppose that I want
+to go ahead and delete a file that comprises these
+zeros and ones, these bits here.
+69:08 Well, when your operating
+system deletes the file, even if you click on Empty
+Trash or Empty Recycle Bin, it essentially just forgets about those
+bits, but doesn't actually change them.
+69:18 Only once you create a new
+file or download something else do some of those zeros and ones
+end up getting overwritten.
+69:25 And per the yellow remnants here, the
+implication of this contrived example is that even at this point
+in time you can still recover
+69:32 like half of the file, it would seem. So maybe the juicy part
+with a credit card number or a message that you really wanted
+to delete or the like, there's
+69:39 still remnants on the
+computer's hard drive here. So what's the alternative? Well, if you really
+want to be thorough, you
+69:45 could delete files and then download
+the biggest possible movies you can to really fill up your hard drive.
+69:50 Because, probabilistically,
+you would end up overwriting all of those
+zeros and ones eventually. But that's not really
+a tenable solution.
+69:56 It would just take
+too much time and it's fraught with possible simple mistakes. So what should we do
+instead, well, maybe we
+70:03 should securely delete information. And securely delete would
+mean when you actually empty the recycle bin or the trash
+can, what happens to the original zeros
+70:11 and ones is that you take them
+and you change all of them to zeros or all of them to ones or
+all of them to random zeros and ones.
+70:18 Why? So that you can still
+reuse those bits now, but there's no remnants even
+on the computer's hard drive
+70:24 that they were once there. But even now, this is not fully robust.
+70:29 Why? It turns out that because of today's
+electronics and solid state devices, there might still be remnants of files
+on them because these hard drives,
+70:38 these storage devices
+nowadays are smart enough that if they realize that
+parts of them are failing, they might prevent you from
+changing data in certain corners.
+70:46 So if you think of your memory as
+like a big rectangle, some of the bits might get blocked off
+to you just over time.
+70:52 So there might still be remnants there. So if you really are worried about a
+sibling, an employer, or a government
+70:58 like finding data on that system,
+there might actually still be remnants. Now, you can go extreme
+and just physically
+71:03 destroy the device, which
+should be pretty effective. But that's going to get pretty expensive
+over time when you want to delete data.
+71:09 Or, again, we can use encryption
+as the solution to this problem. So, again, encryption is
+increasingly in the real world
+71:16 an amazing tool for your toolkit because
+it can be deployed in different ways. So, in this case, full disk
+encryption is something
+71:22 you can enable in Windows or Mac OS. Nowadays, it's typically
+enabled by default on iOS and you can opt in as
+well on other platforms.
+71:30 In the world of full disk encryption,
+instead of storing any of your files as a plain text, like in
+their original raw format,
+71:38 you essentially randomize
+everything on the disk instead. You rely on the user's
+password or some unique string
+71:45 that they know when you
+log into your Mac or PC to essentially scramble the
+entire contents of the hard drive. And it's not quite as simple as that.
+71:52 Typically, there's a
+much larger key that's used that in turn is protected
+by your actual password.
+71:57 But, in this case, this means that if
+someone steals your laptop while you're not paying attention in Starbucks or
+the airport or even your dorm room,
+72:05 even if they open the lid
+and don't have your password, they're not going to be able
+to access any of the data because it's just going to
+look like zeros and ones.
+72:11 Even if they remove the
+hard drive from your device, plug it into another device, they're
+only going to see zeros and ones.
+72:17 Now, if you walk away from your
+laptop at Starbucks with the lid open and you're logged in, there
+is a window of opportunity.
+72:24 Because the data has got to be decrypted
+when you care about it and when you're using it. So here too is another
+example of best practice.
+72:31 You should minimally be
+closing the lid of your laptop, making sure it's logging you out
+or at least locking the screen,
+72:37 so that someone can't just
+walk off with your device and have access to
+your logged in account.
+72:42 But full disk encryption essentially
+decreases the probability that an adversary is
+going to be successful.
+72:47 In the world of Macs,
+it's called FileVault. It's in your System Preferences. Windows, it's called BitLocker. There's third party solutions too.
+72:53 Here too, we have to trust
+that Microsoft and Apple don't screw up and write buggy code. But generally speaking, turning
+on features like these things
+73:01 are good for you. Except what's maybe an obvious
+downside of doing this?
+73:08 What's that? AUDIENCE: [INAUDIBLE] DAVID MALAN: Yeah, if
+you forget your password. There's no mathematician
+in the world who is probably going to be able
+to recover your data for you.
+73:16 So there too, it's
+maybe a hefty tradeoff. But hopefully you have
+enough defenses in place, be it your-- a good
+password, a password manager,
+73:22 maybe even printing out your primary
+password on a sheet of paper, but locking it in a box or bringing
+it home so that no one near you
+73:29 actually has physical access, you can
+at least mitigate some of these risks. You'll read about, though,
+in the real world even this,
+73:35 which is like an adversarial
+use of full disk encryption. Sometimes when hackers
+get into systems, this has happened literally with hospital
+systems, municipal government systems,
+73:43 and the like. If they hack into them, they don't just
+delete the data or just create havoc,
+73:48 they will proactively encrypt
+the server's hard drive with some random key that
+only the hacker knows.
+73:54 They will then demand that
+the hospital or the town pay them, often in Bitcoin
+or some cryptocurrency to decrease the probability
+of being caught,
+74:01 and they'll only turn over that key to
+decrypt the data if someone actually
+74:06 pays up. So here too, there's sort of a dark
+side of these mathematical principles. So there too, it's always a trade off
+between good people and perhaps bad.
+74:15 Well, maybe before we
+wrap and before we serve some cake in the transept, Carter,
+can you join me one last time?
+74:20 But, first, before I turn things over
+to me and Carter, here's your problem set 10, a sort of unofficial homework.
+74:26 One, among your takeaways
+for today, you should start using a password manager or
+even these fancier passkeys, at least
+74:33 for your most sensitive accounts. So anything medical, financial,
+particularly personal, like this is a very concrete
+takeaway and action item.
+74:40 I wouldn't sit down and try to
+change all of your accounts over. Because knowing humans, You're not going
+to get through the whole to-do list.
+74:45 So maybe do it the next time
+you log into that account, turn on some of these features
+or add it to a password manager
+74:51 or at least start with
+the most important. Two, turning on
+two-factor authentication beyond where you have to at
+places like Harvard and Yale,
+74:57 but certainly bank accounts,
+privates, anything medical, personal, or the like. And then lastly, where you can,
+turning on end-to-end encryption.
+75:05 Being careful with it,
+you don't want to go and during lecture, hopefully no one
+clicked the turn on FileVault button
+75:11 while we're in class. Because closing your laptop lid
+while things are being encrypted is generally bad practice.
+75:16 See us after though if you
+did do that a moment ago. So here's just then three
+actionable takeaways. But we thought we'd conclude by taking
+a few final minutes for a CS50 quiz
+75:25 show of sorts, a final check for
+understanding using some questions we come up with ourselves, but
+also some of the review questions
+75:32 that you all kindly contributed as
+part of the most recent problem set. So some of these questions
+come from you yourselves.
+75:38 And let me go ahead and turn things over
+to Carter here to help run the show. We will invite you at this point
+to take out that same device
+75:46 as you had earlier. This is the same URL as before. But if you closed the tab,
+you can reopen it here.
+75:52 To make things a little fun--
+because we still have some cookies left-- could we get three
+final CS50 volunteers?
+75:58 OK, one hand is already up. How about two hands there? And how about three hands? Over here.
+76:04 All right, yes, sure, a round of
+applause for our final volunteers. Come on up. [APPLAUSE]
+76:11 On the line are some
+delicious Oreo cookies. If the three of you would
+like to come over and take any of these seats in the middle,
+you will be our human players,
+76:18 but we'll invite everyone
+in the group to play too. Do you want to take a mic and
+introduce yourself to the world? AUDIENCE: Sure.
+76:24 Hi, I'm Dani. I'm a first year in WIG C. And I'm
+planning on studying economics.
+76:30 DAVID MALAN: Nice, welcome. AUDIENCE: Hi, I'm Rochelle. I'm from the best state, Ohio. DAVID MALAN: [INAUDIBLE]
+76:35 AUDIENCE: And I'm a freshman in Greeno. I'm planning on concentrating in CS. DAVID MALAN: Nice, welcome.
+76:41 And? AUDIENCE: My name is Jackson. I'm from Indiana. I live in Thayer. I'm a first year. And I'm studying linguistics and
+Germanic languages and literatures.
+76:50 DAVID MALAN: Welcome as well. So, if our volunteers
+could have a seat, you're going to want to be able to
+see this screen or that one.
+76:55 So you can move your
+chairs if you would like. Carter is going to kindly cue up the
+software, which hopefully everyone has on their phones as well.
+77:00 And I should have mentioned, do
+you have your phone with you? AUDIENCE: [INAUDIBLE] DAVID MALAN: Do you have
+your phone with you? AUDIENCE: [INAUDIBLE] DAVID MALAN: OK, do you
+have your phone over there?
+77:06 OK, what's your name again? AUDIENCE: Rochelle. DAVID MALAN: OK, Rochelle
+will be right back, if you want to go grab your phones. And in the meantime, we're
+going to go ahead and-- thank
+77:14 you so much-- we're going to go
+ahead and cue up the screens here for the CS50 quiz show. It's about 20 questions in
+total, the first few of which
+77:20 are going to focus on
+cybersecurity to see how well we can check our current understanding. The rest will be questions written by
+you in the days leading up to today.
+77:29 All right, Carter, let's go ahead
+and reveal the first question. And note that you can win up to
+1,000 points this time per question.
+77:36 It's not just about
+being right or wrong. And you get more points the
+faster you buzz in as well. So we'll see who's on the top based
+on all of the guest user names.
+77:43 All right, here we go,
+Carter, question one, what is the best way
+to create a password? Substitute letters with
+numbers or punctuation signs,
+77:51 ensure it's at least
+eight characters long, have a password manager
+generated for you,
+77:56 or include both lowercase
+and uppercase letters? All right, let's see
+what the results are.
+78:04 Almost everyone said have a password
+manager generate it for you. 90% of you said that's the case.
+78:10 And, indeed, that one is correct. Nicely done. Let's go ahead and see the
+random usernames you've chosen.
+78:16 So this looks like it's
+web_hexidecimalidentifier to keep things anonymous. So if you are OAF9E,
+nicely done, but there's
+78:23 a whole lot of ties up at the top. All right, and I see-- well,
+just to keep things interesting, you had 792 points.
+78:29 You had-- AUDIENCE: 917. DAVID MALAN: 917 points, 917 points. So it's a close race here.
+78:35 Number two, what is a downside
+of two-factor authentication? You might lose access
+to the second factor.
+78:40 Your account becomes too secure. You can be notified someone else
+is trying to access your account.
+78:45 You can pick any
+authentication you like. Hopefully, you can reload. You might have missed that one. And the number one answer was might
+lose access to the second factor.
+78:53 Indeed, 93% of you got that. And we're up to 1,375
+points, 792 points, and--
+78:60 AUDIENCE: [INAUDIBLE] DAVID MALAN: OK, and forced reload. So, yes, you tried reloading the page
+and hopefully it'll click back in. All right, Carter, number 3.
+79:06 We have, what would you see if you
+tried to read an encrypted disk? You would see a random
+sequence of zeros and ones,
+79:12 scrambled words from
+the user's documents, all of the user's
+information, or all one's?
+79:19 About 10 seconds remain. Is it working for you now? OK. All right, three seconds.
+79:25 And the ranked answers are a
+random sequence of zeros and ones. 91% of you indeed got that right.
+79:32 Let's see who's winning
+on the guest screen. Web user a28c3, nicely done.
+79:37 But it's still a close tie among
+three of you anonymous participants. Number four, which type of
+encryption is most secure--
+79:45 enhanced encryption, end-to-end
+encryption, full scale encryption, advanced encryption?
+79:51  About five seconds. 
+79:59 And most popular response is the
+correct one, end-to-end encryption
+80:05 with 92% of you. Nice. We're up to 2,375, 3,792, and 2,917.
+80:14 And good job to these three
+folks in the front of our list. All right, Carter, number 5,
+the last on cybersecurity.
+80:21 When would it make sense to store
+your password on a sticky note by your computer? When it's too complicated
+to remember, when
+80:27 you need to access your account quickly,
+when you share your account with family members, never.
+80:32 
+80:38 Oh. And the most popular response was
+never, which is indeed correct.
+80:43 And only 79% of you
+think that right now. It is never OK to store it on a
+post-it note on your computer.
+80:51 You should minimally be using today's
+password manager for that same process. All right, two of you, a28c3 and
+c9a23 are still atop the list.
+81:00 We have 3,000-plus
+points, 3,000-plus points, and probably about the same as well.
+81:06 All right, now we move on to
+the user-generated content that you all from Harvard
+and Yale generated for us.
+81:12 Number 6, what is the variable
+type that stores true/false values? Boolean, string, integer, or double?
+81:20  About 10 seconds to come up with this.
+81:26 We saw these in different
+languages, these types. But the idea was the same. And in two seconds,
+we'll see that the answer
+81:32 is Boolean with 96% response rate. All right, what else do we have here?
+81:39 It's still a two-way tie at the top. All right, next question,
+Carter, is number 7.
+81:45 What placeholder would
+you use when trying to print a float in C, a float in C?
+81:55 Seven seconds. I'll defer to the visual syntax
+on the screen for this one.
+82:02 And the most popular and
+correct answer is, indeed, %f. We never saw %fl and we
+definitely didn't see %float.
+82:11 Two of you, though,
+are still in the lead. Nicely done, whoever you are. All right, next question, what does I++
+do in C++ where I is an integer value?
+82:23 Note, for the record, we did
+not teach C++ in this course, but this question is from you.
+82:30 I will admit it's the same
+as in C, which we did teach. Decrements the integer, deletes the
+integer, increments the integer by one,
+82:38 or reassigns the integer to zero? The most popular answer
+and correct answer is increments the integer by one.
+82:45 It definitely doesn't decrement, so. All right, two responses
+still atop the list. And here we have 6,000-plus,
+6,000, and 6,000.
+82:53 So it's getting closer. Using a hash table to
+retrieve data is useful because it theoretically achieves a
+search time of O of n, O of n log n,
+83:03 O of log n, or O of 1? 
+83:09 Five seconds to make your decision. Getting a little harder. And let's see the results.
+83:17 O of 1, only 30% of you got the correct
+answer from a very core week 5 topic.
+83:25 That is the theoretical
+hope of a hash table. In practice, though, to be fair, it
+can devolve, as we saw, into O of n.
+83:33 We didn't really see those other two
+answers in the context of hash tables specifically. All right, wow, a28c3
+is in the lead now.
+83:41 Let's take a look at
+number 10, halfway there. What is the first
+program we made in CS50?
+83:48 This should be fast. All right, Greet, Meow,
+DNA, Hello, world? 
+84:04 One second. And it was, indeed, Hello,
+world, Hello, world.
+84:11 All right, still in the
+lead with 10,000 points. And now let's move on
+to the second half.
+84:18 Question 11, when malloc is used
+to allocate memory in a C program, that memory is allocated in
+the pile, heap, bin, or stack?
+84:31 Very creative set of answers.  Five seconds.
+84:36  All right, and the
+results have heap at 43%.
+84:44  Malloc was from the heap at the top.
+84:49 The stack is where function calls go. It's getting a little
+more worrisome here.
+84:55 But that's OK. Still in the lead with perfect
+score, it seems, 11,000 points. Next up is number 12.
+85:03 Which data structure allows you to
+change its size dynamically and store values in different
+areas of the memory--
+85:09 an array, a queue, a
+linked list, or a stack? 
+85:16 Change its size dynamically
+and store different values in different areas of the memory.
+85:22 And the answer from the group is a
+linked list at 62%, which is correct.
+85:28 An array, as we defined
+it, cannot be resized. You can create a new array,
+copy everything over.
+85:34 I'm starting to think maybe we
+shouldn't end the class on this note. But that's OK. We'll move on. 12,000 points for the lead.
+85:41 And number 13, what does CSS
+stand for in web development--
+85:46 computer style sheets, cascading
+style sheets, creative style systems, colorful sheets styles?
+85:54 And most popular answer is correct
+with 81%, cascading style sheets.
+85:60 On the top 10 list here at 1,300
+points, still a perfect score, and our three human volunteers
+are doing well here too.
+86:07 14, how to represent a
+decimal number 5 in binary. All right, here we go.
+86:13 I'll let you read these. 
+86:24 All rights, fingers crossed, decimal
+number 5 in binary is, indeed, 101.
+86:32 Because that's a 4 plus 0
+plus 1 gives us a decimal 5. All right, next question, and amazing
+a28c3, whoever you are out there,
+86:41 nicely done. Who is the CS50 mascot-- cat, duck, robot dog
+Spot, Oscar the Grouch?
+86:49 All of whom have appeared in some form. 
+86:56 This one will be a little looser with
+answers, but looks like duck and cat
+87:03 were both the most popular. Duck has kind of become the
+mascot, suffice it to say. Cat is kind of everywhere
+on CS50 social media.
+87:10 So we'll accept cat as well. We love Spot, but has only
+made that one appearance.
+87:15 15,000. Final few questions, what is the output
+of printf quote, unquote, "1" plus
+87:21 quote, unquote, "2?" It will return an
+error, twelve, 3, or 12?
+87:28 English and digits respectively there. Six seconds. 
+87:36 All right, one second. And 12 with 74% is correct.
+87:43 Because it's not quite
+12, it is more rather 1, 2 because those are two strings that
+got concatenated would not actually
+87:50 be an error in that case. It's just not what you expect. All right, it's getting a little
+harder, but still someone's
+87:55 got a perfect score. What does LIFO stand for? Lost In First Order, Last In First
+Out, Let Inside Fall Outside,
+88:04 Long Indentation For Organization? Good one.
+88:09 
+88:14 Last In First Out, and we discussed
+this in the context of a stack. Because as you pile things
+on top of the stack,
+88:21 the last one in is the first one out. All right, nicely
+done, this player here. Three questions to go.
+88:27 On average, how early did
+you submit the weekly pset? A couple of days early, no rush, the
+morning of, a couple of hours early,
+88:35 but was not too nervous,
+11:59:59, I live on the edge.
+88:40 Again, user-generated content.  And the most popular answer--
+88:47 [LAUGHTER] Carter and I
+conferred before class and we autocratically
+decreed that this is
+88:53 the only right answer
+and the only one we will accept here, though we
+appreciate the others as well.
+89:01 Wow, all right, did you take
+this class for the CS50 shirt? 
+89:08 Yes, no, maybe, I'm not telling you?
+89:13 So that is this here shirt, which
+you'll get at the CS50 fair.
+89:20 One second. And, yes, no, maybe, I'm not telling
+you, this time, we'll accept all four
+89:27 of those, which brings us to our
+final question, at which point we'll reveal the scores
+of all of our participants and see if we can get the
+number one score online.
+89:35 What is the phrase that David
+says at the end of each lecture? 
+89:41 [INTERPOSING VOICES] 
+89:50 DAVID MALAN: All right,
+before we actually say what the right answer
+is, though we can show it, Carter, we'll see that there is 98%--
+90:00 I've never said this at the end
+here, but 98% answers there. Let's go ahead and
+look at the top chart.
+90:06 Do we know who web_a28c3 is?
+90:11 Oh my goodness, come on down. And among our friends here, can
+you pull up each of your scores
+90:16 if you're able to see?  And among our human volunteers,
+16,792, 17,292, 16,958.
+90:29 So we have our human winner as well. So without further ado, allow
+me to thank our volunteers.
+90:36 Thanks so much to CS50 staff. We're about to give out some
+cookies and, if you want, some stress balls here. Cake is now served.
+90:41 And this was CS50. [CHEERING] [INTERPOSING VOICES]
+90:47 [MUSIC PLAYING] 

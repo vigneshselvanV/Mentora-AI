@@ -1,0 +1,3736 @@
+00:10 DAVID MALAN: All right, this
+is CS50 and this is lecture 10.
+00:14 Welcome to those parents among you.
+00:16 Today, for those tuning in online,
+is freshmen family weekend.
+00:19 We have quite a few
+guests with us and we
+00:21 thought we would begin today in
+fact by perhaps putting everyone
+00:24 at ease since I know this is
+perhaps the first time in a while
+00:27 that you've been back to college.
+00:28 Maybe this is your first
+class for the fall semester.
+00:31 And so we thought we'd
+share with you by proxy
+00:34 what you might be feeling
+by way of a short film
+00:36 that CS50's video team put together
+with a little friend of ours
+00:40 just a few semesters ago.
+00:45 [VIDEO PLAYBACK]
+00:47 [MUSIC PLAYING]
+02:12 - Hi.
+02:13 - Hello
+02:57 [END PLAYBACK]
+02:58 DAVID MALAN: All right, well,
+welcome to Harvard and CS50.
+03:03 So if you'd like to actually
+return in just a few weeks time,
+03:06 your children or siblings or
+friends or here in the room
+03:09 will be exhibiting their CS50 final
+projects in just a few weeks' time.
+03:14 This is the so-called
+CS50 fair, which is
+03:15 meant to be a campus wide exhibition
+of students' final projects.
+03:18 And it's worth noting that, as
+the students in the class know,
+03:21 68% of the students in CS50 this
+year had no prior CS experience.
+03:26 And so what you and they will
+see on display at the CS fair
+03:29 in a few weeks' time in December
+is all of their accomplishments.
+03:33 And in fact, the goal
+of this event really
+03:35 is to delight in what everyone
+has achieved and glancing
+03:37 at each other's screens and phones
+to see with great surprise what
+03:41 each of our students has pulled off.
+03:43 So you are invited back if you
+would like for that as well.
+03:46 Now CS50 of course is
+characterized as a class
+03:48 for those less comfortable
+and those more comfortable
+03:51 and those somewhere in between.
+03:52 And I daresay some of our
+guests today are perhaps
+03:54 at one end of that
+spectrum or the other.
+03:57 And so rest assured that
+what we'll dive into today,
+03:59 the world of databases and SQL
+with applications to data science
+04:03 and beyond, is new to most
+everyone in the room as well.
+04:07 So you are in good company,
+and I daresay 68% or more
+04:10 of percent of the parents in the room
+are perhaps feeling exactly as you are.
+04:15 So if we can now turn our attention
+back to some things lower level,
+04:19 those students among you will recall
+that we focused in recent days
+04:22 on Python, this other higher
+level language by which you
+04:25 can solve problems a bit more readily
+than you can using, say, something
+04:29 lower level like C. Now you might
+have noticed I'm ready if you dived
+04:32 into problem set 6 as I'm sure
+you have, the debug 50 only
+04:36 supports C and not Python.
+04:38 So you have relatively fewer tools
+at your disposal for debugging.
+04:41 But do realize that within
+the CS50 library for Python
+04:45 is a function like this
+called eprint, which
+04:47 you might recall if you've
+used eprintf with C.
+04:50 This is a Python version of the same.
+04:52 And so if you need help
+debugging your programs,
+04:55 it suffices to write
+a program in Python.
+04:58 And anywhere you want to
+see diagnostic output,
+04:60 simply call this eprint function.
+05:02 And it will print the file name
+and the line number for which you
+05:05 have written that line of code.
+05:08 But let's turn our attention
+now to things more web-oriented
+05:12 and perhaps something with
+which you're familiar Facebook
+05:14 and the login screen thereof.
+05:16 So there's so many websites out there
+today where when you visit them,
+05:20 you're prompted to log
+in-- something like this.
+05:23 But you're not prompted to log in every
+time you click a link on facebook.com.
+05:26 You're not prompted to log in
+every minute or every two minutes
+05:29 because indeed, the websites,
+if they required as much,
+05:32 they would degrade into
+something downright unusable.
+05:34 So instead, these websites remember
+that you're logged in somehow.
+05:38 So you log in once per
+day, per week, per year.
+05:41 It varies by website.
+05:42 And then somehow the website remembers
+that you are Maria or you are Brian
+05:46 and you have already
+logged into this website.
+05:48 Now how might that work?
+05:50 How does Facebook or any site
+like it, Gmail and beyond,
+05:54 remember that you are logged in once
+you are logged in even though you only
+05:57 type your username and password once?
+05:59 AUDIENCE: [INAUDIBLE]
+06:01 DAVID MALAN: OK, so they store
+information on the server.
+06:04 And indeed, that's exactly right.
+06:05 On the server, as we're now starting
+to see with Python and today with SQL,
+06:08 you have the ability to store
+information on a server.
+06:10 We saw very simply about a week
+ago the ability to store data
+06:14 in, like, CSV files, just
+text files on the server.
+06:16 That's not going to be
+very high performing,
+06:18 so we're going to do
+better than that today.
+06:20 But you can also store data
+in variables inside a flask
+06:23 while it's running as we saw as well.
+06:25 But we'll need some more
+sophistication than that.
+06:27 But yes, we can certainly remember
+that Maria or Brian have logged in.
+06:31 But how do we remember from
+which computer or browser
+06:34 Maria or Brian have logged in?
+06:38 AUDIENCE: [INAUDIBLE]
+06:39 DAVID MALAN: Via the IP
+address-- so could work.
+06:41 You could just recall that
+from those virtual envelopes
+06:44 which I no longer have today.
+06:45 We've been writing the to address in the
+from address, the IP address, on those
+06:48 envelopes.
+06:49 So you could certainly remember, oh,
+I saw Brian from 1.2.3.4 and Maria
+06:53 from 4.5.6.7 or whenever
+the numbers actually are.
+06:56 But that's a problem in, like,
+households and frankly even
+06:59 on campuses these days because of
+NAT, Network Address Translation,
+07:02 that technique whereby a bunch of
+us probably in this room right now
+07:05 on our laptops or phones are sharing
+the same IP address, at least so
+07:09 far as the outside world is concerned.
+07:11 So we could confuse things.
+07:12 And that would be bad because that means
+if Brian sort of logs into Facebook
+07:15 and Maria logs into
+Facebook, suddenly Brian
+07:17 might actually see Maria's
+profile page or the like.
+07:21 So what else might they be doing?
+07:23 What's that?
+07:24 AUDIENCE: Cookie?
+07:24 DAVID MALAN: Cookie, so-- eh,
+correct answer, but what in the world
+07:27 does that mean?
+07:28 AUDIENCE: [INAUDIBLE]
+07:29 DAVID MALAN: Don't know--
+07:30 OK.
+07:31 So, perfect-- so you're
+in the right place.
+07:32 And most everyone in this room
+probably, if you use the web frequently,
+07:35 have generally heard about cookies and
+probably that they're dangerous or bad
+07:39 or some way or you've
+probably googled how
+07:41 to clear your cookies if
+you've indeed heard they're
+07:43 a bad thing or something like that.
+07:44 And indeed, cookies are the
+answer to this question.
+07:46 But how does that actually work?
+07:48 Well, if you've been to like
+an amusement park or a club
+07:51 or someplace where you typically have a
+ticketed access gate, sometimes if you
+07:55 want to come in go to and from the
+parking lot or out to the street
+07:58 or wherever, they might stamp your
+hand using like a little red stamp
+08:01 or invisible stamp or the like.
+08:02 And then you just show it to the
+bouncer or the person at the checker
+08:05 that you had been there before
+because you have this hand
+08:07 stamp via the remembering you.
+08:09 So web servers and browsers
+are kind of the same.
+08:11 When you visit Facebook or Gmail
+or wherever for the first time
+08:15 and moreover log in, they
+essentially put like a digital hand
+08:18 stamp on your browser called a cookie.
+08:20 And that handstand
+happens to be implemented
+08:22 not obviously as ink but like
+as a big random number that
+08:25 is given just to you.
+08:27 And it's stored either
+in your computer's RAM
+08:29 or on your computer's
+hard drive longer term.
+08:32 And your browser,
+because it speaks HTTP,
+08:35 that protocol we've
+been talking about, it
+08:37 has been designed to show
+its hand, so to speak.
+08:41 Every time you revisit Facebook,
+every time you click an email,
+08:44 every time you send a message, anytime
+you browse around on that same website,
+08:48 the browser is, without
+you realizing it, reminding
+08:51 the server of that hand stamp.
+08:53 So how might it be doing it?
+08:54 Where can a browser sort of tuck
+away information like this such
+08:59 that it's always in that envelope?
+09:00 Yeah.
+09:01 AUDIENCE: It can put it like into a list
+like you did before with the invites
+09:04 or something like that.
+09:05 DAVID MALAN: The invites, the invites--
+09:08 oh, so that would be lower
+lev-- so, OK, I remember now.
+09:11 So that would be not
+quite there because we
+09:12 want to make sure that this
+has nothing to do fundamentally
+09:15 with our application.
+09:16 This has to do with HTTP.
+09:18 So this was invented years ago before
+there was like a list of registrants
+09:21 for [INAUDIBLE].
+09:22 So we can't put it there.
+09:23 Yeah.
+09:24 AUDIENCE: [INAUDIBLE]
+09:26 DAVID MALAN: A concept of
+a cache-- not here, no, no.
+09:29 Yeah.
+09:29 AUDIENCE: [INAUDIBLE] header.
+09:30 DAVID MALAN: The
+header-- so the header is
+09:32 where we have access to metadata, sort
+of lower level technical information
+09:36 that most of us never see
+unless you poke around Chrome
+09:38 or actually sniff your own
+internet traffic and see.
+09:41 But we do have the ability, within
+these HTB headers, to send, so to speak,
+09:45 this virtual hand stamp.
+09:47 So let's recall what
+these headers look like.
+09:49 So the headers that get sent
+in this virtual envelope
+09:52 when you request Facebook's
+home page, for instance,
+09:54 might look like this-- get slash,
+which means get me the home page,
+09:56 using version 1.1.
+09:58 The host I'm visiting,
+just as a reminder,
+09:60 is facebook.com or www.facebook.com.
+10:02 And then below that
+is maybe more headers.
+10:04 We've generally waived our hands at
+it because they're not as interesting
+10:07 but there might be some
+more information there too.
+10:10 Well, when Facebook replies,
+especially after you've
+10:13 logged in, it turns out one of
+the headers we haven't looked
+10:16 at in addition to these which
+we have seen, the response,
+10:20 the 200 OK from the server,
+is that Facebook and servers
+10:24 like it are probably sending
+this header as well, literally
+10:27 Set-Cookie colon and then a name
+and then a value or key and a value.
+10:32 The name here, for instance, I'm
+going to start calling session,
+10:34 as is the term of art.
+10:36 And then the value to the
+right can actually be anything.
+10:39 So value might be 123,
+456, or any unique value
+10:43 that's sort of randomly generated by
+the server to remember who you are.
+10:46 And so session equals value is like this
+is your hand and this is your value.
+10:51 That is now the cookie that's
+been planted on the computer.
+10:54 And what your browser thereafter is
+supposed to do is not send set cookie.
+10:58 That only comes from server to browser.
+11:00 But whenever you on Facebook
+request another page,
+11:03 click a friend's profile
+page or the like,
+11:06 your virtual envelope will
+contain not these familiar headers
+11:09 but also cookie session equals value.
+11:13 And so that is the presentation
+of that same key value pair.
+11:16 So if Facebook now to your
+point earlier remembers
+11:19 that user 123456 has logged in and
+that user happens to be named Maria
+11:25 and we can store that
+information on the server,
+11:27 every time Facebook sees
+this same hand stamp
+11:30 or sees this same session equals value,
+it'll be like, oh, that must be Maria.
+11:36 And so I'll show Maria her
+messages and her profile page
+11:39 and all that comes with it in a website.
+11:42 So let's take a step back because
+the mechanism is as relatively
+11:45 simple as this, even though
+it's certainly arcane
+11:47 and you have to kind of know what
+you're doing to leverage this.
+11:50 But is there a threat here?
+11:51 Like, why might cookies be
+dangerous and why do people
+11:54 tell us occasionally to delete them?
+11:56 AUDIENCE: If some one gains
+access to [INAUDIBLE]..
+11:58 DAVID MALAN: Yeah, if someone
+gains access to your cookies,
+12:00 you could masquerade as
+someone else like Maria.
+12:03 And so in the sort of
+equivalent at a club or a part
+12:05 would be if you kind of do this with
+someone else's hand and try to say,
+12:08 hey, we're both here even though one
+is now backwards, that would be kind
+12:11 of a duplication of the session value.
+12:13 So you probably want to make
+sure these are encrypted.
+12:16 And what's the easiest way to
+ensure that the traffic between you
+12:19 and a server is encrypted?
+12:20 AUDIENCE: [INAUDIBLE]
+12:21 DAVID MALAN: Not hashing necessarily.
+12:23 AUDIENCE: SSL.
+12:24 DAVID MALAN: SSL or the
+HTTPS prefixed URLs.
+12:27 And thankfully-- and the story
+has changed over the years.
+12:29 Thankfully, web servers
+are getting better
+12:31 at supporting HTTPS because
+then all of this stuff,
+12:33 even though the browser can see
+it and the server can see it,
+12:36 it's at least encrypted
+or scrambled to anyone
+12:38 who's eavesdropping and trying to
+see what's going on between the two.
+12:42 But there have been
+bugs along these lines.
+12:44 In fact, it was just a
+few years ago in CS50
+12:46 where just days or hours
+prior, a security researcher
+12:50 had presented at a conference
+some very easy to use
+12:53 software via which you could
+hijack other people's sessions,
+12:56 or session highjacking
+being the term of art here.
+12:59 And what he had implemented was this
+plug-in for Firefox, another browser.
+13:03 And that would allow you, when
+you ran this guy's plug-in,
+13:07 to just sniff all of the wireless
+traffic in the same room.
+13:11 And it would show you, so user friendly,
+a list of all of the session cookies
+13:16 that were kind of going back and
+forth through the air, so to speak,
+13:19 that were not encrypted.
+13:20 And this was, I don't know,
+four or five years ago.
+13:22 When HTTPS existed, it's
+just not, a lot of websites
+13:25 were actually really using it.
+13:27 So a lot of really popular
+websites weren't using it.
+13:29 And so the demonstration in
+class, which thankfully we
+13:31 can't do anymore because most
+websites have been more secured,
+13:35 it was as easy as
+clicking a button for me
+13:37 to log into that here Rose's Facebook
+account because she was using Facebook
+13:42 during lecture and unbeknownst
+to her, so now was I.
+13:45 And it was simply a matter of
+capturing this kind of value.
+13:49 Moreover, if the session cookies
+are stored, as they're called,
+13:52 on your computer's hard drive,
+there's just more remnants
+13:55 of where you have been on the web.
+13:57 Not just that little drop down menu,
+but elsewhere on your file system
+14:00 might be reminders for better or for
+worse of where you have actually been.
+14:04 So for these and other
+reasons do you sometimes
+14:07 want to clear these or at
+least be mindful of them.
+14:09 And frankly, from a
+development perspective,
+14:11 one of the reasons why we keep
+encouraging you students to use
+14:15 incognito mode occasionally
+for development purposes
+14:19 is to essentially clear
+all of your cookies.
+14:21 Incognito mode gets rid
+of all of your cookies
+14:23 temporarily so that you can
+interact with the server
+14:25 in a more predictable way.
+14:27 And for software developers,
+that's just useful
+14:29 not to be confused by
+older stale cookies.
+14:33 Any questions then about cookies?
+14:37 All right, so who cares?
+14:38 Like, that's all fine and good.
+14:39 Now we can be a little more
+paranoid when using the web.
+14:42 But what can we actually do
+with this now that's actionable?
+14:45 Well, if I go ahead into CS50 IDE,
+let me go ahead and open up an example
+14:49 that you can also look at later
+on via the course's web site.
+14:53 And this is a little web-based
+store that I whipped up.
+14:56 It's super common these days
+to, like, buy things on the web.
+14:59 And of course when you're buying
+things on the web, hopefully
+15:01 the website is remembering
+what you are interested in.
+15:04 If you go to amazon.com and click
+Add to Cart, where does that go?
+15:07 Well, let's think about it.
+15:09 Amazon is somehow remembering,
+after I logged in, who I am.
+15:12 And we can assume that they're
+doing that via cookies already.
+15:14 So they're putting some
+handstamp on my hand
+15:17 and my browser is reminding
+Amazon on every page click
+15:20 that I am me who logged in previously.
+15:23 So what do you think a server is doing
+any time you add something to your cart
+15:28 or quantity two of your car or
+something else in your cart?
+15:31 Where Where's that information
+being stored as well?
+15:36 Say again?
+15:36 AUDIENCE: [INAUDIBLE]
+15:38 DAVID MALAN: Also-- so in
+the header, it suffices just
+15:42 to put that cookie because
+you proposed actually
+15:44 earlier that we can store stuff in
+a server, whether it's a CSV file
+15:47 or in RAM or today in a database.
+15:50 If you can store anything
+you want on the server,
+15:53 it suffices just to
+remember via this cookie
+15:56 that the person has logged in before
+and uniquely identify him or her
+15:59 thereafter by that cookie's value--
+16:01 123456 or whatever it is.
+16:04 Yeah.
+16:05 AUDIENCE: But there's a list
+associated with your cookie?
+16:07 DAVID MALAN: There's a list
+associated with my cookie.
+16:08 That is actually the perfect
+segue to, yes, exactly.
+16:11 And let's take a look at
+what that actually means.
+16:13 So this is a web based application.
+16:15 To those of you in the audience
+who weren't here last week
+16:19 or the week prior or
+the whole semester, this
+16:21 is a programming language called Python.
+16:23 It's the language we've now
+started using over the past week.
+16:25 And this is using what's called a
+framework, freely available software
+16:29 that other people wrote, called Flask
+that makes it easier to implement web
+16:33 based applications or websites.
+16:35 And what we're doing in CS50, now
+recall, is not making static websites.
+16:38 We're not talking about
+web design, per se,
+16:40 which tends to be the art of
+creating static content, very
+16:44 beautiful informational websites, but
+web programming, whereby we're actually
+16:49 using logic to generate web
+applications or web sites dynamically.
+16:53 And so Python lets us do this.
+16:55 So this, recall from last
+week, is the magical line
+16:57 that says give me a Flash
+based web application.
+16:60 And with this comes certain
+features, like the ability to say,
+17:03 hey Flask, define a route for slash.
+17:06 That means anytime the user
+visits slash, the default page
+17:09 on a web site, return what
+file, just to be clear?
+17:13 Index.html.
+17:14 And then we looked last week
+at where those index.html are
+17:17 and that they are
+templates and so forth.
+17:19 But this simply means render index.html.
+17:22 So recall that I can run
+this web app as follows.
+17:24 If I go into the store
+directory and type flaskrun,
+17:28 I have now turned on a web
+server, so to speak, in the cloud,
+17:32 and it's literally telling
+me what URL to visit.
+17:34 So I'm going to go ahead and
+click on this and click Open.
+17:36 And we see a super simple store.
+17:38 Let me zoom in.
+17:39 It's really ugly-- haven't used any CSS.
+17:41 This is indeed not web design.
+17:43 This is all functional today.
+17:45 And you'll see, even though the
+projector is a little cloudy,
+17:47 that there's three text fields there.
+17:49 There's a number for
+Foo, a number for Bar,
+17:51 and a number for Bas,
+which if I'm familiar
+17:53 are just go-to words in
+computer science when
+17:56 you need to talk about something
+that doesn't need a specific name.
+17:58 It's like x, y, and z in math.
+17:60 So right now, here's a store a la
+Amazon.com that sells three things--
+18:04 Foo, Bar, and Baz.
+18:05 And I can buy any
+number of these things.
+18:08 But what we haven't
+had yet is the ability
+18:10 really to allow a user to
+interact with a web form
+18:13 and then store that information
+and change that information.
+18:16 We kind of scratched the surface last
+time with the CSV file for [INAUDIBLE]..
+18:21 But here now we have the ability to
+actually store something in a database.
+18:25 So let me go back to the IDE for a
+moment and focus on exactly that.
+18:29 So first of all, here is
+how this program works.
+18:35 I'm going to go ahead and buy myself
+one Foo, two Bars and three Bazes,
+18:39 whatever those are.
+18:40 I'm going to go ahead
+and click Purchase.
+18:42 And now I see my shopping cart.
+18:44 And just to be clear, if I hover
+over the URL, I am now at slash cart
+18:48 preceded by the long URL,
+which is where I began.
+18:51 So notice what's neat here.
+18:52 I can reload and it's still the same.
+18:56 I can reload, still the same.
+18:58 I can even close the tab, open a new
+one, go back to it, and it's still me.
+19:03 Now let's see what's actually going on
+underneath the hood in terms of code.
+19:07 Well, to C/cart is
+actually super simple.
+19:10 Just render cart.html.
+19:12 But cart.html, which I
+wrote before this morning,
+19:15 didn't know in advance
+presumably that I was
+19:17 going to buy one Foo, two
+Bars, and three Bazes.
+19:20 So it's probably not hardcoded.
+19:22 So there's this other
+feature of templates
+19:24 in a web application
+like this one whereby
+19:26 in addition to telling the
+computer show me cart.html,
+19:31 recall that you can pass in values.
+19:33 And I think we did this once last time.
+19:35 So cart is just the name I've given
+to this concept, like a shopping cart.
+19:40 And I'm going to pass it
+something called a session.
+19:42 And a session is the term
+of art that describes
+19:45 whatever it is the server is
+remembering on that user's
+19:48 behalf per his or her cookie.
+19:50 So the user's browser has
+the hand stamp, the cookie--
+19:53 123456.
+19:55 The server actually
+stores the session, which
+19:58 is just going to be a box
+filled with values, something
+20:01 that has been put into that box before.
+20:04 And so what I have now
+in my cart.html is this.
+20:11 Let me go into templates,
+open up cart.html.
+20:14 And this is going to
+look especially cryptic.
+20:15 But for those who've
+seen it before, recall
+20:17 that this just means descend
+from or inherit from layout.html.
+20:21 That's where, where, like, of the
+standard HTML is-- head and body
+20:24 and all that.
+20:25 Then this says, hey, server.
+20:27 Here comes the body of my website.
+20:30 And there's relatively little in there.
+20:31 Here's my big bold title--
+20:33 cart.
+20:34 And that's why a moment ago, we
+saw exactly that, big bold cart.
+20:38 And then over here,
+notice that I'm using
+20:40 Jinja, that templating language--
+very lightweight, very Python-like,
+20:44 and you'll get more
+used to it over time.
+20:46 Notice that we have here a for
+loop saying for each item in cart,
+20:52 go ahead and do this colon
+that, which looks super cryptic.
+20:55 But does anyone recall perhaps
+from [INAUDIBLE] last time,
+20:58 like, what does this syntax mean with
+the two curly braces on left and right?
+21:02 AUDIENCE: Variables.
+21:04 DAVID MALAN: Variables-- just
+plug in these values here.
+21:06 And now as an aside, it turns out
+that these curly braces are actually
+21:11 escaping our data, so
+to speak, in a way so
+21:13 that if the user types in
+kind of dangerous characters
+21:16 at his or her keyboard, this prevents
+that from becoming a problem,
+21:19 but more on that some other time.
+21:20 And so this is just going to say
+item colon cart bracket item.
+21:25 And this might be new syntax to some.
+21:26 Where have we seen
+square brackets before?
+21:28 What does that mean in C?
+21:29 AUDIENCE: Arrays?
+21:30 DAVID MALAN: Arrays.
+21:31 So in Python, we still have
+arrays, but they're called lists.
+21:35 But we have another feature
+too, and you wouldn't know this
+21:38 just by glancing at the syntax.
+21:40 But when you see square
+brackets next to a word
+21:42 like cart inside of
+which is not a number,
+21:46 but it's going to turn out a word.
+21:47 This word is literally going
+to be Foo or Bar or Baz.
+21:51 This is a way of using a hash table
+or a dictionary or a dict in Python,
+21:56 as it's called, whereby if the cart is
+what's been passed into this template
+22:00 and inside of the cart are a bunch
+of items like Foo and Bar and Baz,
+22:04 you can get the number of Foos by doing
+cart brackets Foo, which would look,
+22:10 if I hardcoded it, like this.
+22:12 You can get the number
+of Bars by doing this.
+22:14 And you can get the number
+of Bazes by doing that.
+22:17 And yet if I just plug in
+item, which is a variable,
+22:21 I'm going to get out,
+within this loop, the Foos,
+22:23 then the Bars, then the
+Bazes, and so forth.
+22:27 So what is the end result?
+22:28 Let's go back to the browser.
+22:29 When I hit reload here, the
+reason we're seeing Foo colon 1,
+22:32 Bar colon 2, Baz colon three,
+is because of that template.
+22:36 And if I reload again
+and again and again,
+22:39 I'm seeing the same thing because my
+browser is probably doing something.
+22:43 So let me do that.
+22:43 Let we go to inspect.
+22:45 Let me go to Network.
+22:47 And just for good measure, and you
+should get into this habit too,
+22:49 click preserve log.
+22:50 Because this way, if you change
+pages, the log doesn't go away.
+22:53 You can still poke around
+what you're seeing.
+22:55 And again, this is my Network tab.
+22:57 So I want to look at what Chrome
+is doing to talk to this web app.
+23:01 I'm going to go ahead now and I'm going
+to hold Shift and then click reload.
+23:05 Or if you click and hold--
+23:06 you've probably never noticed this.
+23:08 But if you click and hold on
+your own reload button in Chrome,
+23:12 you can do a normal reload, which
+is what all of us do all the time,
+23:15 or a hard reload or an empty cache
+and hard reload, which is just
+23:18 a way of saying get rid
+of all of my cookies,
+23:19 all remnants, and just forcibly
+reload everything, which
+23:22 is great for software development so
+we know what state we're always in.
+23:26 But you can also do
+that by holding Shift--
+23:28 whoops-- and clicking reload.
+23:31 So let's do that.
+23:32 Reload-- and here we go.
+23:34 That made one request because there's
+no images or CSS or fancy stuff
+23:38 to send more requests.
+23:41 This is going to be a little
+overwhelming at first glance.
+23:43 The IED itself uses
+cookies for other purposes.
+23:47 So you are seeing
+bunches of cookies that
+23:49 have nothing to do with
+this application-- has
+23:51 to do with the programming environment.
+23:52 But what we can focus on is this here.
+23:56 Notice that any time I get
+a response from the server,
+24:00 it's indeed sending me set
+cookie and then some value.
+24:04 Now this is a longer value
+than 123456, but it's
+24:07 the same thing-- a big random number.
+24:10 So what's happening is
+that is the server's way
+24:13 of telling my browser you
+are user 123456 or whatever
+24:16 that big long number was.
+24:18 And my browser is now supposed to
+present that again and again and again.
+24:22 So lastly, what is actually going on
+when we continue shopping and let's
+24:26 say buy 10 of these and 10 of these
+and 10 of these and click Purchase?
+24:30 Notice that if I look at the form,
+this is going to slash update.
+24:36 And it's via Post.
+24:37 And so if I now go back to
+the code to see what happens--
+24:41 let me go back into
+application.py, focus on update.
+24:44 This now is how I'm updating the
+contents of my server side cart.
+24:49 I am saying for each
+item in the form that
+24:53 was submitted, the requests form,
+go ahead and update session bracket
+24:57 item, which is going to be Foo or
+Bar or Baz because that is what
+25:00 was in the form, and store there this--
+25:04 request.form.get.
+25:06 So get me the value of that item,
+whether it's 10 and 10 and 10 or 1
+25:10 and 2 and 3, whatever the numbers
+are that the human typed in.
+25:12 And why do you think
+we put this word int?
+25:17 Why might that be necessary?
+25:18 Yeah.
+25:18 AUDIENCE: [INAUDIBLE]
+25:19 DAVID MALAN: Yeah, it's simple as that.
+25:20 It's kind of a casting in C.
+What the user typed in was text.
+25:23 It might look like numbers, like 1, 0.
+25:25 Certainly looks like 10.
+25:26 But it's not a number.
+25:27 That's a string that
+looks like a number.
+25:29 So using int converts it to an actual
+number so we can do math on it.
+25:34 So long story short, what is
+it that made this possible?
+25:37 We've not used this before, but you
+will have seen this perhaps in P set six
+25:41 or rather P set seven's distribution
+code, which is now on the web site.
+25:44 There's a few lines of code
+that just enable sessions.
+25:47 With those few lines, are we
+able to tell Flask, hey Flask,
+25:50 start sending cookies
+and expecting cookies
+25:53 back so that the programmer can
+use what is called a session, which
+25:58 I've additionally imported up here?
+26:00 So I've just added some
+additional functionality.
+26:02 And if you've ever wondered
+where all this data is going,
+26:05 let me go ahead and stop the server,
+clear my terminal and type LS.
+26:09 A moment ago, the only
+two things in this folder
+26:11 were application.pi and templates.
+26:13 Now there's apparently a
+directory called Flask session.
+26:16 So if you've ever wondered where Amazon
+stores the contents of your shopping
+26:20 cart or where Facebook stores Maria
+or Brian once they've logged in,
+26:24 it's probably in a folder
+in a file like this
+26:28 where these big long strings
+represent your cookie value
+26:31 or, better yet, it's in a database.
+26:33 And so that's why those are
+there-- because I apparently
+26:35 created four cookies by reloading and
+experimenting a few different times.
+26:41 OK, any questions on
+what the potential then
+26:44 or the usage of cookies
+and sessions are?
+26:49 All right, so let's then
+transition to solving
+26:52 problems a little more powerfully
+with these things called databases.
+26:58 So here is, like, a depiction of
+what we've been doing the past week
+27:01 and we'll do a bit more today and you'll
+do with problem set seven as well.
+27:06 We have been having browsers
+and servers talk to one another
+27:10 using kind of a certain paradigm.
+27:12 And the paradigm is generally called
+MVC, Model View Controller, though we
+27:16 didn't call it that last week.
+27:17 And MVC means this--
+27:19 you are writing code that
+is called controller.
+27:23 This is like the logic,
+the intellectual property,
+27:25 the business logic of your application.
+27:27 Like, if a user submits form, then
+add update contents of shopping cart.
+27:32 Any of those kinds of
+ifs and elses and loops
+27:33 are in what's called your
+controller code, AKA application.pi.
+27:38 You might also have views, V in MVC,
+which specifically are your templates,
+27:43 the idea being that you separate all
+of the interesting, juicy, intellectual
+27:47 part of your program in the
+controller code, the application.pi,
+27:51 and all of the important
+but kind of aesthetic stuff
+27:54 in your templates directory, AKA views.
+27:57 This way, among other
+things, you, for instance,
+27:60 can implement all of
+the logic of a web site
+28:02 whereas a friend of yours who is much
+better at design certainly than me
+28:05 can do all of the aesthetic
+stuff, all of the views,
+28:07 in the templates directory, and you
+can collaborate a lot more effectively.
+28:11 But there's one more letter in MVC.
+28:13 It's Model View Controller.
+28:15 And what we'll focus now
+on today is the M in MVC.
+28:18 Model is just a generic
+way of talking about data--
+28:21 like where does the actual data go.
+28:23 So the mental model to have
+moving forward as you write code,
+28:26 even though the lines are
+not going to be always as
+28:28 clear as this picture
+suggests, is any time
+28:30 you're writing code in application.pi
+that's probably controller code.
+28:34 Like, that's the intellectual
+workflow of your application.
+28:37 Anytime you're doing
+HTML or CSS or Jinja,
+28:39 that's the view of your application,
+the aesthetics, the presentation
+28:43 of information.
+28:43 And any time you're reading and
+writing data, long term or short term.
+28:48 That's the model.
+28:49 And sometimes the lines
+will be very blurry
+28:50 and it could all be in the same file.
+28:52 But those three types of operations
+are the mental model to begin to adopt.
+28:57 So let's get there.
+28:57 You'll recall that in week zero,
+we introduced this guy, Scratch,
+29:01 and the graphical programming language
+with which you began the semester.
+29:04 A week later, we introduced C, which
+had the same ideas and capabilities
+29:08 for the most part but using a keyboard
+only instead of graphics and a GUI.
+29:13 Then we transitioned a week ago
+to Python, a couple of weeks
+29:16 ago now to Python, which is
+very similar in spirit to see.
+29:19 But as you may recall with
+great delight or frustration,
+29:22 you can get so much
+more work done quickly--
+29:24 for instance, P set five--
+29:25 using the right language.
+29:27 And so here too we
+begin to use a new tool
+29:31 for the job called SQL, or
+Structured Query Language,
+29:34 or S-Q-L. This is yet another language,
+but it's much smaller than Python and C
+29:39 as we shall see today.
+29:41 But it is a language
+that you typically use
+29:43 when you want to talk to a database.
+29:45 So based on your
+familiarity already, what
+29:47 is a database even if you've
+never actually used or programmed
+29:51 with one before?
+29:53 AUDIENCE: [INAUDIBLE]
+29:53 DAVID MALAN: Place
+where your store data.
+29:55 So a database is a place where you store
+data- a base where you store data even
+29:58 perhaps.
+29:59 And so that's true.
+29:60 And what does that actually mean?
+30:01 Well, a database, like a web server,
+is actually a piece of software.
+30:05 We might think of it is
+this, like, physical entity,
+30:07 but a database is technically
+a database program
+30:10 that is listening for connections just
+like a web server or an email server.
+30:14 And any time it gets requests,
+it serves up a response.
+30:17 So we have the same client server
+relationship that we do with the web
+30:21 itself.
+30:22 Now the database hopefully is better
+and smarter and faster at storing data
+30:27 than certainly little old me.
+30:28 And it's hopefully better
+than something like CSV files.
+30:32 Like, recall we used CSV to store the
+registrants for [INAUDIBLE] last week.
+30:36 I think it was me and Rob
+and Maria all at once.
+30:39 Then what was good about that?
+30:41 What problem did we solve by
+introducing CSVs with that example?
+30:46 Yeah.
+30:46 AUDIENCE: [INAUDIBLE]
+30:48 DAVID MALAN: You didn't have
+to go through my inbox, right?
+30:51 One of the other versions
+of the registration program
+30:53 were to just email the proctor
+in charge of [INAUDIBLE],, which
+30:56 is fine because he or she can just
+use labels and keep track of it there.
+30:59 But that's not a database.
+30:60 You're Just kind of abusing
+Gmail as a database.
+31:02 So why not put in a Text
+file instead like a CSV?
+31:05 Because what kinds of
+programs can open CSVs?
+31:08 Yeah, like Excel and Numbers and
+similar spreadsheet programs.
+31:11 You can import it into
+Google Spreadsheets as well.
+31:13 So that was a plus of using CSVs.
+31:15 But what's perhaps a minus
+even though we didn't really
+31:18 experience the minus so much?
+31:21 AUDIENCE: [INAUDIBLE]
+31:22 DAVID MALAN: Harder to what?
+31:23 AUDIENCE: [INAUDIBLE]
+31:24 DAVID MALAN: It is harder to do stuff
+with it because at the end of the day,
+31:26 it's just a stupid text
+file, and we humans
+31:29 have agreed to put commas in
+between values we care about.
+31:32 But that's it.
+31:33 Like, there's no features.
+31:34 You open up that file, you're just going
+to see ASCII text and commas with them.
+31:37 You get no, like,
+features, no functionality.
+31:39 And do you have another thought?
+31:41 AUDIENCE: [INAUDIBLE]
+31:42 DAVID MALAN: It's inefficient why?
+31:43 AUDIENCE: [INAUDIBLE]
+31:45 DAVID MALAN: It's harder to find things.
+31:46 Certainly not in the case of,
+like, me and Rob and Maria.
+31:49 But as soon as you start having hundreds
+of students registered or thousands
+31:52 of customers in your database or
+hundreds of thousands, like, in CSV,
+31:55 the best they can do is
+linear time for everything.
+31:58 You have to search the
+entire file top to bottom.
+32:01 So wouldn't it be better if we
+can borrow ideas from week zero,
+32:04 integrate them into the context
+of this problem, databases,
+32:07 and actually query for data, ask for
+it, change it, delete it, and edit it
+32:12 much more readily than simple
+little text files allow?
+32:15 So what should you be thinking about
+when you think about a database?
+32:18 Well, there's different types.
+32:19 And today, we're going to focus on what
+are called relational databases, which
+32:22 is a fancy way of saying
+tables of columns and rows.
+32:26 So this is a screenshot
+of Google Spreadsheets
+32:28 with which you're likely familiar.
+32:29 The projector seems to be hiding
+the fact that there are actually
+32:32 rows and columns here.
+32:33 And instead, we're just
+seeing a big white box.
+32:34 But there are indeed rows
+and columns inside of here
+32:37 as you can see on the screen.
+32:38 And if I use a [INAUDIBLE]
+this is a screenshot.
+32:41 So I can't even enable rows and columns.
+32:43 So here, we have our columns and rows.
+32:46 So why is this useful?
+32:48 Well, if you've ever store data for your
+student group, or for your customers
+32:51 or for other applications
+around the house,
+32:54 you've probably been in the habit of
+storing things in rows and columns.
+32:58 And what does each column typically
+represent in a spreadsheet?
+33:03 What kinds of things might it represent?
+33:04 And here's an actual version
+of Google Spreadsheets.
+33:06 And let me actually highlight this and
+turn on, just because, darker lines.
+33:12 So there's our rows and columns.
+33:13 So when you're using a spreadsheet,
+maybe from personal experience,
+33:16 like, what do you put in the columns?
+33:19 I'm sorry?
+33:20 AUDIENCE: [INAUDIBLE]
+33:21 DAVID MALAN: Categories of what?
+33:22 Give me a concrete example.
+33:23 AUDIENCE: [INAUDIBLE] the name of the
+student and lab that they're in and--
+33:28 DAVID MALAN: Oh, what
+a delightful example.
+33:30 So yes, we can say, like, the student's
+name and the student's dorm and maybe
+33:35 their email or if we
+collected their phone number
+33:37 and bunches of other things.
+33:39 And you know, just to be sort
+of tidy, we might boldface it,
+33:42 and you can use features like this,
+which just kind of lock that row there.
+33:45 But these are just GUI features.
+33:46 These are not sort of
+intellectually that interesting.
+33:48 But what do I typically
+put in each row thereafter?
+33:52 The first row is kind of
+special usually, which
+33:54 is why you can kind of lock it off.
+33:56 What do you put in the rows?
+33:57 AUDIENCE: [INAUDIBLE]
+33:58 DAVID MALAN: I'm sorry?
+33:58 AUDIENCE: Elements [INAUDIBLE]
+33:60 DAVID MALAN: Yeah, the actual data--
+34:01 so, students' names.
+34:02 So if, like, David
+registered from Matthews,
+34:05 you would put his information in there.
+34:07 And then, like, if Rob registered
+from Thayer put his in--
+34:10 oh, that's not--
+34:12 Rob's from Thayer, not Rob from Bowden.
+34:14 And then Maria, who--
+34:16 damn it, I asked her this the other day.
+34:17 Where does she live?
+34:20 [INAUDIBLE] Matthews, just like me,
+which is why I should remember it.
+34:24 OK, so here's-- we now might have
+multiple rows in this database,
+34:29 each of which represents an entity would
+be the fancy way of describing where
+34:32 an entity is like a real world thing or
+a physical object or whatever it is you
+34:35 care about.
+34:37 So this is how we might form at this.
+34:39 And of course literally, we might
+format things using Excel or Numbers
+34:42 or Google Spreadsheet's, like,
+format column, which kind of
+34:45 presents the data in a different way.
+34:46 Maybe it centers it to the left
+or-- the lines to the left or right.
+34:49 Maybe it removes leading zeros.
+34:51 Maybe it adds dollar signs, percentages.
+34:53 You can kind of present the
+information in different ways.
+34:55 But for the most part, at the moment,
+it's just text that I've typed in.
+34:59 But if I want to actually find someone
+in this spreadsheet, what can I do?
+35:03 Well, I can do Command-F
+and then type in Rob.
+35:06 And there we go.
+35:06 We found Rob.
+35:07 But what did the spreadsheet do?
+35:09 Pretty much looked from top to
+bottom looking for R-O-B and as,
+35:12 soon as it found it,
+highlighted that row.
+35:15 And if I had thousands of
+rows or tens of thousands
+35:17 of rows in the spreadsheet,
+Rob might be all the way
+35:21 at the bottom at which
+point it could take longer
+35:23 to actually find all instances of Rob.
+35:26 And in fact, programs
+like Excel and Numbers
+35:29 and even Google Spreadsheet
+eventually just start to break down.
+35:32 In fact, I experienced
+this in grad school
+35:34 myself I was doing some research
+where I wanted people to analyze data
+35:37 and it was just convenient to be
+able to double click on my CSV files,
+35:40 open them in Excel, and look at
+or search for some of the rows
+35:44 that I cared about.
+35:45 But it turns out that because of the
+long running simulations I was doing,
+35:48 I had, like, over 65,000 rows of
+data, and Excel just wouldn't do it.
+35:54 I would double click
+and, sorry, this file
+35:56 is too big because someone at
+Microsoft, in prior versions of Excel,
+35:60 had decided, first and
+foremost, surely no one
+36:02 needs more than 65,000
+rows in this product.
+36:05 But specifically, they used a number
+of bits to represent the row number.
+36:10 If you recall, we tend to deal in powers
+of 2 or multiples of 8 specifically--
+36:16 so 8 and 16 and 32 and so forth.
+36:18 Well, 16 bits, 2 to the 16th, is 65,536.
+36:24 And indeed, I must have
+had 65,537 rows or more.
+36:29 So Excel just kind of
+wouldn't cooperate,
+36:31 and I would have to use an actual
+database like Microsoft Access
+36:34 or Oracle or, as we'll see
+today, something like SQLite.
+36:39 So as soon as you kind of hit
+some ceiling with the tool
+36:42 whereby it's slow to search or the
+program just can't open all of the data
+36:46 or you can't kind of edit information
+or delete information any better
+36:52 than linearly, it's probably
+time for an actual database.
+36:56 And one such database is
+called, indeed, SQLite.
+36:59 So SQL, Structured Query Language,
+is the language we're about to see.
+37:03 SQLite is like a very
+free and very lightweight
+37:06 implementation of this database.
+37:08 And it's a lightweight
+in the sense that you
+37:10 don't need special software licenses.
+37:12 You don't really need to install it.
+37:14 All you have to do is store
+data in binary format.
+37:17 So up until now in
+CS50, we've pretty much
+37:19 stored almost everything in ASCI or
+text format except for P set 4's images.
+37:23 Well, today we're back to storing
+things in binary format, zeros and ones.
+37:27 But again, we are well past the point
+of caring what those zeros and ones
+37:30 look like, the patterns there of.
+37:32 So SQLite is going to handle
+all of that complexity for us,
+37:35 and it's going to store in
+one big binary file containing
+37:38 zeros and ones the same kind
+of information as David and Rob
+37:41 and Maria and others but
+much more efficiently
+37:43 because one of the things
+you get from a database
+37:47 is the result of a lot of
+smart people's effort trying
+37:50 to figure out how can we, on behalf of
+the world, store data more efficiently?
+37:55 How can we provide users around the
+world with searching and deletion
+37:58 and editing capabilities more
+efficiently than he or she could
+38:01 implement themselves?
+38:02 So again, in the spirit
+of CS50, we sort of
+38:05 are standing on the shoulders
+of people who've come before us.
+38:08 Now what is this going
+to mean in real terms?
+38:10 We're going to use at
+least one of two tools.
+38:12 There's a tool called PHP
+lighted min, happens to be
+38:15 written in another language called PHP.
+38:17 But that's incidental.
+38:19 We're going to use it as a
+graphical tool with which we
+38:21 can interact with the database program.
+38:23 But there turns out there is also a
+terminal window version of a management
+38:27 tool called SQLite or
+technically SQLite 3,
+38:30 which is just a text based way of
+interacting with the database as well.
+38:34 But that's just how we're going
+to see the database visually
+38:37 in my terminal window or in my browser.
+38:39 At the end of the day, we're going
+to talk to our database using
+38:42 actual Python code.
+38:44 But before we get there,
+let's seed ourselves
+38:46 with some of the basic
+building blocks that we'll have
+38:49 at our disposal with this language.
+38:51 So unlike C and Python,
+where we're generally focused
+38:54 on the logical controls, conditions
+and loops and functions and so forth--
+38:60 some of those do exist in SQL.
+39:02 But we're actually going to focus
+really on just the operations, so
+39:06 to speak-- the verbs that SQL supports.
+39:08 So it's a little different mental
+model to have than C and Python.
+39:12 Specifically, perhaps the
+most common operations
+39:15 we're going to use when storing data
+in not a spreadsheet like Google
+39:20 but rather a binary file like a
+SQLite file is these five operations.
+39:25 We can create tables.
+39:27 We can create-- we can insert rows.
+39:30 We can select rows from the table.
+39:33 We can update rows in the table and
+we can delete rows from the table.
+39:38 So these are kind of like
+what you would expect
+39:40 you would get from a database program.
+39:42 It's just these happen to
+be the terms of art as well.
+39:44 Like, these are the verbs we use.
+39:45 And it's conventional
+to capitalize them,
+39:47 but they don't strictly need to be.
+39:49 So let's look at a few examples now.
+39:51 If I wanted to, in an
+actual database program,
+39:57 create kind of the
+equivalent of this idea--
+39:59 rows and columns and
+things called tables--
+40:02 here's how I might do that.
+40:04 So in my administrative program, which
+we'll see in a moment, or in code,
+40:09 I might do lines like
+this, one at a time.
+40:12 We'll review.
+40:13 So in yellow now is CREATE TABLE.
+40:15 So if you want to create the binary
+equivalent, the computer equivalent
+40:19 of like a Google spreadsheet
+for [INAUDIBLE] registrants,
+40:22 you would literally do CREATE
+TABLE quote unquote registrants
+40:26 where that's the name of the table
+or the sheet you want to deal with.
+40:29 And then this didn't fit on one line.
+40:30 So I wrapped it.
+40:31 But this is technically
+one long command.
+40:33 Then in parentheses, you specify a,
+separated list of all of the columns
+40:37 that you want to have
+in that table, but--
+40:40 and this is fancier
+than Excel and Numbers
+40:41 and Google Spreadsheets-- you
+specify a few other details as well.
+40:45 For instance, if my leftmost or
+first column is going to be called ID
+40:48 and my second is going to
+be called Name and my third
+40:51 is going to be called Dorm--
+40:52 so similar to what you
+proposed earlier but
+40:54 we're not going to worry about
+email and phone number and the like.
+40:56 And I have added, for good measure,
+a unique identifier, an integer
+40:60 to identify each freshmen
+registering for sports.
+41:03 There's a few other details
+I'm clearly providing.
+41:05 Like, what type of information
+is a name going to be clearly?
+41:08 AUDIENCE: [INAUDIBLE]
+41:09 DAVID MALAN: Text, and
+indeed, SQLite has a data type
+41:13 called not string but literally text.
+41:15 Similarly, as dorm going to be text.
+41:18 But ID is going to be
+a little different.
+41:19 It could be text.
+41:21 But we get better efficiency
+if we just use numbers
+41:24 to uniquely identify humans, right?
+41:26 Because even in my name, D-A-V-I-D,
+how many bytes is that minimally?
+41:32 How many bytes?
+41:33 D-A-V-I-D. Five-- yes, five
+bytes total for D-A-V-I-D.
+41:39 But if we instead represent me in a
+computer using a number like the number
+41:43 one or two or even the number 2
+billion if we have a lot of users,
+41:47 how many bytes does it
+take to store that number?
+41:51 AUDIENCE: [INAUDIBLE]
+41:53 DAVID MALAN: Well, even fewer.
+41:54 If I just rep-- if my Harvard ID
+number is just a single number,
+41:58 like one or two or 2
+billion, how many bits
+42:00 do you need to represent
+an int like that?
+42:03 Typically, we've used four.
+42:05 You could use eight if
+you want a bigger integer,
+42:07 but generally speaking, it's going to
+be fewer than the number of characters
+42:10 you're actually carrying about.
+42:11 And so that's why I
+might use an integer.
+42:13 We'll come back to what primary
+key means in just a moment.
+42:15 But long story short, that
+line, those lines in yellow
+42:19 if executed in a database
+program are going
+42:21 to create the equivalent
+of a spreadsheet containing
+42:23 three columns that I care about.
+42:25 Thereafter, if I want to insert
+someone like myself into that table.
+42:31 This is how you use the
+SQL language to do so.
+42:33 You literally execute
+insert into registrant,
+42:35 which is the name of the
+table, then a, separated list
+42:38 in parentheses of the columns
+for which you have values
+42:41 that you're about to provide.
+42:43 And this allows you to change
+the order if you really want,
+42:45 but I'm just keeping it clean
+and going left to right.
+42:47 Then you literally write values.
+42:50 And then in parentheses again, you list
+a comma separated list of the values
+42:53 that you want to plug
+into those columns.
+42:56 And again, it's up to you to make
+sure that if you say ID first,
+42:59 you put a number first.
+42:60 Name second, you put the
+name second, and so forth.
+43:02 That's where we're in control.
+43:04 Meanwhile, if we want to search
+for everyone who has registered for
+43:09 [INAUDIBLE],, we're going
+to see syntax like this.
+43:11 You're going to say to the database
+select star everyone from the database,
+43:16 specifically from the
+table called registrants.
+43:18 And that's going to
+return to you literally
+43:20 every row somehow in code
+from the table Meanwhile.
+43:23 if I want to change my name because
+I wasn't sort of following directions
+43:27 and they technically wanted
+my full name for sports, well,
+43:30 here I can do update
+registrants, the table,
+43:33 set the name column
+equal to David Mailand,
+43:37 but this last part is pretty key.
+43:40 If I don't put where ID equals
+1, what intuitively do you think
+43:45 might happen in the database?
+43:47 AUDIENCE: [INAUDIBLE]
+43:49 DAVID MALAN: All the names go to David
+Mailand, which is probably incorrect.
+43:53 And some of the C course's
+head teaching fellows
+43:55 will remember years
+ago-- we actually had
+43:57 a teaching fellow named
+Michael [? Tingly ?]
+43:59 whose nickname was Tingles.
+44:00 And we accidentally executed
+a SQL query omitting
+44:04 this condition, this predicate.
+44:06 Where we should have said where ID
+equals Michael [? Tingly's ?] ID
+44:09 number, instead we left this off.
+44:11 And thereafter, we had like 700 Michael
+[? Tingles ?] registered in the class
+44:16 until we restored from backup.
+44:17 So it can happen to you as it did to us.
+44:20 Finally, if you wanted
+to delete someone,
+44:23 same principles, just different
+verbs-- delete from the table
+44:26 that you want to delete
+from where you are
+44:29 specifying an actual ID in this case.
+44:31 And actually just for good
+measure, though it doesn't strictly
+44:34 matter, let me be consistent and
+just capitalize that Where as well.
+44:38 The reason for the
+capitalization, just to be clear,
+44:40 is that it kind of helps
+the human eye to distinguish
+44:43 what is, like, SQL syntax from
+words that we humans have invented
+44:47 for own spreadsheet.
+44:48 And notice a few
+characteristics as well.
+44:50 I have standardized on all
+lowercase for my column names
+44:54 ID, name, and dorm, which is
+common, but not strictly required.
+44:57 The table as well is all lowercase.
+44:59 But what is absent from all of these
+field names is I'm not using spaces.
+45:03 I'm not using funky characters
+like exclamation points,
+45:05 like "registrants!",
+or anything like that.
+45:07 I'm just kind of keeping it
+clean with very simple characters
+45:10 and that's good for portability.
+45:12 It's very commonly the case.
+45:13 And you might have seen or
+experienced this in the IDE.
+45:16 Any time you start using
+spaces or funky characters,
+45:19 computers sometimes get confused
+because they're not expecting them.
+45:22 So the best practice with
+things like database design
+45:25 is just avoid those issues
+altogether and keep things simple.
+45:28 Use underscores instead of spaces if
+you really want to put something--
+45:31 a gap between two things.
+45:33 Now meanwhile, there are
+different data types.
+45:35 There's not terribly
+many, and the only ones
+45:37 we have to care about for the coming
+days are these here, one of which
+45:41 is kind of strangely named.
+45:42 But SQLite, the database we're using
+henceforth, supports text as we've
+45:47 seen, integers as we've seen, or
+AKA int-- some of these things
+45:51 have aliases or nicknames
+45:53 Null is going to be kind of the
+opposite of having any value.
+45:56 You can actually specify,
+no, there's no value here.
+45:59 Real is going to be what, perhaps?
+46:01 AUDIENCE: [INAUDIBLE]
+46:02 DAVID MALAN: Yeah, like a real
+number, like a floating point value,
+46:05 as we called it in C and in Python.
+46:06 And then BLOB is binary large object.
+46:09 So if you actually want to store 0's
+and 1's in some form in your database,
+46:12 you store it as a BLOB,
+which isn't super common
+46:15 because there are better ways to
+store binary data like, in files.
+46:19 But it is possible as well.
+46:21 And it's worth noting that there's
+kind of sort, of some other types,
+46:24 but they're not sort
+of officially there.
+46:26 SQLite is nice because
+it's pretty flexible.
+46:29 There are a lot of database
+programs out there.
+46:31 You've probably heard of some of
+them like the ones I rattled off--
+46:34 Microsoft Access, Oracle,
+MySQL, Postgres SQL, and others.
+46:39 SQLite is just an alternative
+that's pretty flexible.
+46:42 And so if you try to load data from
+like another database like Oracle
+46:46 into SQLite, it will actually
+tolerate unofficial types
+46:50 like date times, which look like
+years and time-- or dates and times
+46:54 literally-- numeric, which
+is when you're not sure
+46:56 if it's going to be a floating
+point number or an integer,
+46:59 the database can figure it out
+for you and some others as well.
+47:02 So don't be confused when
+reading up on SQLite.
+47:04 If you see some things that
+aren't wholly consistent,
+47:06 it's just consistent with
+that kind of flexibility.
+47:10 And in fact, here's an exhaustive
+chart of all the things from left
+47:14 that map to the right.
+47:15 So in the right are all of SQLite's
+official data types, these five here.
+47:19 And you might see on the
+internet in SQL tutorials
+47:21 and like bunches of other types here.
+47:23 The most popular might be, like,
+bigint, which is a 64-bit integer,
+47:27 which is really big, varchar, which
+is a variable number of charts--
+47:31 either fewer or more,
+depending on the data--
+47:33 and lots of other things as well.
+47:35 So just realize they're out
+there, but the five on the right
+47:37 are the ones we really care about.
+47:39 SQL also has some built-in functions.
+47:41 You can do this in Python
+code too as we'll see.
+47:44 But date and time and datetime allow
+you to get, like, the current time.
+47:47 So if a user registers
+for your website and you
+47:49 want to record when
+he or she registered,
+47:51 you can call functions
+like this and the database
+47:53 will just figure it out for you.
+47:55 You don't have to check
+the computer's own clock.
+47:57 But most importantly, there's going
+to be some of these decisions.
+48:01 But before we forge ahead with too much
+more, let me pause for any questions.
+48:06 Yeah.
+48:07 AUDIENCE: [INAUDIBLE]
+when you [INAUDIBLE]
+48:14 DAVID MALAN: Ah, good question.
+48:16 Typically, no.
+48:18 But if you want to be
+really precise, yes.
+48:21 So I was really precise and I actually
+read the documentation this morning
+48:24 to make sure I got all
+of those quotes right.
+48:26 The rule of thumb if you're curious--
+48:28 though for the most part, this won't
+matter and it shouldn't hang up--
+48:32 is that any time you are referring
+to the name of an identifier,
+48:36 as it's called, like a
+column name or a table name,
+48:39 you use double quotes with SQLite.
+48:41 Anytime you're referring
+to a literal string
+48:43 that the human has typed in
+somewhere like with David Mailand
+48:47 and like with Matthews,
+you use single quotes.
+48:50 So if it's kind of user input, single.
+48:52 If it's a name in your database,
+then it's double coated,
+48:55 but it doesn't typically matter.
+48:58 So don't fret two much.
+49:00 So let's consider then
+for just a moment where we
+49:03 started this particular conversation.
+49:05 We were trying to create a database
+or spreadsheet for [INAUDIBLE] IM's,
+49:08 but we kind of stopped
+short of the juicy part.
+49:10 Like, I typed in some
+names and some dorms.
+49:13 But I could have started
+typing email, which
+49:16 would have hopefully some standard
+format-- something at something dot
+49:19 whatever.
+49:20 And then phone number is
+kind of interesting, right?
+49:23 Like, how should I store a number?
+49:25 Like, if I just want people
+calling Harvard's main number,
+49:27 is that, like, 459-- what is it 5,000?
+49:30 Well should I store it like this--
+49:32 10 digits and two hyphens?
+49:34 Should I instead store it without the
+hyphens just to kind of save space?
+49:38 Should I, need to be consistent
+with international folks,
+49:40 store the country code as well, which
+now Google is confusing for math?
+49:43 So that's what Harvard's phone number
+is when you add the numbers together
+49:46 apparently.
+49:48 How do you store the information?
+49:50 Or better still, what should
+you expect the users to type in?
+49:55 When you visit a website and you
+are asked for your phone number
+49:58 to buy something or create an
+account, like, in what format
+50:02 are you typically prompted for
+your number at least in the US?
+50:08 AUDIENCE: Area code, [INAUDIBLE]
+50:11 DAVID MALAN: Yeah, you're often prompted
+[INAUDIBLE] like an example like this.
+50:15 And then you have to
+type it in and hit Enter.
+50:17 And then it's stored, like that.
+50:18 What else have you seen--
+probably the other formats too?
+50:21 So which way should you do it?
+50:23 AUDIENCE: [INAUDIBLE]
+50:25 DAVID MALAN: Yes, yes, all of these
+ways are perfectly reasonable,
+50:29 and any website that forces you to type
+your data into one format is stupid.
+50:33 Like, it is poorly designed.
+50:35 And this is one of my greatest--
+well, it's not my greatest pet peeves.
+50:38 But like, one of my pet peeves is
+when a web site just completely
+50:42 technologically unnecessarily puts the
+burden of the human to format the data.
+50:46 Like, I should certainly be able
+to type my information in like this
+50:49 or with the plus one or
+without the parentheses
+50:52 or with an additional hyphen or
+the like because you know what you
+50:54 the programmer who made
+the website can do?
+50:57 You can just use some
+kind of pattern matching
+50:60 in the spirit even of P set six,
+throw away all of the punctuation,
+51:04 and then store just the
+digits if you want or go in
+51:06 and forcibly add the
+hyphens where you want them
+51:08 or the parentheses where you want them.
+51:10 The burden does not
+need to be on the human.
+51:12 And there's actually compelling
+UX, or User Experience,
+51:15 reasons for this beyond me
+going off kind of on a rant.
+51:17 Like, if you can't copy and
+paste something into a field,
+51:20 that is a bad user experience.
+51:22 And if you've ever tried to
+just copy one field into another
+51:24 and the website is disabling that
+for you, it's not the best practice.
+51:27 Worse yet are websites that don't let
+you paste your passwords into the forms
+51:31 because if you store your passwords,
+as is good practice, in like a password
+51:35 manager, encrypted somehow, it's
+better to have a really long password
+51:39 and then paste it into the form than
+memorize a really short password
+51:43 that someone else could guess.
+51:44 So in short, as we move
+forward with web programming,
+51:46 don't necessarily take as canon, like,
+what you see out there, but consider
+51:50 for your own users, like, what
+would be the best way to do this
+51:52 and how can I, knowing programming,
+accommodate different styles
+51:56 and expectations as well?
+51:58 But at the end of the
+day, there's an issue here
+52:01 because is this phone number now a
+number, or is it a string or text?
+52:07 AUDIENCE: [INAUDIBLE]
+52:08 DAVID MALAN: So OK, so I
+heard a few strings or text.
+52:11 So that's good because
+SQLite supports text.
+52:13 So I could specify, when I convert the
+spreadsheet into SQL commands and a SQL
+52:18 database, I could use text.
+52:20 And so that's probably a good thing.
+52:22 What about zip codes, right?
+52:24 Zip codes, at least if we do the
+first five digits in the US--
+52:27 like 02138 to.
+52:29 Is that a number or is that text?
+52:31 AUDIENCE: Text.
+52:32 DAVID MALAN: Text?
+52:33 Why?
+52:34 AUDIENCE: [INAUDIBLE]
+52:36 DAVID MALAN: I'm sorry?
+52:37 Say again?
+52:37 AUDIENCE: [INAUDIBLE]
+52:41 DAVID MALAN: Yeah,
+it's more of a category
+52:43 than it is a quantity, certainly.
+52:44 Like I don't have zero, one,
+two, three, eight of things.
+52:47 That is actually just meant
+to be a unique symbol.
+52:49 And in fact, as a side effect of the
+spreadsheet trying to be helpful, here
+52:53 is an actual bug, or
+reason to store it as text.
+52:57 I typed in 02138, which is
+Cambridge, Massachusetts,
+52:60 one of its largest zip codes.
+53:02 And unfortunately, Google
+just decided, you don't really
+53:05 need that leading zero, do
+you, and it got rid of it.
+53:08 And so this is because, at least in
+Google Spreadsheets, my data here,
+53:12 if I go under Format, it's
+being stored automatically.
+53:14 Google, for better or for
+worse-- often for worse--
+53:17 is inferring that, if it looks like a
+number, it is a number, therefore let's
+53:20 throw away the leading zeros,
+which humans don't need.
+53:23 But if I change it to plain text and
+now do 02138, now it kind of sticks.
+53:27 And another sort of
+true story, years ago,
+53:30 I used to use Microsoft
+Outlook for my email.
+53:32 And then eventually,
+I switched to Gmail.
+53:34 And before I did that, I
+wanted to copy my contacts,
+53:37 like my address book
+from Outlook into Gmail.
+53:40 And so Outlook actually
+has a feature where
+53:42 you can export a big CSV,
+literally, from Outlook.
+53:45 And that contains columns of, like,
+all your friends' names and numbers
+53:48 and addresses and zip codes.
+53:50 And I foolishly didn't
+realize that I probably
+53:53 shouldn't open the file
+first in Excel to look at it,
+53:56 probably instinctively hit Command
+S or Control S just to save it,
+53:59 because that's like a habit.
+54:01 As soon as I did that,
+Excel presumptuously
+54:03 did a Google just did, and
+dropped all those leading zeros.
+54:05 And to this day, like
+10 years later, I'm
+54:08 still finding friends whose addresses
+are Cambridge, Massachusetts
+54:11 2138 for that very reason.
+54:14 So data formats matter.
+54:16 And we actually have a number of
+decisions to make, and moreover,
+54:18 if we want this database to be
+highly performing-- that is, quick--
+54:23 we actually have a few
+other design decisions.
+54:25 And so let's take our five-minute
+break here, and when we come back,
+54:28 we'll actually wrestle with how can
+you store the data most efficiently so
+54:31 that your web applications
+are super fast.
+54:34 So we are back.
+54:36 And let's see what problems now arise
+besides the most immediate, which
+54:40 was the phone number.
+54:41 So let's consider that these aren't
+necessarily students registering
+54:45 for [INAUDIBLE],, and so
+therefore they don't just
+54:47 have dorms and so forth,
+but maybe these are actually
+54:50 like customers in a database,
+Amazon customers or the like.
+54:53 And so people are indeed going
+to have names, we'll say.
+54:57 And people are going to
+have addresses, address.
+55:00 And people will have phone
+numbers still, email, and maybe
+55:04 some other identifiers, as well.
+55:06 So when it comes to
+storing actual data here--
+55:10 and just for clarity, these will
+be my column headings now, so
+55:14 special first column--
+55:15 so what's my name here
+going to be, David Malan?
+55:19 Should it be David?
+55:21 Like, how do you actually think
+about something as trivial as this,
+55:24 and what are some of the
+upsides and downsides?
+55:28 Like, which should it be?
+55:30 AUDIENCE: David Malan.
+55:31 DAVID MALAN: David Malan, OK.
+55:32 So David Malan is what we store.
+55:34 OK?
+55:34 But now, later on, I
+realize I'd really like
+55:36 to send customized
+emails to my customers,
+55:39 and it feels kind of lame and informal
+if I say dear David Malan, where
+55:42 clearly it's not very intimate.
+55:44 I'd like it to say, dear David comma.
+55:46 So how do you address that?
+55:49 AUDIENCE: [INAUDIBLE]
+55:50 DAVID MALAN: OK, so maybe we should
+store first and last names separated.
+55:53 So to do that, maybe I'll just
+kind of redo this, and actually
+55:56 call this First, and
+then call this Last.
+55:59 And so now, I can keep
+my two columns separated.
+56:02 Other thoughts?
+56:03 That's pretty good.
+56:04 Or--
+56:05 AUDIENCE: [INAUDIBLE]
+56:06 DAVID MALAN: Sorry?
+56:06 AUDIENCE: [INAUDIBLE]
+56:07 DAVID MALAN: Oh, so we have
+like the greeting, as well,
+56:09 which you might be asked by a
+dropdown or a text box, too.
+56:12 So maybe we need that, as well.
+56:14 So technically, I should probably
+move this over like this.
+56:17 And this will be like the
+greeting, and maybe this
+56:19 will be Mr. or some
+number of other symbols.
+56:23 So we might have to
+deal with that, as well.
+56:25 What about address?
+56:26 Let's move on to that, because
+honestly, with most of these questions,
+56:29 there's not necessarily a best answer.
+56:31 There might be some best
+practices, but even then you're
+56:34 going to hit corner cases.
+56:35 For instance now, anytime I do want
+the user's first name and last name,
+56:40 I'm gonna have to concatenate
+them together, which is fine.
+56:43 It's not a big deal in Python.
+56:44 It was a bigger deal in C.
+So there's these tradeoffs.
+56:46 Like, I just have to now do
+that, or write more code later.
+56:49 What about the address?
+56:50 So it might be 33 Oxford Street, the CS
+building in Cambridge, Massachusetts,
+56:55 02138 USA.
+56:57 Let me even make more
+room for all of this.
+56:60 Good?
+57:00 Bad?
+57:01 Why?
+57:04 Let's go here.
+57:05 AUDIENCE: [INAUDIBLE]
+57:05 DAVID MALAN: Sorry?
+57:06 AUDIENCE: [INAUDIBLE] separate the
+data [INAUDIBLE] zip code [INAUDIBLE]..
+57:11 DAVID MALAN: Well you say need to
+separate the data into street and city
+57:15 and country and zip
+code and state, but why?
+57:17 AUDIENCE: [INAUDIBLE] right now
+to sort people by [INAUDIBLE]..
+57:25 DAVID MALAN: Yeah,
+that's a great example.
+57:27 So if everything has just kind
+of been this long string, which
+57:29 we humans and the postmaster
+general in the US can understand,
+57:33 and computers can parse, it's not that
+easy to just glean what we care about
+57:38 from that whole long string.
+57:39 Like, we're gonna have to
+use some kind of heuristics,
+57:41 we're gonna have to look for all
+numbers to get the zip codes.
+57:43 And I can, as you say, not sort
+everyone who's in Massachusetts,
+57:48 or everyone who's in 02138, because
+like it's not a separate field.
+57:51 And so even mechanically
+in Google Spreadsheets,
+57:53 I can't sort by anything
+other than 33 Oxford Street.
+57:56 And I probably don't
+really care to sort people
+57:58 by their street addresses, which
+really have no notion of ordering
+58:01 that's interesting.
+58:03 So we probably want to split this up.
+58:04 So maybe this is actually Street,
+and maybe this is actually--
+58:09 let me shrink this to make
+a little more room now--
+58:11 maybe this is City, maybe this
+is State, maybe this is Zip,
+58:14 maybe this is now Country.
+58:16 And then over here, we have
+Email and Phone and so forth.
+58:21 And so now, I could do 33 Oxford Street.
+58:25 And then I could do Cambridge, Mass,
+02138, USA, malan@harvard.edu, 6174495.
+58:35 See, this is why you shouldn't allow
+user input in different formats.
+58:38 495, 5000 and so forth.
+58:42 OK, so suppose we do that.
+58:43 But you know, Rob has an office
+in the CS building, as well.
+58:46 And so he's actually Mr. Rob Bowden.
+58:49 So now he and I are both there.
+58:50 And oops, we didn't fix this, so
+technically let's go back here.
+58:55 02138.
+58:57 And now it's like rob@cs.harvard.edu.
+58:59 And maybe we share the
+same office number.
+59:02 And there are certainly, like, dozens
+of other people in the CS building,
+59:05 if not a couple of hundred.
+59:06 So this is actually
+yielding another problem.
+59:09 At least if I keep typing, I'm going
+to dislike this for some other reason.
+59:14 What's also bad about this?
+59:17 Yeah.
+59:17 AUDIENCE: [INAUDIBLE] the office room.
+59:20 DAVID MALAN: The office room, yeah.
+59:21 So we didn't specify the
+room in the building.
+59:24 So we're missing data all together.
+59:25 What else really rears
+its head over time?
+59:28 Yeah.
+59:28 AUDIENCE: It's very redundant.
+59:30 DAVID MALAN: What is redundant?
+59:31 AUDIENCE: [INAUDIBLE]
+wasted space [INAUDIBLE]..
+59:35 DAVID MALAN: Which information
+is redundant, then?
+59:37 AUDIENCE: The street [INAUDIBLE].
+59:40 DAVID MALAN: Yeah, there's a lot of--
+59:42 I mean, literally I copied and
+pasted, which in coding in general
+59:44 should kind of be a bad
+sign or a bad habit,
+59:47 certainly if you do it
+more than just once.
+59:49 And so Cambridge is identical,
+Massachusetts is identical,
+59:52 zip code is identical.
+59:53 And even though this is
+gonna be a small white lie,
+59:56 it's probably the case that every zip
+code actually maps to a unique city.
+60:01 So I don't-- if I know 02138, do I
+really need to store Cambridge, Mass,
+60:05 Cambridge, Mass, Cambridge,
+Mass for everyone?
+60:08 No, it's probably all the same.
+60:10 So I should be able to
+delete some of this data.
+60:12 And this kind of messiness is a
+problem that databases can now solve.
+60:17 You could do this in Excel and in
+Google Spreadsheets and so forth.
+60:20 You can quote unquote normalize your
+data by factoring out commonalities.
+60:24 But to do so, the most
+common way, then, is
+60:27 to start assigning unique
+identifiers to things.
+60:30 So for instance, if I want to go in
+here-- let me give myself a new column,
+60:34 call it ID.
+60:35 And I'm just going to be user one,
+Rob will be user two, and then three
+60:38 and four and so forth.
+60:39 We're just gonna use an int to
+keep it simple and efficient,
+60:42 because now it's only like
+32 bits, or maybe 64 bits,
+60:44 no matter how long the humans' names
+and street names and so forth are.
+60:48 Let me just fix the border so
+that everything looks uniform.
+60:52 So now I've done this.
+60:54 And you know what, if
+you've never noticed,
+60:56 like Excel and Numbers
+and Google support
+60:59 multiple sheets in a spreadsheet.
+61:01 So just for good measure, let me
+actually rename this to Customers.
+61:05 And you know what?
+61:05 I'm gonna go ahead in
+Google Spreadsheets,
+61:08 give myself another one called Cities.
+61:11 And then here, I'm gonna
+do something like this.
+61:14 I'm gonna store over here maybe
+a let's say city and state.
+61:22 And actually, you know
+what, because cities I'm
+61:24 gonna claim for the moment are
+uniquely identified by their zip codes,
+61:27 let's just put zip code there.
+61:28 And then in this spreadsheet, let's do--
+61:31 preemptively this time-- plain text--
+61:34 02138 shall be Cambridge, Massachusetts.
+61:38 And now, back in my
+customers database, which
+61:41 of these columns, A through I or
+so, do I actually not need anymore?
+61:47 AUDIENCE: [INAUDIBLE]
+61:48 DAVID MALAN: Yeah, I don't need this.
+61:50 I don't need this.
+61:51 I probably still need zip.
+61:53 So let me just go ahead
+and delete these and start
+61:56 to assuage your concern, which
+was this redundancy of data.
+61:59 Now, I can do a little better, but now
+at least I'm storing zip code only.
+62:03 And actually, this is
+getting a little lazy.
+62:06 Let me get rid of country, as well,
+and just put this in here, as well,
+62:11 for generalizing zip code
+to be postal code now, say.
+62:14 And this shall be USA.
+62:16 So now my Customers table
+has a lot less redundancy.
+62:19 So clear upside is that it
+just takes up less space,
+62:22 and less space means less money,
+and just more room for other things.
+62:25 So that's surely good.
+62:26 But it probably means too it's
+easier to update the data, right?
+62:31 If someone-- if Cambridge
+for whatever reason
+62:34 changes its name back to Newtown,
+as it apparently once was,
+62:37 we just change it in one place, not for
+every resident in the Customers table,
+62:42 and so forth.
+62:42 So this is just a good principle, right?
+62:44 Anytime in coding we've done something
+again and again, or in CSS even,
+62:47 like we've tried to factor it out.
+62:49 In HTML, we factored it out
+with templates or with functions
+62:51 or with other techniques.
+62:53 So this normalization process
+feels like a good thing.
+62:56 But you know what?
+62:57 02138, we can do a little
+better, because that's a string.
+63:00 We could just store this as a number.
+63:02 So you know what I'm actually gonna do?
+63:04 I'm gonna also have in this
+spreadsheet a column called
+63:06 ID whose value for this city is gonna
+be one, and then for subsequent cities
+63:10 it's just gonna an arbitrary number
+that's just increasing and unique.
+63:14 And so now what I can actually do here
+is I don't strictly need to store even
+63:18 02138 dash whatever whatever,
+I can just store the ID.
+63:23 And I'm gonna go ahead and call that
+zip ID, just to make super clear to me
+63:26 that now this is just a number.
+63:28 And so by starting to assign arbitrary
+but consistent unique integers to all
+63:33 of our data, you can kind of
+relate them back to one another
+63:37 by looking up one value in the other.
+63:38 So for instance, if you're
+looking at this table as a human
+63:41 and you see that, oh, David
+and Rob live in zip ID 1,
+63:44 you do have to ask a follow-up question,
+which is, well, what is zip ID 1?
+63:47 You can only answer that by looking
+at the Cities table, checking it,
+63:50 and being like, oh, Rob and David
+both live in Cambridge, Massachusetts,
+63:53 02138, USA.
+63:55 So it's added a step, but
+it's also massively shrunk
+63:59 the amount of data we need, assuming
+there's more people in the world
+64:02 than just the two of
+us, and there's millions
+64:04 of users or thousands of users,
+or just otherwise context
+64:07 where you have lots and lots of data.
+64:09 And in fact, as an example of this, what
+we put together on the course's website
+64:13 is a Google spreadsheet that
+has a whole bunch of sheets.
+64:16 This is based on a freely
+available open source
+64:18 database that looks like
+real data, but it's mostly
+64:20 taken from one guy's iTunes account and
+then made up names and company names
+64:26 and so forth.
+64:27 And you'll see that this is actually
+a database for like a digital music
+64:30 store, a la iTunes or Google
+Play or Spotify or whatever.
+64:33 And so there's different entities
+in the world of digital music.
+64:36 You have album names,
+you have artist names,
+64:39 you have customers who might buy those
+albums and listen to those artists.
+64:43 You have employees at the
+company who is selling the music.
+64:46 You have genres for those songs.
+64:48 Because this is actually a very
+slippery slope whereby, over time,
+64:53 you're gonna have lots
+and lots of data that
+64:56 ideally would be in multiple places
+at once, but that's just bad design.
+64:60 Keeping it factored out is ideal.
+65:01 So if we glance at this album
+title, or rather album tab,
+65:06 here are all of the albums that
+this digital music store sells.
+65:09 Here are the unique
+IDs, album ID, that have
+65:11 been assigned to those albums,
+arbitrarily but for permanently.
+65:16 And then here are the artists
+who published those albums.
+65:20 So the only way to
+know the artist's name
+65:21 is-- at least in Google,
+I'm gonna actually have
+65:23 to scroll over to my
+Artists tab and, OK,
+65:27 here are the artists and their numbers.
+65:29 Meanwhile, all of these albums later--
+or songs are associated with genres.
+65:33 So here's all the genres and the IDs
+associated therewith, and so forth.
+65:37 So you're welcome to poke
+around this kind of data later.
+65:39 Here's even data involving birth
+dates, so dates and times and so forth.
+65:43 Here are invoices, like the
+addresses and the cities
+65:45 of people who bought this music,
+supposedly, in the sample database.
+65:48 But honestly, this is very,
+very, very quickly becoming
+65:51 really really annoying, right?
+65:53 Because if you the human just
+so much want to know, OK,
+65:56 who produced Restless and Wild, artist
+two, who the heck was artist two?
+66:01 This is not good for humans.
+66:03 But this is good for computers.
+66:04 We just need a language with which to
+reconstruct what we want and query for
+66:09 and change what we want.
+66:11 And that is the kind of thing
+that SQL is going to do for us.
+66:14 So let me change to another
+tab here in CS50 IDE.
+66:19 Let me find the right tab here.
+66:21 So if I go back to CS50 IDE, let me
+introduce a tool called phpLiteAdmin.
+66:28 Name doesn't really matter, but this
+is a tool that comes with the IDE--
+66:31 and we downloaded it for free off the
+web and just installed it for you--
+66:34 that allows us to do this.
+66:36 I have among today's distribution
+code a file called lecture.db.
+66:40 .db just means it's a database.
+66:41 It could be another
+file extension, as well,
+66:43 but this is one of the standard ones.
+66:45 And notice that-- let me close the
+console-- if I double-click this,
+66:48 this is going to open a special
+tab in the IDE called phpLiteAdmin.
+66:53 What I am now seeing is
+the content of lecture.db.
+66:57 Lecture.db is a binary
+file, zeros and ones,
+67:00 that represents a SQLite database
+that I made before class.
+67:03 So I essentially downloaded all this
+data, I made a few changes to it,
+67:06 and then saved it in a
+file called lecture.db.
+67:09 phpLiteAdmin, this GUI
+here in the tab, is just
+67:13 a way of visualizing for us
+humans what's in this database.
+67:17 And you can see there's a bunch of
+tables, I think 11 different tables,
+67:20 that I named identically
+to the Google spreadsheet.
+67:23 So this is the SQLite equivalent
+of the Google spreadsheet.
+67:25 But notice just from the links alone--
+not that this is a very good design--
+67:29 the overwhelming amount of
+functionality that I now get.
+67:31 I have the ability apparently already
+to browse the data, search the data,
+67:35 insert, export the data,
+empty the data, and so forth
+67:38 that we just get from a database.
+67:40 And we'll see how to do
+that in just a moment.
+67:42 If I go ahead and click
+on Album, I'm gonna
+67:44 see the same data as before
+within this graphical tool,
+67:47 but again I just have
+some handy functionality.
+67:50 I have the ability to edit each
+of these albums, delete them.
+67:53 But I can also see the artist ID.
+67:56 Now, this isn't all that useful,
+but let me go ahead and do this.
+68:01 Let me go ahead and go to the SQL tab.
+68:04 And this is where this
+tool is actually handy.
+68:07 phpLiteAdmin is not something
+you put on your resume.
+68:09 This is just like a tool we will
+use to help visualize what's inside
+68:12 of our database, and to try
+out queries before we actually
+68:15 write them into code.
+68:17 I recall from before that one of the
+operations that SQL supports is Select.
+68:21 So let me try that,
+select star from album.
+68:25 And these are the key words from SQL.
+68:27 This is the name of my table.
+68:28 I could quote it, but it's
+not strictly necessary to,
+68:30 so I'm not gonna bother here.
+68:32 And if I go ahead now
+and zoom out-- whoops--
+68:35 and click Go, this is
+going to select for me
+68:38 all of the albums in the album table.
+68:41 Now, this is not all that interesting,
+because just a moment ago I
+68:43 just clicked on the word album and
+I showed you all of the albums.
+68:46 But suppose I don't
+care about the album ID.
+68:48 I don't care about the
+artist ID at the moment.
+68:51 Well, let me go to SQL tab again
+and do select star from album.
+68:58 But instead of star, which
+was the wildcard, what might
+69:01 I want to select instead?
+69:02 Just the name of the album?
+69:04 So let me do that, select--
+69:06 oh sorry, it was called
+title, title from album.
+69:09 Click Go.
+69:10 And now I get back a set of rows,
+a result set, as it's called,
+69:15 of just the titles.
+69:17 Now again, I'm not programming,
+I'm not using this data.
+69:20 But this is the language, the way I
+can express myself in the SQL language
+69:25 to get back only the data I care about.
+69:28 And you know what?
+69:28 Let me go ahead and do this now.
+69:30 And this is where it gets more powerful.
+69:32 If I go back to selecting all
+the data, there's the artist ID.
+69:35 How do I get the artist ID?
+69:36 Well let me go to Artist, and
+there's that same data, artist ID
+69:40 and all of the names.
+69:41 But here's where SQL gets powerful.
+69:43 I can now take one table,
+one of whose columns
+69:45 is these numbers, take another
+table, one of whose columns
+69:48 is these numbers, as well, and
+I can kind of join them cleverly
+69:52 by lining up the numbers
+that are identical in both.
+69:55 The syntax is a little funky
+at first, but let's try this.
+69:58 Select star from album join artist.
+70:04 I want to join the two.
+70:05 But now I have to tell the
+database what two columns to join.
+70:09 It just looks like numbers, but
+I have to tell the database which
+70:12 columns should line up.
+70:13 So artist on album dot artist
+ID equals artist dot artist ID.
+70:25 So this is just a predicate
+or a condition at the end,
+70:27 but you can kind of read it intuitively.
+70:29 Select everything from the result
+of joining album and artist,
+70:33 provided you join them
+on album dot artist
+70:36 ID, which is the artist ID column
+in the album table on the artist ID
+70:42 column in the artist table.
+70:44 So that's kind of doing
+this digital equivalent.
+70:46 And so now if I go ahead
+and click Go, amazing.
+70:50 Like, now I get back all
+of the data reconstructed
+70:53 in a way that's useful, because
+now every row contains the album
+70:57 ID and the artist ID, but
+more importantly the title
+71:00 of the song and the name of the artist.
+71:04 And I now have the ability to query for
+the data I want without inefficiently
+71:09 storing all of this together.
+71:12 And I can actually store a join
+on yet more tables in here, too.
+71:16 You'll notice that playlist, for
+instance, is one of the tables in here,
+71:19 because this digital music store
+supports the ability to make playlists.
+71:22 And here we have playlist IDs
+which map to playlist names.
+71:28 But how do you associate
+songs with a playlist?
+71:31 Well, if a playlist just
+has a name and an ID,
+71:34 you need some way of associating songs
+with a playlist by way of these IDs.
+71:38 So we actually need kind of a many
+to many relationship, so to speak.
+71:41 And that's what a
+database person would say.
+71:43 If you want multiple
+people, playlists, to all
+71:46 be able to have different songs
+but maybe overlapping songs,
+71:49 so that you can't dedicate
+one song to one person,
+71:51 you want a many to many relationship.
+71:53 And so if we look at Playlist
+Track, notice this column is crazy.
+71:57 This column-- or rather this table--
+71:59 has just playlist ID, track
+ID, whereby track ID maps
+72:05 to one of the rows in the track table,
+playlist ID maps to one of the rows
+72:09 in the playlist table.
+72:12 And by using this table and
+joining with multiple tables,
+72:16 we can map playlist, which is
+just names of playlists and IDs,
+72:19 to tracks, which is names
+of songs on certain albums.
+72:24 And with the right join
+commands, I can actually
+72:26 reconstruct all of the data I
+care about, and then in one breath
+72:30 get all of the data back
+and let the database figure
+72:32 out how to find all of those
+people and all of those songs
+72:35 and all of those playlists efficiently.
+72:37 A CSV, you would have to read
+every darn file top to bottom
+72:40 and then figure it all out yourself.
+72:43 But there are some key
+design decisions to be made.
+72:46 I mentioned earlier not just these
+data types that SQL supports,
+72:49 but also the constraints pictured here.
+72:57 So these are a few new terms
+that we now need as ingredients
+73:01 to designing a good database.
+73:03 And we've seen one of
+these before, Primary Key.
+73:05 It turns out that, anytime
+in one of these tables
+73:07 we have defined for ourselves an
+arbitrary but a unique number,
+73:11 generally in the left-hand column,
+just by convention, called ID or called
+73:14 Artist ID or Album ID,
+whatever you call it,
+73:17 that we've declared
+typically as a primary key.
+73:20 This is a way of telling the database,
+when you design the database,
+73:23 give me a table with an ID column
+that is meant to be the primary key.
+73:28 That is, database, I promise to you
+that this column will always be unique.
+73:33 Therefore, database,
+use this in the future.
+73:35 Anytime you want to do
+something efficient,
+73:37 rely on that column as
+uniquely identifying rows.
+73:40 Don't use albums or
+artist names and titles,
+73:43 which can be longer and non-unique.
+73:45 Instead, use that, as well.
+73:46 But there's other fields that you
+might want to flag as being unique,
+73:51 but not your primary key, the
+number that uniquely identifies.
+73:54 Like in the world of customers, which
+field that we played with a moment ago
+73:59 might you arguably want to make unique?
+74:02 And this was our own little
+database here of customers.
+74:06 Which are the candidates
+for unique values here?
+74:12 In back?
+74:14 No, here.
+74:14 AUDIENCE: Phone.
+74:15 DAVID MALAN: No.
+74:16 Phone, phone could be unique, certainly
+in the world of mobile phones.
+74:20 But some people still have landlines.
+74:21 That might get a little messy.
+74:23 So maybe, maybe not.
+74:24 What else?
+74:25 AUDIENCE: Names?
+74:26 DAVID MALAN: Names, maybe.
+74:29 But if you Google
+yourself, odds are there's
+74:31 many people in the world
+with your same name.
+74:33 And you don't want to have one of you
+only buying things from the store.
+74:36 Yeah.
+74:36 AUDIENCE: [INAUDIBLE].
+74:37 DAVID MALAN: What's that?
+74:37 AUDIENCE: [INAUDIBLE].
+74:38 DAVID MALAN: Email probably more likely.
+74:40 Now, we can probably think
+of some family members
+74:42 even who are maybe sharing
+an email address at home,
+74:44 which complicates even that scenario.
+74:46 But maybe.
+74:47 If you do at least want to mandate
+that email addresses be the same--
+74:50 I'd probably go with
+email over name, which
+74:53 is gonna collide with multiple people--
+74:55 then maybe we could specify yes,
+email address for our customers
+74:58 must be unique, because maybe
+they're using it to log in.
+75:01 Right?
+75:01 If you're using email as
+a login name, it better
+75:03 be unique so that there can't be
+two people with different passwords
+75:06 but the same username or email address.
+75:09 But an email address is kind of long.
+75:10 Malan@harvard.edu, rob@cs.harvard.
+75:12 Like, that's more bytes than an integer.
+75:15 So long story short, it
+might make good sense
+75:18 to uniquely identify your
+users at the end of the day
+75:20 with just an ID, a numeric
+ID, the primary key.
+75:23 But one of the features you get from a
+database is you can tell the database,
+75:27 hey database, make this
+other column also unique,
+75:31 and make sure that I or my colleagues
+can never accidentally insert data
+75:36 into the database that is duplicated.
+75:39 The database will defend
+against that for you.
+75:41 You don't need ifs and
+else ifs in your own code,
+75:43 you can let the database
+do that for you.
+75:46 Index, meanwhile, is really powerful.
+75:48 You can specify by the
+keyword index, hey database,
+75:52 this column is important to me.
+75:55 I am going to want to do
+searches on this column.
+75:58 I am gonna want to look
+up people by this column.
+76:00 Therefore, please go ahead
+and index it by using
+76:03 your sort of secret sauce using fancy
+data structures and solid algorithms
+76:08 to actually find data efficiently.
+76:10 And here again is where we're
+standing on the shoulders of others.
+76:13 Other computer scientists have figured
+out really good algorithms and data
+76:15 structures, usually
+involving trees, which
+76:17 we did discuss a few weeks back,
+that allow you to find data generally
+76:20 in logarithmic time, not linear time.
+76:23 And so simply by using
+this keyword index,
+76:25 we'll see you can tell the database
+use those years of knowledge
+76:30 to actually find data for
+little old me more quickly.
+76:32 Not null.
+76:33 You can specify don't let
+null end up in this column.
+76:36 I must have a user's name.
+76:38 I must have their phone number.
+76:39 It cannot be blank.
+76:40 Foreign key is even more fancy,
+but we've seen it already, in fact.
+76:45 When we looked in just these examples
+here, rather for the songs database,
+76:52 notice that in Album we
+had two types of IDs.
+76:55 We had album ID in the Album
+table associated with titles,
+76:60 and then each of these albums
+was associated with an artist ID.
+77:03 And we've got two
+keywords here to apply.
+77:06 I claim that this is the
+primary key for this table
+77:08 because it just uniquely
+identifies the albums.
+77:11 Why is that the primary?
+77:12 Well, the table itself, the
+spreadsheet is called Album.
+77:15 This is the unique ID that's primarily
+responsible for identifying rows.
+77:19 That key over there is not primary,
+because there can only be one,
+77:22 so it's called a foreign key.
+77:24 But it's foreign in what sense?
+77:27 AUDIENCE: [INAUDIBLE].
+77:28 DAVID MALAN: Say it again?
+77:29 AUDIENCE: [INAUDIBLE].
+77:30 DAVID MALAN: To the album.
+77:31 It's related to the album
+in that it's the artist,
+77:34 but it's foreign in what way?
+77:36 AUDIENCE: [INAUDIBLE].
+77:37 DAVID MALAN: It's in a different
+file in a different table.
+77:40 So it is a primary key
+in another table, which
+77:43 is what makes it foreign if we
+mention it in this table, right?
+77:46 Strictly speaking, this column
+doesn't need to be here.
+77:50 I could just go ahead
+and forget about all
+77:52 of the values in this
+highlighted column.
+77:54 But once I add it, that allows me to
+link it primarily to another table,
+77:58 because in this context it's
+just called foreign keys.
+78:01 So that's it for the vocabulary there.
+78:02 So what does this actually all mean?
+78:04 Let me go ahead now
+into phpLiteAdmin, which
+78:07 is again just our web-based
+tool for manipulating data.
+78:10 And let me go ahead
+actually and do this.
+78:12 Let me go ahead and close
+this version of phpLiteAdmin.
+78:15 Let me go back over to my file browser.
+78:17 And let me open up a terminal
+window for just a moment.
+78:20 And I'm actually gonna
+go ahead and do this.
+78:22 If I want to create a new file in
+Linux, the operating system we're using,
+78:26 you can actually do this pretty
+easily by just touching the file,
+78:29 even if it doesn't exist.
+78:30 So touch customers.db, and now
+notice at left customers.db exists.
+78:35 It's just an empty file.
+78:36 I can now, wonderfully, double-click
+that and begin interacting with it
+78:41 as though it's a database.
+78:43 There's no zeros and ones in it
+yet until I start manipulating it,
+78:46 and that's why it says
+no tables in database.
+78:47 It's just an empty file.
+78:49 So let's create an actual table in
+this database akin to what I was doing
+78:53 in Excel, or in Google Spreadsheets.
+78:55 So here is where in
+this user interface I
+78:57 can create a new table
+on database Customers.
+78:60 So let me go ahead and call this my
+Users table, because they-- well,
+79:05 we're just gonna call it--
+79:07 yeah, Users is good.
+79:09 And number of fields, let's
+just do four this time.
+79:12 And now I'm gonna go ahead and click Go.
+79:14 And this is again what
+you get from phpLiteAdmin.
+79:17 It's just a nice,
+user-friendly interface
+79:18 for, like, answering questions.
+79:20 So what columns do I want in this table?
+79:22 Well, the first one is going
+to be the customer's name,
+79:26 or maybe it should be first name, so
+like first underscore name or F Name
+79:30 or whatever you want to call it.
+79:32 I'll just call it First.
+79:33 What should the data type be?
+79:34 AUDIENCE: Text.
+79:35 DAVID MALAN: Yeah, text.
+79:36 And then last name should be text.
+79:39 And actually, I'm
+getting ahead of myself.
+79:41 I don't want to uniquely
+identify users by their names.
+79:43 What did we decide?
+79:45 AUDIENCE: ID.
+79:45 DAVID MALAN: Yeah, ID.
+79:46 So just to be kind of tidy,
+I'm gonna put it first.
+79:49 It doesn't strictly matter,
+but it's just kind of the norm.
+79:51 So I could call this
+ID, as would be a norm.
+79:54 You could call it user ID,
+which might be another norm,
+79:56 so long as you're consistent
+is what's important.
+79:59 This should be not text but integer.
+80:01 And notice these other features.
+80:03 I can tell the database
+this is my primary key.
+80:06 And now no other field
+should be primary.
+80:08 I can tell the database, you know what,
+you deal with auto incrementing this.
+80:12 I don't want to keep track
+of who is what number.
+80:14 The database can assign
+an auto-incremented ID,
+80:16 so one becomes two
+becomes three over time.
+80:19 Not null is a given, because if it's
+a primary key it can't be blank.
+80:22 And then this is irrelevant here,
+but you can give default values.
+80:26 So for instance, if,
+for whatever reason,
+80:28 people want to remain anonymous
+in their name, we could say,
+80:32 well, the default name for
+everyone in my database
+80:34 will be Bob, or something like that.
+80:36 But that is kind of silly, as well.
+80:37 We probably want to say that there is
+no default value, but rather first name
+80:42 and last name must not be null so that
+the users must cooperate and provide us
+80:47 with a value.
+80:48 As for the last one here, I don't
+know, we'll just use email for now.
+80:51 We'll make that text.
+80:52 And it turns out you can't
+specify in the database
+80:54 that an email address must
+have something at something.
+80:57 We're gonna have to do that
+if we ever want in code.
+80:59 But I can at least make it not null.
+81:01 Now notice what happens.
+81:02 Even though this is a GUI,
+graphical user interface,
+81:04 when I click Create now, I'm told
+this-- table Users has been created.
+81:09 But what's nice about phpLiteAdmin,
+which is largely why we use it,
+81:13 is it's a good teaching tool, too.
+81:15 This is what phpLiteAdmin just
+executed in order to create this table.
+81:21 So it's a way of kind of learning
+SQL as you go by just click, click,
+81:24 clicking in a user-friendly way,
+and then seeing immediately feedback
+81:28 as to what command you could
+have just typed manually
+81:31 in order to create that same table.
+81:33 And it's wrapping because it's a little
+long, and it's not nicely indented.
+81:36 But here, we have
+something very reminiscent
+81:38 of what I put on the board earlier.
+81:39 We have an ID field that's an
+integer, that's a primary key.
+81:42 And by the way, it should
+also be auto-incremented.
+81:44 That's a new feature.
+81:45 But it cannot be null.
+81:47 Over here, first name is
+text, must not be null.
+81:50 Last is-- should not be an integer.
+81:52 That's a screw-up.
+81:53 So I should have made that text,
+so that's flawed at the moment.
+81:56 And then email all the way
+over here is text, not null.
+81:59 So what does this actually mean?
+82:00 Well, let me show you one other way
+before we use this in actual code
+82:04 as to how else I could be
+interacting with this database.
+82:07 If I open up a terminal and I go
+ahead and type this now, SQLite
+82:12 3, which is the third
+version of the program,
+82:15 I'm gonna make this my alternative
+database and hit Enter.
+82:19 This is not as user-friendly.
+82:20 Like, I have to know what I type, or it
+seems I can type Help to get some help.
+82:24 And these are all of the commands
+that I can type at the command line.
+82:27 It's not all that user-friendly.
+82:28 But I do know this.
+82:30 Once I know SQL, I can just interact
+with this with SQL commands.
+82:34 And I'm gonna go ahead and fix
+this in my alternative database.
+82:36 I did not mean to say integer,
+so let me make that text.
+82:40 I'm gonna put a semicolon at the
+end, which is typically needed,
+82:43 though it's not always needed.
+82:45 So let me go ahead and hit Enter now.
+82:47 Nothing seems to happen.
+82:48 But in SQLite, if I type Schema,
+schema is like my database design.
+82:52 .schema means show me my database.
+82:55 And any command that starts
+with a dot is SQLite specific.
+82:57 It is not SQL, it's now part of the
+language, it's just a local command.
+83:01 Oh, that's kind of cool.
+83:03 It just spits back out what
+it is my tables look like.
+83:07 I can see this in another way.
+83:08 Let me go ahead and close
+this for just a moment.
+83:10 And notice that, in today's
+files on the website,
+83:13 I have lecture.db, which was the music
+database that we opened up earlier.
+83:17 Let me look at that.
+83:18 SQLite 2, lecture.db.
+83:20 Let me do .schema.
+83:23 Oh.
+83:23 That is all of the data inside of this
+database redisplayed to me as text.
+83:28 So I can kind of back it up
+if I want, or do other things.
+83:31 But let's just skim it
+for something interesting.
+83:33 Let me go to the top.
+83:34 And here we have, nicely
+formatted, these are the commands
+83:37 that the people who wrote this database
+online from whom we downloaded it
+83:40 essentially made.
+83:41 Create Table, Album.
+83:43 The square brackets are optional, but
+they just are alternatives to quotes.
+83:46 One of the fields will be called
+Album ID, Title, Artist ID.
+83:50 We've seen those things before.
+83:52 One is an integer, one is
+text, another is integer.
+83:54 And then we'd see these features
+here, which we didn't see earlier.
+83:57 And I'm gonna wave my
+hand at them for now.
+83:59 But there is a way to tell the database
+that there is indeed a foreign key.
+84:03 So you can say, in this table, there's
+a number that refers to another table,
+84:08 and you can let the database
+make sure that you can never
+84:11 add an artist ID that doesn't
+map to an actual artist.
+84:17 So you can't just insert
+artist number one, two, three
+84:19 if artist number one, two,
+three doesn't even exist.
+84:22 So again, another feature
+you get from the database.
+84:25 And for PSET 7 we're just gonna
+scratch the surface of some of these.
+84:27 But again, this is one of the reasons
+that you sort of graduate from text
+84:31 files and you graduate from [INAUDIBLE]
+and start using [? full-pledged ?]
+84:34 database software like SQLite
+or Oracle or other such tools.
+84:38 So let me pause to see if there's any
+questions before we dive into Python.
+84:46 All right, so let's now
+actually use this in code.
+84:48 The value of seeing, hopefully,
+SQLite 3 and in seeing phpLiteAdmin
+84:55 is just so that you have tools with
+which you can create your databases
+84:58 and actually see what's
+inside of them without having
+85:00 to write code to do both, which just
+makes it very hard and annoying to get
+85:04 started.
+85:05 So phpLiteAdmin is what you'll
+use for problem set seven.
+85:08 And we'll end with a
+look at that in a bit.
+85:10 But it's just a way of
+administering your database.
+85:12 It's not actually the
+intellectually juicy part.
+85:15 For that, we're gonna need
+some actual Python code.
+85:18 So for that, let me go ahead
+and open up my console again.
+85:21 Let me get some tabs open here.
+85:23 And let me go into let's say
+Lecture 0 folder from today.
+85:29 And this is not online
+now, but soon will be.
+85:31 Let me open up application.py
+and see what this app is.
+85:35 Super simple.
+85:36 This is just copy paste pretty
+much from past examples.
+85:38 And notice that it has one route,
+slash, that's gonna render index.html.
+85:43 And then what is that template?
+85:44 Well, index.html is one of two files.
+85:46 My layout is big generic
+HTML structure of the page.
+85:50 Index.html looks like this.
+85:52 It's a big to-do.
+85:53 So let's actually do something
+with this program as follows.
+85:58 But first, let's take a stepping stone.
+86:00 Let me go into New File,
+save this as lecture.py.
+86:05 It's just a local script, nothing
+to do with web programming just yet.
+86:09 And let me go ahead and do this.
+86:12 First, for those in the room who've
+never seen Python before today,
+86:16 python lecture.py--
+86:19 that is a program written in Python.
+86:21 If you're underwhelmed, that's
+deliberate at this point.
+86:23 It's a one-line program.
+86:25 But now we can do something
+so much more powerful.
+86:27 Let me go ahead and essentially do this.
+86:30 In pseudo code, query
+database for all albums.
+86:35 Whoops, albums.
+86:38 For each album in database,
+print title of album.
+86:46 Like, suppose this is now
+the program we want to write.
+86:49 How do I do this?
+86:50 Well, in Python, I'm gonna
+go ahead and do this.
+86:52 From CS50, import CS50
+SQL library, which
+86:56 will be introduced again in PSET 7.
+86:57 And it just makes SQL a
+little easier to get into.
+86:60 And for your final projects, you're
+welcome to drop use of the library
+87:03 all together.
+87:03 It's just training wheels.
+87:04 And I'm gonna do this.
+87:05 DB for database, but I could
+call that anything I want,
+87:08 is going to get a SQL database whose
+file is of type SQLite colon slash
+87:14 slash slash just because dot DB.
+87:17 So long story short, this
+one line of code just says,
+87:20 hey Python, open a SQLite
+database called lecture.db
+87:23 that's in the same directory.
+87:25 That's all.
+87:26 So after that, I have a
+Python variable called DB.
+87:30 And this is a variable that allows
+me to talk to the database in code.
+87:34 And this is the missing piece.
+87:35 So far the only way we've interacted
+with lecture.db thus far--
+87:39 and lecture.db, again,
+is the musical database--
+87:41 is by using phpLiteAdmin, which
+is just this administrative GUI,
+87:45 or SQLite 3, which is the
+command line version of the same.
+87:47 We haven't actually done anything
+intellectually interesting by querying
+87:50 for data in a programmatic way.
+87:53 I've done it all very manually.
+87:54 But not now.
+87:55 Now let me go ahead and do this.
+87:57 Let me say, go ahead and store
+in a variable called Rows.
+88:01 All of the rows in the table
+that are the result of executing,
+88:05 select star from album.
+88:08 So I'm writing Python code, but inside
+of my Python code I have a string,
+88:12 and that string has SQL in it.
+88:17 So what do I now want to
+implement this pseudo code?
+88:20 So that's what I've just done.
+88:21 That's my comment.
+88:22 Now I want to iterate over
+each album in the database.
+88:25 How can I do this?
+88:26 Well, let me go ahead and do that.
+88:27 So for each album in database,
+so for row in rows, old syntax
+88:32 by now, what do I want to do?
+88:35 I want to just go ahead
+and print out row--
+88:37 what were the columns in my album table?
+88:42 AUDIENCE: [INAUDIBLE]
+88:44 DAVID MALAN: Yeah, it was album ID and?
+88:45 AUDIENCE: [INAUDIBLE]
+88:47 DAVID MALAN: I think it
+was title in the album one.
+88:49 So I'm gonna do this.
+88:50 Quote unquote-- I think
+it was called title.
+88:53 We shall see if I'm
+remembering correctly.
+88:56 And now let me just put my
+comment over here, as well.
+88:58 So now we have a pretty short
+program that just executes a query,
+89:02 and it turns out-- oops, I indented
+excessively-- this variable Rows
+89:08 contains what's called a result set.
+89:09 It is a list, an array, a list of all
+of the rows that match that query,
+89:14 which hopefully is all of them.
+89:15 Then this is just Python
+from a week or two ago
+89:17 for each of the row in that Rows
+list, print out that row's title.
+89:22 Now what is this exactly?
+89:25 You can think of this as a
+hash table, or a dictionary.
+89:28 Row is one of the rows.
+89:30 It has a bunch of columns.
+89:31 And the syntax in Python for
+indexing into those columns
+89:36 is just square bracket notation.
+89:37 This is a dict, or a
+dictionary object in Python.
+89:41 OK.
+89:41 So let's cross my fingers
+because I'm not sure
+89:43 if I named everything correctly here
+and do Python of lecture.py, enter.
+89:48 Whew.
+89:48 It worked.
+89:49 So outputted here is every
+title from the database.
+89:54 So let me go ahead and just pick one.
+89:56 For instance, a soprano inspired.
+89:59 And just do another proof of concept.
+90:00 You know what?
+90:01 I don't want to get all of them.
+90:02 I want to go ahead and
+get where title equals.
+90:07 And now I will use
+quotes to distinguish it.
+90:09 So how many rows should
+this query now return?
+90:13 AUDIENCE: [INAUDIBLE]
+90:14 DAVID MALAN: Hopefully just one.
+90:15 So let's see.
+90:16 Let me go ahead and
+rerun it, lecture.py.
+90:19 And very nice.
+90:20 And now two things
+printed, though, which
+90:22 we didn't see before because there
+was a lot of output, but it was there.
+90:25 It turns out that the CS50 library, to
+help you out, especially with problem
+90:28 set seven, always prints out this
+debugging information that you
+90:31 can technically disable.
+90:32 It's not part of your program,
+just kind of sent in addition.
+90:35 This shows you exactly
+what query was executed,
+90:37 which is gonna be helpful because,
+when you start using web programming,
+90:40 as we're about to, as well, you can
+then see in your terminal window
+90:44 what your web app is actually
+doing to make sure your
+90:46 can diagnose any bugs in your code.
+90:48 But we can be fancier than this.
+90:49 Remember for problem set six,
+or soon see in problem set six,
+90:54 that if you import sys for a Python
+program, this gives us access to what,
+90:59 among other things?
+90:60 AUDIENCE: [INAUDIBLE]
+91:01 DAVID MALAN: Yeah,
+command line arguments.
+91:03 So what if I do this, where
+title equals something.
+91:08 I want that to come
+from the command line.
+91:11 So how can I go about doing this?
+91:13 Well, turns out there's
+one other piece of syntax
+91:15 that you need to know
+from the CS50 library.
+91:18 The Execute method supports what
+are called name placeholders, where
+91:22 you can essentially say this,
+colon t, or colon title,
+91:25 or colon whatever you want.
+91:27 It's just a placeholder.
+91:28 And I'm just gonna call it t for title.
+91:30 And what you can then do is this.
+91:32 You can specify that
+the value of t shall be,
+91:35 for instance, sys.argv
+bracket 1, which will
+91:39 be the first word that the human
+typed in at the command line.
+91:43 And what is Python gonna do?
+91:45 It's gonna plug this into colon t.
+91:49 That's all.
+91:49 It's just a placeholder.
+91:50 And just as an aside,
+we've seen this before.
+91:53 Let me delete this for just a moment.
+91:55 As of like two minutes ago, the
+way you might have done this
+91:59 is like this, with a so-called f string
+or format string, just plug it in.
+92:03 This is dangerous, for reasons
+we'll see in just a moment.
+92:06 So I'm gonna actually do this
+instead, the colon approach,
+92:10 and let the CS50 library actually
+scrub or sanitize my data so
+92:14 that the user can't accidentally trick
+me into, like, deleting all of my data.
+92:18 So now let me go ahead and do this.
+92:19 Python of lecture.py-- whoops.
+92:21 Python of lecture.py.
+92:23 And now let me go ahead and type
+in that same title, which was--
+92:27 what was it, a soprano?
+92:29 AUDIENCE: Soprano inspired.
+92:31 DAVID MALAN: A soprano inspired?
+92:34 Inspired?
+92:35 And now I'm using quotes.
+92:36 Why?
+92:38 AUDIENCE: [INAUDIBLE]
+92:39 DAVID MALAN: Yeah, it's one phrase.
+92:41 I want it all in argv1.
+92:42 I don't want it partly
+in argv1 and 2 and 3.
+92:45 It's just gonna be messy.
+92:47 Enter.
+92:48 Whew.
+92:48 It actually worked.
+92:49 So now I've written
+an interactive program
+92:51 that takes user input at the command
+line, plugs it into the SQL string,
+92:56 and actually allows me to get
+the data that I care about.
+92:59 Now, why did I do this?
+93:01 As a quick aside, if you do it this
+way, which would have been our technique
+93:06 as of, again, like minutes ago,
+before seeing this, this technique--
+93:10 and actually, now I need to
+quote it inside the SQL string,
+93:13 the library otherwise does that for me--
+93:15 this is actually very dangerous.
+93:17 This is violating a
+principle that henceforth
+93:19 you should be very mindful of.
+93:22 Why might this be dangerous,
+just plugging in the command line
+93:27 argument to that string?
+93:28 AUDIENCE: I could put malicious quotes,
+or I could put, like, [INAUDIBLE]..
+93:36 DAVID MALAN: Exactly.
+93:37 You can plug in sort of
+code that you didn't intend.
+93:40 So let me go back down here.
+93:41 What if a really malicious
+user didn't just type
+93:44 in the beautiful name of
+a song, but did something
+93:46 like haha semicolon delete from album
+to try to delete your whole database.
+93:53 This isn't perfectly right.
+93:55 This won't actually execute properly.
+93:56 Haha is not a keyword.
+93:58 But the semicolon means that's it
+for this query, the delete from album
+94:03 is a valid query that we
+saw before, and this is
+94:05 what's called a SQL injection attack.
+94:07 And in fact, this is
+very common even today,
+94:09 because one of the features you're
+getting from the CS50 library
+94:12 is sanitization or
+scrubbing of the user input.
+94:16 And the takeaway for today
+is that you should never
+94:18 henceforth trust the user's
+input ever, even if it's you.
+94:21 Get into the habit now of
+distrusting even yourself,
+94:24 lest you somehow inject data into
+your database that shouldn't be there.
+94:28 Let me demonstrate this as follows.
+94:30 So if you're logging in, for instance,
+to a Yale University website,
+94:33 your login form looks like this.
+94:34 Or at Harvard University, it looks
+like this, Harvard [? key. ?]
+94:37 Now I'm gonna g sort of reveal
+what a password prompt actually
+94:40 looks like without showing the
+bullets, which is the norm,
+94:42 but in the context of
+the web, if a user were
+94:46 to type in seemingly dangerous
+instructions, maybe this could happen.
+94:50 So suppose that my name is
+me@exampleprovider.com or whatever,
+94:54 and my password is this funky single
+quote or quote unquote one equals one.
+94:59 Like, this is not a complete thought.
+95:00 But notice it's miss-- it ends a
+quote here, and it lacks one here.
+95:06 So it's kind of like
+this partial thought,
+95:08 because if an adversary
+out there on the internet
+95:10 is trying to hack into a Harvard
+or a Yale system or the like,
+95:14 he or she might think what if someone
+at Harvard or Yale wasn't so bright
+95:17 and did not sanitize users' input,
+and just trusted whatever it is.
+95:21 Maybe I, the malicious
+adversary, can try
+95:23 to finish their thought, so
+to speak, in a malicious way.
+95:26 And what does this mean?
+95:27 Well, suppose that the code that
+someone at Harvard or Yale had written
+95:31 looks like this.
+95:32 Give me a user name variable
+and a password variable
+95:34 using syntax that we
+started seeing last week,
+95:36 and you'll see more of
+in problem set seven.
+95:38 This just says get me whatever the
+user passed into the web application,
+95:42 as opposed to from the command line.
+95:44 And then suppose that the
+Harvard or Yale staffer actually
+95:46 executed select star from users where
+username equals this f string syntax.
+95:52 What's interesting here
+is that they are correctly
+95:54 quoting whatever the string is supposed
+to be for both username and password.
+95:58 But remember what the user was
+about to type in a moment ago.
+96:01 If I kind of close one quote
+and then like leave one open,
+96:05 I can kind of inject
+arbitrary statements in here.
+96:08 And so what a SQL injection
+attack might look like is this.
+96:11 If I type in exactly those values,
+me@exampleemailprovider.com,
+96:14 and that funky password, notice if you
+look past the syntactic weirdness what
+96:20 really this is saying.
+96:21 Where password equals
+quote unquote, which
+96:24 is kind of silly, if your password
+is blank, or if one equals one.
+96:29 Now, which of those
+statements is obviously true?
+96:34 One equals one.
+96:34 And this is arbitrary.
+96:35 I could've said foo
+equals foo or anything.
+96:37 The point is, I sort of finished
+one thought with that single quote.
+96:41 Then, I typed whatever
+I wanted because I'm
+96:44 presuming a little cleverly,
+but also kind of guessing,
+96:47 because the adversary
+can't see this code,
+96:49 I just have a hunch that, if
+I construct the right query,
+96:52 I can trick the database into returning
+any user because one always equals one.
+96:57 So I'm gonna get back a row which is
+probably gonna let me into the system.
+97:01 So what the end result is is very bad,
+unless you sanitize the user's input.
+97:06 So this other approach
+with which I started,
+97:08 actually using these
+colon-based conventions, which
+97:11 is very similar to percent
+[? s ?] in C, but it's
+97:14 just now SQL-specific,
+or SQLite-specific,
+97:17 this now ensures that
+when the user types
+97:20 in even the most malicious-looking
+data, CS50's library, or other libraries
+97:24 out there in the world that
+do the exact same thing,
+97:26 is gonna make sure that any
+dangerous characters like apostrophes
+97:30 are escaped with backslash.
+97:32 So long story short, you
+don't even have to know
+97:34 or care what a SQL injection
+attack is fundamentally
+97:37 if you just practice good database
+sanitization techniques, which
+97:41 doesn't sound very cool.
+97:42 But it's very easy to do so by
+using, in our case, the CS50 library,
+97:47 but in the more general case,
+actually using a library like it.
+97:52 And so this is kind of a fun meme
+that kind of goes around the internet,
+97:55 supposedly like some
+actual person's car.
+97:58 This was meant to do what, do you think?
+98:01 AUDIENCE: Hide the license plate.
+98:03 DAVID MALAN: Well, not just
+hide the license plate.
+98:05 This is probably one of those
+cities where you actually
+98:07 have cameras overhead that are using
+optical character recognition to bill
+98:12 the right person for their license
+plate, or ticket the right person
+98:15 for their license plate.
+98:16 So this person, correctly or
+incorrectly, was presuming,
+98:18 hey, maybe, you know,
+the city of Cambridge
+98:21 has some buggy software that's not
+sanitizing its inputs like that.
+98:26 And before we look at
+an actual web example,
+98:28 I would be remiss if I didn't teach
+a generation of aspiring programmers
+98:33 this comic.
+98:40 [LAUGHTER]
+98:43 So henceforth, if you ever
+hear about Little Bobby Tables,
+98:46 this is what CS people
+are actually referring to.
+98:50 So let's actually now use
+this in a web context.
+98:52 So I'm gonna go ahead and do this.
+98:54 I'm gonna go back to the IDE,
+close out the command line program
+98:58 that I was writing a moment ago.
+98:59 And let's just fill in this to-do.
+99:01 Let me go ahead and go back
+to application.py, which
+99:05 doesn't do much of anything just yet.
+99:07 But I'm gonna go ahead
+here and do the following.
+99:09 I am going to initialize my database.
+99:12 So this gives SQL of SQLite colon slash
+slash lecture.db, so just like before.
+99:20 And then in my index route, I'm
+gonna do something like this,
+99:23 rows gets db.execute, which is the only
+method in there that you need to know.
+99:29 Select star from album.
+99:32 And that's gonna get me all of them.
+99:34 And now I'm gonna pass to
+this template all of the rows.
+99:37 And I'm gonna call it albums, and
+I'm gonna pass in all the rows.
+99:40 And this is a way now of handing
+all of those rows and those titles
+99:43 into my template.
+99:45 If I now go to my template
+where I have this to-do,
+99:48 I can use some Jinja syntax,
+which honestly is not
+99:50 going to sink in until you
+start practicing it some more,
+99:53 but I do know from experience
+it's for album in albums.
+99:58 Now close brace, and
+then endfor is gonna
+100:02 be how we end this in my Jinja template.
+100:04 And in here, I'm gonna go
+ahead and output each time
+100:08 the album's quote unquote title,
+if I didn't get a syntax error.
+100:14 And so now, let me go ahead
+into my terminal window
+100:18 and do in my source directory
+in my lecture example
+100:21 flask run to start the web server.
+100:25 Open up the URL.
+100:28 Whoa.
+100:28 So that's kind of a mess.
+100:29 But it kind of looks like
+all of the titles, probably.
+100:32 Let me clean this up.
+100:34 And here's where HTML now
+becomes really useful.
+100:36 In HTML, what's the tag for, like,
+an unordered list, [INAUDIBLE] list?
+100:39 AUDIENCE: [INAUDIBLE]
+100:40 DAVID MALAN: Yeah, UL
+for unordered list.
+100:41 So let me go ahead and make
+an unordered list tag there,
+100:44 but close it after this loop.
+100:47 Let me go ahead and
+nicely indent everything.
+100:49 And now inside of the loop,
+let me go ahead and output
+100:52 a list item, recall
+from a few weeks back.
+100:55 And now it still looks super cryptic,
+but what is the logic saying?
+100:59 Within the body block of my page, go
+ahead and start an unordered list.
+101:03 Iterate over each of the
+albums, and then output
+101:06 its title inside of a list item.
+101:08 So if I go back here and
+reload, what should I see?
+101:13 A whole list of those album titles.
+101:16 Moreover, I can do a little bit better.
+101:18 Let me go ahead back now here
+and do something like this.
+101:22 Let me go ahead and say q
+equals request.args.get q.
+101:29 And q is, again, what
+Google uses for its queries,
+101:31 but I could call this anything I want.
+101:33 Let me now go ahead and
+pass in the following.
+101:38 Where title equals colon q, and
+then let me pass in q equals q.
+101:44 This feels a little silly, but
+just think about what it's doing.
+101:47 I want to substitute for
+colon q the actual value of q.
+101:51 And maybe I can be more explicit here.
+101:54 If I call this query, what I'm really
+doing here is passing that in to there.
+101:59 So now that I've done
+that, what can I do?
+102:02 This is not a very
+fancy web application,
+102:04 but suppose I want to search only for
+what was it, the soprano song before,
+102:09 soprano inspired.
+102:10 Actually, let me search
+for something simpler.
+102:12 How about just worlds.
+102:14 A la hello world.
+102:16 Let me go to my URL.
+102:17 And remember, if you
+understand HTTP, we can
+102:19 do question mark q slash question
+mark q equals worlds, and enter.
+102:26 And dammit.
+102:31 Where title equals worlds q--
+where title equals worlds.
+102:36 Why did you not come out?
+102:38 request.args.
+102:40 request.
+102:41 Stand by real quick.
+102:44 We were doing so well there.
+102:46 All right, let me just reload.
+102:49 Oh actually, what a good time--
+102:50 none.
+102:51 OK, none is bad.
+102:52 What am I doing wrong?
+102:55 Did I screw up?
+102:56 OK, hang on.
+102:57 Stand by.
+102:58 What a good time to introduce eprint
+for just a moment from earlier.
+103:05 Now let me go ahead and reload
+the page to trigger the load.
+103:08 OK, that's bad.
+103:09 Dammit.
+103:10 eprint is not defined from CS50.
+103:12 Oh.
+103:17 Oh, so close to--
+103:20 yes!
+103:22 OK.
+103:23 [APPLAUSE]
+103:27 In fairness, I have no
+idea what just happened.
+103:29 But it worked.
+103:31 So let's now, with
+those inspiring words,
+103:34 give us a sense of
+what it is you're going
+103:36 to be doing with these ingredients.
+103:38 We focused a lot today on
+SQL and on database design,
+103:41 but the ultimate goal at hand is
+going to be to use these ingredients
+103:44 and use this new language to
+query for real information.
+103:47 So here is what we call CS50
+Finance, AKA problem set seven.
+103:51 And you'll be given a little
+bit of distribution code
+103:53 that essentially gives you a user
+interface similar to this that just
+103:56 allows users to log in and log out.
+103:58 But it doesn't allow users to register.
+104:01 It doesn't allow users to buy or
+sell stocks yet, as will be the goal.
+104:05 CS50 Finance is like building
+your own e-trade website
+104:08 where you can buy and sell stocks.
+104:10 But it's going to
+integrate thanks to code
+104:12 you write with Yahoo Finance, which
+happens to provide essentially a very
+104:16 lightweight API, application programming
+interface, whereby if you ask Yahoo
+104:20 for the current stock price of a
+certain stock ticker, they will respond
+104:24 and actually give you that answer so
+you can integrate it into your website.
+104:27 So what you'll ultimately
+be able to do--
+104:29 and this is simply the staff solution--
+104:31 is build a website like this one
+here, such that I can go ahead now
+104:36 and log in to CS50 Finance as a
+John Harvard with his password.
+104:43 I can then see that, by
+default, all of your customers,
+104:45 wonderfully, for a special deal, are
+going to get 10,000 virtual dollars.
+104:49 I can go ahead and get a quote
+for a stock, like GOOG is G-O-O-G.
+104:53 Google as of right now
+is just over $1,000.
+104:56 That's great, because I have $10,000.
+104:58 So I'm gonna go ahead and buy one share
+of GOOG by typing in its stock ticker
+105:02 symbol and one.
+105:04 And now I actually have one share of
+Alphabet AKA Google plus some remaining
+105:08 cash.
+105:09 So all of this and more
+you will implement.
+105:11 Happy to stick around for questions.
+105:13 That is it for today.
+105:14 And thank you so much for today's
+parents and families for coming.
+105:17 [APPLAUSE]

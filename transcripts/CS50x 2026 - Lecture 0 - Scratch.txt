@@ -1,0 +1,3529 @@
+02:04 All
+02:05 right,
+02:05 this is.
+02:09 OK.
+02:10 This is CS 50,
+02:12 Harvard University's introduction to the intellectual Enterprises of
+02:15 Computer Science and the arts of programming.
+02:18 My name is David Malan,
+02:19 and this is week er,
+02:20 and by the end of today you'll know not only what these light bulbs here spell,
+02:23 but so much more.
+02:24 But why don't we start first with the,
+02:26 uh,
+02:26 the elephant or the elephant in the room,
+02:29 that is artificial intelligence,
+02:30 which is seemingly everywhere over the past few years,
+02:32 and it's been said that it's going to change programming,
+02:35 and that's absolutely the case.
+02:36 It's been that way actually for the past several years.
+02:38 is only going to get to be the case all the more,
+02:41 but this is an incredibly exciting time.
+02:43 This is actually a good thing,
+02:44 I do think insofar as now using AI in any number of forms,
+02:48 you can ask the computer to help solve some problem for you.
+02:51 You can find some bug or mistake in your code.
+02:53 Better still,
+02:54 increasingly you can tell the AI what additional
+02:57 features you want to add to your software,
+02:59 and this is huge because even in the industry for years,
+03:01 humans have been programming in some form for decades,
+03:04 building products and solutions to problems.
+03:06 The
+03:06 is that you and I as humans have long been the bottleneck.
+03:10 There's only so many hours in the day.
+03:11 There's only so many people on your team or in your company,
+03:14 and there's so many more bugs that you want to solve
+03:17 and so many more features that you want to implement.
+03:19 But at the same time you still really need to understand the fundamentals.
+03:23 And indeed a class like this,
+03:25 CS 50,
+03:25 has never been about teaching you how to program.
+03:28 Like that's actually one of the side effects of taking a class like this,
+03:30 but the overarching goal is to teach you how to think,
+03:33 how to take input and produce.
+03:35 Correct output and how to master these and other tools.
+03:38 And so by the end of the semester,
+03:39 not only,
+03:40 not only will you be acquainted with languages like Scratch,
+03:43 which we'll touch on today if you've not seen it already,
+03:45 languages like C and Python and SQL,
+03:48 HTML CSS and JavaScript,
+03:50 you'll be able to teach yourself new things ultimately and ultimately be able
+03:54 to tell computers increasingly what it is you want it to do,
+03:57 but you'll still be in the driver's seat,
+03:59 so to speak.
+03:60 You'll be the pilot,
+04:00 you'll be the conductor,
+04:01 whatever your preferred metaphor.
+04:02 And that's what I think is so empowering still about learning
+04:06 introductory material,
+04:07 foundational material,
+04:08 because you'll know what you're ultimately talking about
+04:10 and what you can in fact solve.
+04:12 We've been through this before,
+04:13 like when calculators came out,
+04:14 it's still valuable,
+04:15 I dare say all these years later to still
+04:17 know how to do addition and subtraction and whatnot.
+04:19 And yet I think back on some of my own math classes,
+04:22 I remember learning so many darn ways in
+04:24 college how to take derivatives and integrals.
+04:26 And after like the 6th process of that,
+04:28 I sort of realized,
+04:29 OK,
+04:29 I get it.
+04:30 I get the idea.
+04:30 Do I really need to know this many ways?
+04:32 And here too,
+04:33 with AI and with code,
+04:35 can you increasingly sort of master the ideas and then lean on a copilot,
+04:40 assistant to actually help you solve those same problems.
+04:42 So let's do some of this ourselves here.
+04:44 In fact,
+04:45 just to give you a teaser of what you'll be able to do yourselves before long,
+04:49 let me go ahead and open up a little something called Visual Studio Code,
+04:52 AKA VS code for short.
+04:54 This is popular,
+04:55 largely open source or free software that's used by real world people.
+04:59 In industry to write code and it's essentially a text editor similar to notepad,
+05:03 if you're familiar with that or text edit,
+05:05 kind of like Google Docs,
+05:06 but no bold facing and underlining and things like
+05:08 that that you'd find in word processing programs.
+05:10 And this is CS 50's version thereof.
+05:12 We're going to introduce you to this all the more next week,
+05:15 but for now,
+05:15 let's just give you a taste of what you can do with an environment like this.
+05:19 So I'm going to switch over
+05:20 to this program already running VS code,
+05:23 and in this bottom of the screen,
+05:25 you're going to see a so-called terminal.
+05:27 Window again,
+05:27 more on that next week,
+05:28 but it's in this terminal window that I can write commands
+05:30 that tells the computer what I want it to do.
+05:33 For instance,
+05:33 let's suppose just for the sake of discussion that I want to make my own chatbot,
+05:37 not Chat GPT or Gemini and Claw.
+05:40 Like,
+05:40 let's make our own in some sense.
+05:42 So I'm going to code up a program called chat.ie,
+05:45 and you might be familiar that I,
+05:47 I'm using a language here.ie is it's just called Python,
+05:50 and if unfamiliar,
+05:51 you're in good company.
+05:52 You'll learn that too within a few weeks.
+05:54 And at the top.
+05:55 File here I can write my code and at the bottom of
+05:57 the file of the window here I can run my code.
+06:00 So here's how relatively easy it is nowadays to write even
+06:04 your own chatbot using the AI technologies that we already have.
+06:08 I'm going to go ahead and type a command like import.
+06:12 I'm going to go ahead and type the following
+06:14 from OpenAI,
+06:16 import OpenAI.
+06:17 We'll learn what this means ultimately,
+06:19 but what I'm going to do is write my own program on top of.
+06:23 An API application programming interface that someone
+06:27 else provides a big company called OpenAI,
+06:29 and they're providing features and functionality that
+06:31 now I can write code against.
+06:33 I'm going to create a so-called client,
+06:35 which is to say a program of my own
+06:37 that's going to use this OpenAI software.
+06:40 And then I'm going to go ahead and ask this software for a response,
+06:44 and I'm going to set that equal to client.pos.create,
+06:49 whatever all that means,
+06:51 and then Inside of these parentheses,
+06:52 I'm going to say
+06:53 the following.
+06:54 The input I want to give to this underlying API is quote unquote something like
+06:59 in one sentence,
+07:01 what is CS 50?
+07:02 Much like I would ask Chachi PT itself.
+07:04 If you're familiar with things like Chat GPT and AI more generally nowadays,
+07:08 you know,
+07:08 there's this thing called models which are like statistical
+07:10 models that ultimately drive what the AI's can do.
+07:12 I'm gonna go ahead and say model equals quote unquote GPT 5,
+07:16 which is the latest and greatest version at least as of today.
+07:19 Now down in my terminal window I'm going to run a different command,
+07:22 Python of chat.ie
+07:25 and so long as I have made no typographical errors in this program,
+07:29 I should be able to ask OpenAI,
+07:32 not with Chat GPT.com,
+07:34 but with my own code
+07:35 for the answer to some question.
+07:37 But I want to know what the answer to that question is,
+07:39 so I actually want.
+07:40 Print out that response by saying print response
+07:44 output text.
+07:45 In other words,
+07:45 these 10 lines,
+07:46 and it's not even 10 lines because a few of them are blank,
+07:49 I've implemented my own chatbot that at the moment is hard coded,
+07:52 that is permanently configured to only answer
+07:55 one question for me.
+07:57 And let's see with the cross of the fingers.
+07:59 CS 50 is Harvard University's introductory computer science course,
+08:02 the intellectual enterprises of Computer Science and the Art of programming.
+08:05 Weirdly familiar,
+08:06 covering problem solving algorithms,
+08:07 data structures,
+08:08 and more using languages like CPython and SQL.
+08:10 OK,
+08:11 interesting,
+08:11 but let's make the program itself more dynamic.
+08:14 Suppose you wanted to write code that actually
+08:16 asks the human what their question is,
+08:18 because very quickly might we want to learn
+08:20 something more than just this one question.
+08:22 So up here,
+08:23 I'm going to go and change my code and type some.
+08:25 Like this
+08:26 type prompt equals
+08:28 input with parentheses.
+08:30 More on this another time too,
+08:32 but what I'm going to ask the user for is to give me an actual prompt.
+08:35 That is a question that I want this AI to answer.
+08:38 And down here,
+08:39 what you'll notice,
+08:39 even if you've never programmed before,
+08:41 is that I can do something somewhat intuitive insofar as
+08:44 line 5 is now asking the human for input.
+08:47 Let's just stipulate that this equal sign means store that answer
+08:50 in a variable called prompt,
+08:52 where variables just like in math.
+08:53 Y or Z.
+08:54 Let's go ahead and store that in prompt.
+08:56 So the input I want to give to OpenAI now is that actual prompt.
+08:60 So it's a placeholder containing whatever keystrokes the human typed in.
+09:04 If I now run that same command again,
+09:06 Python of chat.ie,
+09:08 hit enter,
+09:09 cross my fingers,
+09:10 I'll see now
+09:11 dynamic
+09:12 prompting.
+09:13 So what's the question I might want to ask?
+09:15 Well,
+09:15 let's just say it again in one sentence,
+09:17 whoops,
+09:18 in one sentence,
+09:19 what is CS 50 mark?
+09:21 Enter.
+09:22 And now the answer comes back as
+09:25 probably
+09:26 roughly
+09:27 the same but a little bit different,
+09:28 a variant thereof,
+09:29 but maybe we can distill this even more succinctly.
+09:32 How about let's run it again?
+09:34 Python of chat.pi and let's say in one word
+09:37 what is CS 50 and see if the underlying AI obliges.
+09:42 And
+09:43 After a pause
+09:45 course in a word,
+09:46 so that's not all that incorrect,
+09:47 and maybe we can have a little fun with this now.
+09:49 How about in one word,
+09:51 which is,
+09:54 which is better?
+09:56 maybe Harvard
+09:58 or Stanford Question mark.
+10:01 Hope you picked right.
+10:02 Let's see.
+10:03 The answer is.
+10:06 Depends.
+10:06 OK,
+10:07 so would not in fact oblige,
+10:09 but notice what I keep doing in this code.
+10:11 I keep providing a prompt as the human like in one sentence,
+10:15 in one word.
+10:16 Well,
+10:16 if you want the AI to behave in a certain way,
+10:18 why don't we just tell the underlying system to behave in that way
+10:22 so why the human don't have to keep asking it in one sentence,
+10:24 in one sentence in one word,
+10:25 so we can actually introduce one other feature
+10:27 that you'll hear discussed in industry nowadays,
+10:30 which is not only
+10:31 a prompt from the user,
+10:32 which I'm gonna.
+10:33 Now temporarily renamed to user prompt just to make clear it's coming from the user.
+10:37 I'm going to also give our what's called a system prompt by setting this equal to some
+10:43 standardized instructions that I want the AI
+10:46 to respect,
+10:47 like limit your answer to one sentence,
+10:51 quote unquote.
+10:52 And now in addition to passing in as input,
+10:55 the user prompt,
+10:57 I'm going to actually tell OpenI.
+10:58 to use these instructions coming from this other variable
+11:03 called System prompt.
+11:04 So in other words,
+11:05 I'm still using the same underlying service,
+11:07 but I'm handing it now not only what the user typed in,
+11:09 but also this standardized text limit your answer to one sentence
+11:13 so the human like me doesn't have to do that anymore.
+11:16 Let's now go back to my terminal,
+11:17 Run Python of chat.ie once more,
+11:19 and this time we'll be prompted,
+11:21 but now I can just ask what is CS 50 question.
+11:24 And
+11:25 I'll likely get
+11:27 a correct and similar
+11:29 answer to before.
+11:30 And indeed it's Harvard University's
+11:32 flagship introductory computer science course.
+11:34 So it seems spot on too.
+11:36 But now we can have some fun with this too,
+11:37 and you might know that these GPTs nowadays have sort of personalities.
+11:41 You can make them obliged to behave in one way or another.
+11:44 Why don't we go into our system prompt here and say something silly like pretend
+11:48 you're a cat.
+11:50 And now let's go back to the prompt one final time.
+11:53 Run Python of chat.ie
+11:55 prompt again will be say what is CS 50 and with a final flourish of hitting enter.
+12:01 What do we get back?
+12:04 CS 50 is Harvard University's introductory
+12:06 computer science course teaching programming,
+12:07 algorithms,
+12:08 data structures,
+12:08 and problem solving,
+12:09 and it's available free online
+12:10 meow.
+12:11 So that was enough to coerce this particular behavior.
+12:14 So this is to say that with programming you have the ability in like 10 lines of text,
+12:20 not all of which you might understand yet,
+12:22 but that's the whole point of a class like this to build fairly powerful things,
+12:26 maybe silly things like this,
+12:27 but in fact it's using the same primitives that CS 50 has its own.
+12:31 Virtual rubber duck and we'll talk more about this in the weeks to come,
+12:33 but long story short,
+12:35 in the world of programming,
+12:36 it's kind of a thing
+12:37 to keep a rubber duck literally on your desk or really any inanimate
+12:41 cute object like this because when you are struggling with some problems,
+12:44 some bug or mistake in your code and you don't have a friend,
+12:47 a teaching assistant,
+12:48 a parent,
+12:49 or someone else who's more knowledgeable than you.
+12:51 About code where you literally are encouraged in programming
+12:54 circles to like talk to the rubber duck,
+12:56 and it's through that process of just verbalizing your confusion
+12:59 and organizing your thoughts enough to convey it to another person or duck in
+13:03 this case that so often that proverbial light bulb goes off and you realize,
+13:06 ah,
+13:07 I'm being an idiot now I hear in my own thoughts the illogic or the mistake I'm making.
+13:11 And you solve that problem as well.
+13:14 So CS 50,
+13:14 drawing inspiration from this,
+13:15 will give to you a virtual duck in computer form.
+13:19 And in fact,
+13:19 among the other URLs you'll use over the course of the semester is that here,
+13:22 CS50.AI,
+13:24 which is also built into that previous URL,
+13:26 CS50.
+13:27 dev,
+13:27 whereby these are the AIs you can use in CS50
+13:31 to solve problems and you are encouraged to do so.
+13:34 As you'll see in the course of syllabus,
+13:35 it is not reasonable.
+13:36 Not allowed to use AI-based software other than CS 50's own,
+13:39 be it Claw,
+13:40 Gemini,
+13:41 Chachi PT,
+13:41 or the like,
+13:42 but it is reasonable and very much encouraged along the
+13:45 way to turn not only to humans like me,
+13:47 your teaching assistant,
+13:48 and others in the class,
+13:49 but to CS 50's own AI-based software.
+13:51 And what you'll find is that this virtual duck is designed to behave as close to a good
+13:57 human tutor as you might expect from an actual human in the real world knows about CS.
+14:01 knows how to lead you to a solution,
+14:03 ideally without simply spoiling it and providing it outright.
+14:08 So with that said,
+14:09 that's sort of the end game to be able to write code like that and more.
+14:13 But let's really start back at the beginning and see how we can't get
+14:17 from zeros and ones that computers speak
+14:19 all the way back to artificial intelligence.
+14:21 So computer science is in the name of the course,
+14:24 Computer Science 50,
+14:25 but what is that?
+14:26 Well,
+14:26 it's really Just the study of information.
+14:28 How do you represent it?
+14:29 How do you process it?
+14:30 and very much germane to computer science
+14:32 is what the world calls computational thinking,
+14:33 which is just the application of ideas from computer science,
+14:37 or CS to problems generally in the real world.
+14:40 And in fact that's ultimately,
+14:42 I dare say what computer science really is.
+14:44 It's about problem solving and even though we use computers,
+14:47 you learn how to program along the way,
+14:49 these are really just tools and methodologies.
+14:51 that you can leverage to solve problems.
+14:54 Now what does that mean?
+14:55 Well,
+14:55 a problem is perhaps most easily distilled into a simple picture like this.
+14:59 We've got some input,
+15:00 which is like the problem we want to solve,
+15:02 and the output,
+15:03 which is the goal we want the solution there too.
+15:05 And then somewhere in the middle here is the proverbial black box,
+15:08 the sort of secret sauce that gets that input
+15:10 from output.
+15:11 So this then I would say is in essence is problem solving
+15:14 and thus computer science.
+15:16 But we have to agree,
+15:17 especially if we're going to use devices,
+15:19 Macs,
+15:19 PCs,
+15:19 phones,
+15:20 whatever,
+15:20 how do we all represent information,
+15:22 the inputs and the outputs in some standardized way?
+15:25 Is it with English?
+15:26 Is it with something else?
+15:27 Well,
+15:27 you all probably know,
+15:28 even if you're not computer people,
+15:29 that at the end of the day
+15:31 computers somehow use zeros in one entirely.
+15:34 That is their entire alphabet.
+15:36 And in fact
+15:37 you might be familiar already with certain such systems.
+15:39 So the unary notation,
+15:41 which means you essentially use single digits like fingers on your hand,
+15:45 for instance,
+15:45 unary AKA base one,
+15:47 is something you can do on your own human hand.
+15:48 So for instance,
+15:49 with one human hand,
+15:50 how high can I count?
+15:52 All right,
+15:52 so hopefully 12345,
+15:55 and if you want to count to 6 to 11 and 10 and so forth,
+15:60 you need to,
+16:00 you know,
+16:00 take out another hand or your toes or the like because it's fairly limiting.
+16:03 But if I think a little harder instead of just using unary,
+16:07 what if I use a different system instead?
+16:09 What about something like binary?
+16:11 Well,
+16:11 how high if you think a little harder,
+16:12 can you count on one human hand?
+16:15 So 31,
+16:16 says someone who studied computer science before,
+16:18 but why is that?
+16:19 It's kind of hard to imagine,
+16:20 right?
+16:21 Because 12345 seems to be the five possible patterns,
+16:25 but that's only when you're looking at the totality of fingers
+16:27 that are actually up 5 in total or 4 in total,
+16:30 or 1 or the like.
+16:31 But what if we take into account the pattern of fingers that
+16:34 are up and we just standardize what each of those fingers represent?
+16:37 So maybe we all agree.
+16:39 Like a good computer would too,
+16:40 that maybe no fingers up means the number 0.
+16:43 And if we want to count to 1,
+16:44 let's go with the obvious.
+16:45 This is now 1.
+16:47 But instead of 2 being this,
+16:48 which was my first instinct,
+16:50 maybe 2 can just be
+16:52 this
+16:53 a single second finger up like this,
+16:56 and that means we could now use 2 fingers up to represent 3.
+17:01 I propose we can use just one middle finger up to offend everyone but represent 4.
+17:07 I could maybe use these two fingers with some difficulty to represent 567.
+17:13 I'm already up to 7 having used only 3 fingers.
+17:16 And in fact,
+17:17 if we keep going higher and higher,
+17:18 I bet I can get as high as 31 for 32 possible combinations,
+17:23 but the first one was.
+17:24 So that's as high as we can count.
+17:26 So we'll make this connection in just a moment,
+17:28 but what I started to do there is something called base 2.
+17:31 Instead of just having fingers up or fingers down,
+17:33 I'm taking into account the positions of those fingers
+17:36 and giving meaning to like this finger here,
+17:39 this finger here,
+17:40 this finger here,
+17:41 and so forth,
+17:41 different weights if you will.
+17:43 So
+17:44 the binary system is indeed all computers.
+17:47 And you might be familiar with some terminology here.
+17:50 Binary digit is not really something anyone really says,
+17:52 but the shorthand for that is going to be
+17:55 bit.
+17:56 So if you've heard of bits,
+17:57 and we'll soon see bytes and then kilobytes
+17:59 and megabytes and gigabytes and terabytes and more,
+18:02 this just refers to a bit meaning a single
+18:06 binary digit,
+18:07 either a 0 or a 1.
+18:10 A 0 is perhaps most simply represented by just like turning,
+18:14 maybe keeping a finger down,
+18:15 or in the world of computers which have access to electricity,
+18:18 be it from the wall
+18:20 or maybe a battery,
+18:21 you know what we could do?
+18:23 We could just decide sort of universally that when
+18:26 a light bulb is off,
+18:28 that thing represents a zero,
+18:29 and when the light bulb.
+18:30 Was on that thing's going to represent a 1 instead.
+18:33 Now why is this?
+18:34 Well,
+18:35 electricity is such a simple thing,
+18:36 right?
+18:36 It's either flowing or it's not,
+18:38 and we don't even have to therefore worry about how much of it is flowing.
+18:41 If you're vaguely remember a little bit about voltage,
+18:44 we can sort of be like zero volts.
+18:46 Nothing's there available for us,
+18:47 or maybe it's 5 volts or something else in between.
+18:50 But what's nice about binary only housing zeros and ones is that it maps really
+18:55 nicely to the real world by like throwing a light switch on and off.
+18:58 You can represent information by just using a
+19:00 little bit of electricity or the lack thereof.
+19:03 So what do I mean by this?
+19:04 Well,
+19:05 suppose we want to start counting using binary zeros and ones only.
+19:10 Well,
+19:10 let's think of them metaphorically as like akin to these light.
+19:12 Bulbs here and in fact let me grab a few of these light bulbs
+19:15 and let me propose that if we want to represent the number 0,
+19:19 well,
+19:19 it stands to reason that here
+19:22 single light bulb that is off can be agreed upon as representing 0.
+19:26 Now in practice,
+19:27 computers don't have little light bulbs inside,
+19:29 but they do have little switches inside,
+19:31 millions of tiny little things called transistors that have.
+19:35 On can allow it to capture a little bit of electricity and
+19:38 effectively turn on a metaphorical bulb or the switch can go off.
+19:41 The transistor can go off and therefore let the
+19:43 electricity dissipate and you have just now a 0.
+19:47 Unfortunately,
+19:48 even though I can let some
+19:50 electricity,
+19:51 here's the battery I mentioned is required,
+19:54 even though we might have some electricity available to us,
+19:56 I can therefore count to 1.
+19:58 But how do I go about counting?
+20:02 Hardware problem,
+20:02 how do I go about counting higher than one
+20:05 with just a light bulb?
+20:08 Yeah,
+20:09 so I need more of them.
+20:09 So let me grab another one here,
+20:11 and now I can put it next to it,
+20:13 and this too I'll claim is just still the number one.
+20:16 But if I want to turn 2 of them on,
+20:18 well,
+20:19 that would mean I could count to 2.
+20:20 And if I maybe grab another one now I can count as high as 3,
+20:24 but wait a minute,
+20:25 I'm doing something wrong
+20:26 because with 3 human fingers,
+20:27 how high was they able to count.
+20:30 So 7 in total starting at 0.
+20:32 So I've done something wrong here,
+20:33 but let me be a little more clever than about the pattern that I'm actually using.
+20:37 Perhaps this can still be
+20:39 1,
+20:40 but just like my finger went up and only one finger in the second version of this,
+20:45 this
+20:46 can be what we represent as 2.
+20:49 Which one do I want to turn on as 3,
+20:51 your left or your right?
+20:53 So you're right,
+20:54 because now this matches what I was doing with my fingers a moment ago,
+20:57 and I claimed we could represent 3 like this.
+20:59 If we want to represent 4,
+21:00 that's fine.
+21:01 We have to turn that off,
+21:02 this off,
+21:04 and this on,
+21:05 and that's somehow 4
+21:07 and let's go all the way up to 7.
+21:08 Which ones need to be on to represent the number 7?
+21:11 All right,
+21:12 so all of them here.
+21:13 Now if you're not among those who just sort of naturally said
+21:16 all of them,
+21:17 like what the heck is going on?
+21:18 How do half the people in this room know what these patterns are supposed to be?
+21:22 Well,
+21:22 maybe you're remembering what I did with my fingers,
+21:24 but it turns out you're already pretty familiar
+21:26 with systems like this,
+21:27 even if you might not have put a name to it.
+21:29 So in the human world,
+21:30 the real world,
+21:31 most of us deal every day with
+21:33 the so-called base 10 system,
+21:35 otherwise known as.
+21:36 deck implying 10 because in the decimal system you have 10 digits available to you 0
+21:42 through 9.
+21:42 In the binary system we only had 2 by implying 2,
+21:46 so 0 and 1.
+21:47 And unary we had just 1,
+21:49 a single digit there or not.
+21:52 So in the decimal system we just have more of a vocabulary to play with,
+21:56 and yet you and I have been doing this since grade school.
+21:58 So this is obviously the number 123.
+22:01 But why?
+22:01 It's technically just three symbols 123,
+22:04 but most of us,
+22:05 your mind immediately goes,
+22:06 OK,
+22:06 123,
+22:07 pretty obvious,
+22:08 pretty natural.
+22:09 But at some point you,
+22:10 like me,
+22:11 were probably taught that this is the one's place
+22:14 and this is the ten's place and this is the 100s place and so forth.
+22:18 And the reason that this pattern of symbols
+22:22 123 is 123 is that we're all doing some quick mental math and.
+22:26 I,
+22:27 well,
+22:27 that's 100 times 1 plus 10 times 2 plus 1 times 30,
+22:31 OK,
+22:31 there's how we get 100 plus 20 + 3 gives
+22:34 us the number we all know mathematically is 123.
+22:37 Well,
+22:37 it turns out whether you're using decimal or binary or other
+22:41 base systems that we'll talk about later in the course,
+22:43 the system is still fundamentally the same.
+22:45 Let's kind of generalize this away.
+22:47 Here's a three digit number in some base system,
+22:49 specifically in decimal,
+22:50 and I know that only because of
+22:52 Placeholders that I've got on top of each of these numbers.
+22:55 But if we do a little bit of math here,
+22:56 1,
+22:57 10,
+22:57 100,
+22:58 1000,
+22:59 10,000,
+22:59 and so forth,
+22:60 what's the pattern?
+23:01 Well,
+23:01 technically this is 100,
+23:03 10 to 1,
+23:04 10 to 2,
+23:05 and so forth,
+23:06 and we're using 10 because we can use as many as 10 digits under each of those columns.
+23:12 But if we take some of those digits away and go from decimal down to binary,
+23:16 the motivation being it's Way easier for
+23:19 a computer to distinguish electricity being on or
+23:22 off than coming up with like 10 unique levels of electricity to distinguish among.
+23:27 You could do it.
+23:28 It would be annoying and difficult to build and hardware you could do it
+23:31 so much simpler to just say
+23:33 on and off.
+23:34 It's a nice simple world that way.
+23:36 So let's change the base
+23:38 from 10 to 2,
+23:40 and what does this get us?
+23:41 Well,
+23:41 if we now do undo the math,
+23:42 that's 2 to 0.
+23:44 121 is 222 is 4.
+23:47 So the the mental math is now about to be the same,
+23:50 but the columns represent something a little bit different.
+23:53 So for instance,
+23:54 if I turn all of these off again,
+23:56 such that I've got off,
+23:58 off,
+23:58 off,
+23:59 otherwise known as 000,
+24:01 it's 0 because it's 4 times 0 + 2 times 0 + 1 times 0 still gives me 0.
+24:08 By contrast,
+24:09 If I turn on maybe just this one all the way over on the left,
+24:13 well,
+24:14 that's 4 times 1
+24:16 because on represents 1 and off represents 0,
+24:19 plus 2 times 0 plus 1 times 0,
+24:21 that gives me 4.
+24:22 And if I turn both of these on
+24:24 such that all three of them are now on,
+24:27 on,
+24:27 on,
+24:28 on,
+24:28 AKA 111,
+24:30 that's 4 times 1 plus 2 times 1 plus 1 times 1.
+24:35 That then gives me 7,
+24:36 and we can keep adding more and more bits to this.
+24:39 In fact,
+24:39 if we go all the way up
+24:40 numerically,
+24:41 here's how we would represent in binary the number you and I know as 0.
+24:45 Here's how we would represent
+24:47 1.
+24:48 Here's how we would represent 2
+24:50 and 3
+24:51 and 4 and 5,
+24:52 and you can kind of see in your mind's eyes.
+24:54 Now because I only have zeros and
+24:56 ones and no 2s or threes,
+24:58 not to mention nines,
+24:59 I'm essentially going to be carrying a 1 in a moment if we were to be doing some math.
+25:03 So to go from 5
+25:04 to 6,
+25:05 that's why the 1 ends up in the middle column to go to 7 here gives us now 111 or on on
+25:11 on,
+25:12 how do I represent 8?
+25:14 Using ones and zeros,
+25:16 yeah,
+25:18 yeah,
+25:19 so we're going to need to add another digit.
+25:20 We need to throw hardware at the problem using an additional
+25:23 digit so that we actually have a column representing 8.
+25:26 Now,
+25:26 as an aside,
+25:27 and we'll talk about this before long,
+25:29 if you don't have an additional digit available,
+25:32 if your computer doesn't have enough memory,
+25:34 so to speak,
+25:35 you might accidentally count from 01234567.
+25:39 And then accidentally
+25:40 end up back at 0 because if there's no room to store
+25:44 the 4th bit,
+25:45 well,
+25:46 all you have is part of the number,
+25:48 and this is going to create all sorts of problems then ultimately in the real world.
+25:52 So let me go ahead and put these back and propose that we have a system now
+25:57 if you agree to sort of count numbers in this way via which we can represent
+26:02 information in some standard way and all the device underneath the hood.
+26:05 It is a bit of electricity to make this work.
+26:07 It's got to be able to turn things on,
+26:09 AKA use some transistors,
+26:10 and it's got to be able to turn those things
+26:12 off so as to represent zeros instead of ones.
+26:16 But the reality is like 2 bits,
+26:18 3 bits,
+26:19 4 bits aren't very useful in the real world because even with 3 bits you can count to 7,
+26:23 with 4 you can count to 15.
+26:25 These aren't very big numbers,
+26:26 so it tends to be more common to actually use units of measure of 8 bits at a time.
+26:32 A byte is just that.
+26:34 1 byte is 8 bits.
+26:35 So if you've ever used the vernacular of kilobytes,
+26:38 megabytes,
+26:38 gigabytes,
+26:39 that's just referring to some number of bits,
+26:42 but
+26:43 8 of them
+26:44 together compose one individual byte.
+26:47 So here for instance is a byte worth of bits,
+26:50 8 of them total.
+26:51 I've added all the additional placeholders,
+26:53 and what number does this represent in decimal
+26:55 even though you're looking at 8 binary digits.
+26:59 It's just 0,
+26:60 because like literally every column is a 0.
+27:02 Now this is a bit more of mental math,
+27:04 but unless you know it already,
+27:05 what if I change all of the zeros to ones?
+27:07 I turn all 8 light bulbs on,
+27:09 what number is this?
+27:11 Yeah,
+27:11 so 255.
+27:13 Now some of those of you who didn't get that instantly,
+27:15 that's fine.
+27:15 You could certainly do the math manually.
+27:17 I dare say some of you have some prior knowledge of how to do this sort of system,
+27:21 but 255 means
+27:24 that if you start counting at 0 and you go all the way up to 255.
+27:27 OK,
+27:27 that's 256 total possibilities.
+27:31 Once you include 0 in the total number of patterns of zeros and ones,
+27:35 and this is just going to be one of these common numbers in computer science,
+27:38 256.
+27:39 Why?
+27:40 Because it's referring to 8 of something,
+27:42 2 to 8.
+27:44 Gives you 256 and so you're going to commonly see certain values like that.
+27:48 256 back in the day,
+27:49 computers could only show 256 colors on the screen.
+27:53 Certain graphics formats nowadays that you might download can
+27:56 only use as many as 256 colors because,
+27:58 as we'll see,
+27:59 they're only using,
+28:00 for instance,
+28:01 8 bits and therefore they can only represent so
+28:04 many colors of the rainbow as a result.
+28:07 So
+28:08 this
+28:09 then is how we might go from just zeros and ones,
+28:12 electricity inside of a computer
+28:14 to storing actual numbers with which we're familiar
+28:16 and honestly we can go higher than 255.
+28:18 What do you need to count higher than 255?
+28:21 1/9 bit,
+28:21 a 10th bit,
+28:22 11th bit and so forth and it turns out common conventions nowadays,
+28:26 and we'll see this in code 2 is to use as many as 32 bits at a time.
+28:31 So that's a good chunk of bits and anyone want to ballpark how
+28:34 high you can count if you've got 32 bits available to you.
+28:40 Oh,
+28:40 fewer people now,
+28:41 yeah,
+28:41 in the back.
+28:43 Yeah,
+28:43 so it's roughly 4 billion,
+28:45 and it's technically 2 billion if you also want to represent negative numbers,
+28:48 but we'll revisit that question,
+28:50 but 2 to 32nd power is roughly 4 billion.
+28:53 However,
+28:54 nowadays it's even more common with the Macs and PCs
+28:56 you might have on your laps and even your phones nowadays
+28:59 to use 64 bits,
+29:01 which is a big enough number that I'm not even sure offhand how to pronounce it.
+29:04 That's a lot of permutations that.
+29:06 2 to 64 possible permutations,
+29:09 but that's increasingly commonplace.
+29:10 And as an aside,
+29:11 just to dovetail things with our discussion of AI,
+29:13 among the reasons that we're living through over these past few years,
+29:16 especially this crazy interesting time of AI,
+29:19 is because
+29:20 computers have been getting so much faster,
+29:23 exponentially so over time.
+29:25 They have so much more memory available to them.
+29:27 There's so much data out there on the internet in particular.
+29:29 to train these models that it's an interesting confluence of hardware now actually
+29:34 meeting the mathematics and statistics that we'll talk about later in the class
+29:37 that ultimately make tools like the cat we just built possible.
+29:41 But of course computers are not all math,
+29:43 and in fact we'll use very little math per se in this class.
+29:46 And so let's move away pretty quickly from just zeros
+29:48 and ones and talk about letters of the alphabet,
+29:50 say in English.
+29:51 Here is the letter A.
+29:53 Suppose you want to use this letter in an email,
+29:56 a text message,
+29:56 or any other program.
+29:58 What is the computer doing underneath the hood?
+29:60 How can the computer store a capital letter A in English if at the end of the
+30:05 day all the computer has access to is a source of electricity from the wall or from
+30:11 a battery,
+30:12 and it has a lot of switches that it can turn on and off
+30:15 and treat the electricity in units of 8 or 32 or 64 or whatever.
+30:21 How might a computer represent a letter A?
+30:26 Yeah,
+30:27 we need to give it an identity,
+30:28 so to speak,
+30:28 as an integer.
+30:29 In other words,
+30:30 at the end of the day,
+30:31 if your entire canvas,
+30:33 so to speak,
+30:34 consists only of zeros and ones,
+30:35 like that is going to be the answer to every question today.
+30:38 You only have zeros and ones as the solution to these problems.
+30:41 We just need to agree
+30:43 what pattern of zeros and ones and therefore what integer,
+30:46 what number shall be used to represent the letter A.
+30:50 And hopefully,
+30:51 When we look at that pattern of zeros and ones in the right context,
+30:54 we'll indeed see it as an A.
+30:56 So if we look inside of a computer,
+30:57 so to speak,
+30:58 in the context of like a text messaging program
+31:00 or a word processor or anything like that,
+31:03 that pattern shall be interpreted hopefully as a capital letter A.
+31:06 But if I open up Mac OS's or Windows or my phone's calculator program,
+31:10 I would want that same pattern of zeros and ones to be interpreted instead
+31:14 as a.
+31:16 If I open up Photoshop,
+31:17 as we'll soon see,
+31:18 I want that same pattern of zeros and ones to be interpreted as a color presumably,
+31:23 not to mention videos and sound and so forth,
+31:25 but it's all just zeros and ones.
+31:27 And so even though I,
+31:28 when writing that chat program a few minutes ago,
+31:30 didn't have to worry about telling the computer,
+31:33 oh this is text,
+31:34 this is a number,
+31:35 this is something else,
+31:36 we'll see as we write code ourselves that
+31:38 you as the programmer will Have control over telling
+31:41 the computer how to treat some pattern of zeros and ones telling it this is a number,
+31:45 this is a color,
+31:46 this is a letter or something else.
+31:48 Um,
+31:49 how do we represent the letter A?
+31:51 Well,
+31:51 it turns out a bunch of humans in a room years ago decided that this
+31:55 pattern of zeros and ones shall be known globally as a capital letter English A.
+32:01 What is that number if you do the quick mental math?
+32:04 So indeed 65 because we had a 1 in the 604s place and a 1 in the one's place.
+32:09 So 65,
+32:10 that's just sort of it.
+32:11 It would have been nice if it were just the number 1 or maybe the number 0,
+32:15 but at least after the capital letter A,
+32:17 they kept things consistent such that
+32:20 if you want to represent a letter B,
+32:22 it's going to be 66.
+32:23 C,
+32:24 it's going to be 67 Y because.
+32:26 The humans in this room,
+32:27 a bunch of Americans at the time,
+32:28 standardized on what's called ASCI,
+32:30 the American Standard Code for Information Interchange.
+32:33 It doesn't matter what the acronym represents,
+32:35 but
+32:35 it was just a mapping.
+32:37 Someone on a piece of paper essentially
+32:38 started writing down letters of the alphabet
+32:40 and corresponding numbers so that computers subsequently could all speak
+32:45 that same standard representation and Here's an excerpt thereof.
+32:48 In this case we're seeing 7 bits' worth,
+32:50 but eventually we ended up using 8 bits in total to represent letters,
+32:54 and some of these are fairly cryptic,
+32:56 maybe more on those other time,
+32:57 but down here if we highlight just one column,
+32:59 we'll see that indeed on this cheat sheet 65 is capital A,
+33:03 66 is B,
+33:04 67 is C,
+33:05 and so forth.
+33:07 So why don't we do a little exercise here.
+33:09 What
+33:10 pattern of zeros and ones do I see here?
+33:13 I've got 3 bytes,
+33:14 so 3 sets of 8 bits,
+33:16 and even though there's no placeholders now over the columns,
+33:19 what is this?
+33:21 Number
+33:23 It's 60.
+33:25 Yeah,
+33:26 so we've got the 1s,
+33:27 2s,
+33:27 4s,
+33:28 8s,
+33:29 1632,
+33:31 64s column.
+33:33 So indeed this is going to be the number
+33:34 72,
+33:35 72.
+33:36 This is not what computer scientists spend their day doing.
+33:38 This is just to reinforce what it is we just looked at,
+33:40 and I'll spoil it.
+33:41 The rest of these numbers are 72,
+33:43 73,
+33:44 33,
+33:45 and anyone in this room could have done that if you took out a piece of paper,
+33:48 figured out what the columns are,
+33:49 and just do a bit of quick or.
+33:50 Of mental or written math,
+33:52 but this is to say,
+33:53 suppose that you just got a text message or an email
+33:56 that if you had the ability to look underneath the hood of the computer and
+33:59 see what pattern of zeros and ones did you just receive over the internet,
+34:04 suppose that pattern of zeros and ones was 3 bytes of bits,
+34:08 which when you do the math are the numbers 72,
+34:11 73,
+34:11 33.
+34:12 Well,
+34:12 here's the cheat sheet again.
+34:13 What message did you just get?
+34:16 Yeah,
+34:16 so it's high.
+34:17 Why?
+34:18 Because 72 is H and 73 is I.
+34:21 Now some of you said hi fairly emphatically why.
+34:24 Well,
+34:24 33 turns out you wouldn't know this unless you looked
+34:27 it up or someone told you is an exclamation point.
+34:30 So literally if you were to text someone like right now,
+34:32 if you haven't already,
+34:33 HI exclamation point in all caps.
+34:36 You would essentially be sending 3 bytes of information somehow over the internet
+34:41 to that recipient and because their phone similarly understands ASCI
+34:45 because it was programmed years ago to do so,
+34:48 it knows to show you HI exclamation point and not a number,
+34:53 3 numbers no less,
+34:54 or colors or something else altogether.
+34:56 So here we then have high,
+34:58 3 digits in a row here.
+35:00 What else is worth noting here?
+35:02 Well,
+35:02 there's some fun
+35:03 sort of trivia embedded even in this cheat sheet.
+35:06 So here again is A,
+35:07 B,
+35:08 C,
+35:08 D,
+35:08 E,
+35:08 F,
+35:09 G,
+35:09 and so forth,
+35:09 65 on down.
+35:11 Let me just highlight over here
+35:13 the lowercase letters 97,
+35:15 98,
+35:16 99,
+35:17 and so forth.
+35:18 If I go back and forth,
+35:20 does anyone notice
+35:21 the consistent pattern between these two?
+35:25 Yeah,
+35:25 so the lowercase letters are 32
+35:28 away
+35:29 from the uppercase letters.
+35:30 Well,
+35:30 how do we know that?
+35:31 Well,
+35:31 97 minus 65 is,
+35:33 yeah,
+35:33 32.
+35:34 98 minus 66 is OK,
+35:37 32,
+35:38 and that pattern continues.
+35:39 What does this mean?
+35:40 Well,
+35:41 computers know how to do this.
+35:42 Most normal humans don't need this information,
+35:44 but what it means is if you are representing
+35:47 in binary
+35:48 with your transistors on and off representing some pattern,
+35:50 and this is the pattern
+35:51 representing capital letter A,
+35:53 which is why we have a 1 in the 604 space and a 1
+35:56 in the ones place,
+35:57 how does a computer go about lower casing this same letter?
+36:02 Yeah.
+36:05 Perfect.
+36:06 All the computer has to do is change this one bit in the 32's place to a 1,
+36:12 because that has the effect mathematically per our discussion of adding
+36:15 the number 32 to whatever it is.
+36:17 So it turns out you can force text from upper case
+36:19 to lower case or back by just changing a single bit.
+36:23 Inside of that pattern
+36:25 of 8 bits in total.
+36:27 All right,
+36:27 why don't we maybe reinforce this with another quick exercise?
+36:30 We have an opportunity perhaps here for um maybe to give
+36:32 you some stress balls right at the very start of class.
+36:34 Could we get 8 volunteers to come up
+36:37 on stage,
+36:37 maybe over here
+36:39 and over here and over here on the left.
+36:42 Let me go all the way on the right.
+36:43 Uh,
+36:44 let's see.
+36:44 OK,
+36:45 the high hand here,
+36:46 the,
+36:46 the hand that's highest there,
+36:47 yes,
+36:47 we're making eye contact.
+36:49 How about all the way,
+36:50 what,
+36:50 wait,
+36:50 let's see,
+36:51 let's go here in the crimson
+36:52 sweatshirt here,
+36:53 and how about in the,
+36:54 the white shirt here?
+36:55 Come on up.
+36:56 Did I count correctly?
+36:58 Let's say
+37:00 Come on down.
+37:01 The 8 of you.
+37:02 I,
+37:03 I didn't count right,
+37:03 did I?
+37:04 123456.
+37:07 It's ironic that I'm not counting correctly here.
+37:09 How about on the left in gray?
+37:10 OK.
+37:11 Oh,
+37:11 OK,
+37:13 in black here.
+37:13 Come on down.
+37:14 All right,
+37:14 hopefully this is 81234567.
+37:20 7.
+37:20 I'm pretty sure.
+37:21 OK,
+37:21 8,
+37:21 there we go.
+37:22 All right.
+37:23 So let's go ahead and do the following exercise.
+37:25 I've got some sheets of paper preprinted here.
+37:27 If each of you indeed want to do exactly what
+37:29 you're doing and line up from left to right,
+37:31 each of you is going to represent a placeholder essentially.
+37:34 So we have over here the ones place
+37:37 all the way over here,
+37:38 and then we have the choose place.
+37:40 And the 4th place
+37:42 and the eights.
+37:44 16
+37:46 32,
+37:47 64,
+37:48 128,
+37:49 and we come bearing a microphone.
+37:51 If each of you want to say a quick hello,
+37:52 your name,
+37:53 maybe your dorm or house,
+37:54 and something besides computer science that you're studying or want to.
+37:58 Hi,
+37:58 I'm out.
+37:59 OK.
+37:60 I'm Alison.
+38:01 I'm a freshman in Mathews,
+38:03 and,
+38:05 um,
+38:05 I like climbing and I'm thinking of CS and Econ.
+38:09 2.
+38:10 Hi,
+38:10 I'm Lily.
+38:11 I'm in Hurlbut this year and I'm thinking of doing CS in government.
+38:16 Nice to meet you.
+38:18 Hi,
+38:18 hi,
+38:18 I'm Sean.
+38:19 I'm in Candidate Hall and I'm thinking of doing astrophysics and CS.
+38:23 Welcome.
+38:24 Hi,
+38:24 I'm Jordan.
+38:25 I'm doing applied math with a specialization in CS and Econ,
+38:30 and,
+38:30 um,
+38:31 I'm in Widsworth,
+38:32 and I like going to the gym.
+38:35 16.
+38:36 Hi,
+38:36 I'm Shiv.
+38:37 I'm studying Mac and I'm in Canada.
+38:40 Nice.
+38:41 Hi,
+38:42 I'm Sophia.
+38:43 I'm in Thayer and I'm thinking of doing electrical engineering.
+38:47 Welcome.
+38:48 Hi,
+38:48 my name is Marie,
+38:49 and I'm in Canada B and I really like CS physics and astrophysics.
+38:56 Hi,
+38:56 I'm Alyssa.
+38:57 I'm in Holworthy.
+38:59 I'm also thinking of studying math or physics,
+39:01 and I also like to climb.
+39:04 Nice.
+39:04 Welcome to you all.
+39:05 So on the backs of their sheets of paper,
+39:07 they have a little cheat sheet that's describing what
+39:09 they should do in each of 3 rounds.
+39:11 We're going to spell out together a three letter word.
+39:14 You all as the audience have a cheat sheet above you that represents numbers,
+39:17 2 letters.
+39:18 These folks don't necessarily know what they're spelling.
+39:20 They only know what they individually are spelling.
+39:22 So if your sheet of paper tells you to represent a zero in a given round,
+39:26 just kind of stand there awkwardly,
+39:28 no hands up.
+39:28 But if you're told on your sheet of paper to represent a 1,
+39:32 just raise a single hand to make obvious to the
+39:33 audience that you're representing a 1 and not a zero.
+39:36 And the goal here is to figure out what we are spelling using this system called
+39:40 ASCI.
+39:40 All right,
+39:41 round 1,
+39:42 execute.
+39:45 What number is this here?
+39:50 I'm hearing
+39:52 you can just shout it out.
+39:52 What number?
+39:54 66 or B.
+39:55 So you're spelling
+39:57 B.
+39:57 All right,
+39:58 hands down.
+39:58 Round 2.
+40:02 More math.
+40:06 Feel free to shout it out
+40:08 Oh,
+40:08 I heard it,
+40:08 yeah,
+40:09 79,
+40:09 which is,
+40:10 oh,
+40:11 OK,
+40:11 so we have BO.
+40:13 Hands down,
+40:14 3rd and final round,
+40:15 execute.
+40:17 Number
+40:21 Yes,
+40:22 87,
+40:22 which is the letter?
+40:24 W,
+40:24 which spells?
+40:26 Bow,
+40:27 if you want to take your bow now.
+40:30 Ah,
+40:30 OK,
+40:30 here we go.
+40:31 You guys can keep those.
+40:34 OK,
+40:35 thank you.
+40:35 All right,
+40:36 you guys see that back.
+40:37 Thank you to our volunteers here.
+40:39 Very nicely done.
+40:40 We indeed spelled out bow,
+40:42 and that's just because we all standardized on
+40:44 representing information in exactly the same way,
+40:46 which is why when you type BOW on your phone or your computer,
+40:50 the recipient sees the exact same thing.
+40:52 But what's noteworthy in this discussion is that you
+40:55 can't spell a huge number of words like,
+40:57 yeah,
+40:58 English,
+40:58 OK,
+40:58 we've got that covered.
+40:59 But odds are you're noticing,
+41:01 depending on your own background what human languages you read or speak yourself,
+41:06 that a whole bunch of symbols might be missing from your keyboard.
+41:08 For instance,
+41:08 we have accented characters here in a lot of Asian languages.
+41:11 There's so many more glyphs than we could have even
+41:13 fit in that cheat sheet of numbers and letters.
+41:16 And so
+41:16 ASCI is not the only system that the world uses.
+41:19 It was one of the earliest,
+41:21 but we've moved on in modern times to a super set of AI that's generally.
+41:25 Known as Unicode,
+41:27 and Unicode uses so many more bits than AI that we even have room
+41:31 for all of these little things that we seem to send constantly nowadays.
+41:35 These are obviously images that you might send with your phone or your computer,
+41:38 but they're technically characters.
+41:41 They're technically just patterns of zeros and ones that have similarly
+41:44 been standardized around the world to look a certain way,
+41:48 but they're this is an emoji keyboard in the sense that.
+41:51 You're sending
+41:52 characters.
+41:53 You're not sending images per se.
+41:55 The characters are displayed as images,
+41:56 obviously,
+41:57 but really these are just like characters in a different font,
+41:60 and that font happens to be very colorful and graphical as well.
+42:04 So Unicode,
+42:05 instead of using just 7 or 8 bits,
+42:08 which if you do the quick mental math,
+42:09 if Asky only used 7 or let's say 8 bits,
+42:13 how many possible characters can you represent in Asky alone?
+42:17 256 because if we do that quick mental math,
+42:20 28,
+42:20 256 possibilities like that's it.
+42:22 That is,
+42:22 that's enough for English because you can cram all the uppercase letters,
+42:25 the lower case letters,
+42:26 the numbers,
+42:27 and a whole bunch of punctuation as well,
+42:29 but it's not enough for certain other punctuation symbols,
+42:32 not to mention many other human languages.
+42:34 And so the Unicode Consortium.
+42:36 Its charge in life has been to come up
+42:37 with a digital representation of all human language,
+42:41 past,
+42:42 present,
+42:42 and hopefully future by using not just 7 or 8 bits but maybe 16 bits per character,
+42:48 24 bits,
+42:49 or heck,
+42:50 even 32 bits per character.
+42:52 And per before,
+42:53 if you've got as many as 32 bits available to you,
+42:55 you can represent what,
+42:56 like 4 billion characters in total,
+42:59 and that's just one.
+42:60 One of the reasons why these emoji have
+43:01 kind of exploded in popularity and availability,
+43:05 there's just so many darn patterns like what else are we
+43:07 going to do with all of these zeros and ones.
+43:09 But more importantly,
+43:10 emoji have been designed to really represent people and places and
+43:14 things and emotions in a way that transcends human language.
+43:18 But even then they're somewhat open to interpretation.
+43:21 In fact,
+43:21 here's a pattern of I think 32 zeros and ones.
+43:25 Guessing no one's going to do the quick mental math here,
+43:27 but this represents what decimal number if we do in fact do out the
+43:30 math with that's being the ones place all the way over to the left,
+43:33 well,
+43:33 that's the number 4 billion,
+43:34 36,
+43:35 991,106.
+43:38 Who knows what that is?
+43:39 It's not a,
+43:40 and it's nothing near A upper case or lower case,
+43:43 but it is among the most popular emoji that you might send typically on your phone,
+43:47 laptop,
+43:48 or other device,
+43:49 namely.
+43:50 This thing here face
+43:52 with tears of joy,
+43:53 which odds are you've sent or received recently,
+43:56 but interestingly,
+43:57 even though many of you might have iPhones and see
+43:60 and send the same image,
+44:01 you'll notice that if you see a friend who's got Android or some other device,
+44:05 maybe you're using uh Meta's messenger program
+44:07 or Telegram or some other messaging service.
+44:10 Sometimes these emoji look a little bit different.
+44:12 Why?
+44:13 Because what a Unicode has done is they decided there shall exist
+44:17 an emoji known as excuse me,
+44:20 faced with tears of joy.
+44:22 Then Apple and Google and Microsoft and others,
+44:25 they're sort of free to interpret that as they see fit.
+44:27 So what you see on the screen here is a recent version from iOS.
+44:31 operating system.
+44:32 Google's version of the same looks a little something like this,
+44:34 and on Telegram if you have animations enabled,
+44:36 the same idea faced with tears of joy is actually animated,
+44:40 but it's the same pattern of zeros and ones in each case,
+44:44 but again they each essentially have different graphical fonts to
+44:47 present to you what each of those images actually is.
+44:51 All right,
+44:52 so those are each,
+44:54 excuse me,
+44:54 images.
+44:58 So
+44:59 those are each images.
+45:01 How is the computer representing them though?
+45:03 At the end of the day we've represented numbers,
+45:06 we've represented letters,
+45:08 but
+45:09 how about these things here colors.
+45:11 So how do we represent
+45:12 red or green or blue,
+45:14 not to mention every other color in between.
+45:17 At the end of the day,
+45:18 we only have one canvas at our disposal,
+45:20 yeah.
+45:22 So integers is the exact same answer as before.
+45:25 We just need to agree on what number do we use for red,
+45:27 what do we use for green,
+45:29 what do we use for blue,
+45:30 and we can come up with some standardized pattern for this.
+45:32 In fact,
+45:33 one of the most common techniques for doing this,
+45:35 and the one of the most common ways to do this in the real
+45:37 world is to use a combination of three colors together some amount of red,
+45:42 some amount of green,
+45:43 and some amount of blue and mix them together to get
+45:46 most any color of the rainbow that you might want.
+45:48 This is sort of a picture of something I grew up with back in the day where in
+45:51 like middle school when we'd watch movies or some kind of show and like in in class,
+45:56 we would kind of uh the projector screen would be over here.
+45:59 This is an old school projector with 3 different lenses,
+46:02 one of which projects some amount of green,
+46:04 some amount of red,
+46:05 some amount of blue,
+46:06 and so long as the
+46:07 lenses are correctly oriented to all point at the
+46:10 same circle or like rectangular region on the screen,
+46:13 you would see any number of colors coming to life in the old school.
+46:17 Video.
+46:18 I still remember all these years later we would kind of
+46:20 sit and lean up against it because it was super warm and you could
+46:22 feel it it's an easy way to fall asleep but back in grade school,
+46:25 but
+46:25 we use the same fundamental color system nowadays
+46:29 as well,
+46:29 including in modern programs like Photoshop.
+46:31 So let's abstract that away,
+46:33 focus on just three colors some amount of red,
+46:36 green,
+46:36 and blue,
+46:37 and let's propose for the sake of discussion
+46:39 that we want to mix together like a medium amount of red,
+46:42 a medium amount of green,
+46:43 and just a little bit of blue.
+46:45 For instance,
+46:47 Let's propose
+46:48 that we'll use 72 amount of red,
+46:51 23 amount of green,
+46:54 or 33 amount of blue RGB.
+46:57 Now why these numbers?
+46:58 Well,
+46:59 in the context of ASCI or Unicode,
+47:01 which is just a superset thereof,
+47:03 what is this spell?
+47:05 Hi,
+47:06 but again,
+47:06 if you were instead to open a file containing
+47:09 these 3 numbers or really these 3 bytes of bits
+47:13 in Photoshop,
+47:15 you would hope that they're going to be interpreted not as letters on the screen,
+47:19 but as some the color of a dot on the screen instead.
+47:23 So it turns out that in typically
+47:26 when you have three of these numbers together,
+47:28 each of them is using a single byte,
+47:30 so 8 bits.
+47:31 So you can have 0 red or 255 red,
+47:35 0 green or 255 green or 0 to 255 of blue.
+47:39 So 0 is none,
+47:40 255 is the max.
+47:43 So if we mix these together,
+47:45 imagine just like that projector
+47:47 consolidating these three colors into one central point.
+47:50 Anyone want to guess what you're gonna get if you mix some red,
+47:53 some green,
+47:53 some blue in those amounts and way back?
+47:58 Yeah,
+47:58 you're going to get a dark shade of yellow.
+47:60 I've brightened it up a little bit for the projector here,
+48:02 but you're going to get it roughly this shade of yellow,
+48:04 and we could play with these numbers all day long and get
+48:07 similar results if we want to represent different colors as well.
+48:11 And indeed,
+48:11 whether it's Photoshop or some other program,
+48:13 you can actually combine these amounts in all
+48:16 sorts of ratios to get different colors.
+48:17 So if you had 000,
+48:19 so no red,
+48:20 no green,
+48:21 no blue,
+48:21 take a guess as to what color that's going to be in the computer.
+48:24 So it's gonna be black,
+48:25 like the absence of all three of those colors,
+48:27 but if you mix the maximal amount of each of those 255 red and green and blue,
+48:32 that's gonna give you white.
+48:33 Now if any of you have made web pages before or use programs like Photoshop,
+48:37 you might have seen numbers like 00.
+48:40 Or FF.
+48:41 Long story short,
+48:42 that's just another base system for representing numbers between 0 and 255 as well,
+48:47 but we'll come back to that mint semester when we make some of our own
+48:50 filters,
+48:51 uh,
+48:51 in sort of an Instagram-like way manipulating images of our own.
+48:55 So where are these colors coming from or where can we actually see them?
+48:58 Well,
+48:59 here's just a picture of that same emoji faced with tears of joy.
+49:02 If I kind of zoom in on that and maybe zoom in again,
+49:05 you can start to see if you blow it up enough or
+49:07 if you put your eyes close enough to the device sometimes,
+49:10 you can actually see individual dots or squares.
+49:13 These are generally known as pixels,
+49:16 and they're just the individual dots that collectively compose in
+49:20 which is to say that if each of these dots,
+49:23 which is part of the image,
+49:24 is going to be a distinct color like this one's yellow,
+49:27 this one's brown,
+49:28 and then there's a bunch in between,
+49:29 well,
+49:30 you're using some number of bits to represent each of those pixels' colors.
+49:35 So if you imagine using the RGB system,
+49:38 that's 8 + 8 + 8 bits,
+49:40 so that's 24 bits
+49:42 or 3 bytes,
+49:44 just.
+49:44 To keep track of the color of each and every one of these dots.
+49:48 So now if you think about having downloaded a GIF at some point,
+49:51 a ping,
+49:52 PNG file,
+49:54 a JPEG,
+49:54 or any other file format,
+49:56 it's usually measured in what file size like
+49:58 megabytes typically that means millions of bytes.
+50:01 Why?
+50:02 Because if it's a pretty big photograph or pretty big image,
+50:04 each of those dots takes up at least 3 bytes,
+50:08 it would seem.
+50:09 And if you do out the math,
+50:10 if you've got thousands of dots,
+50:11 each of which uses 3 bytes,
+50:13 you're going to quickly get to megabytes,
+50:15 if not even larger,
+50:16 for things like,
+50:17 say,
+50:17 videos.
+50:18 But again,
+50:18 it's just patterns of zeros and ones and so long as the programmer knows what
+50:22 they're doing and tells the computer how to
+50:24 interpret those zeros and ones and equivalently,
+50:27 so long as the software knows,
+50:29 look at these zeros and ones and interpret them as numbers or letters or colors,
+50:34 we should see what we intended to represent.
+50:37 All right,
+50:37 so that's num that's uh colors and images.
+50:41 What about how many of you kind of played with
+50:42 these little flip books as a kid where they've got like
+50:44 100 different little pictures and you flip through them really quickly
+50:47 and you see what looks like animation in book form?
+50:50 Well,
+50:50 this is essentially a video,
+50:52 so therefore what is a video or how can you think of what a video is?
+50:56 It's just a whole bunch of like images
+50:58 flying across the screen either on paper or digitally
+51:01 nowadays on your phone or your laptop and
+51:03 that's kind of nice because we're sort of composing
+51:05 more interesting media now based on these lower level
+51:08 building blocks and this is going to be thematic.
+51:10 We literally started with zeros and ones.
+51:12 we worked our way up to letters.
+51:14 We then worked our way up to sort of images and colors and thus images.
+51:17 Now we're up at this level of hierarchy in terms of video because what's a video.
+51:22 It's like 30 images per second flying across
+51:26 the screen or maybe slightly fewer than that,
+51:28 that collectively tricks our mind into thinking we are seeing motion pictures,
+51:32 and that's the old school term for movies,
+51:34 but it literally is what it was.
+51:36 Motion pictures was this film was showing you 30 pictures per second,
+51:40 and it looks like motion,
+51:42 even though you're just looking at images,
+51:43 much like this flip book very quickly one after the other.
+51:47 What about music?
+51:48 Well,
+51:48 how could you go about representing musical notes if again
+51:52 your only ingredients are zeros and ones.
+51:56 Even if you're not a musician,
+51:58 how do you represent music like that on the screen here?
+51:60 Yeah.
+52:01 OK,
+52:02 so the frequency,
+52:02 like the tone that you're actually hearing
+52:04 from the device,
+52:05 what else might weigh in beside besides the frequency of the notes?
+52:09 Yeah.
+52:10 So the speed of the note,
+52:11 maybe the duration,
+52:12 like if you think about a physical piano,
+52:14 like how long you're holding the key down for or not,
+52:16 what else?
+52:18 So the amplitude may be how loud,
+52:19 like how hard did you hit the keyboard to generate that sound.
+52:22 So let me propose at the risk of simplifying,
+52:25 we could represent each of these notes using 3 numbers,
+52:28 maybe 0 to 255 or some other range that
+52:31 represents the frequency or the pitch of the note.
+52:33 Duration and the loudness and so long as the person receiving a file containing all
+52:39 of those zeros and ones knows how to interpret them three at a time,
+52:43 I bet you could share
+52:44 a musical file with someone else that they could hear in exactly the same way
+52:49 that you yourself intended.
+52:52 Let me pause here
+52:54 to see
+52:54 if there's any questions now because we've already built
+52:57 our way up from zeros and ones now to
+52:59 video
+53:00 and sound.
+53:02 Yeah,
+53:02 in front.
+53:06 What the letter like 65 would be and then the number 5.
+53:11 So how does the computer distinguish between the letter 65 and the number 65?
+53:14 It's context dependent.
+53:16 So
+53:16 put simply,
+53:17 and we'll see this as early as next week,
+53:19 the programmer tells the computer
+53:21 how to display the information either as a number or a letter
+53:25 or equivalently once.
+53:26 Programmed,
+53:27 the software knows that when it opens a dot GIF file or jpayEG or
+53:32 something else to interpret those zeros and ones as colors instead of as like.
+53:37 DOCX for Microsoft Word file
+53:40 or the like.
+53:41 Other questions.
+53:43 On any of these representations,
+53:50 yeah,
+53:50 in front like the 1 thing like really briefly.
+53:50 Sure,
+53:51 so can we go on base 10 and base 2?
+53:52 So base 10 is like literally the numbers you and I use every day.
+53:56 It's base 10 in the sense that you have 10 digits at your disposal,
+53:60 0 through 9,
+54:01 and any numbers you want to represent in the
+54:03 real world must be composed using 0 through 9.
+54:06 The binary system or base 2 is fundamentally the same.
+54:09 It's just the.
+54:10 doesn't have access to 2
+54:12 through 9.
+54:13 It only has access to 0 and 1.
+54:15 But much like the light bulbs I was displaying here,
+54:18 you can simply ascribe different weights
+54:20 to each of the digits so that instead of it being as much as the one's place,
+54:25 the tens place,
+54:25 and the hundreds place,
+54:26 if we more modestly say the one's place,
+54:28 the two's place,
+54:29 the four's place,
+54:30 we can.
+54:30 The same system
+54:31 in binary you might need to use more digits to count
+54:35 as high because in 255 you can just write 255.
+54:39 That's 3 digits in decimal.
+54:41 But in binary we've seen you need to use 8 such digits,
+54:45 which is more,
+54:46 but it's still much better than unary,
+54:47 which would have had 255 light bulbs on.
+54:51 Instead.
+54:54 And they like.
+54:57 Is binary and base 2 the same thing?
+54:58 Yes,
+54:59 just like base 10 and decimal are the same thing as well,
+55:02 and unary and base 1
+55:04 are the same thing as well.
+55:06 All right,
+55:06 so let me just stipulate that even though we sort of
+55:08 took this tour quickly at the end of the day,
+55:10 computers only have zeros and ones at their disposal.
+55:12 So again,
+55:13 the answer to any question is to how can we represent.
+55:16 X is going to somehow involve permuting those zeros and ones
+55:20 into patterns or equivalently into the numbers that they represent.
+55:24 But if we now have a way to represent all inputs in the world,
+55:27 be it letters,
+55:28 numbers,
+55:28 images,
+55:29 videos,
+55:29 anything else,
+55:30 and get output from some problem solving process,
+55:33 like how do we actually solve problems?
+55:35 Well,
+55:35 the secret sauce in the middle here is another term
+55:37 that you've probably heard in the real world nowadays,
+55:39 which is that of algorithm.
+55:41 step by step instructions for solving some problem.
+55:44 So this ultimately is what computer science really is about too.
+55:48 It's not just representing information but somehow processing it,
+55:51 doing something interesting with it to actually solve the problem that you've
+55:54 been provided as input so you can output the correct answer.
+55:58 Now there's all sorts of algorithms implemented in
+56:00 our phones and in our Macs and PCs,
+56:02 and that's all software is.
+56:04 It's an implementation in.
+56:05 Code,
+56:06 be it C++ or Java or anything else,
+56:09 other languages exist too
+56:11 in
+56:12 code that the computer understands,
+56:14 but it's still just step by step instructions.
+56:16 And among the things we'll learn in CS 50 is how to express yourself in different
+56:19 ways to solve problems not only in different
+56:22 languages but using different methodologies as well,
+56:24 because as we'll see,
+56:25 among the reasons we introduced these several languages is
+56:28 you don't just learn more and more languages.
+56:30 They allow you to solve the same problems.
+56:32 Different languages will allow you to solve different problems and even
+56:35 save you time by being better tools for the job.
+56:39 So here,
+56:39 for instance,
+56:40 on an iPhone is maybe a bunch of contacts,
+56:43 which is presumably familiar where we might have a whole bunch of
+56:45 friends and family and whatnot alphabetized by first name or last name.
+56:49 And suppose we want to find one such person like John Harvard,
+56:51 whose number here might be + 1 94946.
+56:54 82,750.
+56:55 Feel free to call or text him sometime.
+56:58 This is the goal of this problem.
+56:60 If we have our contacts app and I start typing
+57:03 in John's name by first name or last name,
+57:05 the autocomplete nowadays kicks in and it somehow filters the list down from my 10
+57:10 or 100 friends or 1000 friends into just the single directory entry that matches.
+57:15 So here too,
+57:16 back in the days of RG&B.
+57:19 Projectors we had phone books like this here too.
+57:23 I'm pleased to say thanks to our friend Alexis,
+57:25 this is the largest phone book that we've used for this demonstration.
+57:28 This is an old school phone book that's essentially the
+57:30 same thing as our contacts app or address book nowadays,
+57:33 whereby I've got a whole bunch
+57:34 of names and numbers alphabetically sorted by first name or last name,
+57:38 whatever,
+57:39 and corresponding to each of those as a number.
+57:41 So back in the day,
+57:41 and frankly even nowadays in your phone.
+57:44 How do you go about finding someone in a phone book or your contacts app?
+57:48 Well,
+57:48 you could very naively just start at the beginning
+57:50 and look down and just turn one page at a time looking for John Harvard in this case.
+57:56 Now,
+57:56 so long as I'm paying attention,
+57:57 this step by step process
+57:59 will get me to John Harvard.
+58:01 Like this is a correct algorithm,
+58:04 even though you might kind of object to how I'm doing this,
+58:07 why,
+58:08 what's bad about this algorithm?
+58:11 It's just slow.
+58:11 I mean this is crazy slow.
+58:13 If there's like 1000 pages in the songbook,
+58:14 which looks like there are like this could take me as
+58:16 many as 1000 pages or maybe he's roughly in the middle,
+58:19 it's like 500 pages.
+58:20 Like that's crazy.
+58:21 That's really rather slow,
+58:23 especially if I'm going to do this again and again.
+58:24 Well,
+58:25 what if I do it a little smarter grade school,
+58:27 I sort of learned how to count 2 at a time,
+58:28 so 2468,
+58:30 1012,
+58:32 1416,
+58:33 18.
+58:33 Again,
+58:34 if I'm paying attention,
+58:35 I'll get there twice as fast because I'm counting 2 at a time,
+58:38 but is that algorithm step by step correct?
+58:41 And I'm seeing no,
+58:42 but why?
+58:45 I might skip over John Harvard.
+58:46 So just by bad luck and kind of with 50/50 probability,
+58:50 he's going to be sandwiched between two of the pages.
+58:52 Now I don't have to abort this algorithm altogether.
+58:55 I could just,
+58:55 as soon as I get past the J section if we're doing it by first name,
+58:59 I could just double back one page and just make sure that I haven't missed him.
+59:03 So it's recoverable and this algorithm therefore is sort of twice as fast.
+59:07 Mm,
+59:07 plus one extra step maybe to double back,
+59:09 but that's arguably otherwise a bug or a mistake
+59:12 in the algorithm if I don't fix it intelligently.
+59:14 But what did we do back in the day and what does your iPhone or Android phone do?
+59:18 What they typically do is they go roughly to the middle,
+59:20 look physically or virtually down,
+59:23 they see,
+59:23 oh,
+59:23 I'm in the M section,
+59:25 and so which side is John Harber to,
+59:26 to the left or to the right?
+59:29 So he's to the left,
+59:30 so I could literally now.
+59:34 Jesus Christ.
+59:38 We talked about this before class and this might be more,
+59:40 oh my God.
+59:41 There we go.
+59:42 We can tear the problem in half.
+59:44 Thank you.
+59:50 It's been a while.
+59:51 Uh,
+59:51 we can tear the problem in half.
+59:52 We know that John Harvard is to the left,
+59:54 so I can throw
+59:56 half of the problem away if,
+59:58 uh,
+59:58 dramatically,
+59:59 such that I'm now going to from a 1000 page problem
+60:01 to 500 pages instead.
+60:03 What now can I do?
+60:04 I can go roughly to the middle here and maybe I'm in the E section.
+60:07 So I went a little too far back to the left,
+60:09 but I kept it simple and I just divided
+60:11 so that I can conquer this problem,
+60:12 if you will.
+60:13 And if I'm in the E section now,
+60:14 is John Harvard to the left or to the right?
+60:16 To the right,
+60:17 so I can get,
+60:18 Jesus.
+60:22 Tear the problem in half,
+60:24 and now,
+60:25 thank you.
+60:26 So now John Harvard again is going to be in this half.
+60:29 I can throw this half away.
+60:30 So now I've gone from 1000 to 500 to 250,
+60:32 and I can repeat,
+60:33 repeat,
+60:33 repeat,
+60:34 down to 125,
+60:35 half of that,
+60:36 half of that,
+60:36 half of that,
+60:37 so I'm left with finally
+60:38 just a single page.
+60:40 And John Harvard is hopefully now on this page such that I can call him
+60:43 or not at all,
+60:44 at which point this is.
+60:45 All sort of for naught,
+60:46 but what's powerful about each of those algorithms is that the sort of good,
+60:50 better,
+60:51 and best.
+60:51 Like they all get the job done,
+60:53 conditional on the second one having that little fix just to
+60:56 make sure I don't miss John Harber between two pages,
+60:58 but they're fundamentally different in their efficiency
+61:02 and the quality of their design.
+61:04 And this is really representative of one of the emphases of a class like this.
+61:07 It's not just about writing correct code or getting the job done,
+61:10 but doing it well and doing it quickly,
+61:13 using the least amount of CPU or computing resources,
+61:17 using the minimal amount of RAM,
+61:18 using the fewest number of people
+61:20 using the least amount of money,
+61:22 whatever your constrained resource is,
+61:24 solving a problem better.
+61:26 So that first algorithm,
+61:28 step by step instructions,
+61:29 was all about doing something
+61:31 like this whereby.
+61:33 The first algorithm,
+61:34 if we plot things on a grid like this,
+61:36 we have on the x axis a representation of the size of the problem.
+61:40 So this would mean small problem like 0 pages.
+61:43 This would mean big problem like 1000 pages,
+61:46 and then the Y or vertical axis we have some measurement of time.
+61:49 So this is the number of seconds or the number of page turns,
+61:52 whatever you're.
+61:53 Metric actually is,
+61:54 so this would be not much time at all,
+61:56 so fast this would be a lot of time,
+61:58 so slow.
+61:59 So what's the relationship if we just roughly draw these three algorithms?
+62:03 Well,
+62:03 the first one is technically a straight line,
+62:05 and we'll describe that as n.
+62:06 The slope is N because if you think of N as a number for the number of pages,
+62:10 well,
+62:11 there's a 1 to 1 relationship.
+62:12 And the first algorithm as to how many times I have to turn the page
+62:16 based on how many pages there actually is,
+62:18 and you can think about this in the extreme.
+62:20 If I was looking for someone whose name started with Z,
+62:23 I might have to go through like 1000 darn pages
+62:26 to get to that person whose name started with Z
+62:28 unless again I do something hackish and just kind of cheat and go to the end.
+62:31 If we execute these algorithms again and again in the same way,
+62:34 that's going to be pretty slow.
+62:36 But the second algorithm was.
+62:37 Pretty much twice as fast plus that one extra step potentially,
+62:41 but it's still a straight line because if there's 1000 pages
+62:44 and I'm dividing the problem and doing two pages at a time,
+62:48 well,
+62:48 that's like N divided by 2 steps plus 1,
+62:50 give or take.
+62:51 But it's still a straight line because,
+62:53 but it's still better.
+62:54 Notice if this is the size of the problem,
+62:57 1000 pages for instance,
+62:58 we'll notice that the first algorithm took literally twice as much time.
+63:03 As the second algorithm,
+63:04 so we're doing better already,
+63:05 but the third algorithm fundamentally
+63:08 is going to look something like this.
+63:09 And if you remember your logarithms,
+63:11 so to speak,
+63:11 sort of the opposite of an exponential,
+63:13 this curve
+63:15 is so much
+63:16 lower and flatter,
+63:17 if you will,
+63:18 than either of these two.
+63:19 Mathematically,
+63:20 more on this another time,
+63:21 the slope is going to be like log based 2 of N or just logarithmic in nature,
+63:26 but what it means is that it's growing very.
+63:28 Very,
+63:28 very,
+63:28 very slowly.
+63:30 It's still going up.
+63:30 It's never going to flat line and go perfectly horizontal,
+63:33 but it goes up very slowly.
+63:35 Why?
+63:35 Well,
+63:35 if you think about two towns nearby like Cambridge on this side
+63:38 of the river and the town of Alston on the other,
+63:41 suppose that they still have phone books like this one and they merge
+63:44 their phone books for whatever reason.
+63:45 So overnight we go from a 1000 page phone book to a 2000 page phone book.
+63:50 The first algorithm is going to take literally twice as long.
+63:53 As well the second one because we're only going through it 1 or 2 pages at a time,
+63:57 but if the phone book size doubles
+63:59 from this year,
+64:00 for instance,
+64:01 to next year,
+64:02 you can kind of in your mind's eye think about the green line.
+64:05 It's not going to go up
+64:06 that much higher.
+64:08 Why?
+64:08 Well,
+64:08 practically speaking,
+64:10 even if the phone book becomes 2000 pages long,
+64:13 well,
+64:14 how many more times do you have to tear or divide that problem in half?
+64:19 Just one because you're taking a 1000 page bye out of it or a 500 then a 250,
+64:24 you're taking much bigger bytes out of it than just one or two at a time.
+64:28 And so what computer science and what algorithms and about
+64:31 good design is about is figuring out what is the logic
+64:35 via which you can solve problems not only correctly but efficiently as well.
+64:40 And that then gives us these things called algorithms.
+64:42 And when it comes time to code,
+64:44 which we're about to do too.
+64:45 Code is just an implementation and a language the computer understands
+64:49 of an algorithm.
+64:50 Now this assumes that we've come up with some digital way,
+64:53 that is to say 0 and 1 based way to represent names
+64:57 and numbers,
+64:58 but honestly we already did that.
+64:59 We came up with the ASCI and then Unicode to represent the names,
+65:02 and representing numbers is even easier than that.
+65:04 That's really where we started.
+65:06 So code is just about taking it.
+65:08 Input some standardized representation of names and numbers and spitting out
+65:12 answers and that's truly what iOS and Android are doing.
+65:15 When you start doing autocomplete,
+65:17 they could be searching from the top to the bottom,
+65:20 which is fine if you've only got a few friends and family in the phone.
+65:24 But if you've got 1000 or if you've got 10,000 or if it's not a phone book anymore,
+65:28 it's some database with lots and lots of data.
+65:30 Well it's.
+65:31 to reason that it'd be nice maybe if the computer kept it
+65:34 all alphabetized just like that book and jumped to the middle,
+65:38 then the middle of the middle,
+65:39 then the middle of the middle of the middle and so forth.
+65:41 Why?
+65:42 Because the speed is going to be much,
+65:45 much faster,
+65:45 logarithmic in nature and not linear,
+65:48 so to speak,
+65:49 in nature,
+65:49 but we'll revisit those topics as well.
+65:51 But for now,
+65:52 before we get into actual code.
+65:54 Let's talk for a moment about
+65:56 pseudo code.
+65:57 So pseudo code is not one formal thing,
+65:59 but every human will come up with their own way of representing pseudo code.
+66:02 It's an English-like or human-like formulation of
+66:05 step by step instructions just using terse
+66:08 correct
+66:09 English or whatever human language.
+66:11 So for instance,
+66:12 if I want to translate what I did somewhat intuitively
+66:14 with that phone book by just dividing in half,
+66:16 dividing in half into step by step instructions,
+66:18 I could hand.
+66:19 Or nowadays like a robot or something like that.
+66:22 Well,
+66:23 step one was essentially to pick up the phone book,
+66:24 which I did.
+66:25 Step 2 was I opened to the middle of the phone book in the third and final algorithm.
+66:30 Step 3 was look at the page as I did.
+66:32 Step 4 got a little more interesting even though I didn't verbalize this.
+66:36 Presumably I was asking myself a question.
+66:38 If the person I'm looking for,
+66:39 John Harvard,
+66:40 is on the page,
+66:41 then
+66:42 I would have called him right then.
+66:44 But if you weren't on the page,
+66:46 if you instead were earlier in the book,
+66:48 as did happen,
+66:50 well then I'm going to go to the left,
+66:51 so to speak,
+66:52 but more methodically,
+66:53 I'm going to open to the middle of the left half of the book.
+66:56 Then I'm going to go back to
+66:58 line 3.
+66:60 That's interesting.
+67:00 We'll come back to that in a moment,
+67:02 but else if the person is later in the book,
+67:04 well,
+67:04 I'm going to open to the middle of the right half of the book
+67:07 and then go back
+67:09 to line 3.
+67:10 Now,
+67:10 let's pause here.
+67:12 Why do I keep going back to line 3?
+67:13 This would seem to get me doing the same thing
+67:16 forever,
+67:17 endlessly.
+67:19 But not quite.
+67:24 Why?
+67:24 Yeah,
+67:25 so because I am dividing the problem in half,
+67:29 for instance,
+67:29 on line 6 or line 9 implicitly just based on how I've written this,
+67:33 the problem's getting smaller and smaller and smaller.
+67:36 So it's fine if I keep doing the same logic
+67:38 again and again because if the problem's getting smaller.
+67:40 Eventually it's going to bottom out and I'm gonna have just
+67:43 one person on that page that I want to call and so the algorithm's done.
+67:47 But there is a perverse corner case,
+67:49 if you will,
+67:49 and this is where it's ever more important to be
+67:52 precise when writing code and anticipate what could go wrong.
+67:56 I should probably ask one more question in this code,
+67:59 not just these three.
+68:01 What might that
+68:02 question.
+68:04 Yeah.
+68:08 Yeah,
+68:08 so if John Harvard is not in the book,
+68:10 there's this corner case where what if I'm just wasting my time entirely and
+68:13 I get to the end of the phone book and John Harvard's not there,
+68:15 what should the computer do?
+68:17 Well,
+68:17 as an aside,
+68:17 if you've ever been using your Mac or PC or phone and the thing just freezes
+68:21 or like the stupid little beach ball starts
+68:22 spinning or something like that and you're like,
+68:24 what is going on?
+68:25 Some human at Google or Microsoft or Apple or the like made a mistake.
+68:30 They forgot,
+68:30 for instance,
+68:31 that 4th uncommon but possible.
+68:34 Situation wherein if they don't tell the computer how to handle it,
+68:37 the computer's effectively going to freak out and do something
+68:40 undefined like just hang or reboot or do something else.
+68:44 So we do want to add this else
+68:46 quit altogether.
+68:48 So you have well defined behavior and truly think that the next time
+68:51 your computer or phone spontaneously reboots or dies or does something wrong,
+68:55 it's probably not your fault per se.
+68:58 It's some other human elsewhere did not.
+69:00 Correct code they didn't anticipate cases like these.
+69:04 But now let's use some terminology here.
+69:06 There's some salient ideas that we're going to see in scratch and
+69:09 C and Python and these other languages I alluded to earlier.
+69:12 Everything I've just highlighted here
+69:14 henceforth we're gonna think of as functions.
+69:16 Functions are verbs or actions that really get some small piece of work done for you.
+69:22 Functions are verbs or actions.
+69:24 Here though highlighted is the beginning of what we'll call.
+69:26 Conditions,
+69:27 conditionals like a fork in the road.
+69:29 Do I go this way?
+69:30 Do I go this way,
+69:31 or some other way altogether?
+69:32 How do you decide what road to go down?
+69:35 We're going to call these questions you ask yourself
+69:38 Boolean expressions,
+69:39 named after a mathematician Bull,
+69:41 and a boolean expression is just a question that has a yes or no
+69:44 answer or a true or false answer or a 1 or zero answer.
+69:49 Just it's a binary state,
+69:51 yes or no typically.
+69:53 Otherwise we have this go back to go back to,
+69:56 which is what we're generally kind of
+69:57 call a loop which somehow induces cyclical behavior
+70:00 again and again
+70:02 and those functions and those conditionals,
+70:04 boolean expressions and loops and a few other concepts are pretty
+70:07 much what will underlie all of the code that we write,
+70:10 whether it is in
+70:11 scratch,
+70:12 C,
+70:12 or something else altogether.
+70:14 But we need to get to that point
+70:16 and in fact,
+70:17 let's go and.
+70:18 Infer what this program here does.
+70:21 At the end of the day,
+70:22 computers only understand zeros and ones,
+70:24 so I claim here is a program of zeros and ones.
+70:27 What does it do?
+70:31 Anyone want to guess?
+70:32 I mean,
+70:32 we could spend all day converting all of these zeros and ones to numbers,
+70:35 but they're not gonna be numbers if it's code.
+70:37 What do you think?
+70:39 That's amazing.
+70:40 It does in fact print
+70:43 hello world.
+70:45 All right,
+70:45 so no one except like maybe you and me and a few others in the room should know,
+70:49 and that's probably guess admittedly or advancing on the slide,
+70:52 but why is that?
+70:52 Well,
+70:52 it turns out that not only do computers standardize information,
+70:56 data like
+70:57 numbers and letters and colors and other things,
+70:59 they also standardize instructions.
+71:01 And so if you've heard of companies like Intel or AMD or Nvidia or others,
+71:07 among the things they do is they decide as a
+71:08 company what pattern of zeros and ones shall represent what.
+71:13 and it's very low level functionality.
+71:15 Those companies and others
+71:17 decide that some pattern of zeros and ones means
+71:19 add two numbers together or subtract or multiply.
+71:23 Another pattern might mean load information from
+71:25 the computer's hard drive into memory.
+71:27 Another might mean store it somewhere else.
+71:29 Another might mean print something out to the screen.
+71:32 So nested somewhere in here,
+71:34 and admittedly I have no idea which pattern I'll find because it's
+71:37 not interesting enough to go figure it out at this level,
+71:40 says print.
+71:40 And somewhere in there,
+71:42 like this gentleman proposed,
+71:43 I bet we could find the representation of H,
+71:46 which was 72
+71:48 and E and L and L and O and everything that
+71:51 composes hello world because as it turns out in programming circles,
+71:54 the very first program that students typically write
+71:57 is that of hello world.
+71:59 Now this one here
+72:00 is written
+72:01 in a much more intelligible way,
+72:03 even if you're not a programmer,
+72:04 odds are if I asked you what does this program do,
+72:07 you would have said.
+72:09 Oh hello world,
+72:10 even though there's a lot of clutter here,
+72:12 like no idea what this is until next week in main void that looks cryptic.
+72:15 There's these weird curly braces which we rarely use in the real world,
+72:18 but at least I understand a few words like hello and world,
+72:22 and this is kind of familiar print F,
+72:23 but it's not print,
+72:24 but it's probably the same thing.
+72:26 So here too is an example of this
+72:28 hierarchy back in the day,
+72:30 in the earliest days of computers,
+72:32 humans were writing code by representing.
+72:34 Zeros and ones.
+72:35 If you've ever heard your parents talk about punch cards or the like,
+72:37 you're effectively representing patterns that tell the computer what to do
+72:41 or what to represent like literally holes and paper.
+72:44 Well,
+72:44 pretty quickly early on this got really tedious,
+72:46 only writing code at such a low level,
+72:48 so someone decided,
+72:49 you know what,
+72:50 I'm going to put in the effort.
+72:51 I'm gonna figure out what patterns of zeros and ones I can put together
+72:55 so as to be able to convert something more
+72:58 user friendly.
+72:60 To those zeros and ones and as a teaser for next week,
+73:03 that person invented the first compiler.
+73:05 A compiler is just a program that translates one language to another,
+73:08 and more modernly,
+73:09 this is a language called C which we'll spend
+73:11 a few weeks on together because it's so fundamental
+73:14 to how the computer works.
+73:15 Even this is going to get tedious by like week 6 of the class,
+73:19 and this is gonna get stupid,
+73:20 this is gonna get annoying,
+73:21 this is gonna get cryptic.
+73:22 We're just gonna write print hello on the screen
+73:25 in order to use a different language called Python.
+73:27 Why?
+73:28 Because someone wrote in C.
+73:30 A program that can convert Python,
+73:33 this is a white lie to C,
+73:35 which can then be converted to zeros and ones and so forth.
+73:38 So in computing there's this principle of abstraction
+73:41 where we start with the basics and thank
+73:42 God we can all trust that someone else
+73:44 solved these really hard problems way long ago.
+73:48 Then they wrote programs to make it easier.
+73:50 We wrote programs to make it easier.
+73:51 You can now write code like I did with the chatbot to make things even easier.
+73:55 Why?
+73:55 Because OpenAI and other companies have abstracted away a lot of the lower level.
+73:60 Implementation details and that's where I think this stuff gets really exciting.
+74:03 We can stand on the shoulders of others so long as we know how
+74:06 to use and assemble these kinds of building blocks.
+74:10 And speaking of building blocks,
+74:11 let's start here.
+74:12 Now odds are some of you might have started
+74:13 here in like grade school playing with scratch,
+74:15 and it's great for like after school programs,
+74:17 learning how to program,
+74:18 and you probably used it
+74:20 this language to make games and graphics and just maybe playful.
+74:23 Art or the like,
+74:24 but in Scratch,
+74:25 which is a graphical programming language designed about 20 years ago
+74:28 from our friends down the road at MIT's Media Lab,
+74:31 it represents pretty much everything we're going to
+74:34 be doing fundamentally over the next several weeks in
+74:37 more modern languages like C and Python,
+74:40 more textual languages if you will.
+74:42 I bet I could ask the group here what does this program do when you click a green flag.
+74:47 Well,
+74:47 it says
+74:48 hello world on the screen,
+74:50 because with Scratch,
+74:51 you have the ability to express yourself with functions
+74:53 and loops and conditionals and all of this,
+74:55 but by using
+74:57 drag and drop puzzle pieces.
+74:59 So what we're about to do is this.
+75:00 We're going to go on my screen to scratch.mit.edu.
+75:03 It's a browser-based programming environment,
+75:05 and we're only going to spend one week,
+75:06 really a few days in CS 50 on this language,
+75:09 but the overarching goal is to one,
+75:12 make sure everyone's comfortable applying some
+75:14 of these building blocks and actually.
+75:15 Developing something that's interesting and visual and audio as well,
+75:19 but to also give us some visuals that we can rely on and fall back on
+75:23 when all of those curly braces and parentheses and
+75:25 sort of stupid syntax comes back that's necessary in
+75:29 many languages but can very quickly become a distraction
+75:32 early on from the interesting and useful ideas.
+75:35 So what we're about to see is this in a browser.
+75:37 This is the scratch programming environment and there's
+75:40 a few different parts of this world.
+75:41 This is the blocks palette,
+75:42 so to speak.
+75:43 Uh,
+75:43 that is to say there's a bunch of puzzle pieces or building blocks that represent
+75:48 functions and conditionals and and uh loops and other such constructs.
+75:52 There's going to be the programming area here where you can
+75:55 actually write your code by dragging and dropping these puzzle pieces.
+75:58 There's a whole.
+75:58 whole world of sprites here by default scratch is
+76:02 and is a cat by design,
+76:04 but you can make scratch look like a dog,
+76:06 a bird,
+76:07 a garbage can,
+76:07 or anything else,
+76:08 as we'll soon see.
+76:09 And then this is the world in which Scratch itself lives.
+76:12 So Scratch can go up,
+76:13 down,
+76:13 left,
+76:13 right,
+76:14 and generally be animated within that world.
+76:16 For the curious,
+76:17 kind of like high school geometry class,
+76:19 there's sort of this XY plane here,
+76:20 so 00 would be in the middle,
+76:22 0 180 is here,
+76:24 0.
+76:25 180 is here.
+76:27 Uh,
+76:27 -240,
+76:28 0 is here,
+76:29 and 240 0 is here.
+76:31 Generally you don't need to worry about the numbers,
+76:33 but they exist so that when you say up or down,
+76:36 you can actually tell the program go up one pixel or 10 pixels
+76:39 or 100 pixels so that you have some definition of what this world
+76:43 actually is.
+76:45 All right,
+76:45 so let's actually put this to the test.
+76:47 Let me go ahead here and flip over to in just a moment.
+76:51 The actual Scratch website
+76:54 whereby
+76:55 I'm gonna have on my screen in just a moment,
+76:57 that same user interface,
+76:59 once I've logged in.
+77:01 That via which I can actually write some code of my own.
+77:04 Let me go ahead and zoom in on the screen a little
+77:06 bit here and let's make the simplest of these programs first.
+77:09 Maybe a program that simply says he world.
+77:11 Now at a glance,
+77:12 it's kind of overwhelming how many puzzle pieces there are,
+77:14 and honestly,
+77:15 even over 20 years I've never used them all,
+77:17 and MIT occasionally adds to it.
+77:18 But the point is that they're color coded
+77:21 to resemble the type of functionality that they offer
+77:23 and also it's meant to be the sort of thing where you can.
+77:26 Kind of scroll through
+77:27 and get a visual sense of like what you could do and
+77:29 then figure out how you might assemble these puzzle pieces together.
+77:33 So I'm going to go under this yellow or orangeish category here to begin with.
+77:38 So there exists in the world of Scratch,
+77:40 not quite the same jargon that I'm using now functions
+77:43 and conditionals and loops that's more of the programmer's way.
+77:46 This is more of the child friendly way,
+77:48 but it's really the same idea
+77:49 under events.
+77:50 You have puzzle pieces that represent things that can happen
+77:54 while the world is running.
+77:56 So for instance,
+77:57 the first one here is sort of the canonical when the green flag is clicked.
+78:00 Why is that relevant?
+78:01 Well,
+78:01 in the two dimensional world that Scratch lives in,
+78:04 there's a stop sign which means stop,
+78:06 and there's a green flag which means go.
+78:07 So I can therefore drag one of these puzzle pieces
+78:10 over here so that when I click that green flag,
+78:13 the cat will in fact do something for me.
+78:16 Doesn't really matter where I drop it so long as it's somewhere in the middle here.
+78:19 I'm gonna go ahead and let go.
+78:20 Now I want the look of the cat to change.
+78:23 I want to see like a cartoon speech bubble come out for now,
+78:26 so I'm going to go under looks here
+78:28 and there's a bunch of different ways to say things and think things.
+78:31 I'm gonna Keep it simple and just drag this one here.
+78:33 And now notice when I get close enough to that first puzzle piece,
+78:37 they're sort of magnetic and they want to snap together so I
+78:39 can just let go and boom because they're a similar shape,
+78:42 they will lock together automatically
+78:44 and notice too if I zoom in here.
+78:47 The white oval,
+78:48 which by default says hello,
+78:50 is actually editable by me because it
+78:52 turns out that some functions can take arguments
+78:56 or more generally inputs that influence their behavior.
+78:59 So if I kind of click or double click on this,
+79:00 I can change it to the more canonical
+79:02 Hello world or hello David or hello,
+79:05 whatever I want the message to be.
+79:06 I'm going to go ahead and zoom out and now over here at
+79:09 top right notice that I can very simply click the green flag and
+79:13 I'll have written.
+79:14 My first program in Scratch.
+79:16 I clicked the green flag.
+79:17 It said go and now notice it's sort of stuck
+79:20 on that because I never said stop saying go,
+79:22 but that's where I can click the red stop sign and
+79:25 sort of get the cat back to where I want it.
+79:27 So think about for just a moment
+79:29 what it is we just did.
+79:30 So at the one hand we have a very obvious
+79:33 puzzle piece that says say and it said something,
+79:35 but
+79:36 it really is a function,
+79:37 and that function does take an input
+79:39 represented by the white oval here.
+79:41 Otherwise known as an argument or a parameter,
+79:44 but what this really is is just an input to the function.
+79:47 And so we can map even this simple,
+79:49 simple scratch program onto our model of problem solving before with
+79:53 an addition of what we'll call moving forward a side effect.
+79:56 A side effect in a computer program is often something that happens
+80:01 visually on the screen or maybe audibly out of a speaker.
+80:04 It's something that just kind of happens as a result of you
+80:06 using a function like a speech bubble appearing on the screen.
+80:10 So here more generally is what we claimed it represents the solving
+80:14 of a problem and let's just consider what the input is.
+80:16 The input to this problem,
+80:18 say something on the screen,
+80:20 is this white oval here that I typed in Hello world,
+80:23 the algorithm,
+80:24 the step by step instruction.
+80:25 are not something really I wrote like our friends
+80:28 at MIT implemented that purple say block so someone there
+80:32 knows how to get the cat to say something out of its
+80:35 comical mouth.
+80:37 So the algorithm implemented in code is really equivalent to the say function.
+80:41 So a function is just a piece of functionality
+80:44 implemented in code.
+80:46 Which in turn implements an algorithm.
+80:48 So algorithm is sort of the concept
+80:50 and the function is actually the incarnation of it in code.
+80:53 What's the output?
+80:54 Well,
+80:54 hopefully it's the side effect,
+80:56 seeing the speech bubble come out of the cat's mouth like this.
+80:60 All right,
+81:00 so that's
+81:01 one such program,
+81:03 but it's always gonna play and look the same.
+81:05 What if I actually want to prompt the human
+81:08 for their actual name?
+81:09 Well,
+81:10 let me go back to the puzzle pieces here.
+81:12 Let me go ahead and throw this whole thing away,
+81:14 and if you want to delete blocks,
+81:15 you can either right click or control click and choose from a menu,
+81:18 or you can just drag them there and sort of let go,
+81:20 and they'll disappear.
+81:21 I'm going to go back in and get another,
+81:23 another event block,
+81:25 even though I could have reused that same one.
+81:27 I'm going to go ahead and go under sensing now,
+81:30 and if I zoom in over here,
+81:31 you'll see a whole bunch of things like I can sense distance and colors,
+81:34 but more pragmatically I can use this function in blue.
+81:38 Ask something
+81:40 and then wait for the answer.
+81:42 And what's different about this puzzle piece is that it
+81:44 too is just a function it too takes an argument,
+81:47 but instead of having an immediate side
+81:49 effect like displaying something on the screen,
+81:51 it's essentially
+81:53 inside of the computer going to hand me back the response.
+81:57 It's going to return a value,
+81:59 so to speak,
+81:60 and a return value is something that the code can see,
+82:03 but the human can't.
+82:03 A side effect is something the human sees,
+82:06 but a return value is something only the computer sees.
+82:08 It's like the computer is handing me back
+82:10 the user's input.
+82:11 So how does this work?
+82:12 Well,
+82:12 notice,
+82:13 and this is a bit strange,
+82:14 this isn't usually how variables work,
+82:16 but scratch 2 supports variables,
+82:18 and that was a word I used quickly at the very start when we were making the chatbot,
+82:22 a variable like in math,
+82:23 X,
+82:24 Y,
+82:24 or Z just stores some value,
+82:25 but it doesn't have to store a number in code it can store like a human name.
+82:29 So what's going to happen when I use this puzzle piece is
+82:32 that once the human types in their name and hits enter,
+82:34 MIT,
+82:35 or really scratch,
+82:36 is going to store the answer,
+82:38 the so-called return value,
+82:40 in a variable that's designed to be called answer.
+82:43 But as we'll see,
+82:44 you can make your own variables down the line
+82:46 if you want and call them anything you want.
+82:48 But let me go ahead and zoom out.
+82:50 Let me drag this over here.
+82:52 I'm going to use the default question What's your name?
+82:54 But I could certainly change the text there
+82:56 and let me go under looks again.
+82:59 Let me go ahead and grab the say block
+83:02 and let me go ahead and say just for consistency like hello,
+83:05 comma,
+83:06 OK,
+83:07 and now let me go under maybe sensing.
+83:09 I want to say
+83:10 how do I wanna say this answer.
+83:12 Well,
+83:12 notice this the shapes are important.
+83:14 This too is an oval,
+83:15 even though it's not white,
+83:16 but that's just because it's not editable.
+83:17 It's gonna be handed to me
+83:19 by the As function.
+83:21 Let me zoom out and grab a second
+83:24 say block
+83:25 like this,
+83:26 and notice it will magnetically clip together.
+83:28 I don't want to say hello again so I could delete that,
+83:31 but
+83:31 now it's still the same shape even though it's a little smaller.
+83:33 Let me go back to sensing and notice what can happen here.
+83:36 When you have values like words inside of a so-called variable,
+83:41 you can use those instead of manual input at your keyboard
+83:44 and notice it you wants the magnetic slap into place,
+83:46 it'll grow to fit that variable because the shape is the same.
+83:49 And now let's do this.
+83:51 Let me click the green flag at right.
+83:53 I'm seeing quote unquote,
+83:54 what's your name,
+83:55 I'm getting a text box this time,
+83:56 like on a
+83:57 web page,
+83:58 for instance,
+83:58 let me type in my name and watch closely what comes out of
+84:01 the cat's mouth as soon as I click the checkmark or hit enter.
+84:06 Huh,
+84:07 OK,
+84:07 I got my name right,
+84:08 but let me do it once more.
+84:09 Let me stop and start.
+84:10 D A V I D.
+84:13 Enter
+84:14 No,
+84:14 it didn't work.
+84:15 Let me try one other,
+84:16 maybe it's my name.
+84:17 Let's try Kelly.
+84:18 Enter
+84:19 what's missing obviously.
+84:23 So the,
+84:23 the hello,
+84:24 there's a bug,
+84:25 a mistake in this program,
+84:26 but is there like what explains this even if you've never programmed before,
+84:29 intuitively what could explain why I'm not seeing hello?
+84:36 Exactly,
+84:37 it's on two different lines,
+84:38 so it's doing one after the other,
+84:39 so it is happening.
+84:40 It's just you and I as the slowest things in the room are just not
+84:44 seeing it in time because it's happening so darn fast because my computer's so,
+84:48 you know,
+84:48 so new and so fast,
+84:49 it's happening but way too quickly.
+84:51 So how can we solve this?
+84:52 Well,
+84:52 can we solve this in a few different ways,
+84:54 and this is where in Scratch,
+84:56 at least for problems at zero when wherein you'll
+84:58 have an opportunity to play around with it.
+84:60 I can scroll around here and OK,
+85:02 under control
+85:03 I see something like weight,
+85:04 so I can just kind of slow things down and now notice too,
+85:07 if you hover over the middle of two blocks,
+85:09 if it's the right shape,
+85:10 it'll just snap into the middle too or
+85:13 you can just so you know,
+85:14 kind of drag things away to magnetically separate them,
+85:17 but this might solve this,
+85:18 so let me hit stop and then start.
+85:20 DAVID enter.
+85:23 Hello
+85:24 David.
+85:24 All right,
+85:24 that was a little,
+85:25 let's do like maybe 2 seconds to see it again.
+85:28 Green flag,
+85:29 D A V I D E.
+85:30 hello
+85:32 David.
+85:33 All right,
+85:33 it's working better.
+85:35 It's sort of more correct because I'm seeing the hello and the David,
+85:38 but kind of stupid,
+85:40 right,
+85:40 to see one
+85:41 and then the other.
+85:41 Wouldn't it be nice to say it all in one breath,
+85:43 so to speak?
+85:44 Well,
+85:44 here's where we can maybe compose some ideas.
+85:46 So let me get rid of this weight and the additional block.
+85:49 Let's confine our.
+85:50 in just one block,
+85:52 but let me go down to operations
+85:54 where we haven't been before,
+85:56 and this is interesting.
+85:57 There's this bigger oval here that says join two things like apple and banana,
+86:01 and those are just random placeholder words that
+86:03 you can override with anything you want,
+86:05 but they're both ovals and white,
+86:06 which means I can edit them.
+86:08 So let me go ahead and do this.
+86:09 Let me drag this on top of the save block,
+86:12 and this is just gonna therefore uh override
+86:15 the hello I put there.
+86:16 Now I don't wanna say apple or banana,
+86:18 but I do want to say hello,
+86:19 comma.
+86:21 And I then want to say my name.
+86:22 OK,
+86:23 so now I can go back to sensing,
+86:25 go back to answer,
+86:26 drag and drop this here.
+86:28 That'll snap into place and let me zoom in.
+86:31 Now what I've done is take a function and on top of it I nested another function,
+86:35 the join function that takes two arguments or inputs
+86:39 and presumably joins them together as per its name.
+86:42 So let's see what this does for us.
+86:44 Let me click stop and start.
+86:45 I'll type in David,
+86:47 Enter.
+86:48 And it's so close.
+86:50 Now this is just kind of an aesthetic bug.
+86:51 What have I done wrong here?
+86:54 There's no space,
+86:55 so it looks a little wrong,
+86:56 but that's an easy fix.
+86:57 I just need to literally go into the hello block after the comma,
+87:00 hit the space bar so that now when I stop and start again and type in David,
+87:05 now I see something that's closer to the grammar
+87:07 we might typically expect syntactically here.
+87:10 All right,
+87:11 so let's model this after
+87:13 what we just saw earlier.
+87:14 We've now introduced a so-called return value.
+87:17 And this return value is something we can then use in the way we want.
+87:21 It's not happening immediately like the speech bubble.
+87:23 It's clearly being passed to me in some way
+87:26 that I can use to plug in somewhere else,
+87:28 like into that join block.
+87:29 So if we consider the role of these variables playing,
+87:32 let's consider the picture now as follows.
+87:34 If the input now to the first function,
+87:36 the ask block,
+87:37 is what's your name,
+87:38 quote unquote,
+87:39 that's indeed being fed into the ask.
+87:41 Block and the result this time is not a speech bubble.
+87:43 It's not some immediate visual side effect.
+87:46 It is the answer itself stored in a
+87:49 so-called variable as represented by this blue oval.
+87:53 Meanwhile,
+87:54 what I want to do is combine that answer with some text I
+87:58 came up with in advance by kind of stacking these things together.
+88:01 Now visually in scratch,
+88:02 you're stacking them on top,
+88:04 but it's really.
+88:04 You're passing one into the other into the
+88:07 other because much like math when you have the
+88:09 parentheses and you're supposed to do what's inside
+88:11 the parentheses and then work your way out,
+88:13 same idea here.
+88:14 You want to join hello and answer together and whatever that output is,
+88:18 that then becomes the input to the say block which
+88:21 like in math is outside of the joined block itself.
+88:24 So pictorally it might now look like this.
+88:26 There's two inputs to this story.
+88:29 Hello,
+88:30 space and the answer variable.
+88:32 The puzzle piece in question is joined.
+88:33 Its goal in life had better be to give me the full phrase that I want,
+88:38 hello David.
+88:39 Let's shift everything over now because that output is
+88:42 about to become the input to the say block,
+88:44 which itself will now have the so-called side effect.
+88:48 And so this too is what programming and in turn what computer science is about is.
+88:53 Posing with the solutions to smaller problems,
+88:57 solutions to bigger problems using those component pieces,
+88:60 and that's what each of these puzzle pieces represents is a smaller problem
+89:04 that someone else or maybe even you,
+89:06 has already solved.
+89:07 Now we can kind of spice things up here if I go back to
+89:10 scratches interface,
+89:11 we don't have to use just the puzzle piece here.
+89:13 I can do something like this.
+89:14 Let me go ahead and drag these apart and get rid of the same block down here.
+89:17 Just for fun,
+89:18 there's all these extensions that you can add over the internet
+89:21 to your own scratch environment,
+89:22 and if I go to like text to speech down here,
+89:25 I can for instance do a speak block instead of a say block color here in green.
+89:31 I can now reconnect the join block in here and
+89:34 if we could raise the volume just a little bit,
+89:35 let me stop the old version,
+89:37 start the new version,
+89:39 type in my name and hear what Scratch actually sounds like.
+89:43 Hello
+89:44 David.
+89:44 OK,
+89:45 not very catlike,
+89:46 but we can kind of waste some time on this by like dragging the set voice to box,
+89:50 and I can put this anywhere I want
+89:53 above
+89:53 the speak block.
+89:54 So I'm just going to put it here,
+89:55 even though I've already asked a question.
+89:57 Maybe kitten sounds appropriate.
+89:59 Let's try again.
+89:60 D A V I D,
+90:02 meow meow.
+90:03 OK,
+90:04 and then let's see,
+90:06 uh,
+90:06 giant,
+90:07 a little creepier,
+90:08 here we go,
+90:09 DAVID and lastly.
+90:11 Hello,
+90:12 David.
+90:13 All right,
+90:14 little ransom like instead.
+90:15 All right,
+90:15 so that's just some additional puzzle pieces,
+90:17 but really just the same idea,
+90:18 but I like that we've introduced some sounds.
+90:20 So let's do this.
+90:21 Let me go ahead and throw away a lot of those puzzle pieces,
+90:23 leave ourselves with just the one green flag clicked.
+90:26 And play around with some other
+90:28 building blocks that we've seen already thus far.
+90:30 Let me go ahead,
+90:31 for instance,
+90:31 under sound,
+90:32 and let's make the cow actually meow.
+90:34 So it turns out scratch,
+90:35 being a cat by default comes with some sounds by default like meowing.
+90:39 So if we go ahead and click the green flag after programming this
+90:43 program,
+90:43 let's hear what he sounds like now.
+90:47 OK,
+90:47 kind of cute,
+90:48 and if you want it scratch to meow twice,
+90:50 you can just play the game again.
+90:53 And a third time,
+90:55 Alright,
+90:55 but that's gonna get a little tedious,
+90:56 as cute as it is,
+90:57 so I can solve that.
+90:58 Let's just grab 3 of the puzzle pieces and
+91:01 just drag them together and let them connect,
+91:02 and now click the green flag.
+91:06 All right,
+91:06 doesn't,
+91:07 it gets less cute quickly,
+91:08 but maybe we can slow it down
+91:10 so that the cat doesn't sound so,
+91:11 so hungry maybe.
+91:12 Let me go under,
+91:13 uh,
+91:14 let's see,
+91:15 under control,
+91:16 let's grab one of those,
+91:17 wait one second,
+91:18 and maybe plop a couple of these in the middle here,
+91:20 that might help things,
+91:21 and now click the green flag.
+91:25 OK,
+91:26 still a little hungry,
+91:27 but let's see if we change it to 2,
+91:29 and then I change it to 2 down here in both places,
+91:31 let's play it again.
+91:36 OK,
+91:36 cuter,
+91:37 maybe.
+91:38 But now I'm venturing into badly programmed territory.
+91:42 This is correct.
+91:42 If my goal is to get the cat to meow 3 times,
+91:45 pausing in,
+91:46 sorry,
+91:46 3 times,
+91:47 pausing in between,
+91:49 what is
+91:50 bad about this code,
+91:51 even if you've never programmed before though?
+91:54 Yeah,
+91:54 in the middle.
+91:57 Yeah,
+91:57 I literally had to repeat myself 3 times,
+91:59 essentially copy pasting,
+92:00 and frankly I could have been really lazy and I could right click or control click,
+92:03 and I could have chosen duplicate,
+92:05 but generally when you copy paste code or when you duplicate puzzle pieces,
+92:10 probably doing something wrong.
+92:12 Why?
+92:13 It's solving the problem correctly,
+92:15 but it's not well designed,
+92:16 even if for only because when I changed the number of seconds,
+92:19 now I had to change it in two places.
+92:21 So I had one.
+92:22 Initially,
+92:23 then I had to change it to 2,
+92:24 and if you just imagine in your mind's eye having not like 6 puzzle pieces,
+92:28 but 60 or 600 or 6000,
+92:31 you're going to screw up eventually if it's on you to
+92:33 remember to change something here and here and here and here,
+92:35 like you're going to mess up.
+92:37 It's better to keep things simple and ideally centralized
+92:41 by factoring out common functionality and clearly playing sound
+92:45 and waiting is something I'm doing at least twice,
+92:47 if not a third time here as well.
+92:49 So how can we do this better?
+92:50 Well,
+92:51 remember this thing.
+92:52 Loops.
+92:53 Maybe we can just do something a little more cyclically.
+92:55 So I tell the computer to do something once,
+92:57 but I tell it how many times
+92:59 to do that altogether.
+93:00 So notice here by coincidence under control I
+93:03 have a repeat block which doesn't say loop,
+93:05 but that's certainly the right semantics.
+93:07 Let me go ahead and drag the repeat block in and
+93:09 I'll change the 10 to 3 just for consistency here.
+93:12 I'm going to go back to sound.
+93:13 I'm going to go ahead and play sound.
+93:14 Meow until done just as before and just so it's not meowing too fast under control,
+93:20 I'm going to grab a wait one second and keep it inside the loop
+93:23 and notice that the loop here is sort of hugging these puzzle pieces by growing
+93:28 to fill however many pieces I actually cram in there.
+93:32 So now if I click play,
+93:33 the effect is going to be the same,
+93:34 but it's arguably not only correct but also
+93:37 well.
+93:39 Designed,
+93:40 because now if I wanna change the weight,
+93:43 change it in one place,
+93:44 if I want to change the total number of times,
+93:46 change it in one place,
+93:47 so I've modularized the code
+93:49 and made it better designed in this case,
+93:52 but now this is silly because,
+93:54 Even
+93:54 though
+93:55 I want the cat to meow,
+93:57 it feels like any program in which I want this cat to meow,
+93:59 I have to make these same puzzle pieces and connect them together.
+94:02 Wouldn't it be nice to invent the notion of meowing
+94:05 once and then actually have a puzzle piece called meow?
+94:08 So when I want the cat to meow,
+94:09 it will just
+94:10 meow.
+94:11 Well,
+94:11 I can do that too.
+94:12 Let me scroll down to my blocks.
+94:14 Here in pink I'm going to click Make a block and I'm
+94:17 going to literally make a new puzzle piece that MIT didn't think of
+94:20 called meow and I'm going to go ahead and click OK.
+94:24 Now I have in my code area here a define block,
+94:29 which literally means define meow as follows.
+94:32 So how am I going to do this?
+94:34 Well,
+94:34 I'm going to propose that me.
+94:35 Ming just means to play the sound,
+94:38 meow until done,
+94:39 and then wait 1 2nd.
+94:41 And notice now I have nothing inside my actual program
+94:44 which begins when I click the green flag,
+94:46 but notice at top left because I made a block called meow,
+94:50 I now have access to one that I can drag and drop.
+94:53 So now I can drag meow into.
+94:56 This loop
+94:57 and per my comment about abstracting the lower level implementation details away,
+95:03 I'm going to sort of unnecessarily dramatically just move that out of the way.
+95:06 It still exists.
+95:07 I didn't delete it,
+95:08 but now out of sight,
+95:09 out of mind.
+95:10 Now if you agree with me that meow means for the cat to make a sound,
+95:14 we've abstracted away what it means.
+95:16 Mechanically
+95:16 for the cow to say
+95:18 that sound
+95:19 and so we now have our own puzzle piece that I can
+95:21 just now use forever because I invented the meow block already.
+95:25 Now I can do one better than this.
+95:26 It would be nice if I could just tell the meow block how many times I
+95:29 wanted to meow because then I don't need to waste time using loops either myself.
+95:33 So let me do this.
+95:34 Let me zoom out.
+95:35 And let me go back to my defined block.
+95:39 Let me right click or control click and just edit it,
+95:41 or I could delete it and start over,
+95:42 but I'll just edit it
+95:43 and specifically let me say,
+95:45 you know what,
+95:45 let's add an input,
+95:47 otherwise known as an argument to this meow block,
+95:49 and we'll call it maybe N from the number of times I want it to meow.
+95:53 And just to be super clear,
+95:55 I'm going to add a label which has no functional impact,
+95:57 but it just helps me remember what this does.
+95:59 So I'm going to say meow and time.
+96:01 So that when I see the puzzle piece,
+96:02 I know what the N actually represents.
+96:05 If I now click OK,
+96:06 my puzzle piece looks a little different at top left.
+96:09 Now it has the white oval into which I can type or drag input.
+96:12 Notice down here in the defined block,
+96:14 I now see that same
+96:16 input called N.
+96:18 So what I can do now is this.
+96:19 Let me go under control,
+96:21 drag the repeat block here,
+96:23 and I have to do a little switcheroo.
+96:25 Let me disconnect this.
+96:26 Plug it inside of the repeat block,
+96:29 reconnect all of this,
+96:31 and I don't want 10,
+96:32 and heck,
+96:32 I don't even want 3 down here anymore.
+96:34 I can drag this input because it's the right shape
+96:37 and now declare
+96:38 that meowing end times means to repeat the
+96:41 following end times play sound meow until done.
+96:44 Wait 1 2nd and keep doing that and total times.
+96:49 If I now zoom out and scroll up.
+96:51 Notice that my usage of this puzzle piece has changed
+96:54 such that I don't actually need the repeat block anymore.
+96:57 I can disconnect this
+96:59 and heck,
+96:59 I can actually right click and
+97:01 control click and delete it.
+97:03 Just use this under the green flag,
+97:05 change this to a 3,
+97:06 and now
+97:07 I have the essence of this meowing program.
+97:10 The implementation details are out of sight,
+97:13 out of mind.
+97:13 Once they're correct,
+97:14 I don't need to worry about them again,
+97:16 and this is exactly.
+97:17 Scratch itself works.
+97:18 I have no idea how MIT implemented the weight block or the repeat block.
+97:23 Heck,
+97:23 there's a forever block,
+97:24 and there's a few others,
+97:25 but I don't need to know or care because they've
+97:28 implemented those building blocks that I can then implement myself.
+97:31 I don't necessarily know how to build a whole chatbot,
+97:33 but on top of OpenAIs,
+97:36 API,
+97:37 this web-based service,
+97:38 I can implement my own chatbot because they've done the heavy lift of actually.
+97:43 that
+97:43 for me.
+97:44 Well,
+97:44 let's do just a few more examples here.
+97:46 Let's bring the cat all the more to life.
+97:47 Let me throw away the meowing.
+97:49 Let me open up under when green flag clicked.
+97:51 How about that forever block that we just glimpsed?
+97:54 Let me go ahead and now add to the mix what we called earlier
+97:58 conditionals which allow us to ask questions and
+98:01 decide whether or not we should do something.
+98:02 So under this,
+98:03 let me go ahead and under Forever,
+98:05 say if the following.
+98:08 Is true.
+98:10 Well,
+98:10 what boolean expression do I want to ask?
+98:13 Well,
+98:13 let's implement,
+98:14 how about this program and we'll figure out if it works.
+98:16 Uh,
+98:16 under sensing,
+98:17 I'm gonna grab this,
+98:19 uh,
+98:19 a very angled puzzle piece called Touching mouse pointer that is the cursor,
+98:24 and only if that question has a yes answer,
+98:27 do I want to
+98:28 play the sound meow until done.
+98:30 So let me zoom in here and in English.
+98:34 What
+98:34 is this going to implement really?
+98:38 Just describe what this program does less arcanely as the code itself,
+98:42 yeah.
+98:47 Yeah,
+98:47 if you move the mouse over the cat,
+98:49 it will make noise,
+98:50 so it's kind of like implementing petting a cat,
+98:53 if you will.
+98:54 So let me zoom out,
+98:55 click the green flag,
+98:56 and notice nothing's happening yet,
+98:58 but notice my puzzle pieces are highlighted in yellow because it is
+99:01 in fact still running because it's
+99:03 doing something forever and it's constantly checking
+99:06 if I'm touching the mouse pointer,
+99:08 and if so.
+99:10 It's like I just pet the cat.
+99:11 Now it stopped until I moved the cursor again.
+99:14 Now it stopped.
+99:15 If I leave it there,
+99:17 it's gonna keep meowing because it's gonna be stuck in this loop forever,
+99:21 but it's correct insofar as I'm petting the cat.
+99:23 Let me do this though.
+99:24 Let me make a mistake this time.
+99:27 Let me forget about the forever and just do this,
+99:29 and you might think this is correct.
+99:31 Let me click the green flag.
+99:32 Now let me pet the cat.
+99:34 And like
+99:35 nothing's actually working here.
+99:37 Why though logically.
+99:39 Yeah.
+99:41 Yeah,
+99:42 the program's so darn fast it already ran through the sequence and
+99:44 at the moment in time when I clicked the rear flag,
+99:47 no,
+99:47 I was not touching the mouse pointer and so it was
+99:50 too late by the time I actually moved the cursor there.
+99:52 But by using the forever block,
+99:54 which I did correctly the first time,
+99:56 this ensures that Scratch is constantly checking the answer to that question.
+100:00 So if and when I do pet the cat,
+100:02 it will
+100:03 actually
+100:05 Detect as much.
+100:07 All right,
+100:07 about a few final examples before you're on your way building
+100:10 some of your own first programs with these building blocks.
+100:13 Let me go ahead and open up a program
+100:14 that I wrote in advance,
+100:15 in fact,
+100:16 about 20 years ago,
+100:18 whereby,
+100:19 let me pull this up.
+100:21 Whereby we have in this example a program I wrote called Oscar time,
+100:26 and this was the result of our first assignment in this class whereby
+100:29 when MIT was implementing Scratch for the very first time,
+100:32 we needed to implement our very own Scratch program as well.
+100:35 I'm gonna go ahead and full screen it here.
+100:37 The goal is to drag as much falling trash as
+100:39 you can to Oscar's trash can before his song ends,
+100:43 for which one volunteer would be handy here.
+100:46 OK,
+100:46 so.
+100:46 Hands go up quickly in blue.
+100:48 Yeah,
+100:48 come on up.
+100:49 All right,
+100:49 so
+100:50 you're playing for a stress ball here if we will.
+100:52 At one at some point I'm going to talk over
+100:54 what you're actually playing just so that we can point out
+100:57 what it is we're trying to glean from this program,
+100:59 and I'll stipulate this probably took me like 8,
+101:01 12 hours,
+101:01 and as you'll soon see,
+101:02 the song starts to drive you nuts after a while because I was trying to
+101:05 synchronize everything in the game to a childhood
+101:08 song with which you might be familiar.
+101:09 Let me go ahead and say hello if you'd like to introduce yourself.
+101:13 Oh,
+101:13 hello.
+101:13 So I'm Han.
+101:15 And uh I'm a first year student.
+101:17 I'm pretty excited for this class.
+101:19 welcome.
+101:19 Well,
+101:19 here is Oscar time.
+101:21 If you want to go ahead and take control of the keyboard,
+101:23 all you'll need to do is drag and drop trash that falls from the sky
+101:27 into the trash can.
+101:32 Oh
+101:36 Anything score is 1.
+101:43 Nice score 2.
+101:48 All right,
+101:49 let's see what happens.
+101:53 You'll see a sneaker was perfectly timed.
+101:55 Thank you very much with the song after figuring
+101:56 out exactly how many seconds it had to wait.
+101:59 Now Han can drag not only the piece of trash,
+102:01 but the shoe as well.
+102:06 And it's around this point in the game where
+102:07 the novelty starts to wear off because it's like
+102:09 3 more minutes of this game where more and more stuff starts to fall from the sky.
+102:13 So as Han,
+102:13 as you continue to play,
+102:14 I'm going to cut over.
+102:15 Here you keep playing.
+102:16 Let's consider how I implemented this
+102:19 whereby
+102:21 we'll start at the beginning.
+102:21 The very first thing I did when implementing Oscar time honestly was the easy part.
+102:25 Like I found a lamppost that looked a little something like this,
+102:28 and I made the so-called costume for the whole stage,
+102:31 and that was it.
+102:32 The game didn't do anything.
+102:33 You couldn't play anything.
+102:33 You click the green flag,
+102:34 nothing happened.
+102:35 But then I figured out how to turn the scratch cat,
+102:39 otherwise known more generally as a sprite,
+102:41 into a trap.
+102:43 instead and so the trash can meanwhile is
+102:46 clearly animated because I realized that oh,
+102:48 I can give sprites like the cat different costumes so I
+102:51 can make the cat not only look like a trash can,
+102:54 but if I want its lid to go up,
+102:56 well,
+102:56 that's just another costume.
+102:57 And if I want to see Oscar popping out,
+102:59 that's just a third costume.
+103:01 And so I made my own simplistic animation
+103:04 and you can kind of see it.
+103:05 It's very jittery step by step by step
+103:08 by creating.
+103:09 illusion of animation by really just having a
+103:10 few different images or costumes on Oscar.
+103:13 I hope you appreciate how much effort went
+103:15 involved into timing each of these pieces of
+103:16 trash with the specific mention of that type of piece of trash in the music.
+103:20 OK,
+103:21 20 years later,
+103:21 still clinging.
+103:22 So you're doing amazing,
+103:24 by the way.
+103:25 How do we get the trash to fall in the first place?
+103:27 Well,
+103:27 at the very beginning of the game,
+103:28 the trash just started falling from some random location.
+103:31 What does it mean for trash to fall from the sky?
+103:34 Oh,
+103:35 big climax here.
+103:38 So you've got a lot of trash on the ground you should pick up.
+103:44 There we go,
+103:45 and your final score is.
+103:49 A big round of applause if we go for hot.
+103:52 OK.
+103:53 Thank you.
+103:55 So
+103:56 just to be clear,
+103:57 now let's decompose this fairly involved program that took me
+104:00 a lot of hours to make into its component parts.
+104:03 So this is just a sprite,
+104:05 and I figured out eventually how to change its costume,
+104:07 change its costume,
+104:08 change its costume to simulate some kind of animation.
+104:10 And I also realized that oh,
+104:12 I don't need to just have one Sprite or one cat or trash can.
+104:14 You can create a 2nd Sprite,
+104:16 a 3rd Sprite,
+104:16 and many more.
+104:17 So I just told the Sprite to go to a random location
+104:21 at Y equals 180 and X equals something.
+104:24 I think I restricted X to be in this region,
+104:26 which is why the trash never falls from over here.
+104:28 I just a little bit of math based on that
+104:30 Cartesian plane that we saw a slide of earlier.
+104:32 And then
+104:33 I probably had a loop that told the trash to move a pixel,
+104:36 move a pixel,
+104:37 move a pixel down,
+104:37 down,
+104:39 down,
+104:39 down until it eventually hits the bottom and therefore just stops.
+104:41 So we can actually see this step by step,
+104:43 and this is representative of how even for something like your
+104:46 first problem set in CS 50 and with Scratch specifically,
+104:50 you might build some of the same.
+104:52 So I'm gonna go back into.
+104:54 CS 50 Studio for today,
+104:56 which is linked on the course's website which has
+104:57 a few different versions of this and other programs
+105:01 called Oscar 0 through Oscar 4,
+105:03 where 0 is the simplest and truly I meant it
+105:06 when I look inside this program to see my code,
+105:09 like this was it.
+105:09 There was no code because all I did was put the Sprite on the screen and change it
+105:13 from a cat to a trash can and I Added a cost uh costume for the stage,
+105:18 so to speak,
+105:18 so that the lamp post would be fixated there.
+105:21 If I then go to the next version of code,
+105:23 version one,
+105:24 so to speak,
+105:25 then I had code that did this.
+105:27 Now notice there's a few things going on here.
+105:29 At bottom left,
+105:30 you'll see,
+105:31 of course,
+105:31 the trash can,
+105:32 and then at top right the trash.
+105:34 Here are the corresponding sprites down here.
+105:36 So When Oscar is clicked on here,
+105:38 the trash can,
+105:39 you see the code I wrote,
+105:40 the puzzle pieces I dragged for Oscar,
+105:42 and in a moment when we click on trash,
+105:44 you'll see the code I wrote or the puzzle pieces I
+105:47 wrote are dragged and dropped for the trash piece specifically.
+105:50 So what does Oscar do?
+105:52 Well,
+105:53 I first switch his costume to Oscar one,
+105:55 which I assume is this the closed trash can.
+105:58 Then forever,
+105:59 Oscar does the following.
+106:01 If Oscar's touching the mouse pointer,
+106:03 then change the costume to Oscar 2.
+106:06 Otherwise,
+106:07 that is,
+106:07 if not touching the mouse pointer,
+106:09 change the costume to Oscar one.
+106:11 Well,
+106:11 what's the implication?
+106:12 Any time I move the cursor over the trash can,
+106:15 the lid just pops up,
+106:16 which was exactly the animation I wanted to achieve.
+106:19 Meanwhile,
+106:20 if we do this and click the green flag,
+106:22 you can see that in action,
+106:23 even for this simple.
+106:25 If I move the cursor over Oscar,
+106:28 we have the beginnings of a game,
+106:29 even though there's no score,
+106:30 there's no music or anything else,
+106:32 but I've solved one of my problems.
+106:34 Meanwhile,
+106:34 if I click on the trash piece here
+106:36 and then you'll see no code has been written for it yet.
+106:40 So we move on to Oscar version 2 and see inside it.
+106:43 And Oscar version 2,
+106:44 when I click on trash,
+106:45 ah,
+106:46 now there's some juicy stuff happening here and in fact this
+106:49 trash sprite has two programs or scripts associated with it,
+106:53 and that's fine.
+106:54 Each of them starts with when green flag clicked,
+106:56 which means the piece of trash will do two things at once,
+106:60 essentially in parallel.
+107:01 The first thing it will do is we'll set drag mode to dragable,
+107:03 and that's just a scratch thing that lets you
+107:05 actually move the sprites by clicking on them,
+107:07 making them.
+107:07 Dragonable.
+107:08 Then it goes to a random X location between 0
+107:11 and 240.
+107:12 So yeah,
+107:12 that must be what I did from the middle all the way to the right,
+107:15 and I said why always to 180,
+107:18 which is why the trash always comes from the sky from the very top.
+107:21 Then I said forever change your Y by -1,
+107:24 and here's where it's useful to know what 180 is,
+107:27 240 is,
+107:27 and so forth,
+107:28 because if I want the trash to go down,
+107:30 so to speak,
+107:30 that's.
+107:31 Changing its Y
+107:32 by a pixel by pixel,
+107:33 by a pixel,
+107:34 and thankfully MIT implemented it such that if the trash tries to go off the screen,
+107:39 it will just stop automatically even if it's inside of a
+107:42 forever block lest you lose control over the sprites altogether.
+107:45 But in parallel what's happening is this
+107:47 also when the green flag is clicked,
+107:49 uh,
+107:50 the trash piece is doing this too forever if touching Oscar,
+107:55 what's it doing in blue here?
+107:59 Sort of teleporting away now to your eye,
+108:02 hopefully it looks like it's going into the trash can,
+108:05 but what does that mean to go into the trash can?
+108:06 Well,
+108:07 I just put it back into the sky as though a new piece of trash is falling.
+108:10 So even though you saw one piece of trash,
+108:13 234,
+108:14 and so forth,
+108:15 it's the same sprite just acting that out again and again.
+108:18 So here if I click play.
+108:20 On this program
+108:22 you'll see that it starts falling
+108:23 one pixel at a time because it's draggable.
+108:26 I can sort of pull it away
+108:28 and move it over to the trash can like that,
+108:30 and as soon as I do,
+108:31 it seems to go in,
+108:33 but really it just teleported to a different X location still at Y equals 180.
+108:38 Again,
+108:38 it's not much of a game yet.
+108:39 There's no score,
+108:39 there's no music or anything,
+108:40 but let's go to Oscar 3 now.
+108:42 And in Oscar 3,
+108:44 if we scroll over to the trash,
+108:46 even more is happening here and so.
+108:48 As far as I realized,
+108:49 you know what,
+108:50 there was kind of inefficiency before.
+108:53 Previously I had these two programs or scripts synonym
+108:56 whereby they both went to the top by going to 0 to 240
+109:01 for X and then 180 for Y.
+109:04 And if you noticed,
+109:05 I used that here
+109:06 and I used that down here in both programs.
+109:08 Now that was kind of stupid because I literally copied and pasted the same code.
+109:11 So if I ever want to change that design,
+109:13 I have to change it in two places and I already proposed that we frown upon that.
+109:16 So what did I do in this version?
+109:18 I just created my own block and I decided to call my own function
+109:22 go to top.
+109:23 What does it mean to go to the top,
+109:24 pick a random X between those values,
+109:26 and fixate on Y equals 180 initially.
+109:30 Now in both of those programs,
+109:32 which are otherwise identical,
+109:33 I just say what I mean.
+109:34 Go to top,
+109:35 go to top,
+109:36 and if I really wanted to,
+109:37 I could drag this out of the way and
+109:38 never think about it again because now that function.
+109:41 exists,
+109:42 so correct but arguably better designed.
+109:45 I've now factored out commonality so as to use and reuse my code as well.
+109:50 So let's go up to Oscar version 4 now,
+109:53 and in Oscar time version 4,
+109:55 the trashcan
+109:56 does a little something more whereby
+109:59 what have I added to this mix even though
+110:01 we haven't dragged this puzzle piece together before.
+110:05 Yeah,
+110:06 what's new?
+110:07 Yeah,
+110:08 so it turns out on the left here there's a variables category which goes
+110:12 beyond the answer variable that we just automatically get from the ask block.
+110:16 You can create your own variables X,
+110:18 Y,
+110:18 Z,
+110:19 but in computer programming it's best to name things,
+110:21 not silly simple words like X,
+110:23 Y,
+110:23 and Z,
+110:24 but full-fledged words that say what they are like score.
+110:27 So I'm setting a score variable to 0,
+110:29 and then any time
+110:31 the trash is touching Oscar before it teleports away to the top,
+110:35 I change the score by 1.
+110:36 That is increment the score by 1.
+110:38 And what Scratch does automatically for me is it puts
+110:40 a little billboard up here showing me the current score.
+110:44 So if I now
+110:45 play this game
+110:47 once more,
+110:48 the score is going to start at 0.
+110:49 But if I drag this trash over here and even let it fall in as soon as it touches,
+110:54 the score goes to 1.
+110:55 And now if I click and drag again,
+110:57 the score is going to as soon as it touches Oscar,
+110:59 going to go to 2,
+111:01 and so forth.
+111:01 And you saw in the final flurs with Hunt playing that
+111:04 once you add The sound and other pieces of trash,
+111:07 which are just really other sprites,
+111:08 and I just had to wait like a minute,
+111:10 wait 2 minutes,
+111:11 so that the trumpet would fall at the right time.
+111:13 I've broken down a fairly involved program
+111:16 into these basic building blocks.
+111:18 And when you two write your own program,
+111:20 that's exactly how you should approach it,
+111:21 even if you have these grand aspirations to do this or that,
+111:25 start by the simple problems and figure out what bites can I,
+111:28 uh,
+111:28 bite off in order to make progress,
+111:31 baby steps,
+111:31 if you will,
+111:33 to the final.
+111:33 Solution.
+111:34 Well,
+111:34 let's look at one other set of examples before we have
+111:37 one final volunteer to come up and as you'll soon see,
+111:39 it's tradition in CS 50 to end the first class with cake.
+111:42 So in a moment,
+111:43 cake will be served out on the transept,
+111:45 and please feel free to come up and say hi and ask questions if you'd like to.
+111:48 Let me go ahead and open up though
+111:49 a series of building blocks here via which we can make so-called IV's hardest game,
+111:54 which is one implemented by one of your predecessors,
+111:57 a former classmate
+111:59 from CS 50.
+112:00 So here we have a whole bunch of puzzle pieces.
+112:02 Written by your classmates,
+112:03 but let me go ahead and zoom in on this screen.
+112:06 You'll see that this Harvard Crest is my sprite,
+112:08 so it's not a cat,
+112:09 it's not a trash can.
+112:09 It's a Harvard Crest,
+112:10 and it exists in a very simple
+112:12 two-dimensional world with two walls next to it.
+112:15 If I click on the green flag,
+112:17 notice that
+112:18 with my hands here,
+112:19 I can go up,
+112:20 I can go down,
+112:21 I can go left,
+112:22 and I can go right,
+112:23 but if I try going too far right,
+112:25 I get stuck on the wall.
+112:27 If I go too far left,
+112:28 I get stuck on the wall.
+112:30 Well,
+112:30 it's the sort of the beginning.
+112:31 Of any animation or game,
+112:32 but how do I do this?
+112:33 Well,
+112:34 let me go up here and propose that the first thing
+112:36 the Harvard Sprite is doing is it's going to the middle,
+112:39 0.0,
+112:41 and it's then forever
+112:42 listening for the keyboard and feeling for walls.
+112:45 Now those are functions I implemented myself to kind
+112:49 of describe what I wanted the program to do.
+112:51 And let's do the shorter one first.
+112:53 What does it mean to feel for the walls?
+112:55 Just to ask the question,
+112:56 if you're touching the left wall,
+112:58 change your X by 1.
+112:60 If you're touching the right wall,
+113:02 change your X by -1.
+113:05 Why have I
+113:07 defined touching walls in this weirdly mathematical way?
+113:10 Yeah.
+113:12 Sure,
+113:12 yeah.
+113:16 otherwise you're like net.
+113:19 Exactly,
+113:20 because if I've gone so far right that I'm touching the right wall,
+113:23 well,
+113:23 I'm already kind of on top of the wall a little bit.
+113:26 So I effectively want the sprite to bounce off of it,
+113:29 and the easiest way to do that is just to say
+113:30 back up one pixel as though you can't go any further,
+113:33 and same for the left wall.
+113:34 Meanwhile,
+113:34 let me scroll over to the second script or program that's running in parallel.
+113:39 It's a little longer,
+113:40 but it's not more.
+113:41 Complicated.
+113:41 What does it mean to listen for keyboard?
+113:43 Well,
+113:44 just check if the key
+113:46 up arrow is pressed,
+113:47 change Y by 1.
+113:49 ergo go up,
+113:50 else if the key down arrow is pressed,
+113:52 then change Y by -1,
+113:54 key right arrow is pressed,
+113:55 change X by 1,
+113:56 and so forth.
+113:56 So again,
+113:57 this is where the math and the numbers are useful because
+113:59 it gives you a world in which to live up,
+114:01 down,
+114:01 left,
+114:01 right.
+114:02 Deconstructed into some simple arithmetic values.
+114:06 All right,
+114:06 so the net result is that we have a crest living in this world.
+114:10 Well,
+114:10 let's add a bit of competition here and then the second version of this game.
+114:14 Let me go ahead and full screen it again,
+114:15 click play,
+114:16 and now we'll see
+114:17 sort of an enemy
+114:18 bouncing back and forth autonomously.
+114:21 So there's no one playing except me.
+114:23 I'm controlling Harvard,
+114:24 Yale is bouncing on its own,
+114:25 and nothing bad's.
+114:26 Gonna happen if it hits me,
+114:27 but
+114:28 it does seem to be autonomous.
+114:30 So how is this working?
+114:31 Well,
+114:31 if it's doing this forever,
+114:32 there's probably a forever loop involved.
+114:34 So let's see inside here.
+114:35 Let's click not on Harvard but on the Yale Sprite,
+114:39 and sure enough,
+114:40 if we focus on this for a moment,
+114:42 we'll see that the first thing Yale does is go to 0.0.
+114:45 It points in direction 90 degrees,
+114:47 which just gives you a sense of whether you're facing left or right or wherever.
+114:50 Then it forever does the following.
+114:51 If it's touching the left wall or touching the right wall,
+114:54 I was a little clever this time,
+114:56 if I may.
+114:57 I just kind of turn around 180 degrees,
+114:59 which effectively bounces me back in the opposite direction.
+115:02 Otherwise I go ahead and no matter what,
+115:04 just move one step.
+115:06 And this is why Yale is always moving back and forth.
+115:08 So a quick question,
+115:09 if I wanted to speed up Yale and make this beginning of a game harder,
+115:13 what would I do?
+115:15 Yeah.
+115:18 Yeah,
+115:18 so let's have it move like 10 steps at a time,
+115:20 right?
+115:20 This looks like a much harder game if you will,
+115:22 like level 10 now because it's just moving so much faster.
+115:25 All right,
+115:25 well,
+115:26 let's try a third version of this that adds another ingredient.
+115:28 Let me full screen this and click play,
+115:31 and now you'll see the even smarter MIT
+115:34 homing in on me
+115:36 by following my actual movements.
+115:38 So this is sort of like boss level material now.
+115:41 And it's just gonna follow me.
+115:43 So how is this working?
+115:44 Well,
+115:44 it's kind of a common game paradigm,
+115:46 but what does this mean?
+115:47 Well,
+115:48 let's see inside here,
+115:49 let's click on MIT Sprite,
+115:51 it's pretty darn easy.
+115:53 Go to some random position just to make it a little interesting lest MIT
+115:57 always start in the center and then forever point towards the Harvard logo outline,
+116:01 which is the name the former student gave to the costume
+116:04 that the Sprite is wearing that looks like a Harvard crest,
+116:06 and then move one step.
+116:07 So a core layer of the previous question how do
+116:09 we make the game harder and MIT even faster?
+116:12 Well,
+116:12 we can change this to be like 10 steps,
+116:15 and now you'll see
+116:17 MIT is a little twitchy because.
+116:20 This is kind of a visual bug.
+116:21 Let me make a full screen.
+116:24 Why is this visual glitch happening?
+116:27 It's literally doing what I told it to do,
+116:30 just looks stupid,
+116:31 yeah.
+116:35 say like again.
+116:38 Yeah,
+116:38 it's moving so fast that it's sort of going 10 pixels this way,
+116:41 but then I kind of,
+116:42 it kind of overshot me,
+116:43 so then it's doubling back to follow me again and it's doubling back this way.
+116:46 And because these are such big footsteps,
+116:48 if you will,
+116:49 it just has this visual effect of twitching back and forth.
+116:51 So we might have to throttle that back a bit and make it 5 or
+116:53 2 or 3 instead of 10 because that's clearly not desirable gaming behavior here.
+116:59 All right,
+116:59 well,
+116:59 let's go ahead and do this.
+116:60 Let's put them all together just as your
+117:02 former classmate did when submitting this actual homework.
+117:05 Uh,
+117:05 the game will conclude hopefully in an amazing climax where you've won the game,
+117:08 so we need someone,
+117:09 ideally with really good hand-eye coordination to play this final game here.
+117:14 Yeah,
+117:14 your hand went up first,
+117:15 I think.
+117:15 OK,
+117:15 come on up,
+117:16 big round of applause because it's a lot of pressure
+117:19 to end.
+117:24 All right,
+117:25 so if you win the game,
+117:26 cake will be served.
+117:28 If you don't win the game,
+117:29 there will be no cake.
+117:31 OK,
+117:32 but introduce yourself in the meantime.
+117:33 Hi,
+117:34 I'm Jenny Pan,
+117:35 freshman at Hollis,
+117:37 and I'm actually a CS major or concentration.
+117:40 Nice to meet you.
+117:41 Head to the keyboard here.
+117:42 This now is the combination of all of those building blocks and even more,
+117:46 AKA IB's hardest game,
+117:48 you will be in control just as I would of the Harvard Crest,
+117:50 and the goal is to make it to the exit,
+117:52 which is this gentleman on the right here,
+117:54 and you'll see there's multiple levels where each each level gets a little harder.
+117:57 All right.
+117:58 Here we go.
+117:60 I can't touch this.
+118:03 I can't touch this.
+118:07 Very good.
+118:07 I can't touch this.
+118:09 Nicely done.
+118:11 You can't touch this.
+118:12 So the loop has been added for Yale.
+118:17 Good.
+118:17 2 Yales now.
+118:25 Alright,
+118:26 3 yals now.
+118:30 Nice.
+118:32 You can't touch this.
+118:34 Here comes MIT.
+118:40 Very
+118:40 good,
+118:41 yeah.
+118:44 Two MITs.
+118:49 And get
+118:57 Nice,
+118:58 yes.
+119:10 That
+119:12 I
+119:15 Yes.
+119:16 Now Princeton.
+119:21 Another Princeton.
+119:30 2nd to last level.
+119:34 I
+119:37 OK
+119:55 Have a
+120:03 Let's keep going,
+120:03 keep going.
+120:14 Yeah
+120:16 All
+120:17 right,
+120:17 this is CS 15,
+120:19 cake is now served.

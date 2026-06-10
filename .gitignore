@@ -1,0 +1,37 @@
+# Environment
+.env
+*.env
+
+# Database (user data — never commit)
+mentora_users.db
+*.db
+*.sqlite
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# ChromaDB — DO NOT ignore
+# chroma_db/ must be committed
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

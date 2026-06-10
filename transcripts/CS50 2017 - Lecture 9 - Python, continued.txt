@@ -1,0 +1,2819 @@
+00:00 [MUSIC PLAYING]
+00:11 DAVID MALAN: All right, this
+is CS50, and this is lecture 9.
+00:14 And so we've been diving
+into bunches of languages
+00:17 recently among them have been HTML,
+and CSS, and Python most recently.
+00:24 And soon we're going
+to see JavaScript soon.
+00:25 We're going to see SQL and more.
+00:27 So let's see just a moment if we can
+kind of wrap our minds around what's
+00:30 going on with these various languages.
+00:31 So HTML, which we looked at a couple
+of weeks back, is used for what?
+00:35 AUDIENCE: Websites.
+00:36 DAVID MALAN: Websites.
+00:37 OK, but be more specific.
+00:38 What about websites?
+00:39 AUDIENCE: Markup.
+00:40 DAVID MALAN: Markup.
+00:40 OK, be more specific than markup.
+00:42 What does that mean?
+00:43 AUDIENCE: The way they look.
+00:44 DAVID MALAN: The way they look.
+00:46 OK, good, so marking up a website,
+the structure of the website,
+00:48 and the contents of the website are
+what you would annotate using HTML--
+00:52 Hypertext Markup Language.
+00:54 It's not a programming
+language, so it doesn't
+00:56 have functions, and
+loops, and conditions,
+00:57 and the kind of logical control
+that we've used for some time.
+01:00 It really is about
+presenting information.
+01:02 Make something bold.
+01:03 Make something italics.
+01:04 Put something centered and so forth.
+01:07 CSS, meanwhile, allows you to
+really take things the final mile
+01:11 and really get the
+aesthetics just right.
+01:13 And so, in fact, what I just described,
+boldfacing, and italics, and centering,
+01:18 early on in version 1 say of
+HTML was actually how you did it.
+01:21 There was no CSS.
+01:22 But these days, the better approach is
+to factor out those kinds of aesthetics
+01:26 from your HTML and instead put them
+in this other language, CSS, Cascading
+01:31 Style Sheets.
+01:31 So your HTML now becomes
+put this text in a column.
+01:35 Put this other text in another column.
+01:38 And structure your
+data in a certain way.
+01:40 And then stylize it with colors,
+and fonts, and placement using CSS.
+01:44 Now meanwhile, most recently,
+we introduced Python.
+01:47 And what was noteworthy about Python?
+01:50 What do you got?
+01:54 Some-- back here?
+01:57 Python--
+01:58 AUDIENCE: More straightforward syntax.
+01:60 DAVID MALAN: More straightforward
+syntax, yeah, in some ways,
+02:02 and we'll see some syntax where
+you take that back, I think.
+02:05 But in general, that
+is kind of the case,
+02:08 because you don't need parentheses
+if they're not strictly necessary.
+02:11 You don't need curly
+braces just because.
+02:13 Instead, things like indentation become
+more important, which on the one hand
+02:16 is a little annoying,
+but on the other hand,
+02:18 really does reinforce good habits.
+02:20 So that's probably a good thing.
+02:22 And then at the very
+end of the last lecture,
+02:24 we did something that was
+hopefully wonderfully inspiring,
+02:26 which was to implement what in Python?
+02:29 AUDIENCE: Dictionary?
+02:30 DAVID MALAN: The dictionary.
+02:31 And so we've really, we
+pretty much re-implemented
+02:33 all of problem set 5 speller using like
+I don't know, 15, 20, 25 lines of code,
+02:40 not to mention I was able to
+type it out within 30 seconds.
+02:43 And that's not just because
+I knew what I wanted to type,
+02:46 but really because you have
+to write so few lines of code.
+02:49 With Python, and soon with JavaScript,
+and even other languages out there,
+02:53 you just get so much more
+functionality for free.
+02:55 If you want to know the length of
+the string, you call a function.
+02:58 If you want to get a linked list, you
+create a data structure called a List.
+03:01 If you want a hash table, you create
+a data structure called a Dictionary.
+03:04 You don't implement it yourself.
+03:06 Underneath the hood, someone
+else out there in the world
+03:09 has implemented all of
+that functionality for us.
+03:11 But now we're standing
+on their shoulders.
+03:14 And so today, what we begin
+to do is to transition
+03:17 to this last portion of the class, where
+our domain is not just a command line
+03:21 and dot slash something, but web
+programming, where the ideas are pretty
+03:25 much going to be the same so long as
+we now understand, as hopefully you
+03:28 do or are beginning to, what HTTP
+is and how the web and the internet
+03:32 itself work.
+03:33 So recall that we looked a little
+bit ago at a URL like this.
+03:37 And so if you were to visit
+https://www.facebook.com and hit
+03:42 Enter in your browser, you're
+going to send some kind of message
+03:45 in an envelope that might physically
+in our world look like this.
+03:48 But of course, it's digital instead.
+03:50 And what is inside of that
+envelope, if you simply
+03:53 do type that URL before
+trying to get to Facebook?
+03:57 AUDIENCE: An error message
+that redirects to--
+03:59 I guess [INAUDIBLE] that one.
+04:00 DAVID MALAN: Yeah, probably no
+error message here, because that URL
+04:03 did have the HTTPS.
+04:04 And it wouldn't so much
+be an error message,
+04:06 but like a preference to
+go to a different location.
+04:08 AUDIENCE: Moved?
+04:09 DAVID MALAN: Sorry?
+04:10 AUDIENCE: Moved.
+04:11 Moved, like permanently moved.
+04:13 DAVID MALAN: Oh moved.
+04:14 Not moved, only if we had
+gone to a shorter URL.
+04:16 Recall that all of
+those 301 one redirects
+04:19 were the result of, for instance,
+leaving off the dub dub dub
+04:22 or leaving off the S. so
+this is actually the good.
+04:24 This was the end of the story, where
+everything just worked and we got back
+04:27 a 200 OK.
+04:29 So if I did hit Enter though on my
+laptop and tried to visit that URL,
+04:33 what did I put, or my laptop
+put inside of this envelope?
+04:36 AUDIENCE: Request.
+04:37 DAVID MALAN: The request to get an
+address, so it was like the get verb,
+04:40 like getme, probably slash, because the
+last thing in this URL is the slash.
+04:45 It probably had a Host header.
+04:47 Recall, we saw host colon and then
+the domain name of the website again.
+04:51 And there were bunches of
+other headers, so to speak,
+04:53 that we kind of turned a blind eye to.
+04:55 But in essence, atop the
+piece of paper, virtually,
+04:58 that's inside of this envelope, or
+at least these two lines, a reminder
+05:02 as well as to what protocol, sort
+of what handshake convention,
+05:05 we are trying to use with the server.
+05:07 And now when the server responds
+with an envelope of its own,
+05:11 how do these headers change?
+05:13 What's inside of Facebook's HTTP
+headers in its envelope back to me?
+05:21 Kind of spoiled it a moment ago.
+05:22 What?
+05:23 AUDIENCE: The IP address?
+05:24 DAVID MALAN: Somewhere--
+let's kind of consider that
+05:26 on the outside of the envelope, though.
+05:27 That's how it gets to me.
+05:28 What's on the inside?
+05:29 What's the status code going to be
+when I visit Facebook's Home page?
+05:32 AUDIENCE: 200 OK
+05:33 DAVID MALAN: 200 OK-- and so we
+saw 200 OK only when we actually
+05:37 looked underneath the
+hood, so to speak, to see
+05:39 what was inside of these
+envelopes using Chrome's Inspector
+05:43 toolbar, the developer tools, or
+using cURL, that command line program.
+05:47 Odds are, there are
+other headers in there,
+05:48 like content type is text slash html.
+05:51 And I think that's the only one we saw.
+05:53 But moving forward, as you make
+your own web-based applications,
+05:56 you will actually see and Chrome
+and other tools a whole bunch
+05:59 of different content types.
+05:60 You'll see like image slash
+ping or image slash jpeg.
+06:03 So indeed, anytime
+you download a picture
+06:05 of a cat or something from
+the internet, included
+06:07 in the headers in that envelope
+are two lines like this.
+06:10 But a cat is not a web page.
+06:12 It's not HTML.
+06:13 So this would be like image slash
+jpeg, if it's a photograph of a cat.
+06:17 And then below that
+though, the dot dot dot,
+06:20 is where things started to get
+interesting in the last half
+06:23 of our lecture on HTTP, because what
+came below all of the HTTP headers
+06:27 inside of this envelope from Facebook?
+06:34 What's inside of the envelope?
+06:40 AUDIENCE: Nothing?
+06:41 DAVID MALAN: Nothing-- yes,
+it's technically an answer.
+06:43 But--
+06:44 AUDIENCE: Isn't it like
+pieces of the file?
+06:46 DAVID MALAN: Yeah, it's
+the pieces in the file.
+06:47 I mean, it really is the file itself.
+06:49 So essentially, when you write
+a letter in the human world,
+06:52 you usually put like the date.
+06:54 And you might put the person's address.
+06:55 And you might put like dear so-and-so.
+06:57 You can kind of think of
+all of that like metadata,
+06:59 the stuff that's not really the
+crux of your message to the human,
+07:02 as being the HTTP headers.
+07:04 But then once you start
+writing your first paragraph
+07:06 and the actual substantive part of your
+letter, that's going to be down here,
+07:11 so to speak.
+07:12 And that's going to be the
+HTML inside of this envelope.
+07:14 So if I'm downloading Facebook's Home
+page via my browser to my computer,
+07:18 and I am seeing Facebook's Home page
+or my news feed, or if I'm logged in,
+07:22 all of that HTML is actually
+inside of this envelope.
+07:24 Now technically, it's all zeros
+and ones at the end of the day.
+07:27 But now that we're not sort
+of at week zero anymore,
+07:30 we're thinking in terms of language,
+there's just a whole bunch of HTML.
+07:33 And what did that HTML look like?
+07:35 Well in the simplest case, it
+might have looked like this.
+07:37 This is a simpler web page
+certainly than Facebook's own.
+07:40 But this would be an example
+of the first paragraph,
+07:43 so to speak, of Facebook's Home
+page coming from server to browser.
+07:48 And so that's the relationship
+among HTTP and HTML and, in turn,
+07:53 CSS, though there's none pictured here.
+07:55 HTTP is that protocol,
+that set of conventions,
+07:59 ala the human handshake that
+ensures that the data is formatted
+08:02 in a certain way and
+gets to me from server
+08:05 to browser, or from browser to server.
+08:07 Below that is a very
+specific language called
+08:09 HTML, which is the actual content.
+08:11 And what does my browser
+do upon receiving this?
+08:14 Well, just like we humans would read
+the first paragraph of the letter,
+08:17 a browser is going to read this
+top to bottom, left to right,
+08:19 and do what it says.
+08:21 Hey, browser, here is a web page.
+08:22 Hey, browser, here is
+the head of the page.
+08:24 Hey, browser, here is the title.
+08:25 Put it in the tab bar.
+08:26 Hey, browser, here's the body.
+08:27 Put it in the big rectangular
+region of the window.
+08:30 Hey, browser, that's
+it for the web page.
+08:33 So you can think of these open tags
+and close tags or start tags and end
+08:36 tags as really being these directives.
+08:38 Do something; stop doing something.
+08:40 And that's literally what the
+browser is doing underneath the hood.
+08:43 So the last time we introduced Python,
+which is unrelated fundamentally
+08:47 to all of this.
+08:48 It is just another programming language.
+08:50 So technically we could have started
+talking about Python in like week 1,
+08:53 right after we looked at
+Scratch instead of looking at C.
+08:56 But instead, we started sort of
+with Scratch, the graphical program.
+08:59 Then we kind of went
+super low level with C,
+09:01 and built, and built,
+and built on top of it,
+09:03 until now we're kind of at Python, where
+we can solve all of those same problems
+09:07 with Python.
+09:08 And in fact, one of the
+challenges of problem
+09:10 set 6 is going to be to rewind a
+few weeks and re-implement Mario,
+09:15 and Cash or Credit, or
+Caesar, or Vigenere in Python,
+09:19 so that you effectively have your
+own solutions handy, or the staff
+09:22 solutions in C. And it'll
+be really kind of a warm-up
+09:24 exercise and a comforting exercise
+to just translate something
+09:27 that you know works or
+should work to a new language
+09:30 and see the mapping from one to
+another, just like we did with Speller,
+09:33 but more powerfully.
+09:35 We're also going to start to
+build applications using Python
+09:38 that we've not built before.
+09:39 And so among them, for
+instance, today will
+09:41 be a handful of examples
+that actually use Python
+09:45 to generate HTML from a server to me.
+09:48 Because you could write
+this on your Mac or PC.
+09:50 You could save it.
+09:51 You could upload it to a server
+in the cloud, so to speak.
+09:53 And people can visit it.
+09:54 But if I visit this page today,
+or tomorrow, or the next day,
+09:58 it's always going to be the same.
+09:59 It's going to say hello
+title, hello body every day.
+10:02 Facebook, and Gmail, and any website out
+there these days is much more dynamic.
+10:05 The content changes based
+on you or other humans,
+10:07 typically, or even the time
+of day, if it's a new site.
+10:11 So today we're going to explore,
+how do you use programming,
+10:14 in Python in particular, to
+generate dynamic content,
+10:17 ultimately based on data in
+your database interactions
+10:20 from the user or any
+number of other things.
+10:23 So how do we go about doing this?
+10:24 Well, let me go ahead and open
+up the IDE for just a moment
+10:27 and open up an example from today's
+source code called serve.py.
+10:31 This is an example, a few of whose
+features might look a little familiar,
+10:34 but not all of them.
+10:35 So let me scroll to the bottom first.
+10:37 This is a program written in Python
+that implements a web server.
+10:44 So remember, a server--
+10:45 even though most of us, at least
+I certainly grew up thinking of it
+10:47 as a physical machine--
+10:48 it's technically a piece of software
+running on a physical machine.
+10:52 So just to be clear, what
+does a web server do?
+10:56 What's its purpose in life?
+10:58 AUDIENCE: Like connects to the internet.
+11:01 DAVID MALAN: Connects--
+a little too grand--
+11:03 its functionality is actually much
+more narrowly defined, I would say.
+11:06 What's a web server?
+11:07 That's kind of like a
+router interconnects things.
+11:09 AUDIENCE: Door?
+11:10 DAVID MALAN: What's that?
+11:10 AUDIENCE: Your door to the internet.
+11:12 DAVID MALAN: Door to
+the-- even too fancy
+11:13 a description-- let's really home
+in on what it does functionally.
+11:17 AUDIENCE: It listens for requests
+and then responds to them?
+11:19 DAVID MALAN: Right, so a
+much less interesting answer,
+11:22 but much more concrete and factual
+as to what the server does.
+11:25 Exactly, it is a piece of software
+that just listens for HTTP requests
+11:30 on the internet coming in what?
+--via wired or wireless connections.
+11:34 As soon as it hears an HTTP
+request, like get slash,
+11:37 it responds to those requests.
+11:40 So that is what the web server does.
+11:41 So Facebook.com, and Google.com,
+and all of these companies
+11:44 have web server software running
+on physical machines that
+11:47 are just constantly
+listening for those requests.
+11:49 And the photo I showed last time of
+that old rack at Google's headquarters
+11:54 is an example of a
+whole bunch of servers
+11:56 that were running the same
+software, all of which
+11:58 had internet connections that were
+just listening for HTTP connections,
+12:02 specifically, if we want to get
+really precise from a few weeks
+12:04 back, on TCP port 80,
+on a certain IP address.
+12:08 But again, we can kind of
+abstract away from that.
+12:10 And as you say, it's listening
+for connections on the internet.
+12:13 So how does this piece of software work?
+12:16 Just to demonstrate
+how relatively easy it
+12:18 is to write a web server, irrespective
+of the content it serves up, line 24,
+12:24 if you could translate
+it into English for me,
+12:26 based only on last week's
+material, what is line 24 doing?
+12:32 And it's not configure server.
+12:35 More technically, what
+does line 24 do in Python?
+12:38 AUDIENCE: It's just assigning
+port the number 8080.
+12:42 DAVID MALAN: To?
+12:43 Oh, yes, OK, to port.
+12:44 So, OK, so what is port exactly?
+12:46 AUDIENCE: Just a variable.
+12:47 DAVID MALAN: Just a variable--
+what is its data type?
+12:49 AUDIENCE: It's an int.
+12:50 DAVID MALAN: How do you know that?
+12:51 I don't see int.
+12:52 AUDIENCE: Or the input
+is given as an int.
+12:55 And Python just dynamically
+figures is out somehow.
+12:58 AUDIENCE: Exactly, so we-- unlike C,
+you don't specify the types anymore,
+13:01 but they do exist--
+13:02 ints, and strings, and
+floats, and so forth.
+13:05 But honestly, why do we
+really need to specify int
+13:08 if it's obvious to the human, let
+alone should be to the computer,
+13:11 that the thing on the right is an int.
+13:13 Just make the thing on the left an int.
+13:14 And this is one of the features you
+get of Python, and in general, more
+13:17 modern languages.
+13:18 Meanwhile, line 25 is similar in spirit.
+13:20 Give me a variable
+called server address.
+13:22 But this we didn't talk
+about too much last time.
+13:25 I mentioned the word only in passing.
+13:27 This is a little funky.
+13:28 We never saw this syntax
+in C in this context--
+13:32 parenthesis something comma
+something close parenthesis.
+13:36 We absolutely saw that syntax when we
+were calling functions and so forth,
+13:40 or when we had if conditions or the
+like, or loops, and while loops,
+13:44 and for loops.
+13:45 But we've never seen, to my
+recollection, a pair of parentheses
+13:48 open and close that have
+nothing next to them
+13:50 other than, in this
+case, the equal sign.
+13:53 But what does this kind of look like
+maybe from other classes you've taken?
+13:60 [INTERPOSING VOICES]
+14:02 DAVID MALAN: Yeah, sorry, say again.
+14:04 You want to go with ordered pair?
+14:06 Yeah, so if you think to any
+math class or graphing class,
+14:09 anytime you dealt with x and y, it's
+kind of common in certain worlds
+14:12 to have pairs of numbers, or triples
+of numbers, or quads of numbers.
+14:16 And so Python actually
+supports that idea.
+14:18 If you have two related values
+that you want to kind of cluster
+14:22 together in your mind, you can simply
+do open parenthesis one value comma
+14:26 the other.
+14:27 And the general term
+for this is a tuple--
+14:29 T-U-P-L-E. So it's kind of
+like a double or a triple.
+14:33 But a tuple is any number of things,
+one or more things in parentheses.
+14:37 So why are these related?
+14:39 Well, in TCP/IP, the protocol
+spoken on the internet,
+14:43 the first thing is the IP address.
+14:46 The second thing is the TCP port.
+14:48 So we have both IP
+and TCP, ergo, TCP/IP.
+14:52 And so we're just storing both
+of those variables in this--
+14:55 both of those values in this
+address called server address.
+14:57 Meanwhile, this kind of code we
+wouldn't really be familiar with yet.
+15:01 But this is declaring another
+variable on the left called httpd,
+15:03 d meaning daemon, which is a synonym for
+server, so HTTP server, aka web server.
+15:09 Give me some kind of HTTP server object.
+15:12 This is like a special
+struct, like a student struct.
+15:14 But this struct actually
+implements a web server,
+15:16 passing in the server address
+and whatever this thing here is.
+15:19 And let me wave my hand
+at that for just a moment.
+15:21 But then the last line of code here
+on 29, says inside of that variable
+15:25 is a function, otherwise
+known as a method,
+15:27 called serve forever
+that literally does that.
+15:30 When you run this program,
+and it gets to line 29,
+15:33 the program never, ever ends.
+15:35 It doesn't exit.
+15:36 It just keeps staying there.
+15:37 Never again do you see a prompt.
+15:39 It literally is serving forever
+by listening for HTTP requests.
+15:44 Now let me just show
+you what this does now.
+15:47 Let me go ahead in my terminal window.
+15:50 And how do I run a Python program?
+15:55 AUDIENCE: Python [INAUDIBLE].
+15:56 DAVID MALAN: Exactly-- so it's this.
+15:57 Unlike C, you literally say
+Python, which is not only
+15:60 the name of the language
+but it's the name
+16:01 of the program, the interpreter
+that can understand this file.
+16:05 And if I go ahead and run that,
+I can't open file serve.py.
+16:09 Up No such file in directory.
+16:11 So technically, I
+didn't mean to do that.
+16:13 But teachable moment,
+what's going wrong?
+16:15 AUDIENCE: You're not
+in the right folder.
+16:16 DAVID MALAN: Yeah, I'm
+not in the right folder.
+16:18 So before I mentioned it's in
+Today's Source Code, Source 9, so let
+16:21 me just cd into the right
+directory, and now do it again.
+16:24 And now nothing seems
+to be happening forever.
+16:27 And so it seems like the
+server is actually running.
+16:30 So I'm actually going
+to go ahead and do this.
+16:32 Let me go ahead and go up to
+Web Server under the Menu here.
+16:37 I just have a little
+warning from Cloud9.
+16:39 I'm going go ahead and click App.
+16:40 And now notice what's happening.
+16:43 My new URL is going to look
+different than your URL might.
+16:45 But in my case here, I just went to
+ide50 dash malan dash Harvard dot edu--
+16:51 because that's my username on Cloud9--
+16:53 dot cs50 dot io colon 8080.
+16:56 Because this program, this server,
+it is listening for TCP connections
+17:00 on port 8080, not the default, but 1880.
+17:04 And as soon as it hears a
+connection, it literally
+17:06 spits out apparently "hello, world."
+17:09 So where is that coming from?
+17:10 Well, if I zoom out and go back to
+my program here and look at the top,
+17:15 we'll see what this thing actually is.
+17:17 And we won't have to get into the
+particulars of why this works.
+17:19 But this is how a web server
+functions at the end of the day.
+17:23 When a web server receives an envelope
+from a user's browser, like this one
+17:27 here, it looks inside and it
+realizes, oh, this is a GET request.
+17:31 Because literally the verb
+GET is inside of the envelope.
+17:34 So here is a function
+called doget, just because.
+17:37 And then what do we do?
+17:39 This line here, 13, is telling
+the server to send 200, OK.
+17:45 It's telling it to send this
+header, content type text HTML.
+17:49 And it's telling it to write the
+following string, "hello, world,"
+17:53 in what's called Unicode or
+UTF-8 out on the internet.
+17:57 And that's it.
+17:58 So this is a very specific example.
+18:00 This web server is not all that useful,
+because no matter who or how often you
+18:05 connect to this web server
+on port 8080 of your domain
+18:08 name, what is it going to show?
+18:10 AUDIENCE: Hello, world.
+18:11 DAVID MALAN: Hello, world--
+18:12 so not interesting--
+you might as well have
+18:13 just save the whole darn thing as
+like index.html and be done with it,
+18:17 and not use Python at all.
+18:18 But what if, what if instead of doing
+this, you have code in your web server
+18:25 that says something like this--
+18:28 figure out what file was
+requested from HTTP headers,
+18:33 because remember it might be slash.
+18:34 It might be slash zuck, for
+Mark Zuckerberg's Home page,
+18:37 or some other request.
+18:39 Check if that file exists.
+18:43 If so, send it back to browser.
+18:46 In other words, suppose we remove this
+hard-coded stuff about "hello, world,"
+18:50 and just start to write some
+code, or at least for now
+18:52 pseudocode, that makes
+the web server dynamic.
+18:55 Upon getting a request on port 8080,
+it checks what the request is for,
+18:59 per this first line 12.
+19:00 If it finds it on the
+hard drive locally,
+19:03 it's going to send it back to the user.
+19:05 And so ultimately, that
+is what a web server does.
+19:08 I hard-coded a simple
+one to just forever say,
+19:10 "hello, world." but that's
+what a web server does.
+19:13 And moving forward, we are not going
+to implement the web server itself
+19:16 in Python.
+19:17 We're instead going to use a tool,
+a pretty popular one called Flask.
+19:20 So there's bunches and bunches
+of different web server software
+19:23 out there in the world.
+19:24 Flask happens to be one of them.
+19:26 It's technically called
+a micro framework,
+19:27 because it's like a small amount of
+code that other people wrote just
+19:30 to make it easier to serve up websites.
+19:33 And so rather than write
+the web server ourselves,
+19:36 we're going to use a web server
+that someone else wrote, Flask,
+19:40 and actually start writing our own
+applications on the web with it.
+19:45 So now what does this mean?
+19:47 Let me go ahead and do the
+following back here in the IDE.
+19:51 Let me ahead and kill this server
+here, close that file here,
+19:55 and let me go ahead
+and let's say do this.
+19:59 I'm going to go ahead
+and create a new file.
+20:02 And if I Google this, Python--
+20:05 Python Flask, the only way I
+would know what I'm about to do
+20:08 is if I had looked up the
+documentation for Flask
+20:11 and I followed the instructions,
+literally read the documentation.
+20:14 And at one point, I kind of read
+through the user guide here.
+20:17 I looked at some examples.
+20:18 I played around with my IDE, saved
+some things and tried them out.
+20:21 And thus was born this kind of example.
+20:24 So if you want to use Flask, it turns
+out you essentially have to do this.
+20:29 You first define an application.
+20:31 And you say, Flask name.
+20:34 Why?
+20:35 Why?
+20:36 It's not all that useful for now
+for us to dive into the weeds here.
+20:39 But this just says, hey,
+Flask, give me a web app.
+20:41 I don't care how it's implemented.
+20:43 You take care of that, so
+I don't have to write code
+20:45 like the previous serve.py file.
+20:48 And then after that, I need to
+tell flask what to do and when.
+20:53 And so the way you do this in
+a lot of modern web software
+20:56 is you define what are called routes.
+20:58 You say to Flask, or your
+web server more generally,
+21:01 hey, server, if you get a
+request for slash, do this.
+21:04 If you get a request
+for slash zuck, do this.
+21:07 If you get a slash for slash
+login, do this other thing.
+21:10 And so the pseudocode in a server
+might be something like this--
+21:14 if request is for slash,
+then send back home page.
+21:20 Else if request is for slash zuck, which
+again was just one of the sample URLs
+21:25 two times ago, then
+send Mark's Home page.
+21:30 Else if the request is for login, then
+prompt user to log in, and so forth.
+21:37 So this is a web-based
+application, albeit in pseudocode.
+21:41 It has nothing to do with TCP/IP per se.
+21:44 That is going to be the job of
+the web server to deal with.
+21:47 I don't want to even know there are
+envelopes virtually on the internet.
+21:50 I just want to start
+writing code in my logic.
+21:52 Just like in C, I want to write my
+main function and my helper functions.
+21:56 Here is what my web
+application is going to do.
+21:59 So how do you do this?
+22:00 Well, suppose that you
+want to do the following.
+22:03 Let me go into--
+22:05 save this as application.py, which
+is just a convention, application.py.
+22:11 And let me create momentarily
+another file called index.html.
+22:18 So I need a really quick web page here.
+22:20 And this will come with
+practice, but let me go ahead
+22:22 and just quickly whip up a
+little web page-- head here,
+22:25 title, hello, title, and then
+down here body, and hello body.
+22:31 OK, so super simple web page, same
+as we did a couple of weeks back.
+22:35 That's all.
+22:36 It's in a file called index.html.
+22:38 How do I now connect these two files?
+22:41 If I have a program written in
+Python, or technically pseudocode,
+22:45 and one of the things I want this
+program to do is this pseudocode here--
+22:49 if request is for slash,
+then send back the Home page.
+22:54 We've branch into, I think,
+briefly a couple times ago
+22:57 that the default Home page
+for a website is often, just
+23:01 by human convention, called index.html.
+23:04 So this pseudocode now is kind of this.
+23:06 If the request is for slash,
+specifically send back index.html.
+23:10 But instead, if the request is for
+slash zuck, then send Mark's Home page.
+23:14 So what might that look like?
+23:16 Let me actually go and
+copy this, make a new file.
+23:19 And just for kicks, I'm going to save
+it as a zuck.html and then hello, world,
+23:28 I am Mark.
+23:29 So suppose this is Mark's Profile page.
+23:31 It's super simple.
+23:32 It's obviously not what
+Facebook looks like.
+23:34 But it is a valid HTML page.
+23:36 So now I have two files
+and one web application.
+23:40 So technically, I should
+really send back zuck.html.
+23:44 And if I continue this sort of imaginary
+example, then prompt user to log in,
+23:48 that probably means then
+show user login.html,
+23:53 which is yet another page
+that has like a form on it.
+23:56 It's just like the form we made
+for our simple Google example.
+23:59 So in short, all a web
+application is, it's
+24:01 a program written in some
+language that respond
+24:03 to requests based on some logic.
+24:06 And this is the logic that we
+did not have in HTML alone.
+24:09 This is why we need Python,
+or Java, or Ruby, or PHP,
+24:13 or any number of other
+languages can do the same thing.
+24:15 C can also do this, but it would
+be an awful, awful nightmare
+24:20 to implement this in C. Because
+just think of how annoying
+24:23 it is to like compare substrings or
+extract something like the HTTP headers
+24:27 from a longer-- it's just a lot of work.
+24:29 A fun fact-- two years ago we had
+problem set, where we did exactly
+24:32 that, but now it's a little different.
+24:34 So here's how we transition to
+making this an actual web app.
+24:39 Let me go ahead and translate
+this to actual code.
+24:43 Let me delete this.
+24:44 And it turns out, in Flask, if you
+want to find a route, so to speak,
+24:49 for slash, you do this.
+24:51 My app shall have a route for slash.
+24:54 And when that route
+is visited by a user,
+24:57 by making a request in
+one of these envelopes,
+24:59 go ahead and call a function
+in Python called index--
+25:03 though I could call it anything I want--
+25:05 that simply returns the result of
+rendering a template called index.html.
+25:11 And we'll see why that is
+called a template in just a bit.
+25:14 But know that Flask gives me this
+special function called Render
+25:18 Template that will spit out a file.
+25:20 But it does more than that, which
+is why it has a fancier name.
+25:23 The file I want it to
+spit out is index.html.
+25:26 Meanwhile, if I want to support
+Mark Zuckerberg's Home page,
+25:29 I'm going to do what then,
+if you just kind of infer?
+25:33 AUDIENCE: Def zuck.
+25:34 DAVID MALAN: Def, OK, zuck.
+25:37 AUDIENCE: And then return
+his-- the rendered template.
+25:39 DAVID MALAN: Yeah, so return
+render template of zuck.html.
+25:42 And one more thing--
+25:46 AUDIENCE: [INAUDIBLE] backslash zuck.
+25:49 DAVID MALAN: Backslash--
+backslash where?
+25:54 No need for backslash
+or escape characters,
+25:56 but there's one-- one of these things
+is not like the other at the moment.
+25:60 AUDIENCE: [INAUDIBLE].
+26:02 DAVID MALAN: Yeah, so we need to
+define this function as being,
+26:05 quite simply, the function that Flask
+should call when the user visits
+26:09 slash zuck.
+26:10 Now again, it seems a little
+stupid that we've written zuck
+26:13 in three places, index in two places.
+26:15 That's just kind of
+the way it is in Flask.
+26:17 Like this could just be Foo.
+26:18 This could be bar.
+26:19 The function names don't matter.
+26:20 But you might as well keep yourself
+sane and use the same names
+26:23 as relate to the routes themselves.
+26:26 So now we've replaced two of
+my conditions in my pseudocode
+26:29 with actual code.
+26:31 And if we take this one step
+further, to do the Login screen.
+26:35 I bet I just need to do something like
+app dot route slash login and then
+26:40 maybe something like def login return
+render template login dot html, which
+26:46 I didn't bother making,
+but I certainly could
+26:48 with some copy/paste and some edits.
+26:49 So now we have a web application
+that supports three routes.
+26:54 When it gets a request in an envelope
+from someone on the internet,
+26:57 it will look inside that envelope
+and check, what are you requesting?
+27:01 Well, if you're requesting slash,
+I'm going to this function.
+27:03 If you're requesting slash zuck,
+I'm going to call this function.
+27:06 Or slash login, I'm going
+to call that function.
+27:08 And that's it.
+27:09 The web app is not
+complete because notice,
+27:12 we seem to have no code that actually
+checks usernames, and passwords,
+27:16 and sort of fancy features that
+you would hope actually exist.
+27:19 But that's more code to come.
+27:21 For now, all we're doing is spitting
+out, conditionally, different files.
+27:25 So how do I now make this work?
+27:27 Well turns out, I need to make
+a directory called templates,
+27:30 so make dir templates-- or I could do
+it with the file browser, with the GUI--
+27:34 Enter.
+27:35 I'm going to move both
+index.html in there with mv.
+27:39 And I'm going to move
+mark into there with mv.
+27:43 And now I need to do one other thing.
+27:45 In my program up here,
+I've deliberately-- whoops,
+27:49 oh, let's close the tabs,
+because I moved the files.
+27:53 That's OK.
+27:54 It's just because I moved the
+files into a subdirectory.
+27:57 So let me re-open those.
+27:59 So I left the room appear
+deliberately for a couple of reasons.
+28:03 One, Flask-- rather Python--
+28:05 has no idea what Flask is.
+28:07 When Python was invented years ago,
+there was no such thing as Flask.
+28:10 That was written more
+recently by a community
+28:11 of people, who have been making
+better web server software since.
+28:15 So if I want to use a package that
+someone else wrote, aka a library,
+28:20 recall that I can do something like
+this from Flask import FLASK, which
+28:24 is a little stupid looking.
+28:26 But this just means
+somewhere on the IDE,
+28:28 we have pre-installed
+a package called Flask.
+28:30 Inside of there is a feature
+called FLASK-- capital letters--
+28:34 which happens to be what I'm using here.
+28:36 And for today's purposes, you
+can think of this as a structure.
+28:38 It's not a student struct, which
+is the go to example thus far.
+28:41 But it's a special web app
+structure that I'm somehow using.
+28:44 But you can just take on faith for
+now that that's what that does.
+28:48 But render template is also not
+a function that I implemented.
+28:51 And indeed, nowhere in the file is
+it actually defined or implemented.
+28:55 Turns out that comes with Flask, so
+I can also import a second function.
+28:59 Just like I imported get int
+or get string or get float,
+29:02 I can import this function
+called render template.
+29:06 And that's all I actually need here.
+29:09 So now I'm going to go ahead,
+and if I didn't make any typos,
+29:12 I'm going to go ahead and now do this--
+29:14 Flask run.
+29:16 So Flask, in addition to being
+like a framework, a way of writing
+29:20 web applications, it is
+also a little program
+29:23 called Flask that takes some
+command line arguments, one of which
+29:26 is Run, which just says run the
+web app in my current directory.
+29:30 And that file, by convention,
+has to be called application.py.
+29:33 So when I hit Enter, I see a
+whole bunch of debugging output.
+29:37 Debugger is active.
+29:38 We'll see what that means some time.
+29:40 And now here is the URL.
+29:41 It's really ugly looking, because I have
+a pretty long user name here on Cloud9,
+29:44 but notice it's the port
+8080 that's important.
+29:48 Let me go ahead and open that.
+29:49 And now I see "hello, body."
+29:51 But up here-- and remember
+that the slash is inferred.
+29:55 Chrome is just being used
+friendly and hiding it.
+29:57 If I change this to zuck--
+29:59 Enter-- "I am Mark."
+30:01 And if I change it to login,
+what's going to happen?
+30:05 AUDIENCE: Nothing, because it--
+30:06 DAVID MALAN: Not found-- so something
+deliberately at this time it's going
+30:09 to go wrong because I didn't--
+30:10 whoa-- OK, so I didn't bother
+making that template yet.
+30:14 And so you'll soon be familiar,
+not with segfaults any more,
+30:17 but probably with something
+called an exception.
+30:19 And we'll see more of these over time.
+30:20 But Python, unlike C, supports
+something called exceptions, which
+30:24 is a type of error that can happen.
+30:26 And essentially, one of the features,
+if a little cryptic, of Flask,
+30:30 is that anytime something really goes
+wrong like a segfault, but in this case
+30:33 called an exception, you'll
+see a somewhat pretty web page
+30:37 that I did not write.
+30:37 I didn't make any of this HTML.
+30:39 Flask generates that
+for me just to show me
+30:41 all of the darn errors
+that somehow ensued,
+30:44 so I can try to wrap my
+mind around what's going on.
+30:47 Fortunately, the most important
+one is usually at the top.
+30:49 And it kind of says what I need
+to know-- "template not found,"
+30:52 even though I'm not sure what
+this means yet, "login.html."
+30:55 So I can infer from that
+what's actually gone wrong.
+30:58 So that might be my very first example.
+31:01 And the key takeaways here are that
+I have written Python code with logic
+31:06 to decide, if the request
+comes in for this, do this.
+31:09 If the request comes in for
+some other thing, do this,
+31:12 else do this other thing, so kind
+of a three-way fork in the road,
+31:15 even though the results
+are just some text files.
+31:18 OK, any questions or
+confusions at this point?
+31:24 OK, so now that we have
+a programming language,
+31:29 we can do much more
+powerful things, kind
+31:31 of sort of like I tried
+to do back in my day
+31:34 when I first learned how
+to write web applications.
+31:39 And one of the first things I did--
+31:41 let me go ahead and
+close all of this up.
+31:44 One of the first things I did was
+to make a website for the Freshmen
+31:49 Intramural Sports Program.
+31:50 And let me go ahead in here to
+Frosh IM0, open up some templates,
+31:54 and we're about to see is this.
+31:56 Here's a little web application
+that I made in advance.
+31:58 It's in a folder called Frosh IM0, which
+has a template subdirectory, inside
+32:02 of which are a whole bunch of web pages.
+32:04 And you can probably infer
+what they are used for.
+32:06 Index is probably the
+default. Success has something
+32:09 to do with things going right.
+32:11 Failure is probably the opposite.
+32:12 And we don't know yet what
+layout.html is, and an application.py.
+32:16 That's it.
+32:17 So let's actually see what
+index.html looks like.
+32:21 And that's the following.
+32:23 In index.html, it looks like
+we have a whole bunch of HTML.
+32:28 And I've cut off deliberately
+the first couple of lines.
+32:31 But what's an H1 tag?
+32:33 AUDIENCE: Header.
+32:33 DAVID MALAN: Header, so it's
+like a big bold piece of text.
+32:36 So "Register for Frosh IMs" looks
+like the main text atop this page.
+32:40 Form, action, register, method, post, we
+saw this briefly when we re-implemented
+32:45 Google a few weeks ago.
+32:46 So here, "action" means
+that when you click Submit,
+32:49 this is going to be submitted to
+the current domain slash register.
+32:53 And it's going to use
+a method called Post.
+32:55 So we didn't talk about this in
+detail last time, but it turns out
+32:58 there's at least two verbs
+to know in the web world--
+32:60 Get, which puts everything you type
+in into the URL, and Post, which,
+33:06 in short, does not.
+33:07 It hides it sort of
+deeper in the envelope.
+33:10 So based only on that definition,
+whereby recall that Google uses Get.
+33:15 If I go to Google dot com slash
+search question mark q equals cats--
+33:19 and hopefully they're doing
+better today than last time.
+33:23 OK, so notice the URL here--
+33:27 I have to stop pulling up Daily News.
+33:29 So notice the URL here
+has my search query.
+33:34 Why might it not always
+be a good thing to put
+33:37 into the URL what the user typed in?
+33:41 AUDIENCE: Cause it's like a password.
+33:43 DAVID MALAN: Yeah, if
+it's your password,
+33:44 you probably don't want
+it showing up in the URL.
+33:46 Because maybe someone
+nosey walks by and can just
+33:49 read your password off the URL.
+33:50 But more compellingly, a lot of
+browsers have autocomplete these days,
+33:54 and they remember your history.
+33:56 So it would be a little lame if
+your little sibling, for instance,
+33:58 could just click the little
+arrow at the end of this window
+34:00 and see every password
+you've typed into websites.
+34:03 You could imagine this not being good
+for uploading content like photos.
+34:06 Like, how do you put a photo in a URL?
+34:08 That doesn't feel like it would
+really work, though technically you
+34:11 can encode it as text.
+34:12 Credit card information
+or anything else,
+34:14 I mean anything resembling
+something private or secure to you,
+34:17 probably don't want
+cluttering the URL bar
+34:19 because it's going to get saved somehow.
+34:22 When you use incognito mode though,
+for instance, that kind of stuff
+34:25 is thrown away.
+34:26 But this is just bad practice to force
+your users to use a mode like that.
+34:30 So Post does not put it in there.
+34:33 And so if Google used Post, which they
+don't for their search page instead,
+34:37 we would appear to be at this URL,
+just slash search, no question
+34:41 mark, no q, and no cats, but the
+query can still be passed in.
+34:45 It's just kind of, again,
+deeper inside of the envelope.
+34:48 So long story short,
+I chose to do exactly
+34:51 that just because with Frosh
+IMs, because we don't really
+34:54 need to be storing all of the
+freshmen's names, and email addresses,
+34:57 and dorms in people's
+URL bars unnecessarily.
+35:00 So input name equals
+name, type equals text.
+35:04 This is going to give me a text box,
+just like q for Google, for someone
+35:07 to type in their name.
+35:08 Select-- it's kind of a weird name,
+but what does a select element give you
+35:13 visually on a screen, if you recall?
+35:15 Yeah?
+35:15 AUDIENCE: It's like a dropdown bar.
+35:17 DAVID MALAN: Yeah, it's a dropdown menu.
+35:18 So all of the items in that menu are
+going to be drawn from these Harvard
+35:21 freshman dorms here.
+35:23 And then down at the bottom of
+this file, if I keep scrolling,
+35:26 notice there's one other
+input whose type is Submit.
+35:29 And what does a input
+whose type is Submit
+35:31 look like on the screen, if you recall?
+35:33 AUDIENCE: It's a button.
+35:34 DAVID MALAN: Yeah, it's just a button.
+35:35 That's it.
+35:36 And you can style it
+to look differently,
+35:37 but it's just a button by default. So
+long story short, this web application
+35:41 gives me a form via which frosh
+can register for intramural sports.
+35:46 And I can see this as follows--
+if I go into Frosh IM0,
+35:49 and I simply do Flask run, I'm
+going to see my same URL as before,
+35:54 but now a different application
+is running on the same port.
+35:57 Here's what it looks like.
+35:58 It's super simple, super ugly, but
+it does, indeed, have a text box.
+36:02 It's got a dropdown.
+36:03 And it's got a Register button.
+36:05 And now with the world
+suddenly got more interesting,
+36:08 because now I have not just static
+content, like "hello, world"
+36:13 or "I am Mark."
+36:14 I actually have something
+interactive for the user to do.
+36:16 And if he or she fills out this
+form now, clicks Submit, two
+36:20 or three weeks ago, we
+just punted completely,
+36:22 and we let Google handle
+the user submission.
+36:25 But now we have Python in a
+programming language that can receive,
+36:29 inside of the same envelope,
+the user's query for cats
+36:33 or the user's name and dorm.
+36:35 And we can actually
+do something with it.
+36:37 So this program doesn't do
+all that much with it yet.
+36:40 If I go in here and zoom in, and I
+register David from Matthews and click
+36:44 Register, notice what happens.
+36:47 I do end up, as promised,
+at slash register.
+36:50 And I'm told "You are
+registered," well, not really.
+36:52 And that's because this is version 0.
+36:54 It actually doesn't do all that much.
+36:56 What does it do?
+36:57 Well, let's go back and
+try to be less cooperative.
+36:60 So I just reloaded the page.
+37:02 It's still asking for my name and dorm.
+37:04 You don't need to know that information.
+37:06 I want to keep it private.
+37:06 I just want to anonymously register
+for a sport, whatever that would mean.
+37:10 Register-- OK, I caught it.
+37:13 Notice that the URL is
+still slash register.
+37:15 But I'm being yelled at for
+not providing my name and dorm.
+37:18 All right, so fine,
+I'll give you my name.
+37:20 But I don't want you to know where I
+live, so I'm just going to say David--
+37:24 Register.
+37:25 And it's still catching that somehow.
+37:27 So only when I actually give it a dorm
+and a name, like David from Matthews,
+37:32 and click Register, does it
+actually pretend to register me.
+37:36 So what does the logic look like?
+37:37 In just English pseudocode, even
+if you've never written Python,
+37:40 what kind of pseudocode would be in
+application.py for this application?
+37:44 AUDIENCE: If there is no
+text, provide error message.
+37:47 DAVID MALAN: Perfect, if
+there is no text provided,
+37:49 provide this error message instead.
+37:51 And so let's take a look
+at how that's implemented.
+37:53 In Frosh IM0, in
+addition to my template,
+37:56 I again had this application.py.
+37:58 And let's see what's new
+and what's different.
+38:00 So first, this is mostly
+the same as before.
+38:04 I just added one other
+thing in here, Request,
+38:06 for reasons we'll see in a moment.
+38:07 Here is the line of code
+that says, hey, Python,
+38:09 give me a web application called app.
+38:12 Hey, Python, when the user visits
+slash, render the template index.html.
+38:18 That's how I got the form.
+38:19 But this is the interesting part.
+38:21 Let me zoom out slightly.
+38:23 These lines of code are
+a little more involved,
+38:25 but let's do the one at a time.
+38:27 This first line, nine,
+is saying, hey, Python--
+38:30 or specifically Flask--
+when the user visits slash
+38:34 register using the post
+method, what do I want to call?
+38:39 Just to be clear, what function?
+38:43 AUDIENCE: Register?
+38:44 DAVID MALAN: Register-- so
+again, the only relationship
+38:47 here, even though the syntax looks
+a little cryptic, is this says,
+38:50 hey, server, when the user
+visits slash register,
+38:54 call the function immediately
+below it called Register.
+38:58 And then what does that function do?
+38:60 Well, here is the logic that you
+proposed verbally a moment ago.
+39:03 If not request dot form dot
+get or not request dot form dot
+39:07 get dorm, name and dorm, then
+return failure.html, else
+39:12 implicitly return success.html.
+39:15 So the only part that's a little new
+and different here is 11, line 11.
+39:18 Because in C, you would have
+to use the exclamation points.
+39:21 You would have to use vertical
+bars for Or So some of that
+39:23 syntax is a little different.
+39:24 But this works as follows--
+39:26 there exists a function called Get that
+is inside a special variable called
+39:32 Form that is inside a special variable
+called Request that I have access to,
+39:39 because I imported it up here.
+39:42 And that function, Get, checks
+inside of the virtual envelope
+39:47 for a field called Name that would
+have been populated in the envelope
+39:51 if a user typed his or her name.
+39:53 And if it exists, it returns it,
+quote-unquote, "David," quote-unquote,
+39:56 "Maria," or whoever it is that's
+registering, but if not, inverts it.
+40:00 So if not a name, or if not a dorm,
+go ahead and spit out failure.html.
+40:07 So what does failure.html look like?
+40:11 Well, failure.html just has
+this hard-coded message,
+40:14 "You must provide your name and dorm."
+40:17 And now at the risk of introducing
+one too many languages at a time here,
+40:22 there is another one in here.
+40:23 These funky curly
+braces and percent signs
+40:27 are what's called a templating language.
+40:29 But before we explain what that
+is, notice at the top of this file
+40:33 is mention of another file, layout.html.
+40:35 That
+40:35 We've not seen this before.
+40:37 In the past, we've just had full
+and complete index.html files
+40:42 or zuck.html files.
+40:45 But what was true a moment ago
+about index.html and zuck.html
+40:52 from our last example?
+40:53 Let me go ahead and
+quickly open those again.
+40:55 Index.html, recall looked like this.
+40:58 And zuck.html looked like that.
+41:02 What do you notice in
+layman's terms about the two?
+41:07 AUDIENCE: [INAUDIBLE]
+is mostly the same.
+41:08 DAVID MALAN: Yeah, they're
+almost identical, right?
+41:10 They seem to differ
+only in their titles,
+41:12 obviously, and in the body's content.
+41:14 But all the other
+structure is identical.
+41:17 And to be fair, there's
+not that much in red there.
+41:19 There's not too many tags.
+41:20 But I mean, I literally, in front
+of you, copied and pasted this.
+41:23 And generally, that is already
+a step in the wrong direction.
+41:26 And so there's an opportunity here.
+41:28 There's a problem to be solved.
+41:30 And we've done this in the past, right?
+41:31 In C, if you were to just
+blindly copy and paste code
+41:34 you need in multiple
+places, that's kind of dumb.
+41:36 It's kind of messy.
+41:36 It's hard to maintain.
+41:38 Rather, you should probably
+be defining it as a function
+41:40 that you call in multiple places.
+41:41 Now this is not a programming
+language, so there's
+41:44 no comparable notion of a function.
+41:46 But because it's a markup language
+that just has hard-coded values,
+41:50 you can think of this as kind
+of being a template or a mold,
+41:54 like put something here, and then
+maybe here, put something else here.
+42:01 So again, if you think
+of the physical world
+42:03 as having templates, or again,
+like a mold into which you
+42:08 pour specific values, this is
+kind of what we're talking about.
+42:11 And that is what layout.html
+is in this Frosh IMs example.
+42:15 I've not opened it until now, but
+here is, somewhat cryptically,
+42:20 an example of layout.html.
+42:24 And notice, it's got the doc type.
+42:25 It's got HTML head, title,
+some other stuff up there body.
+42:29 But then it has this placeholder.
+42:31 And I'll admit it, the syntax
+is sort of annoyingly cryptic,
+42:34 but this is just saying
+put something here.
+42:37 And that's all.
+42:38 What are you putting there?
+42:39 Well, if I go back to failure.html,
+notice that it works as follows.
+42:44 Failure.html conceptually
+extends this template.
+42:48 It borrows that mold,
+called layout.html.
+42:51 And then notice the same keywords
+here, block body and block.
+42:55 This just means plug
+this into that file.
+42:59 And this allowed me to
+break my habit quickly
+43:02 of just copying and pasting everything,
+even though the format of these files
+43:05 is almost identical.
+43:07 So if I go back now to
+application.py, notice
+43:10 that this program does spit out
+either index.html or failure.html,
+43:16 or success.html.
+43:17 So it would have been pretty lame to
+copy and paste my code three times.
+43:20 That's why I took the time to create
+a fourth file, layout.html, just
+43:24 to factor out everything that's common.
+43:26 And the upside of this, too,
+means that all of these pages
+43:29 structurally look the same.
+43:30 And if I had like a
+fancy logo on my website
+43:32 and a nice brand to the
+web site, all of my pages
+43:35 would look the same except for a
+message that changes in the middle,
+43:39 say, of the page.
+43:40 And so this, then, is Frosh IM0.
+43:43 Any questions on how this now looks?
+43:47 All right, so we have a couple
+of other opportunities here.
+43:50 I would propose that it would be kind
+of interesting to actually remember
+43:54 that the user has
+registered, instead of just
+43:56 pretending by spitting out a hard-coded
+value, like "You are registered."
+43:59 Well, not really, because I'm not
+doing anything with their name or dorm.
+44:02 So maybe we could start
+storing that in memory
+44:04 and see who is registered for the site.
+44:06 It would be even cooler if, like in
+my day way back when I implemented
+44:10 the actual Frosh IMs website, you could
+email someone when he or she registers
+44:14 to confirm that they're registered.
+44:16 Or better still, why don't we
+actually save it to a mini database,
+44:19 like a CSV file, that I, like
+the person running Frosh IMs,
+44:22 can actually open in Excel, or Numbers,
+or Google Spreadsheets, or the like.
+44:25 So before we to get to that, let's
+take our five-minute break here.
+44:27 And we'll come back and
+solve exactly those problems.
+44:30 So we are back.
+44:31 And so I thought today
+would be opportune,
+44:33 since you might have been
+wondering who Stelios
+44:35 is who has been our example in
+quite a few of our memory examples.
+44:38 But visiting from Yale University today,
+one of our head TAs there, Stelios.
+44:42 STELIOS: Hi, everyone.
+44:43 AUDIENCE: We love you!
+44:45 [APPLAUSE]
+44:49 STELIOS: Yale is on break,
+so I said, why not come by?
+44:55 Yeah, it's glad to see you.
+44:57 I've been in here before many times.
+44:60 It's a beautiful space.
+45:02 And, yeah, come by and hi after lecture.
+45:04 DAVID MALAN: So glad to have you.
+45:05 Thank you, Stelios.
+45:07 So, it was brought to
+my attention, since I
+45:09 wasn't focusing so much on my
+logs in the terminal window, which
+45:12 record all of the HTTP requests that
+you get during a server running.
+45:17 And this is a screenshot of my terminal
+window from just a little bit ago.
+45:20 And you'll recall that I visited
+slash, and then I tried to register.
+45:23 But in between there,
+someone in the audience,
+45:25 apparently, or on the internet,
+tried to visit slash was up,
+45:29 using Get in their browser.
+45:31 I scrolled past a few other
+inputs from the internet.
+45:34 But the more shareable
+ones were these here--
+45:37 bro slash David and slash nice.
+45:40 So that was the last one before
+I killed the actual server.
+45:42 And this is because, even though I'm
+listening on a nonstandard port, 8080,
+45:47 that domain name, I did share my
+workspace publicly so that anyone could
+45:50 access it while the server is running.
+45:52 And if you happened to be
+here physically or tuning
+45:54 into a live stream,
+it's obvious that I'm
+45:56 advertising now publicly that port 8080
+is where we've been spending our time.
+46:01 But if we turn back now to Flask and
+maybe minimize our logs moving forward,
+46:06 let's consider how we can actually
+now remember that users are logged in.
+46:10 So in fact, let me go ahead and
+demonstrate among today's examples,
+46:14 Frosh IMs1, by running Flask run.
+46:17 And then I'm going to go to
+the same URL as before up here.
+46:21 And we'll see this
+time, that if I go ahead
+46:23 and register as David from Matthews--
+46:26 Register, notice now that instead
+of just going to slash register,
+46:30 I changed things a little bit.
+46:32 And I'm going to slash
+registrants, because there I
+46:35 seem to have some HTML that
+generates a bulleted list of whoever
+46:38 has registered.
+46:39 And so now let me go ahead here
+and go back, perhaps, and register
+46:44 let's say Maria from Apley Court--
+46:47 Register.
+46:48 And now we have two.
+46:50 Moreover, if I just reload the page,
+notice that this information persists.
+46:55 So how is this actually working?
+46:57 Well, let's go ahead and take a look
+inside of application.py for Frosh IMs1
+47:05 dot--
+47:06 for Frosh IMs1.
+47:08 So what do we have inside here?
+47:09 So as before, I'm configuring
+my app with a line like this,
+47:13 like, hey, Flask, give me an app.
+47:15 And then this, I claim,
+is my registrants.
+47:18 So this is just a comment in
+Python, the hashtag registrants.
+47:22 Students equals open bracket close
+bracket represents what, though?
+47:25 AUDIENCE: List.
+47:26 DAVID MALAN: A list,
+yeah, it's an empty list.
+47:28 It's like an empty array.
+47:29 But unlike in C, where
+arrays can't grow or shrink,
+47:32 in Python lists, which are
+similar in spirit to an array,
+47:35 can actually grow and
+shrink dynamically.
+47:37 So if you want an empty
+one, you literally just
+47:39 say, give me an empty one.
+47:40 And then we'll figure out
+the ultimate length later.
+47:42 And so what's compelling
+about this on line 7,
+47:45 is that I have a variable
+now called Students,
+47:48 that's initialized to an empty list.
+47:51 But it's now in the web
+application's memory.
+47:55 Because recall that when we
+run Flask, I don't immediately
+47:58 get back to my prompt.
+47:59 The program doesn't
+just run and then stop.
+48:00 It just keeps listening,
+and listening, listening,
+48:03 waiting for more of these
+envelopes to come in.
+48:05 As such, as these various
+functions get called--
+48:09 index, or registrants,
+as we'll see, or others--
+48:12 they all have access to this global
+variable, in this example, Students.
+48:15 And so any of them can just put
+more, and more, and more data
+48:19 inside of Students.
+48:20 And so here, if I go ahead and do this--
+48:23 let me go ahead and show that
+in the user visits slash,
+48:27 we just return index.html.
+48:30 Otherwise, if they visit
+slash register, notice
+48:33 that I've actually got some
+interesting logic going on this time.
+48:36 So if the user visits
+slash register via Post--
+48:40 and the only way thus far we've
+seen that this could happen
+48:42 is if the user does what?
+48:44 How do you do something via Post?
+48:47 AUDIENCE: You submit.
+48:48 DAVID MALAN: You submit a form.
+48:49 So Get, we humans can
+simulate really easily.
+48:51 If you just go to a URL, by
+typing it into your browser,
+48:54 you are by default using Get.
+48:55 You can't do the same
+nearly as easily for Post.
+48:59 You only have access to the URL bar.
+49:00 But if you have a web form,
+like the one in index.html
+49:03 with the Dorm dropdown
+and the Name textbox,
+49:06 you can submit via Post, which
+is how this route can apply just
+49:08 to that particular route.
+49:11 So here on line 21, I'm saying,
+hey, give me a variable called Name,
+49:14 and put in it whatever the
+user typed into the Name field.
+49:18 Give me the same for the Dorm.
+49:19 And so we notice, even if it
+was a big dropdown of items,
+49:22 the user is only selecting one of those.
+49:24 And so we're getting
+back just this one value.
+49:26 And then here is a little
+sort of Pythonic-type logic.
+49:30 If not Name or not Dorm,
+which is kind of nice.
+49:32 It's a little terse, and it would
+have looked strange a few weeks ago,
+49:35 but now it looks better, perhaps,
+than it would have in week one
+49:38 in C. Then go ahead and
+return failure.html.
+49:41 If we're missing the name or the dorm.
+49:43 Meanwhile, if that's not the case,
+and we've not returned a failure,
+49:47 go to do this, students dot
+append and then this F-string.
+49:51 So dot append, if you don't recall--
+49:54 and you might not recall, because
+I don't remember if we showed you--
+49:56 is a method or function
+built into a list that
+49:59 allows you to literally append a
+value to a list called Students.
+50:03 So this is how, in
+Python, you grow an array.
+50:06 You just append to it and
+the program will figure out
+50:08 the length of this list.
+50:09 This F-string just means here comes
+a formatted string, similar in spirit
+50:13 to print F, but the syntax
+is a little different.
+50:15 And the string I'm forming here
+is so-and-so from such-and-such,
+50:19 so Name from Dorm.
+50:20 And the curly braces inside of
+a format string or an F-string
+50:24 means that we should plug those
+variables into that F-string.
+50:27 And then lastly, this is a new feature.
+50:30 You can return not just
+render template, you
+50:32 can literally return
+redirect and the path
+50:35 to which you want to redirect the user.
+50:37 And take a guess.
+50:38 If you call redirect
+slash registrants, what
+50:40 does Flask, because Flask gave
+us this redirect function,
+50:44 put inside the envelope for us?
+50:46 AUDIENCE: A new address.
+50:47 DAVID MALAN: A new address--
+and what kind of status code?
+50:49 AUDIENCE: 301.
+50:50 DAVID MALAN: Like a 301--
+50:51 we saw that a couple of times ago.
+50:53 301 means redirect the user.
+50:55 So this function handles
+all of that for us.
+50:57 We don't have to know or worry about
+how those status codes are actually
+51:01 generated.
+51:02 Meanwhile, slash registrants
+is super simple, but it does
+51:06 have one nice new feature.
+51:08 So slash register, to which the form
+submit, ultimately does all this stuff
+51:12 and then redirects the user to
+slash registrants, just because.
+51:16 And it's kind of better
+designed if this route is only
+51:19 used for saving
+information, and this route
+51:21 is only used for seeing
+information, because this way
+51:24 you can visit it via Get as well.
+51:26 Notice that I'm returning
+registrants.html.
+51:28 But I'm doing a little
+something different this time.
+51:31 What is different about line 16,
+vis-a-vis all of our other render
+51:34 template calls before?
+51:35 AUDIENCE: Students equals.
+51:36 DAVID MALAN: Yeah, students equal
+students, which is a little strange.
+51:39 But we know that one of those values
+is referring to this list here.
+51:44 And so this is an example of
+Python supporting named parameters.
+51:48 It turns out that if you want
+to pass data into a template,
+51:52 you can put a comma and then the names
+of the values you want to pass in.
+51:56 Index didn't need this.
+51:57 Failure didn't need this.
+51:58 Success didn't need this,
+because it's all hard-coded.
+51:60 But Registrants does.
+52:02 Based on what we saw, it's going to
+generate a bulleted list of like David
+52:05 from Matthews and
+Maria from Apley Court.
+52:07 So we kind of need to know
+who those students are.
+52:09 So, OK, registrants.html comma,
+students shall be the named parameter.
+52:14 And the value of it shall
+be the list up here.
+52:18 So the right-hand side
+is a variable, or a value
+52:20 that must exist in the current program.
+52:23 And the left-hand side
+is a variable that's
+52:25 going to be inside of,
+we'll see, registrants.html.
+52:30 So let's open registrants.html,
+because the other templates, honestly,
+52:34 aren't that interesting.
+52:35 Index.html is just like the web form
+with the dorms and the name field.
+52:39 Failure just says, sorry, you
+must provide name and dorm.
+52:42 Layout is just the similar
+web structure as before.
+52:45 So the only new file here, besides
+the changes to application.py,
+52:49 are in registrants.html.
+52:51 This file, as before, extends a layout.
+52:54 So that's the mold that it's using.
+52:56 And it's going to fill in the
+following block for the body.
+52:59 So again, this is just specific
+to the templating technique,
+53:02 just to clean up the code.
+53:04 But the real interesting stuff is here.
+53:06 This is kind of sort of HTML,
+but kind of sort of not.
+53:10 So what does this look like?
+53:13 AUDIENCE: Python code.
+53:14 DAVID MALAN: Yeah, it kind
+of looks like Python code.
+53:16 And it's technically not.
+53:18 And I realize this is this
+awkward part in the semester,
+53:21 maybe like most of the
+semester, where we introduce
+53:23 all these darned things at once.
+53:25 But this is a language called Jinja--
+53:27 J-I-N-J-A-- that is a
+templating language.
+53:31 And you'll see that word in
+documentation and so forth.
+53:33 It's a very lightweight language
+for just displaying information.
+53:38 It gives you some loops.
+53:39 It gives you some conditions.
+53:40 And it pretty much is Python code.
+53:42 You can think of it that way, but
+it's not necessarily identical.
+53:47 So for now, you'll see by
+example what we can do with it.
+53:50 So here, we have a Jinja template
+that says, "For student in students."
+53:54 This is very Python-like.
+53:55 So "For student in students"
+means iterate over students,
+53:58 and call each student
+along the way "student."
+54:02 So with this, I needed to call students,
+because it's passed into my form.
+54:06 This could be foo, or
+bar, or S, or whatever.
+54:08 It's just a loop.
+54:09 And then you can perhaps
+guess what this line does,
+54:11 even though it's a little cryptic.
+54:13 On line 7, I have some
+kind of familiar HTML,
+54:16 familiar only insofar as for a
+few seconds a couple of weeks ago,
+54:19 we showed you a bulleted list in HTML,
+which had a bunch of Li-- list items.
+54:23 But take a guess.
+54:24 What is line 7 probably
+doing, if you had
+54:27 to guess, based on what the
+output of this program was?
+54:32 AUDIENCE: Print [INAUDIBLE].
+54:34 DAVID MALAN: Printing what?
+54:35 AUDIENCE: Printing the students.
+54:36 DAVID MALAN: The
+individual students-- so
+54:38 remember that the Students list is
+just a list of strings, so-and-so
+54:42 from such-and-such, so-and-so
+from such-and-such a place.
+54:45 So, if we induce this kind of
+loop, iterating over that variable.
+54:50 And on each iteration, we spit out a
+new link list item, a new list item,
+54:54 like in other words, a new bullet, a
+new bullet, a new bullet, each time
+54:57 printing out just the
+name of that value,
+54:60 we're going to get a
+bulleted list of students.
+55:02 And sure enough, the
+HTML might not be pretty
+55:05 because it's being generated
+this time by a human.
+55:07 But this is the HTML.
+55:09 If I view Chrome Source for
+that page, notice that I've
+55:12 got all this stuff from my layout.
+55:15 Down here, meanwhile,
+I've got ul and ul,
+55:17 which I did hard-code into that file.
+55:20 But these are not hard-coded anywhere.
+55:22 They were dynamically generated.
+55:24 And this is now really the
+first evidence of, not just
+55:26 the logic within our
+Python-based web application,
+55:29 but also the ability to generate
+content back to the user.
+55:33 And if I kept running
+the server and kept
+55:35 having people submit, and
+register, and register,
+55:37 that list would just get
+longer, and longer, and longer.
+55:39 And the proctor or whoever
+is actually managing
+55:41 the intramural sports can
+actually look at that list
+55:44 by going to slash
+registrants and know whom
+55:45 to contact, at least if we asked
+for more personal information
+55:48 like emails and the like.
+55:51 So any questions then on this example?
+55:55 All right, so it's in example 2,
+where now we recreate the website
+56:02 that pretty much I implemented
+back in 1997 or 1998,
+56:06 albeit in a different language,
+that actually allowed freshmen
+56:10 to register for intramurals.
+56:11 And we can do that as follows.
+56:13 If I go into Frosh IMs2,
+and I do Flask run--
+56:18 I'm going to now reload that app.
+56:20 And now I'm asking for one other thing.
+56:22 So I made the form a little bigger
+by asking for an email address.
+56:26 Because this time, I'm actually
+going to try sending an email.
+56:30 Let me go back over here to the file.
+56:33 And let me minimize this to make room
+for Frosh IMs2 application.py, which
+56:41 does the following.
+56:42 So I have some mention of password
+here, but more on that in just a bit.
+56:46 And notice that up here I have
+a new import, not to mention OS.
+56:51 Notice up here-- let's see.
+56:55 Notice up here, we have import smtplib,
+so SMTP, Simple Mail Transfer Protocol,
+57:01 which happens to do with email.
+57:03 And that's because this
+example works as follows.
+57:05 In slash, we just return
+that template, index.html.
+57:09 If instead you do register, notice
+what actually happens this time.
+57:14 And I want to move this up here.
+57:17 There we go.
+57:18 So now we have this file
+here-- this method here--
+57:22 that operates as follows.
+57:24 If the user tries to register
+via Post, call this function.
+57:28 Get their name.
+57:28 Get their email.
+57:29 Get their dorm, and then just
+a little bit of a sanity check
+57:31 that's not complete now,
+because I'm just asking,
+57:34 like before, if not name or not dorm.
+57:37 But how do I also make sure that this
+user has given me their email address?
+57:41 AUDIENCE: [INAUDIBLE].
+57:43 DAVID MALAN: Yeah, so if
+not name, or not email,
+57:47 or not dorm-- now I've improved
+upon this example versus the last
+57:50 by also checking for
+their email address.
+57:52 And if they don't provide
+one of those, we say failure.
+57:55 Otherwise, what is this line 23 do?
+57:58 AUDIENCE: Sends its message?
+57:60 DAVID MALAN: It sets a
+message, a variable called
+58:02 Message, equal to quote-unquote,
+"You are registered."
+58:04 The next line here is a
+little cryptic, and you'd only
+58:06 know this from reading
+the documentation,
+58:08 like I did when writing this example.
+58:10 On the left-hand side I have
+a variable called Server.
+58:13 This time it's not a web
+server, it's an email server,
+58:15 to which I want to connect.
+58:17 Specifically, I want to use
+this library, called smtplib.
+58:20 It's SMTP functionality,
+Simple Mail Transfer Protocol,
+58:24 to connect to an address that you
+might not have explicitly seen before,
+58:27 but you can probably guess whose server
+I'm connecting to on TCP port 587.
+58:32 Long story short, even though
+most of us, if you use Gmail,
+58:35 just go to Gmail.com,
+and you start using it,
+58:37 and it appears to be a port 80.
+58:38 Underneath the hood, anytime
+you compose a message
+58:41 and click Send or send an
+archive, what is happening
+58:44 is code like this at Google.
+58:46 They're connecting to their
+own outgoing mail server,
+58:49 called an SMTP server, which
+happens to be this address.
+58:52 They're connecting to it using TCP
+port 587, because it's not a web page.
+58:56 It's mail, so it has
+its own unique number
+58:58 that humans decided on years ago.
+58:60 This line here, 25, start
+tls, this turns on encryption
+59:04 so that this way, theoretically,
+no one between you
+59:06 and Google can see the email that
+you're sending out to their server.
+59:10 And then I hard-coded a
+few values, here which
+59:12 wouldn't be best practice
+in general, but this
+59:13 is just for me to register
+some first years for Frosh IMs.
+59:17 So what happens next?
+59:18 On line 26, this is the line.
+59:22 According to this
+library's documentation,
+59:25 via which I can log in as username
+jharvard@cs50.net, passing
+59:29 in his password.
+59:31 So recall a couple of
+times ago, I think I
+59:33 mentioned that there are these
+environment variables, when
+59:35 we talked about programs memory space.
+59:37 Environment variables are like these
+global values that aren't in your code
+59:41 but you do have access to.
+59:43 So this just says get
+from the environment,
+59:45 from somewhere in the
+IDE, JHarvard's password.
+59:48 So I don't have to hard-code it
+and broadcast it on the internet.
+59:50 Meanwhile, line 27 does kind
+of what the function says.
+59:55 This says, using this server, Gmail,
+send mail from jharvard@cs50.net
+60:02 to this email address with this message.
+60:06 And this message, as you've noted,
+is just, "You are registered."
+60:10 And where does this email variable
+come from, just to be clear?
+60:13 To whom is this email going?
+60:16 AUDIENCE: To the user.
+60:17 AUDIENCE: The student.
+60:18 DAVID MALAN: The student
+who registered via the form,
+60:19 because we got their
+name, email, and dorm.
+60:22 Assuming he or she typed in
+a legitimate email address,
+60:25 it's being passed to the second argument
+to send mail, and then it's being sent.
+60:28 And then lastly, render template
+success.html, and voila.
+60:33 So now you are about to experience
+either one of the cooler demos
+60:36 we've done in class or one of
+the more embarrassing failures.
+60:40 If you would like to play along at
+home, go to tinyurl.com/fridaycs50.
+60:46 That's a lot easier to remember.
+60:49 Tinyurl.com/fridaycs50-- Enter, that
+should redirect you via our old friend
+60:56 HTTP 301, should put you at this form.
+61:00 And then I will play along at home, too.
+61:02 David from Malan, actually, I'm going
+to tell it my address is John Harvard's.
+61:08 He will be from, let's
+say, Pennypacker--
+61:14 Register, and registered really, which
+hopefully you shall soon see, too.
+61:22 And meanwhile, I get a security
+alert in my Google accounts,
+61:26 because everyone's using it.
+61:28 But that's OK.
+61:33 I am registered at JHarvard.
+61:35 And, oh, my goodness,
+all of these examples,
+61:37 OK, and the errors that we'll soon see--
+61:40 we'll soon explain--
+so what did I just get?
+61:42 If you, like me, check your mail
+in some number of seconds from now,
+61:46 you should see an email from
+jharvard@cs50.net with the message,
+61:50 "You are registered" that was sent
+directly to me, or hopefully to you.
+61:54 Now, at least two of you
+will not get this message,
+61:57 because according to my
+bounced mail, three of you
+61:59 have mistyped your email
+addresses into the example.
+62:01 And so they're bouncing back to me.
+62:03 So if you don't get
+it, simply try again.
+62:06 So what actually happened here?
+62:07 So I actually wrote code clearly, in
+this case, that via application.py had
+62:14 this route slash register that
+didn't just save things in a variable
+62:17 this time.
+62:17 It actually tucked them up
+into a special type of library
+62:22 that actually knows how to send mail.
+62:24 And this is literally what
+I did back in the day.
+62:26 It didn't occur to me--
+62:27 actually, it might have
+occurred to me, but I
+62:29 didn't know in 1997 what a database
+was or where we could actually
+62:32 store the information.
+62:33 So I'm pretty sure, the very
+first version of registrations
+62:36 online at Harvard for Frosh
+IMs were to literally just send
+62:39 the proctor an email, who was
+responsible for that intramural sport.
+62:42 And it was good enough.
+62:43 They could just use their inbox
+as essentially their database,
+62:45 and know who had registered.
+62:46 Eventually though, we were
+able to improve upon this
+62:50 and actually save things
+in a lightweight database.
+62:52 I still didn't know SQL, and I didn't
+know how to do things more fancily.
+62:56 But I didn't know what a CSV file was.
+62:58 I had Microsoft Excel, or Numbers
+more recently, on my computer,
+63:02 so I can open up spreadsheets.
+63:04 And so it turns out, that
+if we instead look up
+63:07 say Frosh IMs3, which is our
+final version of the Frosh IMs
+63:12 suite of examples, I actually
+went ahead and did this.
+63:15 In this version of the program--
+63:17 it's a little cryptic,
+but I figured this
+63:19 out just by reading on Python's
+documentation and how to use CSVs.
+63:23 And I came up with the following.
+63:25 So as before, on line 12,
+if not name or not dorm--
+63:29 so I've reverted to the
+old syntax, because I'm not
+63:31 using email address for this example--
+63:33 then I go ahead and return failure.htlm.
+63:35 But the new code here, instead
+of email, is this functionality.
+63:41 So here I have file, which
+is a variable, gets stored--
+63:46 gets the return value of Open.
+63:48 So this is a function in Python that's
+similar to fopen in C. They just
+63:52 kind of clean up the name here.
+63:53 It open a file called registrants.csv.
+63:56 And what do you think the
+quote-unquote "a" means?
+63:58 We probably-- you didn't use "a."
+63:60 You used a different letter in p-set 4.
+64:03 AUDIENCE: [INAUDIBLE].
+64:04 DAVID MALAN: What's that?
+64:05 AUDIENCE: R or W?
+64:07 DAVID MALAN: We used R
+or W for read or write.
+64:09 Turns out a is a little different,
+which makes sense in this case.
+64:11 AUDIENCE: Append.
+64:13 DAVID MALAN: OK, thank you.
+64:16 OK, it's append.
+64:18 And append make sense here because
+write, by default, literally
+64:21 overwrites the file.
+64:22 It creates a new file.
+64:23 Whereas, append literally does that.
+64:24 It adds a line to the file,
+a new line to the file, which
+64:27 is good if you want to have more
+than one person ultimately saved
+64:30 in the file.
+64:30 You want to remember
+everyone else by appending.
+64:32 So this says, hey, Python,
+open the file in append mode,
+64:35 and store it in a variable called File.
+64:38 This is a line of code that uses
+some syntax we didn't quite see in C,
+64:43 but we're declaring a variable called
+Writer using the CSV library, which
+64:47 I've imported at the top of this
+file, similar to importing the mail
+64:50 library in the last one.
+64:51 And it has a function called Writer
+that I can pass in an open file.
+64:56 And this is just a
+special library that knows
+64:58 how to put commas in between
+values, knows how to save things,
+65:01 knows how to escape things if
+there's actually commas in your file,
+65:05 and so forth.
+65:06 And then this line is a little funky.
+65:08 But it does use some building
+blocks from earlier--
+65:10 writer dot write row-- writer write row.
+65:13 So this kind of does what it says.
+65:15 This says, use the library to
+write a row to the open file.
+65:19 What you want to write?
+65:20 Now if there's deliberately these
+additional parentheses here,
+65:24 turns out this function is
+supposed to take a tuple.
+65:26 A tuple is zero or more
+values separated by commas,
+65:30 which is kind of nice because
+it's kind of similar in spirit
+65:33 to a set of columns.
+65:35 Like a tuple is something comma
+something comma something.
+65:37 That is exactly what we want to put in
+a CSV, something comma something comma
+65:41 something.
+65:41 Because if you're unfamiliar, a CSV
+is just a file where all of the values
+65:45 are separated with commas.
+65:46 And if you open it in Excel, or
+Numbers, or Google Spreadsheets,
+65:49 each of those commas demarcates a
+barrier between various columns.
+65:54 So this says, go ahead and
+write a row to the CSV,
+65:57 containing the student's
+name and the students dorm.
+66:00 And then close the file
+and return Success.
+66:04 So at the risk--
+66:06 there's like a 30-second
+internet delay, which
+66:08 means we can keep this
+clean for about 30 seconds.
+66:10 Let me go ahead and run this example
+here in Frosh IMs3 and do Flask run--
+66:19 Enter.
+66:21 And if you'd like to go ahead to my
+same URL, tinyurl.com/fridaycs50,
+66:27 that will take you back to a
+slightly older version of the form,
+66:30 no email address, so
+make sure you hit reload.
+66:32 And you should see just
+this version, name and dorm.
+66:36 And if I wrote the code
+right, we should all
+66:40 be able to register in a file
+called registrants.csv in my IDE.
+66:46 You're not going to get an
+email this time, because we
+66:48 ripped that functionality out.
+66:50 But this Register page
+claims that it's working.
+66:54 So if you'd like, take
+a moment to do that.
+66:58 I'll go back to the IDE here.
+66:59 Looks like a lot of registrations
+coming in, so that's pretty cool.
+67:02 These are the logs here.
+67:03 And so you can see everyone visiting
+the site and hitting Register.
+67:07 That's actually a lot
+of people registering.
+67:10 That's pretty cool.
+67:11 I'm going to briefly turn
+off the screen this time
+67:13 and see who has registered
+by going into this directory.
+67:21 This is-- OK, I'm going to go into
+Frosh IMs3 is what I'm doing here.
+67:27 I see registrants.csv.
+67:31 OK, let's just scrub this.
+67:34 [LAUGHTER]
+67:38 OK, David Malan 2.0 registered, great.
+67:41 All right, I'm going
+to download this file.
+67:43 I think it looks pretty clean.
+67:46 Let me download this.
+67:49 And I'll show you what I'm
+doing in just a second.
+67:53 But this is the best demo
+ever, from what I can see.
+67:56 All right, and let's make
+sure I didn't miss this here.
+67:59 Uh huh, OK, some of
+you are just hitting--
+68:03 Brandon was just hitting
+Submit a lot, apparently.
+68:07 All right, I don't think I'm
+going to regret any of this.
+68:12 OK, we're good.
+68:13 All right, so what did I just do?
+68:15 We're back.
+68:17 So now that we've run everything
+through the censors, what I've noticed
+68:21 is that, oh, I have a registrants.csv
+file in the same directory.
+68:24 And that was what was getting
+appended to each time.
+68:27 Meanwhile, if I go
+ahead and download this
+68:29 file by doing registrants.csv
+and then Download.
+68:32 Or I could just open it in the IDE
+to see the actual rows and columns.
+68:36 Let me actually do that real quick.
+68:37 So you'll see this file here.
+68:38 But it's a little hard to see.
+68:40 So I'm going to deliberately close
+it, because I downloaded it earlier.
+68:43 And I can actually open it in Excel.
+68:45 And if in Excel I just expand my
+columns, each of these columns
+68:49 represents the gap between a comma.
+68:52 Brandon was apparently trying to
+make his name very big and bold,
+68:55 but that doesn't work in CSV files.
+68:58 Montreal is apparently the best.
+69:02 A lot of first names--
+69:04 more Brandon-- unknown, OK--
+69:09 there is that one I
+mentioned, someone's dad.
+69:11 Maybe someone's dad is here today, OK.
+69:14 All right, we, MTL is the Best, John
+Harvard, John, Olivia, Batman, Kyle--
+69:25 [LAUGHTER]
+69:30 DAVID MALAN: OK, there's
+Worthy of Wiggles--
+69:32 now it's getting a little strange--
+69:33 faces, buttface, OK,
+that made it through.
+69:38 I didn't notice.
+69:38 David, I'm scared, OK.
+69:40 [LAUGHTER]
+69:42 So we finally have,
+thanks to programming,
+69:47 the ability to actually keep
+some of this data around.
+69:49 And so this ultimately
+allows us to now start
+69:52 making applications that
+are truly interactive.
+69:55 And they actually allow us to
+store information and retrieve
+69:58 that information, ultimately.
+69:60 And it all reduces to some
+of these simple paradigms.
+70:02 And now, absolutely, there's a whole
+bunch of cryptic syntax involved.
+70:05 And there's some new ideas along
+the way, things like tuples
+70:08 and things like routes.
+70:09 And I didn't use the word before,
+technically this at sign denotes
+70:12 something called a decorator.
+70:13 But as with C, back in those
+early days, keep in mind
+70:16 that once you start
+noticing these patterns,
+70:18 even if you don't appreciate
+everything or understand everything
+70:21 from the get-go, you
+can kind of iteratively
+70:23 get more comfortable with the material.
+70:25 If you kind of take on
+faith that I don't really
+70:27 remember how this works, but I know
+that I have to do it now, that's fine.
+70:30 Because if you understand
+more of the stuff below it,
+70:32 that'll solve the problem for
+you and get the work done.
+70:35 And as you get more at ease with this,
+then can you start, through section,
+70:38 and office hours, in
+the p-set itself, start
+70:40 to really understand
+some of the nuances here
+70:42 and how it relates or doesn't relate to
+things we've seen in the past with C.
+70:47 So where are we going with this?
+70:48 Well, with problem set 6, we're going to
+bridge these several worlds of the web,
+70:53 and of Python, and
+also of edit distance,
+70:56 and dynamic programming from our
+Yale lecture a couple of weeks back.
+70:60 And if you're a little behind
+on some of those topics,
+71:02 or some of today's material wasn't quite
+on the tip of your tongue, that's fine.
+71:06 Do go back, though.
+71:07 Because realize the past three lectures
+really now culminate in problem set 6.
+71:11 You will be challenged to
+go back and re-implement
+71:13 Mario, either the less or the more
+comfy version, not in C, but in Python.
+71:17 And odds are, you'll be struck
+for at least two reasons.
+71:19 One, odds are if you did solve it
+successfully the first time around,
+71:23 even if you're a little
+rusty, odds are you
+71:24 will solve it much more
+quickly this time around,
+71:27 even though it's a new language.
+71:28 And you'll see what some idea
+from C maps to some other idea
+71:31 in Python, just like we did from Scratch
+to see that same kind of transition.
+71:36 Same thing for Cash or Credit,
+same thing for Visionaire,
+71:39 or Caesar, or Crack as well.
+71:42 But the icing on the cake is then going
+to be to not just write code in Python,
+71:46 but write code in Python for a
+web application that actually does
+71:49 something graphical with a website.
+71:53 So for instance, here we have the
+more comfortable version of the staff
+71:59 solution to Similarities,
+one piece of problem set 6.
+72:03 And you'll notice on
+this web-based form,
+72:04 I'm currently at
+similarities.cs50.net/more.
+72:08 Your URL, of course, will
+be different, whether you do
+72:10 the less comfy or more comfy as well.
+72:12 But here we have a web form with
+two strings waiting to be typed in,
+72:16 two textboxes.
+72:18 And now this form arguably looks
+a lot prettier than the ones
+72:21 I've been doing today.
+72:22 And because the ones I've been
+doing today had no what in them?
+72:25 AUDIENCE: CSS.
+72:25 DAVID MALAN: There
+was no CSS whatsoever.
+72:27 So what I was getting
+were the pretty old, ugly,
+72:29 1990s styles defaults that Chrome,
+and IE, and Edge, and Firefox,
+72:34 and Safari all give
+me by default. But you
+72:36 can use libraries out
+there that allow you
+72:38 to make your websites much prettier.
+72:40 So long as you just understand
+how to generate the markup,
+72:43 you can let someone else style it
+and take it that last mile for you.
+72:46 So most of the aesthetics of what
+you see here, the nice navigation
+72:49 bar at the top, the font sizes,
+the nice gray highlighting here,
+72:53 the fact that this goes all
+the way to the edge, the fact
+72:55 that there's the same margin over
+here as there is over here, the fact
+72:58 that the button doesn't look as ugly
+as it did before, all of that is CSS.
+73:02 And we happen to be using
+a library called Bootstrap,
+73:05 which is a very popular library
+that's got a lot of functionality,
+73:08 like forms, to help
+you style these things.
+73:10 And if I, in this application, type
+in a string like Harvard and then type
+73:15 in a string like Yale and click
+Score, what you will see here,
+73:19 a little cryptically-- very cryptically
+if you're not fully caught up
+73:22 on our lecture from Yale--
+73:24 is you see a matrix at the top here.
+73:26 This is just a grid of rows and columns.
+73:28 The top row of this
+matrix says H-A-R-V-A-R-D,
+73:32 so obviously the first word I typed in.
+73:34 And on the y-axis it says Yale,
+Y-A-L-E And what each of these numbers
+73:39 represents is the cost, step-by-step,
+of converting one string into another.
+73:46 Now that in and of itself is
+kind of a useless exercise,
+73:49 but the number of steps to
+convert one string into another
+73:52 rather gives you an estimation of how
+similar or how different strings are.
+73:56 If there's very low cost to
+change one string to another,
+73:59 odds are they're really similar.
+74:01 If it takes one step to
+convert one word into another,
+74:03 odds are they're identical
+except for one character.
+74:07 Or if the cost is really high,
+like six, then it takes six steps
+74:11 to convert Harvard into Yale.
+74:13 And that kind of makes sense, because
+they are really different words,
+74:16 except for maybe the fact
+that they have an A in common
+74:19 that maybe we can reuse without
+having to change that completely.
+74:22 So edit distance is a technique that
+can be solved very slowly and very
+74:28 expensively in the naive way, using
+essentially a couple of for loops,
+74:31 where you iterate over one string,
+you iterate over the other string.
+74:34 And you just iteratively, or
+rather by a bit of recursion,
+74:37 try every possible change to the string.
+74:40 Well, what if I delete
+this and then add this?
+74:42 What if I add this and delete this?
+74:43 What if I just change this, and
+then add this, and then delete this?
+74:45 There are so many permutations
+of adding, and deleting,
+74:48 and editing characters, that it's
+just a really slow problem, especially
+74:52 when the strings get longer than these.
+74:54 And so what you'll do,
+if you choose to do
+74:56 the more comfy version
+of the problem set,
+74:58 is you'll implement this
+by a dynamic programming.
+74:60 And this matrix up here
+just remembers, just
+75:02 stores, all of the temporary values that
+I've so-called memoized along the way,
+75:07 such that if you recall
+from Benedict's lecture,
+75:09 you just kind of work your way
+from top left to bottom right
+75:12 to get your final answer.
+75:13 And the fact that that
+number is relatively big,
+75:15 6, means that Harvard is not very
+similar to Yale, at least in terms
+75:19 of its string comparison here.
+75:20 I didn't realize the semantics of
+that until I said that sentence.
+75:23 So meanwhile-- oh, and then as an
+aside, if you didn't notice already,
+75:28 at the bottom here is kind of a log.
+75:30 This just shows you, once
+you've implemented the top here,
+75:33 what it is that has to happen to
+Harvard in order to turn it into Yale.
+75:37 We have to delete an h,
+delete this a, delete this r.
+75:40 Then we have to change a letter
+to y, change another letter to l,
+75:44 and another letter to
+e, and voila, Yale.
+75:47 But notice, if we do something more
+similar, like let's say, let's say,
+75:60 suppose we do Mario from p-set
+one and Maria from the heads team.
+76:05 This is a much more similar
+string, because it only takes
+76:09 one step to convert one into the other.
+76:11 And so the log is much smaller as well.
+76:13 And so you get an
+estimation of similarity.
+76:15 But we can take this one step further
+using different algorithms that
+76:18 may or may not perform as well.
+76:19 So here's the less comfy version of
+the same problem, whereby now I'm
+76:23 being asked for two files,
+so not just two strings.
+76:25 You can you do even
+bigger files in this way,
+76:27 because it's not quite as
+expensive, and it's a lot easier
+76:29 to show on the screen.
+76:30 So I downloaded, or I whipped up a
+couple of examples in advance here.
+76:34 I have a file called hello.c,
+which looks like this--
+76:39 a little flashback from week 1.
+76:40 And then I have another
+file called hey.c,
+76:43 which is identical except for
+some word, like, hey comma world.
+76:48 So I'm going to go ahead and do this.
+76:49 I'm going to go ahead and
+upload hello.c and hey.c.
+76:53 Or I could just click these, and then
+I could navigate through my hard drive
+76:56 like you might on your Mac or PC.
+76:58 But I'm just going to
+drag and drop them.
+76:59 And then I have three
+choices of algorithms.
+77:01 Because if you can think
+about what a text file is,
+77:04 I don't really know off the top of
+my head how best to compare them.
+77:07 I can probably tell you
+if they're identical.
+77:09 I can just use like a while
+loop or a for loop in C
+77:12 and iterate over every character in
+the file and tell you True or False,
+77:15 these files are identical.
+77:16 But if there's a little difference, like
+hey and hello, or maybe some spacing,
+77:20 then I have different options.
+77:22 So what if we compare
+these files line by line?
+77:25 Should most of the lines
+in hello.c and hey.c
+77:27 be similar or different, do you think?
+77:29 AUDIENCE: Similar.
+77:30 DAVID MALAN: Similar, except
+for that one printf line.
+77:32 So let's see what happens.
+77:33 If I go ahead and choose compare lines
+as my algorithm and click Compare,
+77:36 I see highlighted in yellow, in the
+user interface, the two programs left
+77:40 and right, hello and hey, with all
+of the identical lines highlighted.
+77:44 So the fact that there is so much yellow
+means, OK, these are pretty similar.
+77:47 I'm not slapping a value on
+it, in this particular case.
+77:50 But I certainly could say that it's
+all but one of the lines are in common
+77:54 and ascribe it that kind of score.
+77:55 Meanwhile, sentences doesn't
+necessarily make sense.
+77:58 But if this were an essay, or if you're
+familiar with sites like Turnitin
+78:01 and so forth, like an English essay,
+I could upload two different essays
+78:04 and see how many sentences
+do they have in common.
+78:07 So that even if one sentence is
+up here and another is down here,
+78:09 because the students used
+the same quotes or whatnot,
+78:11 I can at least find those
+by breaking the text up
+78:14 based on periods in an
+English sentence, which don't
+78:16 exist in quite the same way in code.
+78:18 But what about substrings?
+78:20 Substrings is a more
+fancy term just to say
+78:22 a portion of a string of length
+one, or two, or three, or four.
+78:25 And here I have a textbox
+where I can configure this.
+78:28 So if I want to look for
+common substrings of length 10,
+78:32 that would be a pretty long
+string of text that's in both.
+78:35 Compare, and indeed, there's
+a lot of stretches of 10
+78:37 because they're all so similar.
+78:39 If I instead change this to one,
+looking for all the common characters,
+78:44 you'll see that almost everything is in
+common, except for what missing letter?
+78:49 AUDIENCE: Y.
+78:50 DAVID MALAN: Y-- so there's going
+to be a couple of different ways you
+78:52 can implement this, actually
+many different ways that you
+78:54 can implement each of these algorithms.
+78:56 But what's key is that
+by using Python, you're
+78:58 going to have a lot more
+tools at your disposal.
+78:60 You're going to have different
+data types like Lists, and Sets,
+79:02 and Dictionaries, if
+you want to use them.
+79:04 And what you're not going to have
+to do, as you might have in C,
+79:06 is actually parse out these
+characters individually.
+79:08 Rather, if you want to split
+up a file based on its lines,
+79:11 just call a function for that.
+79:12 If you want to actually
+grab all of the whitespace,
+79:14 just call a function for that.
+79:15 If you want to take a
+substring of a certain length,
+79:17 just use the right
+Python syntax for that.
+79:20 And so once you've taken this
+sort of scaffolding approach
+79:23 of porting some of your
+C problems to Python,
+79:25 you'll culminate in
+implementing either of these.
+79:28 We'll wrap a bit earlier today.
+79:29 I'll stick around for questions.
+79:31 Best of luck, and see you next time.

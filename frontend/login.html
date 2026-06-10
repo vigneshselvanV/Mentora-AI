@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentora AI — Sign In</title>
+  <meta name="description" content="Sign in to Mentora AI — your personal AI teacher for programming and computer science.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── CSS VARIABLES ─────────────────────── */
+    [data-theme="dark"] {
+      --bg-page     : #0c0c18;
+      --bg-input    : #14142a;
+      --bg-tab      : #1a1a30;
+      --border      : rgba(255,255,255,0.1);
+      --border-f    : #6c63ff;
+      --text-1      : #eeeeff;
+      --text-2      : #9090bb;
+      --text-3      : #505070;
+      --accent      : #6c63ff;
+      --accent-h    : #7c73ff;
+      --accent-glow : rgba(108,99,255,0.3);
+      --accent-dim  : rgba(108,99,255,0.1);
+      --green       : #10b981;
+      --green-dim   : rgba(16,185,129,0.1);
+      --red         : #f87171;
+      --red-dim     : rgba(248,113,113,0.1);
+    }
+
+    [data-theme="light"] {
+      --bg-page     : #f5f5ff;
+      --bg-input    : #ffffff;
+      --bg-tab      : #eeeeff;
+      --border      : rgba(0,0,0,0.1);
+      --border-f    : #4f46e5;
+      --text-1      : #0a0a2e;
+      --text-2      : #555580;
+      --text-3      : #9999bb;
+      --accent      : #4f46e5;
+      --accent-h    : #6366f1;
+      --accent-glow : rgba(79,70,229,0.2);
+      --accent-dim  : rgba(79,70,229,0.08);
+      --green       : #059669;
+      --green-dim   : rgba(5,150,105,0.08);
+      --red         : #dc2626;
+      --red-dim     : rgba(220,38,38,0.08);
+    }
+
+    /* ── RESET ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-page);
+      min-height: 100dvh;
+      display: flex;
+      overflow: hidden;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    /* ── SPLIT LAYOUT ──────────────────────── */
+    .split-wrapper {
+      display: flex;
+      width: 100%;
+      min-height: 100dvh;
+    }
+
+    /* ── LEFT PANEL ────────────────────────── */
+    .left-panel {
+      width: 45%;
+      min-width: 45%;
+      background: linear-gradient(145deg, #1a0533 0%, #0d1b4b 50%, #0a2744 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Floating particles */
+    .particles { position: absolute; inset: 0; pointer-events: none; }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+    .p1 { width:8px; height:8px; background:#6c63ff; opacity:0.15; left:15%; bottom:-20px; animation-duration:12s; animation-delay:0s; }
+    .p2 { width:5px; height:5px; background:#a855f7; opacity:0.2; left:35%; bottom:-20px; animation-duration:15s; animation-delay:3s; }
+    .p3 { width:10px; height:10px; background:#3b82f6; opacity:0.12; left:55%; bottom:-20px; animation-duration:10s; animation-delay:1.5s; }
+    .p4 { width:6px; height:6px; background:#10b981; opacity:0.18; left:70%; bottom:-20px; animation-duration:14s; animation-delay:5s; }
+    .p5 { width:4px; height:4px; background:#f59e0b; opacity:0.15; left:85%; bottom:-20px; animation-duration:11s; animation-delay:2s; }
+    .p6 { width:12px; height:12px; background:#6c63ff; opacity:0.1; left:25%; bottom:-20px; animation-duration:16s; animation-delay:7s; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0);      opacity: 0.1; }
+      10%  { opacity: var(--op, 0.18); }
+      90%  { opacity: var(--op, 0.18); }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .brand-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 24px;
+      animation: logoPulse 4s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(108,99,255,0); }
+      50%     { box-shadow: 0 0 0 16px rgba(108,99,255,0.1); }
+    }
+
+    .brand-name {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .brand-tagline {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+    }
+
+    .brand-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin-bottom: 32px;
+    }
+
+    .features {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feat-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .feat-text { flex: 1; }
+    .feat-title { color: white; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .feat-sub   { color: rgba(255,255,255,0.5); font-size: 12px; }
+
+    .brand-footer {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: auto;
+    }
+
+    /* ── RIGHT PANEL ───────────────────────── */
+    .right-panel {
+      width: 55%;
+      background: var(--bg-page);
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 48px;
+      transition: background 0.25s ease;
+    }
+
+    .form-area {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* ── WELCOME TEXT ──────────────────────── */
+    #welcome-text { margin-bottom: 28px; }
+
+    .form-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-1);
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+
+    .form-sub {
+      font-size: 14px;
+      color: var(--text-2);
+    }
+
+    /* ── TABS ──────────────────────────────── */
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: var(--bg-tab);
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      padding: 10px;
+      border: none;
+      border-radius: 11px;
+      background: transparent;
+      color: var(--text-2);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent), #a855f7);
+      color: white;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    /* ── FORM FIELDS ───────────────────────── */
+    .field { margin-bottom: 16px; }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-2);
+      margin-bottom: 8px;
+    }
+
+    .input-box {
+      position: relative;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .input-box:hover { border-color: rgba(108,99,255,0.35); }
+    .input-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-dim);
+      background: transparent;
+    }
+
+    .iicon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--text-3);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .input-box input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 13px 44px 13px 44px;
+      color: var(--text-1);
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .input-box input::placeholder { color: var(--text-3); }
+
+    .eye-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-3);
+      font-size: 16px;
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.15s;
+    }
+    .eye-btn:hover { color: var(--text-1); }
+
+    /* ── STRENGTH BAR ──────────────────────── */
+    .str-bar {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .str-seg {
+      flex: 1;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--bg-tab);
+      transition: background 0.4s;
+    }
+    .str-label-row { display: flex; justify-content: flex-end; margin-top: 4px; }
+    #str-label { font-size: 11px; font-weight: 600; }
+
+    /* ── TERMS ─────────────────────────────── */
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .terms-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      accent-color: var(--accent);
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .terms-row label {
+      font-size: 13px;
+      color: var(--text-2);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    /* ── SUBMIT BUTTON ─────────────────────── */
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent) 0%, #a855f7 100%);
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 4px;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: skewX(-20deg);
+      transition: left 0s;
+    }
+    .submit-btn:hover:not(:disabled)::after {
+      animation: shimmer 0.6s ease forwards;
+    }
+    @keyframes shimmer {
+      0%   { left: -100%; }
+      100% { left: 200%; }
+    }
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--accent-glow);
+    }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ── SPINNER ───────────────────────────── */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── DIVIDER ───────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0 8px;
+    }
+    .div-line { flex: 1; height: 1px; background: var(--border); }
+    .div-txt  { font-size: 12px; color: var(--text-3); }
+
+    /* ── DEMO BUTTON ───────────────────────── */
+    .demo-label {
+      font-size: 11px;
+      color: var(--text-3);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .demo-btn {
+      width: 100%;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--text-2);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .demo-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── ALERT MESSAGES ────────────────────── */
+    .alert {
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: none;
+      align-items: flex-start;
+      gap: 8px;
+      animation: fadeIn 0.25s ease;
+    }
+    .alert.error {
+      background: var(--red-dim);
+      border-left: 3px solid var(--red);
+      color: var(--red);
+    }
+    .alert.success {
+      background: var(--green-dim);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(-6px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%,60% { transform: translateX(-8px); }
+      40%,80% { transform: translateX(8px); }
+    }
+
+    /* ── SWITCH TEXT ───────────────────────── */
+    .switch-txt {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-2);
+    }
+    .sw-link {
+      color: var(--accent);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .sw-link:hover { text-decoration: underline; }
+
+    /* ── THEME TOGGLE ──────────────────────── */
+    .theme-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      z-index: 100;
+    }
+    .theme-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── MOBILE ────────────────────────────── */
+    @media (max-width: 768px) {
+      .left-panel { display: none; }
+      .right-panel { width: 100%; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme toggle -->
+  <button id="theme-btn" class="theme-btn">☀️ Light</button>
+
+  <!-- Split layout -->
+  <div class="split-wrapper">
+
+    <!-- LEFT BRAND PANEL -->
+    <div class="left-panel">
+      <div class="particles">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+        <div class="particle p6"></div>
+      </div>
+
+      <div class="brand-content">
+        <div class="brand-logo">🎓</div>
+        <h1 class="brand-name">Mentora AI</h1>
+        <p class="brand-tagline">Your personal AI teacher</p>
+        <div class="brand-divider"></div>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feat-icon" style="background:linear-gradient(135deg,#6c63ff,#a855f7)">🧠</div>
+            <div class="feat-text">
+              <div class="feat-title">AI-Powered Teaching</div>
+              <div class="feat-sub">Learns from your questions</div>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feat-icon" style="background:linear-gradient(135deg,#3b82f6,#06b6d4)">🎯</div>
+            <div class="feat-text">
+              <div class="feat-title">Personalized Difficulty</div>
+              <div class="feat-sub">Adapts to your skill level</div>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feat-icon" style="background:linear-gradient(135deg,#10b981,#059669)">📊</div>
+            <div class="feat-text">
+              <div class="feat-title">Track Your Progress</div>
+              <div class="feat-sub">See how far you've come</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="brand-footer">Trusted by learners worldwide</p>
+      </div>
+    </div>
+
+    <!-- RIGHT FORM PANEL -->
+    <div class="right-panel">
+      <div class="form-area">
+
+        <div id="welcome-text">
+          <h2 class="form-title">Welcome back 👋</h2>
+          <p class="form-sub">Sign in to continue your learning journey</p>
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs">
+          <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+          <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- ══ LOGIN FORM ══ -->
+        <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+
+          <div class="field">
+            <label>Email Address</label>
+            <div class="input-box">
+              <span class="iicon">✉️</span>
+              <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <div class="input-box">
+              <span class="iicon">🔒</span>
+              <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password">
+              <button type="button" class="eye-btn" onclick="toggleEye('login-password',this)">👁</button>
+            </div>
+          </div>
+
+          <div id="login-alert" class="alert" style="display:none"></div>
+
+          <button type="submit" id="login-btn" class="submit-btn">Sign In →</button>
+
+          <div class="divider">
+            <span class="div-line"></span>
+            <span class="div-txt">or</span>
+            <span class="div-line"></span>
+          </div>
+
+          <p class="demo-label">Just exploring? No signup needed:</p>
+          <button type="button" id="demo-btn" class="demo-btn" onclick="tryDemo()">🚀 Try Demo Account</button>
+
+          <p class="switch-txt">
+            No account? <span class="sw-link" onclick="switchTab('signup')">Create one free</span>
+          </p>
+        </form>
+
+        <!-- ══ SIGNUP FORM ══ -->
+        <form id="signup-form" onsubmit="handleSignup(event)" novalidate style="display:none">
+
+          <div class="field">
+            <label>Your Name</label>
+            <div class="input-box">
+              <span class="iicon">👤</span>
+              <input type="text" id="su-name" placeholder="What should we call you?" autocomplete="name">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Email Address</label>
+            <div class="input-box">
+              <span class="iicon">✉️</span>
+              <input type="email" id="su-email" placeholder="your@email.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <div class="input-box">
+              <span class="iicon">🔒</span>
+              <input type="password" id="su-password" placeholder="Min 8 chars, 1 uppercase, 1 number"
+                autocomplete="new-password" oninput="strengthCheck(this.value)">
+              <button type="button" class="eye-btn" onclick="toggleEye('su-password',this)">👁</button>
+            </div>
+            <div class="str-bar">
+              <div class="str-seg" id="ss1"></div>
+              <div class="str-seg" id="ss2"></div>
+              <div class="str-seg" id="ss3"></div>
+              <div class="str-seg" id="ss4"></div>
+            </div>
+            <div class="str-label-row"><span id="str-label"></span></div>
+          </div>
+
+          <div class="field">
+            <label>
+              Confirm Password
+              <span id="match-icon" style="float:right;font-size:13px"></span>
+            </label>
+            <div class="input-box">
+              <span class="iicon">🔒</span>
+              <input type="password" id="su-confirm" placeholder="Repeat your password"
+                autocomplete="new-password" oninput="matchCheck()">
+            </div>
+          </div>
+
+          <div class="terms-row">
+            <input type="checkbox" id="terms">
+            <label for="terms">I agree to the <span class="sw-link">Terms of Service</span></label>
+          </div>
+
+          <div id="signup-alert" class="alert" style="display:none"></div>
+
+          <button type="submit" id="signup-btn" class="submit-btn">Create Free Account →</button>
+
+          <p class="switch-txt">
+            Already have an account? <span class="sw-link" onclick="switchTab('login')">Sign in</span>
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = window.location.origin
+    let busy = false
+
+    // ─── THEME ────────────────────────────────────────────
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t)
+      const btn = document.getElementById('theme-btn')
+      if (btn) btn.textContent = t === 'dark' ? '☀️ Light' : '🌙 Dark'
+      localStorage.setItem('mentora_theme', t)
+    }
+
+    document.getElementById('theme-btn').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme')
+      applyTheme(cur === 'dark' ? 'light' : 'dark')
+    })
+
+    // ─── TAB SWITCH ───────────────────────────────────────
+    const TITLES = {
+      login  : ['Welcome back 👋', 'Sign in to continue your learning journey'],
+      signup : ['Join Mentora AI 🚀', 'Create your free account today']
+    }
+
+    function switchTab(tab) {
+      document.getElementById('login-form').style.display  = tab === 'login'  ? 'block' : 'none'
+      document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none'
+      document.getElementById('tab-login').classList.toggle('active',  tab === 'login')
+      document.getElementById('tab-signup').classList.toggle('active', tab === 'signup')
+      const wt = document.getElementById('welcome-text')
+      if (wt && TITLES[tab]) {
+        wt.querySelector('.form-title').textContent = TITLES[tab][0]
+        wt.querySelector('.form-sub').textContent   = TITLES[tab][1]
+      }
+      clearAlerts()
+    }
+
+    // ─── ALERTS ───────────────────────────────────────────
+    function showAlert(id, msg, type) {
+      const el = document.getElementById(id)
+      if (!el) return
+      el.innerHTML = (type === 'error' ? '❌ ' : '✅ ') + msg
+      el.className = 'alert ' + type
+      el.style.display = 'flex'
+    }
+
+    function clearAlerts() {
+      document.querySelectorAll('.alert').forEach(a => a.style.display = 'none')
+    }
+
+    // ─── TOGGLE PASSWORD EYE ──────────────────────────────
+    function toggleEye(id, btn) {
+      const el = document.getElementById(id)
+      if (!el) return
+      el.type = el.type === 'password' ? 'text' : 'password'
+      btn.textContent = el.type === 'password' ? '👁' : '🙈'
+    }
+
+    // ─── STRENGTH CHECK ───────────────────────────────────
+    function strengthCheck(pw) {
+      let s = 0
+      if (pw.length >= 8)         s++
+      if (/[A-Z]/.test(pw))       s++
+      if (/[0-9]/.test(pw))       s++
+      if (/[^A-Za-z0-9]/.test(pw)) s++
+      const cols = ['','#f87171','#fb923c','#6c63ff','#10b981']
+      const labs = ['','Weak','Fair','Good','Strong']
+      for (let i = 1; i <= 4; i++) {
+        const seg = document.getElementById('ss'+i)
+        if (seg) seg.style.background = i <= s ? cols[s] : 'var(--bg-tab)'
+      }
+      const lbl = document.getElementById('str-label')
+      if (lbl) { lbl.textContent = labs[s] || ''; lbl.style.color = cols[s] || '' }
+    }
+
+    // ─── MATCH CHECK ──────────────────────────────────────
+    function matchCheck() {
+      const p1 = document.getElementById('su-password')?.value || ''
+      const p2 = document.getElementById('su-confirm')?.value  || ''
+      const ic = document.getElementById('match-icon')
+      if (!ic) return
+      ic.textContent = p2.length === 0 ? '' : p1 === p2 ? '✅' : '❌'
+    }
+
+    // ─── BUTTON LOADING STATE ─────────────────────────────
+    function setBtn(id, loading, loadTxt, defTxt) {
+      busy = loading
+      const btn = document.getElementById(id)
+      if (!btn) return
+      btn.disabled = loading
+      if (loading) {
+        btn.innerHTML = '<span class="spinner"></span>' + loadTxt
+      } else {
+        btn.textContent = defTxt
+      }
+    }
+
+    // ─── CLEAR ALL MENTORA STORAGE ────────────────────────
+    // Removes every key that starts with 'mentora_'
+    // but preserves 'mentora_theme'
+    function clearAllMentoraStorage(keepTheme) {
+      const keys = []
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i)
+        if (k && k.startsWith('mentora_')) {
+          if (keepTheme && k === 'mentora_theme') continue
+          keys.push(k)
+        }
+      }
+      keys.forEach(k => localStorage.removeItem(k))
+    }
+
+    // ─── SAVE AUTH (CRITICAL — saves real user from server) ──
+    function saveAuth(token, user) {
+      if (!token || !user) {
+        console.error('[saveAuth] Missing token or user')
+        return false
+      }
+      if (!user.username || !user.email) {
+        console.error('[saveAuth] Missing required user fields')
+        return false
+      }
+
+      // Clear any previous session (but keep theme preference)
+      clearAllMentoraStorage(true)
+
+      // Save the REAL token from server
+      localStorage.setItem('mentora_token', token)
+
+      // Save the REAL user object returned by server
+      localStorage.setItem('mentora_user', JSON.stringify({
+        id      : user.id       || '',
+        email   : user.email    || '',
+        username: user.username || '',
+        plan    : user.plan     || 'free'
+      }))
+
+      console.log('[saveAuth] Session saved for:', user.username, '/', user.email)
+      return true
+    }
+
+    // ─── HANDLE LOGIN ─────────────────────────────────────
+    async function handleLogin(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      if (busy) return
+
+      const emailEl = document.getElementById('login-email')
+      const passEl  = document.getElementById('login-password')
+      const email   = emailEl?.value.trim() || ''
+      const pass    = passEl?.value || ''
+
+      clearAlerts()
+
+      if (!email || !pass) {
+        showAlert('login-alert', 'Please fill in all fields', 'error')
+        return
+      }
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        showAlert('login-alert', 'Please enter a valid email address', 'error')
+        return
+      }
+
+      setBtn('login-btn', true, 'Signing in...', 'Sign In →')
+
+      try {
+        const res = await fetch(API + '/auth/login', {
+          method : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body   : JSON.stringify({ email, password: pass })
+        })
+
+        let data
+        try   { data = await res.json() }
+        catch { throw new Error('Server returned an invalid response') }
+
+        if (!data.success) {
+          throw new Error(data.message || 'Login failed. Check your credentials.')
+        }
+        if (!data.token) {
+          throw new Error('No token received from server')
+        }
+        if (!data.user || !data.user.username) {
+          throw new Error('Invalid user data received from server')
+        }
+
+        // ★ Save REAL user data returned by THIS login
+        const saved = saveAuth(data.token, data.user)
+        if (!saved) throw new Error('Failed to save session data')
+
+        showAlert('login-alert', data.message || 'Signed in successfully!', 'success')
+
+        // Redirect AFTER confirming save is complete
+        setTimeout(() => { window.location.replace('/app') }, 900)
+
+      } catch (err) {
+        showAlert('login-alert', err.message || 'Login failed. Please try again.', 'error')
+
+        // Shake animation
+        const form = document.getElementById('login-form')
+        if (form) {
+          form.style.animation = 'shake 0.35s ease'
+          setTimeout(() => form.style.animation = '', 350)
+        }
+
+        // Clear password on error
+        if (passEl) passEl.value = ''
+
+      } finally {
+        setBtn('login-btn', false, '', 'Sign In →')
+      }
+    }
+
+    // ─── HANDLE SIGNUP ────────────────────────────────────
+    async function handleSignup(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      if (busy) return
+
+      const name  = document.getElementById('su-name')?.value.trim()    || ''
+      const email = document.getElementById('su-email')?.value.trim()   || ''
+      const pass  = document.getElementById('su-password')?.value       || ''
+      const conf  = document.getElementById('su-confirm')?.value        || ''
+      const terms = document.getElementById('terms')?.checked           || false
+
+      clearAlerts()
+
+      // Validate
+      if (!name)              { showAlert('signup-alert', 'Please enter your name', 'error'); return }
+      if (name.length < 2)    { showAlert('signup-alert', 'Name must be at least 2 characters', 'error'); return }
+      if (!email)             { showAlert('signup-alert', 'Please enter your email', 'error'); return }
+      if (!/\S+@\S+\.\S+/.test(email)) { showAlert('signup-alert', 'Please enter a valid email', 'error'); return }
+      if (pass.length < 8)    { showAlert('signup-alert', 'Password must be at least 8 characters', 'error'); return }
+      if (!/[A-Z]/.test(pass)) { showAlert('signup-alert', 'Password needs at least 1 uppercase letter', 'error'); return }
+      if (!/[0-9]/.test(pass)) { showAlert('signup-alert', 'Password needs at least 1 number', 'error'); return }
+      if (pass !== conf)      { showAlert('signup-alert', 'Passwords do not match', 'error'); return }
+      if (!terms)             { showAlert('signup-alert', 'Please accept the Terms of Service', 'error'); return }
+
+      setBtn('signup-btn', true, 'Creating account...', 'Create Free Account →')
+
+      try {
+        const res = await fetch(API + '/auth/signup', {
+          method : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body   : JSON.stringify({ username: name, email, password: pass })
+        })
+
+        let data
+        try   { data = await res.json() }
+        catch { throw new Error('Invalid server response') }
+
+        if (!data.success) throw new Error(data.message || 'Signup failed')
+        if (!data.token || !data.user?.username) throw new Error('Invalid data from server')
+
+        // ★ Save REAL user from server response
+        const saved = saveAuth(data.token, data.user)
+        if (!saved) throw new Error('Failed to save session')
+
+        showAlert('signup-alert', data.message || 'Account created! Welcome!', 'success')
+        setTimeout(() => { window.location.replace('/app') }, 900)
+
+      } catch (err) {
+        showAlert('signup-alert', err.message || 'Signup failed. Please try again.', 'error')
+      } finally {
+        setBtn('signup-btn', false, '', 'Create Free Account →')
+      }
+    }
+
+    // ─── DEMO LOGIN ───────────────────────────────────────
+    // ★ ONLY fires when user explicitly clicks "Try Demo Account"
+    // ★ NEVER auto-fires on page load
+    async function tryDemo() {
+      if (busy) return
+
+      // Make sure we're on login tab
+      switchTab('login')
+
+      // Fill demo credentials into the form fields
+      const emailEl = document.getElementById('login-email')
+      const passEl  = document.getElementById('login-password')
+      if (emailEl) emailEl.value = 'demo@mentora.ai'
+      if (passEl)  passEl.value  = 'Demo1234'
+
+      showAlert('login-alert', 'Demo credentials loaded! Signing in...', 'success')
+
+      // Wait a moment so user sees the feedback, then submit
+      await new Promise(r => setTimeout(r, 400))
+      await handleLogin(new Event('submit'))
+    }
+
+    // ─── CHECK EXISTING AUTH (loop-safe) ──────────────────
+    // This function NEVER auto-logs in demo — it only redirects
+    // if there is a VALID, SERVER-CONFIRMED token already stored.
+    async function checkExistingAuth() {
+
+      // ★ STOP 1: Just logged out? Honor the logout flag
+      const lo    = sessionStorage.getItem('mentora_lo')
+      const urlLo = new URLSearchParams(window.location.search).get('lo')
+
+      if (lo === '1' || urlLo === '1') {
+        sessionStorage.removeItem('mentora_lo')
+        clearAllMentoraStorage(true)   // clear session but keep theme
+        if (urlLo) {
+          window.history.replaceState({}, '', window.location.pathname)
+        }
+        return  // Stay on login — do NOT redirect
+      }
+
+      // ★ STOP 2: No token stored?
+      const token = localStorage.getItem('mentora_token')
+      if (!token || !token.includes('.')) {
+        clearAllMentoraStorage(true)
+        return
+      }
+
+      // ★ STOP 3: Check token expiry from PAYLOAD
+      // Custom token format: base64(payload).hmac_signature (2 parts, NOT 3-part JWT)
+      // Payload is at index [0], exp is an ISO date string
+      try {
+        const parts = token.split('.')
+        if (parts.length !== 2) { clearAllMentoraStorage(true); return }
+        const payload = JSON.parse(atob(parts[0]))  // payload is part[0] in custom token
+        if (payload.exp && new Date() > new Date(payload.exp)) {
+          clearAllMentoraStorage(true)
+          return
+        }
+      } catch {
+        clearAllMentoraStorage(true)
+        return
+      }
+
+      // ★ STOP 4: Verify token with server — get fresh user data
+      try {
+        const ctrl  = new AbortController()
+        const timer = setTimeout(() => ctrl.abort(), 5000)
+
+        const res = await fetch(API + '/auth/me', {
+          headers: { 'Authorization': 'Bearer ' + token },
+          signal : ctrl.signal
+        })
+
+        clearTimeout(timer)
+
+        if (res.ok) {
+          const u = await res.json()
+          // ★ Update stored user with FRESH data from server
+          localStorage.setItem('mentora_user', JSON.stringify({
+            id      : u.id,
+            email   : u.email,
+            username: u.username,
+            plan    : u.plan || 'free'
+          }))
+          // Already authenticated — go to app
+          window.location.replace('/app')
+        } else {
+          // Token rejected by server (expired, invalid, etc.)
+          clearAllMentoraStorage(true)
+        }
+      } catch {
+        // Network error — stay on login, do NOT redirect
+        // User must click Sign In manually
+      }
+    }
+
+    // ─── INIT ─────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Apply saved theme
+      const savedTheme = localStorage.getItem('mentora_theme') || 'dark'
+      applyTheme(savedTheme)
+
+      // Always start on login tab
+      switchTab('login')
+
+      // Check if already logged in
+      // ★ This NEVER auto-logs in demo — only redirects if real token exists
+      try {
+        await checkExistingAuth()
+      } catch (e) {
+        clearAllMentoraStorage(true)
+      }
+    })
+  </script>
+</body>
+</html>

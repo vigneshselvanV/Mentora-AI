@@ -1,0 +1,1759 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentora AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="light"] {
+  --bg-base       : #f8f9fc;
+  --bg-surface    : rgba(255, 255, 255, 0.85);
+  --bg-surface-2  : rgba(241, 243, 249, 0.9);
+  --bg-surface-3  : rgba(232, 235, 244, 0.9);
+  --bg-input      : rgba(255, 255, 255, 0.95);
+  --bubble-user   : linear-gradient(135deg, #2563eb, #1d4ed8);
+  --bubble-ai     : rgba(255, 255, 255, 0.9);
+  --border        : rgba(0, 0, 0, 0.08);
+  --border-focus  : #2563eb;
+  --text-1        : #0f172a;
+  --text-2        : #475569;
+  --text-3        : #94a3b8;
+  --accent        : #2563eb;
+  --accent-hover  : #1d4ed8;
+  --accent-dim    : rgba(37, 99, 235, 0.08);
+  --accent-dim-2  : rgba(37, 99, 235, 0.15);
+  --green         : #059669;
+  --green-dim     : rgba(5, 150, 105, 0.08);
+  --orange        : #d97706;
+  --orange-dim    : rgba(217, 119, 6, 0.08);
+  --red           : #dc2626;
+  --red-dim       : rgba(220, 38, 38, 0.08);
+  --purple        : #7c3aed;
+  --purple-dim    : rgba(124, 58, 237, 0.08);
+  --shadow-sm     : 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md     : 0 8px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-lg     : 0 16px 48px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
+  --code-bg       : #1e1e2e;
+  --code-text     : #4ecd82;
+  --glass-blur    : blur(12px);
+}
+
+:root[data-theme="dark"] {
+  --bg-base       : #0a0a0f;
+  --bg-surface    : rgba(17, 17, 24, 0.75);
+  --bg-surface-2  : rgba(22, 22, 31, 0.85);
+  --bg-surface-3  : rgba(28, 28, 40, 0.85);
+  --bg-input      : rgba(22, 22, 31, 0.95);
+  --bubble-user   : linear-gradient(135deg, #3b82f6, #2563eb);
+  --bubble-ai     : rgba(28, 28, 40, 0.85);
+  --border        : rgba(255, 255, 255, 0.08);
+  --border-focus  : #3b82f6;
+  --text-1        : #f1f5f9;
+  --text-2        : #94a3b8;
+  --text-3        : #475569;
+  --accent        : #3b82f6;
+  --accent-hover  : #60a5fa;
+  --accent-dim    : rgba(59, 130, 246, 0.12);
+  --accent-dim-2  : rgba(59, 130, 246, 0.20);
+  --green         : #10b981;
+  --green-dim     : rgba(16, 185, 129, 0.12);
+  --orange        : #f59e0b;
+  --orange-dim    : rgba(245, 158, 11, 0.12);
+  --red           : #ef4444;
+  --red-dim       : rgba(239, 68, 68, 0.12);
+  --purple        : #8b5cf6;
+  --purple-dim    : rgba(139, 92, 246, 0.12);
+  --shadow-sm     : 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md     : 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-lg     : 0 16px 48px rgba(0,0,0,0.6);
+  --code-bg       : #080b0f;
+  --code-text     : #4ecd82;
+  --glass-blur    : blur(16px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-1);
+  background: var(--bg-base);
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* LAYOUT */
+.wrapper { display: flex; height: 100dvh; overflow: hidden; background-image: radial-gradient(circle at top right, var(--accent-dim), transparent 40%), radial-gradient(circle at bottom left, var(--purple-dim), transparent 40%); }
+.sidebar { width: 260px; min-width: 260px; background: var(--bg-surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; z-index: 10; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.center { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.right-panel { width: 300px; min-width: 300px; background: var(--bg-surface); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; z-index: 10; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 5; backdrop-filter: blur(4px); opacity: 0; transition: opacity 0.3s; }
+
+@media (max-width: 800px) {
+  .sidebar { position: absolute; left: 0; top: 0; bottom: 0; transform: translateX(-100%); }
+  .right-panel { position: absolute; right: 0; top: 0; bottom: 0; transform: translateX(100%); }
+  .sidebar.open { transform: translateX(0); }
+  .right-panel.open { transform: translateX(0); }
+  .mobile-overlay.show { display: block; opacity: 1; }
+}
+
+/* SIDEBAR */
+.sidebar-top { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+.logo-icon { width: 32px; height: 32px; color: var(--accent); filter: drop-shadow(0 0 10px var(--accent-dim-2)); }
+.logo-title { font-size: 17px; font-weight: 700; color: var(--text-1); letter-spacing: -0.3px; }
+.nav-menu { padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; width: 100%; border: none; background: transparent; color: var(--text-2); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; font-family: inherit; }
+.nav-item:hover { background: var(--bg-surface-2); color: var(--text-1); transform: translateX(2px); }
+.nav-item.active { background: var(--accent-dim); color: var(--accent); font-weight: 600; }
+
+.chat-history { flex: 1; overflow-y: auto; padding: 0 12px; display: flex; flex-direction: column; }
+.history-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--text-3); text-transform: uppercase; padding: 16px 8px 8px; }
+.new-chat-btn { width: 100%; border: 1px dashed var(--border); background: transparent; border-radius: 12px; padding: 10px 14px; color: var(--text-2); font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; font-family: inherit; margin-bottom: 12px; }
+.new-chat-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.history-item { background: transparent; padding: 10px 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; position: relative; overflow: hidden; }
+.history-item:hover { background: var(--bg-surface-2); }
+.history-item.active { background: var(--bg-surface-3); border-left: 3px solid var(--accent); padding-left: 9px; }
+.hist-title { font-size: 13px; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; font-weight: 500; }
+.hist-meta { font-size: 11px; color: var(--text-3); }
+
+.sidebar-bottom { border-top: 1px solid var(--border); padding: 16px 12px; }
+.theme-btn { width: 100%; display: flex; align-items: center; gap: 12px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+.theme-btn:hover { border-color: var(--text-3); }
+.theme-text { font-size: 13px; font-weight: 500; color: var(--text-2); flex: 1; text-align: left; }
+.toggle-switch, .toggle-pill { width: 40px; height: 22px; background: var(--bg-surface-3); border-radius: 50px; position: relative; transition: all 0.3s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); display: flex; }
+.toggle-circle { width: 18px; height: 18px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+[data-theme="dark"] .theme-btn .toggle-switch, .toggle-pill.dark { background: var(--accent); }
+[data-theme="dark"] .theme-btn .toggle-circle, .toggle-circle.active { transform: translateX(18px); }
+.theme-icon { margin-right: 8px; }
+
+/* CENTER HEADER */
+.center-header { height: 64px; background: var(--bg-surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); z-index: 2; }
+.panel-title { font-size: 16px; font-weight: 600; color: var(--text-1); letter-spacing: -0.2px; }
+.status-indicator { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); font-weight: 600; background: var(--bg-surface-2); padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--green-dim); } 70% { box-shadow: 0 0 0 6px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+.status-dot.offline { background: var(--red); animation: none; }
+.mobile-btn { display: none; background: transparent; border: none; font-size: 20px; color: var(--text-2); cursor: pointer; padding: 4px; border-radius: 6px; }
+.mobile-btn:hover { background: var(--bg-surface-2); }
+@media (max-width: 800px) { .mobile-btn { display: block; } }
+
+/* PANELS */
+.panel { display: none; flex: 1; flex-direction: column; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; }
+.panel.active { display: flex; }
+
+/* CHAT PANEL */
+.chat-messages { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; scroll-behavior: smooth; }
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: var(--text-2); padding: 20px; animation: fadeIn 0.5s ease; }
+.empty-icon { font-size: 64px; margin-bottom: 24px; filter: drop-shadow(0 8px 16px var(--accent-dim-2)); animation: float 6s ease-in-out infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.empty-title { font-size: 24px; font-weight: 700; color: var(--text-1); margin-bottom: 12px; letter-spacing: -0.5px; }
+.empty-sub { font-size: 15px; margin-bottom: 32px; max-width: 400px; line-height: 1.5; }
+.suggestions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; max-width: 600px; margin-bottom: 20px; }
+.suggestion-chip { padding: 12px 20px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 14px; font-size: 14px; font-weight: 500; color: var(--text-1); cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-family: inherit; box-shadow: var(--shadow-sm); }
+.suggestion-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.msg-row { display: flex; flex-direction: column; width: 100%; animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+.msg-row.user { align-items: flex-end; }
+.msg-row.ai { align-items: flex-start; }
+.msg-time { font-size: 11px; color: var(--text-3); margin-top: 6px; padding: 0 4px; }
+.msg-bubble { max-width: 85%; padding: 16px 20px; border-radius: 18px; font-size: 15px; line-height: 1.6; box-shadow: var(--shadow-sm); word-break: break-word; position: relative; }
+.msg-row.user .msg-bubble { background: var(--bubble-user); color: white; border-bottom-right-radius: 4px; box-shadow: 0 4px 12px rgba(37,99,235,0.2); }
+.msg-row.ai .msg-bubble { background: var(--bubble-ai); color: var(--text-1); border: 1px solid var(--border); border-bottom-left-radius: 4px; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
+
+.msg-bubble strong { font-weight: 600; color: inherit; }
+.msg-bubble em { font-style: italic; }
+.msg-bubble code:not(pre code) { background: var(--bg-surface-3); padding: 3px 6px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; border: 1px solid var(--border); }
+.code-wrapper { margin: 16px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-md); background: var(--code-bg); }
+.code-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-3); text-transform: uppercase; }
+.code-copy-btn { background: transparent; border: none; color: var(--text-3); cursor: pointer; font-size: 12px; font-family: inherit; transition: color 0.2s; }
+.code-copy-btn:hover { color: white; }
+.code-wrapper pre { margin: 0; padding: 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; color: var(--code-text); line-height: 1.5; }
+
+.mode-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 4px 8px; border-radius: 6px; background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-dim-2); margin-bottom: 8px; align-self: flex-start; }
+
+.action-bar { display: flex; gap: 8px; margin-top: 8px; opacity: 0; transition: opacity 0.2s; padding: 0 4px; }
+.msg-row.ai:hover .action-bar { opacity: 1; }
+.action-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--shadow-sm); }
+.action-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.typing-indicator { display: flex; align-items: center; gap: 6px; color: var(--text-3); font-size: 14px; font-weight: 500; padding: 4px; }
+.typing-dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; animation: typeBounce 1.4s infinite ease-in-out both; }
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes typeBounce { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
+
+.error-msg { margin-top: 10px; padding: 12px 16px; background: var(--red-dim); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; color: var(--red); font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+
+.input-area { padding: 20px 24px; background: var(--bg-surface); border-top: 1px solid var(--border); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); z-index: 2; position: relative; }
+.input-extras { display: flex; gap: 10px; margin-bottom: 12px; }
+.extra-btn { padding: 6px 12px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 8px; font-size: 12px; font-weight: 500; color: var(--text-2); cursor: pointer; transition: all 0.2s; font-family: inherit; display: flex; align-items: center; gap: 6px; }
+.extra-btn:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+.input-wrapper { display: flex; gap: 12px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 20px; padding: 12px 12px 12px 20px; align-items: flex-end; box-shadow: var(--shadow-sm); transition: all 0.2s; }
+.input-wrapper:focus-within { border-color: var(--border-focus); box-shadow: 0 0 0 4px var(--accent-dim-2); }
+#chat-input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-1); font-family: inherit; font-size: 15px; resize: none; max-height: 200px; padding: 8px 0; line-height: 1.5; }
+.send-btn { background: var(--accent); color: white; border: none; border-radius: 16px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+.send-btn:hover:not(:disabled) { background: var(--accent-hover); transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,0.4); }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* PROGRESS PANEL */
+.prog-header { font-size: 28px; font-weight: 700; padding: 32px 32px 16px; letter-spacing: -0.5px; }
+.stats-row { display: flex; gap: 20px; padding: 16px 32px; flex-wrap: wrap; }
+.stat-card { flex: 1; min-width: 160px; border-radius: 20px; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s; }
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.stat-c1 { background: var(--accent-dim); border: 1px solid var(--accent-dim-2); }
+.stat-c2 { background: var(--green-dim); border: 1px solid rgba(16,185,129,0.2); }
+.stat-c3 { background: var(--purple-dim); border: 1px solid rgba(139,92,246,0.2); }
+.stat-icon { font-size: 32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+.stat-num { font-size: 36px; font-weight: 800; color: var(--text-1); letter-spacing: -1px; }
+.stat-lbl { font-size: 13px; color: var(--text-2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.section-title { font-size: 18px; font-weight: 700; padding: 32px 32px 16px; color: var(--text-1); }
+.topics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; padding: 0 32px; }
+.topic-pill-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+.topic-pill-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.topic-pill-name { font-size: 14px; font-weight: 600; color: var(--text-1); }
+.topic-pill-count { font-size: 12px; color: var(--text-3); font-weight: 500; }
+
+.activity-list { padding: 0 32px 40px; display: flex; flex-direction: column; gap: 20px; }
+.activity-item { display: flex; gap: 20px; align-items: flex-start; position: relative; }
+.activity-item::before { content: ''; position: absolute; left: 7px; top: 24px; bottom: -20px; width: 2px; background: var(--border); }
+.activity-item:last-child::before { display: none; }
+.activity-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg-base); z-index: 1; margin-top: 4px; flex-shrink: 0; box-shadow: 0 0 0 2px var(--accent-dim-2); }
+.activity-content { flex: 1; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; font-size: 14px; line-height: 1.6; color: var(--text-1); box-shadow: var(--shadow-sm); }
+.activity-q { font-weight: 500; margin-bottom: 4px; }
+.activity-meta { font-size: 12px; color: var(--text-3); font-weight: 500; }
+
+/* LEARNING PATH PANEL */
+.path-input-card { margin: 32px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-md); }
+.path-heading { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+.path-textarea { width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 16px; padding: 16px; min-height: 100px; color: var(--text-1); font-family: inherit; font-size: 15px; resize: none; margin-bottom: 20px; transition: border-color 0.2s; }
+.path-textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px var(--accent-dim); }
+.path-btn { width: 100%; background: var(--accent); color: white; border: none; border-radius: 14px; padding: 16px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+.path-btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,0.4); }
+
+.path-result { padding: 0 32px 40px; display: none; flex-direction: column; gap: 24px; }
+.path-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.path-goal { font-size: 24px; font-weight: 800; color: var(--text-1); margin:0; }
+.path-duration { font-size: 15px; color: var(--text-2); font-weight: 500; }
+.path-phases { display: flex; flex-direction: column; gap: 24px; }
+.phase-card { display: flex; gap: 24px; }
+.phase-number { width: 44px; height: 44px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; z-index: 1; box-shadow: var(--shadow-sm); }
+.phase-content { flex: 1; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-sm); position: relative; transition: transform 0.2s; }
+.phase-content:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.phase-content::before { content: ''; position: absolute; left: -46px; top: 44px; bottom: -44px; width: 2px; background: var(--border); }
+.phase-card:last-child .phase-content::before { display: none; }
+.phase-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.phase-duration { font-size: 12px; font-weight: 600; padding: 4px 8px; background: var(--bg-surface-2); border-radius: 6px; color: var(--text-2); margin-bottom: 12px; display:inline-block; }
+.phase-desc { font-size: 14px; color: var(--text-2); margin-bottom: 16px; line-height: 1.6; }
+.phase-topics { display: flex; flex-wrap: wrap; gap: 8px; }
+.topic-chip { font-size: 12px; font-weight: 600; padding: 6px 12px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 8px; color: var(--text-2); }
+.save-path-btn { background:var(--green); color:white; border:none; border-radius:12px; padding:12px 24px; font-weight:600; cursor:pointer; align-self:flex-start; margin-top:10px; transition:all 0.2s; }
+.save-path-btn:hover { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
+
+.saved-path-chip { padding: 10px 16px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; font-size: 13px; font-weight: 500; color: var(--text-1); cursor: pointer; transition: all 0.2s; }
+.saved-path-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+/* QUIZ PANEL */
+.quiz-setup { margin: 32px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 16px; }
+.quiz-input { width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 14px; padding: 16px; color: var(--text-1); font-family: inherit; font-size: 15px; margin-bottom: 8px; transition: border-color 0.2s; }
+.quiz-input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px var(--accent-dim); }
+
+.quiz-active { display: flex; flex-direction: column; padding: 32px; max-width: 800px; margin: 0 auto; width: 100%; }
+.quiz-prog-bar { width: 100%; height: 8px; background: var(--bg-surface-2); border-radius: 4px; margin-bottom: 32px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+.quiz-prog-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--purple)); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.quiz-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 24px; }
+.quiz-q-num { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+.quiz-q-text { font-size: 20px; font-weight: 600; line-height: 1.5; color: var(--text-1); letter-spacing: -0.3px; }
+.quiz-options { display: flex; flex-direction: column; gap: 12px; }
+.quiz-option-btn { background: var(--bg-input); border: 2px solid var(--border); border-radius: 16px; padding: 16px 20px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-size: 15px; font-weight: 500; font-family: inherit; color: var(--text-1); text-align: left; }
+.quiz-option-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-dim); transform: translateX(4px); }
+.quiz-option-btn:disabled { cursor: default; opacity:0.8; }
+.quiz-option-btn.correct { border-color: var(--green); background: var(--green-dim); color: var(--green); font-weight: 600; }
+.quiz-option-btn.wrong { border-color: var(--red); background: var(--red-dim); color: var(--red); font-weight: 600; }
+.quiz-explanation { display: none; background: var(--bg-surface-2); border-left: 4px solid var(--accent); padding: 16px 20px; font-size: 14px; line-height: 1.6; margin-top: 10px; border-radius: 0 12px 12px 0; color: var(--text-2); animation: fadeIn 0.4s; }
+.quiz-next-btn { display: none; align-self: flex-end; background: var(--text-1); color: var(--bg-base); border: none; border-radius: 12px; padding: 14px 28px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 16px; transition: all 0.2s; }
+.quiz-next-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* BOOKMARKS PANEL */
+.notes-toolbar { padding: 24px 32px; display: flex; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--border); align-items:center; }
+.notes-export { padding: 10px 16px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--text-2); cursor: pointer; transition: all 0.2s; font-family: inherit; }
+.notes-export:hover { border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-sm); }
+.empty-bookmarks { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; text-align:center; padding:40px; }
+#bookmarks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 32px; }
+.bookmark-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 16px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+.bookmark-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--accent-dim-2); }
+.bookmark-top { display: flex; justify-content: space-between; align-items: center; }
+.topic-tag { font-size: 12px; font-weight: 600; padding: 6px 10px; background: var(--accent-dim); color: var(--accent); border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.bookmark-delete { background: transparent; border: none; color: var(--text-3); cursor: pointer; font-size: 16px; transition: all 0.2s; padding: 4px; border-radius: 6px; }
+.bookmark-delete:hover { background: var(--red-dim); color: var(--red); }
+.bookmark-preview { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+.bookmark-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-3); font-weight: 500; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
+.view-full-btn { background:transparent; border:none; color:var(--accent); font-weight:600; font-size:13px; cursor:pointer; }
+.view-full-btn:hover { text-decoration:underline; }
+
+/* RIGHT PANEL */
+.rp-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); font-size: 12px; font-weight: 700; color: var(--text-3); letter-spacing: 1px; text-transform: uppercase; }
+.rp-card { margin: 16px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); }
+.rp-title { font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; margin-bottom: 16px; letter-spacing: 0.5px; }
+.difficulty-btn { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 6px; background: var(--bg-surface); color: var(--text-2); text-align: left; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; font-family: inherit; }
+.difficulty-btn:hover { border-color: var(--accent); }
+.difficulty-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); font-weight: 600; box-shadow: 0 2px 8px var(--accent-dim); }
+.diff-pill-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-surface); color: var(--text-2); cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; font-family: inherit; }
+.diff-pill-btn:hover { border-color: var(--accent); }
+.diff-pill-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); font-weight: 600; }
+
+.stat-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 12px; color: var(--text-2); }
+.stat-row span:last-child { font-weight: 700; color: var(--text-1); }
+
+/* TOAST */
+@keyframes slideInToast {
+  from { opacity:0; transform:translateX(20px) }
+  to   { opacity:1; transform:translateX(0) }
+}
+@keyframes slideOutToast {
+  from { opacity:1; transform:translateX(0) }
+  to   { opacity:0; transform:translateX(20px) }
+}
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.modal-card { background: var(--bg-surface); width: 100%; max-width: 600px; max-height: 85vh; border-radius: 24px; display: flex; flex-direction: column; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+.modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.modal-close { background: var(--bg-surface-2); border: none; font-size: 20px; width: 36px; height: 36px; border-radius: 50%; color: var(--text-2); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.modal-close:hover { background: var(--red-dim); color: var(--red); }
+.modal-body { padding: 24px; overflow-y: auto; font-size: 15px; line-height: 1.6; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 12px; }
+.modal-footer button { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-surface-2); cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-1); }
+.modal-footer button:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- AUTHENTICATION OVERLAY -->
+<div id="authOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;">
+  <div style="background: var(--bg-surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 20px;">
+    <div style="text-align: center; margin-bottom: 10px;">
+      <h2 style="font-size: 24px; font-weight: 700; color: var(--text-1); margin-bottom: 8px;" id="auth-title">Welcome to Mentora AI</h2>
+      <p style="color: var(--text-2); font-size: 14px;" id="auth-subtitle">Create an account to save your progress</p>
+    </div>
+    
+    <input type="text" id="auth-name" placeholder="Full Name" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: var(--text-1); font-size: 15px;">
+    <input type="email" id="auth-email" placeholder="Email Address" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: var(--text-1); font-size: 15px;">
+    <input type="password" id="auth-password" placeholder="Password" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: var(--text-1); font-size: 15px;">
+    
+    <button id="auth-submit-btn" style="width: 100%; background: var(--accent); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 10px;">Sign Up</button>
+    
+    <div style="text-align: center; font-size: 13px; color: var(--text-2); margin-top: 10px;">
+      <span id="auth-toggle-text">Already have an account?</span>
+      <button id="auth-toggle-btn" style="background: none; border: none; color: var(--accent); font-weight: 600; cursor: pointer; margin-left: 4px;">Log In</button>
+    </div>
+  </div>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="wrapper">
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <div class="logo-title">Mentora AI</div>
+    </div>
+    <nav class="nav-menu">
+      <button class="nav-item active" data-panel="chat">💬 Chat</button>
+      <button class="nav-item" data-panel="progress">📊 Progress</button>
+      <button class="nav-item" data-panel="path">🗺️ Learning Path</button>
+      <button class="nav-item" data-panel="quiz">🧠 Quiz</button>
+      <button class="nav-item" data-panel="bookmarks">🔖 Saved Notes</button>
+    </nav>
+    <div class="chat-history">
+      <div class="history-label">Recent Chats</div>
+      <button class="new-chat-btn" id="new-chat-btn">+ New Session</button>
+      <div class="history-list" id="history-list"></div>
+    </div>
+    <div class="sidebar-bottom">
+      <!-- User Profile -->
+      <div id="sidebar-user-profile" style="margin-bottom: 16px; padding: 12px; background: var(--bg-surface-2); border-radius: 16px; border: 1px solid var(--border); display: none; align-items: center; gap: 12px;">
+        <div id="user-avatar" style="width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--purple)); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;"></div>
+        <div style="flex: 1; overflow: hidden;">
+          <div id="user-name" style="font-size: 13px; font-weight: 600; color: var(--text-1); white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"></div>
+          <div id="user-email" style="font-size: 11px; color: var(--text-3); white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"></div>
+        </div>
+        <button id="logout-btn" style="background: none; border: none; color: var(--text-3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.2s;" title="Log Out">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
+      <button class="theme-btn" id="theme-toggle-btn"></button>
+    </div>
+  </aside>
+
+  <!-- CENTER -->
+  <main class="center">
+    <header class="center-header">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <button class="mobile-btn" id="mobile-sidebar-btn">☰</button>
+        <div class="panel-title" id="panel-title">Chat</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="status-indicator">
+          <div class="status-dot online" id="status-dot"></div>
+          <span id="status-text">Live</span>
+        </div>
+        <button class="mobile-btn" id="mobile-rp-btn">⚙️</button>
+      </div>
+    </header>
+
+    <!-- PANEL: CHAT -->
+    <div class="panel active" id="panel-chat">
+      <div class="chat-messages" id="messages-area"></div>
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">🎓</div>
+        <div class="empty-title">What would you like to learn?</div>
+        <div class="empty-sub">Ask any programming or computer science question. I'll search my knowledge base to help you.</div>
+        <div class="suggestions">
+          <button class="suggestion-chip">What is a variable?</button>
+          <button class="suggestion-chip">Explain recursion</button>
+          <button class="suggestion-chip">How does the internet work?</button>
+        </div>
+        <div style="margin-top:20px;display:flex;gap:10px;">
+          <button class="diff-pill-btn active" data-difficulty="beginner">🌱 Beginner</button>
+          <button class="diff-pill-btn" data-difficulty="intermediate">🔥 Intermediate</button>
+          <button class="diff-pill-btn" data-difficulty="advanced">⚡ Advanced</button>
+        </div>
+      </div>
+      <div class="input-area">
+        <div class="input-extras" id="post-response-bar" style="display:none; gap:10px; margin-bottom:12px;">
+          <button class="extra-btn" id="quick-quiz-btn">🧠 Quiz Topic</button>
+        </div>
+        <div class="input-wrapper">
+          <textarea id="chat-input" placeholder="Message Mentora AI... (Shift+Enter for newline)" rows="1"></textarea>
+          <button class="send-btn" id="send-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: PROGRESS -->
+    <div class="panel" id="panel-progress">
+      <div class="prog-header">My Progress</div>
+      <div class="stats-row">
+        <div class="stat-card stat-c1">
+          <div class="stat-icon">💬</div>
+          <div class="stat-num" id="stat-questions">0</div>
+          <div class="stat-lbl">Questions</div>
+        </div>
+        <div class="stat-card stat-c2">
+          <div class="stat-icon">📚</div>
+          <div class="stat-num" id="stat-topics">0</div>
+          <div class="stat-lbl">Topics</div>
+        </div>
+        <div class="stat-card stat-c3">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-num" id="stat-quiz-avg">0%</div>
+          <div class="stat-lbl">Quiz Avg</div>
+        </div>
+      </div>
+      <div class="section-title">Topics Explored</div>
+      <div class="topics-grid" id="topics-explored-grid"></div>
+      <div class="section-title">Recent Activity</div>
+      <div class="activity-list" id="recent-activity-list"></div>
+    </div>
+
+    <!-- PANEL: PATH -->
+    <div class="panel" id="panel-path">
+      <div class="prog-header">Learning Path</div>
+      <div class="path-input-card">
+        <div class="path-heading">What do you want to learn?</div>
+        <textarea class="path-textarea" id="path-goal-input" placeholder="e.g. Build a website"></textarea>
+        <button class="path-btn" id="generate-path-btn">🗺️ Generate Path</button>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+          <button class="goal-chip suggestion-chip">Build a website</button>
+          <button class="goal-chip suggestion-chip">Learn Python</button>
+          <button class="goal-chip suggestion-chip">Data science</button>
+        </div>
+      </div>
+      <div id="path-loading" style="display:none; text-align:center; padding: 20px;">Loading path...</div>
+      <div class="path-result" id="path-result" style="display:none;"></div>
+      
+      <div class="section-title">Saved Paths</div>
+      <div id="saved-paths-list" style="display:flex; flex-wrap:wrap; gap:10px; padding: 0 32px;"></div>
+    </div>
+
+    <!-- PANEL: QUIZ -->
+    <div class="panel" id="panel-quiz">
+      <div class="prog-header">Quiz Mode</div>
+      
+      <div id="quiz-section-input" class="quiz-setup">
+        <div class="path-heading">Topic to quiz on:</div>
+        <input type="text" class="quiz-input" id="quiz-topic-input" placeholder="e.g. Python functions">
+        
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text-3);margin-bottom:12px;">DIFFICULTY</div>
+            <div style="display:flex;gap:12px;">
+              <button class="suggestion-chip quiz-diff-btn active" data-diff="beginner">Beginner</button>
+              <button class="suggestion-chip quiz-diff-btn" data-diff="intermediate">Intermediate</button>
+              <button class="suggestion-chip quiz-diff-btn" data-diff="advanced">Advanced</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text-3);margin-bottom:12px;">QUESTIONS</div>
+            <div style="display:flex;gap:12px;">
+              <button class="suggestion-chip quiz-count-btn" data-count="3">3</button>
+              <button class="suggestion-chip quiz-count-btn active" data-count="5">5</button>
+              <button class="suggestion-chip quiz-count-btn" data-count="10">10</button>
+            </div>
+          </div>
+        </div>
+        <button class="path-btn" id="start-quiz-btn">🧠 Start Quiz</button>
+      </div>
+      
+      <div id="quiz-section-loading" style="display:none; text-align:center; padding: 60px;">
+        Generating quiz...
+      </div>
+      
+      <div id="quiz-section-question" class="quiz-active" style="display:none;">
+        <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="quiz-progress-bar"></div></div>
+        <div class="quiz-card">
+          <div class="quiz-q-num" id="quiz-question-num">Question 1 of 5</div>
+          <div class="quiz-q-text" id="quiz-question-text">Text</div>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-exp" id="quiz-explanation"></div>
+          <button class="quiz-next-btn" id="quiz-next-btn">Next Question ➔</button>
+        </div>
+      </div>
+      
+      <div id="quiz-section-results" style="display:none; flex-direction:column; align-items:center; padding:60px 24px;">
+        <div style="font-size:64px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;" id="quiz-score">4/5</div>
+        <div style="font-size:32px;font-weight:700;margin-bottom:10px;" id="quiz-pct">80%</div>
+        <div style="font-size:24px;font-weight:700;margin-bottom:40px;" id="quiz-grade">Excellent!</div>
+        <button class="path-btn" style="width:auto;padding:14px 32px;" id="new-quiz-topic-btn">📊 New Topic</button>
+      </div>
+    </div>
+
+    <!-- PANEL: BOOKMARKS -->
+    <div class="panel" id="panel-bookmarks">
+      <div class="notes-toolbar">
+        <span style="font-size:24px; font-weight:700;">Saved Notes</span>
+        <button class="notes-export" id="export-notes-btn">📥 Export to .txt</button>
+      </div>
+      <div id="bookmarks-grid"></div>
+    </div>
+  </main>
+
+  <!-- RIGHT PANEL -->
+  <aside class="right-panel" id="rightPanel">
+    <div class="rp-header">SETTINGS</div>
+    
+    <div class="rp-card">
+      <div class="rp-title">Your Level</div>
+      <button class="difficulty-btn active" data-difficulty="beginner">🌱 Beginner</button>
+      <button class="difficulty-btn" data-difficulty="intermediate">🔥 Intermediate</button>
+      <button class="difficulty-btn" data-difficulty="advanced">⚡ Advanced</button>
+    </div>
+    
+    <div class="rp-card">
+      <div class="rp-title">Session Stats</div>
+      <div class="stat-row"><span>📝 Quizzes</span> <span id="stat-quizzes">0</span></div>
+      <div class="stat-row"><span>🔖 Saved Notes</span> <span id="stat-bookmarks">0</span></div>
+      <div class="stat-row"><span>🔥 Streak</span> <span id="stat-streak">0 days</span></div>
+    </div>
+    
+    <div style="margin-top:auto; padding:20px; text-align:center; font-size:12px; color:var(--text-3);">
+      Powered by Mentora AI
+    </div>
+  </aside>
+</div>
+
+<script>
+
+;(function guardAuth() {
+  const token   = localStorage.getItem('mentora_token')
+  const userStr = localStorage.getItem('mentora_user')
+
+  if (!token || !userStr) {
+    window.location.replace('/')
+    return
+  }
+
+  // ★ Custom token format: base64(payload).hmac_signature (2 parts, NOT 3-part JWT)
+  // Payload is at index [0], exp is an ISO date string
+  try {
+    const parts = token.split('.')
+    if (parts.length !== 2) {
+      // Invalid token format — clear ALL mentora_ keys
+      const keys = []
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i)
+        if (k && k.startsWith('mentora_')) keys.push(k)
+      }
+      keys.forEach(k => localStorage.removeItem(k))
+      window.location.replace('/')
+      return
+    }
+    const payload = JSON.parse(atob(parts[0]))  // payload is part[0]
+    // exp is an ISO date string (e.g. "2026-06-17T12:00:00")
+    if (payload.exp && new Date() > new Date(payload.exp)) {
+      const keys = []
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i)
+        if (k && k.startsWith('mentora_')) keys.push(k)
+      }
+      keys.forEach(k => localStorage.removeItem(k))
+      window.location.replace('/')
+      return
+    }
+  } catch(e) {
+    const keys = []
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i)
+      if (k && k.startsWith('mentora_')) keys.push(k)
+    }
+    keys.forEach(k => localStorage.removeItem(k))
+    window.location.replace('/')
+    return
+  }
+})()
+
+const CURRENT_USER = JSON.parse(localStorage.getItem('mentora_user') || '{}')
+const TOKEN = localStorage.getItem('mentora_token') || ''
+
+function authHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + TOKEN
+  }
+}
+
+async function authFetch(url, opts = {}) {
+  const res = await fetch(url, {
+    ...opts,
+    headers: {
+      ...authHeaders(),
+      ...(opts.headers || {})
+    }
+  })
+
+  if (res.status === 401) {
+    showToast('Session expired', 'error')
+    setTimeout(() => logout(), 1500)
+    throw new Error('401')
+  }
+
+  return res
+}
+
+function logout() {
+  // ★ Set logout flag BEFORE clearing storage so login page honors it
+  sessionStorage.setItem('mentora_lo', '1')
+
+  // ★ Clear ALL mentora_ keys (including token, user, sessions, progress, etc.)
+  const toRemove = []
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i)
+    if (k && k.startsWith('mentora_')) toRemove.push(k)
+  }
+  toRemove.forEach(k => localStorage.removeItem(k))
+
+  // ★ Hard replace — prevents back button returning to app
+  window.location.replace('/?lo=1')
+}
+
+
+
+async function loadUserData() {
+  try {
+    const res = await authFetch(window.location.origin + '/user/data', { headers: authHeaders() })
+    const result = await res.json()
+    if (result.data) {
+      Object.assign(APP.progress, result.data)
+      APP.bookmarks = result.data.bookmarks || []
+      APP.sessions = result.data.sessions || []
+      APP.savedPaths = result.data.savedPaths || []
+      APP.difficulty = result.data.difficulty || 'beginner'
+      if(typeof renderHistoryList === 'function') renderHistoryList()
+      if(typeof updateSessionStats === 'function') updateSessionStats()
+    }
+  } catch(e) {
+    console.log('Using local data')
+  }
+}
+
+async function syncToServer() {
+  try {
+    await authFetch(window.location.origin + '/user/data', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({
+        data: {
+          totalQuestions: APP.progress.totalQuestions,
+          topicsExplored: APP.progress.topicsExplored,
+          recentActivity: APP.progress.recentActivity,
+          streak: APP.progress.streak,
+          lastActiveDate: APP.progress.lastActiveDate,
+          quizResults: APP.quizResults,
+          bookmarks: APP.bookmarks,
+          sessions: APP.sessions,
+          savedPaths: APP.savedPaths,
+          difficulty: APP.difficulty
+        }
+      })
+    })
+  } catch(e) {
+    // Silent fail
+  }
+}
+
+// INITIALIZATION
+const APP = {
+  theme: localStorage.getItem('mentora_theme') || 'dark',
+  difficulty: localStorage.getItem('mentora_difficulty') || 'beginner',
+  currentPanel: 'chat',
+  currentSessionId: null,
+  sessions: JSON.parse(localStorage.getItem('mentora_sessions') || '[]'),
+  bookmarks: JSON.parse(localStorage.getItem('mentora_bookmarks') || '[]'),
+  progress: JSON.parse(localStorage.getItem('mentora_progress') || JSON.stringify({
+    totalQuestions: 0, topicsExplored: {}, recentActivity: [], streak: 0, lastActiveDate: null
+  })),
+  quizResults: JSON.parse(localStorage.getItem('mentora_quizResults') || '[]'),
+  currentQuiz: null, currentQuizIndex: 0, currentQuizAnswers: [],
+  savedPaths: JSON.parse(localStorage.getItem('mentora_paths') || '[]'),
+  user: JSON.parse(localStorage.getItem('mentora_user') || 'null'),
+  lastTopic: '', isLoading: false, messageCount: 0
+}
+
+function saveState() {
+  syncToServer()
+  localStorage.setItem('mentora_theme', APP.theme)
+  localStorage.setItem('mentora_difficulty', APP.difficulty)
+  localStorage.setItem('mentora_sessions', JSON.stringify(APP.sessions))
+  localStorage.setItem('mentora_bookmarks', JSON.stringify(APP.bookmarks))
+  localStorage.setItem('mentora_progress', JSON.stringify(APP.progress))
+  localStorage.setItem('mentora_quizResults', JSON.stringify(APP.quizResults))
+  localStorage.setItem('mentora_paths', JSON.stringify(APP.savedPaths))
+  localStorage.setItem('mentora_user', JSON.stringify(APP.user))
+}
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2)
+}
+
+document.documentElement.setAttribute('data-theme', APP.theme)
+
+// FIX 1 — THEME TOGGLE
+function applyTheme(theme) {
+  APP.theme = theme
+  document.documentElement.setAttribute('data-theme', theme)
+  
+  const btn = document.getElementById('theme-toggle-btn')
+  if (!btn) return
+  
+  if (theme === 'dark') {
+    btn.innerHTML = `
+      <span class="theme-icon">☀️</span>
+      <span class="theme-label" style="font-size:13px; font-weight:500; color:var(--text-2); flex:1; text-align:left;">Light Mode</span>
+      <div class="toggle-pill dark"><div class="toggle-circle"></div></div>`
+  } else {
+    btn.innerHTML = `
+      <span class="theme-icon">🌙</span>
+      <span class="theme-label" style="font-size:13px; font-weight:500; color:var(--text-2); flex:1; text-align:left;">Dark Mode</span>
+      <div class="toggle-pill light"><div class="toggle-circle active"></div></div>`
+  }
+  saveState()
+}
+
+function toggleTheme() {
+  applyTheme(APP.theme === 'dark' ? 'light' : 'dark')
+}
+
+// FIX 2 — NAVIGATION PANELS
+function switchPanel(panelName) {
+  APP.currentPanel = panelName
+  document.querySelectorAll('.panel').forEach(p => p.style.display = 'none')
+  const target = document.getElementById('panel-' + panelName)
+  if (target) {
+    target.style.display = 'flex'
+    target.style.flexDirection = 'column'
+    target.style.flex = '1'
+    target.style.overflowY = 'auto'
+    target.style.overflowX = 'hidden'
+  }
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.classList.remove('active')
+    if (btn.dataset.panel === panelName) btn.classList.add('active')
+  })
+  const titles = { chat: 'Chat', progress: 'My Progress', path: 'Learning Path', quiz: 'Quiz Mode', bookmarks: 'Saved Notes' }
+  const header = document.getElementById('panel-title')
+  if (header) header.textContent = titles[panelName] || 'Mentora AI'
+  
+  if (panelName === 'progress') refreshProgress()
+  if (panelName === 'bookmarks') renderBookmarks()
+  if (panelName === 'quiz') resetQuizPanel()
+  
+  const sidebar = document.getElementById('sidebar')
+  const rp = document.getElementById('rightPanel')
+  const mo = document.getElementById('mobileOverlay')
+  if(sidebar) sidebar.classList.remove('open')
+  if(rp) rp.classList.remove('open')
+  if(mo) mo.classList.remove('show')
+}
+
+// FIX 3 — CHAT FEATURE
+async function sendMessage() {
+  const textarea = document.getElementById('chat-input')
+  if (!textarea) return
+  
+  const question = textarea.value.trim()
+  if (!question || APP.isLoading) return
+  
+  APP.isLoading = true
+  textarea.value = ''
+  autoResizeTextarea(textarea)
+  
+  const sendBtn = document.getElementById('send-btn')
+  if (sendBtn) sendBtn.disabled = true
+  
+  const emptyState = document.getElementById('empty-state')
+  if (emptyState) emptyState.style.display = 'none'
+  
+  addUserMessage(question)
+  saveToSession(question, null, null) // Save user message immediately so it's not lost on error
+  showTyping()
+  scrollToBottom()
+  
+  try {
+    const diffMap = {
+      beginner: "Explain as if student is a complete beginner. Use very simple words, more analogies, smaller steps.",
+      intermediate: "Student knows basics. Normal teaching depth.",
+      advanced: "Student is experienced. Skip basics, go deeper, include edge cases."
+    }
+    const diffNote = diffMap[APP.difficulty] || diffMap.beginner
+    
+    const response = await authFetch(window.location.origin + '/chat', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ question: question + '\n\n[Difficulty note: ' + diffNote + ']' })
+    })
+    
+    if (!response.ok) {
+      const err = await response.json()
+      throw new Error(err.detail || 'Server error')
+    }
+    
+    const data = await response.json()
+    hideTyping()
+    addAIMessage(data.answer, data.mode, generateId())
+    trackTopic(question)
+    saveToSession(null, data.answer, data.mode) // Append AI response
+    APP.lastTopic = extractTopic(question)
+    
+    if (data.mode === 'teaching') showPostResponseButtons()
+  } catch (err) {
+    hideTyping()
+    const errorMsg = 'Something went wrong: ' + err.message + '. Please check your connection.'
+    addAIMessage(errorMsg, 'error', generateId())
+    saveToSession(null, errorMsg, 'error') // Save error to history
+  } finally {
+    APP.isLoading = false
+    if (sendBtn) sendBtn.disabled = false
+    const inp = document.getElementById('chat-input')
+    if (inp) inp.focus()
+    scrollToBottom()
+  }
+}
+
+function showPostResponseButtons() {
+  const bar = document.getElementById('post-response-bar')
+  if (bar) bar.style.display = 'flex'
+}
+
+function showTyping() {
+  const area = document.getElementById('messages-area')
+  APP.typingId = 'typing-' + generateId()
+  const div = document.createElement('div')
+  div.className = 'msg-row ai'
+  div.id = APP.typingId
+  div.innerHTML = `<div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div><span>Thinking...</span></div></div>`
+  area.appendChild(div)
+}
+
+function hideTyping() {
+  if (APP.typingId) {
+    const el = document.getElementById(APP.typingId)
+    if (el) el.remove()
+    APP.typingId = null
+  }
+}
+
+function addUserMessage(content, animate=true) {
+  const area = document.getElementById('messages-area')
+  const div = document.createElement('div')
+  div.className = 'msg-row user'
+  if (!animate) {
+    div.style.animation = 'none'
+    div.style.opacity = '1'
+    div.style.transform = 'translateY(0)'
+  }
+  div.innerHTML = `<div class="msg-bubble">${escapeHtml(content)}</div><div class="msg-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>`
+  area.appendChild(div)
+  APP.messageCount++
+}
+
+function parseMarkdown(text) {
+  let html = escapeHtml(text)
+  html = html.replace(/```([\s\S]*?)```/g, '<div class="code-wrapper"><pre><code>$1</code></pre></div>')
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>')
+  html = html.replace(/\n/g, '<br>')
+  return html
+}
+
+function addAIMessage(content, mode, id, animate=true) {
+  const area = document.getElementById('messages-area')
+  const div = document.createElement('div')
+  div.className = 'msg-row ai'
+  if (!animate) {
+    div.style.animation = 'none'
+    div.style.opacity = '1'
+    div.style.transform = 'translateY(0)'
+  }
+  
+  if (mode) {
+    const modeBadge = document.createElement('div')
+    modeBadge.className = 'mode-badge'
+    modeBadge.textContent = mode.toUpperCase()
+    div.appendChild(modeBadge)
+  }
+  
+  const parsedContent = parseMarkdown(content)
+  
+  const b1 = document.createElement('button')
+  b1.className = 'action-btn'; b1.dataset.bookmarkId = id; b1.title = 'Save to notes'; b1.textContent = '🔖'
+  b1.addEventListener('click', () => bookmarkMessage(id, content))
+  
+  const b2 = document.createElement('button')
+  b2.className = 'action-btn'; b2.title = 'Copy Text'; b2.textContent = '📋'
+  b2.addEventListener('click', () => copyToClipboard(content))
+  
+  const actionBar = document.createElement('div')
+  actionBar.className = 'action-bar'
+  actionBar.appendChild(b1); actionBar.appendChild(b2)
+  
+  const bubble = document.createElement('div')
+  bubble.className = 'msg-bubble'
+  bubble.id = `msg-${id}`
+  bubble.innerHTML = parsedContent
+  
+  div.appendChild(bubble)
+  div.appendChild(actionBar)
+  
+  const timeDiv = document.createElement('div')
+  timeDiv.className = 'msg-time'
+  timeDiv.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+  div.appendChild(timeDiv)
+  
+  area.appendChild(div)
+  APP.messageCount++
+  if (APP.bookmarks.find(b => b.id === id)) {
+    const btn = div.querySelector(`[data-bookmark-id="${id}"]`)
+    if (btn) { btn.style.color = 'var(--accent)'; btn.title = 'Remove from notes' }
+  }
+}
+
+// FIX 4 — CHAT HISTORY
+function startNewSession() {
+  APP.currentSessionId = generateId()
+  const area = document.getElementById('messages-area')
+  if (area) area.innerHTML = ''
+  APP.messageCount = 0
+  const es = document.getElementById('empty-state')
+  if (es) es.style.display = 'flex'
+  const bar = document.getElementById('post-response-bar')
+  if (bar) bar.style.display = 'none'
+}
+
+function saveToSession(question, answer, mode) {
+  let session = APP.sessions.find(s => s.id === APP.currentSessionId)
+  if (!session) {
+    const title = question ? question.substring(0, 32) + (question.length > 32 ? '...' : '') : 'New Chat'
+    session = {
+      id: APP.currentSessionId,
+      title: title,
+      messages: [], created: Date.now(), updated: Date.now()
+    }
+    APP.sessions.unshift(session)
+    if (APP.sessions.length > 10) APP.sessions = APP.sessions.slice(0, 10)
+  }
+  if (question) {
+    session.messages.push({ role: 'user', content: question, mode: '', time: Date.now() })
+  }
+  if (answer) {
+    session.messages.push({ role: 'ai', content: answer, mode: mode, time: Date.now() })
+  }
+  session.updated = Date.now()
+  saveState()
+  renderHistoryList()
+}
+
+function renderHistoryList() {
+  const list = document.getElementById('history-list')
+  if (!list) return
+  list.innerHTML = ''
+  if (APP.sessions.length === 0) {
+    list.innerHTML = '<p style="font-size:11px;color:var(--text-3);padding:8px 10px">No history yet</p>'
+    return
+  }
+  APP.sessions.forEach(session => {
+    const item = document.createElement('div')
+    item.className = 'history-item'
+    item.dataset.sessionId = session.id
+    if (session.id === APP.currentSessionId) item.classList.add('active')
+    const dateStr = new Date(session.created).toLocaleDateString('en', {month:'short', day:'numeric'})
+    const msgCount = Math.floor(session.messages.length / 2)
+    item.innerHTML = `<div class="hist-title">${escapeHtml(session.title)}</div><div class="hist-meta">${dateStr} · ${msgCount} msg${msgCount !== 1 ? 's' : ''}</div>`
+    item.addEventListener('click', () => loadSession(session.id))
+    list.appendChild(item)
+  })
+}
+
+function loadSession(sessionId) {
+  const session = APP.sessions.find(s => s.id === sessionId)
+  if (!session) return
+  APP.currentSessionId = sessionId
+  const area = document.getElementById('messages-area')
+  if (!area) return
+  area.innerHTML = ''
+  APP.messageCount = 0
+  const es = document.getElementById('empty-state')
+  if (es) es.style.display = 'none'
+  session.messages.forEach(msg => {
+    if (msg.role === 'user') addUserMessage(msg.content, false)
+    else addAIMessage(msg.content, msg.mode, generateId(), false)
+  })
+  scrollToBottom()
+  renderHistoryList()
+  switchPanel('chat')
+}
+
+// FIX 5 — BOOKMARK FEATURE
+function bookmarkMessage(msgId, content) {
+  const existing = APP.bookmarks.find(b => b.id === msgId)
+  if (existing) {
+    APP.bookmarks = APP.bookmarks.filter(b => b.id !== msgId)
+    saveState()
+    const btn = document.querySelector(`[data-bookmark-id="${msgId}"]`)
+    if (btn) { btn.style.color = ''; btn.title = 'Save to notes' }
+    showToast('Removed from notes', 'info')
+    return
+  }
+  const bookmark = {
+    id: msgId, content: content, preview: content.substring(0, 150) + (content.length > 150 ? '...' : ''),
+    topic: detectTopicFromText(content), date: Date.now()
+  }
+  APP.bookmarks.unshift(bookmark)
+  saveState()
+  const btn = document.querySelector(`[data-bookmark-id="${msgId}"]`)
+  if (btn) { btn.style.color = 'var(--accent)'; btn.title = 'Remove from notes' }
+  showToast('✅ Saved to notes!', 'success')
+}
+
+function renderBookmarks() {
+  const grid = document.getElementById('bookmarks-grid')
+  if (!grid) return
+  grid.innerHTML = ''
+  if (APP.bookmarks.length === 0) {
+    grid.innerHTML = `<div class="empty-bookmarks"><div style="font-size:40px">🔖</div><p style="color:var(--text-2);font-size:14px;margin:8px 0">No saved notes yet</p><p style="color:var(--text-3);font-size:12px">Click the 🔖 button on any AI response to save it here</p></div>`
+    return
+  }
+  APP.bookmarks.forEach(bookmark => {
+    const card = document.createElement('div')
+    card.className = 'bookmark-card'
+    const date = new Date(bookmark.date).toLocaleDateString('en', {month: 'short', day: 'numeric', year: 'numeric'})
+    
+    const top = document.createElement('div')
+    top.className = 'bookmark-top'
+    top.innerHTML = `<span class="topic-tag">${escapeHtml(bookmark.topic)}</span>`
+    const delBtn = document.createElement('button')
+    delBtn.className = 'bookmark-delete'; delBtn.title = 'Delete'; delBtn.textContent = '✕'
+    delBtn.addEventListener('click', () => deleteBookmark(bookmark.id))
+    top.appendChild(delBtn)
+    
+    const preview = document.createElement('div')
+    preview.className = 'bookmark-preview'
+    preview.innerHTML = escapeHtml(bookmark.preview)
+    
+    const bot = document.createElement('div')
+    bot.className = 'bookmark-bottom'
+    bot.innerHTML = `<span class="bookmark-date">${date}</span>`
+    const viewBtn = document.createElement('button')
+    viewBtn.className = 'view-full-btn'; viewBtn.textContent = 'View Full →'
+    viewBtn.addEventListener('click', () => viewFullBookmark(bookmark.id))
+    bot.appendChild(viewBtn)
+    
+    card.appendChild(top); card.appendChild(preview); card.appendChild(bot)
+    grid.appendChild(card)
+  })
+}
+
+function deleteBookmark(id) {
+  APP.bookmarks = APP.bookmarks.filter(b => b.id !== id)
+  saveState()
+  renderBookmarks()
+  showToast('Note deleted', 'info')
+}
+
+function viewFullBookmark(id) {
+  const bm = APP.bookmarks.find(b => b.id === id)
+  if (!bm) return
+  const modal = document.createElement('div')
+  modal.className = 'modal-overlay'
+  
+  const card = document.createElement('div')
+  card.className = 'modal-card'
+  
+  const header = document.createElement('div')
+  header.className = 'modal-header'
+  header.innerHTML = `<span class="topic-tag">${escapeHtml(bm.topic)}</span>`
+  const close = document.createElement('button')
+  close.className = 'modal-close'; close.textContent = '✕'
+  close.addEventListener('click', () => modal.remove())
+  header.appendChild(close)
+  
+  const body = document.createElement('div')
+  body.className = 'modal-body'
+  body.innerHTML = escapeHtml(bm.content).replace(/\n/g,'<br>')
+  
+  const footer = document.createElement('div')
+  footer.className = 'modal-footer'
+  const cpy = document.createElement('button')
+  cpy.textContent = '📋 Copy'
+  cpy.addEventListener('click', () => copyToClipboard(bm.content))
+  const del = document.createElement('button')
+  del.textContent = '🗑 Delete'
+  del.addEventListener('click', () => { deleteBookmark(bm.id); modal.remove() })
+  footer.appendChild(cpy); footer.appendChild(del)
+  
+  card.appendChild(header); card.appendChild(body); card.appendChild(footer)
+  modal.appendChild(card)
+  
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove() })
+  document.body.appendChild(modal)
+}
+
+function exportNotes() {
+  if (APP.bookmarks.length === 0) { showToast('No notes to export', 'info'); return }
+  let text = 'MENTORA AI — SAVED NOTES\n' + '═'.repeat(40) + '\n\n'
+  APP.bookmarks.forEach((bm, i) => {
+    const date = new Date(bm.date).toLocaleDateString()
+    text += `NOTE ${i+1} — ${bm.topic}\nDate: ${date}\n` + '─'.repeat(40) + '\n' + bm.content + '\n\n'
+  })
+  const blob = new Blob([text], {type: 'text/plain'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url; a.download = 'mentora-notes.txt'; a.click()
+  URL.revokeObjectURL(url)
+  showToast('✅ Notes exported!', 'success')
+}
+
+
+// FIX 7 — QUIZ MODE
+function buildQuizPrompt(topic, diff, count) {
+  return `Generate ${count} multiple choice questions about "${topic}" for a ${diff} level student.\n\nIMPORTANT: Return ONLY valid JSON. No explanation before or after. No markdown. Just the JSON object.\n\n{\n  "topic": "${topic}",\n  "questions": [\n    {\n      "question": "question text here",\n      "options": ["Option A", "Option B", "Option C", "Option D"],\n      "correct": 0,\n      "explanation": "brief explanation of correct answer"\n    }\n  ]\n}`
+}
+
+async function startQuiz() {
+  const topicInput = document.getElementById('quiz-topic-input')
+  const diffBtns = document.querySelectorAll('.quiz-diff-btn.active')
+  const countBtns = document.querySelectorAll('.quiz-count-btn.active')
+  if (!topicInput) return
+  const topic = topicInput.value.trim()
+  if (!topic) { showToast('Please enter a topic', 'error'); return }
+  const diff = diffBtns.length > 0 ? diffBtns[0].dataset.diff : APP.difficulty
+  const count = countBtns.length > 0 ? parseInt(countBtns[0].dataset.count) : 5
+  
+  showQuizSection('loading')
+  try {
+    const response = await authFetch(window.location.origin + '/chat', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ question: buildQuizPrompt(topic, diff, count) })
+    })
+    const data = await response.json()
+    const quiz = parseQuizJSON(data.answer)
+    if (!quiz || !quiz.questions || quiz.questions.length === 0) throw new Error('Could not parse quiz questions')
+    
+    APP.currentQuiz = quiz; APP.currentQuizIndex = 0; APP.currentQuizAnswers = []
+    showQuizSection('question')
+    renderQuizQuestion(0)
+  } catch (err) {
+    showQuizSection('input')
+    showToast('Quiz generation failed: ' + err.message, 'error')
+  }
+}
+
+function parseQuizJSON(text) {
+  try { return JSON.parse(text) } catch(e) {}
+  try { const match = text.match(/\{[\s\S]*"questions"[\s\S]*\}/); if (match) return JSON.parse(match[0]) } catch(e) {}
+  try { const match = text.match(/\{[\s\S]*\[[\s\S]*\][\s\S]*\}/); if (match) return JSON.parse(match[0]) } catch(e) {}
+  return null
+}
+
+function renderQuizQuestion(index) {
+  const quiz = APP.currentQuiz
+  if (!quiz || index >= quiz.questions.length) return
+  const q = quiz.questions[index]
+  const total = quiz.questions.length
+  
+  const prog = document.getElementById('quiz-progress-bar')
+  if (prog) prog.style.width = ((index / total) * 100) + '%'
+  const num = document.getElementById('quiz-question-num')
+  if (num) num.textContent = `Question ${index + 1} of ${total}`
+  const qText = document.getElementById('quiz-question-text')
+  if (qText) qText.textContent = q.question
+  const opts = document.getElementById('quiz-options')
+  if (!opts) return
+  opts.innerHTML = ''
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button')
+    btn.className = 'quiz-option-btn'
+    btn.textContent = opt
+    btn.addEventListener('click', () => selectAnswer(index, i))
+    opts.appendChild(btn)
+  })
+  const exp = document.getElementById('quiz-explanation')
+  if (exp) exp.style.display = 'none'
+  const nextBtn = document.getElementById('quiz-next-btn')
+  if (nextBtn) nextBtn.style.display = 'none'
+}
+
+function selectAnswer(qIndex, optIndex) {
+  const quiz = APP.currentQuiz
+  const q = quiz.questions[qIndex]
+  APP.currentQuizAnswers[qIndex] = optIndex
+  
+  let correctIndex = -1
+  if (typeof q.correct === 'number') correctIndex = q.correct
+  else if (typeof q.correct === 'string') {
+    if (/^\d+$/.test(q.correct)) correctIndex = parseInt(q.correct)
+    else correctIndex = q.options.findIndex(opt => opt.trim() === q.correct.trim())
+  }
+  
+  const opts = document.querySelectorAll('.quiz-option-btn')
+  opts.forEach((btn, i) => {
+    btn.disabled = true
+    if (i === correctIndex) { btn.classList.add('correct'); btn.textContent = '✅ ' + btn.textContent }
+    else if (i === optIndex && optIndex !== correctIndex) { btn.classList.add('wrong'); btn.textContent = '❌ ' + btn.textContent }
+  })
+  const exp = document.getElementById('quiz-explanation')
+  if (exp) { exp.style.display = 'block'; exp.textContent = q.explanation || (optIndex === correctIndex ? 'Correct!' : 'Incorrect.') }
+  const nextBtn = document.getElementById('quiz-next-btn')
+  if (nextBtn) {
+    nextBtn.style.display = 'block'
+    const isLast = qIndex === quiz.questions.length - 1
+    nextBtn.textContent = isLast ? '📊 See Results' : 'Next Question →'
+    nextBtn.onclick = isLast ? showQuizResults : () => { APP.currentQuizIndex++; renderQuizQuestion(APP.currentQuizIndex) }
+  }
+  setTimeout(() => { const p = document.getElementById('panel-quiz'); if (p) p.scrollTop = p.scrollHeight }, 50)
+}
+
+function showQuizResults() {
+  const quiz = APP.currentQuiz
+  let correct = 0
+  APP.currentQuizAnswers.forEach((ans, i) => { if (ans === quiz.questions[i].correct) correct++ })
+  const total = quiz.questions.length
+  const pct = Math.round((correct/total)*100)
+  APP.quizResults.push({ topic: quiz.topic, score: pct, correct: correct, total: total, date: Date.now() })
+  saveState()
+  showQuizSection('results')
+  const scoreEl = document.getElementById('quiz-score')
+  if (scoreEl) scoreEl.textContent = `${correct}/${total}`
+  const pctEl = document.getElementById('quiz-pct')
+  if (pctEl) { pctEl.textContent = pct + '%'; pctEl.style.color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--orange)' : 'var(--red)' }
+  const gradeEl = document.getElementById('quiz-grade')
+  if (gradeEl) gradeEl.textContent = pct >= 90 ? '🌟 Excellent!' : pct >= 70 ? '👍 Good job!' : pct >= 50 ? '📚 Keep practicing!' : '💪 Try again!'
+  showToast(`Quiz done! Score: ${pct}%`, pct >= 70 ? 'success' : 'info')
+}
+
+function showQuizSection(section) {
+  ['input','loading','question','results'].forEach(s => {
+    const el = document.getElementById('quiz-section-' + s)
+    if (el) el.style.display = s === section ? 'flex' : 'none'
+  })
+}
+
+function resetQuizPanel() {
+  showQuizSection('input')
+  APP.currentQuiz = null; APP.currentQuizIndex = 0; APP.currentQuizAnswers = []
+}
+
+// FIX 8 — LEARNING PATH GENERATOR
+function buildPathPrompt(goal) {
+  return `Create a learning path for: "${goal}"\n\nIMPORTANT: Return ONLY valid JSON. No explanation. No markdown. Just JSON.\n\n{\n  "goal": "${goal}",\n  "duration": "total estimated time",\n  "phases": [\n    {\n      "phase": 1,\n      "title": "Phase Title",\n      "duration": "2-3 weeks",\n      "description": "what student learns",\n      "topics": ["topic1", "topic2", "topic3"]\n    }\n  ]\n}`
+}
+
+async function generatePath() {
+  const input = document.getElementById('path-goal-input')
+  if (!input) return
+  const goal = input.value.trim()
+  if (!goal) { showToast('Please enter your goal', 'error'); return }
+  
+  const loadEl = document.getElementById('path-loading')
+  const resultEl = document.getElementById('path-result')
+  if (loadEl) loadEl.style.display = 'block'
+  if (resultEl) resultEl.style.display = 'none'
+  
+  try {
+    const response = await authFetch(window.location.origin + '/chat', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ question: buildPathPrompt(goal) })
+    })
+    const data = await response.json()
+    const path = parsePathJSON(data.answer)
+    if (!path || !path.phases || path.phases.length === 0) throw new Error('Could not parse path')
+    
+    renderPath(path)
+    APP.savedPaths.unshift({ id: generateId(), goal: goal, path: path, date: Date.now() })
+    if (APP.savedPaths.length > 5) APP.savedPaths = APP.savedPaths.slice(0, 5)
+    saveState()
+    renderSavedPaths()
+  } catch (err) {
+    showToast('Path generation failed: ' + err.message, 'error')
+  } finally {
+    if (loadEl) loadEl.style.display = 'none'
+  }
+}
+
+function parsePathJSON(text) {
+  try { return JSON.parse(text) } catch(e) {}
+  try { const m = text.match(/\{[\s\S]*"phases"[\s\S]*\}/); if (m) return JSON.parse(m[0]) } catch(e) {}
+  return null
+}
+
+function renderPath(pathData) {
+  const result = document.getElementById('path-result')
+  const colors = ['var(--accent)','var(--green)','var(--purple)','var(--orange)']
+  
+  if (!pathData) return;
+  
+  const goal = pathData.goal || 'Learning Path';
+  const estimated_time = pathData.estimated_time || pathData.duration || 'Unknown duration';
+  const phases = pathData.phases || [];
+  
+  result.innerHTML = `
+    <div class="path-header">
+      <div>
+        <h3 class="path-goal">${escapeHtml(goal)}</h3>
+        <div class="path-duration">⏱️ Estimated: ${escapeHtml(estimated_time)}</div>
+      </div>
+    </div>
+    <div class="path-phases">
+      ${phases.map((phase, i) => `
+        <div class="phase-card">
+          <div class="phase-number" style="background:${colors[i%4]}">${phase.phase || (i+1)}</div>
+          <div class="phase-content">
+            <div class="phase-title">${escapeHtml(phase.title || 'Phase ' + (i+1))}</div>
+            <div class="phase-duration">📅 ${escapeHtml(phase.duration || 'Flexible')}</div>
+            <div class="phase-desc">${escapeHtml(phase.description || '')}</div>
+            <div class="phase-topics">${(phase.topics || []).map(t => `<span class="topic-chip">${escapeHtml(t)}</span>`).join('')}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <button class="save-path-btn" onclick="showToast('✅ Path saved!', 'success')">💾 Save Path</button>`
+  result.style.display = 'flex'
+}
+
+function renderSavedPaths() {
+  const container = document.getElementById('saved-paths-list')
+  if (!container) return
+  container.innerHTML = ''
+  APP.savedPaths.forEach(saved => {
+    const chip = document.createElement('button')
+    chip.className = 'saved-path-chip'
+    chip.textContent = saved.goal.substring(0, 30)
+    chip.addEventListener('click', () => renderPath(saved.path))
+    container.appendChild(chip)
+  })
+}
+
+// FIX 9 — PROGRESS TRACKER
+const TOPIC_KEYWORDS = {
+  'Python': ['python','py','django','flask'], 'JavaScript': ['javascript','js','node','react'],
+  'Variables': ['variable','var','let','const'], 'Functions': ['function','def','method'],
+  'Loops': ['loop','for','while','iteration'], 'Arrays': ['array','list','index'],
+  'Memory': ['pointer','memory','heap','stack'], 'Recursion': ['recursion','recursive'],
+  'OOP': ['class','object','oop','inheritance','polymorphism'], 'Databases': ['database','sql','query','table','sqlite'],
+  'APIs': ['api','request','endpoint','rest','http'], 'Web Design': ['html','css','style','layout','design'],
+  'Algorithms': ['algorithm','sort','search','binary','bubble'], 'Big O': ['big o','complexity','o(n)','efficient'],
+  'Cybersecurity': ['security','cyber','hack','encrypt'], 'Networking': ['network','tcp','ip','protocol','dns'],
+  'Git': ['git','github','commit','branch','merge'], 'C Language': [' c ','#include','printf','malloc'],
+  'SQL': ['sql','select','insert','where','join'], 'General CS': []
+}
+
+function extractTopic(text) {
+  const lower = text.toLowerCase()
+  for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS)) {
+    if (keywords.some(k => lower.includes(k))) return topic
+  }
+  return 'General CS'
+}
+
+function detectTopicFromText(text) { return extractTopic(text) }
+
+function trackTopic(question) {
+  const topic = extractTopic(question)
+  if (!APP.progress.topicsExplored[topic]) APP.progress.topicsExplored[topic] = { count: 0, lastAsked: Date.now() }
+  APP.progress.topicsExplored[topic].count++
+  APP.progress.topicsExplored[topic].lastAsked = Date.now()
+  APP.progress.totalQuestions++
+  APP.progress.recentActivity.unshift({ question: question.substring(0, 60), topic: topic, time: Date.now() })
+  if (APP.progress.recentActivity.length > 20) APP.progress.recentActivity = APP.progress.recentActivity.slice(0, 20)
+  updateStreak()
+  saveState()
+  updateSessionStats()
+}
+
+function updateStreak() {
+  const today = new Date().toISOString().split('T')[0]
+  const last = APP.progress.lastActiveDate
+  if (!last) APP.progress.streak = 1
+  else if (last === today) {} 
+  else {
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+    APP.progress.streak = last === yesterday ? APP.progress.streak + 1 : 1
+  }
+  APP.progress.lastActiveDate = today
+}
+
+function updateSessionStats() {
+  const avgScore = APP.quizResults.length > 0 ? Math.round(APP.quizResults.reduce((a,r) => a + r.score, 0) / APP.quizResults.length) : 0
+  const els = {
+    'stat-questions': APP.progress.totalQuestions, 'stat-topics': Object.keys(APP.progress.topicsExplored).length,
+    'stat-quizzes': APP.quizResults.length, 'stat-bookmarks': APP.bookmarks.length,
+    'stat-streak': APP.progress.streak + ' days'
+  }
+  Object.entries(els).forEach(([id, val]) => { const el = document.getElementById(id); if (el) el.textContent = val })
+}
+
+function refreshProgress() {
+  updateSessionStats()
+  const avgScore = APP.quizResults.length > 0 ? Math.round(APP.quizResults.reduce((a,r) => a + r.score, 0) / APP.quizResults.length) + '%' : '—'
+  const avg = document.getElementById('stat-quiz-avg'); if (avg) avg.textContent = avgScore
+  const explored = document.getElementById('topics-explored-grid')
+  if (explored) {
+    explored.innerHTML = ''
+    if (Object.keys(APP.progress.topicsExplored).length === 0) {
+      explored.innerHTML = '<p style="color:var(--text-3);font-size:13px">No topics explored yet. Start chatting!</p>'
+    } else {
+      Object.entries(APP.progress.topicsExplored).sort((a,b) => b[1].count - a[1].count).forEach(([topic, data]) => {
+        const pill = document.createElement('div')
+        pill.className = 'topic-pill-card'
+        pill.innerHTML = `<div class="topic-pill-name">${topic}</div><div class="topic-pill-count">Asked ${data.count} time${data.count !== 1 ? 's' : ''}</div>`
+        explored.appendChild(pill)
+      })
+    }
+  }
+  const activity = document.getElementById('recent-activity-list')
+  if (activity) {
+    activity.innerHTML = ''
+    if (APP.progress.recentActivity.length === 0) {
+      activity.innerHTML = '<p style="color:var(--text-3);font-size:13px">No activity yet.</p>'
+    } else {
+      APP.progress.recentActivity.slice(0, 10).forEach(item => {
+        const el = document.createElement('div'); el.className = 'activity-item'
+        const timeAgo = getTimeAgo(item.time)
+        el.innerHTML = `<div class="activity-dot"></div><div class="activity-content"><div class="activity-q">${escapeHtml(item.question)}</div><div class="activity-meta">${item.topic} · ${timeAgo}</div></div>`
+        activity.appendChild(el)
+      })
+    }
+  }
+}
+
+function getTimeAgo(timestamp) {
+  const diff = Date.now() - timestamp; const mins = Math.floor(diff / 60000); const hrs = Math.floor(diff / 3600000); const days = Math.floor(diff / 86400000)
+  if (mins < 1) return 'Just now'; if (mins < 60) return `${mins}m ago`; if (hrs < 24) return `${hrs}h ago`; if (days === 1) return 'Yesterday'; return `${days} days ago`
+}
+
+// FIX 10 — DIFFICULTY PERSONALIZATION
+function setDifficulty(level) {
+  APP.difficulty = level; saveState()
+  document.querySelectorAll('.difficulty-btn, .diff-pill-btn').forEach(btn => {
+    btn.classList.remove('active')
+    if (btn.dataset.difficulty === level) btn.classList.add('active')
+  })
+  showToast(`Level set to ${level}`, 'success')
+}
+
+// FIX 11 — UTILITY FUNCTIONS
+function escapeHtml(text) {
+  return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')
+}
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('✅ Copied!','success')).catch(() => showToast('Copy failed','error'))
+}
+function scrollToBottom() {
+  const area = document.getElementById('messages-area')
+  if (area) area.scrollTop = area.scrollHeight
+}
+function autoResizeTextarea(el) {
+  el.style.height = 'auto'
+  el.style.height = Math.min(el.scrollHeight, 140) + 'px'
+}
+function showToast(message, type='info') {
+  const existing = document.querySelector('.toast')
+  if (existing) existing.remove()
+  const toast = document.createElement('div')
+  toast.className = `toast toast-${type}`
+  toast.textContent = message
+  const colors = { success: 'var(--green)', error: 'var(--red)', info: 'var(--accent)' }
+  toast.style.cssText = `position: fixed; bottom: 24px; right: 24px; background: var(--bg-surface); border: 1px solid ${colors[type]}; color: var(--text-1); border-radius: 10px; padding: 10px 16px; font-size: 13px; font-weight: 500; z-index: 9999; box-shadow: var(--shadow-md); animation: slideInToast 0.2s ease;`
+  document.body.appendChild(toast)
+  setTimeout(() => { toast.style.animation = 'slideOutToast 0.2s ease forwards'; setTimeout(() => toast.remove(), 200) }, 3000)
+}
+
+function updateSidebarProfile() {
+  // ★ Read from CURRENT_USER (from localStorage) — NOT APP.user which uses old schema
+  const u = CURRENT_USER
+  const displayName = u.username || u.email?.split('@')[0] || 'User'
+  const prof   = document.getElementById('sidebar-user-profile')
+  const av     = document.getElementById('user-avatar')
+  const nameEl = document.getElementById('user-name')
+  const emailEl= document.getElementById('user-email')
+  if (prof)    prof.style.display   = 'flex'
+  if (av)      av.textContent       = displayName.charAt(0).toUpperCase()
+  if (nameEl)  nameEl.textContent   = displayName
+  if (emailEl) emailEl.textContent  = u.email || ''
+}
+
+let authMode = 'signup'
+function initAuth() {
+  const overlay = document.getElementById('authOverlay')
+  const title = document.getElementById('auth-title')
+  const subtitle = document.getElementById('auth-subtitle')
+  const nameInput = document.getElementById('auth-name')
+  const emailInput = document.getElementById('auth-email')
+  const passInput = document.getElementById('auth-password')
+  const submitBtn = document.getElementById('auth-submit-btn')
+  const toggleText = document.getElementById('auth-toggle-text')
+  const toggleBtn = document.getElementById('auth-toggle-btn')
+  const logoutBtn = document.getElementById('logout-btn')
+  
+  if (!APP.user) overlay.style.display = 'flex'
+  else updateSidebarProfile()
+  
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      if (authMode === 'signup') {
+        authMode = 'login'
+        title.textContent = 'Welcome Back'
+        subtitle.textContent = 'Log in to continue your learning journey'
+        nameInput.style.display = 'none'
+        submitBtn.textContent = 'Log In'
+        toggleText.textContent = 'Don\'t have an account?'
+        toggleBtn.textContent = 'Sign Up'
+      } else {
+        authMode = 'signup'
+        title.textContent = 'Welcome to Mentora AI'
+        subtitle.textContent = 'Create an account to save your progress'
+        nameInput.style.display = 'block'
+        submitBtn.textContent = 'Sign Up'
+        toggleText.textContent = 'Already have an account?'
+        toggleBtn.textContent = 'Log In'
+      }
+    })
+  }
+  
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      const email = emailInput.value.trim()
+      const pass = passInput.value.trim()
+      const name = nameInput.value.trim()
+      
+      if (!email || !pass) { showToast('Please enter email and password', 'error'); return }
+      if (authMode === 'signup' && !name) { showToast('Please enter your name', 'error'); return }
+      
+      if (authMode === 'signup') {
+        APP.user = { name, email, initials: name.charAt(0).toUpperCase() }
+        saveState()
+        showToast('Account created successfully!', 'success')
+        overlay.style.display = 'none'
+        updateSidebarProfile()
+      } else {
+        APP.user = { name: 'User', email: email, initials: email.charAt(0).toUpperCase() }
+        saveState()
+        showToast('Logged in successfully!', 'success')
+        overlay.style.display = 'none'
+        updateSidebarProfile()
+      }
+    })
+  }
+  
+  if (logoutBtn) {
+    // ★ FIX: Call the real logout() which clears storage and redirects to login
+    logoutBtn.addEventListener('click', () => {
+      logout()
+    })
+  }
+}
+
+// FIX 12 — INITIALIZATION ORDER
+document.addEventListener('DOMContentLoaded', () => {
+  const nameEl   = document.getElementById('user-name')
+  const emailEl  = document.getElementById('user-email')
+  const avatarEl = document.getElementById('user-avatar')
+  const profEl   = document.getElementById('sidebar-user-profile')
+
+  // ★ FIX: Display ACTUAL logged-in user from localStorage
+  // CURRENT_USER is set at top of script from localStorage
+  const displayName = CURRENT_USER.username ||
+                      CURRENT_USER.email?.split('@')[0] ||
+                      'User'
+
+  if (nameEl)   nameEl.textContent   = displayName
+  if (emailEl)  emailEl.textContent  = CURRENT_USER.email || ''
+  if (avatarEl) avatarEl.textContent = displayName.charAt(0).toUpperCase()
+  if (profEl)   profEl.style.display = 'flex'
+
+  applyTheme(APP.theme)
+  setDifficulty(APP.difficulty)
+  switchPanel('chat')
+  
+  const ta = document.getElementById('chat-input')
+  if (ta) {
+    ta.addEventListener('input', () => autoResizeTextarea(ta))
+    ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage() } })
+  }
+  
+  const sb = document.getElementById('send-btn')
+  if (sb) sb.addEventListener('click', sendMessage)
+  
+  const tb = document.getElementById('theme-toggle-btn')
+  if (tb) tb.addEventListener('click', toggleTheme)
+  
+  const nb = document.getElementById('new-chat-btn')
+  if (nb) nb.addEventListener('click', startNewSession)
+  
+  renderHistoryList()
+  updateSessionStats()
+  renderSavedPaths()
+  checkHealth()
+  setInterval(checkHealth, 30000)
+  
+  // ★ Wire logout button directly — initAuth() was never called so this was missing
+  const logoutBtn = document.getElementById('logout-btn')
+  if (logoutBtn) logoutBtn.addEventListener('click', () => logout())
+  
+  // Load user data from server
+  loadUserData()
+  
+  const startQuizBtn = document.getElementById('start-quiz-btn')
+  if (startQuizBtn) startQuizBtn.addEventListener('click', startQuiz)
+  
+  const genBtn = document.getElementById('generate-path-btn')
+  if (genBtn) genBtn.addEventListener('click', generatePath)
+  
+  const expBtn = document.getElementById('export-notes-btn')
+  if (expBtn) expBtn.addEventListener('click', exportNotes)
+  
+  const qqBtn = document.getElementById('quick-quiz-btn')
+  if (qqBtn) {
+    qqBtn.addEventListener('click', () => {
+      const topicInput = document.getElementById('quiz-topic-input')
+      if (topicInput && APP.lastTopic) topicInput.value = APP.lastTopic
+      switchPanel('quiz')
+    })
+  }
+  
+  document.querySelectorAll('.suggestion-chip:not(.quiz-diff-btn):not(.quiz-count-btn):not(.goal-chip)').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const ta = document.getElementById('chat-input')
+      if (ta) { ta.value = chip.textContent; sendMessage() }
+    })
+  })
+  
+  document.querySelectorAll('.goal-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const inp = document.getElementById('path-goal-input')
+      if (inp) inp.value = chip.textContent
+    })
+  })
+
+  document.querySelectorAll('.difficulty-btn, .diff-pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => setDifficulty(btn.dataset.difficulty))
+  })
+  
+  document.querySelectorAll('.quiz-diff-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.quiz-diff-btn').forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+    })
+  })
+  
+  document.querySelectorAll('.quiz-count-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.quiz-count-btn').forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+    })
+  })
+  
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => switchPanel(btn.dataset.panel))
+  })
+  
+  const mobSideBtn = document.getElementById('mobile-sidebar-btn')
+  if(mobSideBtn) mobSideBtn.addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open')
+    document.getElementById('mobileOverlay').classList.toggle('show')
+  })
+  
+  const mobRpBtn = document.getElementById('mobile-rp-btn')
+  if(mobRpBtn) mobRpBtn.addEventListener('click', () => {
+    document.getElementById('rightPanel').classList.toggle('open')
+    document.getElementById('mobileOverlay').classList.toggle('show')
+  })
+  
+  const mobOverlay = document.getElementById('mobileOverlay')
+  if(mobOverlay) mobOverlay.addEventListener('click', () => {
+    document.getElementById('sidebar').classList.remove('open')
+    document.getElementById('rightPanel').classList.remove('open')
+    document.getElementById('mobileOverlay').classList.remove('show')
+  })
+  
+
+  const newTopicBtn = document.getElementById('new-quiz-topic-btn')
+  if (newTopicBtn) newTopicBtn.addEventListener('click', () => {
+    document.getElementById('quiz-section-results').style.display='none';
+    document.getElementById('quiz-section-input').style.display='flex';
+  })
+
+  startNewSession()
+  APP.currentSessionId = generateId()
+})
+
+function checkHealth() {
+  fetch(window.location.origin + '/health')
+    .then(r => r.json())
+    .then(data => {
+      const dot = document.getElementById('status-dot')
+      const txt = document.getElementById('status-text')
+      if (dot) dot.className = 'status-dot online'
+      if (txt) txt.textContent = 'Live'
+    })
+    .catch(() => {
+      const dot = document.getElementById('status-dot')
+      const txt = document.getElementById('status-text')
+      if (dot) dot.className = 'status-dot offline'
+      if (txt) txt.textContent = 'Offline'
+    })
+}
+</script>
+</body>
+</html>

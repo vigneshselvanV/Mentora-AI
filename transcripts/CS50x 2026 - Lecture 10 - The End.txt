@@ -1,0 +1,1525 @@
+00:44 Alright,
+00:45 this is CS 50 week 10.
+00:48 The very end and we will end today's class just as we ended week zero,
+00:51 which is a little bit of cake outside in the transept.
+00:54 But over these past 10+ weeks,
+00:56 if you've been feeling like it was that proverbial fire hose sort
+00:59 of hitting you in the face with so much new content,
+01:01 so many new skills,
+01:02 so many new challenges,
+01:03 um,
+01:04 realize that you're in very good company and we can officially declare
+01:06 nonetheless that if you started the class among those less comfortable,
+01:10 you are officially after today no longer less comfortable.
+01:13 You're at least somewhere in between and if you were in between.
+01:15 You're more comfortable and if you were more comfortable,
+01:17 you're perhaps now most comfortable among those here.
+01:20 But keep in mind as for CS 50 syllabus,
+01:21 what does ultimately matter in this course is not so
+01:24 much where you end up relative to your classmates,
+01:26 but where you end up
+01:27 relative to where you yourself began,
+01:30 and that's taken into account come final projects,
+01:32 come final grades,
+01:33 but most importantly,
+01:33 that's really what's most important educationally in general
+01:36 is that Delta from week 0 to,
+01:38 in our case here now,
+01:39 week 10.
+01:41 So if it's any reassurance.
+01:42 And something I like to bring up around this time is just how
+01:45 badly I did in CS 50 and like the very first problem set.
+01:47 Like I didn't even get Hello world right somehow in the fall of 1996.
+01:51 So here's a photograph of my homework assignment for assignment one.
+01:54 It was a program to print Hello World on the screen.
+01:57 I was incredibly detailed with my comments,
+01:58 even commenting that Maine is Maine,
+02:01 which is not the way you're supposed to program,
+02:02 even telling the TF where my file ended,
+02:05 which is not really necessary,
+02:06 and I got -2 for not even following directions.
+02:09 Correctly,
+02:10 so take some comfort in that even if by problems at 9 you're still getting points off,
+02:16 you're hopefully,
+02:16 at least in my case,
+02:17 in some very good company.
+02:18 It only gets better and easier and faster in time.
+02:22 But the whole course ultimately has really been about this picture,
+02:25 right?
+02:25 Problem solving is computer science and you have inputs,
+02:28 which is the problem to be solved.
+02:29 You have the outputs that you want to get to,
+02:30 which is presumably the solutions there too.
+02:33 And inside of that proverbial black box are these algorithms,
+02:35 step by step instruction.
+02:36 For solving some problem,
+02:38 and I pulled up my own notes from CS 50's first lecture some 25 plus years ago too,
+02:43 where I wrote down this in my horrible writing,
+02:46 handwriting to this day,
+02:47 but I noted that what an algorithm is is
+02:48 a precise sequence of steps for getting something done,
+02:51 which is pretty much what we now say.
+02:53 I noted that programming itself,
+02:55 as we have for weeks now,
+02:56 is the process of taking an algorithm and putting
+02:58 it into a language that computer can process,
+03:00 and that's what you've done in Scratch and C,
+03:02 and Python and SQL and Java.
+03:04 and anything in between,
+03:06 and most important,
+03:06 at least my takeaway that day
+03:08 when it comes to algorithms is precision
+03:10 and correctness,
+03:11 and indeed those are points we've made perhaps not as emphatically
+03:14 over the past several weeks as well.
+03:16 But we thought we'd see
+03:17 just how much those two lessons in particular have sunk in,
+03:21 by doing a bit of an exercise,
+03:22 some CS 50 pictionary in this,
+03:24 our last lecture altogether this term,
+03:26 um,
+03:26 for which to begin we need one brave volunteer to come on upstage.
+03:31 Who would like to volunteer?
+03:35 Who,
+03:35 how about,
+03:35 OK,
+03:36 over here,
+03:36 we never call from the middle of the section,
+03:38 come on up,
+03:39 come on up,
+03:39 a round of applause for
+03:41 being so brave.
+03:42 Nice.
+03:45 All right,
+03:46 come on over.
+03:52 And
+03:54 In just a moment,
+03:55 let's go ahead and do introductions.
+03:57 First,
+03:57 if you want to come up over to the middle of the stage
+04:00 and introduce yourself to the world.
+04:02 Hi,
+04:03 I'm Jia.
+04:03 I'm a freshman.
+04:05 All right,
+04:05 nice,
+04:05 nice to meet you.
+04:06 Thank you for joining us.
+04:07 So what we're about to do is Gia's going to look at my
+04:09 screen where there's going to be a picture on a white screen.
+04:12 All of you presumably have a white sheet of paper in
+04:14 front of you that you grabbed on the way in.
+04:15 If you don't.
+04:16 Just grab one from a friend or your binder or the like,
+04:18 and if you really don't,
+04:20 that's OK too,
+04:21 but hopefully everyone has a pen or pencil or someone near you does.
+04:24 And what we're going to ask you to do is program the
+04:27 audience to draw what it is you see on the screen.
+04:30 You can say anything you want,
+04:32 but you may not use any physical gestures or the like,
+04:34 verbal programming only.
+04:36 OK.
+04:36 All right,
+04:37 come on over to the lectern.
+04:39 And in just a moment,
+04:40 GN only Gia will see what is actually here on the screen.
+04:46 So.
+04:48 Step 1 for your audience.
+04:51 OK,
+04:51 so the first thing that you need to do
+04:54 is draw two lines right next to each other,
+04:58 2 vertical lines.
+05:01 OK.
+05:01 OK.
+05:03 Step 2,
+05:04 once you have done that,
+05:05 you need to draw
+05:06 3 dots,
+05:08 one on
+05:09 above those two vertical lines,
+05:11 one right in the middle between those two vertical lines,
+05:14 and one
+05:15 on the bottom of these 3 vertical lines beneath
+05:18 those two vertical lines.
+05:20 Yeah,
+05:20 so 3 dots.
+05:22 OK.
+05:23 Step 3.
+05:24 Step 3 is on the top of the left vertical line,
+05:29 you're gonna connect
+05:31 a line from that position
+05:34 to the top dot that you drew
+05:37 and then on the top of the right
+05:39 vertical line,
+05:40 you're gonna connect
+05:42 that position to the top dot that you drew.
+05:45 All right,
+05:46 step 4
+05:48 is,
+05:49 remember that top left position?
+05:51 You're going to connect that to
+05:55 the middle dot that you drew.
+05:57 And then the top right of the vertical line,
+06:01 uh,
+06:01 the,
+06:01 yes,
+06:02 you're going to connect that to the middle dot of the line that you drew.
+06:06 Mhm.
+06:07 And then step 5
+06:09 on the
+06:10 bottom left of your left vertical line,
+06:13 you're gonna connect that position
+06:16 to the bottom dot that you drew
+06:19 and then
+06:19 on the bottom right
+06:21 of the right vertical line you're gonna connect that
+06:24 position to the bottom dot that you drew.
+06:27 And now from the middle dot to the bottom dot you should have no line in between that,
+06:33 and you can now draw a line between those two dots.
+06:37 Step 6 and the last.
+06:40 I think you should be done.
+06:42 All right,
+06:42 a round of applause for our programmer.
+06:45 Let me give you a little something.
+06:47 If you want to take a seat,
+06:48 well,
+06:48 now what Kelly and I are going to do
+06:50 is very quickly collect your execution of this program,
+06:53 and we'll see just how it went with Gia as the programmer.
+06:56 If you want to just reach out and hand me or Kelly over there any of your
+07:01 handwritings,
+07:02 we don't need all of them,
+07:03 just a representative sample will suffice.
+07:06 If you're proud of your work,
+07:07 extend your hand quite a bit.
+07:09 OK,
+07:10 very proud.
+07:11 OK.
+07:12 OK.
+07:14 OK,
+07:15 OK,
+07:15 one more,
+07:15 one more,
+07:16 that's OK.
+07:17 All right,
+07:17 I'm gonna run back to the stage.
+07:18 OK.
+07:20 It's OK if we didn't grab yours.
+07:25 All right.
+07:33 All right,
+07:34 thank you to Kelly for grabbing these as well.
+07:36 So,
+07:37 without having seen any of these,
+07:38 here is how you all interpreted
+07:41 Gia's instructions.
+07:42 So here's one
+07:44 interpretation.
+07:46 OK.
+07:46 Perhaps similar or different from your own.
+07:49 Uh,
+07:50 here's another several.
+07:54 Vertical vertical line,
+07:55 question mark,
+07:56 OK.
+07:58 He is.
+08:00 Very narrow one.
+08:03 All right,
+08:05 and
+08:07 And let's see if we got any other variants thereof.
+08:10 Actually,
+08:10 the rest of them
+08:11 are pretty consistent.
+08:13 So,
+08:13 gee,
+08:14 if it's any
+08:15 reassurance,
+08:16 I'm seeing a lot of ones that look
+08:18 like this.
+08:20 Here's another that looks like
+08:23 this
+08:25 and here's yet another that looks like
+08:27 this.
+08:28 So if you're wondering where we're going with this,
+08:30 if I go ahead and reveal what it was Gia was looking at on the screen,
+08:33 she was in fact having you draw this here
+08:36 cube.
+08:37 So some of the takeaways here.
+08:39 So suffice to say,
+08:40 not all of that went well,
+08:42 uh,
+08:42 but why was that?
+08:43 Well,
+08:43 I dare say it was very easy to get confused,
+08:45 I think,
+08:45 G,
+08:46 in some of your words because you had in your
+08:47 mind's eye exactly what it was you were drawing and.
+08:49 Of course it was right there on the screen,
+08:51 but we didn't leverage,
+08:52 at least in GSA instructions,
+08:54 any abstractions.
+08:55 I dare say it might have been a little bit easier for all
+08:57 of us if maybe she had just teed things up by saying,
+08:59 All right,
+08:59 everyone,
+08:59 we're going to draw a cube,
+09:02 for instance,
+09:02 which is indeed an abstraction over these lower
+09:04 level details that she was focusing on.
+09:06 But perhaps there could have been another approach altogether,
+09:09 which is even more pedantic.
+09:11 For instance,
+09:12 a lot of the earliest drawing programs.
+09:14 And even worlds like Scratch sort of take for granted that you have
+09:17 a coordinate system like X's and Y's and you can go up,
+09:19 down,
+09:20 left and right.
+09:20 So an alternative to just saying,
+09:22 hey,
+09:22 I'll draw a cube,
+09:24 which could be subject to interpretation because there's a cube like this,
+09:27 is it like this rotated so we still would have
+09:29 needed more information than just a cube from Gia.
+09:32 But here maybe an alternative approach would have been
+09:34 to really get into the weeds and say put
+09:36 your pen at the top of the page and then draw a Straight line to the southwest,
+09:41 for instance,
+09:41 and then draw another line of the same distance to the south and then to
+09:45 the southeast or so forth and it could have been in terms of degrees,
+09:48 it could be directionally in that way,
+09:50 but it might not have been clear to anyone what it was we were
+09:53 drawing until enough of the lines suddenly appear on the screen and then voila,
+09:57 you see that we've been drawing a cube this whole time.
+09:59 So the degree to which we're precise and the layer of the level of abstraction that
+10:04 operate in is incredibly important whether it's
+10:06 for another human to understand us,
+10:07 for an AI to understand us nowadays,
+10:10 or anything in between.
+10:12 All right,
+10:12 why don't we go ahead and flip things around a bit
+10:15 um for this,
+10:16 why don't we go ahead and get one
+10:17 more volunteer to do something a little different here
+10:20 on stage?
+10:22 One more OK,
+10:23 how about here on the aisle?
+10:24 Come on down.
+10:25 Round of applause for this brave volunteer.
+10:27 Come on down.
+10:32 All right.
+10:33 So in this exercise,
+10:34 we're gonna flip things around.
+10:35 So you all will be giving the instructions verbally by
+10:38 just shouting them out and our volunteer whose name is
+10:41 Preston.
+10:42 Presley.
+10:42 Presley,
+10:43 Presley,
+10:43 you want to say a quick introduction?
+10:45 Yeah,
+10:45 uh,
+10:45 my name is Presley.
+10:46 I'm a freshman,
+10:47 uh,
+10:47 living in Stton House.
+10:48 Nice.
+10:48 Well,
+10:49 welcome.
+10:49 Come on over to the,
+10:50 the,
+10:50 uh,
+10:51 the easel here,
+10:53 and we have a black marker for Presley here.
+10:56 And the only thing that we ask is that you not look up or
+11:01 behind you because the answer is going to be Right there on the screen,
+11:03 but everyone else is welcome to look up or over to the TV screen.
+11:06 And if you want to go ahead and face the easel here and as you draw,
+11:09 just make sure to kind of open up after each stroke of
+11:12 the pen so that everyone can see what you have done.
+11:14 All right,
+11:14 so no looking up as of now because what the audience is about to do
+11:18 is to program you to draw this on the screen.
+11:23 Oh,
+11:23 way to encourage him.
+11:24 OK,
+11:24 so
+11:25 step one,
+11:26 feel free to just raise your hand and we'll shout them out.
+11:29 I heard draw circle over here,
+11:33 but not too big,
+11:34 I heard over here.
+11:38 Good abstraction,
+11:39 you're gonna end up drawing a stick figure.
+11:42 But we should probably be a little more helpful than that.
+11:44 So let's do the hand thing just so we can be more
+11:46 precise and not overwhelm Presley with the was the hand over here,
+11:48 yeah,
+11:48 and back.
+11:51 Draw a line down from the circle,
+11:53 Presley.
+11:55 From the bottom of the circle.
+11:59 OK,
+11:59 someone else?
+12:04 So actually,
+12:04 let me,
+12:04 let me rewind,
+12:06 sorry,
+12:06 say it again.
+12:11 Draw two diagonal lines from the line you just drew.
+12:15 Well,
+12:15 I don't think the audience likes this.
+12:17 Wait,
+12:17 let's,
+12:17 uh,
+12:18 mm.
+12:19 OK.
+12:21 OK,
+12:21 that's what we were told.
+12:23 Next step,
+12:24 someone else?
+12:26 So
+12:29 OK.
+12:32 Good one.
+12:33 OK.
+12:33 Extends the original vertical line to be about the same height as the circle.
+12:41 OK,
+12:42 yeah,
+12:42 that's good,
+12:42 good feedback.
+12:43 All right,
+12:44 someone else.
+12:45 Next step.
+12:47 Next step.
+12:48 Yes.
+12:54 Nice.
+12:55 Draw two diagonal lines from the bottom of that line that look like legs,
+12:59 good use of
+13:01 detail and abstraction.
+13:06 OK,
+13:07 nice.
+13:08 Next step.
+13:11 Anyone?
+13:11 We're close.
+13:12 Yeah,
+13:12 over here.
+13:21 On the left.
+13:22 So you're gonna draw a speech bubble to the left of the head with the word high,
+13:26 capital H with a short line.
+13:30 No bubble,
+13:30 just high.
+13:39 And you wanted to clarify one other detail.
+13:44 A line from high to the face,
+13:47 with space in
+13:48 between.
+13:50 OK,
+13:50 no,
+13:50 you're doing great,
+13:51 it's OK,
+13:52 Presley.
+13:53 Hang in there.
+13:54 OK,
+13:54 final step or two.
+13:57 Next step,
+14:00 Anyone at all
+14:03 Feel free to shout it out.
+14:08 Adjust the arms to make them look like they're running.
+14:15 Good luck.
+14:21 Oh,
+14:22 I like that.
+14:22 Draw a perpendicular line from the left arm.
+14:26 To the bottom.
+14:29 OK.
+14:31 And lastly,
+14:31 one final step.
+14:36 No.
+14:37 Same side.
+14:40 Yeah,
+14:41 it's permanent.
+14:42 Uh.
+14:45 I think we need a final touch on the other arm,
+14:47 maybe,
+14:47 yes,
+14:47 one final step.
+14:52 Anyone?
+14:58 Draw a perpendicular line per uh diagonally to the left.
+15:03 Of the right arm
+15:09 Mm
+15:12 Just a little bit.
+15:15 All right,
+15:16 I think I've,
+15:16 I think we've withheld our applause long enough.
+15:18 Presley,
+15:19 if you want to take a step back and look at what you,
+15:20 they were trying to get you to draw
+15:23 a round of applause.
+15:26 So here too,
+15:28 let me,
+15:28 here you go,
+15:29 your dorm room if you would like.
+15:31 OK.
+15:31 And a little Super Mario as well.
+15:35 All right,
+15:35 so here too,
+15:36 um,
+15:36 I think you were the problem this time.
+15:38 Round of applause for Presley.
+15:40 And of course since it's,
+15:41 you know,
+15:42 permanent ink,
+15:42 it's easy to sort of go off the rails early on and make a mistake,
+15:45 but I think that was actually a nice mix of low level details
+15:48 like the directions of the lines and the lengths thereof and also some
+15:51 abstractions because I do dare say someone shouting out that it is to
+15:54 be a stick figure gave him a much more helpful mental model.
+15:58 So that might be sort of the comments on top of the function,
+16:01 but when we really got into the weeds of implementing that function,
+16:03 it was more akin to step by step instructions for solving this here.
+16:08 Particular problem.
+16:09 So my thanks to Presley for bearing with us with that one as well.
+16:14 So
+16:15 beyond this,
+16:16 where have we been up until now?
+16:19 So,
+16:20 uh,
+16:20 if we look back at the past several weeks,
+16:23 this is sort of the trajectory on which,
+16:24 uh,
+16:24 we've been.
+16:25 So we started with scratch from scratch,
+16:27 literally in the very first week,
+16:28 the goal of VoI was to introduce you to some of those procedural fundamentals like
+16:32 what a loop is and a conditional and
+16:34 Boolean expressions and variables which are pretty.
+16:36 Much recurred in different forms and different languages over the weeks
+16:40 since thereafter we transition to a more traditional language C,
+16:43 which many of you will never use again and admittedly even I only use
+16:47 it for like a month or two of the year during CS 50 itself,
+16:50 but the intent was to be this incredibly foundational language that
+16:53 so many other languages today are built on top of.
+16:56 Case in point,
+16:57 the interpreter that you might use for Python itself can
+17:00 be written in C and that speaks to how we sort of talked.
+17:04 Bootstrapping from one language to another,
+17:06 from low level to high level and beyond,
+17:08 arrays and algorithms,
+17:09 all of that and memory and data structures like
+17:12 all of that is sort of omnipresent in computing,
+17:14 in programming and the like,
+17:15 even though you might not need to in modern languages like Python,
+17:19 worry as much about managing your own memory because good programmers,
+17:22 better programmers have figured out how to solve those problems for you
+17:25 in the language itself or in the libraries that you're using.
+17:28 You can take for granted now that you at least know what a hash table is.
+17:31 What a linked list is,
+17:32 what the trade-offs are among those,
+17:33 what the running times are,
+17:35 and that's what computer scientists and software engineers
+17:37 think about and talk about and whiteboard about in
+17:40 the real world when trying to implement algorithms
+17:42 of their own to real world problems or implementing
+17:45 real world products.
+17:46 And then of course over the past few weeks
+17:48 we've sort of used that as a stepping
+17:50 stone to talk about very modern programming paradigms,
+17:52 most recently web programming,
+17:53 and even though we didn't use it explicitly in the class,
+17:56 mobile programming is increasingly based on HTML and CSS.
+17:59 And JavaScript,
+17:60 which might be something some of you will tackle for your own final projects,
+18:03 and you can't escape now using or
+18:05 seeing or leveraging somehow artificial intelligence.
+18:08 And among the goals for today is to at least
+18:10 point you in the direction of tools that now,
+18:12 having finished Problem set 9,
+18:13 you are welcome and encouraged to use for your final project so that
+18:17 you can build all the more and all the more successfully than even
+18:21 some of your predecessors just a few years ago could have now that
+18:23 your own work and your own know-how can be amplified by the impact.
+18:27 Of AI itself.
+18:29 This of course now brings us to today,
+18:31 the end,
+18:32 but wanted to give you a sense of where you can go here on out.
+18:35 So with your final project,
+18:36 this really is the the intent of the final project is to be the
+18:39 very first of hopefully many projects that you decide to spec out for yourself.
+18:44 Like every problem set thus far has been written by me and the team,
+18:46 and you've been following our instructions step by step.
+18:49 The Frontal Project takes all of those training wheels off,
+18:51 and even though you are welcome and encouraged to borrow,
+18:54 code.
+18:55 From say problem set 9 if you want to do something web-based or even earlier,
+18:58 if you want to do something that's more similar to past Pets,
+19:01 is to make it ultimately your own.
+19:02 And even if you want,
+19:03 start with a completely empty window and just a
+19:06 blinking prompt and build something of your own,
+19:09 um,
+19:09 setting out for yourself,
+19:10 as you've seen in the specification,
+19:12 a good goal which you intend to meet no matter what,
+19:15 a better goal,
+19:16 which is a bit more of a stretch and a best goal,
+19:18 which in practice rarely ever happens with software to this day,
+19:21 25 years since.
+19:22 Taking CS 50 myself,
+19:24 um,
+19:24 or plus now,
+19:25 um,
+19:26 even I consistently underappreciate just how long
+19:29 it takes sometimes to solve problems,
+19:31 but that's beginning to go away,
+19:32 at least to some extent thanks to AI,
+19:35 where at least now you essentially have a junior colleague
+19:38 next to you who can help solve bugs for you,
+19:40 point you in the right direction,
+19:41 even tackle
+19:42 features as well.
+19:43 Um,
+19:44 all that we ask for this final project is that you build something of interest to you,
+19:47 that you solve an actual problem,
+19:48 that you input to campus,
+19:49 or that you.
+19:50 As we say in the spec,
+19:51 change the world and try to achieve something,
+19:54 try to create something that outlives the
+19:55 course itself over these final few weeks of
+19:58 the class and even continue on with it if you'd like in January and beyond.
+20:02 So what are the support structures in place and how might you go about this?
+20:05 So a long standing tradition of CS 50 is this epic late nighter,
+20:08 the CS 50 hackathon,
+20:09 where by
+20:10 around 7 p.m. we'll serve some pizza around.
+20:13 p.m. we'll serve some ice cream,
+20:14 and if you're still awake come midnight when the event will start to wrap,
+20:17 we'll get in a whole bunch of CS 50 shuttles,
+20:19 drive down the road to the International House of Pancakes,
+20:22 which is open 24/7,
+20:23 and have some breakfast together if you choose,
+20:25 with some pancakes together at this local IHOP.
+20:30 Here are just a few visuals from the past year's
+20:32 hackathon of students gathering in the engineering building across campus.
+20:35 Um,
+20:36 here having some of that same pizza
+20:37 and here still being awake at uh early morning hours as well.
+20:42 uh,
+20:42 to paint a picture of this too,
+20:43 the team
+20:44 a few years back kindly put together a video,
+20:47 a sort of sizzle video that paints a picture of what it might
+20:50 be like if you at least were a Muppett attending this year,
+20:53 uh,
+20:53 CS 50 hackathon.
+20:54 If we could go ahead and dim the lights,
+20:56 I think we can go ahead and play,
+20:58 uh,
+20:59 this teaser of what awaits later this week.
+21:03 Just one night all we got.
+21:05 Just one night,
+21:05 all we got.
+21:07 Just one night.
+21:09 Does
+21:15 Still
+21:22 On the weekend.
+22:27 All
+22:27 right,
+22:28 so what then is the CSMC hack upon itself?
+22:30 What really is the late night opportunity to dive into,
+22:33 to start,
+22:34 uh,
+22:34 to make progress on your final project?
+22:36 The teaching staff and I will be there on hand,
+22:38 not so much to answer any and all questions for you,
+22:40 but to help you help yourselves,
+22:41 point you at resources,
+22:43 point you at,
+22:44 uh,
+22:44 the requisite websites,
+22:45 the documentation,
+22:46 so as to empower you ultimately to solve this here problem,
+22:50 uh,
+22:50 for yourself without some of those same prior training wheels that we've had.
+22:53 On,
+22:54 uh,
+22:54 the goal ultimately is to prepare you for the end of semester exhibition,
+22:57 the so-called CS 50 fair,
+22:58 which will be an opportunity to present your
+23:00 final projects on your phones or laptops,
+23:02 uh,
+23:02 to passersby from
+23:04 the faculty,
+23:05 from students,
+23:05 from staff,
+23:06 from visitors all across campus here,
+23:08 uh,
+23:09 some emoji balloons will await you here,
+23:11 uh,
+23:11 a photo booth if you'd like to uh immortalize the the memory,
+23:16 uh,
+23:16 and the goal of the hack of the fair will be
+23:18 really just a Present your projects to others that come by,
+23:22 uh,
+23:22 delighting in what it is you have achieved over these past few months alone,
+23:26 and of course by the end of it you'll pick up your very own CS
+23:29 50 t-shirt which says hopefully proudly that you have now indeed taken CS 50.
+23:34 But let's just see in preparation for that how much has indeed sunk in.
+23:37 We did have that test a couple of weeks back,
+23:39 oh,
+23:39 which went great,
+23:40 but we thought we'd pluck some of these same review questions that
+23:43 you prepared over the past couple of weeks to challenge at least.
+23:45 6 of your classmates to come up.
+23:47 Uh,
+23:47 for now,
+23:48 this,
+23:48 the so-called CS 50 charades for which we need 2 teams of 3.
+23:53 So if you're sitting there in a group of 3 of friends total,
+23:56 or we'll form one up here live,
+23:57 so come on up as our first volunteer,
+23:59 needed 5 more volunteers.
+24:00 Feel free to volunteer the persons next to you 3 in a row.
+24:03 How about 2 more over here,
+24:05 1 and how about 2 on the end.
+24:07 Come on up.
+24:08 All right,
+24:08 a round of applause for these 6 year volunteers and.
+24:14 All right,
+24:15 so let me give you one microphone.
+24:17 Let me give you a 2nd microphone and Kelly,
+24:19 if you want to come on up as well.
+24:21 I think these three seem to know each other already,
+24:23 so we'll have them be one team if you guys want to be
+24:25 another team as well.
+24:26 Come on up.
+24:27 Uh,
+24:27 let me just take one microphone actually for the other team.
+24:30 All right.
+24:31 And how about quick introductions to this team here and
+24:34 we first we need a team name from you all.
+24:36 You haven't had time to think about this?
+24:40 Team
+24:43 A.
+24:43 OK,
+24:44 so Team A is who?
+24:46 I'm Leah.
+24:47 I'm a first year and I'm in Hoorthy.
+24:49 Welcome.
+24:50 Uh,
+24:50 my name is Stephen.
+24:51 I'm a freshman in.
+24:54 I'm Charlotte.
+24:55 I'm a freshman and I'm also in Canada.
+24:58 All right,
+24:58 let's do introductions on the other team as well.
+24:60 You are going to be team.
+25:01 Awesome sauce.
+25:03 Awesome sauce,
+25:04 OK,
+25:04 versus Team A,
+25:05 uh,
+25:05 if you wanna go ahead and introduce yourselves here.
+25:08 Hi,
+25:08 my name is Jenny Pan.
+25:09 I'm a freshman in Hollis.
+25:11 Hi,
+25:12 my name is Noah.
+25:13 I'm a freshman in Holbut.
+25:15 And hi,
+25:15 my name is Marie,
+25:16 and I'm a freshman,
+25:17 sorry,
+25:17 I'm a freshman in Canada B.
+25:19 All right,
+25:20 welcome to both of our teams here.
+25:21 And among the goals now,
+25:22 let's leave one microphone with each team,
+25:24 uh,
+25:25 is to play a bit of charades whereby one of you in a moment is
+25:28 going to be responsible for acting out a word that you see on the screen.
+25:31 So we're going to put on this screen and the screen
+25:32 over here some term that relates to CS 50 somehow,
+25:35 and that person's goal over the course of 60 seconds.
+25:38 Going to be to act that out in such a way
+25:40 that their teammates can hopefully guess what the word is.
+25:43 We'll give you 60 seconds at a time.
+25:45 Kelly has kindly offered to keep score,
+25:47 um,
+25:47 and if you solve it in fewer than 60 seconds,
+25:49 we've got another word for you in another word,
+25:51 and we'll see how many points you can accrue over the course of those 60 seconds.
+25:54 And depending on how this goes,
+25:55 we'll do maybe 1 or 2
+25:57 rounds in total.
+25:57 Questions.
+25:59 How many skips do you get?
+25:60 I guess you can skip uh as many as you want until we run out of questions.
+26:06 But try not to run through all of our questions.
+26:08 All right,
+26:08 any questions that'll be on that.
+26:10 All right,
+26:10 so if you guys want to step off stage over there,
+26:12 why don't we have team A
+26:14 begin?
+26:14 So one of you,
+26:16 Leah,
+26:16 if you're holding the mic,
+26:17 if you want to be the curator,
+26:19 let's go ahead and have you stand
+26:21 here so you can see the screen,
+26:23 and we only ask that you two not look up because the answer is going to be right there.
+26:27 All right,
+26:28 and you should just shout out,
+26:29 uh,
+26:29 the word that Lee is acting out.
+26:31 Question.
+26:31 Acting only charades speaking.
+26:34 Yeah,
+26:34 yeah,
+26:34 I can't speak because that would kind of defeat the point.
+26:36 So yes,
+26:37 just acting out,
+26:38 just acting out physically.
+26:39 All right,
+26:40 I'm gonna go over here.
+26:41 Give me just a moment to get the slides ready with your questions.
+26:45 And Leah,
+26:46 the first clue,
+26:47 oh,
+26:47 and Kelly's gonna be timing you 60 seconds to accrue as many points as you can.
+26:52 All right,
+26:52 here we go.
+26:54 Go
+26:56 Act that out.
+26:58 00,
+26:60 that was weird,
+27:00 thank you.
+27:01 Sorry.
+27:02 Yes,
+27:03 act out,
+27:03 this is CS 50.
+27:04 All right.
+27:04 No,
+27:04 act this out,
+27:05 please.
+27:05 Go.
+27:09 Calling a recursion.
+27:11 Yes,
+27:11 1 point.
+27:16 uh,
+27:17 in array linkless.
+27:20 Abstraction?
+27:24 Python,
+27:25 Python,
+27:26 Python.
+27:30 Duck,
+27:31 the duck Nice.
+27:34 Binary
+27:37 uh 10 binary digit.
+27:41 Bite
+27:44 10,
+27:45 definitely binary.
+27:47 Asky.
+27:52 Want to pass
+27:53 They
+27:57 Linkless array.
+27:58 Yes,
+27:59 array.
+28:02 Loop loop.
+28:05 Time.
+28:06 All right.
+28:07 Very nicely done.
+28:10 All right.
+28:11 5 is the score to beat.
+28:13 So if you guys want to step over here,
+28:15 if,
+28:15 uh,
+28:15 one of you has the mic,
+28:16 go ahead and assume the same roles.
+28:19 5 is the score to beat.
+28:24 Alright,
+28:24 5 is the score to beat.
+28:26 All right,
+28:27 here we go,
+28:28 final round.
+28:30 First word and you guys just make sure you don't look up.
+28:33 Go.
+28:43 Head node algorithm
+28:46 input.
+28:48 Algorithm
+28:50 Yes
+28:54 Well.
+28:57 These are hard
+29:01 No.
+29:04 Sure,
+29:04 you have to act it out,
+29:05 act it out.
+29:11 Oh,
+29:12 they go.
+29:14 Run time,
+29:15 run time.
+29:18 3.
+29:19 Yes,
+29:19 3.
+29:21 Next one.
+29:23 Next one.
+29:26 Binary search binary bullying?
+29:30 No.
+29:32 A merge phone call.
+29:36 It was binary search wasn't it?
+29:37 Oh,
+29:39 that's right,
+29:40 but a round of applause for our awesome sauce.
+29:47 OK,
+29:47 we have some,
+29:48 some parting prizes for you,
+29:49 your very own Super Mario Pezs
+29:52 for you guys as well.
+29:53 I'm glad we squared away the,
+29:54 the ability to pass though on the question,
+29:56 so thank you for that.
+29:58 All right,
+29:58 so admittedly pretty hard.
+29:59 Our thanks to all of these volunteers for playing that out.
+30:02 Allow me to turn our attention back to here
+30:05 in just a moment where else
+30:08 uh we can go
+30:09 from here.
+30:10 So up until now,
+30:13 up until now.
+30:15 We've been using Visual Studio Code for CS 50 at the URL CS50.dv. Recall
+30:20 that this is just an adaptation of a commercial tool called GitHub CodeSpaces,
+30:24 which is like a cloud-based version of Visual Studio Code itself,
+30:27 or VS Code,
+30:28 which is an largely open source tool
+30:30 for Microsoft that's incredibly popular in industry,
+30:32 which is to say,
+30:33 even though we had the CS50 library in there and we turned
+30:36 off by default some of the menu options and we disabled AI,
+30:39 it is the tool that so many programmers around
+30:41 the world do use every day to write code.
+30:43 So you have been learning.
+30:44 All this time sort of industry standards in that sense.
+30:47 It is now time,
+30:48 if you so choose,
+30:49 but you are welcome to keep using this for
+30:51 your final project if feeling more comfortable with it,
+30:54 to drop the 4 CS 50 and actually install on your own Mac or PC if you so choose,
+30:58 Visual Studio Code itself.
+30:60 You can go to this URL here.
+31:01 It's fairly straightforward to install it,
+31:03 but invariably you'll run into
+31:05 probably some technical support headaches depending
+31:07 on the language that you're trying to use with it.
+31:09 For instance,
+31:09 if you're trying to use it with Python,
+31:10 you'll probably also have to download and install Python on.
+31:13 Your computer,
+31:14 at least if you want the latest version,
+31:15 and just know a priori that sometimes just stuff happens and it
+31:19 just doesn't work and you have to Google or ask Chat GPT,
+31:22 and that's fine.
+31:23 And honestly that's kind of normal.
+31:24 But this is also why we don't do any of this in week zero of the class
+31:28 so that we can focus on Hello world and Mario and cash and credit and get into the
+31:34 interesting parts of computing and programming and not frustrating,
+31:38 not frustrating you so with technical support challenges.
+31:40 But now,
+31:40 given that all of you are somewhere in between.
+31:42 are among those more comfortable,
+31:44 you're now ready to sort of deal with those same
+31:47 technical challenge yourself,
+31:48 but who knows,
+31:49 maybe it will go perfectly smoothly.
+31:51 You can go to CS 50's own documentation because if you want to
+31:53 be able to use all of the same software that CS50 has pre-installed,
+31:57 you can use a technology known as
+31:58 containerization with a tool called Docker and actually
+32:01 run a CS50 environment on your Mac or PC or even in the cloud,
+32:05 but still run VS code on your own Mac and PC,
+32:08 among the upsides of which are that you're not dependent necessarily on the.
+32:11 You can do everything offline,
+32:13 which is useful in general.
+32:15 You can do things more quickly sometimes if you're using the
+32:17 full capabilities of your own computer and not just a browser.
+32:20 So this is generally how programmers approach their code
+32:23 using something like VS code or alternative products.
+32:26 And in fact there's a bunch of others out there,
+32:28 but perhaps the trendiest right now are these 3 here,
+32:31 not just Visual Studio code itself,
+32:34 but a tool called Cursor,
+32:35 another one called Windsurf,
+32:36 and there's dozens of other text editors,
+32:39 often known as integrated.
+32:40 Development environments which tend to have even more features that you
+32:42 can download for free or commercially on your own Macs,
+32:45 PCs and the like,
+32:46 uh,
+32:46 but you can't go wrong transitioning from CS 50 to VS code on
+32:49 your own Mac or PC if only because you're already familiar with it.
+32:53 As for the command line,
+32:54 so those of you with Macs might have found
+32:57 somewhere in your utilities folder a program called Terminal.
+32:60 Um,
+33:00 if not,
+33:01 poke around there later today and you'll see that all this time
+33:03 you've had a command line interface available to you on Mac OS.
+33:07 Windows has something similar as well.
+33:09 They they.
+33:09 Necessarily come with all of the same tools that we've been using within CS50.
+33:12 Dev,
+33:13 but if you're a Mac user and you go to this URL here
+33:16 or you're a Windows user and you go to this URL here,
+33:18 or if you're a Linux user,
+33:19 you probably know all of this already,
+33:21 so there's no URL for you there.
+33:23 You can install some of those same tools on your Mac and PC and
+33:26 feel all the more at home doing things in a command line as well.
+33:30 Um,
+33:30 Git,
+33:31 this is something that we actually in CS 50 abstract on top of.
+33:33 This is essentially the de facto standard
+33:35 nowadays for collaborating with other people.
+33:38 Using a central cloud server in order to share
+33:40 your code with it and in turn other people
+33:43 for versioning your code so that you keep track
+33:45 of multiple versions thereof and changes that you've made.
+33:49 Go to this URL here if you would like,
+33:50 and you'll see a tutorial by CS 50's
+33:52 own Brian Yu introducing you to actual Git because
+33:55 we've been sort of abstracting away this particular tool
+33:58 by just doing it all automatically for you.
+33:60 If you've ever gone through your timeline in CS50.dev being
+34:03 able to roll back to previous versions of your code,
+34:05 we're just using Git,
+34:06 but we're.
+34:07 Automatically running this command for you.
+34:09 If you want to collaborate with partners for your final project,
+34:12 you can use Git.
+34:13 However,
+34:13 I will encourage you to alternatively use Visual Studio Code's live share feature,
+34:18 which allows one of you to log into your code space,
+34:20 click some buttons,
+34:21 and then share access to your code space with your friend
+34:24 or your partner with whom you're working on the project,
+34:27 and you can both in real time,
+34:28 like Google Docs,
+34:29 edit the code or different files they're in using that one code space,
+34:33 a little easier than getting onboarded at least with.
+34:37 hosting a website if this proves of interest for
+34:38 your final project or even after the course,
+34:40 if it's a static website,
+34:42 two popular places to go,
+34:44 if only because they offer free tiers,
+34:45 is what's called GitHub pages,
+34:47 which you can use to just host HTML,
+34:49 CSS and JavaScript with no Python,
+34:51 no flask,
+34:51 no back end,
+34:52 or NetLFy is a popular company nowadays too that has an
+34:55 entry level account for which you can sign up for free.
+34:58 If you just want to have like a portfolio website,
+35:00 if you're an artist or a programmer or you just want
+35:02 to have static content that you write once and deploy,
+35:05 these.
+35:05 Good starting points,
+35:06 but not all of them.
+35:07 Hosting a web app,
+35:08 so this,
+35:09 this list gets even longer,
+35:11 and all of these recommendations are essentially curated by the teaching staff,
+35:15 so they're all opinionated,
+35:16 but these are perhaps the most common places you can go.
+35:19 Amazon,
+35:20 Microsoft,
+35:21 Google,
+35:21 Cloudflare,
+35:22 they all have student type accounts.
+35:24 So if you use your .edu email address,
+35:26 for instance,
+35:26 or some other form of proving your status as a current student,
+35:29 you can generally sign up for discounts and free access
+35:31 to a lot of these same services as well without.
+35:34 Having to pay while you're just learning along the way.
+35:36 GitHub has something similar called the Student Developer Pack,
+35:40 and then a couple of other companies for hosting
+35:41 web apps that have been popular are Hiroku,
+35:43 Versal,
+35:44 and bunches of others.
+35:45 So by web app we mean not just HTML CSS and JavaScript,
+35:49 but maybe some Python,
+35:50 maybe some JavaScript on the server,
+35:52 maybe Ruby,
+35:53 yet another language or any number of others when you actually
+35:56 need a back end in addition to the front end,
+35:58 maybe you need a database as well.
+35:60 This would be the place to start,
+36:02 whether it's at the CS 50 hack.
+36:03 or beyond,
+36:04 and nowadays this is a slide that didn't even need to exist
+36:07 a couple of years ago asking AI again for your final projects,
+36:10 you are welcome and encouraged to amplifying your own productivity with AI,
+36:14 not by having it do it for you,
+36:16 but moving away from the duck,
+36:17 which by design has been fairly limited and meant to be a good teacher,
+36:20 but not necessarily one that's going to be a good
+36:23 partner when it comes to building your final project.
+36:25 So Chachi BT,
+36:26 Claw,
+36:26 Gemini,
+36:27 GitHub copilot,
+36:28 OpenAI Codex,
+36:29 vro,
+36:30 um,
+36:30 are all,
+36:31 uh.
+36:32 Popular tools right now that you might want to play around with.
+36:36 The easiest of these to use perhaps,
+36:38 if not familiar with say Chacha BT already,
+36:40 would be GitHub co-pilot only because you can enable it within your CS50 code
+36:44 space by following our own documentation at
+36:47 cs50.readThe docs.o where we'll tell you the sequence
+36:50 of steps via which you can re-enable AI now that you're allowed to for your
+36:53 final project and turn on all of those features that were disabled by default.
+36:58 Um,
+36:58 and then there's still humans out there,
+36:60 like what remains to be seen just.
+37:01 Popular these websites are in the years to come,
+37:03 for better or for worse,
+37:04 but among the places that programmers and
+37:06 technophiles have gone for years are Reddit,
+37:09 Stack Overflow,
+37:10 Server fault,
+37:10 where there's a rich history of questions and answers that
+37:13 ironically all of those AIs have been trained on,
+37:15 which unfortunately means some of these might be driven out of business
+37:18 eventually in some sense if we're all just turning only to AI.
+37:21 But when you actually want that human component,
+37:23 these are still good places to go.
+37:25 And then news,
+37:26 two of the many places you can go for news and technology,
+37:29 computing,
+37:29 computer.
+37:30 Science more broadly would be TechCrunch is still a good one.
+37:32 Hacker news,
+37:33 so to speak,
+37:34 and then you might have some of your own popular choices as well.
+37:37 Um,
+37:37 and then if,
+37:38 uh,
+37:38 with some bias,
+37:39 um,
+37:39 take other classes like CS 50 besides this undergraduate class has a rich
+37:43 history now over the past decade of creating all the more open courseware,
+37:47 so courses in more Python,
+37:48 more SQL,
+37:49 a language called R,
+37:50 cybersecurity,
+37:51 uh,
+37:51 game development,
+37:52 and more.
+37:52 All of those are linked at this URL here edX.org.cs50
+37:56 where you need not pay or sign up beyond.
+37:59 the course and all of the content is freely available,
+38:01 something for winter break,
+38:02 for instance,
+38:03 if you want to dive a little more deeply into
+38:04 some subject for the sake of your final project,
+38:06 your professional aspirations,
+38:08 or even just prepare for spring term.
+38:11 And then over the coming weeks too,
+38:12 will CS50 itself be soliciting interest and applications
+38:15 for becoming a teaching fellow or TF,
+38:17 a course assistant,
+38:18 or CA?
+38:19 If you would like to get all the more involved as a teacher of CS 50 next fall,
+38:23 uh,
+38:23 do,
+38:24 uh,
+38:24 follow the application link that we will soon circulate via email.
+38:28 And do stay in touch too if you just enjoy answering other
+38:31 people's questions or seeing what the pulse of sort of computing is,
+38:35 at this URL here is a whole bunch of CS 50's own communities in social media largely
+38:40 via which you can follow along at home in the months and years to come too.
+38:44 So a few thanks before we do one final game altogether to
+38:48 all of the people who have been making this course possible.
+38:50 So our friends at Memorial Hall who make bringing us into
+38:53 this beautiful space and make it possible for us to have,
+38:55 of all things,
+38:55 a class in such a.
+38:57 Space,
+38:57 um,
+38:57 our friends at ESS who help with the audio each and every week in CS 50,
+39:01 um,
+39:01 the restaurant Changzhou down the road.
+39:03 We hope you'll continue to visit our friends there.
+39:04 Wesley Chen is a good friend of ours and the manager.
+39:06 Um,
+39:07 please tell him you're from CS 50 and I'm sure he'll be delighted to see you.
+39:10 Um,
+39:10 and then CS 50's own team,
+39:11 well,
+39:11 most of whom were in back there are sitting next to you with cameras,
+39:14 um,
+39:14 without whom the course wouldn't be possible.
+39:16 And of course CS 50's own teaching fellows in CAs,
+39:19 just a few of whom posed here for this photo.
+39:21 If I could invite you to all give everyone here a round of applause,
+39:23 my thanks
+39:25 to all of them.
+39:30 So,
+39:31 um,
+39:32 and then of course,
+39:32 the CS 50 duck should be thanked as well.
+39:35 OK.
+39:38 Thanks to CSFT's own Rong Xin Lu and some
+39:40 of our own former teaching fellows and students who have
+39:43 been behind the development of that their duck that
+39:46 you've gotten to know over these past several months.
+39:49 All right,
+39:49 if Kelly could join me again on screen,
+39:50 the only thing between us and Cake is a final game,
+39:54 namely a quiz show in which all of you can partake.
+39:57 Here we go.
+39:57 Question one.
+39:58 What is the largest number in 8 bit unsigned binary digit can represent?
+40:03 256,
+40:04 128,
+40:05 255,
+40:06 or 1?
+40:07 Starting strong and keep in mind all of these questions came from you all,
+40:11 because we asked you recently for review questions that are now
+40:14 on the screen.
+40:17 Again,
+40:18 the timer is clicking and most popular answer was 255,
+40:23 which I think if we click once more,
+40:25 we'll confirm
+40:26 was in fact
+40:27 the correct answer.
+40:28 So,
+40:29 why is that and why is it not 256?
+40:31 Well,
+40:31 if we start counting from zero,
+40:32 as we always have.
+40:33 That's consuming one of the 256 possibilities,
+40:37 so the largest number that we can represent with that's 8 bit and unsigned,
+40:41 which means no negative numbers involved,
+40:42 is indeed going to be 255.
+40:45 Treasure,
+40:46 that information now
+40:47 always.
+40:48 All right,
+40:49 next question from Kelly.
+40:50 Which issue is at the center of the year 2038 problem,
+40:54 which hopefully you added to your Google calendars a few weeks back,
+40:57 entered your overflow,
+40:58 malicious inputs,
+40:59 SQL injection attacks,
+41:00 or memory leak?
+41:04 Which of those is at the core of the year 2038 problem?
+41:10 All
+41:11 right,
+41:12 let's go ahead and
+41:14 reveal
+41:15 the number one answer with 92% of you saying integer overflow is in fact
+41:21 correct
+41:22 because we're still in the habit of using 32 bit
+41:24 integers to keep track of time from the so-called epoch,
+41:27 which was January 1st,
+41:28 1970,
+41:29 and unfortunately we humans aren't great at sort of planning ahead and
+41:33 so we're going to run out of permutations of 32 bits.
+41:36 By a certain date in the year 2038 unless
+41:39 everyone upgrades their computers to 64 bit counters,
+41:42 which thankfully most every piece of modern
+41:45 hardware nowadays is using already your Macs,
+41:47 your PCs,
+41:48 and your phones.
+41:49 So hopefully this will be really a non-event,
+41:51 but hopefully you'll think of us in CS 50
+41:53 in,
+41:53 uh,
+41:54 you know,
+41:54 10 plus years when your Google Calendar reminder goes off.
+41:57 Question three,
+41:59 which of the following is not
+42:00 a step of compiling,
+42:02 linking,
+42:02 pre-processing,
+42:03 assembling,
+42:04 or interpreting?
+42:07 A bit more of a challenge,
+42:08 which of these is not a step of compiling.
+42:14 Alright,
+42:14 almost 200 responses coming in.
+42:18 All right,
+42:18 why don't we go ahead and reveal
+42:20 the most popular answer with 54% of you saying interpreting is in fact correct.
+42:26 Recall that we,
+42:27 we talked about compiling.
+42:29 Compiling itself is just one of several steps.
+42:32 There is in fact the preprocessing step which takes care
+42:34 of any of the hash symbols in C that start.
+42:37 With hash include hashdefine,
+42:38 and the like,
+42:39 that's preprocessing.
+42:41 There was then assembling or there was then compiling,
+42:44 which actually compiled your code into assembly code.
+42:48 There was then the assembler which would
+42:50 actually take it down further to machine code
+42:53 and then linking.
+42:55 29 this is for 29% of you.
+42:57 The linking step recall was taking your zeros and ones
+42:60 and combining them with say CS 50's libraries zeros and ones
+43:04 and maybe the standard IO library zeros and ones linking
+43:06 them all together to give you one executable program like hell
+43:11 itself.
+43:12 All right,
+43:13 next question.
+43:14 What does a pointer store,
+43:16 the name of a variable,
+43:17 the memory addresses of a value,
+43:19 the size of a value,
+43:20 or the value of a variable?
+43:24 Think for a moment.
+43:27 What does a pointer store?
+43:32 Alright,
+43:33 about 200 responses in and yes,
+43:35 the memory address of a variable with 96% of you
+43:39 confirming as much.
+43:39 That is correct.
+43:40 Question 5.
+43:45 What is the running time of linear search?
+43:47 Bigo of 1,
+43:48 big go of N,
+43:49 big go of N squared,
+43:50 or big O of N log N?
+43:53 Linear search
+43:54 running time.
+43:59 I recall that with something like
+44:01 search you could get lucky,
+44:03 but if big O is the upper bound on our running
+44:06 time you might not you might hit the end of the
+44:09 list that you're searching and so the running time of linear search
+44:12 is of course
+44:14 big O of.
+44:16 And
+44:17 it might be omega of 1,
+44:18 but not big O of one,
+44:19 at least if we're considering what the worst case scenarios might be.
+44:22 All right,
+44:23 on to question six.
+44:24 What what data structure follows the first in,
+44:26 first out principle?
+44:28 A queue,
+44:29 a link list,
+44:30 a stack,
+44:30 or a hash table?
+44:32 first in,
+44:33 first out,
+44:34 AKA FIFO.
+44:37 Which of these is FIFO?
+44:42 All
+44:43 right,
+44:43 first in,
+44:44 first out
+44:45 is in fact a queue,
+44:46 as you would hope if you're getting in line for a restaurant,
+44:49 for a store,
+44:50 you'd hope that if you're the first one in line,
+44:52 you're going to be the first one out,
+44:54 equitably speaking,
+44:55 and so it is in fact a queue.
+44:56 The opposite of that in some sense then would have been
+44:58 a stack whereby when you think about the cafeteria trays,
+45:01 the sort of first one in is actually the last one out,
+45:04 so LIFO instead for a stack.
+45:06 All right,
+45:07 question 7,
+45:08 which operator returns the memory address of a variable?
+45:12 An asterisk,
+45:13 a dollar sign,
+45:14 an ampersand,
+45:15 or a hyphen,
+45:16 and a greater than sign.
+45:19 Presumably in C.
+45:23 Which returns the memory address.
+45:26 Of a variable
+45:30 All
+45:30 right,
+45:31 let's see what everyone thinks.
+45:33 So the most popular and correct answer is the ampersand.
+45:37 This is the address of operator.
+45:39 The asterisk recall in most contexts is the opposite of that,
+45:41 that's the reference operators actually go to an address,
+45:45 um.
+45:46 This is not a thing in C.
+45:48 This though is similar in spirit to a combination
+45:51 of the star operator and the dot operator,
+45:54 which means to de-reference and follow a pointer
+45:57 to something inside of a struct typically.
+45:59 All right,
+45:59 question 8,
+46:01 which SQL command is used to remove duplicate rows from a result set?
+46:05 Remove unique,
+46:06 distinct,
+46:06 or clean.
+46:10 We didn't spend a huge amount of time on these keywords,
+46:15 but
+46:15 only one of them applies here.
+46:18 A result set is just the answers that you get back when doing your select.
+46:22 And if you want to filter out duplicates,
+46:25 you can in fact say.
+46:28 Distinct is correct.
+46:29 Unique is also a keyword in SQL,
+46:31 but that is when you want to define in your schema
+46:33 that a column's values are going to be unique like an email address column.
+46:37 Instead,
+46:38 distinct is how you filter out duplicates in your selects.
+46:41 All right,
+46:41 question 9,
+46:42 we're past the halfway mark.
+46:44 What does an HTTP code of 418 signify?
+46:48 Not found,
+46:48 I'm a teapot,
+46:49 forbidden,
+46:50 unauthorized.
+46:53 4:18.
+46:55 This too,
+46:55 if you know this one moving forward,
+46:57 you'll be considered among the
+46:59 CS.
+47:01 Elite
+47:04 Answers are coming in a little slower,
+47:05 but I'm a teapot is correct,
+47:07 which is not actually a thing or useful technology.
+47:10 It was in fact an April Fool's joke years
+47:12 ago where a bunch of computer scientists got together in
+47:14 a room and wrote out an entire specification for
+47:17 what it means for a server to return 418,
+47:20 I'm a teapot.
+47:21 All right,
+47:22 number 10.
+47:24 Where does Mao dynamically allocate memory from?
+47:27 The heap,
+47:29 the stack,
+47:30 global variables,
+47:31 or assembly?
+47:39 All
+47:39 right.
+47:41 Heap is in fact correct.
+47:42 That's the sort of top part of the memory,
+47:44 even though top and bottom make no actual technical sense.
+47:46 It's just our artist's rendition thereof.
+47:48 The stack recall is what is used when functions are being called.
+47:51 Every time a function is called,
+47:52 it gets a so-called frame on the stack.
+47:54 That's where your local variables and your arguments get put.
+47:56 But if in C you use Mao,
+47:58 it does in fact end up on the heap.
+47:60 In C,
+48:00 if you allocate memory with Mao but forget to call free,
+48:03 what problem can occur a memory leak,
+48:05 segmentation fault,
+48:07 stack overflow,
+48:08 or all of the above?
+48:12 If you allocate memory with Mao,
+48:13 but forget to call free,
+48:15 what problem can occur?
+48:22 All right,
+48:23 most popular answer is in fact
+48:26 memory leak,
+48:26 which is correct.
+48:28 Um,
+48:29 you could imagine scenarios in which you also get
+48:31 a segmentation fault and or a stack overflow,
+48:34 but those aren't direct consequences of not calling free.
+48:37 That's generally.
+48:38 Consequence of using too much memory,
+48:39 for instance,
+48:40 or in this case doing something wrong with your memory.
+48:43 So interrelated,
+48:44 yes,
+48:44 but in terms of not calling free for each Mallock,
+48:47 this is what's going to happen by definition.
+48:49 All right,
+48:50 well done there.
+48:51 Next question,
+48:52 which is 12,
+48:54 what does this domain name give the web page of
+48:58 Safetyschool.org?
+48:60 Is it Harvard University?
+49:01 Is it Princeton University?
+49:02 Is it Yale University or Columbia University?
+49:10 All right,
+49:11 recall that this was in the context of our HTTP redirections.
+49:15 Yes,
+49:16 interesting.
+49:16 Yes,
+49:16 in fact,
+49:17 uh,
+49:18 Yale University,
+49:18 some alum has been paying like $10 a year for like 20 years for this joke.
+49:23 Safetyschool.org,
+49:24 if you visit it,
+49:25 returns an HDP 301 HDP header,
+49:28 which says the location of it is in fact yale.edu.
+49:32 All right,
+49:32 13,
+49:33 3 to go.
+49:34 What is the purpose of DNS?
+49:36 Uh,
+49:36 to encrypt data sent over the dark web.
+49:39 To find the nearest coffee shop for you,
+49:42 to protect your location against hackers or
+49:44 to translate domain names into IP addresses.
+49:49 What is the purpose of DNS?
+49:52 If helpful,
+49:52 domain name system.
+49:57 Alright,
+49:57 about at the 200 mark,
+49:58 and the correct answer is indeed domain names into IP addresses.
+50:03 That is a server that is on your home network,
+50:05 on your ISP's network,
+50:06 on your campus's network,
+50:07 your corporate network that just answers questions like that for you.
+50:11 All right,
+50:11 second to last question,
+50:12 which of the following is not a built-in SQL feature to tackle race conditions?
+50:17 Begin transaction,
+50:19 commit,
+50:19 roll back,
+50:20 or enroll.
+50:26 We talked ever so briefly about this
+50:28 in the context of ending up with too much milk,
+50:30 recall.
+50:33 And the correct answer is.
+50:36 Indeed,
+50:37 enroll.
+50:37 All three of those,
+50:38 even though you didn't have to use them for problem sets,
+50:40 7 or 9
+50:42 are indeed,
+50:43 uh,
+50:44 features of SQL,
+50:46 uh,
+50:46 but enroll is not a thing.
+50:48 All right.
+50:48 And the very last question,
+50:50 try to answer this as quickly as you can.
+50:52 What
+50:53 does Professor Mayland say at the beginning of every CS 50 lecture?
+50:56 Welcome to Harvard's Computer Science class.
+50:59 Hello everyone,
+50:60 ready to code?
+51:02 All right,
+51:02 this is CS 50
+51:04 or
+51:05 let's get started with some programming.
+51:10 All of these questions were in fact written by you all.
+51:16 All right.
+51:16 And the correct answer,
+51:17 I'm pretty sure with
+51:19 98% of you saying so is all right.
+51:22 This is CS 50 and all right,
+51:25 this was CS 50,
+51:26 cake is now served.

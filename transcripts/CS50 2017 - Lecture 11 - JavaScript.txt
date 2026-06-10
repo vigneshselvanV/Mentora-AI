@@ -1,0 +1,3640 @@
+00:00 [MUSIC PLAYING]
+00:10 DAVID J. MALAN: All right.
+00:11 This is CS50 and this is lecture 11,
+so the end is actually quite near.
+00:18 And among the goals for today, and
+next time, and our final lecture time
+00:21 together, is to start to tie things
+together as far back as week zero.
+00:25 And in that spirit, I thought we would
+begin by reflecting on this clip here,
+00:30 which you may recall
+from a few weeks ago,
+00:32 wherein we tried to look in
+popular media at the perception
+00:38 that viewers might have of
+technology, if they relied only
+00:41 on shows like this, and on CSI, and the
+like, where what you see on the screen
+00:44 isn't really technically accurate.
+00:46 And this is wonderful to say, but
+most recently did Stranger Things
+00:52 2 come out, which most of you are
+probably familiar, and probably
+00:55 finished, if you're like me, on
+Saturday after it came out on Friday.
+00:58 And on the screen--
+01:00 let me say this, not a spoiler--
+01:02 but I was so proud of
+this particular show.
+01:04 But before we get there,
+allow us to tease you
+01:07 with CS50's own take on that same show.
+01:09 If we could dim the lights.
+01:11 [STRANGER THINGS THEME PLAYING]
+02:09 OK, so that was mostly just
+a set up for the following,
+02:12 and if you haven't seen Stranger
+Things, or at least all of the episodes,
+02:17 I really don't want to
+alienate the entire internet,
+02:19 let alone everyone in this room,
+just close your eyes briefly,
+02:21 this isn't really a spoiler, it's all
+technical, doesn't spoil any plot,
+02:24 but no one is going to
+care in a few weeks time,
+02:26 so we thought we'd reveal this.
+02:27 So now's the time to put
+your fingers in your ears
+02:30 and close your eyes if you don't want
+to know that, at some point in the show,
+02:34 there's this scene, here.
+02:35 And of course, in every show
+out there like CSI and Law
+02:38 and Order and the like, if you kind
+of zoom in and enhance the screen,
+02:41 it's just nonsense, like a crayon
+type program, like we saw from CSI.
+02:45 But I was so proud to see that, if you
+actually zoom in on this screen here,
+02:49 you see this code, in a
+language called Visual Basic.
+02:53 And even though we don't
+teach Visual Basic,
+02:55 nor do many people use
+Visual Basic as much anymore,
+02:57 can you glean what this programmer
+was doing on the screen?
+03:05 What seems to be going on?
+03:07 AUDIENCE: Is it like getting a
+four digit password or cracking--
+03:10 DAVID J. MALAN: Yeah, it
+was a program with which
+03:12 to crack a four digit password.
+03:14 And if you glean all of the
+various loops in this structure,
+03:16 you'll actually see that it's trying
+to come up with a digit after digit
+03:19 after digit after digit,
+trying all of them,
+03:21 until finally, when it finds that
+value, something interesting happens.
+03:25 And so now, those of you who have
+your eyes closed and can hear this,
+03:29 you can take your fingers out
+of your ears and we'll proceed.
+03:32 But perhaps the first example
+in media of an actual program
+03:35 that works on the screen.
+03:37 So now, today, we look
+back on a model we've
+03:40 been introducing for some time, MVC,
+model, view, controller, which is just
+03:44 a fancy way of describing a
+type of programming that's
+03:48 really popular in the web these days,
+whereby you have a controller, which
+03:52 is the code that you've
+been writing, in Pset 6,
+03:55 and now Pset 7, in application.pi.
+03:57 The fact that it's called application.pi
+is just a convention in flask,
+04:00 but that's where all of your logic goes.
+04:02 Like the code that actually
+drives your website.
+04:05 In what folder or files
+are your so-called views?
+04:11 Say again?
+04:11 AUDIENCE: HTML?
+04:12 DAVID J. MALAN: Yeah, the HTML file.
+04:13 So in the templates subdirectory,
+which is a flask thing also,
+04:16 you have a bunch of
+HTML files, which are
+04:18 the views, the aesthetics, or the
+presentation of your program's
+04:21 information.
+04:22 And then last week, did we introduce,
+finally, the model, the M in MVC,
+04:26 which represents your
+data, your database.
+04:28 Maybe it's a CSV file, maybe it's
+in API, for getting stock quotes,
+04:32 maybe it is a persistent database,
+wherein you store your users
+04:35 and stock portfolios and more.
+04:37 And together, these
+three entities compose
+04:39 a pretty interesting application,
+whether it is a Pset 6 or Pset 7
+04:43 or beyond.
+04:44 But today, what we'll do is introduce
+one more piece and one more language.
+04:49 I know we've discovered quite
+a few languages thus far,
+04:51 Scratch, and C, and Python, and
+SQL, not to mention HTML and CSS.
+04:56 But today, we introduce the last of
+our languages in CS50, JavaScript.
+04:60 And you'll see that JavaScript is the
+last of the enabling technologies that
+05:03 will allow you to build features
+and tools very familiar to you
+05:08 nowadays on your phones
+and on your laptops.
+05:10 And so, before we do that,
+let me go ahead and pull up
+05:14 one example, via which
+we can bridge last week
+05:17 and this, a final look at the
+Frosh IMs website from yesteryear.
+05:24 And let me go ahead and run
+this program as follows.
+05:28 Flask: run.
+05:29 This is Fosh IMs 4, available
+in today's distribution code.
+05:32 And if I go ahead and open up this
+URL, it's a very simple program,
+05:35 that I'll zoom in on, that
+allows the users the ability
+05:37 to register and to see who is
+registered and to register themselves.
+05:42 And if I want to go
+ahead here and register,
+05:44 I'm going to see a form like this,
+and I can choose from the dropdown
+05:48 my Harvard dormitory, and then
+actually register my name.
+05:50 And then in very first version of this,
+weeks ago, this program did nothing.
+05:54 We just threw the information away.
+05:56 Then we did something a
+little more interesting,
+05:58 whereby we saved the data
+to someone's email inbox,
+06:01 by just sending them an email, then
+we added CSV files, which weren't bad,
+06:05 but what are downsides of
+using just CSV text files?
+06:09 AUDIENCE: They take a
+long time to search.
+06:11 DAVID J. MALAN: Yeah, they could
+take a long time to search,
+06:14 because, especially as they grow
+longer and longer, the best you can do
+06:17 is linear.
+06:18 You have to search the whole
+file just to find one value
+06:20 because there's no data
+structure there, it really
+06:23 is just like an array of lines,
+if you will, a list of text
+06:26 that you have to search over.
+06:28 So we also don't have features
+like select and insert and delete,
+06:32 these verbs, or operators, that
+we actually got from a database
+06:35 last week, which allows us to do more
+work, more easily, without having
+06:39 to write as much code.
+06:40 We can literally just
+execute a SQL command,
+06:42 like select or insert or
+delete, update or the like.
+06:46 So, how might we go about
+building a piece like this?
+06:48 Well, recall, that if we go into
+the source code for Frosh IMs 4,
+06:55 we'd have some entry
+point, like application.pi,
+06:58 and a few different routes.
+06:59 And this might be familiar if you've
+dived already into CS50 finance,
+07:02 the first of these routes, up top
+though, just renders index.HTML,
+07:06 and that's where I see the menu.
+07:07 And odds are, an index.HTML
+is just that bulleted list
+07:10 of three options, each of which
+links to a different route.
+07:13 Then the routes do start to
+get a little more interesting.
+07:16 And on the screen here,
+on line 13 downward,
+07:19 is the logic, my controller
+code, so to speak,
+07:23 that allows me to insert
+a user into my database.
+07:26 And how do I do this?
+07:27 Well, on lines 15 and
+16, I ask the question.
+07:29 If the requests method that's
+just come in is get, what do I do?
+07:33 In English?
+07:37 Put up the register template.
+07:39 So show the user
+register.HTML, using the using
+07:43 the render template
+function, which we've
+07:45 used before to spit out HTML files.
+07:47 Else, if the user has
+used post, that is,
+07:49 he or she has clicked a button,
+presumably, and posted to this same end
+07:53 point, let's just
+distinguish the behavior.
+07:55 If they've submitted a form
+07:57 via post, then go ahead and
+execute these five lines here.
+08:00 And this line here, 18, if not request,
+or if not request of name and dorm,
+08:05 that was just a way of saying if the
+user forgot to give us his or her dorm
+08:08 or name, then render a failure
+message, such as that and failure.HTML.
+08:13 Otherwise, if he or she did
+give us the information,
+08:16 we can use CS50's execute method on this
+DV variable, which we declared up here,
+08:21 we can insert into the registrants a
+name and dorm's, specifically these two
+08:24 values, and then recall that
+this colon syntax was new.
+08:28 It's just a convention,
+in a lot of the SQL world,
+08:30 when you want to plug-in
+values, rather than
+08:32 use PercentS, back from our
+C days, rather than use curly
+08:37 braces from our Python F
+string days, you instead
+08:42 just pass on two values via
+these names like name and dorm.
+08:46 And then what happens here, exactly?
+08:48 If I go into this web
+site, and I register David
+08:52 from St. Matthews, and click
+register, because the application is
+08:55 running with flask, I'm
+told that I'm registered.
+08:58 And how can I prove as much?
+08:59 Well, let me go ahead and
+open up another terminal
+09:02 and go into today's source code
+Frosh IMs 4, and then if I type LS,
+09:07 notice that this is what
+composes this application.
+09:09 One of these files is Frosh IMs.db, and
+if I go ahead and run this command line
+09:14 tool, SQL light, 3 on
+[? Frosh IMs ?] db.
+09:17 I just got a command line interface.
+09:18 And you might not be comfortable
+with this approach, and that's fine,
+09:21 but it allows you to do very simple
+things like show me my schema.
+09:25 And I can see, from this textual
+interface, what the format is
+09:28 of that database, it's just got
+one table, called registrants,
+09:31 and then if I wanted to
+see who is registered,
+09:33 maybe besides me, what can I type
+in this command line interface?
+09:39 What can I type here?
+09:42 Yeah?
+09:42 AUDIENCE: Select star from registrants.
+09:44 DAVID J. MALAN: Yeah, select
+star from registrants,
+09:47 semi-colon, and I see
+a very text-based table
+09:50 showing me who is in the database.
+09:51 And thus far, it's just me.
+09:52 And I could tinker with
+this at the command line,
+09:54 I could update and delete, and so forth,
+but the key takeaway from last time,
+09:58 was that once you're a little
+bit comfortable with SQL,
+10:01 you can begin to use
+statements in SQL, put them
+10:06 between double quotes in Python,
+and have Python execute those SQL
+10:10 queries for you on your database.
+10:12 And meanwhile, let's glimpse
+at one other feature here.
+10:15 Before I registered a moment
+ago, I had this dropdown menu.
+10:18 And I could have hardcoded this,
+and that would certainly be fine.
+10:22 But if I wanted to actually
+delete a user and, actually, let
+10:26 me show you this here.
+10:28 If I go into, what files is that,
+that's in my templates directory.
+10:33 And so if I go to
+register.HTML, here, I hardcoded
+10:37 all of those dormitories that
+are available to Harvard students
+10:40 to register from.
+10:41 But what about my unregister page?
+10:43 Let me actually go back
+and click unregister,
+10:46 and you'll actually see here,
+I see kind of a prettier menu
+10:49 that's got the person's name and their
+dorm, if he or she is registered.
+10:52 And I somehow want to
+unregister the user.
+10:55 Well, if I go ahead and submit
+this form, what value might
+10:59 I want the browser to submit
+from the browser to the server?
+11:03 David?
+11:04 Matthews?
+11:05 David from Matthews?
+11:06 Something else?
+11:08 What should your instincts be for
+when you submit something from a form
+11:11 to a server, when you
+want to act on that data,
+11:13 like here, like unregistering the user?
+11:17 What do you think?
+11:18 AUDIENCE: ID number?
+11:19 DAVID J. MALAN: Yeah,
+maybe their ID number.
+11:21 So, why?
+11:21 I have this string, David
+from Matthews, why not
+11:24 just submit the string, David from
+Matthews, look for it in my database
+11:27 and then delete David from Matthews?
+11:29 AUDIENCE: There could be
+other Davids in Matthews.
+11:30 DAVID J. MALAN: Yeah, there's
+ambiguity, potentially.
+11:32 If there's a couple or
+more Davids from Matthews,
+11:34 coincdentally, you might end
+up unregistering all of them,
+11:37 or both of them, or
+however many they have.
+11:39 And so you want something
+primary to identify users.
+11:43 And primary is an allusion to primary
+keys, which we said last time,
+11:46 is generally a number, such as the
+number one, which we saw a moment ago.
+11:50 When I looked at the contents of
+this database just a moment ago,
+11:54 notice that David did indeed have
+the unique ID, one, or at least
+11:58 we would see that it's
+unique if we keep adding
+12:00 more and more users to the database.
+12:02 And so how did I go
+about generating this?
+12:04 Well, if I go to
+unregister.HTML, notice that I
+12:08 do have to use a bit
+of one other language,
+12:11 it's not a particularly
+fancy language, but it's
+12:13 called Jinja, the templating language.
+12:15 And notice what I did here.
+12:17 This is the form, unregister.HTML,
+that the user sees
+12:19 when I'm trying to unregister someone.
+12:21 I have a form whose action is
+unregister, the method here is post,
+12:26 and then I have the select menu.
+12:27 Select Name equals
+quote/unquote ID, because I
+12:30 want to make clear to the server
+that the value it's going to receive
+12:32 is called ID, and it's going to be
+a number, like one or two or three.
+12:36 And then this is how,
+now, I iterate over what?
+12:41 What am I doing in line 6 and 8 and 9?
+12:47 What's going on there in
+kind of English terms?
+12:54 AUDIENCE: Number of
+registrants in your SQL.
+12:55 DAVID J. MALAN: Yeah, I'm iterating
+over the number of registrants
+12:58 I have in my SQL database.
+12:60 Well, it looks like,
+and I'm just inferring,
+13:02 it looks like I have access
+to some registrants variable,
+13:05 more on that in just a moment,
+for registering in registrants,
+13:08 the syntax we've seen
+before in Python that just
+13:10 lets you iterate over things in a list.
+13:13 And even though this is technically
+Jinja, it uses some similar syntax.
+13:17 And what do I want to do on
+each iteration of 4 loop,
+13:20 as I iterate over David
+and Maria and Brian and Rob
+13:23 and whoever else is registered for
+Frosh IMs For each of those students,
+13:27 I want to output open bracket
+option value equals quote/unquote,
+13:30 and this is a bit of a
+mouthful, but this just says,
+13:32 output the current
+registrant's ID number,
+13:35 and the double curly braces is Jinja's
+way of saying, take that actual value
+13:39 and plug it in between those quotes.
+13:41 Meanwhile, recall that an
+option in a dropdown menu
+13:45 has two parts, its value
+and then the thing that's
+13:47 between its open tag and its closed tag.
+13:50 So what I want the user to see here
+is quote/unquote registrant.name
+13:55 from, literally, regristrant.dorm.
+13:57 And that was just a design decision.
+13:59 And it's that reason, for that
+reason, that the format of this list
+14:03 is exactly that.
+14:04 So and so from such and such a place.
+14:08 And so the key insight via
+which you can make that happen
+14:12 in application.pi, realize, is this.
+14:16 When I visit "/unregister" via "get,"
+which is the default if you just visit
+14:21 the URL, notice that
+I'm executing a SELECT,
+14:23 just like you proposed a bit ago,
+SELECT star FROM registrants.
+14:26 But this time, rather than
+just seeing it on the screen,
+14:29 I want to do something with it.
+14:30 So I take these rows that are
+returned from the execute method
+14:34 and I just pass them
+in to this template.
+14:36 And I could call it anything I want.
+14:38 I could have called it
+rows or x or y or z.
+14:40 But I called it, a
+little more conceptually,
+14:42 registrants equals those rows.
+14:44 So I'm essentially handing to the
+template every row from that database
+14:49 table.
+14:51 And in this way in Pset
+7, if you haven't already,
+14:54 can you begin to construct
+the most dynamic of databases
+14:56 and the most dynamic of websites,
+taking input from the user,
+14:59 saving it, as we did when I registered,
+even deleting it or updating it
+15:03 by programmatically generating content.
+15:05 And this is the difference
+between a static website,
+15:07 where if you look at it,
+every day it looks the same.
+15:10 Because someone literally typed it
+out, hard coded, and saved it forever
+15:13 versus a dynamic website, like
+Gmail and Facebook and the like,
+15:16 that are obviously continually
+changing with more and more content.
+15:20 And so underneath the hood of
+Facebook and Gmail and other apps
+15:23 are databases like something
+SQL based, using languages
+15:28 like Python and/or JavaScript and more.
+15:30 And so we'll begin to see
+what other features we can now
+15:32 add to these kinds of websites.
+15:34 But any questions at this point on that
+sort of model for creating a web based
+15:42 application?
+15:44 Anything at all?
+15:45 Yeah.
+15:45 AUDIENCE: How again does a
+program know whether a request was
+15:48 submitted via get or post?
+15:49 DAVID J. MALAN: Good question.
+15:50 How does the program, application.pi,
+know whether a request came in
+15:53 via get or post?
+15:55 Where is that information
+stored or available?
+15:57 Does someone recall?
+16:02 I keep forgetting to bring
+one more of these props.
+16:04 But recall that virtual
+envelope, oh, here's one more,
+16:08 so recall that when a
+browser sends a request,
+16:10 we sort of played along
+by saying, oh, well, it
+16:12 puts a request inside of this
+envelope like get me the home page.
+16:16 Or here is a photo or here is my
+name that I'm uploading to the site.
+16:20 There is literally a
+message in here, an HTTP
+16:22 message that says the word "get" or
+"post," literally as its first line.
+16:27 And so the moment the server sees that
+message inside the so-called envelope
+16:30 does it know if it was get or post.
+16:32 And realize, this is just me
+being a little sort of tidy.
+16:37 There is no reason that we couldn't
+define two routes like this.
+16:41 We could, in Flask,
+have one route called
+16:44 register_form whose sole purpose in life
+is to show the user the register form.
+16:50 So literally, the only thing it would
+do, is let's see, def register_form,
+16:55 and it could literally return
+render_template("register.html") Right?
+17:00 It can just blindly assume that
+if the user visits register form,
+17:04 he or she got there by
+via get, the default.
+17:07 And then, we could have
+that user submit elsewhere
+17:10 if the route is actually register.
+17:14 The method for which, because
+you have to explicitly say post
+17:17 if it's not the default for you.
+17:18 And then I say def actually_register.
+17:22 Here, I could now have
+all of my database code
+17:26 that assumes that only if the
+user has hit this endpoint has he
+17:29 or she submitted the form.
+17:31 And then I put all of my
+database related code there.
+17:34 I point out that I'm just kind of
+being a little tidy or a little anal
+17:38 when it comes to designing this.
+17:39 Because I just don't
+like the idea of having
+17:41 like this end point and this thing.
+17:42 It's just two separate
+things to think about.
+17:44 And also what the user sees is
+not pretty, as pretty of a URL.
+17:48 It's not just /register, which
+makes a little more sense.
+17:51 And so intuitively, this way, can
+we have the user stay constantly
+17:55 at /register.
+17:56 But the website behaves
+a little differently.
+17:58 If the request comes in by a GET,
+show the user something, else,
+18:01 if he or she has submitted a form,
+go ahead and do the database thing.
+18:05 So that's all.
+18:05 It's just me kind of compacting
+two separate routes into one just
+18:09 to keep things tighter.
+18:10 Good question.
+18:11 Other questions?
+18:13 All right, so let's now transition to
+a new world altogether of JavaScript.
+18:19 And even though it might
+feel a little overwhelming,
+18:22 to date, that we've looked at
+yet another language already,
+18:24 realize that the important takeaways
+today are actually relatively few.
+18:28 We're going to see some familiar syntax.
+18:30 But there's a lot of shared features
+like functions and loops and conditions
+18:33 and variables.
+18:33 All of those are present
+in the same language.
+18:35 And syntactically, it's very,
+very similar to C and Python.
+18:39 So that's one takeaway.
+18:41 And two, it's going to
+allow us to explore really
+18:43 a different type of programming.
+18:44 Because consider what
+we've done thus far.
+18:46 When we wrote programs in C, we
+just started writing like #include.
+18:51 And then we had int main and so forth.
+18:53 And we just wrote our
+programs top to bottom.
+18:55 We compiled them.
+18:55 And then we ran them.
+18:56 And they executed, essentially,
+top to bottom, so to speak.
+18:59 We started doing that in Python, too.
+19:01 In Pset six, you might recall the
+compare program or the score program.
+19:08 Those, too, you just wrote
+Python code, top to bottom,
+19:11 and then executed those programs.
+19:13 But then we started doing something
+a little different with Flask.
+19:16 In Flask, application.pi, when you
+run it indirectly by typing flask run,
+19:22 does it ever quit?
+19:26 No, I mean, you see some
+funky output on the screen,
+19:28 like some IP addresses and all of
+the requests that are coming in.
+19:31 But essentially you see a
+prompt that never goes away.
+19:34 Because essentially, built into
+Flask, like any web server,
+19:37 is really an infinite loop.
+19:39 It's not a bug.
+19:39 It's a feature whereby
+the program, once running,
+19:42 is just constantly
+listening for HTTP requests.
+19:45 And any time your application.pi
+gets an HTTP request, how does
+19:50 it know what to do with it?
+19:51 There is no main function.
+19:53 So if it's just sitting there waiting
+and waiting for requests to come in.
+19:56 How does application.pi
+know what to do and when?
+20:01 Like what's been going on all this time?
+20:07 AUDIENCE: By comparing the endpoints.
+20:09 DAVID J. MALAN: Yeah, that's it,
+just comparing the endpoints.
+20:12 So inside of this envelope
+that I keep grabbing
+20:15 is a request for a certain page.
+20:17 It's get/register or
+post/register or the like.
+20:22 So as soon as application.pi
+or specifically, Flask,
+20:25 the framework we are building
+our application on, notices, oh,
+20:29 I see /register.
+20:30 Let me see if the programmer has
+defined a route for /register using
+20:34 our "at" syntax, @app.route.
+20:37 Then, oh, that's the function that he
+or she presumably wants me to call,
+20:40 upon getting that specific request.
+20:42 And it satisfies it by
+returning some value.
+20:44 But then it goes back to just
+listening in this infinite loop.
+20:47 And so this is an example of what we
+might call event based programming.
+20:51 You're not just writing a program top
+to bottom that just starts and stops.
+20:55 You're writing a program that's just
+now always running unless you forcibly
+20:58 kill it by hitting control-c
+or restarting the IDE
+21:02 or something dramatic like that.
+21:05 Otherwise, it's just constantly running.
+21:07 But the events that might come
+in are a receipt of messages
+21:11 or HTTP requests like these.
+21:13 And similarly, in a
+browser, it turns out
+21:15 there are bunches of
+different types of events
+21:17 that can happen, not on the internet
+per se, but just locally, here.
+21:20 Like, every time I click my trackpad
+or mouse, that's an event, click.
+21:24 Every time I touch the
+trackpad or move my mouse,
+21:28 that's an event, a drag
+event or a mouse move event.
+21:32 Anytime I click somewhere on
+the screen or select something
+21:35 from a menu or type in keys to
+my keyboard, that is an event.
+21:39 So what we're going to
+start to do today is wrap up
+21:42 the last of our user interfaces.
+21:44 The past few weeks, we
+focused on the server.
+21:46 Today and next week we'll focus
+on the client, the browser.
+21:49 And together then you can
+have two pieces of the puzzle
+21:52 finally talking to one another,
+listening for user input on the browser
+21:56 and doing something with the
+user's input on the server.
+21:58 So let's make that transition.
+21:60 We began with Scratch, of course.
+22:01 We transitioned to C and
+then Python and then SQL,
+22:04 which was a little different
+syntactically, certainly.
+22:06 But it did allow us to
+get data and update data.
+22:09 But today we'll focus
+on this JavaScript.
+22:12 What is the relationship, technically,
+between JavaScript, today's focus,
+22:17 and the language some of you might have
+learned in high school, especially,
+22:20 called Java?
+22:24 Yeah.
+22:24 AUDIENCE: It's like [INAUDIBLE]
+22:26 DAVID J. MALAN: It's like what?
+22:27 AUDIENCE: [INAUDIBLE]
+It's totally different.
+22:29 DAVID J. MALAN: Totally
+different, exactly.
+22:31 It was really just a marketing thing.
+22:33 Java was very much in vogue at the time.
+22:35 JavaScript was a new language.
+22:36 And hey, why don't we name our
+language after something else that's
+22:39 already pretty popular and
+kind of ride that wave.
+22:41 But they are not the same language.
+22:43 If you know Java, you know Java.
+22:45 If you know JavaScript,
+you know JavaScript.
+22:47 Syntactically, they're similar.
+22:48 But there's no fundamental
+linkage between the two languages.
+22:52 JavaScript is a language,
+now, that has historically
+22:55 been used in the confines of a browser.
+22:57 Which is to say, your Mac or PC executes
+this language in your Mac or PC.
+23:02 However, it can be used
+and it's increasingly
+23:04 being used on the server, as
+well in something called node.js.
+23:07 But we're going to focus today and here
+on out on its use within the browser.
+23:11 So fortunately, it's not all that
+different from Python or even C.
+23:16 Here is an excerpt from
+a function in JavaScript.
+23:19 What's familiar?
+23:20 Well, we have the keyword
+function, which we have in Python.
+23:23 We have some open parentheses,
+which we have in Python.
+23:25 We have comma-separated
+lists of arguments,
+23:27 which we have in Python
+as well as in C. Curly
+23:30 braces, which we have in C, but not
+so much in the same way in Python.
+23:34 And so it looks like it's kind of
+an amalgam of some of the features
+23:37 we've seen thus far.
+23:38 Indentation doesn't strictly matter.
+23:40 So now you're sort of on your
+own again, such that good style
+23:43 means that you have to be indenting
+proactively and not waiting
+23:46 for the interpreter to yell at you.
+23:48 But notice this, this is also
+legitimate in JavaScript.
+23:53 And what just happened?
+23:54 Before.
+23:56 After.
+23:59 What is this second
+version apparently lacking?
+24:02 AUDIENCE: A name.
+24:03 DAVID J. MALAN: A name.
+24:04 And it turns out, in
+JavaScript, you can have,
+24:06 and it's a very common thing to have,
+anonymous functions, functions that
+24:10 have no name explicitly, otherwise
+known fancily as lambda functions.
+24:14 And they, literally, just have no name.
+24:16 Now, why that's useful, we'll soon see.
+24:18 But just realize, that's going to
+be a feature that's also present,
+24:21 technically, in Java and can be
+implemented in other ways in C.
+24:24 But it's very much a common
+paradigm in JavaScript.
+24:26 So getting comfortable just with the
+idea of your functions having no name
+24:30 will be a takeaway for today, as well.
+24:32 Variables, you'll notice this.
+24:33 And you can perhaps infer what this
+does in English, even if you've never
+24:37 seen JavaScript before right now.
+24:38 What does this probably do?
+24:42 Say again?
+24:42 AUDIENCE: It's defining a variable.
+24:44 DAVID J. MALAN: Yeah, it's
+defining a variable called i
+24:46 assigning it equal to 0.
+24:47 And maybe for the first
+time it reads nicely.
+24:50 Let i equals 0.
+24:52 That's kind of wonderfully
+stated, because that's
+24:54 exactly what you want it to do.
+24:55 What is missing though, from this
+line of code that we did have in C?
+25:01 Data types.
+25:02 So there's no mention of int or float
+or strings or so forth, explicitly.
+25:06 JavaScript does have types.
+25:08 But it, too, is loosely
+typed as is Python.
+25:10 Whereby, there are types, but you
+don't have to explicitly mention them.
+25:13 It's very context sensitive.
+25:15 And the computer
+essentially figures out what
+25:18 data type is what from its context.
+25:20 But we'll have Boolean
+expressions again,
+25:21 such as asking the question is i
+less than 50, or more generally,
+25:24 is x less than y, where each
+of those might be variables.
+25:27 Here is the do while loop.
+25:28 If you've been missing that in
+Python, well, it's back in JavaScript.
+25:31 And we can do something here.
+25:32 And another little thing to
+notice, do you capitalize
+25:35 or not capitalize "true" in JavaScript?
+25:38 Apparently you don't,
+based on for inference.
+25:40 And so it's these kinds
+of little things that,
+25:41 honestly, early on, might trip you up.
+25:43 And it's fine to get frustrated over it.
+25:45 But don't get discouraged fundamentally
+by those kinds of nuances.
+25:48 It's just like if you know two romance
+languages or two Asian languages
+25:51 and you occasionally confuse
+a character or a word.
+25:53 That will happen inevitably,
+now, in programming as well.
+25:57 Here is a while loop, an infinite
+while loop in JavaScript, as well.
+26:01 Here is a for loop.
+26:02 Notice that it's almost identical
+to what we've seen in C,
+26:05 except the lack of a specific data type.
+26:08 I'm instead just declaring i
+implicitly to be an int in this case.
+26:12 And this will get a
+little more interesting.
+26:14 We have similar syntax in Python.
+26:17 And it's almost the same in JavaScript.
+26:18 If you want to iterate over
+the values of an array,
+26:21 you can literally say let value, where
+this can be a variable x or y or z,
+26:26 of a keyword you literally
+hardcode in array.
+26:28 It's going to be some array in question.
+26:30 And we'll see, wherein
+we have actual arrays.
+26:32 That allows you to iterate
+over the values in an array.
+26:35 JavaScript also has something
+called an object, though.
+26:38 And Python has these, too.
+26:39 And we've mentioned them a couple times.
+26:41 Like technically, when you
+declare the db variable
+26:45 for using CS50's SQL
+library, that is an object.
+26:49 It's a variable that is an object type.
+26:52 So we've seen these.
+26:53 But we're going to see them ever
+more explicitly in JavaScript,
+26:57 exactly what an object is useful for.
+27:00 Meanwhile, we're going to have
+some, thankfully, familiar syntax.
+27:03 And you're going to kind of
+revert back to your C days.
+27:05 Because elif is not a thing in
+JavaScript. else-if explicitly is.
+27:10 So there's that little nuance.
+27:11 There's a declaration of arrays
+which look quite like Python lists.
+27:16 So if you want-- and actually,
+let me fix this to be consistent.
+27:19 Var is technically a keyword, too.
+27:21 But it works a little
+differently than let.
+27:23 So let's just define this
+as let numbers equals
+27:26 square brackets these numbers here.
+27:28 Notice the square brackets
+means it's an array.
+27:30 But in JavaScript arrays can be resized.
+27:35 They can grow and they can
+shrink, quite like what in Python?
+27:39 AUDIENCE: List.
+27:40 DAVID J. MALAN: List.
+27:41 And quite unlike arrays in C. So again,
+there's just kind of these trade-offs.
+27:45 And again, it's fine to Google
+these kinds of things like,
+27:48 can you resize arrays in JavaScript,
+if you forget these kinds of things.
+27:51 But these are the kinds
+of differences, when
+27:53 learning new languages, that
+will eventually sink in.
+27:55 So here is an example of what
+we'll call an object a.k.a.
+27:58 a dictionary or dict in Python.
+28:01 A dictionary, or more generally,
+a hash table has keys and values.
+28:06 And that's it.
+28:06 You can have fancier structure.
+28:07 But at the end of the day, it's
+just a bunch of keys and values.
+28:11 Different languages use different
+syntax for these, curly braces or colons
+28:15 or equal signs or arrows
+or other funky things.
+28:17 But the idea is the same.
+28:18 And in JavaScript, if I
+want to declare a quote,
+28:22 like a stock quote to be a data
+structure, like a struct in C,
+28:26 with three keys--
+28:28 name, price, and symbol.
+28:29 I literally enumerate them here
+with colons after the names.
+28:32 And then I put the values in quotes,
+if they're strings, or no quotes,
+28:36 if they're not strings,
+on the right hand side.
+28:38 So in the context of CS50
+finance, a web-based application
+28:42 for downloading stock
+quotes and more, if you
+28:44 wanted to get a piece of data that
+represents Netflix's current stock
+28:49 price, you might get back
+from the server something
+28:51 that looks a little bit like this.
+28:54 But technically, and not to throw
+too much at us at once, technically,
+28:58 it's probably something in what's
+called JSON format, JavaScript Object
+29:03 Notation, JSON format, which just has
+some additional quotes around things,
+29:08 as here.
+29:08 But we'll see that actually
+in use before long.
+29:12 And besides that, besides that, that's
+kind of the essence, syntactically,
+29:18 of JavaScript.
+29:18 We're going to now see it's more
+powerful features and its programming
+29:21 paradigms.
+29:22 But if you know C and if you know
+Python, you kind of sort of already
+29:25 know at least the basic
+syntax of JavaScript.
+29:28 You just now need to know how
+and when and where to use it.
+29:31 But syntactically, before we
+forge ahead, any questions?
+29:37 No?
+29:38 OK.
+29:38 So let me go ahead and do this.
+29:39 Let me go into the IDE and go ahead
+and whip up a little example, here,
+29:44 that I'm going to go
+ahead and call dom0.html.
+29:47 And we saw this term
+briefly some time ago.
+29:50 But DOM refers to document
+object model, which
+29:53 is a fancy way of saying the
+tree that represents a web page.
+29:56 A web page, of course, might look,
+super simply, like this in HTML.
+30:00 The hierarchy is there because
+of the open tags and close tags.
+30:04 The indentation there is just
+because of me, the human,
+30:06 wanting to be able to read
+it a little more prettily.
+30:08 But this structure here in HTML
+could be implemented in memory
+30:13 in any language using this
+kind of tree structure.
+30:16 This tree structure is called
+the document object model.
+30:19 And it's the right mental model,
+the way to think about what
+30:21 a web page is underneath the hood.
+30:24 So why is this useful?
+30:25 Well, it turns out all this time
+when we've been writing web pages,
+30:28 for the most part, we've
+written HTML or we've
+30:31 written in Python that generates HTML.
+30:33 Or that's what you're in
+the midst of doing now.
+30:35 But what if you want to change
+a web page after the HTML has
+30:40 been written or sent to the user?
+30:43 You run it writing Python
+code, don't have the ability
+30:45 to run Python code on your users'
+or your customers' computers.
+30:49 Because it's only used on the server.
+30:51 It sends out HTML and CSS and that's it.
+30:53 You lose control over
+the user's experience.
+30:56 Unless, in addition to the HTML and
+the CSS that you're sending the user,
+30:60 you also send them some
+JavaScript, an additional program
+31:04 written in this new language
+that runs, ultimately,
+31:07 on their Mac or PC after
+it's left your server.
+31:11 So let's see what this might mean.
+31:13 Let me go ahead and whip up
+a little example like this.
+31:16 So dom0.html.
+31:17 We're going to have our usual DOCTYPE
+at the top that says, hey, here
+31:20 comes HTML 5.
+31:21 Here's the beginning of my web page.
+31:23 It's good to have a head up here
+with a simple title like dom0.
+31:27 The body of this web page is
+going to be pretty simple.
+31:30 I'm going to go ahead and define a form
+that has a unique ID called demo, just
+31:34 for demonstration purposes.
+31:36 Inside of this form is
+going to be an input whose
+31:39 ID is name, so I can access that
+too, whose placeholder, which is just
+31:44 the fancy gray text,
+is going to be name,
+31:46 and then whose type is going to be text.
+31:49 And then I'm going to give myself
+an input type equals submit button.
+31:54 So here I have, once I've saved
+that, a pretty simple web page that
+31:58 simply has a very simple HTML form.
+32:01 Let me go ahead and run this.
+32:03 I'm going to go ahead and
+do this by simply serving.
+32:08 By right clicking or control clicking
+on my workspace and clicking serve,
+32:11 I'm going to see a very simple, ugly
+web server whose sole purpose in life
+32:15 is to serve the HTML files I've written.
+32:17 And I'm going to go ahead
+and click on dom0.html.
+32:19 So this is the file that I
+just whipped up super simply.
+32:22 If I type something in
+and hit submit, what's
+32:24 going to happen with the information?
+32:28 Nothing really.
+32:28 I haven't wired it to anything.
+32:30 I didn't have an action or a
+method attribute on the form.
+32:33 I haven't finished writing this program.
+32:34 So what do I want to do
+here to make this happen?
+32:37 I'm going to go ahead and do this.
+32:40 First, I'm going to go into
+the head of my web page
+32:44 and instead of just having a title, I'm
+going to introduce a new script tag.
+32:48 And as the name implies,
+here comes a script.
+32:50 A script is generally synonymous
+with like short program.
+32:53 The programs in a web page
+can be written, these days,
+32:56 pretty much only in JavaScript.
+32:58 Back in the day, you
+could use other languages,
+32:60 especially in Microsoft browsers.
+33:01 But for the most part, the world only
+uses JavaScript in this context now.
+33:05 So inside of the script,
+I can start writing code.
+33:08 In particular, I can do something
+like this, alert("hello,world");
+33:17 It turns out, alert is a pretty lame,
+but a functional function in JavaScript
+33:22 that's just going to print
+out an annoying pop up.
+33:24 So let me go ahead and
+save the page, go back
+33:27 to my browser, reload, and there we
+go, my very first interactive kind
+33:32 of sort of web page.
+33:34 That, really ugly, does this.
+33:36 It just says, hello, world.
+33:37 And I say ugly because it's
+showing my domain name and my port.
+33:39 And that's just kind of lame and messy.
+33:41 But at least I'm conveying
+some information to the user.
+33:44 So it would seem that
+what a browser is indeed
+33:47 doing when it receives an HTTP
+request is it's sending this file.
+33:52 And then when your browser receives
+that file, it reads it top to bottom,
+33:55 left to right, and executes or
+interprets every line of code.
+33:58 So it doesn't just make things bold
+faced and centered and the like.
+34:01 It actually will execute lines
+of code inside of script tags.
+34:06 So let's make this, now,
+a little more interactive.
+34:09 Instead of just calling alert like that,
+let's actually put it in a function.
+34:13 And call it function greet.
+34:15 Here are my curly braces
+back in our C days.
+34:18 And here let me go ahead and
+just say, hello, world, now.
+34:22 If I go and reload this page, am I
+going to see or not see the alert?
+34:26 AUDIENCE: Not see.
+34:27 DAVID J. MALAN: Probably not
+see, unless, for whatever reason,
+34:31 the browser runs the greet
+function automatically.
+34:33 And it doesn't.
+34:34 It doesn't.
+34:35 There's no equivalent
+of main in JavaScript.
+34:37 And it certainly doesn't mean greet.
+34:39 So nothing happens.
+34:40 But it is there.
+34:42 So suppose I want to now
+connect these things somehow.
+34:45 What could I actually do?
+34:46 Well in my form, you know what, instead
+of submitting to some end point--
+34:51 like the action shall be to go to
+register or something like that--
+34:56 let me actually say this.
+34:58 On submit go ahead and call
+a function called greet;
+35:05 So it's a little messy.
+35:06 And we're going to clean this up.
+35:08 But I've introduced a new HTML attribute
+that literally does what it says.
+35:11 On submission of this form, call
+this code, execute this code.
+35:15 And that code, defined up above,
+is going to greet the user.
+35:17 So let's see.
+35:18 Let me go to this web page.
+35:19 And as always, reload the page
+so that you see the latest.
+35:23 Let me go ahead and type
+in my name and submit.
+35:27 And there we go, hello, world.
+35:29 And then suddenly the page resets.
+35:31 It actually reloaded itself.
+35:32 So let me actually clean
+this up a little bit.
+35:34 After calling greet, I'm
+actually going to return false.
+35:37 Because technically, I don't have
+anywhere for the users name to go.
+35:41 There is no server.
+35:42 So I want to make sure that I've
+disabled the built-in functionality
+35:47 of this browser.
+35:48 So that now, when I type in
+my name and click submit,
+35:50 it still works like before.
+35:52 But notice, the web page stays the same.
+35:54 It didn't reload.
+35:55 It didn't take me elsewhere.
+35:56 It just stayed put.
+35:57 So now, I'm using the HTML
+form as a local application
+36:02 and not really connecting it
+to anything on the server.
+36:04 But this is a little annoying.
+36:05 And you might have wondered
+why this does this.
+36:07 Most browsers do this.
+36:09 This eventually will get a little messy.
+36:11 It's kind of compromising a
+bit of your privacy in forms.
+36:14 How can I disable this functionality
+so that users' names are not
+36:18 remembered in text boxes?
+36:24 Well, if you've never known, we
+can simply do autocomplete="off".
+36:30 And you might have seen
+this already in Pset 7,
+36:32 or elsewhere on the web,
+that's how we do that.
+36:34 And also let me go here
+and reload the page.
+36:37 Notice that, how do I
+interact with this form?
+36:41 I can't type my name by
+default when I visit the page.
+36:43 Why?
+36:45 And that probably wasn't
+good for my keyboard.
+36:49 What would you do in this case
+to solve this stupid problem?
+36:52 Yeah, like click over here.
+36:54 And this is now an
+example, albeit a tiny one,
+36:57 of a good versus a bad
+user experience or UX.
+37:01 If the sole purpose of your
+web page is for the user
+37:03 to type in his or her name, then why
+are you doubling the number of steps
+37:07 so that the user has to click
+up here first in order, then,
+37:11 to type his or her name?
+37:12 Why not just automatically
+focus on the text box?
+37:16 And indeed, that is an operation in a
+browser, to give focus to a form field.
+37:21 So in fact, if I go back to
+my code here and I also add
+37:24 autofocus and just as an attribute.
+37:28 It doesn't strictly need a value
+in quotes or with an equal sign.
+37:31 Now, if I reload the page with
+command r or control r, notice, now,
+37:36 the cursor is blinking.
+37:37 The text box is blue on Mac OS.
+37:39 And it's ready to take
+my name right away.
+37:42 So start to think about two
+of these little subtleties,
+37:44 not just technically how
+they work or how to do them,
+37:46 but also why you would do this.
+37:48 Like my rant the other day
+about why a website can't accept
+37:51 phone numbers in different formats.
+37:52 These are the little things that start
+to distinguish good code from bad code.
+37:56 And focus has another detail too.
+37:58 So if I hit tab, it's very
+common, especially in Mac OS,
+38:01 it's super obvious, where things
+become highlighted in blue.
+38:04 So you can tab around a user interface.
+38:06 Especially important for accessibility.
+38:08 So if someone is using a screen reader
+because he or she can't actually
+38:10 see the words on the screen,
+let alone the interface,
+38:13 using tab and a screen reader can they
+actually be told what is on the screen.
+38:17 And that highlighting,
+that so-called focus,
+38:19 has very real functional
+value, so that they
+38:21 know exactly what will happen if they
+start interacting with the website.
+38:26 Will the button get clicked?
+38:28 Will text end up in the box?
+38:29 It depends on what has focus.
+38:30 And only one thing can have focus
+at a time, per those blue boxes.
+38:35 All right, so with that said, this
+is not all that elegant right now.
+38:40 I'm kind of not
+practicing what we've long
+38:42 been preaching about combining
+one language inside of another.
+38:46 We started to go down
+this road some time ago.
+38:48 I started putting CSS
+in my style attributes.
+38:51 And then I put it up here.
+38:52 And then finally, I got it out of
+there and put it into a separate file.
+38:55 So we're going to be on that
+same trajectory here, too.
+38:58 But let me go ahead now and do things
+a little differently as follows.
+39:03 It turns out that just putting code
+inside of script tags like this
+39:08 isn't necessarily the best practice.
+39:10 We can instead-- because
+it requires doing this.
+39:15 This is the ugliest portion of code.
+39:17 And it might not be obvious now.
+39:18 But bad practice, do not put code
+inside of double quotes in HTML.
+39:23 Because you have one language
+again inside of the other.
+39:25 It's not obvious what
+this page is going to do
+39:27 when you glance at it at first glance.
+39:29 If you're collaborating
+with someone, maybe you're
+39:30 the front end user interface designer.
+39:32 You're really good with design and art.
+39:34 And so you're doing the interface.
+39:35 And someone else is actually
+writing the code and the logic.
+39:38 Because they like to do more
+of the back functionality.
+39:40 You can't both really work as
+effectively if all of your work
+39:43 is commingled in the same file.
+39:45 So we want to get this out of there.
+39:47 So how do we take a step toward that?
+39:49 Well let me go ahead
+and create a new file.
+39:53 I'll call this dom1.html.
+39:54 And I'll start in the same place.
+39:56 But I'm going to go ahead and do this.
+39:58 I'm going to get rid
+of this event handler
+40:02 and stop using that
+attribute altogether.
+40:04 And I'm also going to
+go ahead and do this.
+40:07 I'm going to get rid of my greet code.
+40:08 I'm going to go ahead and get
+rid of the script tag, here.
+40:11 And just for now,
+temporarily, I I'm going
+40:13 to actually put the script at the bottom
+of the page for reasons we'll soon see.
+40:17 So in the bottom of the page, now,
+I could do alert, hello, world.
+40:22 But that, of course, recreates
+the same problem as before.
+40:25 I don't want it to just happen always.
+40:27 I want it to happen only
+when the form is submitted.
+40:30 So how can I do that if I am trying to
+avoid this messiness, this commingling
+40:35 of code and HTML?
+40:37 Well, it turns out that there
+is a way to tell the browser
+40:40 to do something when something happens.
+40:43 Specifically, I can do this, document.
+40:46 And document is now going to be
+a special global variable that
+40:49 refers to my web page, the
+document that I'm writing.
+40:52 document.getElementById,
+which is a long function name.
+40:57 It exists in JavaScript.
+40:58 And notice the capitalization
+of the E and the B and the I,
+41:02 but not the initial g.
+41:03 This is conventional.
+41:04 In a lot of languages,
+you don't capitalize
+41:06 the first letter of
+your function but you
+41:08 do capitalize every word thereafter.
+41:11 Something called camel case, where
+it's kind of going up and down
+41:13 and up and down.
+41:14 Because it's a little more
+readable than all lowercase
+41:16 and certainly all upper case.
+41:18 So what ID do I want to get?
+41:20 I'm going to go ahead
+and get the ID, demo.
+41:22 And we'll see what
+that means in a moment.
+41:24 And I'm going to register
+an event handler as follows.
+41:27 So let's finish this
+thought in a moment.
+41:30 Where does demo come from?
+41:33 Where did we see that before?
+41:35 Yeah, a few lines earlier.
+41:36 I just gave my form an arbitrary,
+but very unique, ID of demo.
+41:41 I could have called it anything.
+41:42 And I could have done this
+actually in different ways, too.
+41:44 But this is just super explicit.
+41:46 So here, even if you've
+never seen JavaScript before,
+41:48 you can start to infer this is
+saying, hey document, hey web page,
+41:52 get me the element ById("demo").
+41:55 So somehow or other,
+this is a function that's
+41:57 going to go grab from the browser's
+memory the square or the rectangle
+42:02 that I drew earlier.
+42:03 The reason that the DOM or document
+object model is interesting,
+42:07 theoretically, is that with
+document.getElementById, you
+42:11 have the ability to go grab
+one of these nodes in the tree
+42:15 or one of these data structures in
+memory and do something with it.
+42:19 Now, what are we going to do?
+42:20 Well, we're about to see.
+42:22 When I have access,
+now, to this form, it
+42:25 turns out that forms, per the
+manual for HTML so to speak,
+42:29 there are different
+event handlers on submit,
+42:31 maybe on click, maybe on
+mouse move, mouse drag.
+42:35 It depends on the element.
+42:36 But forms can be, of course, submitted.
+42:38 So literally, by saying .onsubmit, I
+can now say the equivalent of call this
+42:45 function.
+42:46 This is just pseudocode.
+42:47 I now need to give this a function.
+42:49 And so I can do this
+in a couple of ways.
+42:51 I can do it like this.
+42:53 So function greet is a function
+that simply does say, hello, world.
+43:00 And now, at this point in the story,
+I've defined a function up here
+43:04 and given it a name.
+43:06 And then here I'm saying, on submission
+of the demo form, call this function.
+43:11 But notice the difference.
+43:12 It's subtle.
+43:14 I didn't do this, which is the norm.
+43:16 I instead did this.
+43:19 Why, though subtle, is
+it probably important
+43:22 that you omit the parentheses?
+43:26 How to think about this?
+43:29 AUDIENCE: Because it doesn't
+accept any arguments.
+43:32 DAVID J. MALAN: It doesn't
+accept any arguments.
+43:34 That's true, but it's not
+the reason for doing this.
+43:36 Good thought, though.
+43:37 Yeah.
+43:38 AUDIENCE: So maybe nobody can change it.
+43:40 DAVID J. MALAN: So no one can
+change it, not there, too.
+43:42 I think anyone who has access to the
+file can certainly change my code.
+43:46 So it's not that.
+43:49 AUDIENCE: Because you're trying
+to send it to the output?
+43:52 DAVID J. MALAN: Closer.
+43:53 I'm trying to send it to the output.
+43:55 Not quite, but I think
+we're on the right track.
+43:56 AUDIENCE: So it doesn't
+call it right away.
+43:58 DAVID J. MALAN: Yes.
+43:58 So that it doesn't call it right away.
+44:00 Ever since week one of CS50, any
+time we have seen a function name
+44:04 followed by open paren, closed paren,
+maybe with some arguments inside,
+44:09 that has meant call this function
+and maybe pass in these inputs.
+44:13 But that's not what we
+want at this line of code.
+44:16 At this line of code, we want the
+browser to know which function to call,
+44:21 not to call it right then and there.
+44:24 So we don't want that
+function to be called
+44:25 as soon as we get to this line of code.
+44:27 Because otherwise, we're going
+to see the alert, no matter what,
+44:30 the moment the browser reads
+that line of code on the screen.
+44:32 Instead, we just want to
+tell the browser, hey,
+44:35 just so you know in the future,
+when the form is submitted,
+44:38 here is the name of the
+function only to call.
+44:41 But don't call it now.
+44:42 And so that stupid, simple difference
+actually makes all the difference
+44:47 in this case, functionally.
+44:48 And so now let me get rid of this.
+44:50 And leave the program as follows.
+44:52 So now let me go ahead and go back to
+the web page, reload, click submit.
+44:57 And we see, hello, world.
+44:58 So the functionality
+hasn't really changed.
+45:00 But at least I've made some progress.
+45:02 But I haven't done quite
+as much as would be ideal.
+45:05 It would be a lot nicer,
+I think, to do two things.
+45:08 One, this is kind of lame.
+45:10 I have defined a function called greet.
+45:13 And then I'm using that
+function's name in one place only.
+45:17 That suggests I never really needed
+this word greet in the first place.
+45:20 You know, it's fine.
+45:21 It's clear.
+45:21 It's correct.
+45:22 But you know what, I
+remember from earlier
+45:24 that JavaScript supports anonymous
+functions that don't have names.
+45:27 So how could I do this?
+45:29 Well, it turns out we can just,
+in one fell swoop, do this.
+45:35 Let me go ahead and cut and paste that
+and get rid of the excess white space
+45:38 now, get rid of the function
+name, and now just do this.
+45:44 And just for clarity, let me put
+the curly brace on the same line,
+45:47 even though it doesn't strictly matter.
+45:48 But this would be
+stylistically more common.
+45:51 What am I doing now?
+45:52 This is now saying, hey
+JavaScript, get the element
+45:55 called demo or with an ID of
+demo and when it is submitted,
+45:59 call this function.
+46:01 Now, it's a subtle difference, again.
+46:03 Open paren, close paren, here,
+does not mean call the function.
+46:06 Because it's immediately followed by
+the curly braces, which means here
+46:09 comes the code that should be
+executed when this function is called.
+46:13 It ends with a semi-colon not
+because functions themselves
+46:17 need to end with semi-colons, but
+this is all one long line of code
+46:20 that I've just indented now.
+46:22 Because we're declaring a function
+and assigning it from right to
+46:25 left all at once.
+46:26 So a huge mouthful there.
+46:28 But again, none of the ideas
+are new except for the fact
+46:31 here that functions can
+be anonymous with no name.
+46:35 And you can pass functions
+around and call them later.
+46:43 Any questions on this?
+46:44 Yeah.
+46:45 AUDIENCE: So can you remove
+functions and instead
+46:47 just put equals alert, hello, world?
+46:50 DAVID J. MALAN: Good question.
+46:51 Can I get rid of the
+function and just do this?
+46:53 Short answer, no.
+46:55 Because if I do this, this
+is going to, just like in C,
+47:00 call this function, which is
+going to display that alert.
+47:04 And then it's going to assign the return
+value of that function, which I don't
+47:07 think it has one at all, to onsubmit.
+47:10 So this calls the function,
+assigns its return value,
+47:13 which is technically undefined, to this.
+47:15 So nothing will ever happen if
+you click submit thereafter.
+47:17 It's going to get called prematurely.
+47:19 So the way to avoid this is,
+again, to define a function
+47:21 and then pass it in by its name only.
+47:24 Or declare it anonymously,
+so to speak, like this.
+47:27 So that you're really just
+telling the browser, on submit,
+47:29 call this chunk of code in
+between the curly braces.
+47:32 And that's it.
+47:34 OK.
+47:35 So this is still a stupid demo.
+47:36 Because it keeps saying, hello, world.
+47:38 And yet, I have a form with which
+the user can type in their name.
+47:41 So how do I get at that value?
+47:43 Well it's actually pretty
+straightforward here, potentially.
+47:46 Let me go ahead and do this.
+47:48 Hello, I want it to say, David, if
+I'm the one who types in my name.
+47:52 But of course, I don't
+want to hard-code that.
+47:54 I want to somehow get the
+user's name and plug it in here.
+47:57 So how can I do that?
+47:58 I can say let name equals document dot--
+48:02 and just so we see where this is
+going, getElementById maybe name.
+48:08 Because I have another ID.
+48:10 Recall, I had the anticipation to
+write that line of code earlier.
+48:14 So get the user's name.
+48:15 And then it turns out you'd only know
+this by seeing it before, online,
+48:18 or in class, .value will get me the text
+that the user has typed in, and then
+48:23 semi-colon.
+48:24 And now here, just like
+in C and in Python,
+48:27 I'm not going to want to do this.
+48:29 Because that's literally
+going to say, hello, name.
+48:31 I want to plug it in.
+48:32 And I can do this in a couple of ways.
+48:34 Perhaps the most blatant is like this.
+48:38 And those of you who did
+take APCS or the like
+48:41 might know what plus means in Java.
+48:43 This is just a coincidence
+that it also works here.
+48:46 What does plus sometimes mean
+in languages besides addition?
+48:49 AUDIENCE: Concatenation.
+48:49 DAVID J. MALAN: Concatenation.
+48:51 So in C, this would have
+been a pain in the neck.
+48:54 Like, in C, this is
+where you got to whip out
+48:55 like malloc or some really
+big array on the stack
+48:58 and actually like plug
+one name into the other.
+49:01 In Python, you can just concatenate
+things using pluses as well.
+49:05 Or you can use f-strings
+or format strings.
+49:07 In JavaScript, we can
+just do pluses like this.
+49:09 And this will concatenate "hello,"
+to the word name and print that out.
+49:13 So let's actually see what happens.
+49:15 If I didn't make any mistakes, when I
+reload this page and type in my name
+49:19 and click submit, hmm,
+what did I do wrong?
+49:24 What's that?
+49:25 I forgot to refresh it.
+49:26 I also forgot to change the
+URL, which I just now realized.
+49:28 So now we're in demo1.html.
+49:31 So let's reload now, David, submit.
+49:34 And there we have David.
+49:35 And just for good measure, let's
+go ahead and type in Maria, submit.
+49:38 And it does seem to be
+changing dynamically.
+49:41 So that's a nice improvement
+in that it's now doing that.
+49:45 Do we strictly need this variable?
+49:46 No, but if we have this variable,
+notice we can do this, too.
+49:49 Just so you've seen this, in
+JavaScript, for better for worse,
+49:53 now we have things called backticks,
+which is the key on a US keyboard
+49:56 that's usually on the top
+left just below escape.
+49:59 And if I have back
+ticks here, guess what?
+50:02 You can do this, which is
+uglier than Python's f-strings,
+50:07 but does the exact same thing.
+50:08 And again, this is the
+kind of stuff where
+50:10 you can start to roll your
+eyes as aspiring programmers.
+50:12 Where if one language does something
+slightly different and you just
+50:15 have to constantly remember,
+it's the same idea.
+50:18 It's the exact same idea.
+50:19 It's just different syntax.
+50:20 So this would plug-in the
+name into those backticks.
+50:22 And this is called a template
+literal in JavaScript.
+50:25 All right.
+50:25 Any questions on that thus far?
+50:29 All right, let me introduce one
+final teaser, here, as follows.
+50:34 Let me go ahead and go into
+our distribution code for today
+50:39 and open up, let's say, in
+source 11, this directory here.
+50:46 And in a moment we'll see
+all of the files in here
+50:48 and show a couple of examples here.
+50:51 So one, it's very common, of
+course, to have web-based forms
+50:54 where the user may or
+may not actually give you
+50:56 what you want him or her to type in.
+50:58 And so it's nice to
+validate their input,
+51:00 like we've been doing on the server.
+51:02 But if you validate the
+user's input and make sure
+51:04 that they've given you an email and a
+password and a password that's the same
+51:07 and checked your terms and
+conditions check box and so forth,
+51:10 you can do all of that in Python.
+51:12 And we've seen how to do
+that in application.pi.
+51:17 But it's a better user
+experience, UX, if you actually
+51:19 give the user more immediate
+feedback, maybe prettier feedback,
+51:22 by using some colors and
+highlighting on the screen
+51:24 to draw their attention
+to what's actually wrong.
+51:26 With JavaScript, we
+have that capability.
+51:29 Moreover, in JavaScript, we have the
+capability to do something like this.
+51:35 So if I now run the web server
+in today's distribution code
+51:38 and open up this URL, I'm
+going to see a listing again.
+51:41 But I'm going to go ahead now
+and pull up say ajax1.html.
+51:46 And here, I have a very
+simple web form, not unlike,
+51:48 in spirit, what you
+have in CS50 finance.
+51:50 But if I want to see what the
+stock price is of Netflix,
+51:53 I can type that get quote and I can
+actually get it in the client alone.
+51:59 I don't need to send
+them to another route.
+52:01 I don't need to use Python, it
+seems, to actually render a template.
+52:04 I can just interact with the
+form directly and do this.
+52:07 And then lastly, just a tease, we
+can do something like this whereby,
+52:12 if I actually con--
+52:13 damn it-- if I actually
+configure things correctly,
+52:16 we can actually get ourselves a
+full fledged map using JavaScript.
+52:19 So that in the end, we can
+use JavaScript and start
+52:22 to make interactive
+applications, like this one here,
+52:24 using Google Maps' API so that
+the user can click and drag
+52:28 and can actually interact with it.
+52:29 As by clicking on say,
+Stanford, California,
+52:32 and seeing what's going on in the news
+in Stanford, California right now by,
+52:36 again, writing code that executes in
+the browser, talks to some other server,
+52:40 gets the data back, and renders it.
+52:42 So we've just begun by
+introducing JavaScript to see
+52:44 the syntax with which we can do this.
+52:46 Let's take our 5 minute
+break here and then
+52:48 actually start building some of these
+things to see how they interact.
+52:51 All right.
+52:53 All right, we're back.
+52:54 And recall that the form that we created
+a moment ago just looks like this.
+52:60 It's pretty simple, ugly HTML.
+53:01 There's no CSS.
+53:02 We're focusing only
+on functionality here.
+53:04 I did, at least, give
+autofocus to the email field,
+53:07 so I could start logging in right away.
+53:09 But I want to achieve this behavior.
+53:10 You know what, I don't
+really want to cooperate.
+53:12 I just want to register
+and see what happens.
+53:15 I want to validate this form.
+53:17 So here's one way.
+53:18 I seem to be using the alert
+method and saying missing email.
+53:21 I'm not letting the
+user actually register.
+53:23 OK, so let me slightly cooperate,
+malan@harvard.edu, register.
+53:32 Missing password, it now says.
+53:34 All right, so let me go
+ahead and give it a password.
+53:37 One, two, three, four, five, register.
+53:40 Passwords don't match.
+53:41 Of course they don't.
+53:42 Because I didn't type it in.
+53:43 One, two, three, four, five, register.
+53:45 Passwords still don't match
+because I accidentally typed six.
+53:48 Register, check box
+unchecked, and so forth.
+53:52 And only once I check that
+box and now click register do
+53:55 I actually want the form to
+go through to the server.
+53:58 So how do we start to
+impose that kind of logic?
+53:60 We could do what you're doing or
+have done in CS50 Finance, whereby
+54:04 you check on the server and make
+sure that the user has given you
+54:07 email, password,
+confirmation, and a check box.
+54:09 And if not, you show
+them grumpy cat and you
+54:11 complain that they haven't cooperated.
+54:13 And that's all cute
+the first time around,
+54:15 but it's not the best user experience.
+54:17 Because now the user has
+to click the back button
+54:19 and they have to refill out
+the form and then do it again.
+54:22 It would be nice to just
+get more immediate feedback
+54:24 like we're getting here.
+54:25 And not necessarily as
+ugly as this feedback,
+54:27 because this alert is really just for
+debugging purposes, I would argue.
+54:30 But at least it's quick.
+54:32 And it's not even bothering
+talking to the server.
+54:34 So here is the HTML with which
+we might create that form.
+54:39 For the most part,
+this is cookie cutter,
+54:41 whereby I'm disabling autocomplete on,
+I was overzealous with my autocomplete.
+54:46 It's not strictly
+necessary for passwords.
+54:48 Because browsers won't
+do that by default.
+54:51 So really, I just want it to look
+like this, which is even smaller.
+54:53 So I have a field called
+email of type text.
+54:58 I have another field called
+password of type password.
+55:01 I have another field called
+confirmation also of type password.
+55:04 And then I have an input of
+type check box called agreement
+55:08 followed by the submit button.
+55:09 So that's it.
+55:10 So how do I begin implementing
+some of the logic we just saw?
+55:13 Well, let me do this.
+55:14 Down here in the script
+tag, eventually we're
+55:15 going to factor this
+out to another file,
+55:17 but for here, I'm going to do this.
+55:19 I'm going to go ahead and declare
+a variable called form and go ahead
+55:22 and get via
+document.getElementById("registration").
+55:29 Why that?
+55:30 Well, notice that I gave a
+unique ID to my registration form
+55:33 just because I want to be able
+to easily get at it, as here.
+55:37 Then, I know that forms have submission
+handlers, so I can go ahead and say,
+55:41 hey browser, on submission of
+this form, go ahead and call
+55:46 the following function,
+albeit an anonymous function.
+55:50 So all that remains for me to do is
+to implement this anonymous function.
+55:54 What do I want to do when the
+user clicks the submit button?
+55:56 I want to validate
+their input in some way.
+55:59 So let me go ahead and
+do it sort of logically.
+56:02 If this form's email field
+has a value from the user that
+56:07 just equals quote/unquote,
+then let me go ahead
+56:10 and alert the user that you
+are missing email, semi-colon,
+56:15 and I'm going to return false.
+56:16 Because that's it.
+56:17 I'm not going to return true.
+56:18 Return true would mean, let
+the user submit the form.
+56:21 Return false means, stop
+submitting the form.
+56:23 Let the user try again.
+56:25 And so let's do this now for passwords.
+56:27 So how about else if the form's password
+field has a value that also equals
+56:33 quote unquote, then go
+ahead and alert the user
+56:37 missing an s, missing password,
+semi-colon, and also return false.
+56:42 Next one is a little more interesting.
+56:44 Because now I can say else
+if form.password.value.
+56:49 What do I want to say logically here?
+56:50 AUDIENCE: Dot length.
+56:51 DAVID J. MALAN: Dot
+length, I could do that.
+56:53 So that's not a track I
+currently have in the UI we saw.
+56:57 AUDIENCE: Can you find
+some sort of confirmation?
+56:60 DAVID J. MALAN: The confirmation, yes.
+57:01 So it turns out the syntax
+is the same as in C,
+57:04 not equals form.confirmation.value.
+57:09 Then, I want to go ahead
+and say, I think I said,
+57:12 password, what did I say,
+passwords don't match, semi-colon,
+57:17 return false as well.
+57:18 And then the check box
+is a little different.
+57:20 I can say else if it is not the case
+that the form agreement box is checked.
+57:27 And that's a Boolean that's
+associated with a check box.
+57:30 And you would only know this from
+the documentation for JavaScript.
+57:32 But the not inverts it.
+57:34 So if it's not checked, then
+go ahead and alert the user
+57:37 that the check box is
+unchecked and return false.
+57:41 But if none of those
+conditions apply and we make it
+57:44 through this gauntlet
+of error checks, what
+57:46 do I probably want to do down here?
+57:50 What do I want to return?
+57:51 AUDIENCE: Return true.
+57:52 DAVID J. MALAN: Yeah, return true.
+57:53 And that just means, hey browser,
+do what you want to do by default.
+57:56 I'm done error checking the user.
+57:58 So there's some opportunities
+for refinement here.
+58:00 I could say, I don't really need to
+compare against the empty string.
+58:04 I could say, if there's not a
+value, which is a little tighter.
+58:08 And I can say, if
+there's not a password,
+58:11 so I could clean it up that way.
+58:12 I could actually use the string
+length, which is a thing, too.
+58:15 So I could say something, if I
+really wanted to be nit picky,
+58:18 else if the form's password
+value.length is less than 8 characters,
+58:25 I can say something like
+alert, password too short,
+58:29 which would be a nice check,
+as well, and return false.
+58:32 If I really want to be secure, I can
+make sure the user has a pretty random
+58:35 looking password, maybe with some
+numbers or some special characters
+58:38 or some of those somewhat annoying,
+but probably good, constraints,
+58:41 at least if you're using
+a password manager.
+58:43 And this is how websites
+do exactly that.
+58:46 But there's still an opportunity for
+improvement here in a couple of ways.
+58:50 This code is, again,
+commingled with my HTML.
+58:54 But this is actually an easy fix.
+58:56 Let me go ahead and copy all of this
+code or highlight all of this code
+58:60 that we just wrote, cut
+it out, and indeed I'm
+59:02 going to get rid of the
+script tag altogether.
+59:05 And instead in the head as my
+web page, where previously we've
+59:08 only ever put titles and maybe
+some style or length tags for CSS,
+59:13 I'm going to go ahead and say
+script tag the source of which
+59:17 will be form1.js for JavaScript.
+59:19 And even though this
+looks a little weird,
+59:21 this is indeed the right way to do it.
+59:22 It's an open tag and a close tag.
+59:25 It is not valid, for
+silly reasons, to do this.
+59:28 So even though this kind of makes
+no sense, do this nonetheless.
+59:31 That's the way the world is.
+59:33 So let me create another file,
+paste that very code I just wrote.
+59:38 Let me go ahead and unindent
+it just to keep things cleaner.
+59:41 Actually, it's not
+quite indented properly.
+59:43 Now let's do this once more.
+59:45 Let me save this as, what
+did I say, form1.js, save.
+59:50 And now I have a better version of this.
+59:53 And what is the browser going to do?
+59:55 Well, just like when we've used
+images in our web pages before,
+59:58 like the cat, by referencing an
+image source equals quote unquote,
+60:01 so do we have a script source
+equals quote unquote something here.
+60:04 So now when a user visits
+this page, form1.html,
+60:07 the browser is going to read it
+top to bottom, left to right.
+60:10 It's not going to see
+any actual JavaScript.
+60:12 So nothing's going to
+execute right away.
+60:13 But it is going to see this other file.
+60:16 And it's going to
+recursively, if you will,
+60:17 download that file so that the web page
+has access to all of the code therein.
+60:24 So that would be one refinement.
+60:26 And now we're back to what, I
+would argue, is a better design.
+60:28 But there is another way to do this.
+60:30 And let me open up a
+premade version of this.
+60:32 It turns out that some things in
+JavaScript can be pretty tedious.
+60:36 Because the language, early
+on, was pretty immature.
+60:38 And people were trying to get it
+to do things that just weren't
+60:41 very easy to do in the language.
+60:43 And so popular libraries arose,
+as was the case in Python as well.
+60:48 And here we have an
+example called form2.html
+60:52 that actually uses a
+library that, for some time,
+60:55 was one of the largest and
+most popular called jQuery.
+60:58 JQuery is not a language unto itself.
+60:60 It's literally just code
+that a bunch of nice people
+61:02 wrote to make it easier to use
+JavaScript for certain things.
+61:06 The price we pay for that ease of
+use is that some things are actually
+61:09 a little more syntactically
+weird looking.
+61:11 And so we won't dwell too
+much on the syntax of jQuery.
+61:14 But jQuery is the library for
+JavaScript that Bootstrap uses.
+61:18 And you might recall Bootstrap
+from the past couple of weeks.
+61:21 Anytime we've made prettier websites
+than I'm typically capable of, when
+61:24 they have nice forms and
+everything is nicely color coded
+61:27 and they resize nicely,
+that's because we're
+61:28 using the Bootstrap
+CSS library that also
+61:31 comes with some JavaScript
+interactive features that
+61:34 require that you have jQuery
+linked in your web page, as well.
+61:38 So that's why we'll use it here,
+as well as to see the following.
+61:41 Here, now, is another implementation
+of the same program in between script
+61:46 tags, for now, inside of my head.
+61:49 But I've done a couple
+of different things.
+61:52 This line of code is perhaps the
+weirdest looking at first glance,
+61:55 in part, because of this dollar sign.
+61:57 And we saw a dollar sign a moment
+ago inside of those strings
+62:00 with the backticks.
+62:02 This one means something different.
+62:03 As soon as I import this file, which
+is the latest version of jQuery,
+62:07 so it's hosted elsewhere,
+not on my own IDE,
+62:10 it turns out that gives you access
+to a global variable called jQuery,
+62:14 spelled like that.
+62:15 Back in the day though,
+the people who wrote jQuery
+62:18 decided that that's a little tedious
+if every time the users in the world
+62:21 want to use our library, they have to
+type out this kind of long word jQuery.
+62:26 So it turns out they just created
+an alias for it called dollar sign.
+62:30 And weirdly, in JavaScript dollar
+sign and a few other punctuation
+62:33 symbols are actually legitimate
+characters to use in variable names.
+62:37 This is not true in C.
+This is not true in Python.
+62:39 But it is true in JavaScript, that even
+though this looks funky to all of us,
+62:42 at least relative to the letters of
+the alphabet, it's a valid symbol.
+62:45 It could have been fu or bar or x or y.
+62:47 So jQuery just kind of got there
+first and claimed for the world,
+62:50 we shall use dollar sign for
+all of our functionality.
+62:53 That's all it means.
+62:55 So what does this
+functionality do for us?
+62:57 This is a mouthful.
+62:57 But let's see if we can
+parse what's going on.
+62:60 Document is what, in your
+own words, anyone's words?
+63:05 Yeah.
+63:06 AUDIENCE: The web page.
+63:07 DAVID J. MALAN: The web page.
+63:08 It is a global variable referring to
+the very web page we're looking at.
+63:12 That's the so-called document.
+63:14 This syntax here, dollar
+sign open paren, close paren,
+63:17 is the way in jQuery to
+wrap, literally, the document
+63:22 with some additional functionality.
+63:23 So the browser gives you this
+global variable document.
+63:26 And it's got some functionality
+built in, like getElementById.
+63:29 And there's other stuff too.
+63:30 But we won't look in detail at it.
+63:32 This dollar sign open paren close paren
+around it, takes that global variable
+63:35 and stuffs even more
+functionality into it
+63:37 just to make it even easier
+for us humans to use.
+63:40 One of the pieces of functionality it
+gives us is this function called ready.
+63:44 And ready, a little unusually,
+but similar to what we just saw,
+63:49 takes an argument as its input.
+63:51 And that argument is a function.
+63:53 The function that should be
+called when the document is ready.
+63:57 That's it.
+63:57 Because web pages can
+be pretty big, right?
+63:60 You go to cnn.com or Google
+News or Facebook or Gmail,
+64:04 it kind of takes some number of
+milliseconds or sometimes even seconds
+64:07 for the whole page to
+load until you finally
+64:09 see the entirety of the web page.
+64:11 That means the web page is ready,
+once you see everything on it.
+64:14 So the way you can say,
+programmatically, hey browser,
+64:17 only execute the following code
+when the document is ready,
+64:20 is with the line of code like this.
+64:22 And it's fine if you have to copy-paste
+that for now until it sinks in.
+64:25 But that's all it's saying.
+64:26 Add some functionality to the
+document, like this ability
+64:29 to wait until the web page is ready.
+64:31 And then when it is ready, call
+this anonymous function i.e.
+64:34 this chunk of code.
+64:36 So what's happening below that?
+64:38 Well, it turns out, there's
+just alternative syntax
+64:41 in jQuery for doing the
+same thing we just did.
+64:44 Though cryptic looking, this
+dollar sign with the parentheses
+64:47 takes an argument here that's
+different from document.
+64:50 If you pass in a string,
+that kind of looks like CSS,
+64:54 recall that we've used
+CSS selectors before,
+64:57 where you can either have a tagged
+name in your CSS file or hashtag
+65:01 something, which is the ID,
+the unique ID, in a file.
+65:04 Or dot, which meant
+a CSS class, vaguely.
+65:07 So look back at some of your CSS
+examples if you don't quite recall.
+65:10 But in CSS, those are selectors.
+65:12 And this one just means, grab the dom
+node whose unique ID is registration.
+65:17 jQuery syntax for that
+same expression is this.
+65:20 So this line of code is
+essentially equivalent
+65:23 to
+document.getElementById("registration")
+65:29 And the reason that jQuery exists
+is that they say in about half
+65:33 as many characters what it just took me
+twice as many characters to type out.
+65:38 That's all.
+65:38 It's not a new idea.
+65:39 It's just more succinct,
+if more cryptic.
+65:42 And moreover, if we keep going,
+in raw JavaScript, it's onsubmit.
+65:46 In jQuery, it's .submit.
+65:47 Just because, why do we need
+those two extra characters?
+65:49 We don't really.
+65:50 So that's all we're seeing here.
+65:52 So what actually
+happens, now the syntax,
+65:54 admittedly, gets a little funkier.
+65:55 So we won't spend too much time here.
+65:57 But if you did not have the foresight
+or for whatever reason did not
+66:01 want to give unique identifiers to
+all of your form fields, that's OK.
+66:05 Because you can use
+CSS-like selectors, fancier
+66:09 ones than we've introduced
+in the class, that say hey,
+66:11 go look in the web page for the element
+whose unique ID is registration.
+66:15 Look inside of it, it's
+children or descendants,
+66:18 for an element of type input.
+66:20 And then, only grab the value of
+that input if its name is email.
+66:28 So again, we won't dwell on this.
+66:29 Because there are easier,
+simpler ways to do this.
+66:32 But with jQuery, you get the
+expressiveness that we're seeing here.
+66:35 And all the rest of
+the code on the screen
+66:37 simply does the exact same
+thing using another syntax.
+66:39 So use this more as a crutch
+when experimenting with, say,
+66:42 for the next project or
+final project, jQuery,
+66:44 if you want to see analogues
+from no jQuery to yes jQuery,
+66:49 but it does nothing
+fundamentally different.
+66:51 It's just a different syntax.
+66:53 But there is going to be a more powerful
+feature that we now get from jQuery.
+66:57 It turns out that when
+you do visit websites
+66:60 like maps.google.com like this.
+67:02 This is not the whole world.
+67:04 At the moment, it figured
+out that I'm in Cambridge.
+67:06 And it's showing me just a
+little snippet of Cambridge.
+67:08 And Google also, even though
+I'm only looking at Cambridge,
+67:12 also did not proactively download
+pictures of the rest of the world
+67:16 and store them in my browser's memory.
+67:17 That's be pretty stupid.
+67:18 Because I rarely need to go
+very far away from where I am.
+67:21 And even so, if I want
+to go to like New Haven,
+67:23 I don't really need all of the
+cities and towns between me
+67:26 and New Haven to be in my browser.
+67:28 We can just jump straight there.
+67:29 And you can kind of see
+this artifact, as follows.
+67:33 If I click and drag really
+quickly, what do you see happening?
+67:36 I should have gone somewhere
+where there is land.
+67:39 What do you see happening on
+the left, as I do this quickly?
+67:43 AUDIENCE: There is a delay.
+67:45 DAVID J. MALAN: Yeah, there's a delay.
+67:46 You see these gray
+tiles, like placeholders,
+67:48 until eventually, they're filled in.
+67:51 Now why is that happening?
+67:52 Well, you know what, I'm going to
+go up to my browser's developer
+67:55 menu, developer tools, which should
+be a habit you're increasingly getting
+67:58 into when you want to understand
+something or solve some problem
+68:01 or just learn out of curiosity.
+68:03 Let me clear this temporarily.
+68:04 But every time I click, whoa.
+68:07 Just clicking and dragging
+induced, as of now, 89--
+68:11 whoops, there there's my screen saver--
+68:13 92 more HTTP requests.
+68:16 So what is it that's being requested, do
+you think, every time I click and drag?
+68:21 More images, more tiles, as
+they're called in Google Maps.
+68:24 And so what is the
+feature of browsers that
+68:29 allows them to go get more and
+more data like this on demand?
+68:32 This is a technology or
+technique called AJAX.
+68:35 AJAX is just a fancy way of
+saying a feature in browsers
+68:38 that lets them execute HTTP requests
+after the first one is all done.
+68:43 Which is to say, when you first visit
+Facebook or Gmail or Google Maps
+68:47 and you get back a response from the
+server containing the map of Cambridge,
+68:51 the browser, thanks to AJAX,
+which is a more modern technology
+68:54 over recent years, has the ability
+to send more of these envelopes
+68:57 out onto the internet saying, I need
+the tiles for the northeast corner.
+69:00 Or I need the tiles for
+the southwest corner.
+69:02 Send them back to me.
+69:03 So constantly, we're now up
+to 651 additional envelopes
+69:07 came back from Google in order
+to fill in all of the blanks
+69:10 as I sort of rapidly clicked and
+dragged to different locations.
+69:13 And it doesn't have to be
+graphical in this nature.
+69:15 We saw stock quote a moment ago.
+69:17 And that's, perhaps, an
+even simpler paradigm,
+69:19 if I just want to get some
+slightly additional information.
+69:22 So let's do that, let me go
+ahead and open up ajax.html.
+69:26 And I see this form here.
+69:27 And now let me go ahead, as should
+be, again, increasing habit,
+69:31 go to my network tab.
+69:33 And notice, just for good
+measure, also get into the habit
+69:35 of clicking preserve log.
+69:36 So that just in case the web
+page redirects or goes elsewhere,
+69:39 it doesn't delete everything
+you were looking at.
+69:41 You still see everything.
+69:43 Let me go ahead here and type
+NFLX for Netflix and get a quote.
+69:48 And notice, we saw earlier, the
+response come back from the server.
+69:51 As of this moment, it's $198.41,
+but how do we know that?
+69:57 Let me dismiss the alert
+and focus down here.
+69:60 After loading this page, apparently,
+it sent one more HTTP request,
+70:05 which was successful.
+70:05 Why?
+70:07 Or how do I know?
+70:09 Yeah, 200 OK.
+70:10 So Chrome is showing me that, too.
+70:12 And you can do this in Edge
+and in Firefox and Safari.
+70:15 But frankly, Chrome is sort of the go
+to browser these days for development.
+70:18 So I would encourage you
+to keep using it for this.
+70:20 If I click on this, I can now see what
+the request was and the response was.
+70:24 Here are all those headers.
+70:25 There's some cookies involved,
+which are a result of the IDE
+70:28 and not my own code.
+70:29 But it's the response I care about.
+70:31 Let me view the source.
+70:33 And notice, a few things came
+back, some of which are familiar,
+70:36 some of which aren't.
+70:37 Among the headers is indeed
+200 OK, so that's a good thing.
+70:41 Notice what type of
+content came back, though.
+70:44 In the past it's been text/html.
+70:46 But what came back this time?
+70:48 Yeah, application/json.
+70:50 Application is a little weird.
+70:51 It's not an application.
+70:52 It's not a program.
+70:53 But it's a format used by
+programs, you can think of it.
+70:56 JSON is JavaScript Object Notation.
+70:58 So probably, what came back is something
+with some curly braces and colons
+71:01 and quotes.
+71:02 We'll see in a moment,
+47 bytes worth, in fact,
+71:04 and then some other stuff came
+back from the server as well.
+71:07 So let me click on response.
+71:09 And what do you know, in
+the response from the server
+71:13 is not another web page.
+71:14 There's no HTML tag, body
+tag, head tag, or anything.
+71:17 It's just this text, but
+in an official format.
+71:21 Open curly brace, close curly brace
+means here comes a JavaScript object.
+71:26 What is an object?
+71:27 It's a hash table or a
+dictionary with keys and values.
+71:30 What are they?
+71:30 A key is name.
+71:32 Value is Netflix.
+71:33 Price is a key.
+71:35 198.41 is a value.
+71:37 Symbol is a key.
+71:38 Netflix is a value.
+71:41 And so it's just a way of
+getting back one or more pieces
+71:44 of useful information.
+71:45 So how do I now do this and how
+do I get the information back?
+71:48 For that, we have to
+look at the code itself.
+71:50 So in ajax0.html, we
+have this code here.
+71:56 In HTML form, that, just like
+our very first example today,
+72:00 just simply hard-coded inside
+of an onsubmit attribute,
+72:03 a quote function call,
+and then return false.
+72:06 That is, don't reload the page,
+don't submit the form for real,
+72:09 just call the quote function.
+72:11 Where is the quote function defined?
+72:12 At the moment, a little lazily,
+it's defined in the same file.
+72:16 But that's fine.
+72:16 Because this is our very first.
+72:18 Notice that I have two
+things for JavaScript.
+72:20 One, is jQuery, that library I
+mentioned earlier, it has to come first.
+72:24 Because just like in C, you
+need to know that functions have
+72:27 been loaded before you use them later.
+72:29 Then here comes my own
+script, my own JavaScript.
+72:32 And here's my quote function.
+72:33 It doesn't take any arguments.
+72:34 Because we're going to get
+those in code from the browser.
+72:38 And the syntax here is a little funky.
+72:40 But we'll distill it in just a moment.
+72:42 Dollar sign is synonymous with what?
+72:44 AUDIENCE: JQuery.
+72:45 DAVID J. MALAN: JQuery.
+72:46 So this is just a prettier or
+confusing way of saying this.
+72:51 JQuery.getJSON.
+72:53 GetJSON is a function, or a method,
+so to speak, whose purpose in life
+72:56 is to do that, go get me some JSON data.
+72:58 From where should I get it?
+72:60 /quote, which we'll see in a moment, is
+a super short route that I implemented
+73:05 in Python on the back end.
+73:06 Though, it could have been
+implemented in any language.
+73:08 This looks a little cryptic, so we'll
+come back to this in just a moment.
+73:11 So let me delete this temporarily
+and just say the following.
+73:15 The getJSON function
+that comes with jQuery
+73:18 takes at least two
+arguments in this case.
+73:21 One is the URL, to get JSON from.
+73:24 And two is what, would you infer?
+73:32 AUDIENCE: An anonymous function.
+73:34 DAVID J. MALAN: A what?
+73:34 AUDIENCE: An anonymous function.
+73:36 DAVID J. MALAN: An anonymous function.
+73:37 That anonymous function, though,
+unlike the ones we've seen before,
+73:40 actually takes input this time.
+73:41 So it doesn't have a name.
+73:42 And that's no big deal.
+73:43 But it does take one argument-- data.
+73:46 And this is an example of
+using an anonymous function
+73:49 as what's properly called a callback.
+73:51 Because the internet can be slow.
+73:53 And if I am trying to get
+a stock quote from /quote,
+73:56 maybe it comes back super fast.
+73:57 But maybe the server is overloaded.
+73:59 Maybe my internet connection is slow.
+74:00 Maybe I'm on my phone.
+74:01 And so it might take a second or
+two seconds to get that response.
+74:05 And imagine if things waited in the
+world of the web for data to come back,
+74:11 your experience, your user experience,
+your UX could be pretty bad, right?
+74:15 The whole browser might hang or wait or
+you get the stupid spinning beach ball
+74:19 while you wait for something to happen.
+74:21 Imagine that in Facebook,
+like every time your friend is
+74:23 typing you see the dot, dot, dot.
+74:25 But maybe you can't do anything with
+the website until he or she hits enter
+74:28 and you finally get the message.
+74:30 That would be blocking you
+from doing real useful-- well,
+74:33 "real useful things" from
+using Facebook in other ways.
+74:37 So how can you instead
+tell the browser, go
+74:42 get me something more, more
+tiles of the map, more messages
+74:45 from my friend, more stock
+quotes from a server,
+74:49 but call me back when you have the data
+so that I can actually keep doing work?
+74:52 Just like, I might be at my desk here.
+74:54 And actually, Brian, if you
+wouldn't mind coming up.
+74:57 And Brian may be here is
+in his little home office.
+74:59 And I am really curious as to
+what Netflix's stock price is.
+75:05 So let me go ahead and
+pull up Brian, here.
+75:16 BRIAN: Hello.
+75:17 DAVID J. MALAN: Hi, Brian?
+75:18 BRIAN: Hi.
+75:19 DAVID J. MALAN: Hi, this is David
+75:20 BRIAN: Hi, how are you doing?
+75:21 DAVID J. MALAN: Hi, I'm
+really good, thank you.
+75:23 I need the current stock
+price of Netflix, please.
+75:26 BRIAN: The current stock price
+of Netflix, I'll work on that.
+75:29 But I'll have to call you back.
+75:31 It'll me a little while.
+75:32 DAVID J. MALAN: OK, thank you.
+75:33 BRIAN: No problem.
+75:41 finance.cs50.net.
+75:56 DAVID J. MALAN: Oh, hello?
+75:57 BRIAN: Hello?
+75:58 Hi.
+75:59 The current share of Netflix cost $198
+76:03 DAVID J. MALAN: Wait a minute,
+I'm getting a call from Colton.
+76:05 BRIAN: OK, and $0.35.
+76:08 DAVID J. MALAN: Hold on I got to
+call you back Colton, once sec.
+76:11 Wait, hello?
+76:14 BRIAN: Hi.
+76:15 DAVID J. MALAN: Oh, hi Brian.
+76:17 BRIAN: A share of Netflix costs $198.35
+76:21 DAVID J. MALAN: OK, thank
+you very much, Brian.
+76:23 BRIAN: No problem.
+76:23 DAVID J. MALAN: Goodbye.
+76:24 OK, I just hung up on
+Colton on the internet.
+76:26 So thank you.
+76:28 OK, so what was the point of that
+unexpected surprise and how weird
+76:31 that he called me right at that moment?
+76:32 So the point is that
+callbacks are something
+76:36 we're already familiar with, right,
+in the real world where you actually
+76:39 want to get some information
+back from someone.
+76:40 And maybe it's not as contrived as
+hey, I need a stock quote quickly,
+76:43 get back to me.
+76:44 But you do wait for them to get
+back to you with some information.
+76:47 How do you implement this in code?
+76:48 This is the exact same idea.
+76:50 So we have this special
+function called getJSON.
+76:53 It's baked into this library called
+jQuery, whose nickname is dollar sign.
+76:57 I then say, go get me some data
+from /quote or, equivalently,
+76:60 Brian in the real world.
+77:01 And then, I tell getJSON, when you
+are ready with this information,
+77:06 call me back, so to speak.
+77:07 How do you call me back?
+77:09 Well, you know what, I'm going to
+write in advance some code that I
+77:11 want you to call, literally, but in a
+computer sense, when the data is ready.
+77:16 So just as Brian verbally gave me
+that stock quote, passing it verbally
+77:21 back over the phone, so
+can this anonymous function
+77:25 receive as an argument a
+data parameter or argument
+77:29 that I, then, can have access to.
+77:30 So I can use dot notation,
+like in C, structures,
+77:33 and get at the name or the price
+or the symbol, which were the three
+77:37 values that we saw in that JSON object.
+77:39 But meanwhile, this line
+of code executes instantly.
+77:43 And it registers, if you will, a
+callback function with getJSON.
+77:46 So it just knows whom to call back.
+77:49 And what this means in real terms
+is that if my web page were far more
+77:52 interesting than this and is
+Facebook or G-mail with lots
+77:55 and lots of other
+features, I can get back
+77:57 to working on and using those features
+and then get interrupted if and when
+78:02 the phone actually rings or the
+message comes in from my friend
+78:04 or I get a new email or I get,
+in this case, a stock quote back.
+78:09 So all that happens super quickly on
+a fast internet connection, but not
+78:13 necessarily the case on a slower one.
+78:15 As we started seeing with Google Maps,
+trying to get more and more titles.
+78:18 But how can I clean this up?
+78:20 So that was version 0.
+78:21 Let me go ahead and
+open up version 1 here.
+78:23 And notice that this time, I'm doing
+things a little bit differently.
+78:28 Oh, and actually, let me reveal one
+last thing by way of this example here.
+78:34 So what are we actually
+doing differently here?
+78:37 So in this case, I'm now attaching-- let
+me open up the other one so we can go
+78:42 there and back--
+78:43 in this first version, recall,
+I did the sloppy kind of thing
+78:46 where I commingled my
+HTML and my JavaScript.
+78:48 And that's bad design.
+78:50 Don't do that, even though that's
+where we started the story.
+78:53 So how can I do this,
+programmatically, in code?
+78:55 Well, if this is my form now, and
+notice there's no mention of onsubmit.
+78:59 There's no mention of that attribute.
+79:01 I'm doing this entirely in code.
+79:03 How can I do that?
+79:04 Well, I can say, when
+the document is ready,
+79:06 go ahead and register this
+submit handler, if you will.
+79:10 Event handler would be the generic
+term for all of these kinds of things.
+79:14 When that form is submitted,
+call getJSON of /quote.
+79:18 Then call this number back, so
+to speak, when the data is ready.
+79:22 And I deleted this,
+temporarily, earlier.
+79:23 But let's tease apart what this is.
+79:25 It's a little cryptic looking.
+79:26 So let me clean that up as follows.
+79:28 Let me go ahead and say the
+following, let my HTTP parameters
+79:33 be this JavaScript object
+that has a symbol and whose
+79:40 value is this thing here.
+79:43 And this is a little cryptic, too.
+79:44 But we'll tease this
+apart in just a second.
+79:47 So let me now replace
+this with HTTP parameters.
+79:50 So what's going on here?
+79:51 I'm just being more verbose,
+but it's no more correct.
+79:54 Here is a variable
+called HTTP parameters.
+79:57 What type of variable is it?
+79:58 It's an object in JavaScript,
+note the nomenclature,
+80:01 because of the curly braces.
+80:02 That's the clue.
+80:04 An object, recall, has keys
+and values separated by colons.
+80:07 So here's a key symbol.
+80:08 And here is a value.
+80:09 This is a very funky way of writing it.
+80:11 But this is jQuery's
+way of saying this--
+80:17 document.getElementById("symbol").value.
+80:24 So again, the value, no pun intended,
+of using jQuery in contexts like this
+80:29 is just fewer keystrokes.
+80:30 It's more cryptic.
+80:31 You kind of have to remember
+the syntax over time.
+80:33 But it's fewer things to type.
+80:34 And that's all it's doing.
+80:35 It's getting the symbol's value
+from whatever the user typed in,
+80:38 like an NFLX for Netflix, and then it's
+storing it as the value of this key.
+80:42 And then to getJSON, It's
+passing in those HTTP parameters
+80:47 to create the URL I expected.
+80:49 And what was the URL I expected,
+expected in the sense of me
+80:53 being the programmer?
+80:54 Well, if I hover over
+the URL in Chrome's log,
+80:56 I visited /quote question
+mark, symbol equals NFLX.
+81:02 So it seems that what getJSON is
+doing for me is actually constructing,
+81:06 dynamically, a GET request.
+81:08 Just baking into the URL the
+parameters that I want to pass in.
+81:14 And so that example does,
+fundamentally, just that in the end.
+81:17 So any questions, then, on AJAX or
+any of the syntax with which we're
+81:21 doing this?
+81:23 Yeah?
+81:24 AUDIENCE: Why is the keyword
+symbol not between quotes?
+81:28 DAVID J. MALAN: Good question.
+81:30 Why is the word symbol
+not between quotes?
+81:32 It could be.
+81:32 This would be perfectly correct, too.
+81:34 It's not strictly necessary when you're
+providing it as input, shall we say,
+81:41 in this context.
+81:43 It is necessary in the output.
+81:44 So for stupid reasons,
+the JSON format that
+81:48 is meant to come back as the
+response, everything must be quoted.
+81:51 But when you're actually writing
+JavaScript code with objects and keys
+81:53 and values, you don't
+strictly need to quote things.
+81:56 Just bad design in the language.
+81:58 Other questions?
+82:01 All right, so if then,
+the take-aways thus far
+82:03 are JavaScript has functions
+and anonymous functions,
+82:06 which is kind of interesting, loops
+and conditions and variables and more,
+82:10 even though we've not really
+used some of those features,
+82:13 like loops and conditions.
+82:13 Because we've kind of beaten
+them to death with Python and C.
+82:16 They are in there.
+82:17 But more importantly,
+there is this notion
+82:19 of callbacks, the ability
+to call a line of code
+82:22 and then say when you're
+ready with your return value,
+82:25 call me back by calling this function.
+82:27 This is an example of what's called
+asynchronous code in contrast
+82:32 with synchronous.
+82:33 Up until now, almost everything we've
+written and everything we wrote in C
+82:36 was synchronous, which means
+if you run a line of code
+82:39 and that function takes
+awhile to run, your code
+82:42 is going to hang there
+for some amount of time.
+82:44 And God forbid you've
+got an infinite loop,
+82:46 it's going to hang there
+forever and block everything.
+82:48 We started to see
+asynchronous code in Python,
+82:51 even though we didn't call it
+this, just a week or two ago when
+82:53 we started using Flask.
+82:55 Because Flask is asynchronous in the
+sense that you write your program,
+82:60 it registers all of those routes, and
+then it just kind of waits for things
+83:05 to happen asynchronously, sort
+of out of order, in any order.
+83:09 But now in JavaScript,
+we really feel the power
+83:12 of asynchronous in the following way.
+83:14 The reason that I was able to sort of--
+83:17 actually, I didn't really do
+anything useful with my time.
+83:20 I just kind of twiddled my fingers here.
+83:21 But theoretically, I could
+have made another call.
+83:23 I could have checked my email.
+83:24 I could have gotten a snack while
+I wait for Brian to get back to me.
+83:26 I could have gotten real work done.
+83:28 Because if you allow
+for asynchronicity, you
+83:31 can do stuff in between the starting
+and the finishing of some goal.
+83:35 And that was just like
+when Brian called me back,
+83:37 I could have used that time usefully,
+just like my program or my website
+83:40 could do other things
+while I wait for this data.
+83:43 So the value, then, of
+asynchronicity is that we
+83:47 can be ready to do more things at once.
+83:50 And what are some of the
+things we might want to do?
+83:52 Well, let me open up some remaining
+examples, here, as follows.
+83:57 Let me go ahead, here,
+and open up this one.
+83:60 So this is built-in functionality
+that's actually kind of cool,
+84:03 even though it's a little verbose.
+84:04 If you've ever noticed,
+web pages these days
+84:07 and certainly mobile applications
+can know where you are.
+84:10 Frankly, Google knew where
+I was when I pulled up
+84:12 Google Maps, even though I was not
+logged in, which is a little creepy.
+84:15 But they had enough
+information about me.
+84:17 How could you be as creepy
+in your own web sites
+84:21 and figure out where the user is?
+84:23 Maybe, I shouldn't have
+teed it up like that.
+84:25 Well, this is a mouthful.
+84:27 But the ideas are exactly the same.
+84:30 Here, it turns out, there
+is another global variable
+84:33 that comes with browsers these days.
+84:34 It's not just document.
+84:36 There's also navigator.
+84:37 And navigator is like this
+special global variable
+84:39 that's got geographic related
+functionality built into it.
+84:43 One of those pieces of functionality
+literally is navigator.geolocation.
+84:47 So this is like a feature inside
+of this global navigator object.
+84:51 It comes with a
+function, otherwise known
+84:53 as a method called current position.
+84:55 Which, literally, if you
+read the documentation,
+84:57 is supposed to get the
+user or technically
+84:59 the browser's current position in
+the world, latitude, longitude, using
+85:04 GPS coordinates or the like.
+85:06 But that can take awhile to
+figure out where the user is.
+85:10 If we were talking in a CSI sense,
+it's got to triangulate the user
+85:13 and figure out where they
+are and do all of this,
+85:15 sometimes talking to the server.
+85:16 Somehow their position is determined.
+85:18 And it could take a second, a
+minute maybe, some amount of time.
+85:21 So that's a good opportunity for
+an asynchronous implementation,
+85:26 to use a callback like
+we did with Brian.
+85:29 So that when the browser
+does figure out my location,
+85:31 let me know so that I don't see
+some annoying beach ball spinning
+85:35 until that answer comes in.
+85:36 So how do I do this?
+85:38 I call getCurrentPosition.
+85:39 I pass in an anonymous function,
+though it could have a name.
+85:42 But it doesn't need it.
+85:43 An anonymous function that
+takes, per the documentation,
+85:45 one argument called position, which is
+going to be a special object containing
+85:49 coordinates.
+85:50 When that function is called some
+seconds or milliseconds later,
+85:54 this one line of code here is
+going to execute, document.write,
+85:58 which we haven't seen.
+85:59 But this is just a way of writing
+additional words to the document,
+86:02 like the web page, the body.
+86:04 position.coords for
+coordinates, .latitude.
+86:08 And then concatenate a comma
+just to keep it pretty.
+86:11 And then concatenate
+position.coords longitude.
+86:14 So this is a huge mouthful
+for saying, do the following.
+86:18 Let me go into the web page
+called geolocation.html.
+86:25 And nothing seems to happen yet.
+86:28 But if I--
+86:34 Why did nothing happen?
+86:36 Oh, no.
+86:46 OK.
+86:47 There we go.
+86:48 So it wasn't working because I
+wasn't accessing today's demos
+86:50 by HTTPS, which isn't a big deal.
+86:52 Because they're just
+public demos anyway.
+86:54 But the browser didn't like it.
+86:55 Because it wants the communication
+of my GPS coordinates to be secure.
+86:59 So as soon as I change
+to HTTPS, it says,
+87:02 hey, this domain name, my own on the
+IDE, wants to know your location.
+87:06 Now, some of us might be in the
+habit of just clicking block.
+87:09 Some of us might instead be in
+the habit of just clicking allow.
+87:11 Some of us might be in the
+habit of clicking enter
+87:13 and who knows what just happened.
+87:14 But if I do click allow and
+wait, because it's asynchronous,
+87:20 Brian could be taking awhile
+to figure out where I am.
+87:22 There are my incredibly precise,
+using floating point values,
+87:26 location in the world, at
+least with high probability.
+87:29 Now, I can check for this, I believe.
+87:31 This just happens to be
+Cambridge, Massachusetts.
+87:33 If I go to Google Maps and
+search for those GPS coordinates,
+87:38 indeed that is pretty darn scary.
+87:42 So that's pretty good.
+87:46 That is, in fact, where we are.
+87:49 So the takeaway is, how can we do this?
+87:51 Well, we can do this by
+understanding what a callback is
+87:53 and what asynchronous code is.
+87:54 But again, the paradigm is changing.
+87:56 I'm not just calling
+getCurrentPosition and then
+87:58 getting back a return value like we have
+been getting for weeks in C and Python.
+88:02 Now, there is nothing
+on the left hand side.
+88:04 I'm not waiting for a
+return value, per se.
+88:06 I'm certainly not storing a return
+value on the left hand side,
+88:09 as we've been doing for
+ages with Python and C.
+88:12 Instead, I'm passing in a
+function, functionality,
+88:16 like my telephone saying, call
+me back when you have the answer.
+88:19 And that's the paradigm now that's
+really starting to change for us.
+88:23 And there's a couple of other things
+we can do along these lines, too.
+88:26 Let me open up one, which
+is just a little silly.
+88:29 But it kind of brings me
+back to my days of HTML.
+88:32 Back in the day, in HTML like 1.0,
+there was this amazing tag called blink.
+88:37 Whereby, if you did open
+bracket blink close bracket
+88:40 and then wrote some words
+and then close the tag,
+88:42 it would just do this on the web page.
+88:44 And I'm pretty confident
+this is how you were greeted
+88:46 when you visited my like freshman year
+website or sophomore year website like,
+88:51 hello, welcome to my website.
+88:52 This is stupid.
+88:53 And eventually, the one good thing the
+standards bodies did over the years
+88:56 was remove blink
+functionality all together.
+88:59 There was also, as an aside, a marquee
+tag, where, just like a stock ticker
+89:03 or like a Broadway show
+marquee, it would just
+89:06 scroll text across your screen like
+this, which is also pretty stupid.
+89:10 But we can bring back at least
+the blink tag as follows.
+89:15 So here is a pretty simple web page
+with just a single div and an ID
+89:20 of greeting, just so I have some
+way of uniquely identifying it.
+89:22 And suppose I want to
+make this text blink.
+89:25 Well, if you consider, now
+that you have the ability
+89:27 to execute code on the
+user's computer, we
+89:30 should be able to achieve this by like
+turning CSS on and turning CSS off,
+89:35 on and off.
+89:36 And you might not have done this before.
+89:37 Because we've probably just used CSS
+for like centering text or making it
+89:40 bold or a color or a
+different size or the like.
+89:43 But you can also make it display or
+not display, visible or invisible, too.
+89:48 So if we look at my script code,
+here, for better or for worse,
+89:53 let me consider how I might do this.
+89:54 I'm going to go ahead and
+define a function called blink
+89:57 that simply gets that div by its ID.
+89:60 We've seen that before.
+90:01 And then I just do this.
+90:03 If the div's style
+property, and you would only
+90:06 know that this exists by seeing
+it in class or reading in a manual
+90:10 or seeing it online, if this
+div, which came from this line,
+90:14 has a style of visibility equal to
+hidden, then use this line of code
+90:19 to change the visibility for that style
+of that div to quote unquote "visible."
+90:25 Else, logically, if that div style is
+visible change it to hidden instead.
+90:32 To this day, I do not know why the
+opposite of visible is not invisible.
+90:36 It is hidden.
+90:36 But that is also a design
+decision we're stuck with.
+90:39 So how does this work?
+90:41 This is just one function
+that just changes the state.
+90:44 But something's not going
+to blink unless you change
+90:46 and then change and then
+change and then change.
+90:49 Well, another beautiful
+feature of JavaScript
+90:51 that we're kind of using for evil
+here is to do something repeatedly
+90:56 but asynchronously.
+90:58 I could easily make
+something blink and blink
+91:00 and blink by just
+making an infinite loop.
+91:03 But if I had an infinite
+while loop or for loop,
+91:05 I would, by definition,
+never get out of it.
+91:07 And therefore, the page
+would blink forever,
+91:09 but the page would not do anything else.
+91:12 But with asynchronous code like this, I
+can register a function with a browser
+91:18 and say browser, go ahead and call
+this function every 500 milliseconds.
+91:25 And notice, this is one line of code.
+91:27 So when the browser executes
+this code, it executes one line.
+91:30 And it just keeps going.
+91:31 But it remembers, every 500 milliseconds
+remember to stop whatever it's doing,
+91:35 blink, then keep going,
+then blink, then keep going.
+91:39 So in this way, can you have multiple
+things happening on your web page.
+91:42 Because the way JavaScript
+works is it itself,
+91:45 the language, built into
+the browser, essentially,
+91:47 just itself has this infinite loop.
+91:49 And it's constantly listening
+for users to click on things.
+91:52 It's constantly listening
+for the mouse to move.
+91:54 It's constantly listening
+for a timer to go off.
+91:58 And every time one of
+these events happens,
+91:60 it dispatches the handler,
+the function, that it was told
+92:04 to call in response to those events.
+92:05 So the end result here
+with blink is this.
+92:09 If I go back to my directory index,
+here, and open up blink.html,
+92:13 you see it doing exactly that.
+92:16 And I can tweak this
+a little differently.
+92:19 If I want to do it every tenth
+of a second, we can do this.
+92:23 And if we do this too fast
+it's probably not healthy.
+92:25 So we'll just leave it at 50.
+92:28 So you know, this is how I learned
+how to make the web years ago.
+92:33 So what more can we do
+in a more compelling way?
+92:36 Let's look at one final example
+that I fixed during the break, which
+92:39 is this here map.
+92:40 This is where the world starts to
+get really, really interesting.
+92:44 Because there are so many
+third party APIs out there,
+92:47 application programming interfaces.
+92:50 Like nice people and nice companies
+who are trying to sell you services,
+92:55 they have features, code that they've
+written that they make available
+92:59 on the internet for us to use
+either by grabbing data from them,
+93:02 as in the case of CS50 Finance
+pulling in stock quotes.
+93:05 Or in the case of Google Maps, actually
+baking in additional functionality
+93:08 to your application, so you don't
+have to implement it yourself.
+93:11 If anyone's ever used Lyft
+or Uber on your phone,
+93:13 Lyft and Uber did not start
+out by being map companies,
+93:16 sending cars all around the
+world mapping the whole world.
+93:19 That would be insane for a
+startup to try to do that.
+93:21 They wanted to build
+a car sharing service
+93:24 on top of another feature that's
+just kind of a necessary ingredient.
+93:28 So they used Google
+or some other company,
+93:30 paid them some amount to build their
+maps into their own application.
+93:33 And then they contribute to their
+own intellectual property and ideas.
+93:37 So how can we do this?
+93:38 Well, it turns out if I have a
+web page that's pretty simple,
+93:41 and let me go ahead and just
+quickly delete this real fast,
+93:44 so that it just looks as follows.
+93:46 Here is a very simple web page
+that's got a body and then
+93:49 a div inside of it whose ID is map.
+93:51 And then at the very
+bottom of the file notice
+93:53 that there's this JavaScript
+code that points specifically
+93:56 to Google API, application programming
+interface, slash map slash something.
+94:00 And what I did during the break
+was I downloaded a new API key,
+94:04 which allows me, David Malan,
+to use their API so that all
+94:07 these requests are associated with me.
+94:09 Previously, I had an old key.
+94:10 So it just wasn't working.
+94:11 And that's why we got the error message.
+94:13 So I signed up now for a free API key.
+94:16 But how do I actually do
+something with this map?
+94:19 Well, we can do a few
+different things simply
+94:21 by following along with the
+documentation online in the right way.
+94:26 Let me go ahead and open
+up the following here.
+94:30 If I go ahead and load this page right
+now, that I've deleted that code,
+94:34 and open up map.html,
+there's nothing there.
+94:38 It's just a big white page.
+94:40 And that's because I haven't
+added any of my own code.
+94:42 But if I go into the script tag here,
+let me go ahead and do the following.
+94:45 Let me define a function called
+initMap that takes no arguments.
+94:49 And then inside of this function,
+let me go ahead and do this.
+94:51 Let me declare a variable called
+map that takes on the value of a new
+94:56 google.maps.map of
+document.getElementById("map") And then
+95:05 pass into that a special object.
+95:09 So we'll see what this
+means in a moment.
+95:10 The syntax here is a little funky.
+95:12 But this line of code
+I only knew by reading
+95:14 the documentation for Google Maps.
+95:16 Google Maps told me if you
+want a new map, type this.
+95:19 And if you want to remember that map in
+a return value or in a variable, sorry,
+95:23 I should have said let,
+store it in map on the left.
+95:26 So the weird thing
+here is the following.
+95:28 The two arguments are these.
+95:30 This is a line of code that we have
+seen before that says, hey browser,
+95:33 go get me the HTML element from
+the dom whose unique ID is map.
+95:37 What is that element?
+95:39 It's just this div.
+95:40 And it's empty.
+95:41 There's no map there now, obviously.
+95:42 There's nothing between that
+close brace and open brace.
+95:45 So that's why there's no map.
+95:46 But this line of code
+is what we're going
+95:49 to use to inform Google
+where to put its map for me.
+95:53 It takes another argument
+here, as per the curly brace
+95:56 and the close curly brace,
+which is just an argument, which
+95:58 is to say the documentation told me
+I have to pass in multiple key value
+96:02 pairs.
+96:02 I have to configure the map.
+96:03 So let me do that in just a moment.
+96:07 Let me go ahead, now, and reload the map
+by going up to the browser and reload.
+96:13 And interesting, it's
+not doing anything yet.
+96:15 But we did get progress, right?
+96:16 It's gray.
+96:17 But that suggests I just
+haven't configured the map.
+96:19 So let me do that.
+96:20 And I would know this only
+from the documentation
+96:23 that I need to provide a key of center.
+96:25 And that center needs a
+latitude and longitude.
+96:28 And I can choose just to
+be neutral here, 39.833
+96:32 and a longitude of negative
+98.583 close curly brace.
+96:39 And then a zoom key of 4.
+96:42 These mean nothing out
+of the context of Google.
+96:45 I know this only from
+reading the documentation.
+96:47 And Google's documentation told me
+make sure you use a key called center.
+96:51 Have its argument after the colon
+be another JavaScript object
+96:55 with two keys, lat and
+long, each of which
+96:57 is exactly that, a float that
+represents a latitude and a longitude.
+97:01 And then also tell me, the Google
+API, what zoom level do you want.
+97:04 Do you want to see the
+bird's eye view way up here?
+97:06 Or do you want to really
+zoom down on the terrain?
+97:09 And 4 is roughly, it's at a
+certain level that's useful.
+97:13 But we can tinker with that as well.
+97:14 Let me save that.
+97:16 Go back over here and reload
+the page now and voila.
+97:21 I'm centered over what's roughly
+the center of the United States
+97:24 at a certain zoom level.
+97:25 If I want to change one of
+those values just to see,
+97:27 let's make this maybe 8, save.
+97:30 Reload.
+97:32 Now I'm really zoomed in on what
+appears to be Kansas or Nebraska.
+97:37 So that's a different zoom level.
+97:39 I can really kind of poke
+around the world, so to speak.
+97:42 So let's see, if I go to like 139,
+let's see where that takes me.
+97:46 Reload.
+97:50 That might not be
+geographically possible.
+97:54 Let's do 42, how about.
+97:57 Change that to 42, reload.
+97:59 Now we're over, OK, Sioux City there.
+98:04 Let's maybe go to 44.
+98:07 Anyhow, we're moving the map to
+places that I don't know in advance.
+98:10 Now we're in South Dakota.
+98:11 In any case, all we have
+done now is just configure
+98:14 the map to be in different places.
+98:15 But there's other
+functionality in Google Maps.
+98:17 Let me revert this and let me go ahead
+and declare a couple of other things.
+98:20 I can actually declare
+a marker, as follows.
+98:24 Let me get myself a new Google
+Maps marker, open paren and then
+98:30 close paren.
+98:30 And then notice I have a
+curly brace in there, too.
+98:32 Because marker is another
+feature of the Google Maps API
+98:36 that lets me specify on what
+map I want to put the marker.
+98:39 So there's a key called map.
+98:41 And then coincidentally, there
+is a variable called map,
+98:43 which I defined up here.
+98:45 And then it takes one other thing,
+the position of this marker.
+98:48 Well, I'm going to put this
+marker at latitude 42.3762
+98:53 and a longitude of negative 71.1158.
+98:57 And then just for good measure,
+let's do one more of these.
+99:01 And actually, I don't strictly
+need the variable here.
+99:03 So I'm just going to get rid of that.
+99:05 And I'm going to do a
+new Google Maps marker.
+99:12 Same syntax as before.
+99:14 The map is going to be the same.
+99:15 But the position of this marker is
+going to be a latitude of 41.3104
+99:21 and a longitude of negative
+72.9289 close curly brace, save.
+99:28 And if I didn't screw up, which I did.
+99:33 And it's yelling at me.
+99:34 Unexpected token param--
+oh, OK, forgot this.
+99:38 Save.
+99:40 Go away.
+99:40 Go away.
+99:42 Reload.
+99:43 Let's go and zoom out.
+99:45 And look at that.
+99:46 We have markers over what is
+hopefully Harvard and Yale.
+99:51 And so where did all this come from?
+99:52 Well, literally Google Maps.
+99:54 And that's what I Googled
+during the break, API key.
+99:56 Google Maps API.
+99:59 And if I go to this URL,
+as you soon will too,
+100:02 you'll see under its
+documentation that they
+100:04 have many different APIs, some of
+which are for phones, some of which
+100:07 are for web pages such as
+this, the JavaScript API.
+100:11 And you'll see that there's a very
+rich interface for actually creating
+100:14 these kinds of maps.
+100:15 And the documentation, frankly, can be
+a little overwhelming at first glance.
+100:18 But here they give you examples of
+how to put a marker, for instance,
+100:20 over Australia.
+100:21 This is how I inferred how to put one
+over Cambridge, Massachusetts and New
+100:24 Haven.
+100:25 There's other functionality, too.
+100:26 Like these things called info Windows.
+100:28 So with info Windows, if I
+scroll down to this example here,
+100:32 you'll be able to add clickability.
+100:34 So if I register an event handler
+that's not on submit but on click,
+100:39 I can do things like
+this, just as Google has,
+100:42 whereby on clicking a marker, we
+trigger something else to happen,
+100:45 in this case, an info window to
+open, and thereby get functionality.
+100:49 And so to bring all of this together,
+which you will do, ultimately,
+100:52 for CS50's mash-up problems
+set, your very last,
+100:56 is to implement a user interface
+using some of these building blocks.
+100:60 Here we are centered over
+Stanford, California.
+101:02 And notice that the map is full screen.
+101:04 But you can zoom in and out down there.
+101:06 Notice that there's a text box,
+which is a very simple HTML
+101:09 form at the very top.
+101:10 And notice, just as I did before, we
+have configured the staff solution,
+101:14 as yours will soon do too, to
+listen for clicks and on clicks,
+101:18 call a function that makes
+an AJAX request to a server,
+101:21 get back some news articles, create
+an unordered list out of them,
+101:24 and display them in one
+of these info windows.
+101:27 And so if we actually look at
+what's going on underneath the hood,
+101:30 let me go to my developer
+menu, under developer tools.
+101:34 And as you should be in the habit,
+again, watching your network tab,
+101:38 let me go ahead and do exactly this.
+101:39 Let me clear that, click
+Palo Alto's news, California.
+101:43 And notice a few things just happened.
+101:45 One, my browser made a
+request to an articles route,
+101:48 passing in the geography
+of this zip code here.
+101:51 Notice that I got back some gifs here.
+101:53 And in fact, the internet here is so
+fast, we didn't see the progress bar.
+101:56 But we would have seen a little spinning
+indicator if the internet were slow.
+101:59 And that's how I then
+got those news results.
+102:01 And if I click on the articles here,
+notice what I'm getting back is--
+102:06 OK, hello.
+102:09 Always check the day's
+news before class.
+102:11 So what I see here is a big JSON object.
+102:15 And it's all in one line.
+102:16 So it's a little hard to see.
+102:18 But I'm sure you can
+scroll through the news
+102:20 later and see actually what the
+articles and the URLs thereof are.
+102:23 But there's one more
+piece of functionality.
+102:25 All of us have seen auto-complete
+work in our browsers,
+102:28 because it remembers usually
+what you've previously typed.
+102:31 But it's more powerful
+to autocomplete based
+102:33 not on just what the users typed in the
+past, but what you think in the future
+102:37 they might be typing.
+102:39 So if I actually want
+to search for 02138,
+102:43 notice I can narrow down the list of
+all the cities in the US so that I can
+102:47 click on that autocomplete.
+102:48 And now we have a localized
+map to the Cambridge area
+102:51 where I can get the
+local news from our area.
+102:54 Or I don't have to
+search just by zip code,
+102:57 I can type in New Haven, Connecticut
+and get any of New Haven's zip codes
+103:01 and similarly teleport over there.
+103:03 So among the challenges ahead is to
+download a pretty big file, a text
+103:07 file, called us.text, in which are
+bunches of cities names and states
+103:11 and zip codes, import those
+into your own SQL-like database,
+103:14 implement a few routes so that
+you can ask your database what
+103:18 are the few cities within view and
+what is the current news in this area,
+103:22 and then using JavaScript and today's
+ideas, stitch all of this functionality
+103:26 together to mash up all of these
+different ideas into an end result,
+103:31 your last.
+103:32 And that's it for today.
+103:33 I'll stick around for
+questions one on one.
+103:34 Otherwise, we'll see you next time.

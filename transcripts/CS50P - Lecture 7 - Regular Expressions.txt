@@ -1,0 +1,2863 @@
+00:00 [ORCHESTRA TUNING] 
+00:15 [MUSIC PLAYING] 
+00:24 DAVID MALAN: All right. This is CS50's Introduction
+to Programming with Python. My name is David Malan, and this
+is our week on regular expressions.
+00:32 So a regular expression, otherwise known
+as a regex, is really just a pattern. And indeed, it's quite
+common in programming
+00:39 to want to use patterns to match on
+some kind of data, often user input. For instance, if the user types in an
+email address, whether to your program,
+00:47 or a website, or an
+app on your phone, you might ideally want to
+be able to validate that they did indeed
+type in an email address
+00:53 and not something completely different. So using regular expressions, we're
+going to have the newfound capability to define patterns in our code to
+compare them against data that we're
+01:02 receiving from someone else,
+whether it's just to validate it, or, heck, even if we want to
+clean up a whole lot of data
+01:07 that itself might be messy because
+it, too, came from us humans. Before, though, we use
+these regular expressions,
+01:14 let me propose that we solve a few
+problems using just some simpler syntax
+01:20 and see what kind of
+limitations we run up against. Let me propose that I
+open up VS Code here,
+01:25 and let me create a file called
+validate.py, the goal at hand being to validate, how about just
+that, a user's email address.
+01:31 They've come to your app,
+they've come to your website, they type in their email
+address, and we want to say yes or no, this
+email address looks valid.
+01:38 All right. Let me go ahead and type code of
+validate.py to create a new tab here.
+01:44 And then within this tab, let me go
+ahead and start writing some code, how about, that keeps
+things simple initially.
+01:50 First, let me go ahead and prompt
+the user for their email address. And I'll store the return value of
+input in a variable called email,
+01:58 asking them "what's your email?" question mark. I'm going to go ahead
+and preemptively at least
+02:03 clean up the user's input a little
+bit by minimally just calling strip at the end of my call
+to input, because recall
+02:10 that input returns a string or a str. strs come with some built-in
+methods or functions, one of which
+02:16 is strip, which has the
+effect of stripping off any leading whitespace to the left or
+any trailing whitespace to the right.
+02:22 So that's just going to
+go ahead and at least avoid the human having accidentally
+typed in a space character.
+02:27 We're going to throw
+it away just in case. Now I'm going to do something simple. For a user's input to
+be an email address,
+02:35 I think we can all agree
+that it's got a minimal we have an @ sign somewhere in it. So let's start simple. If the user has typed in
+something with an @ sign, let's
+02:43 very generously just say, OK,
+valid, looks like an email address. And if we're missing that @ sign,
+let's say invalid, because clearly it's
+02:51 not an email address. It's not going to be the best version
+of my code yet, but we'll start simple. So I'm going to ask the question, if
+there is an @ symbol in the user's
+02:60 email address, go ahead and print out,
+for instance, quote, unquote, "valid." Else, if there's not, now I'm
+pretty confident that the email
+03:07 address is, in fact, invalid. Now, what is this code doing? Well, if @ sign in email is a Pythonic
+way of asking is this string quote,
+03:16 unquote "@" in this other string
+email, no matter where it is-- at the beginning, the
+middle, or the end.
+03:22 It's going to automatically search
+through the entire string for you automatically. I could do this more verbosely.
+03:28 And I could use a for
+loop or a while loop and look at every character
+in the user's email address, looking to see if it's an @ sign.
+03:34 But this is one of the things
+that's nice about Python. You can do more with less. So just by saying if "@"
+quote, unquote in email,
+03:41 we're achieving that same result.
+We're going to get back true if it's somewhere in there, thus
+valid, or false if it is not.
+03:48 Well, let me go ahead now and run
+this program in my terminal window with python of validate.py.
+03:53 And I'm going to go ahead and give it
+my email address-- malan@harvard.edu, Enter. And indeed, it's valid.
+03:59 Looks valid, is valid. But of course, this program
+is technically broken. It's buggy.
+04:04 What would be an example
+input, if someone might like to volunteer an answer
+here, that would be considered valid
+04:11 but you and I know it
+really isn't valid? AUDIENCE: Yeah, thank you. Well, for instance, you can type
+just two signs and that's it,
+04:18 and it'll still be valid-- still be valid according to your
+program, but missing something.
+04:24 DAVID MALAN: Exactly. We've set a very low bar here. In fact, if I go ahead and
+rerun python of validate.py,
+04:29 and I'll just type in one @ sign,
+that's it-- no username, no domain name, this doesn't really look
+like an email address.
+04:35 But unfortunately, my code thinks it,
+in fact, is, because it's obviously just looking for an @ sign alone.
+04:41 Well, how could we improve this? Well, minimally an email
+address, I think, tends to have, though this is not
+actually a requirement,
+04:47 tends to have an @ sign and a single dot
+at least, maybe somewhere in the domain name-- so malan@harvard.edu.
+04:54 So let's check for that dot as well. But again, strictly speaking it
+doesn't even have to be that case. But I'm going for my own email address,
+at least for now, as our test case.
+05:02 So let me go ahead and change my code
+now and say, not only if @ is in email, but also dot is in email as well.
+05:11 So I'm asking now two questions. I have two Boolean
+expressions-- if @ in email, and I'm anding them together logically--
+this is a logical and, so to speak.
+05:21 So if it's the case that @ is in
+email and dot is in email, OK, now I'm going to go ahead and say valid.
+05:26 All right. This would still seem to
+work for my email address. Let me go ahead and run python
+validate.py, malan@harvard.edu, Enter,
+05:35 and that, of course,
+is valid is expected. But here, too, we can be a little
+adversarial and type in something
+05:40 nonsensical like "@." and unfortunately, that, too, is
+going to be mistaken as valid,
+05:45 even though there's still no username,
+domain name, or anything like that. So I think we need to be a
+little more methodical here.
+05:51 In fact, notice that if I do this
+like this, the @ sign can be anywhere,
+05:58 and the dot can be anywhere. But if I'm assuming the user is
+going to have a traditional domain name like harvard.edu
+or gmail.com, I really
+06:06 want to look for the dot in the
+domain name only, not necessarily just the username.
+06:12 So let me go ahead and do this. Let me go ahead and introduce a bit
+more logic here, and instead do this.
+06:18 Let me go ahead and do email.split
+of quote, unquote @ sign.
+06:24 So email, again, is a string or a str. strs come with methods,
+not just strip but also
+06:30 another one called split
+that, as the name implies, will split one str into multiple ones
+if you give it a character or more
+06:37 to split on. So this is hopefully going to return to
+me two parts from a traditional email
+06:42 address, the username
+and the domain name. And it turns out I can unpack
+that sequence of responses
+06:48 by doing this-- username
+comma domain equals this. I could store it in a list
+or some other structure,
+06:55 but if I already know in advance
+what kinds of values I'm expecting, a username and hopefully
+a domain, I'm going
+07:01 to go ahead and do it like this instead
+and just define two variables at once on one line of code. And now I'm going to be
+a little more precise.
+07:07 If username-- if username,
+then I'm going to go ahead
+07:13 and say, print "valid." Else, I'm going to go ahead
+and say print "invalid."
+07:19 Now, this isn't good enough. But I'm at least checking for
+the presence of a username now. And you might not have seen
+this before, but if you simply
+07:25 ask a question like "if username,"
+and username is a string, well, username-- "if
+username" is going to give me
+07:31 a true answer if username is
+anything except none or quote, unquote "nothing."
+07:37 So there's a truthy value here, whereby
+if username has at least one character, that's going to be considered true.
+07:43 But if username has no
+characters, it's going to be considered a
+false value effectively.
+07:49 But this isn't good enough. I don't want to just check for username. I want to also check that it's the case
+that dot is in the domain name as well.
+07:57 So notice here there's a
+bit of potential confusion with the English language. Here, I seem to be saying
+"if username and dot
+08:05 in domain," as though I'm asking the
+question, "if the username and the dot
+08:10 are in the domain," but
+that's not what this means. These are two separate Boolean
+expressions-- "if username,"
+08:16 and separately, "if dot in domain." And if I parenthesis this, we could
+make that even more clear by putting
+08:23 parentheses there, parentheses here. So just to be clear, it's
+really two Boolean expressions that we're anding together, not
+one longer English-like sentence.
+08:31 Now, if I go ahead and run
+this, python validate.py Enter, I'll do my own email address again,
+malan@harvard.edu, and that's valid.
+08:40 And it looks like I could
+tolerate something like this. If I do malan@, just say,
+harvard, I think at the moment
+08:48 this is going to be invalid. Now, maybe the top-level
+domain harvard exists. But at the moment, it looks like
+we're looking for something more.
+08:55 We're looking for a top-level
+domain too, like .edu. For now, we'll just
+consider this to be invalid.
+09:02 But it's not just that we want to do-- it's not just that we want to check
+for the presence of a username
+09:07 and the presence of a dot. Let's be more specific. Let's start to now narrow
+the scope of this program, not just to be about generic emails
+more generally, but about edu addresses,
+09:16 so specifically for someone in
+a US university, for instance, whose email address
+tends to end with .edu.
+09:21 I can be a little more precise. And you might recall
+this function already. Instead of just saying, is
+there a dot somewhere in domain,
+09:29 let me instead say, and the domain
+ends with quote, unquote ".edu."
+09:35 Now we're being even more precise. We want there to be minimally a username
+that's not empty-- it's not just quote,
+09:40 unquote "nothing"-- and we want the
+domain name to actually end with .edu. Let me go ahead and run
+python of validate.py.
+09:47 And just to make sure I
+haven't made things even worse, let me at least test my own email
+address, which does seem to be valid.
+09:53 Now, it seems that I minimally
+need to provide a username, because we definitely do
+have that check in place. So I'm going to go ahead and say malan.
+10:00 And now I'm going to go ahead and say @. And it looks like I could
+be a little malicious here,
+10:06 just say malan@.edu, as
+though minimally meeting the requirements of this pattern.
+10:11 And that, of course,
+is considered valid, but I'm pretty sure there's
+no one at malan@.edu.
+10:17 We need to have some
+domain name in there. So we're still not
+being quite as generous. Now, we could absolutely continue
+to iterate on this program,
+10:25 and we could add some
+more Boolean expressions. We could maybe use some
+other Python methods for checking more precisely is there
+something to the left of the dot,
+10:32 to the right of the dot. We could use split multiple times. But honestly, this
+just escalates quickly. Like, you end up having to
+write a lot of code just
+10:39 to express something that's
+relatively simple in spirit-- just format this like an email address.
+10:46 So how can we go about improving this? Well, it turns out in Python there's
+a library for regular expressions.
+10:52 It's called succinctly
+R-E. And in the re library, you have a lot of capabilities to
+define and check for and even replace
+11:01 patterns. Again, a regular
+expression is a pattern. And this library, the
+re library in Python,
+11:06 is going to let us define
+some of these patterns, like a pattern for an
+email address, and then use some built-in functions
+to actually validate
+11:13 a user's input against
+that pattern or even use these patterns to
+change the user's input or extract partial
+information therefrom.
+11:20 We'll see examples of all this and more. So what can and should
+I do with this library? Well, first and foremost, it
+comes with a lot of functionality.
+11:27 Here is the URL, for instance,
+to the official documentation. And let me propose
+that we focus on using
+11:32 one of the most versatile functions
+in the library, namely this-- search. re.search is the name of the
+function and the re module
+11:40 that allows you to pass
+in a few arguments. The first is going to be a pattern
+that you want to search for in,
+11:47 for instance, a string
+that came from a user. The string argument here is going
+to be the actual string that you
+11:52 want to search for that pattern. And then there's a third
+argument optionally that's a whole bunch of flags. A flag in general is like
+a parameter you can pass in
+11:60 to modify the behavior of the function. But initially, we're not
+even going to use this. We're just going to pass in a
+couple of arguments instead.
+12:07 So let me go ahead and employ this
+re library, this regular expression
+12:12 library, and just improve on
+this design incrementally. So we're not going to solve
+this problem all at once,
+12:17 but we'll take some incremental steps. I'm going to go back to VS Code here. And I'm going to go ahead now
+and get rid of most of this code.
+12:25 But I'm going to go into the top
+of my file and first of fall, import this re library. So import re gives me access
+to that function and more.
+12:33 Now, after I've gotten the user's
+input in the same way as before, stripping off any leading
+or trailing whitespace,
+12:39 I'm just going to use this
+function super trivially for now, even though this isn't
+really a big step forward.
+12:44 I'm going to say, if re.search
+contains quote, unquote "@"
+12:50 in the email address, then let's
+go ahead and print "valid." Else, let's go ahead
+and print "invalid."
+12:56 At the moment, this is really no
+better than my very first version where I was just asking Python,
+if @ sign in the email address.
+13:04 But now I'm at least beginning to use
+this library by using its own re.search function, which for now you can assume
+returns a true value effectively
+13:14 if, indeed, the @ sign is an email. Just to make sure that this version
+does work as I expect, let me go ahead
+13:20 and run python of validate.py and Enter. I'll type in my actual email
+address, and we're back in business.
+13:26 But of course, this is not
+great, because if I similarly run this version of the program
+and just type in an @ sign,
+13:32 not an email address, and yet my
+code, of course, thinks it is valid. So how can I do better than this?
+13:38 Well, we need a bit more vocabulary
+in the realm of regular expressions, in order to be able to express
+ourselves a little more precisely.
+13:46 Really, the pattern I
+want to ultimately define is going to be something like, I want
+there to be something to the left,
+13:52 then an @ sign, then
+something to the right. And that something to the right should
+end with .edu but should also have
+13:59 something before the .edu,
+like Harvard, or Yale, or any other school in the US as well.
+14:05 Well, how can I go about doing this? Well, it turns out that in the world of
+regular expressions, whether in Python
+14:11 or a lot of other languages as
+well, there are certain symbols that you can use to define patterns.
+14:16 At the moment, I've just
+used literal raw text. If I go back to my code
+here, this technically
+14:22 qualifies as a regular expression. I've passed in a quoted string
+inside of which is an @ sign.
+14:28 Now, that's not a very
+interesting pattern. It's just an @ sign. But it turns out that once you
+have access to regular expressions
+14:34 or a library that offers
+that feature, you can more powerfully express yourself as follows.
+14:40 Let me reveal that the pattern
+that you pass to re.search can take a whole bunch
+of special symbols.
+14:46 And here's just some of them. In the examples we're about to see,
+in the patterns we're about to define,
+14:52 here are the special symbols. You can use a single period,
+a dot, to just represent any character except a
+newline, a blank line.
+14:59 So that is to say, if I don't really
+care what letters of the alphabet are in the user's
+username, I just want there
+15:04 to be one or more characters
+in the user's name, dot allows me to express A through
+z, uppercase and lowercase,
+15:11 and a bunch of other letters as well. * is going to mean-- a single
+asterisk-- zero or more repetitions.
+15:19 So if I say something
+*, that means that I'm willing to accept either
+zero repetitions, that is,
+15:24 nothing at all, or more repetitions-- 1, or 2, or 3, or 300.
+15:30 If you see a plus in
+my pattern, so that's going to mean one or more repetitions. That is to say, there's got to be at
+least one character there, one symbol,
+15:37 and then there's
+optionally more after that. And then you can say
+zero or one repetition.
+15:43 You can use a single question mark
+after a symbol, and that will say, I want zero of this character or
+one, but that's all I'll expect.
+15:51 And then lastly, there's
+going to be a way to specify a specific number of symbols. If you use these curly
+braces and a number,
+15:57 represented here
+symbolically as m, you can specify that you want m repetitions,
+be it 1, or 2, or 3, or 300.
+16:04 You can specify the number
+of repetitions yourself. And if you want a range
+of repetitions, like you want this few characters
+or this many characters,
+16:11 you can use curly braces
+and two numbers inside, called here m and n, which would be
+a range of m through n repetitions.
+16:19 Now, what does all of this mean? Well, let me go back to
+VS Code here, and let me propose that we iterate
+on this solution further.
+16:26 It's not sufficient to
+just check for the @ sign. We know that already. We minimally want something
+to the left and to the right.
+16:32 So how can I represent that? I don't really care what
+the user's username is, or what letters of the alphabet are
+in it, be it malan or anyone else's.
+16:40 So what I'm going to do to
+the left of this equal sign is I'm going to use a single period-- the dot that, again, indicates any
+character except for a newline.
+16:50 But I don't just want
+a single character. Otherwise, the person's username
+could only a at such and such,
+16:56 or b at such and such. I want it to be multiple
+such characters. So I'm going to initially use a *.
+17:02 So dot * means give me something to the
+left, and I'm going to do another one, dot * something to the right.
+17:08 Now, this isn't perfect, but
+it's at least a step forward. Because now what I'm going
+to go ahead and do is this.
+17:13 I'm going to rerun
+python of validate.py. And I'm going to keep testing my
+own email address just to make sure I haven't made things worse.
+17:18 And that's now OK. I'm now going to go ahead
+and type in some other input, like how about just malan@
+with no domain name whatsoever.
+17:28 And you would think this
+is going to be invalid. But, but, but it's
+still considered valid.
+17:35 But why is that? If I go back to this chart, why is
+malan@ with no domain now considered
+17:42 valid? What's my mistake here by having
+used .*@.* as my regular expression
+17:50 or regex? AUDIENCE: Because you're using
+the * instead of the plus sign. DAVID MALAN: Exactly.
+17:55 The *, again, means zero
+or more repetitions. So re.search is perfectly happy to
+accept nothing after the @ sign,
+18:03 because that would be zero repetitions. So I think I minimally need to evolve
+this and go back to my code here.
+18:09 And let me go ahead and change
+this from dot * to dot +. And let me change the
+ending from dot * to dot +
+18:17 so that now when I run my code here-- let me go ahead and run
+python of validate.py. I'm going to test my
+email address as always.
+18:23 Still working. Now let me go ahead and type in
+that same thing from before that was accidentally considered valid.
+18:30 Now I hit Enter, finally it's invalid. So now we're making some
+progress on being a little more
+18:35 precise as to what it is we're doing. Now, I'll note here, like with
+almost everything in programming,
+18:41 Python included, there's often multiple
+ways to solve the same problem. And does anyone see
+a way in my code here
+18:49 that I can make a slight tweak if I
+forgot that the plus operator exists and go back to using a *?
+18:57 If I allowed you only to
+use dots and only stars, could you recreate the notion of plus?
+19:04 AUDIENCE: Yes. Use another dot, dot dot *. DAVID MALAN: Yeah. Because if a dot means any
+character, we'll just use a dot.
+19:10 And then when you want to say "or
+more," use another dot and then the *. So equivalent to dot +
+would have been dot dot *,
+19:18 because the first dot means any
+character, and the second pair of characters, dot *, means
+zero or more other characters.
+19:25 And to be clear, it doesn't
+have to be the same character. Just by doing dot or dot * does not
+mean your whole username needs to be
+19:32 a, or aa, or aaa, or aaaa. It can vary with each symbol.
+19:37 It just means zero or more of
+any character back to back. So I could do this on both
+the left and the right.
+19:44 Which one is better? You know, it depends. I think an argument could be made that
+this is even more clear, because it's
+19:50 obvious now that there's a
+dot, which means any character, and then there's the dot *. But if you're in the habit
+of doing this frequently,
+19:56 one of the reasons things
+like the plus exist is just to consolidate your code into
+something a little more succinct.
+20:02 And if you're familiar
+with seeing the plus now, maybe this is more readable to you. So again, just like with
+Python more generally,
+20:08 you're going to often see different
+ways to express the same patterns, and reasonable people
+might agree or disagree
+20:13 as to which way is better than another. Well, let me propose to
+you that we can think
+20:18 about both of these models
+a little more graphically. If this looks a little cryptic
+to you, let me go ahead and rewind to the previous incarnation
+of this regular expression, which
+20:27 was just a single dot *. This regular expression,
+.*@.* means what again?
+20:33 It means zero or more characters
+followed by a literal @ sign followed by zero or more other characters.
+20:39 Now when you pass this pattern
+in as an argument to re.search, it's going to read it from
+left to right and then use
+20:45 it to try to match against the
+input, email, in this case, that the user typed in.
+20:50 Now, how is the computer,
+how is re.search going to keep track of whether or not
+the user's email matches this pattern?
+20:58 Well, it turns out that it's going to
+be using a machine of sorts implemented in software known as a
+finite state machine, or more
+21:04 formally, a nondeterministic
+finite automaton. And the way it works, if we depict
+this graphically, is as follows.
+21:10 The re.search function starts over
+here in a so-called start state.
+21:15 That's the sort of condition
+in which it begins. And then it's going to read the user's
+email address from left to right.
+21:21 And it's going to decide whether
+or not to stay in this first state or transition to the next state.
+21:26 So for instance, in this first state,
+as the user is reading my email address, malan@harvard.edu, it's going to
+follow this curved edge up and around
+21:35 to itself, a reflexive edge. And it's labeled dot, because dot,
+again, just means any character. So as the function is reading my
+email address, malan@harvard.edu,
+21:44 from left to right, it's going to
+follow these transitions as follows, M-A-L-A-N.
+21:53 And then it's hopefully going
+to follow this transition to the second state, because there's
+a literal @ sign both in this machine
+22:00 as well as in my email address. Then it's going to try to read the rest
+of my address, H-A-R-V-A-R-D dot E-D-U,
+22:10 and that's it. And then the computer is going to check. Did it end up in an accept
+state, a final state,
+22:16 that's actually depicted
+here pictorially a little differently with double
+circles, one inside of the other? And that just means that if the
+computer finds itself in that second
+22:25 accept state after having
+read all of the user's input, it is, indeed, a valid email address.
+22:32 If by some chance, the
+machine somehow ended up stuck in that first state, which
+does not have double circles
+22:37 and is therefore not an
+accept state, the computer would conclude this is an
+invalid email address instead.
+22:43 By contrast, if we go back
+to my other your version of the code where I instead had dot
+plus on both the left and the right,
+22:50 recall that re.search is going to
+use one of these state machines in order to decide from left to right
+whether or not to accept the user's
+22:57 input, like malan@harvard.edu. Can we get from the start state,
+so to speak, to an accept state
+23:03 to decide, yep, this was, in
+fact, meeting the pattern? Well, let's propose that this
+nondeterministic finite automaton
+23:10 looked like this instead. We're going to start as before
+in the leftmost start state, and we're going to necessarily consume
+one character per this first edge,
+23:18 which is labeled with a dot to indicate
+that we can consume any one character, like the m in malan@harvard.edu.
+23:24 Then we can spend some time consuming
+more characters before the @ sign, so the A-L-A-N.
+23:31 Then we can consume the @ sign. Then we can consume at least one
+more character, because recall that the regex has dot plus this time.
+23:39 And then we can consume even
+more characters if we want. So if we first consume
+the H in harvard.edu,
+23:46 then leaves the A-R-V-A-R-D,
+and then dot E-D-U.
+23:54 And now here, too, we're
+at the end of the story, but we're in an accept state,
+because that circle at the end
+23:60 has two circles total, which means
+that if the computer, if this function, finds itself in that accept state after
+reading the entirety of the user's
+24:08 input, it is, too, in fact,
+a valid email address. If by contrast, we had gotten
+stuck in one of those other states,
+24:15 unable to follow a transition,
+one of those edges, and therefore unable to make progress
+in the user's input from left to right,
+24:22 then we would have to conclude that
+email address is, in fact, invalid. Well, how can we go upon
+approving this code further?
+24:29 Let me propose now that we check not
+only for a username and also something after the username, like a domain name,
+but minimally require that the string
+24:37 ends with .edu as well. Well, I think I could do
+this fairly straightforward. Not only do I want there to
+be something after the @ sign,
+24:45 like the domain like Harvard, I want
+the whole thing to end with .edu. But there's a little bit of danger here.
+24:52 What have I done wrong by implementing
+my regular expression now in this way,
+24:58 by using .+@.+.edu?  What could go wrong with this version?
+25:06 AUDIENCE: The dot is--
+the dot means something else in this context, where it
+means three or more repetitions
+25:12 of a character, which is why it
+will interpret it [INAUDIBLE].. DAVID MALAN: Exactly. Even though I mean for it to
+mean literally .edu, a period,
+25:19 and then .edu, unfortunately in
+the world of regular expressions, dot means any character, which means
+that this string could technically end
+25:27 in aedu, or bedu, or cedu, and so forth,
+but that's not, in fact, that I want.
+25:34 So any instincts now as to
+how I could fix this problem? And let me demonstrate
+the problem more clearly.
+25:40 Let me go ahead and run this code here. Let me go ahead and type
+in malan@harvard.edu.
+25:45 And as always, this does, in fact, work. But watch what happens here. Let me go ahead and do
+malan@harvard and then--
+25:53 malan@harvard?edu, Enter,
+that, too, is valid.
+25:58 So I could put any character there
+and it's still going to be accepted. But I don't want ?edu. I want .edu literally.
+26:05 Any instincts, then, for how
+we can solve this problem here? How can I get this new function,
+re.search, and a regular expression
+26:13 more generally, to literally
+mean a dot, might you think? AUDIENCE: You can use the
+escape character, the backslash?
+26:19 DAVID MALAN: Indeed. The so-called escape character,
+which we've seen before outside of the context of regular expressions
+when we talked about newlines.
+26:26 Backslash n was a way of telling
+the computer I want a newline, but without actually literally hitting
+Enter and moving the cursor yourself.
+26:33 And you don't want a
+literal n on the screen. So backslash n was a way to escape n
+and convey that you want a newline.
+26:39 It turns out regular expressions
+use a similar technique to solve this problem here. In fact, let me go into
+my regular expression.
+26:46 And before that final dot,
+let me put a single backslash. In the world of regular expressions,
+this is a so-called special sequence.
+26:53 And it indicates, per this
+backslash and a single dot, that I literally want to match on a dot.
+26:58 It's not that I want to match
+on any character and then edu. I want to match on a
+dot, or a period, edu.
+27:05 But we don't want Python to
+misinterpret this backslash as beginning an escape sequence,
+something special like backslash
+27:13 n, which even though we as the
+programmer might type two characters backslash n, it really is interpreted
+by Python as a single newline.
+27:20 We don't want any kind of
+misinterpretation like that here. So it turns out there's one other thing
+we should do for regular expressions
+27:26 like this that have a
+backslash used in this way. I want to specify to Python that I want
+this string, this regular expression
+27:33 in double quotes, to be
+treated as a raw string, literally putting an r at
+the beginning of the string
+27:39 to indicate to Python that you
+should not try to interpret any backslashes in the usual way.
+27:44 I want to literally pass the
+backslash and the dot and the edu into this particular function,
+search, in this case.
+27:50 So it's similar in spirit to using
+that f at the beginning of a format string, which, of course, tells Python
+to format the string in a certain way,
+27:57 plugging in variables that
+might be between curly braces. But in this case, r
+indicates a raw string
+28:03 that I want passed in exactly as is. Now, it's only strictly necessary if
+you are, in fact, using backslashes
+28:09 to indicate that you want some
+special sequence, like backslash dot. But in general, it's
+probably a good habit
+28:15 to get into to just use raw strings
+for all of your regular expressions so that if you eventually go back
+in, make a change, make an addition,
+28:21 you don't accidentally
+introduce a backslash and then forget that that might have
+some special or misinterpreted meaning.
+28:28 Well, let me go ahead and try
+this new regular expression. I'll clear my terminal window,
+run python of validate--
+28:34 run python of validate.py. And then I'll type in my email
+address correctly, malan@harvard.edu.
+28:40 And that's, fortunately, still valid. Let me clear my screen and run it
+one more time, python of validate.py.
+28:46 And this time, let's mistype
+it as malan@harvard?edu, whereby there's obviously
+not a dot there,
+28:54 but there is some other single character
+that last time was misinterpreted as valid. But this time, now that I've
+improved my regular expression,
+29:02 it's discovered as, indeed, invalid. Any questions now on this technique for
+matching something to the left of the @
+29:11 sign, something to the right, and
+now ending with .edu explicitly? AUDIENCE: What happens when
+user inserts multiple @ signs?
+29:19 DAVID MALAN: A good question. And you kind of called me out here. Well, when in doubt, let's try. Let me go ahead and do python of
+validate.py, malan@@@harvard.edu,
+29:29 which also is incorrect, unfortunately,
+my code thinks it's valid. So another problem to solve,
+but a shortcoming for now.
+29:37 Other questions on these
+regular expressions thus far? AUDIENCE: Can you use curly
+brackets m instead of backslash?
+29:46 DAVID MALAN: Can you use curly
+brackets instead of backslash? Not in this case. If you want a literal dot, backslash
+dot is the way to do it literally.
+29:54 How about one other question
+on regular expressions? AUDIENCE: Is this the same thing
+that Google Forms uses in order
+30:01 to categorize data in, let's say, some--
+if you've got multiple people sending
+30:07 in requests about some feedback? Do they categorize
+the data that they get
+30:12 using this particular
+regular expression thing? DAVID MALAN: Indeed. If you've ever used Google
+Forms to not just submit it
+30:17 but to create a Google Form,
+one of the menu options is for response validation,
+in English at least.
+30:24 And what that allows
+you to do is specify that the user has to input
+an email address, or a URL,
+30:29 or a string of some length. But there's an even more
+powerful feature that some of you may not have ever noticed.
+30:35 And indeed, if you'd like
+to open up Google Forms, create a new form temporarily, and
+poke around, you will actually see,
+30:41 in English at least, quote,
+unquote "regular expression" mentioned as one of
+the mechanisms you can use to validate your users'
+input into your Google Form.
+30:50 So in fact, after today you can
+start avoiding the specific dropdowns of like email address,
+or URL, or the like,
+30:56 and you can express your own
+patterns precisely as well. Regular expressions can even
+be used in VS Code itself.
+31:03 If you go and find, or do a
+find and replace in VS Code, you can, of course, just
+type in words, like you could
+31:09 into Microsoft Word or Google Docs. You can also type, if you check
+the right box, regular expressions
+31:15 and start searching for patterns,
+not literally specific values. Well, let me propose that we now
+enhance this implementation further
+31:24 by introducing a few other symbols,
+because right now with my code, I keep saying that I want my email
+address to end with .edu and start with
+31:33 a username, but I'm being
+a little too generous. This does, in fact, work as
+expected for my own email address,
+31:39 malan@harvard.edu. But what if I type in a
+sentence like, "my email address
+31:45 is malan@harvard.edu," and suppose
+I've typed that into the program or I've typed that into a Google Form?
+31:52 Is this going to be
+considered valid or invalid?
+31:58 Well, let's consider. It's got @ sign, so we're good there. It's got one or more characters
+to the left of the @ sign.
+32:06 It's got one or more characters
+to the right of the @ sign. It's got a literal .edu somewhere
+in there to the right of the @ sign.
+32:14 And granted, there's
+more stuff to the right. There's literally this period at
+the end of my English sentence.
+32:20 But that's OK, because at the moment,
+my regular expression is not so precise as to say, the pattern must start with
+the username and end with the .edu.
+32:29 Technically, it's left unsaid
+what more can be to the left and what more can be to the right. So when I hit Enter now, you'll see
+that that whole sentence in English
+32:38 is valid, and that's
+obviously not what you want. In fact, consider the case of
+using Google Forms or Office
+32:43 365 to collect data from users. If you don't validate
+your input, your users might very well type in a full
+sentence or something else
+32:51 with a typographical
+error, not an actual email. So if you're just trying to
+copy all of the results that have been typed into your
+form so you can paste them
+32:58 into Gmail or some email
+program, it's going to break, because you're going to accidentally pay
+something like a whole English sentence
+33:04 into the program instead of
+just an email address, which is what your mailer expects. So how can I be more precise?
+33:10 Well, let me propose we introduce
+a few more symbols as well. It turns out in the context of a regular
+expression, one of these patterns,
+33:18 you can use the caret symbol,
+the little triangular mark, to represent that you
+want this pattern to match
+33:24 the start of the string
+specifically-- not anywhere but the start of the user's string.
+33:29 By contrast, you can use a $ sign in
+your regular expression to say that you want to match the end of the string,
+or technically just before the newline
+33:38 at the end of the string. But for all intents and purposes,
+think of caret as meaning "start of the string" and $ sign as
+meaning "end of the string."
+33:46 It is a weird thing that one
+is a caret and one is $ sign. These are not really things
+that I think of as opposites,
+33:52 like a parentheses or
+something like that. But those are the symbols the
+world chose many years ago. So let me go back to VS Code now.
+33:58 And let me add this
+feature to my code here. Let me specify that yes, I do
+want to search for this pattern,
+34:05 but I want the user's input
+to start with this pattern and end with this pattern.
+34:10 So even though it's going to
+start looking even more cryptic, I put a caret symbol
+here at the beginning, and I put a $ sign here at the end.
+34:17 That does not mean I want the user
+to type a caret symbol or a $ sign. This is special symbology
+that indicates to re.search
+34:25 that it should only look for now an
+exact match against this pattern. So if I now go back to
+my terminal window--
+34:32 and I'll leave the previous
+result on the screen-- let me type the exact same thing. "My email address
+malan@harvard.edu," Enter--
+34:40 sorry, period. And now I'm going to
+go ahead and hit Enter. Now that's considered invalid.
+34:46 But let me clear the screen. And just to make sure
+I didn't break things, let me type in just my email
+address, and that, too, is valid.
+34:53 Any questions now on this version of
+my regular expression, which, note, goes further to specify
+even more precisely
+35:02 that I want it to match
+at the start and the end? Any questions on this one here?
+35:09 AUDIENCE: OK. You have slash, and
+.edu, then the $ sign. But the dot is one of the
+regular expression, right?
+35:18 DAVID MALAN: It normally is. But this backslash that I deliberately
+put before this period here
+35:25 is an escape character. It is a way of telling re.search that
+I don't want any character there,
+35:31 I literally want a period there. And it's the only way you can
+distinguish one from the other.
+35:36 If I got rid of that slash, this
+would mean that the email address just has to end with any character,
+then an E, then a D,
+35:44 than a U. I don't want that. I want literally a period, then
+the E, then the D, then the U.
+35:50 This is actually common convention in
+programming and technology in general. If you and I decide on
+a convention, whereby
+35:56 we're using some character on the
+keyboard to mean something special, invariably we create a
+future problem for ourself
+36:02 when we want to literally
+use that same character. And so the solution in
+general to that problem
+36:07 is to somehow escape the character
+so that it's clear to the computer that it's not that special symbol,
+it's literally the symbol it sees.
+36:15 AUDIENCE: So we don't even know the--
+we don't need another slash before the $
+36:20 sign? DAVID MALAN: No. Because in this case, $ sign
+means something special.
+36:26 Per this chart here, $ sign by itself
+does not mean US dollars or currency.
+36:31 It literally means "match
+the end of the string." If, however, I wanted the user to
+literally type in $ sign at the end
+36:39 of their input, the
+solution would be the same. I would put a backslash
+before the $ sign,
+36:44 which means my email address would have
+to be something like malan@harvard.edu $ sign, which is
+obviously not correct too.
+36:51 So backslash is just allow you
+to tell the computer to not treat those symbols specially, likes
+meaning something special,
+36:58 but to treat them literally instead. How about one other question
+here on regular expressions?
+37:05 AUDIENCE: You said one
+represents to make it one plus, then you said one was to
+make it one with nothing.
+37:11 DAVID MALAN: Sure. AUDIENCE: So why would you add the plus? DAVID MALAN: Let me rewind in time. I think what you're referring to
+was one of our earlier versions
+37:17 that initially looked like this,
+which just meant zero or more characters, than an @ sign, then
+zero or more other characters.
+37:25 We then evolved to that to be
+this, dot plus on both sides, which means one or more
+characters on the left, then
+37:31 an @ sign, then one or more
+characters on the right. And if I'm interpreting
+your question correctly,
+37:37 one of the points I made earlier was
+that if you didn't use plus or forgot that it exists, you could equivalently
+achieve the exact same result with two
+37:45 dots and a *, because the
+first dot means any character-- it's got to be there--
+37:50 the second dot * means zero
+or more other characters, and same on the right.
+37:55 So it's just another way of
+expressing the same idea. "One or more" can be represented
+like this with dot dot *,
+38:02 or you can just use the handier syntax
+of dot +, which means the same thing. All right.
+38:07 So I daresay there's still some problems
+with the regular expression in this current form, because even though now
+we're starting to look for the user
+38:14 name at the beginning of
+the string from the user, and we're looking for the .edu literally
+at the end of the string from the user,
+38:20 those dots are a little
+too encompassing right now. I'm allowed to type in more
+than the single @ sign.
+38:26 Why? Because @ is a character,
+and dot means any character. So honestly, I can have as many @ signs
+in this thing at the moment as I want.
+38:35 For instance, if I run
+python of validate.py, malan@harvard.edu,
+still works as expected.
+38:41 But if I also run python of
+validate.py and incorrectly do malan@@@harvard.edu, should be invalid,
+but it's considered valid instead.
+38:51 So I think we need to be a little more
+restrictive when it comes to that dot. And we can't just say, oh, any
+old character there is fine.
+38:59 We need to be more specific. Well, it turns out that regular
+expressions also support this syntax.
+39:05 You can use square brackets
+inside of your pattern, and inside of those square brackets
+include one or more characters
+39:14 that you want to look for specifically. Alternatively, you can inside
+of those square brackets
+39:21 put a caret symbol, which
+unfortunately in this context, means something completely different
+from "match the start of the string."
+39:27 But this would be the complement
+operator inside of the square brackets, which means "you cannot match
+any of these characters."
+39:34 So things are about to
+look even more cryptic now. But that's why we're focusing on
+regular expressions on their own here.
+39:41 If I don't want to allow any character,
+which is what a dot is, let me go ahead
+39:47 and I could just say, well, I only
+want to support A, or Bs, or Cs, or Ds,
+39:53 or Es, or Fs, or Gs. I could type in the whole
+alphabet here plus some numbers to actually include all of the
+letters that I do want to allow.
+40:00 But honestly, a little
+simpler would be this. I could use a ^ symbol and then an @
+sign, which has the effect of saying,
+40:09 this is the set of characters that
+has everything except an @ sign.
+40:14 And I can do the same thing over here. Instead of a dot to the right of the @
+sign, I can do open bracket ^, @ sign.
+40:23 And I admit, things are starting
+to escalate quickly here, but let's start from the
+left and go to the right.
+40:29 This ^ outside of the square brackets
+at the very start of my string, as before, means "match from
+the start of the string."
+40:36 And let's jump ahead. The $ sign all the way at the end of
+the regular expression means "match at the end of the string."
+40:42 So if we can mentally tick those
+off as straightforward, let's now focus on everything
+else in the middle.
+40:48 Well, to the left here
+we have new syntax-- a square bracket, another ^, an @ sign,
+and a closed square bracket, and then
+40:57 a +. The + means the same thing as always. It means "one or more of
+the things to the left."
+41:03 What is the thing to the left? Well, this is the new syntax. Inside of square brackets here, I
+have a ^ symbol and then an @ sign.
+41:11 That just means any
+character except an @ sign. It's a weird syntax, but this is how
+we can express that simple idea--
+41:19 any character on the keyboard
+except for an @ sign. And heck, even other characters that
+aren't physically on your keyboard
+41:26 but that nonetheless exist. Then we have a literal @ sign, then we
+have another one of these same things--
+41:32 square bracket, ^@ closed bracket, which
+means any character except an @ sign, then one or more of those things,
+followed by literally a period edu.
+41:43 So now let me go ahead
+and do this again. Let me rerun python of validate.py
+and test my own email address
+41:49 to make sure I've not made things worse. And we're good. Now let me go ahead and clear my
+screen and run python of validate.py
+41:55 again and do malan@@@harvard.edu,
+crossing my fingers this time.
+42:01 And finally, this now is invalid. Why? I'm allowing myself to have one @ sign
+in the middle of the user's input,
+42:09 but everything to the left per this
+new syntax cannot be an @ sign. It can be anything
+but one or more times.
+42:16 And everything to the right of the @
+sign can be anything but an @ sign one or more times followed by,
+lastly, a literal .edu.
+42:25 So again, the new syntax
+is quite simply this-- square brackets allow you to specify
+a set of characters that you literally
+42:32 type out at your keyboard-- A, B, C, D, E, F, or the
+complement, the opposite, the ^ symbol, which means "not,"
+and then the one or more symbols you
+42:41 want to exclude. Questions now on this syntax here? AUDIENCE: So right after @ sign,
+can we use the curly brackets m one
+42:49 so that we can only have one
+repetition of the @ symbol? DAVID MALAN: Absolutely. So we could do this.
+42:55 Let me go ahead and pull up VS Code. And let me delete the current
+form of a regular expression and go back to where we began,
+which was just dot * @ and dot *.
+43:04 I could absolutely do
+something like this and require that I want at
+least one of any character here.
+43:10 And then I could do something
+more to have any more as well. So the curly brace syntax, which
+we saw on the slide earlier
+43:17 but didn't yet use,
+absolutely can be used to specify a specific
+number of characters. But honestly, this is more
+verbose than is necessary.
+43:24 The best solution, arguably,
+or the simplest, at least, ultimately, is just to say dot +.
+43:30 But there, too, another example of
+how you can solve the same problem multiple ways. Let me go back to where the
+regular expression just was
+43:36 and take other questions as well. Questions on the sets of characters
+or complementing that set?
+43:45 AUDIENCE: So can you
+use that same syntax to say that you don't want a certain
+character throughout the whole string?
+43:52 DAVID MALAN: You could. It's going to be-- you could absolutely use the
+same character to exclude--
+43:59 you could absolutely use this syntax
+to exclude a certain character from the entire string. But it would be a
+little harder right now,
+44:05 because we're still
+requiring .edu the end. But yes, absolutely.
+44:11 Other questions? AUDIENCE: What happens if the
+user inputs .edu in the beginning
+44:17 of the string? DAVID MALAN: A good question. What happens if the user types in
+.edu at the beginning of the string?
+44:22 Well, let me go back to VS Code here. And let's try to solve
+this in two different ways. First, let's look at
+the regular expression
+44:27 and see if we can infer if
+that's going to be tolerated. Well, according to the current
+cryptic regular expression,
+44:35 I'm saying that you can have
+any character except the @ sign. So that would work I. Could
+have the dot for the .edu.
+44:42 But then I have to have an @ sign. So that wouldn't really work,
+because if I'm just typing in .edu,
+44:49 we're not going to pass that constraint. So now let me try this
+by running the program. Let me type in just literally .edu.
+44:56 That doesn't work. But, but, but I could
+do this, .edu@.edu.
+45:03 That, too, is invalid. But let me do this, .edu@something.edu.
+45:08  That passes. So it's starting to
+get a little weird now.
+45:13 Maybe it's valid, maybe it's not. But I think we'll eventually
+be more precise, too. How about one more question
+on this regular expression
+45:22 and these complementing of sets? AUDIENCE: Can we use another
+domain name, the string input?
+45:28 DAVID MALAN: Can you
+use another domain name? Absolutely. I'm using my own just for
+the sake of demonstration. But you could absolutely use
+any domain or top-level domain.
+45:36 And I'm using .edu,
+which is very US centric. But this would absolutely work exactly
+the same for any top-level domain.
+45:43 All right. Let me go ahead now and propose that
+we improve this regular expression further, because if I pull
+it up again in VS Code here,
+45:51 you'll see that I'm being a
+little too tolerant still. It turns out that there are certain
+requirements for someone's username
+45:58 and domain name in an email address. There is an official standard in the
+world for what an email address can be
+46:04 and what characters can be in it. And this is way too accommodating
+of all the characters
+46:09 in the world except for the @ symbol. So let's actually narrow
+the definition of what we're going to tolerate in usernames.
+46:16 And companies like Gmail could
+certainly do this as well. Suppose that it's not just
+that I want to exclude @ sign.
+46:22 Suppose that I only
+want to allow for, say, characters that normally
+appear in words,
+46:28 like letters of the alphabet, A through
+z, be it uppercase or lowercase, maybe some numbers, and heck, maybe even
+an underscore could be allowed, too.
+46:36 Well, we can use this
+same square bracket syntax to specify a set of
+characters as follows.
+46:41 I could do abcdefghij-- oh, my god. This is going to take forever. I'm going to have to type out
+all 26 letters of the alphabet,
+46:49 both lowercase and uppercase. So let me stop doing that. There's a better way already. If you want to specify within these
+square brackets a range of letters,
+46:58 you can actually just do a hyphen. If you literally do a-z
+in these square brackets,
+47:05 the computer is going to
+know you mean a through z. You do not need to type 26
+letters of the alphabet.
+47:11 If you want to include uppercase
+letters as well, you just do the same. No spaces, no commas, you literally
+just keep typing a through capital Z.
+47:19 So I have little a hyphen
+little z, big A hyphen big Z. No spaces, no
+commas, no separators.
+47:27 You just keep specifying those ranges. If I additionally want
+numbers, I could do 01234--
+47:32 nope. You don't need to type
+in all 10 decimal digits. You can just say 0 through
+9 using a hyphen as well.
+47:39 And if you now want
+to support underscores as well, which is pretty common
+in usernames for email addresses,
+47:44 you can literally just type
+an underscore at the end. Notice that all of these
+characters are inside
+47:51 of square brackets, which just again,
+means here is a set of characters that I want to allow.
+47:57 I have not used a ^ symbol at the
+beginning of this whole thing, because I don't want to complement
+it-- complement it with an E,
+48:05 not compliment it with an I-- I don't want to complement
+it by making it the opposite. I literally want to accept
+only these characters.
+48:13 I'm going to go ahead and do
+the same thing on the right. If I want to require that
+the domain name similarly
+48:20 come from this set of characters, which
+admittedly is a little too narrow, but it's familiar for now
+so we'll keep it simple,
+48:25 I'm going to go ahead and paste that
+exact same set of characters over there to the right.
+48:30 And so now, it's much more restrictive. Now I'm going to go ahead and
+run python of validate.py.
+48:37 I'm going to test my own email
+address, and we're still good. I'm going to clear my
+screen and run it once more,
+48:42 this time trying to break it. Let me go ahead and do something like,
+how about, david_malan@harvard.edu,
+48:51 Enter, but that, too,
+is going to be valid. But if I do something
+completely wrong again,
+48:57 like malan@@@harvard.edu, that's
+still going to be invalid.
+49:03 Why? Because my regular expression
+currently only allows for a single @ in the middle,
+because everything to the left
+49:09 must be alphanumeric-- alphabetical or numeric--
+or an underscore, the same thing to the
+right, followed by the .edu.
+49:18 Now honestly, this is
+a regular expression that you might be in the habit
+of typing in the real world.
+49:24 As cryptic as this might look, this
+is the world of regular expressions. So you'll get more comfortable
+with this syntax over time.
+49:31 But thankfully, some
+of these patterns are so common that there are built-in
+shortcuts for representing
+49:37 some of the same information. That is to say, you don't have to
+constantly type out all of the symbols
+49:42 that you want to include, because
+odds are some other programmer has had the same problem. So built into regular
+expressions themselves
+49:49 are some additional
+patterns you can use. And in fact, I can go ahead and get
+rid of this entire set, a through z
+49:56 lowercase, A through Z uppercase,
+0 through 9 and an underscore, and just replace it with
+a single backslash w.
+50:04 Backslash w in this case
+represents a "word character," which is commonly known as a
+alphanumeric symbol or the underscore
+50:13 as well. I'm going to do the
+same thing over here. I'm going to highlight the
+entire set of square brackets, delete it, and replace it
+with a single backslash w.
+50:21 And now I feel like
+we're making progress, because even though it's
+cryptic, and would have looked way cryptic a little bit ago--
+50:29 and even though it would have looked
+even more cryptic a little bit ago, now it's at least starting to
+read a little more friendly.
+50:35 This ^ on the left means "start matching
+at the beginning of the string." Backslash w means "any word character."
+50:42 The + means "one or more." @ symbol literally. Then another word character, one
+or more. then a literal dot, then
+50:50 literally edu, and then match at the
+very end of the string, and that's it. So there's more of these, too.
+50:56 And we won't use them
+all here, but here is a partial list of the patterns you
+can use within a regular expression.
+51:03 One, you have backslash d for any
+decimal digit, "decimal digit" meaning 0 through 9.
+51:09 Commonly done here, too, is if you
+want to do the opposite of that, the complement, so to speak, you
+can do backslash capital D, which
+51:17 is anything that's not a decimal digit. So it might be letters, and
+punctuation, and other symbols as well.
+51:24 Meanwhile, backslash s
+means whitespace characters, like a single hit of the space, or
+maybe hitting Tab on the keyboard.
+51:30 That's whitespace. Backslash capital S is
+the opposite or complement of that-- anything that's
+not a whitespace character.
+51:38 Backslash w, we've seen, a
+word character, as well as numbers and the underscore.
+51:43 And if you want the complement
+or opposite of that, you can use backslash capital W to give
+you everything but a word character.
+51:51 Again, these are just common patterns
+that so many people were presumably using in yesteryear that it's now baked
+into the regular expression syntax
+51:59 so that you can more succinctly
+express your same ideas. Any questions, then,
+on this approach here,
+52:05 where we're now using backslash
+w to represent my word character?
+52:12 AUDIENCE: So what I
+want to ask about was the-- actually the previous approach,
+like the square bracket approach.
+52:18 Could we accept lists in there? DAVID MALAN: Yes. We'll see this before long. But suppose you wanted to tolerate not
+just .edu, but maybe .edu, or .com,
+52:27 you could do this. You could introduce parentheses,
+and then you can or those together.
+52:33 I could say com or edu. Could also add in something
+like in the US, or gov, or net,
+52:40 or anything else, or org, or the like. And each of the vertical bars
+here means something special.
+52:45 It means "or." And the parentheses simply
+group things together. Formally, you have this syntax here--
+52:51 A or B, A or vertical bar B, means
+"A has to match or B has to match,"
+52:57 where A and B can be any
+other patterns you want. In parentheses, you can
+group those things together. So just like math, you can
+combine ideas into one phrase
+53:06 and do this thing or the other. And there's other syntax as
+well that we'll soon see. Other questions on these regular
+expressions and this syntax here?
+53:15 AUDIENCE: What if we put
+spaces in the expression? DAVID MALAN: Sure. So if you want spaces in there,
+you can't use backslash w alone,
+53:22 because that is only a word character
+which is alphabetical, numerical, or the underscore.
+53:27 But you could do this. You could go back to this approach
+whereby you use square brackets.
+53:32 And you could say a through z,
+or A through Z, or 0 through 9, or underscore, or I'm going to
+hit the space bar, a single space.
+53:41 You can put a literal space inside
+of the square brackets, which will allow you then to detect a space.
+53:46 Alternatively, I could
+still use backslash w, But I could combine it as follows.
+53:51 I could say, give me a
+backslash w or a backslash s, because recall that
+backslash s is whitespace.
+53:57 So it's even more than a single space. It could be a tab. But by putting those
+things in parentheses, now you can match either
+the thing on the left
+54:04 or the thing on the
+right one or more times. How about one other question
+on these regular expressions?
+54:12 AUDIENCE: Perfect. So I was going to ask, does
+the backslash w include a dot?
+54:19 Because-- no, OK. DAVID MALAN: No, it only Includes
+letters, numbers, and underscore.
+54:24 That is it. AUDIENCE: And I was
+wondering, you gave an example at the beginning that had spaces,
+like this is my email, so-and-so.
+54:33 I don't think our current version-- or even quite a long while
+ago stopped accepting it.
+54:39 Was that because of the ^ or
+because of something else? DAVID MALAN: No, the reason I was
+handling spaces in other English words
+54:48 when I typed out my email
+address as malan@harvard.edu was because we were using initially dot
+*, or dot +, which is any character.
+54:57 And even after that, we said
+anything except the @ sign, which includes spaces.
+55:03 Only once I started using square
+brackets and a through z and 0
+55:08 through 9 and underscore did
+we finally get to the point where we would reject white space.
+55:13 And in fact, I can run this here. Let me go into the current version of my
+code in VS Code, which is using, again,
+55:19 the backslash w's for
+word characters, let me run python of validate.py and
+incorrectly type in something
+55:25 like "my email address is
+malan@harvard.edu," period, which
+55:30 has spaces to the left of my
+username, and that is now invalid, because space is not a word character.
+55:37 You're going to notice, too, that
+technically I'm not allowing dots. And some of you might be
+thinking, wait a minute.
+55:42 My Gmail address has a dot in it. That's something we're
+going to still have to fix. A backslash w is not the end all here.
+55:49 It's just allowing us to
+express our previous solution a little more succinctly. Now, one thing we're still
+not handling quite properly
+55:57 is uppercase versus lowercase. The backslash w technically does
+handle lowercase letters and uppercase,
+56:03 because it's the exact same
+thing as that set from before, which had little a through little z and
+big A through big Z. But watch this.
+56:12 Let me go ahead in my current
+form run python of validate.py, and just because my Caps lock
+key is down, MALAN@HARVARD.EDU,
+56:19 shouting my email address. It's going to be OK
+in terms of the MALAN. It's going to be OK in
+terms of the HARVARD,
+56:26 because those are matching
+the backslash w, which does include lowercase and uppercase.
+56:31 But I'm about to see invalid. Why? Why is MALAN@HARVARD.EDU invalid
+when it's in all caps here,
+56:42 even though I'm using backslash w? AUDIENCE: Yeah. So you are asking for the
+domain.edu in lowercase,
+56:50 and you're typing it in uppercase. DAVID MALAN: Exactly. I'm typing in my email
+address in all uppercase,
+56:56 but I'm looking for literally ".edu." And as I see you with AirPods and
+so many of you with headphones, I apologize for yelling into my
+microphone just now to make this point.
+57:04 But let's see if we can't fix that. Well, if my pattern on line 5
+is expecting it to be lowercase,
+57:12 there's actually a few
+ways I can solve this. One would be something
+we've seen before. I could just force the user's
+input to all lowercase.
+57:19 And I could put onto the end of my first
+line .lower and actually force it all to lowercase.
+57:24 Alternatively, I could
+do that a little later. Instead of passing an email, I could
+pass in the lowercase version of email,
+57:31 because email addresses should,
+in fact, be case insensitive. So that would work, too. But there's another mechanism
+here, which is worth seeing.
+57:38 It turns out that that function before
+called re.search supports, recall,
+57:44 a third argument as well,
+these so-called flags. And flags are configuration
+options, typically
+57:49 to a function, that allow you to
+configure it a little differently. And how might I go about
+configuring this call
+57:55 to re.search a little bit differently
+insofar as I'm currently only passing in two arguments?
+58:01 Well, it turns out that some of the
+flags you can pass into this function are these. It turns out that the regular
+expression library in Python, a.k.a.
+58:10 re, comes with a few built-in
+variables, so to speak, things that you can
+think of as constants,
+58:16 that have meaning to re.search. And they do so as follows.
+58:22 If you pass in as a flag re.IGNORECASE,
+what re.search is going to do is ignore the case of the user's input.
+58:29 It can be uppercase, lowercase,
+a combination thereof, the case is going to be ignored. It will be treated case insensitively.
+58:34 And you can do other things,
+too, that we won't do here. But if you want to handle the user's
+input that maybe spans multiple lines--
+58:41 maybe they didn't just type in an
+email address but an entire paragraph of text, and you want
+to match different lines
+58:46 of that text that is multiple lines. Another flag is for re.MULTILINE
+for just that, or re.DOTALL,
+58:53 whereby you can configure
+the dot to recognize not just
+58:58 any character except newlines but
+any character plus newlines as well. But for now, let me go ahead and
+just make use of this first one.
+59:06 Let me pass in a third argument to
+re.search, which is re.IGNORECASE.
+59:13 Let me now rerun the
+program without clearing my screen, python of validate.py. Let me type in again in all
+caps, effectively shouting,
+59:21 MALAN@HARVARD.EDU, Enter, and
+now it's considered valid, because I'm telling
+re.search specifically
+59:28 to ignore the case of the input. And that, too, here is fine. And why might I do this approach rather
+than call .lower in one of those other
+59:35 locations? Eh, if I don't actually want to change
+the user's input for whatever reason, I can still treat it case
+insensitively without actually changing
+59:43 the value of that variable itself. All right, any final questions now on
+this validation of email addresses?
+59:52 AUDIENCE: So the pattern
+is a string, right? DAVID MALAN: Mm-hmm. AUDIENCE: Can we use an fstring?
+59:57 DAVID MALAN: You can. Yes, you can use an fstring so that
+you could plug in, for instance, the value of a variable and
+pass it into the function.
+60:05 Other questions on this? AUDIENCE: Backslash w character, could
+we take it as an input from the user?
+60:10 DAVID MALAN: Technically yes. That's not a problem we're
+trying to solve right now. We want the user to provide literal
+input, like their email address,
+60:17 not necessarily a regular expression. But you could imagine building
+software that asks the user, especially
+60:22 if they're more advanced users, to type
+in a regular expression for some reason to validate something else against that.
+60:28 And in fact, that's
+what Google is doing. If you play around with Google Forms and
+create a form with response validation
+60:34 and select Regular Expression,
+Google lets you and I type in our own regular expressions, which
+would be a perfect example of that.
+60:42 All right. Well, let me propose that we try
+to solve one other problem here, whereby if I go into the same version
+as before, which is now ignoring case,
+60:51 but I type in one of my
+other email addresses. Let me go ahead and run
+python of validate.py. And this time, let me type in
+not malan@harvard.edu, which
+60:60 I use primarily, but
+another email address of mine, malan@cs50.harvard.edu,
+which forwards to the same.
+61:06 Let me go ahead and hit Enter now. And huh, invalid, even
+though I'm pretty sure that
+61:12 is, in fact, my email address. Well, let's put our
+finger on the reason why. Why at the moment is
+malan@cs50.harvard.edu
+61:20 being considered invalid, even though
+I'm pretty sure I send and receive
+61:26 email from that address, too?  Why might that be?
+61:32 AUDIENCE: Because there is a dot
+that has come after the @ symbol.
+61:38 DAVID MALAN: Exactly. There's a dot after my cs50. And I'm not expecting any dots
+there, I'm expecting only,
+61:45 again, word characters, which is A
+through z, 0 through 9, and underscore.
+61:50 So I'm going to have to retool here. But how could I go about doing this? Well, it turns out theoretically,
+there could be other email addresses,
+61:58 even though they'd be getting a
+little excessively long, for instance, malan@something.cs50.harvard.edu,
+which does not technically exist,
+62:05 but it could. You can have, of course, multiple dots
+in a domain name like we see here. Wouldn't it be nice if we
+could handle that as well?
+62:13 Well, let me propose that we modify
+my regular expression as follows. It turns out that you
+can group ideas together.
+62:20 And you can not only ask whether
+or not this pattern matches or this one using syntax like A vertical
+bar B, which means "either A or B,"
+62:30 you can also group things together and
+then apply some other operator to them as well.
+62:35 In fact, let me go
+back to the code here. And let me propose that if I want
+to tolerate a subdomain, like cs50,
+62:42 that may or may not be there, let me
+go ahead and change it as follows. I could naively do this.
+62:48 If I want to support
+subdomains, I could say, well, let's allow for other word characters
+plus, and then a literal dot.
+62:56 And notice, I'll highlight in
+blue here what I've just added. Everything else is the same, but I'm now
+adding room for another sequence of one
+63:04 or more word characters
+and then a literal dot. So this now, I think, if I
+rerun python of validate.py,
+63:12 will work for
+malan@cs50.harvard.edu, Enter. Unfortunately, does anyone
+see where this is going?
+63:20 Let me rerun python of
+validate.py and type in as I keep doing,
+malan@harvard.edu, which up until now
+63:25 has kept working despite
+all of my changes. But now, ugh, finally I've
+broken my own email address.
+63:33 So logically what's the solution here? Well, there's a bunch of
+ways we could solve this. I could maybe start using
+two regular expressions
+63:40 and support email addresses of
+the form username@domain.tld,
+63:46 or username@subdomain.domain.tld,
+where TLD just means Top Level Domain, like edu.
+63:54 Or I could maybe just
+modify this one, because I'd prefer not to have two regular
+expressions or one that's twice as big.
+64:01 Why don't I just specify to re.search
+that part of this pattern is optional?
+64:06 What was the symbol we
+saw earlier that allows you to specify that the thing
+before it is technically optional?
+64:15 AUDIENCE: The straight bar? We were using the straight bar as an-- optional, make the argument optional.
+64:23 DAVID MALAN: So we could. We could use a vertical
+bar and some parentheses and say, "either there's something
+here or there's nothing."
+64:29 We could do that in parentheses. But I think there's
+actually an even easier way. AUDIENCE: Actually,
+it's a question mark.
+64:36 DAVID MALAN: Indeed, question mark. Think back to this summary here
+of our first set of symbols, whereby we had not just dot and * and
++, but also a question mark, which
+64:46 means literally "zero or
+one repetitions," which effectively means optional. It's either there,
+one, or it's not, zero.
+64:55 Now, how can I translate
+that to this code here? Well, let me go ahead and surround this
+part of my pattern with parentheses,
+65:03 which doesn't mean I want literally
+a parentheses in the user's input, I just want to group
+these characters together.
+65:09 And in fact, this now will still work. I've only added parentheses around
+the new part for the subdomain.
+65:15 Let me run python of validate.py. Let me run
+malan@cs50.harvard.edu, Enter.
+65:20 That's still valid. But to be clear, if I rerun it again
+for malan@harvard.edu, that is still
+65:26 invalid, but not if I go in here and
+say, after the parentheses, which
+65:31 now is one logical unit, it's
+one big group of ideas together,
+65:36 I add a single question mark there. This will now tell re.search that
+that whole thing in parentheses
+65:44 can either be there once or be
+there not at all, zero times.
+65:49 So what does this translate
+into when I run it? Well, let me go ahead and rerun
+it with malan@cs50.harvard.edu
+65:56 so that the subdomain is there. That works as before. Let me clear my screen
+and run it again, python
+66:02 of validate.py with malan@harvard.edu,
+which used to work then broke. Are we back in business now?
+66:08 We are. That's now valid again. Questions now on this
+approach, where we've used
+66:15 not just the question mark
+but the parentheses as well? AUDIENCE: Yeah. You said it works for
+zero or one repetitions.
+66:22 What if you have more? DAVID MALAN: What if you have more? That's OK. That's where you could do *.
+66:29 * is zero or more, which gives you
+all the flexibility in the world.
+66:34 AUDIENCE: Yeah. So I was just asking that-- with question marks, there's
+only one repetition allowed.
+66:41 DAVID MALAN: It means
+zero or one repetition. So it's either not there or it is there. And so that's why this pattern now, if
+I go back to my code, even though again,
+66:50 it admittedly looks cryptic, let me
+highlight everything after the @ sign and before the $ sign.
+66:56 This now represents a domain
+name, like harvard.edu, or a subdomain within the domain name.
+67:04 Why? Well, this part to the
+right is the same as always. Backslash w + means something
+like Harvard or Yale.
+67:11 Backslash .edu means literally ".edu." So the new part is this.
+67:16 In parentheses, I have another set
+of backslash w + backslash dot now.
+67:22 But it's all in parentheses. I'm now having a question
+mark right after that, which means that whole thing in
+parentheses either can be there,
+67:31 or it can't be there. It's either of those
+that are acceptable. So a question mark effectively
+make something optional.
+67:38 It would not be correct
+to remove the parentheses, because what would this mean? If I removed the
+parentheses, that would mean
+67:45 that only this dot is optional, which
+isn't really what we want to express. I want the subdomain, like
+cs50 and the additional dot
+67:54 to be what's there or not there. How about one other
+question on regexes here?
+67:59 AUDIENCE: Can we use
+this for the usernames? DAVID MALAN: Absolutely. We still have other problems. We're not solving all of
+the problems today just yet.
+68:06 But absolutely. Right now, we are not letting you
+have a period in your username.
+68:11 And again, some of you with Gmail
+accounts or other accounts, you probably have not just
+underscores, numbers, and letters.
+68:16 You might have periods, too. Well, we could fix that, not
+using question mark here per se.
+68:22 But now that we have these parentheses
+at our disposal, what I could do is this. I could use parentheses to
+surround the backslash w
+68:30 to say "any word character," which is
+the same thing, again, as a letter, or a number, or an underscore.
+68:36 But I could also or in, using
+a vertical bar, something else, like a literal dot.
+68:42 Now, a literal dot needs
+to be escaped, otherwise it represents any character, which
+would be a regression, a step back.
+68:48 But now notice what I've done. In parentheses, I'm telling re.search
+that those first few characters
+68:54 in your email address,
+that is your username, has to be a word character, like A
+through z, uppercase or lowercase, or 0
+69:02 through 9, or an underscore,
+or a literal dot. We could do this differently, too. I could get rid of the
+parentheses and the
+69:09 or, and I could just
+use a set of characters. I could, again, manually say a
+through z, A through Z, 0 through 9,
+69:18 underscore, and then I could do a
+literal dot with a backslash period. And now I technically don't
+even need the uppercase,
+69:25 because I'm already telling
+the computer to ignore case. I can just pick one or the other. Which one is better is really up to you.
+69:31 Whichever one you think is more readable
+would generally be the better design. All right. Let me propose that
+I rewind this in time
+69:39 to where we left off, which was here. And let me propose
+that there are, indeed,
+69:45 still limitations of this solution,
+not just with the username, not just with the domain name.
+69:50 We're still being a
+little too restrictive. So would you like to see the
+official regular expression
+69:55 that at least browsers use nowadays
+whenever you type in an email address to a web form, and the
+web form, the browser,
+70:01 tells you yes or no, your email
+address is syntactically valid? Ready?
+70:07 Ready? Here is-- and this isn't even
+officially the right regular expression.
+70:13 It's a simplified version
+that browsers use because it catches most mistakes but not all.
+70:18 Here we go. This is the regular expression
+for a valid email address,
+70:24 at least as browsers
+nowadays implement them. Now it's crazy cryptic at first glance.
+70:31 But note-- and it's wrapping on to
+many lines, but it's just one pattern. But just notice the
+now-familiar symbols.
+70:38 There is the ^ symbol at the very top. There is the $ sign at the very end.
+70:43 There is a square bracket
+over here and then some of these ranges plus other characters. Turns out you don't normally see
+these characters in email addresses.
+70:51 It looks like you're swearing
+at someone in their username. But they're valid characters. They're valid officially.
+70:57 That doesn't mean that Gmail is going
+to allow you to put $ signs and other punctuation in your username.
+71:02 But officially, some
+servers might allow that. So if you really want to
+validate a user's email address,
+71:08 you would actually come up with
+or copy-paste something like this. But honestly, this looks so cryptic.
+71:15 And if you were to type it out manually,
+you are so likely to make a mistake. What's the better solution here instead?
+71:21 This is where, per past weeks,
+libraries are your friend. Surely someone else on the
+internet, a programmer more
+71:28 experienced than you,
+even, has come up with code that validates email addresses properly,
+using this regular expression or even
+71:36 something more sophisticated than that. So generally, if the problem
+at hand is to validate input that is pretty
+conventional-- an email address,
+71:43 a URL, something where there's
+an official definition that's independent of you yourself--
+find a popular library that you're
+71:51 comfortable using and use it in your
+code to validate email addresses. This is not a wheel, necessarily,
+that you yourself should invent.
+71:59 We've used email addresses,
+though, to iteratively start from something simple, too
+simple, and build on top of that.
+72:05 So you could certainly imagine
+using regular expressions still to validate things that
+aren't email addresses but are data that are important to you.
+72:12 So we at least now have
+these building blocks. Now, besides the regular
+expressions themselves,
+72:17 it turns out there's other
+functions in Python's re library for regular expressions. Among them is this
+function here, re.match,
+72:24 which is actually very
+similar to re.search, except you don't have
+to specify the ^ symbol
+72:29 at the very beginning of
+your regex if you want to match from the start of a string. re.match by design will
+automatically start matching
+72:37 from the start of the string for you. Similar in spirit is re.fullmatch,
+which does the same thing but not only
+72:43 matches at the start of the string but
+the end of the string, so that you, too, don't need to type in the
+^ symbol or the $ sign as well.
+72:50 But let's go ahead and transition
+back now to some actual code, whereby we solve a
+different problem in spirit.
+72:55 Rather than just
+validate the user's input and make sure it looks the
+way we want, let's just assume that the users are not going
+to type in data exactly as we want,
+73:04 and so we're going to have
+to clean up their input. This happens so often when you're using
+like a Google Form, or Office 365 form,
+73:11 or anything else to collect user input. No matter what your form
+question says, your users
+73:16 are not necessarily going
+to follow those directions. They might go ahead and type
+in something that's a little differently formatted
+than you might like.
+73:23 Now, you could certainly go through
+the results and download a CSV, or open the Google spreadsheet,
+or equivalent in Excel,
+73:30 and just clean up all
+of the data manually. But if you've got lots
+of submissions-- dozens, hundreds, thousands of
+rows in your data set--
+73:37 doing things manually
+might not be very fun. It might be much more effective
+to write code, as in Python,
+73:43 that can allow you to clean up that
+data and any future data as well. So let me propose that we go
+ahead here and close validate.py.
+73:52 And let's go ahead and create a new
+program altogether called format.py, the goal of which is to reformat the
+user's input in the format we expect.
+73:60 I'm going to go ahead and
+run code of format.py. And let's suppose that the
+data we're going to reformat
+74:06 is the user's name-- so not
+email address but name this time. And we're going to hope
+that they type in their name
+74:12 properly, like David Malan. But some users might be
+in the habit, for whatever reason, of typing their
+name backwards, if you will,
+74:19 with a comma, such as
+Malan comma David instead. Now, it's fine because both are
+clearly as readable to the human.
+74:28 But if you want to standardize
+how those names are stored in your system, perhaps a database,
+or CSV file, or something else,
+74:34 it would be nice to at least standardize
+or canonicalize the format in which you're storing your data, so that
+if you print out the user's name
+74:41 it's always the same
+format, David Malan, and there's no commas
+or backwardness to it.
+74:46 So let's go ahead and
+do something familiar. Let's go ahead and give
+myself a variable called name and set it equal to the
+return value of input,
+74:53 asking the user, as we've done
+many times, "what's your name," question mark. I'm going to go ahead and proactively
+at least clean up some messiness,
+75:00 as we keep doing here, by just stripping
+off any leading or trailing whitespace. Just in case the user
+accidentally hits the spacebar,
+75:06 we don't want that
+ultimately in our data set. And now let me go ahead and
+do this as we've done before.
+75:12 Let me just go ahead quickly
+and print out, just to make sure I'm off to the right start, "hello,"
+and then in curly braces name,
+75:19 so making an fstring to
+format "hello," comma, "name." Now let me go ahead and clear my
+screen and run python of format.py.
+75:26 Let me behave and type in my name as
+I normally would, David, space, Malan, Enter. And I think the output
+looks pretty good.
+75:32 It looks as expected grammatically. Let me now go ahead, though,
+and play this game again.
+75:37 But this time, maybe
+because I'm not thinking, or I'm just in the habit of
+doing last name comma first, I do Malan, comma, David, and hit Enter.
+75:45 All right. Well, this now is weird. Even though the program is just
+spitting out exactly what I typed in,
+75:51 arguably this is not close to
+correct, at least grammatically. It should really say
+"hello, David Malan."
+75:57 Now, maybe I could
+have some if conditions and I could just reject the
+user's input if they type a comma
+76:02 or get their names backwards somehow. But that's going to be too little
+too late if the user has already
+76:07 submitted a form online,
+and I already have the data, and now I need to go in and clean it up.
+76:13 And it's not going to be
+fun to go through manually in Google Spreadsheets, or Apple
+Numbers, or Microsoft Excel
+76:18 and manually fix a lot of people's
+names to get rid of the commas and move the first name before the
+last, as is conventional in the US.
+76:26 So let's do this. It could be a little
+fragile, but let's start to express ourselves a little
+programmatically here and ask this.
+76:33 If there is a comma in the
+person's name, which is Pythonic-- I'm just asking the question, is this
+shorter string in this longer string?--
+76:42 then let me go ahead and do this. Let me go ahead and grab
+that name in the variable, split on not just the
+comma but the space after,
+76:51 assuming the human typed in
+a space after their name. And let me go ahead and store the result
+of that splitting of Malan, comma,
+76:57 David into two variables. Let's do last, comma,
+first, again unpacking the sequence of values that comes back.
+77:04 Now let me go ahead
+and reformat the name. So I'm going to forcibly change
+the user's name to be as I expect.
+77:10 So name is actually going
+to be this format string-- first name then last name, both in
+curly braces but formatted together
+77:19 with a single space, so that
+I'm overwriting the user's input and updating my name
+variable accordingly.
+77:25 For the moment, to be clear,
+this program is interactive. Like, the users, like me, are
+typing their name into the program.
+77:31 But imagine the data
+already is in a CSV file. It came in from some process like a
+Google Form or something else online.
+77:38 You could imagine writing
+code similar to this, but that maybe goes and reads
+that file into memory first.
+77:44 Maybe it's a CSV via CSV
+Reader or DictReader, and then iterating over
+each of those names.
+77:49 But we'll keep it simple and
+just do one name at a time. But now what's kind of interesting here
+is if I go back to my terminal window
+77:55 and clear it, and run
+python of format.py, and hit Enter, I'm going to type
+in David, space, Malan as before.
+78:01 And I think we're still good. But I'm also going to
+go ahead and do this-- python of format.py Malan, comma,
+David, with a space in between,
+78:11 crossing my fingers and
+hit Enter, and voila. That now has been fixed.
+78:16 Such a simple thing to be sure. But it is so commonly necessary
+to clean up users input.
+78:22 Here we see at least one
+way to do so pretty easily. Now, to be fair, there's
+some problems here.
+78:28 And in fact, can someone imagine a
+scenario in which this code really doesn't fix the user's input?
+78:35 What could still go wrong
+even with this fix in my code?
+78:40 Any thoughts? AUDIENCE: If they typed in their
+name comma and then [INAUDIBLE].. DAVID MALAN: Oh, and
+then something else.
+78:46 Yeah. So let me try this, for instance. Let me go ahead and run a program. And I am the only David
+Malan that I know.
+78:53 But suppose I were, let's
+say, junior like this. And it's common, in English at least,
+to sometimes put a comma there.
+79:01 You don't necessarily
+need the comma, but I'm one of those people who uses a comma. That's now really, really broken.
+79:07 So I've broken some assumption there. And so that could
+certainly go wrong here. What else? Well, let me go ahead
+and run this again.
+79:13 And if I did Malan,
+comma, David, no space, because I'm being a
+little sloppy, I'm not paying attention, which is going to
+happen when you have lots of users
+79:21 ultimately, well, this really broke now. Notice I have a ValueError,
+an actual exception.
+79:26 Why? Well, because split is supposed to be
+splitting the string into two strings
+79:31 by looking for the comma and a space. But if there is no comma and space,
+it can't split it into two things.
+79:38 And the fact that I have
+two variables on the left, but I'm only getting back
+one thing on the right,
+79:44 means that I can't do
+this code quite as this. So it's fragile to be sure. But wouldn't it be nice if
+we could at least improve it?
+79:51 For instance, we now know some
+regular expressions syntax. What if I at least wanted
+to make this space optional?
+79:57 Well, I could use my newfound
+regular expression syntax and put a question mark, Question
+mark means zero or one of the things
+80:04 to the left. What's the thing to the left? It's literally a space. I don't even need parentheses
+if there's just one thing there.
+80:11 So that would be the start of a
+pattern that says, I must have a comma, and then I may or may not have a
+space, zero or one spaces thereafter.
+80:19 Unfortunately, the version of split
+that's built into the str variable,
+80:26 as in this case, doesn't
+support regular expressions. If we want our regular expressions,
+we need to go use that library here.
+80:32 So let me go ahead and do this. Let me go in and leave this
+code as is but go up to the top
+80:38 now and import re to import the
+library for regular expressions. And now let me go ahead and
+start changing my approach here.
+80:46 I'm going to go ahead and do this. I'm going to use the same
+function called re.search, and I'm going to search
+for a pattern that I
+80:54 think will be last, comma, first. So let me use my newfound
+regular expression syntax and represent a pattern for something
+like Malan, comma, space, David.
+81:04 How can I do this? Well, inside of my quotes for
+re.search, I'm going to have something--
+81:11 so dot +-- sorry. I'm going to have something, so dot +. Then I'm going to have a comma.
+81:17 Then I'm going to have a space. Then I'm going to have something dot +. Now I'm going to preemptively
+refine this a little bit.
+81:23 I want this whole
+pattern to start matching at the beginning of the user's input. So I'm going to add the ^ right away.
+81:29 And I want the end of the user's input
+to be matched as well, so that I'm literally expecting any character one or
+more times, then a comma then a space,
+81:38 then any other character
+one or more times. And then that is it. And I'm going to pass in
+the name variable as before.
+81:46 Now, when we've used
+re.search in the past, we really used it just
+to answer a question.
+81:53 Does the user's input match
+the following pattern or not, true or false, effectively.
+81:59 But re.search is actually
+more powerful than that. You can actually get
+back more information.
+82:05 And you can do this. You can specify a variable and
+then an assignment operator, and get back more precise answers to
+what has been found when searched for.
+82:15 But what is it you want to get back? Well, it turns out there's this
+other feature of regular expressions
+82:21 which allow you to use parentheses,
+not just to group things together, but to capture them.
+82:27 It turns out when you specify
+parentheses in a regular expression unbeknownst to us up until now,
+everything in the parentheses
+82:35 will be returned to you as a return
+value from the re.search function.
+82:41 It's going to allow you to extract
+specific amounts of information from the user's own input.
+82:48 You can reverse this process, too,
+by using the non-capturing version as well. You can use parentheses, and then
+literally a question mark, and a colon,
+82:56 and then some other stuff. And that will say, don't
+either capturing this. I just want to group things. But for now, we're going to use
+just the parentheses themselves.
+83:03 So how am I going to do this? Well, if I want to get back the
+user's last name and first name,
+83:09 I think what I want to capture is
+the dot + here and the dot + here.
+83:16 So I've deliberately
+surrounded in parentheses the dot + both to the left
+and the right of the comma,
+83:22 not because I'm grouping
+them together per se-- I'm not adding a question mark, I'm
+not adding up another + or a *--
+83:28 I'm using parentheses now
+for capturing purposes. Why?
+83:33 Well, I'm going to do this next. I'm going to still ask a Boolean
+question like, "if there are matches,
+83:39 then do this." So if matches is not
+effectively false, like none,
+83:44 I do expect I've gotten
+back some matches. And watch what I can do now.
+83:49 I can do last, comma, first
+equals whatever matches in and get back all of
+the groups of matches.
+83:57 Then go ahead and update name just
+like before with a format string and do first and then
+last in curly braces
+84:04 as well, and then at the very
+bottom, just like before, print out, for instance, "hello," comma, "name."
+84:10 So the new code now is
+everything highlighted here. I'm using re.search to search for
+whether the user typed their name
+84:20 in last, comma, first format. But I am more powerfully using re.search
+to capture some of the user's input.
+84:27 What's going to get captured? Anything I surrounded
+in parentheses will be returned to me as return values.
+84:34 How do you get at those return values? You ask the variable to which you
+assign them for all of the groups,
+84:40 all of the groups of
+parentheses that were captured. So let me go ahead and do this.
+84:46 Let me go ahead now and run
+python of format.py, Enter. And I'm going to type my name as usual.
+84:52 In this case, nothing happens
+with this if condition. Why?
+84:58 Because I did not type a comma, and
+so this search does not find a comma,
+85:03 so there are no matches. So we immediately just
+print out "hello, name." Nothing interesting or new there.
+85:08 But if I now go ahead, and clear my
+screen, and run python of format.py, and do Malan, comma, space, David,
+Enter, we've reformatted my name.
+85:19 Well, how did this work? Let me be a little more explicit now. It turns out I don't have
+to just say matches.groups.
+85:25 I can get specific
+groups back that I want. So let me change my
+code a little bit more.
+85:30 Let me go ahead now and just say this. Let's update name to--
+85:37 actually, let's do this. Let's say that the last name
+is going to be in the matches
+85:43 but specifically group 1. The first name is going to be in the
+matches but specifically group 2.
+85:48 Why 1 and 2? Because this is the first set of
+parentheses to the left of the comma. This is the second set of parentheses
+to the right of the comma.
+85:56 And based on the input, this
+would be the user's last name in this scenario, Malan. This would be the user's first
+name, David, in this scenario.
+86:04 That's why I'm using
+group 1 for the last name and group 2 for the first name.
+86:10 And now I'm going to go ahead and
+say name equals fstring, again, first
+86:16 and then last, done. And let me refine this one last
+step before we take questions.
+86:23 I don't really need these variables
+if I'm immediately using them. Let's just go ahead and tighten
+this up further as we've
+86:28 done in the past for design's sake. If I want to make the
+name the concatenation of the person's first
+name and last name,
+86:34 let's just do this.
+matches.group 2 first, plus a space, plus matches.group 1.
+86:43 So it's just up to me from
+left to right, this is group 1, this is group 2. So group 1 is last, group 2 is first.
+86:51 So if I want to flip them around
+and update the value of name, I can explicitly get group 2 first,
+concatenate using +, a single space,
+87:00 and then concatenate on group 1. All right. That was a lot. Let me pause to see if
+there are questions.
+87:08 The key difference here is we're still
+using re.search the exact same way, but now I'm using its return
+value, not just to answer
+87:15 a question true or
+false, but to actually get back specific matches
+anything I captured, so to speak,
+87:22 with parentheses. AUDIENCE: Why is it here we're
+using 1 and 2 instead of 0 and 1 for capturing the first?
+87:27 DAVID MALAN: Really good question. A good observation. In almost every other
+context, we've started counting at 0 and 1 instead of 1 and 2.
+87:35 It turns out there's
+something else in location 0 when it comes back from re.search
+related to the string itself.
+87:42 So according to the documentation
+of this function only, 1 is the first set of parentheses,
+and 2 is the second set,
+87:49 and onward from there. Just a different convention here. Other questions? AUDIENCE: What if we write nothing,
+like whitespace, comma, whitespace?
+87:60 How do we check truth of condition? DAVID MALAN: Before I
+answer directly, let me just
+88:05 run this and make sure I've
+not broken anything further. Let me run python of format.py. Let me type in David,
+space, Malan, the right way.
+88:12 Let me run it once more. Let me type in Malan, comma, David,
+the wrong way that we're fixing. And we're still good.
+88:18 But I think it will still break. Let me run it a third time with
+Malan, comma, David with no space.
+88:24 And now it's still broken. Why? Because I'm still
+looking for comma space.
+88:31 Now, how can I fix that? One way I could do that is to add
+a question mark here, which again, is zero or more of the thing before.
+88:38 So if I have a space and then a
+question mark literally, no need for any parentheses, then I can literally
+tolerate both Malan, comma, space,
+88:46 David or Malan, comma, David. So let's try again. Before, this did not work. Let's do Malan, comma,
+David with no space.
+88:53 Now it does actually work. So we can tolerate different
+amounts of whitespace
+88:59 if I am a little more
+precise with my formula. Let me go ahead and try once more. Let me very weirdly but possibly hit
+the space bar a few too many times
+89:07 so now they're really separated. This, again, is not going to work
+quite right, because it's going
+89:13 to consume all of that whitespace. So now I might want to
+strip, left and right, any
+89:18 of the leading white space on the
+result. Or what I could do here is say this. Instead of zero or one, I
+could use a * here, so space *.
+89:30 And now if I run this once more with
+Malan, comma, space, space, space, David, Enter, now we've
+cleaned up things further.
+89:36 So you can imagine, depending on
+how messy the data is that you're cleaning up, your regular
+expressions might need
+89:42 to get more and more sophisticated. It really depends on just how many
+problems we want to solve at once.
+89:47 Well, allow me to propose that we forge
+ahead further just to clean this up
+89:52 even more so, using a
+feature that's actually relatively new to Python itself. It is very common when
+using regular expressions
+89:59 to do exactly what I've done here--
+to call a function like re.search with capturing parentheses inside,
+such that you get back a return
+90:07 value that I'm calling matches--
+you could call it something else, but I'm calling it by default matches. And then notice on the next
+line, I'm saying "if matches."
+90:16 Wouldn't it be nice if I could just
+tighten things up further and do these all on the same line?
+90:21 Well, you can sort of. Let me go ahead and do this. Let me get rid of this if.
+90:26 And let me just try to
+say something like this. If matches equals
+re.search and then colon--
+90:32 so combining my if condition into
+just one line instead of those two.
+90:39 In C, or C++, or Java, you would
+actually do something like this, surrounding the whole
+thing with parentheses,
+90:45 sometimes double sets to
+suppress any warnings, if you want to do two things at once. If you want to not only assign
+the return value of re.search
+90:56 to a variable called
+matches, but you want to subsequently ask a Boolean question,
+is this effectively true or false.
+91:03 That's what I was doing a moment ago. Let me undo this. A moment ago, I was getting
+back the return value
+91:08 and assigning it to matches, and
+then I was asking the question. Well, it turns out this need to have
+two lines of code presumably rubbed
+91:17 people wrong for too long in Python. And so you can now combine these
+two kinds of lines into one.
+91:22 But you need a new operator. You cannot just say, "if
+matches equals re.search"
+91:28 and then in a colon at the end. You instead need to do this. You need to do colon equals if and
+only if you want to assign something
+91:38 from right to left and you
+want to ask an if or an elif question on the same line.
+91:45 This is affectionately known, as can
+see here, as the walrus operator. And it's new to Python in recent years.
+91:51 And it both allows you to assign a
+value as I'm doing from right to left, and ask a Boolean question
+about it, like I'm
+92:00 doing with the if or equivalently elif. Does anyone know why this is
+called the walrus operator?
+92:07 If you kind of look at
+it like this, perhaps, if you're familiar with walruses, it
+kind of sort of looks like a walrus.
+92:14 So a minor detail but a relatively new
+feature of Python that honestly, you'll probably continue to see online, and
+in source code, and in textbooks,
+92:21 and so forth, increasingly
+so now that it does exist. It does not change the logic at all. If I run python of format.py and
+type Malan, comma, space, David,
+92:30 it still fixes things, but it's
+tightened up my code just a bit more. All right. Let's go ahead and look
+at one final problem
+92:37 to solve, that of extracting
+information now as well. So at this point, we've now
+validated the user's input
+92:43 by checking whether or not
+it meets a certain pattern. We've cleaned up the
+user's input by checking
+92:49 against a pattern, whether
+it matches or not, and if it does match, we kind of reorganize
+some of the user's information
+92:54 so we can clean up their input and
+standardize the format in which we're storing or printing it, in this case.
+92:60 Let's do one final example where
+we're very specifically extracting information in order to
+answer some question.
+93:06 So let me propose this. Let me go ahead and close format.py and
+create a new file called twitter.py,
+93:13 the goal of which is to prompt users
+for the URL of their Twitter profile
+93:18 and extract from it, infer from that
+URL, what is the user's username.
+93:24 Now, why might you want to do this? Well, one, you might want users to be
+able to just very easily copy and paste the URL from their own Twitter
+profile into your form, into your app,
+93:32 so that you can figure out
+what their username is. Or you might have a form that asks
+the user for their Twitter username,
+93:40 and because people aren't necessarily
+paying very close attention, some people type their username.
+93:46 Some people type their whole URL
+or something else altogether. It would be nice now
+that you're a programmer
+93:51 to just be more tolerant
+of different types of input and just take on the burden of
+canonicalizing, standardizing the data,
+93:58 but being flexible with the users. It's arguably a better user experience
+if you just let me copy-paste
+94:04 or type in what I want, you clean it up. You're the programmer not me. Lends for a better experience, perhaps.
+94:10 Well, let me go ahead and
+do this with twitter.py. Let me first go ahead and prompt the
+user here for a value for a variable
+94:17 that I'll call url, and just ask them to
+input the URL of their Twitter profile. I'm going to go ahead
+and strip off any leading
+94:24 or trailing whitespace, just in case
+users accidentally hit the spacebar. That's literally the least
+I can do quite easily.
+94:30 But now let's go ahead and do this. Suppose that the user's
+address is the following.
+94:37 Let me print out what did they type in. And let me clear my screen
+and run python of twitter.py. I'm going to go ahead and
+type in, for instance,
+94:43 https://twitter.com/davidjmalan, which
+happens to be my own Twitter username.
+94:50 For now, we're just going to
+print it back onto the screen just to make sure I've not messed up yet. OK. So I've printed back
+out the exact same URL.
+94:57 But the goal at hand is to
+extract the username only. Now, let me just ask, perhaps,
+a straightforward question.
+95:05 Logically, what do I need to do
+to get at the user's username? AUDIENCE: Well, we just ignore
+what's before the username
+95:14 and then just extract the username? DAVID MALAN: Perfect. Yeah, I mean, it is as simple as that. If you know the username is
+at the end, well, let's just
+95:21 somehow ignore everything
+to the beginning. Well, what's at the beginning? Well, it's a URL. So we're probably going to need to
+ignore an HTTPS, a ://, a twitter.com,
+95:31 and a /. So we just want to
+throw all of that away. Why? Because if it's an URL, we
+know by how Twitter works
+95:37 that the username comes at the end. So let's use that very simple idea
+to get at the information we want.
+95:43 I'm going to try this
+a few different ways. Let me go back into my program here. And instead of just printing it out,
+which was just to see what's going on,
+95:50 let me do this. Let me create a new
+variable called username. And let me call url.replace.
+95:57 It turns out that if URL is
+a string or a str in Python, it, again, comes with multiple
+methods, like strip, and split,
+96:06 and others as well, one of
+which is called replace. And replace will do just that. You pass it two arguments, the first of
+which is, what do you want to replace?
+96:14 The second argument is, what
+do you want to replace it with? So if I want to get rid
+of, as I've proposed,
+96:20 really just everything
+before the username, that is, the Twitter URL or the
+beginning thereof, let's just say this.
+96:26 Go ahead and replace
+"https://twitter.com/",
+96:32 close quote, that's
+what I want to replace. And comma, second argument, what
+do you want to replace it with?
+96:37 Nothing. So I'm literally going
+to pass in quote unquote to effectively do a find and replace.
+96:42 That's what the replace method
+does, just like you can do it in Microsoft Word or Google Docs. This is the programmer's way
+of doing find and replace.
+96:49 Now let me go ahead and
+print out just the username. So I'll use an fstring like this.
+96:55 I'll say username, colon,
+and then in curly braces, username, just to format it nicely. All right.
+97:00 Let me go ahead and clear my screen and
+run python of twitter.py, Enter, URL. Here we go.
+https://twitter.com/davidjmalan, Enter.
+97:13 OK. Now we've made some progress. Done for the day, right? Well, what is suboptimal about this?
+97:20 Can anyone critique or
+find fault with my program? It is working now, but
+it's a little fragile.
+97:28 I bet we could contrive some scenarios
+where I think it works but it doesn't. AUDIENCE: Well, I have
+a few ideas, actually.
+97:34 Well, first of all, if we don't
+specify HTTPS, it will be broken.
+97:40 Secondly, if we have a slash at
+the end, it also will be broken. If we have a question mark or
+something after question mark,
+97:48 it also won't work. So a lot of scenarios, actually. DAVID MALAN: Oh, my god. I mean, here we are. I was pretending to think I was done.
+97:55 But my god, like, Alex gave us a
+whole laundry list of problems. And just to recap, then, what
+if it's not HTTPS, it's HTTP?
+98:02 Slightly less secure,
+but I should still be able to tolerate that programmatically. What if the protocol is not there?
+98:07 What if the user just typed
+twitter.com/davidjmalan? It would be nice to tolerate
+that rather than show an error
+98:13 and make me type in the protocol. Why? It's not good user experience. What if it had a slash at the end
+of the username, or a question mark?
+98:20 If you think about URLs
+you've seen on the web, there's very commonly more
+information, especially if it's been shared on social media.
+98:27 There might be a HTTP
+parameters, so to speak, just stuff there that we don't want. There could be a www.twitter.com,
+which I'm also not expecting but does
+98:35 work if you go to that URL, too. So there's just so many
+things that can go wrong. And even if I come back to my
+contrived example as earlier,
+98:43 what if I run this
+program and say this-- "my username is
+https://twitter.com/davidjmalan,"
+98:53 Enter. Well, that too just didn't really
+work-- it got rid of the-- actually--
+98:59 [LAUGHS] OK, actually
+that kind of worked. But the goal here is to actually
+get the user's username,
+99:05 not an English sentence
+describing the user's username. So I would argue that even though
+I just accidentally created
+99:11 perfectly correct English
+grammar, I did not extract the Twitter username correctly. I don't want words like "my
+username is" as part of my input.
+99:20 So how can we go about improving
+this, and maybe chipping away at some of those problems one by one? Well, let me clear my screen here.
+99:26 Let me come back up to my code. And let me not just replace it, but
+let me do something else instead.
+99:32 I'm going to go ahead, and
+instead of using replace, I'm going to use another
+function called removeprefix.
+99:37 A prefix is a string or a substring
+that comes at the start of another.
+99:42 So if I remove prefix, I don't need
+a second argument for this function. I just need one. What prefix do you want to remove?
+99:49 So this will at least now
+fix the problem I just described of typing in like a whole
+sentence, where the URL is there,
+99:55 but it's not at the beginning,
+it's only at the end. So here, this still is not correct.
+99:60 But we don't create this weird-looking
+output that just removes the URL part of the input--
+100:05 "my username is
+https://twitter.com/davidjmalan."
+100:11 A moment ago, it did remove the
+URL and left only the davidjmalan.
+100:17 This is not perfect still. But at least now, it does
+not weirdly remove the URL
+100:22 and then leave the English. It's just leaving it alone. So maybe I could handle
+this better, but at least it's removing it from the part
+of the string I might anticipate.
+100:31 Well, what else could we do here? Well, it turns out that
+regular expressions just let us express patterns
+much more precisely.
+100:38 We could spend all day using a whole
+bunch of different Python functions like removeprefix, or remove, and
+strip, and others, and kind of
+100:45 make our way to the right solution. But a regular expression just
+allows you to more succinctly,
+100:50 if admittedly more cryptically, express
+these kinds of patterns and goals. And we've seen from
+parentheses, which can
+100:57 be used not just to group
+symbols together as sets but to capture information as well,
+we have a very powerful tool now
+101:05 in our toolkit. So let me do this. Let me go ahead and start fresh
+here and import the re library
+101:13 as before at the very top of my program. I'm still going to get the user's
+URL via the same line of code.
+101:18 But I'm now going to use
+another function as well. It turns out that there's not
+just re.search, or re.match,
+101:25 or re.fullmatch. There's also re.sub in the regular
+expression library, where "sub" here
+101:31 means "substitute." And it takes more arguments, but
+they're fairly straightforward. The first argument to re.sub is
+the pattern, the regular expression
+101:39 that you want to look for. Then you have a replacement
+string-- what do you want to replace that pattern with?
+101:45 And where do you want to do all that? Well, you pass in the string that
+you want to do the substitution on.
+101:51 Then there's some other arguments
+that I'll wave my hands at for now. Among them are those same
+flags and also a count, like how many times do you
+want to do find and replace?
+101:59 Do you want it to do all,
+do you want to do just one, or so forth you can have
+further control there, too,
+102:04 just like you would in Google
+Docs or Microsoft Word. Well, let me go back to my
+code here, and let me do this.
+102:10 I'm going to go ahead and call re
+not search but re.sub for substitute. I'm going to pass in the
+following regular expression,
+102:18 "https://twitter.com/" and then
+I'm going to close my quote.
+102:26 And now what do I want
+to replace that with? Well, like before with the
+simple str replace function,
+102:31 I want to replace it with nothing,
+just get rid of it altogether. But what string do I want
+to pass in to do this to?
+102:38 The URL from the user. And now let me go ahead and
+assign the return value of re.sub
+102:44 to a variable called username. So re.sub's purpose in life
+is, again, to substitute
+102:49 some value for some regular
+expression some number of times. It essentially is find and
+replace using regular expressions.
+102:56 And it returns to you
+the resulting string once you've done all
+those substitutions.
+103:01 So now the very last line of my code
+can be the same as before, print-- and I'll use an fstring, username,
+colon, and then in curly braces,
+103:09 username. So I can print out literally just that. All right. Let's try this and see what happens.
+103:14 I'll clear my terminal window,
+run python of twitter.py. And here we go,
+https://twitter.com/davidjmalan.
+103:24 Cross my fingers and hit Enter. OK, now we're in business. But it is still a little fragile.
+103:31 And so let me ask the group,
+what problem should I now further chip away at?
+103:36 They've been said before,
+but let's be clear. What's one or more
+problems that still remain? AUDIENCE: The protocols and
+the domain prefix [INAUDIBLE]..
+103:45 DAVID MALAN: Good. The protocols, so HTTP versus HTTPS. Maybe the subdomain, www,
+should it be there or not?
+103:52 And there's a few other
+mistakes here, too. Let me actually stay with the group. What are some other shortcomings
+of this current solution?
+103:60 AUDIENCE: If we use a
+phrase like you do before, we are going to have the same problem,
+because it's not taking account
+104:08 in the first part of the text example. DAVID MALAN: Good. I might still allow for some words,
+some English to the left of the URL
+104:16 because I didn't use my ^ symbol. So I'll fix that. And any final observations
+on shortcomings here?
+104:22 AUDIENCE: Well, it could be an HTTP, or
+there could be less than two slashes. DAVID MALAN: OK.
+104:28 So it could be HTTP. And I think that was mentioned,
+too, in terms of protocol. There could be fewer than two slashes. That I'm not going to worry about.
+104:35 If the user gives me instead of
+two, that's really user error. And I could be tolerant of it,
+but you know what, at that point
+104:41 I'm OK yelling at them with an error
+message saying, please fix your input. Otherwise, we could be here all day long
+trying to handle all possible typos.
+104:49 For now, I think in the
+interests of usability, or user experience,
+UX, let's at least be
+104:55 tolerant of all possible valid inputs
+or reasonable INPUTS if you will. So let me go here, and let me
+start chipping away at these here.
+105:02 What are some problems we can solve? Well, let me propose that we first
+address the issue of matching
+105:09 from the beginning of the string. So let me add the ^ to the beginning. And let me add not a $ sign
+at the end, though, right?
+105:15 Because I don't want to
+match all the way to the end, because I want to
+tolerate a username there. So I think we just want
+the ^ symbol there.
+105:23 There's a subtle bug that
+no one yet mentioned. And let me just kind of highlight it
+and see if it jumps out at you now.
+105:31 It's a little subtle here on my screen. I've highlighted in
+blue a final bug here--
+105:38 maybe some smiles on the screen, yeah? Can we take one hand here? Why am I highlighting the dot in
+twitter.com, even though it definitely
+105:47 should be there? AUDIENCE: So the dot without a backslash
+means any character except a newline.
+105:53 DAVID MALAN: Yeah, exactly. It means any character. So I could type in something like
+twitter?com, or twitter anything com,
+106:02 and that would actually be tolerated. It's not really that bad, because
+why would the user do that?
+106:07 But if I want to be
+correct, and I want to be able to test my own code properly, I
+should really get this detail right.
+106:13 So that's an easy fix, too,
+but it's a common mistake. Anytime you're writing regular
+expressions that happen to involve
+106:19 special symbols, like dots
+in a URL or domain name, a $ sign in something involving
+currency, remember you might, indeed,
+106:27 need to escape it with a
+backslash like this here. All right. Let me ask the group about
+the protocol specifically.
+106:34 So HTTPS is a good thing in the world. It means secure. There is encryption being used.
+106:39 So generally, you like to see HTTPS. But you still see people
+typing or copy-pasting HTTP.
+106:46 What would be the simplest fix here
+to tolerate, as has been proposed, both HTTP and HTTPS?
+106:54 I'm going to propose
+that I could do this. I could do HTTP vertical bar or
+HTTPS, which, again, means A or B.
+107:03 But I think I can be smarter than that. I can keep my code a
+little more succinct. Any recommendations here for
+tolerating HTTP or HTTPS?
+107:13 AUDIENCE: We could try to put
+in question mark behind the S. DAVID MALAN: Perfect. Just use a question mark.
+107:19 Both of those would be viable solutions. If you want to be super
+explicit in your code, fine. Use parentheses and say HTTP or HTTPS,
+so that you, the reader, your boss,
+107:29 your teacher just know
+exactly what you're doing. But if you keep taking the more
+verbose approach all the time,
+107:35 it might actually become
+less readable, certainly once your regular expressions
+get this big instead of this big.
+107:41 So let's save space where we can. And I would argue that this
+is pretty reasonable, so long as you're in the habit
+of reading regular expressions
+107:48 and know that question mark does
+not mean a literal question mark, but it means zero or
+one of the thing before.
+107:53 I think we've effectively
+made the S optional here. Now, what else can I do?
+107:58 Well, suppose we want to tolerate the
+www dot, which may or may not be there,
+108:04 but it will work if you go to a browser. I could do this-- www dot-- wait, I want a
+backslash there so I don't
+108:12 repeat the same mistake as before. But this is no good either, because
+I want to tolerate being there or not
+108:19 being there. And now I've just
+required that it be there. But I think I can take
+the same approach.
+108:24 Any recommendations? How do I make the www. optional, just to hammer this home?
+108:30 AUDIENCE: We can group-- make a square and a question mark.
+108:36 DAVID MALAN: Perfect. So question mark is
+the short answer again. But we have to be a
+little smarter this time. As Maria has noted, we
+need parentheses now.
+108:43 Because if I just put a
+question mark after the dot, that just means the dot is optional.
+108:48 And that's wrong, because we
+don't want the user to type in W-W-W-T-W-I-T-T-E-R. We want the dot
+to be there or just not at all with no
+108:57 www. So we need to group this
+whole thing together, put a parenthesis there, and then a
+parenthesis, not after the third W,
+109:04 after the dot, so that that whole thing
+is either there or it's not there.
+109:10 And what else could we still do here? There's going to be one other
+thing we should tolerate. And it's been said before,
+and I'll pluck this one off.
+109:17 What about the protocol? Like, what if the user just doesn't
+type or doesn't copy-paste the http://
+109:24 or an https://? Honestly, you and I
+are not in the habit, generally, of even typing the
+protocol anymore nowadays.
+109:32 You just let the browser
+figure it out for you, and automatically add it instead. So this one's going to look
+like more of a mouthful.
+109:39 But if I want this whole thing
+here in blue to be optional, it's actually the same solution
+as Maria offered a moment ago.
+109:47 I'm going to go ahead and
+put a parenthesis over here, and a parenthesis after the two
+slashes, and then a question
+109:54 mark so as to make that
+whole thing optional as well. And this is OK. It's totally fine to
+make this whole thing
+110:01 optional, or inside of it, this little
+thing, just the S optional as well.
+110:06 So long as I'm applying the
+same principles again and again, either on a small scale
+or a bigger scale, it's totally fine to nest one
+of these inside of the other.
+110:17 Questions now on any
+of these refinements to this parsing, this
+analyzing of Twitter?
+110:24 AUDIENCE: What if we put a
+vertical bar besides this www dot?
+110:30 DAVID MALAN: What if we
+use a vertical bar there? So we could do something like that, too. We could do something like this.
+110:37 Instead of the question mark,
+I could do www dot or nothing and just leave that and the parentheses.
+110:44 That, too, would be fine. I personally tend not to like
+that, because it's a little less obvious to me-- wait, a minute.
+110:49 Is that deliberate, or did I forget to
+finish my thought by putting something after the vertical bar? But that, too, would be allowed there
+as well, if that's what you mean.
+110:58 Other questions on where
+we left things here, where we made the
+protocol optional, too?
+111:03 AUDIENCE: What happens
+if we have parenthesis, and inside we have another
+parenthesis, and another parenthesis?
+111:10 Will it interfere with each other? DAVID MALAN: If you have parentheses
+inside of parentheses, that, too, is totally fine.
+111:16 And indeed, that should be one
+of the reassuring lessons today. As complicated as each of these regular
+expressions has admittedly gotten,
+111:24 I'm just applying the exact same
+principles and the exact same syntax again and again.
+111:29 So it's totally fine to have
+parentheses inside of parentheses if they're each solving
+different problems. And in fact, the lesson I would
+really emphasize the most today
+111:37 is that you will not be
+happy if you try to write out a whole complicated regular
+expression all at once.
+111:45 Like, if you're anything
+like me, you will fail, and you will have trouble
+finding the mistake. Because my god, look at these things.
+111:51 They are, even to me all
+these years later, cryptic. The better way, I would argue,
+whether you're new to programming
+111:57 or is old to it as I am,
+is to just take these baby steps, these incremental steps
+where you do something simple,
+112:04 you make sure it works. You add one more feature,
+make sure it works. Add one more feature,
+make sure it works.
+112:09 And hopefully, by the end, because
+you've done each of those steps one at a time, the whole thing
+will make sense to you.
+112:15 But you'll also have gotten each of
+those steps correct at each turn. So please, do avoid
+the inclination to try
+112:24 to come up with long,
+sophisticated regular expressions all at once, because it's
+just not a good use of a time
+112:30 if you then stare at it trying
+to find a mistake that you could have caught if you did
+things more incrementally instead.
+112:35 All right. There still remains,
+arguably, at least one problem with this solution in
+that even though I'm calling re.sub to substitute
+the URL with nothing,
+112:44 quote, unquote, I then in my
+final line of code, line 6, am just blindly assuming
+that it all worked,
+112:50 and I'm going to go ahead
+and print out the username. But what if the user-- if I clear my screen here and
+run python of twitter.py--
+112:56 doesn't even type a Twitter URL? What if they do something
+like https://google.com/,
+113:03 like completely unrelated,
+for whatever reason, Enter, that is not
+their Twitter username.
+113:09 So we need to have some
+conditional logic, I would argue, so that for this program's
+sake, we're only printing out
+113:16 or, in a back end system, we're only
+saving into our database or a CSV file the username if we actually
+matched the proper pattern.
+113:24 So rather than use re.sub, which
+is useful for cleaning up data, as we've done here to get rid of
+something we don't want there,
+113:32 why don't we go back to
+re.search, where we began today, and use it to solve this same problem
+but in a way that's conditional,
+113:41 whereby I can confidently say, yes
+or no, at the end of my program, here's the username, or here it is not?
+113:47 So let me go ahead now. And I'll clear my terminal window here. I'm going to keep most of--
+113:53 I'm going to keep the first two
+lines the, same where I import re, and I get the URL from the user. But this time, let's do this.
+113:59 Let's this time search for, using
+re.search instead of re.sub, the following.
+114:04 I'm going to start matching at the
+beginning of the string, https,
+114:10 question mark to make the S
+optional, colon, slash, slash, I'm going to make my www optional by
+putting that in question marks there,
+114:20 then a twitter.com with a literal dot
+there so I stay ahead of that issue, too, then a slash.
+114:27 And then well, this is where
+davidjmalan is supposed to go. How do I detect this?
+114:32 Well, I think I'll just tolerate
+anything at the end of the URL here. All right, $ sign at the
+very end, close quote.
+114:39 For the moment, I'm going
+to stipulate that we're not going to worry about question
+marks at the end or hashes,
+114:44 like for fragment IDs in URLs. We're going to assume for
+simplicity now that the URL just ends with the username alone.
+114:51 Now what am I going to do? Well, I want to search
+for this URL specifically, and I'm going to ignore
+case, so re.IGNORECASE,
+114:58 applying that same lesson
+learned from before. re.search, recall, will return to
+you the matches you've captured.
+115:06 Well, what do I want to capture? Well, I want to capture everything to
+the right of the twitter.com URL here.
+115:12 So let me surround what should be
+the user's username with parentheses,
+115:18 not for making them optional but to
+say, "capture this set of characters." Now, re.search, recall,
+returns an answer.
+115:25 matches will be my variable name again,
+but I could call it anything I want. And then I can do this.
+115:30 If matches, now I know I can do this. Let's print out the format
+string, username colon.
+115:36 And then what do I want to print out? Well, I think I want to print out
+matches.group 1 for my matched
+115:44 username. All right. So what am I doing just to recap? Line 1, I'm importing the library.
+115:50 Line 2, I'm getting
+the URL from the user. So nothing new there. Line 5, I'm searching the user's URL, as
+indicated here as the second argument,
+115:60 for this regular
+expression, this pattern. I have surrounded the
+dot + with parentheses
+116:08 so that they are captured
+ultimately, so I can extract, in this final scenario,
+the user's username.
+116:14 If I indeed got a match,
+and matches is non-none, it is actually containing some match,
+then and only then, print out username.
+116:23 In this way, let me try this now. If I run python of twitter.py and
+type in https://www.google.com/,
+116:31 now nothing gets printed. So I've at least solved
+the mistake we just saw, where I was just assuming
+that my code worked.
+116:38 Now I'm making sure that I have searched
+for and found the Twitter URL prefix.
+116:44 All right. Well, let's run this for real now. Python of twitter.py
+https://twitter.com/davidjmalan.
+116:52 But note, I could use
+HTTP, I could use www. I'm just going to go
+ahead here and hit Enter.
+116:58 Huh, none. What has gone wrong?
+117:05 This one's a bit more subtle. But why does matches.group
+1 contain nothing?
+117:13 Wait a minute. Let me-- maybe I did this wrong. Maybe-- maybe do we need the www? Let me run it again.
+117:19 So here we go. https://, let's
+add a www.twitter.com/davidjmalan.
+117:25 All right. Enter. Ho, ho, ho. What is going on?
+117:31 AUDIENCE: You have to say group 2. DAVID MALAN: I have to say group 2? Well, wait-- oh, right, because
+we had the subdomain was optional.
+117:39 And to make it optional, I
+needed to use parentheses here. And so I then said zero or on. OK.
+117:45 So that means that actually, I'm
+unintentionally but by design
+117:50 capturing the www dot, or none
+of it if it wasn't there before, but I have a second
+match over here because I
+117:57 have a second set of parentheses. So I think, yep, let me
+change matches.group 1 to matches.group 2, and let's run this.
+118:02 Python of twitter.py
+https://www.twitter--
+118:07 let's do this,
+twitter.com/davidjmalan, Enter,
+118:13 and now we've got
+access to the username. Let me go ahead and tighten
+it up a little bit further.
+118:19 If you like our new friend-- it's hard not to like. If we like our old friend the
+walrus operator, let's go ahead
+118:26 and add this just to tighten things up. Let me go back to VS Code here, and let
+me get rid of the unnecessary condition
+118:31 there and combine it up
+here, if matches equals that. But let's change the single assignment
+operator to the walrus operator.
+118:38 Now I've tightened things up further. But I bet, I bet, I bet there
+might be another solution here.
+118:44 And indeed, it turns out that we can
+come back to this final set of syntax.
+118:51 Recall that when we
+introduce these parentheses, we did it so that we could do A or B,
+for instance, with the vertical bar.
+118:57 Then you can even combine
+more than just one bar. We use the group to combine
+ideas like the, www dot.
+119:03 And then there's this admittedly weird
+syntax at the bottom here, up until now not used.
+119:09 There is a non-capturing
+version of parentheses if you want to use parentheses
+logically because you need to,
+119:15 but you don't want to
+bother capturing the result. And this would arguably
+be a better solution
+119:20 here, because, yes, if I
+go back to VS Code, I do need to surround the www dot
+with parentheses, at least
+119:28 as I've written my regex
+here, because I wanted to put the question mark after it. But I don't need the
+www dot coming back.
+119:35 In fact, let's only extract
+the data we care about, just so there's no confusion
+down the road, for me,
+119:40 or my colleagues, or my teachers. So what could I do? Well, the syntax per this slide is
+to use a question mark and a colon
+119:49 immediately after the open parentheses. It looks weird admittedly. Those of you who have prior
+programming experience
+119:55 might recognize the syntax from ternary
+operators, doing an if else all in one line. A question mark colon at the
+beginning of that parenthetical
+120:04 means, yes, I'm using parentheses
+to group these things together, but no, you do not need
+to capture them instead.
+120:12 So I can change my code
+back now to matches.group 1. I'll clear my screen here,
+run python of twitter.py.
+120:18 I'll again run here
+https://twitter.com/davidjmalan
+120:24 with or without the www. And now, I indeed get
+back that username.
+120:31 Any questions, then, on
+these final techniques?
+120:37 AUDIENCE: So first of all,
+could we move the ^ right at the beginning of Twitter, and
+then just start reading from there,
+120:44 and then get rid of everything else
+before that, the kind of www issues
+120:50 that we had? And then my second question is,
+how would we use kind of, I guess,
+120:56 either a list or a dictionary
+to sort the .com kind of thing,
+121:02 because we have .co.uk,
+and that kind of stuff. How would we bring that
+into the re function?
+121:08 DAVID MALAN: A good question but no. If I move the ^ before twitter.com and
+throw away the protocol and the www,
+121:16 then the user is going to have to type
+in literally twitter.com/username.
+121:21 They can't even type
+in that other stuff. So that would be a
+regression, a step back. As for the .com, the .org,
+and .edu, and so forth,
+121:29 the short answer is there's
+many different solutions here. If I wanted to be stringent about .com--
+and suppose that Twitter probably owns
+121:37 multiple domain names, even though
+they tend to use just this one. Suppose they have something
+like .org as well.
+121:44 You could use more parentheses here and
+do something like this-- com or org. I'd probably want to go
+in and add a question mark
+121:50 colon to make it non-capturing,
+because I don't care which it is, I just want to tolerate both. Alternatively, we could capture that.
+121:58 We could do something like
+this, where we do dot + so as to actually capture that.
+122:03 And then we could do
+something like this. If matches.group 1 now equals equals
+com, then we could support this.
+122:14 So you could imagine factoring out the
+logic just by extracting the Top-Level Domain, or TLD, and then just using
+Python code, maybe a list, maybe
+122:21 a dictionary, to validate
+elsewhere, outside of the regex, if it's, in fact, what you expect.
+122:27 For now, though, we kept things simple. We focused only on
+the .com in this case.
+122:32 Let's make one final
+change to this program so that we're being a little
+more specific with the definition of a Twitter username.
+122:38 It turns out that we're being a little
+too generous over here, whereby we're accepting one or more of any character.
+122:43 I checked the documentation for Twitter. And Twitter only supports letters
+of the alphabet, a through Z,
+122:49 numbers 0 through 9, or
+underscores, so not just dot, which is literally anything.
+122:55 So let me go ahead and
+be more precise here. At the end of my string,
+let me go ahead and say, this set of symbols in square brackets.
+123:04 I'm going to go ahead and say a through
+Z, 0 through 9, and an underscore. Because, again, those are
+the only valid symbols.
+123:10 I don't need to bother with an
+uppercase A or a lowercase z, because we're using
+re.IGNORECASE over here.
+123:16 But I want to make sure now that
+I tolerate not only one or more of these symbols here but also maybe
+some other stuff at the end of the URL.
+123:24 I'm now going to be OK with there
+being a slash, or a question mark, or a hash at the end of the URL, all
+of which are valid symbols in a URL,
+123:32 but I know from the
+Twitter's documentation, are not part of the username. All right.
+123:37 Now I'm going to go ahead and
+run python of twitter.py one final time, typing in
+https://twitter.com/davidjmalan, maybe
+123:47 with, maybe without a trailing slash. But hopefully, with my biggest fingers
+crossed here, I'm going to go ahead now
+123:52 and hit Enter, and thankfully my
+username is, indeed, davidjmalan. So what more is there in the
+world of regular expressions
+123:59 and this own library? Not just re.search and also re.sub,
+there's other functions, too.
+124:04 There's re.split, via which
+you can split a string, not using a specific character or
+characters like a comma and a space,
+124:11 but multiple characters as well. And there's even
+functions like re.findall,
+124:17 which can allow you to search for
+multiple copies of the same pattern in different places in a
+string so that you can perhaps
+124:23 manipulate more than just one. So at the end of the day now, you've
+really learned a whole other language,
+124:29 like that of regular expressions,
+and we've used them in Python. But these regular expressions actually
+exist in so many languages, too,
+124:36 among them JavaScript, and
+Java, and Ruby, and more. So with this new language, even
+though it's admittedly cryptic
+124:42 when you use it for the first time,
+you have this newfound ability to express these patterns that,
+again, you can use to validate data,
+124:49 to clean up data, or even extract
+data, and from any data set you might have in mind.
+124:54 That's it for this week. We will see you next time. 

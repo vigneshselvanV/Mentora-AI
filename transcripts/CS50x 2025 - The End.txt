@@ -1,0 +1,1185 @@
+00:00 [MUSIC PLAYING] 
+01:15 DAVID MALAN: All right, this
+is CS50, and this is the end, our final lecture
+together here this week.
+01:22 But it's not all of the course that
+itself remains because, of course, we still have our final project, CS50
+Hackathon, CS50 Fair, and more.
+01:28 And so among the goals
+for today really is to be a bit of a recap for where you
+started and where you now hopefully are
+01:35 and to have some fun and
+some games along the way. But recall that this was
+the image with which we began the course, the sort of
+proverbial drinking from a fire hose.
+01:43 And indeed, if it's felt like
+that each and every week, realize that behind you each week is
+all the more content, all the more
+01:49 skills that you've acquired
+and understood over time. And in fact, I dare say,
+if you think back today
+01:55 on how hard something like Mario
+was some 10 or so weeks ago, I mean, that's the measure
+of just how far you
+02:01 have come because we, of course,
+introduced something new, something more each and every week to
+build on that previous week.
+02:07 And so even though it might feel like
+you never quite got your footing, odds are you very much have. And indeed, among the
+goals for the final project
+02:13 is to convince you
+that you don't need us. You don't need a homework assignment. You just need nowadays, friends,
+colleagues, Google, ChatGPT,
+02:20 and the like to teach
+yourself new things now that you have hopefully
+this conceptual foundation
+02:25 and these practical
+skills in your tool kit. What ultimately matters,
+though, recall in this class
+02:31 is not so much where you end
+up relative to your classmates, but where you end up relative
+to yourself when you began.
+02:36 And that then brings us to today. That is the delta by
+which you should measure what it is you've been accomplishing
+over the past semester alone.
+02:43 In fact, think back to my
+very own CS50 assignment, which I pulled up from the
+archives that very first week. Even I got sort of minus 2
+on my very first assignment
+02:51 on hello world of all things. And hopefully, over time I
+sort of chipped away at that.
+02:56 I ended up doing OK in CS50. And clearly, I went on to study more
+computer science and other things.
+03:01 So that too odds are will
+very much be you as well. And at the end of the day, CS recall is
+really just about this picture, problem
+03:08 solving. Computer science is not
+about programming per se. That's just been a tool
+in our toolkit via which
+03:14 you can express yourself a little more
+methodically, more algorithmically, solve problems, build
+solutions to problems,
+03:19 build products that
+are of interest to you. But at the end of the day, it really
+is about taking inputs and ideally correctly producing outputs as well.
+03:28 Toward that end, I also
+went into the archives and pulled up some of
+my very first notes from that very first CS50
+class I took in 1996.
+03:35 And this was page one of my notes. And if we highlight a few
+details, I myself back in the day, per Professor Kernighan's
+explanation thereof,
+03:43 to find an algorithm as precise sequence
+of steps for getting something done. Moreover, programming
+specifically, I see
+03:49 was this process of taking on algorithm
+and putting it into a language a computer can process.
+03:54 But perhaps most importantly
+of my first days' notes way back when
+were these two things.
+03:60 And I even used exclamation
+points apparently to reinforce this to myself, that
+precision and correctness are very much
+04:06 important. And so we thought we'd
+put those principles, hopefully those takeaways, those
+learning objectives to the test
+04:12 today with the first
+of our fun and games. And if I can ask for one volunteer who
+bravely volunteered before class even
+04:19 began. Jordan, come on up. [APPLAUSE] Jordan, would you like to
+introduce yourself to the group?
+04:27 JORDAN: Hello, everyone. My name is Jordan. I am a freshman dorming at Wigglesworth. DAVID MALAN: Welcome
+to the stage, Jordan.
+04:33 So hopefully in your hands
+you all have a sheet of paper that you might have
+gotten on the way in. If you don't, find any sheet of paper
+in your backpack or binder or person
+04:41 next to you. And if you really
+can't find that, that's OK if you want to just
+listen along with this. But everyone in the audience
+now, Jordan hopefully
+04:47 has a sheet of paper and
+hopefully a pen or a pencil with which to write something. And so what we thought we'd do
+is a two-step approach here,
+04:56 whereby the very first round of
+this here game we'll have Jordan program you all by giving you
+step-by-step instructions for solving
+05:04 some problem. And the problem to solve
+is going to be to tell you exactly how to draw a picture
+on that sheet of paper,
+05:11 keeping in mind precision and
+correctness being our overarching goals. If you want to step into
+the middle of the stage here, actually in front
+of the lectern first,
+05:18 I'm going to go ahead and dim the
+screen and show Jordan and only Jordan what is on my screen here.
+05:23 So the picture I'd like you to have
+folks draw is this picture here. And in fact, I think we can leave
+this on the screen for just you,
+05:31 so that you can look back
+and forth on it as needed. So only Jordan can
+see that there screen.
+05:38 And I'll pivot this
+around, so if you want to step over there and give
+everyone in the audience their first instruction to draw this.
+05:44 JORDAN: I can describe it
+however I want to describe it? DAVID MALAN: You can say
+anything that you want verbally. JORDAN: Great.
+05:49 So visualize a cube. And we're looking at it
+only from the three sides.
+05:57 And the middle of the cube is
+where everything intersects. So we have three diamond-looking
+shapes connected to make a cube.
+06:05  DAVID MALAN: From the chuckles,
+I'm not sure that's enough.
+06:12 Go on. JORDAN: OK.  Imagine you're looking at a
+Rubik's cube, but without all the
+06:20 three by three grid and everything. And one of the pointy edges of the
+Rubik's Cube is literally in the middle.
+06:26 And you're looking at it from
+a very weird perspective of-- 
+06:37 yeah, I'm not too good at this. DAVID MALAN: That's OK. Want to take one more stab? JORDAN: One more stab.
+06:42 Let's see. DAVID MALAN: Maybe lower level. JORDAN: Lower level. OK, so
+06:48 DAVID MALAN: [INAUDIBLE] JORDAN: Yes, [INAUDIBLE]. So first, draw a hexagon.
+06:54 Hexagon is six sides. OK, yeah. Draw a hexagon with a Y-looking shape
+connecting the top left, top right,
+07:08 and center bottom together. 
+07:14 I hope that helps.  DAVID MALAN: Want to stop there? Do we need a little more instruction?
+07:21 Maybe for the chuckles, but one
+more instruction, even lower level. Tell them where to put
+the pen on the paper.
+07:27 JORDAN: So start from
+the center of the paper. From that center point, you're
+going to draw one line to the left,
+07:35 one line to the right,
+and one line all the way from the bottom from that center point.
+07:40 And then you're going to
+want to make a hexagon shape that will eventually result in a
+cube that has three sides, pretty much.
+07:55 DAVID MALAN: OK, I think we've
+covered all possible approaches here. So let's do this. If some of my colleagues could very
+quickly collect, if you're comfortable
+08:02 sharing, as many sheets of paper
+as we can in just a few seconds. It's OK if we don't collect all of
+them, as many as we can, though.
+08:11  All right, we have one, two,
+three sets of hands collecting.
+08:19 Yuli, I think that'll
+be enough of the hands. 
+08:25 OK, OK, everyone's very eager
+to give us their sheets. OK.
+08:30 All right. Coming in. We have a whole lot.
+08:37 OK, thank you, Vlad. OK. Nice. OK, thank you.
+08:42 OK, thank you. We'll go through all of these later. OK, so I'm going to cut
+over to my laptop's camera
+08:48 here so I can show you,
+Jordan, a few of what your classmates have drawn
+based on your description. Here we have a teeny, tiny version
+thereof in the top corner there.
+08:59 This classmate took
+a different approach. OK.
+09:05 This one here took several approaches. There's that Y though,
+and a cube in the bottom
+09:12 there, a few different cubes
+rotated a few different ways. And maybe here's, how
+about one last one here,
+09:18 a different sort of
+interpretation altogether. So what Jordan was actually
+trying to get you to draw
+09:23 was indeed a cube
+looking simply like this. But I dare say it is hard.
+09:29 But notice the different
+levels of abstraction I was trying to nudge
+Jordan to operate at. So you took the highest
+level abstraction first,
+09:35 like, hey, all, draw a cube. That alone is pretty useful information. But how is it oriented?
+09:40 Which way is it angled? It's sort of non-obvious unless we
+go down a little layer below that. And so then, of course, you proposed
+drawing a hexagon and then a Y.
+09:48 And so that was getting a little
+more concrete, but even then, it might have been a little non-obvious. And then the last attempt
+I dare say you tried
+09:53 was to say what you should draw
+concretely with the pen or pencil.
+09:59 And here's where we could have
+gotten to the lowest level, daresay, where maybe you could have even
+gone further and said, OK, everyone,
+10:04 put your pen at the top of your page. Now draw a straight line to
+the southeast of the paper,
+10:12 then maybe go south on the paper. And much like old
+school childhood drawing games, where it's sort of up, down,
+left, right and frankly, like scratch,
+10:19 we could have really gotten into
+the weeds had you drawn something that you didn't necessarily
+know where you were going.
+10:25 But eventually, voila, now you
+actually see the cube on the screen. So wonderful attempt.
+10:30 Let's go ahead and give Jordan
+a round of applause here. Thank you so much. All set.
+10:35 Why don't we go ahead and reverse
+the roles a little bit here? Could we get one other volunteer
+who has not been summoned before?
+10:43 How about here, come on up. Who do we have here? Come on over here on
+the edge of the stage.
+10:51 All right, for round two, which is
+going to be a little bit different,
+10:58 we have coming up-- 
+11:05 we have, what's your name? VIREN: My name is Viren. And I'm dual majoring in
+cybersecurity and computer science.
+11:12 DAVID MALAN: Wonderful. Nice to meet you. Come on over to the middle of the stage. We have to ask you now on
+the honor system here not
+11:17 to look up because
+everyone else now is going to see what it is you're going to draw. And we'll reverse the roles and have
+the audience now program you verbally
+11:25 by giving you step-by-step
+instructions for drawing a different picture altogether. Goal being for you to draw with
+this black marker on the easel.
+11:31 And then every time you draw
+something, just step aside so everyone can see what you have done. But no looking up.
+11:37 All right, here we go. I'm going to show now the audience
+only what it is we'd like you to draw.
+11:45 Step one, from anyone. Just call it out. AUDIENCE: Start with a
+circle in the center. DAVID MALAN: Start with
+a circle in the center.
+11:51  I'm hearing some uh-ohs.
+11:56 But that's OK. Step two. AUDIENCE: There's a line like
+[INAUDIBLE] it's saying hi.
+12:03 The circle is saying hi. DAVID MALAN: The circle is saying hi. 
+12:09 Not wrong, but OK. AUDIENCE: You start from the
+bottom of the circle [INAUDIBLE] Y.
+12:18 DAVID MALAN: Start from the bottom
+of the circle and draw an upside down Y. OK, nice.
+12:25 Yeah. OK, another step. Shout it out. Yeah. AUDIENCE: Draw some arms. DAVID MALAN: Draw some arms.
+12:31 [LAUGHTER] OK. Other instructions?
+12:37  Yeah. AUDIENCE: Draw a line
+from the circle to hi.
+12:43 DAVID MALAN: Draw a line
+from the circle to hi. And albeit with some artistic liberties,
+I think that's pretty darn close.
+12:51 Do you want to look up finally? And a round of applause here. [APPLAUSE]
+12:56 Thank you. Very nicely done. Thank you. So here, too, that was actually
+extraordinarily well done
+13:01 for the instructions that were given. So the hi, of course, is
+off to the wrong side. But this, too, sort of speaks
+to the importance of precision.
+13:09 It's not just enough to say
+that the circle is saying hi. Probably should have specified
+top left versus some other angle.
+13:15 And instead of, if I
+may, draw arms, we could have been a little more specific as to
+the shapes or the angles of the arms
+13:21 that we wanted to draw. But of course, once you have implemented
+this solution to this problem,
+13:26 drawing a stick figure, now
+you can abstract it away, put it into your tool
+kit, call it a function.
+13:32 And maybe that function in the future
+has certain parameters or inputs we can pass in that specify the angles
+and the size and the word and so forth.
+13:40 And again, that brings
+us back to abstraction, being able to take something that first
+has to be done at a fairly low level,
+13:46 but then all of us can build on
+top of that idea again and again and hopefully, avoid ever having to
+solve precisely that same problem again.
+13:55 I will review all of
+these later, if I may. So that then is maybe our first
+activity in computational thinking.
+14:03 But we did so much more
+this semester as well. And in fact, if you think
+back from this week backwards, we started, of course, with Scratch,
+this graphical language for dragging
+14:11 and dropping puzzle pieces. And some of you had played
+with that in middle school or high school or sort
+of dabbled just for fun.
+14:17 But the goal of Scratch
+wasn't so much Scratch, but to introduce some of
+those fundamental concepts that you see in a lot of programming
+languages, functions, and arguments,
+14:24 and return values, conditionals,
+loops, variables, and more. And it gave us this very comfortable
+place to experiment with those ideas
+14:31 and to really hammer home the point
+that once things escalated quickly in week one and we got to see in
+more traditional syntax still just
+14:40 the same ideas, but just a
+lot of annoying parentheses, and semicolons, and quotation
+marks, and sort of distractions
+14:45 that hopefully by now you appreciate
+is not what programming is about. It's not the intellectually
+interesting part.
+14:50 It's just the annoying aspect
+of learning some new language and understanding what that new grammar,
+that new syntax, that new vocabulary
+14:57 actually is. Thereafter, we began to explore how
+you can solve problems in memory.
+15:02 We talked about arrays as
+really the first sort of way to represent or to store
+information readily in memory
+15:09 and solve problems like keeping
+track of multiple values at once. We then took a step back
+from code and focused
+15:14 on algorithms, step-by-step
+instructions for solving problems for searching and sorting, and a lot
+of problems that, though we chose,
+15:20 simple versions thereof are
+really omnipresent in the Googles, and the Microsofts, the
+ChatGPTs of the world
+15:26 that are constantly navigating
+super large data sets nowadays. We talked at the lowest level
+about memory and pointers.
+15:33 And rest assured that in almost
+any subsequent programming language you learn, odds are you're
+building on top of those ideas,
+15:40 instead of taking a deeper dive. Those of you destined to major or
+concentrate in computer science might dabble at that same lower level,
+especially if you like that there world.
+15:49 But then data structures is really what
+characterizes a lot of computer science and all of those trees,
+and tries, and hash tables,
+15:55 and just using this canvas of memory
+to create things that only exist sort of in memory and in our minds.
+16:01 But if we draw pictures of them,
+they really do come to life and solve problems all
+the more efficiently.
+16:07 Then why Python, why SQL, why all
+of these more recent web languages? Well, Python is much more
+useful in a lot of cases than C.
+16:13 In fact, personally, I only use
+C between September and October of each year. And then I sort of have to
+relearn it the next year
+16:20 because I just don't use it that much. It's still incredibly
+popular and omnipresent, but for fairly low-level applications,
+where performance and speed and memory
+16:28 are really precious and important. But most of us, when we start
+solving problems with code,
+16:33 are probably going to reach
+for something like Python or R or Java or some higher level
+language, like JavaScript
+16:39 as well, just because it's easier
+to solve common problems with those there languages. SQL though, in particular, was
+a different type of language.
+16:47 And it let us talk about
+something we might now know as declarative programming,
+where it doesn't really
+16:52 matter how you get the
+data or how you select it, but just that you want
+to select some data,
+16:57 and this is the type of
+data you want to select. And there's no more loops and
+variables and conditionals.
+17:03 The language just takes
+care of all of that for you. And then, of course, there's the web,
+HTML, CSS, throw in some JavaScript.
+17:10 This is what most every application
+with which we are familiar every day nowadays uses for the web,
+for mobile devices as well.
+17:17 But there too, once we got to
+JavaScript, if briefly, we explored, we revisited those same ideas,
+functions, conditionals, loops,
+17:23 again and again. Now, this isn't the entirety
+of the world of programming. There are other types
+of languages out there.
+17:29 SQL hints at this. Python hints of this. Besides declarative programming,
+there's functional programming,
+17:35 object oriented programming. And there's still
+therefore, much to learn. But we focus in CS50 on
+procedural programming,
+17:41 step by step truly instructions
+for solving problems in code. But there's even more
+out there to learn.
+17:48 And indeed, when we end
+the course here with Flask, the motivation there
+in particular is not to teach some library or framework
+because those are a dime a dozen,
+17:55 but to choose a simple
+one, so that you can really explore the confluence of a lot of these
+ideas in your very own last problem set
+18:03 and ultimately, final project, which
+of course, brings us now to week 10. So the final project really is
+meant to be this opportunity
+18:10 to take your newfound knowledge of
+programming and CS out for a spin and build something of
+importance or of interest to you
+18:15 without being handed a specification
+and told exactly what to do. And you will find that
+this too is challenging.
+18:22 And you will find that you're
+Googling and ChatGPTing, which for this stage of the class
+is now welcome and encouraged
+18:28 because a lot of computer science,
+a lot of programming, in particular, is about just learning new things,
+some new functions, some new APIs,
+18:35 some new library or the like. That's never going to stop. But you're going to get better at it. And you're going to have
+all the more instincts
+18:41 for how to read the
+documentation, how to recognize that, oh, this language
+I'm now just learning
+18:47 is actually pretty similar to
+this other thing I learned. And in fact, if the best thing we
+hopefully have done in the class for you
+18:52 ultimately is just to teach you how
+to teach yourself new things, because in a few weeks' time, poof, we're all
+going to disappear from the stage here.
+19:00 But you'll still have some problems
+presumably in the real world to solve with code or otherwise.
+19:06 This is the tagline
+from the specification. All that we ask is that you
+build something of interest
+19:11 to you, that you solve an actual
+problem, that you impact campus, or that you change the world. No pressure. But ultimately, you
+strive to create something
+19:18 that outlives this course, whether
+it's for your student group, your personal life,
+your professional life, just some proof of concept
+you've wanted to play with.
+19:24 The final project capstone is your own. And to get you there, we have this
+tradition of the CS50 Hackathon,
+19:31 which will be starting at
+7:00 PM later this week, ending at 7:00 AM the next night. It's meant to be one of these
+memorable collegiate experiences,
+19:38 academic more so in
+nature, that is really meant to be an opportunity alongside
+classmates and staff and friends
+19:44 to collaborate on or struggle your way
+through some problem you want to solve. Here, for instance, are some
+visuals from the most recent year.
+19:51 A certain CS50 duck will
+await you to greet you. But it really is just meant to
+be an evening and early morning
+19:58 of solving problems, writing code,
+figuring things out, getting a jumpstart on your same problem set. Around 9:00 PM will
+first dinner be served.
+20:05 Around 1:00 AM will
+second dinner be served. And if you still have the
+energy around 5:00 AM, we'll hop in some CS50 shuttles and
+head down the street to IHOP as well
+20:13 for pancakes in the morning. So if your schedule allows, do join
+us for this particular tradition
+20:19 in a few days' time. The CS50 Fair, meanwhile,
+after Thanksgiving break, will be this opportunity to
+showcase the work that you
+20:26 create via the final project for
+classmates and staff and faculty across campus. You'll gather here in a space on
+campus where some balloons and music
+20:35 and food and others will await. And it'll be an opportunity to take
+delight in the projects that each of you
+20:40 have created over these past several
+weeks, exhibiting for the world to see what it is that you accomplished
+and more importantly, learned
+20:48 along the way. The CS50 duck even lost
+his head, so to speak, last year, was so
+impressed by this project.
+20:53 So too will you meet Varun perhaps
+in that their costume as well. And ultimately, will you receive,
+as have all of your predecessors
+21:01 past, your very own,
+I took CS50, t-shirt that hopefully you can wear proudly
+beyond the end of the course itself.
+21:08 So that brings us now
+to our second game, another opportunity to test just
+how much has sunk in from that fire
+21:16 hose over the past several weeks. If Yulia wouldn't mind
+coming up here on stage. For this I think we need a set of
+six volunteers that have kindly
+21:22 volunteered just before class began. If teams one and two
+would like to come up.
+21:28 A round of applause for having
+so proactively volunteered. Come on up. [APPLAUSE]
+21:35  Come on up. And let's go ahead. And as we set up the tables
+and chairs over there,
+21:42 if you guys want to come on
+over here into the middle. We should have our one, two, three,
+four, five, six volunteers, team one
+21:49 and team two. So let me invite you to
+say hello to the world. ISHIKA: Hi, everybody. My name is Ishika.
+21:54 I'm a sophomore in Lowell House. And I'm concentrating in bioengineering.
+21:59 HAYAT: Hi, everyone. My name is Hayat. I'm a first year in Matthew's studying
+computer science and applied math.
+22:05 [APPLAUSE] ANALISE: Hi. I'm Analise. I'm a first year in Canaday.
+22:10 And I'm planning to study econ and CS. [APPLAUSE] JOHNNY: Hi. I'm Johnny.
+22:15 I'm a first year
+staying in Hurlbut Hall, studying statistics and
+the history of science.
+22:20 PRISHA: Hi. I'm Prisha. I'm staying in Greenough. And I plan on studying
+computer science and economics.
+22:25 [APPLAUSE] PETER: Hi. I'm Peter. I'm a first year in Pennypacker. And I'm studying applied math.
+22:32 DAVID MALAN: All right, wonderful. Thank you all. Let's see if-- how about you three--
+actually, hold on to the microphone. If you three want to come over here.
+22:38 If you three want to
+step off to the side. We're going to have team one
+go first, and then team two. And what we're going to have these
+teams do is play some CS50 charades.
+22:47 Now, as they say in engineering
+circles, we have beta tested this idea. That is, we tried this
+once with just the staff.
+22:53 It went pretty well. We've never done this live during class. So we'll see how well
+our algorithm works. But the goal of charades,
+of course, which
+22:60 I didn't tell the six before
+they came up on stage, is to act something out based
+on a word, a key word that we
+23:06 put on screen for them. And then your other
+two teammates are going to have to guess what it is
+that person is acting out.
+23:12 Each of you will have one minute to act
+out a sequence of CS50-related terms that we've collected from the
+audience just before class began.
+23:20 I love these faces that
+you're making right now. And then after one minute,
+we'll switch to the next person, switch to the next person.
+23:26 So at any given time, one of
+you will be acting something out and the other two will be guessing. 
+23:34 OK, we have one blank stare. So let's repeat. So one of you-- let's do this.
+23:40 Let's act it out. So you two come over here and sit down. And you will be standing roughly
+right here facing the audience
+23:48 so that everyone can see you. But what you're going to be
+doing is acting out some word that we are going to
+tell you what it is.
+23:54 And that word is going to be over here. That word is going to be on the screen. So here too honor system. You two cannot look up.
+23:60 And when you're seated,
+you two cannot look up. OK, in the future, we'll figure out how
+to use fewer words to explain this game.
+24:06 So does that make sense now? OK, so let's go ahead and let's give
+the microphones to these two people.
+24:15 Yes. All right. And what you have in your hands, too,
+are these fancy Ray-Ban sunglasses,
+24:22 which when you put them on, hold
+the button at the top right. And that will start
+recording for 90 seconds. And a little white light will turn on.
+24:28 And then we'll have your
+little POV, point of view, as your teammate is trying
+to act out on stage.
+24:34 I'm not sure we should have chosen you
+as the first volunteer, but that's OK. All right, so you want to
+go ahead and put those on?
+24:40 If you want, yeah, it's just for fun. I guess, yeah, we didn't expect
+to invite two people with glasses
+24:45 already on stage, but
+all right, slight bug. All right, so I think I've
+somewhat explained how this works.
+24:52 I'm going to keep score with this marker
+using unary notation on the easel. So each time these guys shout out the
+word that you're trying to act out,
+25:01 I'm going to give you a point. And then after all of this, you
+guys will have three minutes to do the exact same
+thing, one, two, three.
+25:08 And we'll see if your
+score is lower, or higher, or hopefully not exactly
+equal to this team's score
+25:13 because we have no
+contingency plan for that. All right, are you comfy, ready? All right, so you guys may
+not look up or behind you now.
+25:21 OK, here we go. Yulia, let's generate the first word. And as soon as you see the word, you
+should start acting out this concept
+25:27 and generally try to face the audience
+too, as well as your teammates. OK, go.
+25:34 PETER: What? OK.  JOHNNY: Search.
+25:40 PRISHA: Search algorithm? Detecting. 
+25:46 JOHNNY: Algorithm. DAVID MALAN: You can say
+skip if it's too hard. JOHNNY: Skip. PRISHA: Skip.
+25:52 DAVID MALAN: It was inspect
+page from a browser.
+25:57 Right click. Control click. Inspect page. PRISHA: Run. 
+26:07 JOHNNY: Test?  Flask run? 
+26:14 DAVID MALAN: No.  PETER: Skip. DAVID MALAN: Skip.
+26:19 It was race conditions from databases. PRISHA: Circle.
+26:25  JOHNNY: Drink? 
+26:31 PRISHA: Drink. Eat. DAVID MALAN: Time's up. That one was cookie.
+26:37 PETER: Oh, my-- DAVID MALAN: OK, so
+the score is now this. So let's go ahead and do this.
+26:43 Let's rotate. So you're off the hook. A round of applause
+because that was difficult. [APPLAUSE]
+26:50 Who's up next? I think what happened was the
+words we came up with in advance were actually relatively simple.
+26:55 And the ones you just saw were
+added by the group before class. So here we go, round two.
+27:00 So in two minutes, your team will be up. All right, same thing. You two may not look up now, but
+either of you may skip as needed.
+27:07 And if you want to just stand
+back here so everyone can see you and they can see you, too. All right, here we go.
+27:12 Generate. 
+27:19 JOHNNY: Iterate.  Loop.
+27:24 
+27:29 PETER: Ladder. JOHNNY: Tree. PRISHA: Skip. DAVID MALAN: Skip.
+27:35 It was query, like from a browser.  Q equals query.
+27:41 OK, next up. PRISHA: [INAUDIBLE] DAVID MALAN: Sure. PETER: CS [INAUDIBLE].
+27:48 JOHNNY: Student. PETER: CS50 duck. Artificial intelligence.
+27:53  TF student. 
+28:07 CS50 project. CS50 final project. DAVID MALAN: Three, two. PETER: Hackathon.
+28:14 DAVID MALAN: No, time is up. It was CS50 Fair. So close. All right, score remains the same.
+28:22 Final round for first team. 
+28:27 OK, and again, for this round
+too, hit the button again to record for 90 seconds. If you want to stand
+back there slightly,
+28:33 you can say skip whenever needed. You have 60 seconds. Go. 
+28:44 PETER: Hash map. List. PRISHA: Query. 
+28:51 PETER: Counting. PRISHA: Sort. PETER: For loop. PRISHA: Iterate.
+28:58 One, two, three, four.  Iterate.
+29:04 For loop. While loop. Do while loop. 
+29:11 DAVID MALAN: Do you want to skip? JOHNNY: Skip. PRISHA: Skip. DAVID MALAN: It was index. PRISHA: Oh.
+29:16 DAVID MALAN: Like directory index.  PRISHA: CS50 duck.
+29:22 CS50 lecture. PETER: CS50 stage. PRISHA: Theatre. Memorial Hall. Stage.
+29:27 Charades. CS50. PETER: Final lecture.
+29:34 Oh, my God. 
+29:42 DAVID MALAN: Time is up. The first was, this is CS50. And that was bootstraps, pulling
+yourself up by your bootstraps.
+29:50 OK, a round of applause. [APPLAUSE] OK. All right, come on over.
+29:55 All right, if you guys want to
+step aside, the first two of you may sit down.
+30:01 I'm going to-- OK, yep. You got the glasses, too. All right, all right.
+30:08 All right, I'm going to clear the score. And so same game.
+30:14 Three minutes now. One minute each. And if you want to stand
+just over here, and then just
+30:21 is being held the
+button at the top right. Let me hit it over here. And that'll start recording.
+30:26 OK. Right here. OK, hopefully that worked. OK, go.
+30:31 
+30:37 HAYAT: Binary tree. DAVID MALAN: Nice. Binary tree. 
+30:44 We could end there. But why don't we keep going? HAYAT: OK. 
+30:49 ANALISE: Hashmap. HAYAT: Tree. Binary. No. 
+30:56 ANALISE: Dictionary.  DAVID MALAN: I don't think we
+ever used this term in CS50.
+31:02 ANALISE: OK. DAVID MALAN: Skip. Data trees. ANALISE: OK. 
+31:15 Body. HAYAT: Food. In. In.
+31:21 Side.  Stomach.
+31:26  In. 
+31:32 DAVID MALAN: Time. Internal server error. OK, let's go ahead and rotate.
+31:38 But very well done. One point. [APPLAUSE]
+31:43 Still close. OK. Oh, and if you want to stand over here. And you guys, again, no looking up.
+31:50 Yeah. Just hold this button above your eye. All right, there we go. And here.
+31:56 OK, go. 
+32:02 ISHIKA: Duck. ANALISE: Hackathon. CS50 hackathon. ISHIKA: Look. ANALISE: Search.
+32:07 ISHIKA: SQL. Duck. Look for the duck.
+32:13 Looks like a duck. Code for the duck. Oh, duck debugger. No?
+32:18 ANALISE: Check 50. PRISHA: Skip. DAVID MALAN: Skip. Was 50 [INAUDIBLE].
+32:23  ANALISE: One word.
+32:29 Iterate. Loop. ISHIKA: Conditional. For loop. While loop. DAVID MALAN: Yes, while.
+32:34  ANALISE: Box. ISHIKA: Dictionary.
+32:41 ANALISE: Phone book. ISHIKA: Database table. Form.
+32:48 Dictionary. ANALISE: Hash table. Hash table. ISHIKA: Hash.
+32:53 ANALISE: Hash function. DAVID MALAN: Yes. [APPLAUSE]
+32:58 DAVID MALAN: And time. All right, we have time
+for one more round. Go ahead and rotate in.
+33:04 So close. ISHIKA: Is it still recording? DAVID MALAN: It'll
+stop after 90 seconds. OK, good. OK. And if you want to stand
+right here as well.
+33:11 You're going to bring us home here. Final round. All right, ready, go. 
+33:23 Skip. Main function. ISHIKA: Duck. HAYAT: CS50.
+33:28  ISHIKA: Duck debugger.
+33:34 HAYAT: Check50. Does it-- duck. 
+33:39 ISHIKA: Rubber duck. HAYAT: Rubber duck. DAVID MALAN: Yes. 
+33:47 ISHIKA: Table. Box. Screen. Hash. DAVID MALAN: Yes. 
+33:59 ISHIKA: Iterate.  Concatenate.
+34:05  ANALISE: Skip. DAVID MALAN: OK, bubble sort.
+34:10 Five seconds. 
+34:16 And time. That one was break. A round of applause for our volunteers.
+34:22 All right, congratulations. We have some wonderful
+prizes for you all. Nicely done. Thank you.
+34:27 And congrats. All right. And congrats to our second team, too,
+for which we have some prizes as well.
+34:34 Congrats to you guys also. All right. So thank you all.
+34:41 And thank you all, since that
+was version one of that idea. All right, so a bit remains
+before we wrap up with
+34:52 one final audience
+participation opportunity. So over these past several weeks, we've
+been using this tool, the Visual Studio
+34:59 Code for CS50. That said, it is an
+industry standard tool. It's a popular, largely
+open source project,
+35:06 which means that people in the
+real world use this as well. Even though we've branded it as
+CS50-specific, that's only in the sense
+35:13 that when you logged into cs50.dev, we
+gave you a customized version of VS Code
+35:18 that frankly had a lot of features
+turned off, just to keep things simple, that had a lot of settings
+pre-configured for you
+35:23 so that at the beginning
+of the term, we don't have to give you these long instructions
+for downloading something, installing
+35:28 something, configuring something. And then with so many of us having
+different versions of operating systems, you just inevitably run into
+technical support headaches.
+35:35 We don't want that in week one
+when hello world is already a challenge in a
+language like C. However,
+35:40 now that you're at the
+end of CS50 and perhaps the beginning of your final project,
+we would strongly encourage you
+35:46 to transition to Visual Studio Code
+itself or some other tool, if you prefer, by actually
+downloading and installing it
+35:53 now because even though you haven't
+done this particular process before, odds are you're just a
+little more comfortable now
+35:59 and perhaps a little more
+aware of what is code-related, what is technology-related or the like.
+36:05 And hopefully, you're just more
+comfortable troubleshooting problems like this. That said, it should be
+hopefully, a relative breeze
+36:12 to install, except for
+maybe one or two things that invariably arise in the real world. But now hopefully,
+you're equipped for that.
+36:18 That said, if you go to
+CS50's documentation, we additionally have
+some steps there that will allow you to configure your own
+version of VS Code similar to what
+36:26 we did for CS50, just to get you
+back into a comfortable space. But this is maybe one
+of the best things you
+36:32 can do for your final project is, if
+you're willing, stop using cs50.dev,
+36:37 get it working on your own Mac or PC,
+if only so that by the end of the class, you're truly decoupling yourself
+from all of and the last of CS50's
+36:45 so-called training wheels. That said, other things that you can
+do as you now have some 10-plus weeks
+36:50 of CS50 under your belt, install some
+command line tools on your Mac or PC. At least if you are now all the
+more computer science inclined,
+36:58 the reality is that a lot
+of us, myself included, tend to prefer operating at a command
+line environment instead of a GUI
+37:04 because you can do
+things faster with code. You can automate more things. And so it turns out that if you install
+the developer tools from Apple or these
+37:12 here from Microsoft, you can have a very
+similar environment and capabilities on your own Mac and PC. And funny enough, on Mac OS at
+least, and in some form on Windows,
+37:20 you actually have a
+command line environment that you might just not have ever used. So there's good documentation online for
+actually exploring those features too.
+37:29 Learning Git. So we've been using github.com
+for quite some months using your accounts to log in.
+37:35 And we're also storing backups in the
+cloud on GitHub servers and the like. But the reality is in industry, GitHub
+is used not just for those things,
+37:42 but so much more. GitHub and tools like it are
+really the de facto standard for collaborating on code with other
+people and for versioning your various--
+37:52 versioning your code. So for instance, Google Docs
+nowadays and other tools have a revision history type
+menu that you can scroll back
+37:60 in time through changes you've made. That's incredibly
+useful for code as well. But generally, in the world of
+code, even though in CS50.dev we
+38:06 have automatically been
+backing up your code like every five minutes just
+to make it a little easier to roll back in time if need be.
+38:13 In the real world, what
+programmers would generally use is a command line tool called Git. And when they're ready to save
+a new version of their code,
+38:21 they would run a few commands, maybe
+push it optionally to the cloud so that it's a little more thoughtful. And it's not just this
+massive, long chronology
+38:28 of changes, but very
+deliberate milestones that the programmer is reaching. So CS50's own Brian Yu has a
+wonderful video at this URL
+38:35 here that you might find useful
+for just onboarding yourself to a very popular tool that if you ever
+work in industry on code, invariably
+38:42 you'll end up seeing or using the same. Hosting a website. So if you're thinking of having a
+portfolio website or your resume
+38:50 or just something fun or personal
+or professional online statically, there's some good websites out there.
+38:55 For instance, GitHub has its
+own service, which is free, called GitHub Pages, which allows you
+to use your existing GitHub account,
+39:01 write some HTML files
+or even things called markdown files, some
+CSS files, JavaScript.
+39:06 And with the right commands, you can
+post it to the internet at a domain name either from GitHub itself or one
+that you buy and use for the same.
+39:14 So these are two such websites via which
+you can host static websites pretty easily as well.
+39:20 When it comes to full
+fledged web applications, so using Flask or maybe server side
+JavaScript or some other framework,
+39:27 then you might want to use
+different set of tools altogether. So among the big cloud providers out
+there, Amazon and Microsoft and Google,
+39:34 these are URLs to free versions
+of their cloud services that at least while
+you're formally a student
+39:40 generally have free access to for some
+amount of time or some amount of credit, so to speak. GitHub has its own
+student education pack,
+39:47 which similarly gives you
+capabilities that to date CS50 has made available to you for free
+thanks to our friends in industry.
+39:53 But you as an individual student can
+also take advantage of these resources without subsequently using
+any of CS50's infrastructure.
+40:00 Here are two other popular
+websites nowadays too that are more easily used, I do think,
+than the bigger cloud providers at top
+40:07 there to just deploying your
+Flask application or something else to the cloud. Which is to say this
+is a good list of ways
+40:13 you can put your very own final
+project, if it's a web app, on the actual web and
+outside of your code space.
+40:19 Asking questions. So this is kind of a new slide. We weren't really talking
+about ChatGPT a year ago,
+40:25 but now it's sort of omnipresent. And indeed, even I sort of when
+it's come to preparing for classes,
+40:30 learning some new language, learning
+some API or framework, I mean, among all the technologies
+I've seen over the years,
+40:36 this was probably the one
+that changed my own behavior over just a matter of days or weeks,
+as opposed to being more evolutionary.
+40:44 And indeed ChatGPT, which you're
+now welcome and encouraged to use for your final projects
+instead of just the duck,
+40:51 is pretty game changing
+because one, it's been trained on a lot of computer
+science and programming data.
+40:57 Two, a lot of the human
+content on the web tends to skew technological when
+it comes to those same domains.
+41:03 And so frankly, too, because CS50
+has long been OpenCourseWare, you can even ask ChatGPT
+about CS50 concepts.
+41:09 And they're already
+built in there as well, which is to say that in the absence of a
+friend, a sibling, a colleague, a boss,
+41:15 a parent, or anyone else, asking
+ChatGPT is your virtual teaching assistant next to you or colleague
+that's already pretty game changing.
+41:23 And there's features too
+in cs50.dev and in VS Code more generally that we've actually
+turned off by default for months
+41:30 because it would have just taken away
+the opportunity to develop some muscle memory. So a very popular tool
+nowadays in industry
+41:36 is something from GitHub
+too called Copilot, which essentially is an extremely
+more useful version of autocomplete
+41:44 in your browser. And it can actually write
+many more lines of code than, say, traditional autocomplete and
+certainly more than the duck by design
+41:51 allows. So that too is something that you might
+want to play with in your own accounts as well. But there's still humans out there.
+41:56 And these are some popular
+places and websites just to ask questions of actual humans. Remains to be seen how websites like
+this evolve over the coming years
+42:04 if we're turning more so to AI. But these are some of our favorites. And then just keeping abreast
+of news, two good sources
+42:10 that you might be reading
+already are TechCrunch and then Hacker News, the URLs for
+which are on the screen here.
+42:16 And if you just generally want to
+stay abreast of changes in technology, these are two popular
+spots among others as well.
+42:24 And then you can take classes. So there's certainly the
+traditional program here on campus, be it at Harvard or Yale, through the
+college or extension school or beyond.
+42:31 But even CS50 over the years for
+incoming students and outgoing students has been putting together a set
+of free, OpenCourseWare courses
+42:38 that you can take for fun for free
+over winter break, over the summer, just at your own pace or leisure,
+including these URLs here.
+42:46 And just to give you a wave of the
+hand at what each of these courses allows you to do after
+CS50 itself ends, we
+42:52 have a course called CS50P for short,
+which is a Python-specific class. And it does assume from the get
+go no experience with Python,
+42:59 but very quickly goes more into
+depth than CS50 itself does, covering topics like these, only some
+of which we've seen in CS50 itself,
+43:07 but really do round
+out your comfort with and understanding of a
+language like Python. So over winter break, if you just
+want to get better with Python,
+43:13 this might be one place to start. If you're more leaning toward the
+sciences, and the statistics, data
+43:19 science world and the like, we
+have thanks to CS50's own Carter Zinke, a CS50 course on R
+specifically, a popular programming
+43:26 language for those domains
+covering topics like these. A course called CS50W by CS50's own
+Brian Yu, which really does pick up
+43:33 where CS50 leaves off this week and
+focuses all the more on web programming specifically, going more deeply into
+other frameworks, other technologies,
+43:41 other trends, including some of the
+topics you see here on the screen. There's a games class, if you skew
+a little more artistically or game
+43:48 oriented and you want to actually build
+your own two-dimensional games as well by understanding already
+a bit of programming.
+43:54 There's CS50AI by Brian as well, which
+goes more deeply and theoretically into artificial intelligence and
+how you can build on top of it
+44:01 yourself using Python as
+the language of choice. And then if that weren't
+enough to do over winter break,
+44:07 there's a class specifically
+from CS50's team on SQL, which goes more deeply into what we
+dabbled in over the past few weeks
+44:13 to round out your knowledge there. So this too really speaks ultimately
+to one of the design goals of CS50,
+44:19 is that it's not meant to
+be a course in C. It's not meant to be a course in Python. It's not meant to be a course
+in JavaScript or anything else
+44:25 we discussed, but a course
+in programming period so that by the end of this course,
+which is effectively now followed
+44:32 by your final project, hopefully you'll
+exit the class with not having mastered each and every one of these languages,
+which frankly, will take months
+44:39 or years unto themselves, but
+rather feeling comfortable with and confident with your ability to teach
+yourself new things by finding patterns
+44:48 in future languages, future projects
+that, oh, that's like that thing we learned in CS50.
+44:53 And that really is the goal, to enable
+you to think like a computer scientist and also program like one as well.
+44:59 Of course, there's a lot of
+threats in the real world. And so the last of the
+courses I'll put on the screen here is CS50's own
+Introduction to Cybersecurity,
+45:06 which will allow you to explore some
+of the threats, all of the things that can go wrong when you are writing
+code or using someone else's, only a few
+45:13 of which we touched upon in this class,
+like SQL injection attacks and the like. There's so much more, unfortunately,
+underneath the hood to beware.
+45:21 And in the months to come, the
+years to come, whether you're still on campus or off,
+we hope you'll consider applying to be a teaching fellow, a
+teaching assistant, a course assistant.
+45:28 Stay tuned for emails from us so that
+you can join CS50's team over time. And too even after you graduate
+from CS50 or college more generally,
+45:37 do consider staying in touch. We have a vibrant community of alumni
+of the course from Harvard, Yale,
+45:42 and beyond, online as well. Before we turn to our
+final fun and game,
+45:47 allow me to just give some thank yous
+to folks in and outside of the class. So one, the team at Memorial Hall who
+brings us into this space each week
+45:54 and gets everything ready for us. Two, the ESS team who kindly
+makes everything sound so good
+45:59 as we're playing demos and having
+everyone walk in and hear things. [INAUDIBLE], our friends up
+the road that so many of you
+46:06 have joined us for lunches at, they're
+open outside of CS50 hours too, so feel free to stroll up Mass
+Ave to join them another time.
+46:12 And then of course, CS50's production
+team who is often there and there and there. Maybe a round of applause for--
+46:18 [APPLAUSE] Ironically, making it possible for you
+to not have to be here all of the time.
+46:26 Thanks to the team for making all
+of this hopefully look so good. And then most importantly, the humans
+that have been behind CS50, CS50's team
+46:33 here at Harvard, CS50's
+team here at Yale, that you too can become members of
+over time if you so choose to join us.
+46:40 And then lastly, of course, this
+here, that there, that there, CS50 duck thanks to
+CS50's team, Rongxin,
+46:45 and others for having brought
+that duck to life, so to speak.
+46:55 And that brings us to
+our final segment today before we'll adjourn to
+the transept for cake.
+47:00 This being the CS50 quiz show, which
+is something in which all of you can partake. So we need no more volunteers other
+than everyone here in the room.
+47:08 You're about to experience a
+sequence of 15 CS50-related questions and an opportunity for us to really
+assess or really check, if you will,
+47:15 your understanding of the same. And upon the 15th question,
+we'll be adjourned for that cake.
+47:21 I think we are just about ready. Hopefully, on your phones
+now, you see an interface
+47:28 via which you can respond via
+multiple choice to this question. Which statement is correct in C, printf,
+"hello" semicolon, print "hello",
+47:38 print hello, printf "hello"? 
+47:44 And we'll see as the responses come in. 93% of you are voting
+for the first answer.
+47:50 4%, 3%, and 2% of you
+disagree slightly, but I suspect that percentage is
+realizing missing semicolon,
+47:60 missing quotes, missing semicolon. And we see the answer already. The answer with 92% correct
+is indeed the first answer.
+48:08 Very well done. How about the next question? When using malloc, what
+should you always do
+48:13 when you're done with the memory,
+let it be, free the memory, break out of the program,
+delete everything?
+48:20  OK, 97% this time.
+48:27 I'll note, too, that these
+are questions you all wrote as part of the
+prior problem set, wherein
+48:33 we asked you for some review questions. These are your questions
+and your answers.
+48:38 I guess let it be is not wrong, but OK. Free the memory is the
+correct answer there.
+48:46 All right, nicely done. How about question three? Which of these was the first
+widely recognized computer
+48:52 bug, a spider in the
+vacuum tubes, a moth stuck in a relay, a mouse in the keyboard,
+a cockroach in the power supply?
+48:60 
+49:05 All right, 61%, 60% voting
+a moth stuck in a relay.
+49:11 But a cockroach in the power
+supply is a strong 22%. Spider in vacuum tubes.
+49:18 All right, the numbers are
+still coming in a little bit. Yulia, should we reveal that only
+61% of you were correct this time.
+49:26 This is the old-- this is the old story
+involving Admiral Grace Hopper, who was reported to having
+documented the phrase formerly
+49:33 in her log book. Moving on. Which of the following is the
+correct way to create a variable in C
+49:39 and assign a value to it, var
+x equals equals 10 semicolon, x equals 10 semicolon, int x equals 10
+semicolon, int x colon 10 semicolon?
+49:51 In C. All right, should
+we see the chart?
+49:59 All right, int x equals
+10 semicolon with 92%.
+50:05 Shall we look at the answer? That of course, is correct. Moving on to question five.
+50:10 What does FIFO stand for? Spoiler. Well, it's definitely not
+last in, first out, anyway.
+50:18 First in, first out. First in the far. Far in the farther. 
+50:25 97% voting this time. I think we can click to the solution.
+50:31 Indeed, very well done. First in, first out refers
+to our discussion of queues because you put it in first. And that hopefully for equity sake, is
+the first thing to come out as well.
+50:39 All right, moving on. Question six, which
+data structure in Python uses key value pairs, strings,
+lists, arrays, or dictionaries?
+50:49 Which data structure in Python? Huge voting turnout for dictionaries. And I think we can just say
+yeah, that's the right answer.
+50:56 So dictionaries, of course,
+are all about key value pairs, can be implemented underneath the hood
+as something like a hash table recall.
+51:03 Number seven, which
+Sesame Street character was the star of David Malan's
+scratch game I think in week zero,
+51:11 Oscar the Grouch, Big
+Bird, Elmo, or Bert? 
+51:17 Week zero. Wow, 79, 80, 81%.
+51:22 None of these characters
+have made an appearance here. And 80% voting for Oscar the Grouch.
+51:31 And indeed, that's the correct answer. All right, number eight,
+what's the time complexity
+51:36 of inserting a new node at the beginning
+for a linked list in C, big O of n,
+51:42 big O of 1, big O of n
+squared, big O of log n?
+51:47 Well, this one's going
+to be interesting. All right, it's much more of a mix.
+51:53 The time complexity of inserting a new
+node at the beginning of a linked list,
+51:58 keeping in mind that the
+beginning never moves, never gets longer because
+it's always right there.
+52:04 So I dare say, Yulia, with 52% reporting
+in, big O of 1 is in fact correct.
+52:10 It might not take one step. It might take two or three,
+depending on how many pointers you need to manipulate. But if you're always inserting
+it, inserting it, inserting it,
+52:17 or prepending it in
+front of the list, odds are you can do that
+indeed in constant time. All right, getting more challenging.
+52:23 Number nine, getting less challenging. Number nine, what does exclamation
+point equal sign mean in C, equal to,
+52:32 greater than, less than, not equal to? 
+52:37 Correct. All right, means not equal to when you
+have the exclamation point, a.k.a. bang,
+52:43 equals sign, which negates
+the meaning of equal. All right, 10, in SQL, what keyword
+sorts the results of a query,
+52:52 group by, sort by,
+organize by, order by? 
+53:01 A majority are saying order by. 
+53:08 Organized by was not a thing. Sort by is a reasonable incorrect guess.
+53:13 Group by does something different. That's when you actually want to
+do some kind of aggregate query by grouping by some common value.
+53:20 Order by was in fact correct. Order by ascending, order by descending
+were the two things we saw there.
+53:25 All right, few questions to go. Number 11, what's the main advantage
+of using a linked list over an array,
+53:32 they give faster access to
+elements, they have dynamic size, it is easier to sort,
+less memory is used?
+53:37  Linked list over array.
+53:43 Interesting. All right, so only
+70%, but I think we've gotten every question right
+by a majority at least,
+53:49 is indeed, if we want to
+reveal the correct answer. So linked lists are advantageous
+because you can insert.
+53:55 You can remove. And you don't have to worry about
+moving everything around in memory, like you would for an array. They don't really give faster
+access to elements, though,
+54:02 because you lose binary search,
+at least as we discussed, because you don't have random
+access to any of the nodes directly.
+54:08 Easier to sort, not really
+because there's so much more work to do back and forth, back and forth.
+54:13 Whereas, with arrays, you can just
+swap things using their indices. Less memory is used,
+your opposite is true.
+54:19 You're using more memory, like an extra
+space for all of those pointers as well. All right, few final questions.
+54:26 What sort algorithm swaps adjacent items
+in a list until the list is in order?
+54:31 I think we saw that Acted
+out before, hint, hint.
+54:37 All right. Yes, bubble sort with 90% I'm
+pretty sure it's correct there.
+54:42 All right, three questions
+remain before we get cake. And what can result in a stack overflow,
+touching areas of memory you are not
+54:53 supposed to, accessing
+an array out of bounds, incorrectly modifying a variable,
+calling too many functions?
+55:00 This one will be interesting too.  We have no majority vote this time.
+55:10 Which can result in a stack overflow? So as the votes continue
+to come in and change, recall that when we depicted memory
+as being this abstract rectangle,
+55:17 we had the stack down here. We had the heap up here. And every time we called a
+function, we added another frame
+55:22 to the stack, another
+frame to the stack, like trays on a stack in a cafeteria.
+55:28 So the more functions you call-- you can change your answers. The more functions you call,
+the more and more memory
+55:35 you use that at least pictorially
+are growing up, up, up, up, up, up. And if you finally do--
+55:41 OK, so I guess-- OK, calling too many functions
+is what we were getting at. 39% though. So not a majority.
+55:47 But two questions left. Let's see if we finish strong. What do we call a reference to a memory
+address in C, a determiner, a pointer,
+55:56 a resolver, a compiler? Question 14 out of 15.
+56:02 OK, strong 96% for pointer. I think we can agree
+that's, in fact, correct.
+56:08 And lastly, with a
+final flourish and maybe before we see 15, a round of
+applause for our CS50's preceptor,
+56:14 Yulia, for having run the show here. [APPLAUSE]
+56:19 Let us look at question 15. Quack, quack quack, quack quack
+quack, quack quack quack quack.
+56:27  Before there was AI, this was
+literally all the virtual duck did.
+56:36 So it's pretty split between
+one, two, three, and four quacks.
+56:41 48, can we get to 51%? No?
+56:47 Yes. Yes.  There's not even a correct answer here.
+56:53 But in any case, how
+about that's it for CS50. Cake is now served.
+56:59 [APPLAUSE] [MUSIC PLAYING]
+57:04 

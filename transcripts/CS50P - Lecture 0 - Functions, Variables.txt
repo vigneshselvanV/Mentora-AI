@@ -1,0 +1,2964 @@
+00:05 so
+00:24 all right this is cs50s introduction to
+00:27 programming with python my name is david
+00:29 malin and this is our week on functions
+00:31 and variables but odds are many of you
+00:33 most of you have never actually
+00:35 programmed before so let's start by
+00:36 doing just that let me go ahead here and
+00:39 open up my computer and on it a program
+00:41 called visual studio code or vs code
+00:43 which is just a very popular program
+00:45 nowadays for actually writing code now
+00:47 you don't have to write code using this
+00:49 particular tool in fact all we need at
+00:51 the end of the day is a so-called text
+00:53 editor a program for writing text and
+00:55 heck if you really want you could even
+00:57 use something like google docs or
+00:58 microsoft word you'd have to save it in
+01:00 the right format but really at the end
+01:02 of the day all you need is a program for
+01:03 writing text because that's what code is
+01:06 text now within this particular program
+01:08 i'm going to have the ability to create
+01:09 one or more files via this top portion
+01:12 of the screen and i'm going to do so by
+01:14 diving right in and doing this at the
+01:16 bottom of my screen at the bottom of my
+01:18 screen is a so-called terminal window
+01:20 and this is a command line interface or
+01:22 cli interface to the underlying computer
+01:26 be it your mac or your pc or even some
+01:28 server in the cloud and what i'm going
+01:30 to do here is literally write code and
+01:32 then the name of the file that i want to
+01:34 code for instance hello dot pi as we'll
+01:37 soon see any program that you write in
+01:39 python generally has a file name that
+01:41 ends in dot pi to indicate to the
+01:43 computer that it's indeed a program
+01:44 written in python now you'll see here at
+01:46 the top of my screen i have a blinking
+01:48 cursor a line one which is where the
+01:50 very first line of my code is going to
+01:51 go and then just a tab that reminds me
+01:53 of the name of this file hello.pi and
+01:56 without even knowing much python i'm
+01:58 going to write my very first program
+01:60 here as follows print open parenthesis
+02:03 quote hello comma world close quote and
+02:07 close parenthesis and you'll see that at
+02:09 my keyboard some of my thoughts were
+02:11 finished for me i only had to type one
+02:12 parenthesis and the other one
+02:14 automatically appeared and that's just a
+02:15 feature that we'll see of tools like
+02:17 this tool here now even if you've never
+02:20 programmed before odds are you can guess
+02:23 infer what this simple program is going
+02:25 to do and it's only one line print open
+02:28 parenthesis quote hello world close
+02:30 quote close parenthesis indeed when i
+02:33 run this program ultimately it's just
+02:34 going to say hello to the world and in
+02:36 fact this is a very famous perhaps the
+02:38 most canonical program you can write as
+02:40 your very first program in python or any
+02:42 other language and so that's what i've
+02:43 done here
+02:44 but on my mac my pc even my phone i'm
+02:47 generally in the habit like you of
+02:49 running programs by double-clicking an
+02:51 icon or just tapping on the screen but i
+02:53 see no such icons here and in fact
+02:55 that's because my interface to at least
+02:58 my current mac or pc or some server in
+03:00 the cloud is again only a cli command
+03:03 line interface which even though it
+03:04 might feel like it's a step back from
+03:06 the menus and buttons and icons that you
+03:08 and i take for granted every day you'll
+03:10 find we think that it's ultimately a
+03:11 much more powerful interface and
+03:13 incredibly popular to use among
+03:15 programmers in the real world so to run
+03:17 this program i'm going to have to use a
+03:20 command and i'm going to move my cursor
+03:21 back down to the bottom of the screen
+03:23 here where previously i already ran one
+03:25 command the command code which has the
+03:27 effect of opening vs code in my computer
+03:30 and then i passed in the name of the
+03:32 file that i wanted to code up now i have
+03:34 a chance to type a second command and
+03:36 you'll see i see a second dollar sign
+03:38 now the dollar sign here doesn't
+03:39 indicate any kind of currency or money
+03:41 it just is the symbol that's generally
+03:43 used to indicate your prompt where the
+03:45 command line interface wants you to put
+03:47 those commands now the command i can run
+03:50 here is going to be this i'm going to
+03:52 run python of hello dot pi now why is
+03:56 that well it turns out that when i
+03:58 actually write code in a language like
+03:60 python it's of course stored in that
+04:02 file hello.pi but i need to interpret
+04:06 the code top to bottom left to right so
+04:08 that the computer knows what to do
+04:09 indeed at the end of the day even if you
+04:10 don't really know much about computers
+04:12 you've probably heard that computers
+04:14 only understand zeros in one the
+04:16 so-called binary system well if that's
+04:18 the case then something that says print
+04:21 and parenthesis and quote-unquote hello
+04:23 world is not surely zeros and ones we
+04:25 have to somehow translate it into the
+04:27 zeros and ones that the computer
+04:28 understands now fortunately so long as
+04:31 you've installed such a program in
+04:33 advance there's a program as well as a
+04:35 language called python so python is not
+04:37 only a language in which we're going to
+04:39 write code it's also a program otherwise
+04:41 known as an interpreter that you install
+04:43 for free on your own mac or pc or some
+04:45 server in the cloud and you can then run
+04:47 that program that interpreter passing to
+04:50 it as input the name of your file like
+04:52 mine here hello.pi and then that program
+04:55 that interpreter will handle the process
+04:57 of reading it top to bottom left to
+04:59 right and translating it effectively
+05:01 into those zeros and ones that the
+05:02 computer can understand
+05:04 so let's do just that let me go back to
+05:06 vs code here i already typed out python
+05:09 of hello.pi but i didn't yet hit enter
+05:11 and that's what's now going to kick off
+05:13 this command and hopefully if i didn't
+05:15 mess any of this up i should see my very
+05:18 first program's output to the screen and
+05:21 voila hello world so if you two have
+05:24 typed exactly that same code and have
+05:26 executed exactly that same command you
+05:29 will have written your very first
+05:30 program in this case in python well now
+05:33 let's take a step back and consider what
+05:35 is it that we actually just did and what
+05:37 is it we're looking here on the screen
+05:39 well first and foremost in most any
+05:40 programming language you tend to have
+05:42 access to what are called functions a
+05:44 function is like an action or a verb
+05:46 that lets you do something in the
+05:48 program and generally speaking any
+05:50 language comes with some predetermined
+05:52 set of functions some very basic actions
+05:55 or verbs that the computer will already
+05:57 know how to do for you that the language
+05:59 really will know how to do for you and
+06:01 you the programmer the human can use
+06:03 those functions at will to get the
+06:05 computer to do those things now the
+06:07 program in question here hello.pi
+06:10 is using one function and you can
+06:12 perhaps guess what it is that function
+06:14 is of course going to be this function
+06:16 print
+06:17 and that print function of course
+06:19 doesn't print some pre-ordained string
+06:21 of text that is to say it prints
+06:24 whatever it is you want it to print and
+06:26 here too do we have another piece of
+06:28 terminology in the world of programming
+06:30 namely arguments an argument is an input
+06:33 to a function
+06:34 that somehow influences its behavior the
+06:37 people who invented python of course
+06:38 didn't necessarily know what it is you
+06:40 and i are going to want to print to the
+06:42 screen so they designed this print
+06:44 function using these parentheses with
+06:46 the ability to take as input some string
+06:48 of text be it in english or any other
+06:50 human language that is what you want
+06:53 this function ultimately to print onto
+06:55 the screen
+06:57 and what is it that the program's
+06:58 ultimately doing on the screen well it's
+07:00 printing of course it's showing us hello
+07:02 world on the screen and that's generally
+07:04 in programming known as a side effect it
+07:06 can be visual can be audio in this case
+07:08 it's something that appears on the
+07:09 screen
+07:09 and functions therefore can indeed have
+07:11 these side effects one of the things
+07:13 they can do as this verb action is to
+07:16 display on the screen as a side effect
+07:17 something like those world words that we
+07:19 wanted
+07:20 hello world
+07:22 so that's my first program and you know
+07:24 i'm feeling pretty good everything
+07:25 worked as planned i didn't make any
+07:27 mistakes but honestly when you're
+07:29 learning how to program and even once
+07:31 you've learned how to program years
+07:32 later you're going to make mistakes and
+07:34 those mistakes of course or refer to a
+07:37 term you might already know which is
+07:38 that of a bug a bug is a mistake in a
+07:40 program and they can take so many forms
+07:42 and take comfort perhaps in knowing that
+07:45 over the coming weeks you're going to
+07:47 make so many mistakes you're going to
+07:49 have so many bugs in your code just like
+07:51 i did and just as i still do and those
+07:54 bugs themselves are just mistakes that
+07:56 are problems for you to solve and over
+07:57 the weeks to come we're going to give
+07:59 you a lot of tools both mental and
+08:01 technical via which you can solve those
+08:03 problems but just don't get discouraged
+08:05 if when writing your program for the
+08:06 first time it doesn't even work that
+08:09 first time it will with time with
+08:11 practice and with experience so let me
+08:13 deliberately now make a mistake that
+08:15 there was a non-zero chance i might have
+08:17 done accidentally already but i got
+08:19 lucky let me go ahead and just suppose i
+08:22 forgot to include something like the
+08:24 closing parenthesis at the end of this
+08:26 line of code you know the code is almost
+08:28 correct it's like 99 of the way there
+08:30 but now that i've pointed it out it's
+08:32 pretty obvious that it's missing that
+08:34 closed parenthesis but even little
+08:36 seemingly minor details like that that
+08:38 you and i as humans wouldn't really care
+08:40 about and if you're sending an email or
+08:42 a text message whatever it's just a typo
+08:44 it's not that big a deal
+08:46 it is going to be a big deal to the
+08:47 computer a computer is going to take you
+08:48 literally and if you don't finish your
+08:50 thought in the way the language expects
+08:53 it's not going to necessarily run at all
+08:55 so let's do this i'm going to go ahead
+08:57 here and clear my screen down at the
+08:58 bottom just so i can start fresh and i'm
+09:00 going to go ahead and run this version
+09:02 of my program
+09:03 after having made that change by
+09:05 deleting the parenthesis i'm going to go
+09:07 ahead and type python again of hello.pi
+09:10 and this time when i hit enter i'm
+09:11 hoping i'm going to see hello world but
+09:14 here we have an error on the screen a
+09:16 so-called syntax error which refers to
+09:19 my having made a mistake at my keyboard
+09:21 and it this one fortunately is pretty
+09:23 straightforward it indeed says that this
+09:25 open parenthesis was never closed and so
+09:29 that's probably pretty intuitive now
+09:31 what i need to do i need of course to
+09:32 close it unfortunately sometimes the
+09:35 error messages we'll see in the coming
+09:36 weeks are not going to be nearly that
+09:38 user friendly but there too again with
+09:40 experience with practice will you get
+09:42 better at debugging such programs let me
+09:45 now make sure that i indeed fixed it
+09:46 correctly let me go ahead run now
+09:48 hello.pi and hit enter and voila
+09:50 we're back in business well let me pause
+09:53 here and see if we have any questions
+09:55 now about python itself writing or
+09:58 running even the simplest
+09:60 of these programs
+10:02 could i write code inside a word or for
+10:05 example microsoft excel and what's the
+10:08 barrier to doing that
+10:10 a really good question and allow me to
+10:12 very explicitly say to the entire
+10:14 internet that you should not write code
+10:16 with microsoft word i mentioned that
+10:18 only because it's a tool via which you
+10:20 can write text and code is at the end of
+10:22 the day just text but it's not the right
+10:24 tool for the job we don't need bold
+10:26 facing underlining paragraphs and the
+10:27 like we generally want something much
+10:29 simpler than microsoft word or google
+10:31 docs and so vs code is an example of
+10:34 just a more general purpose text editor
+10:36 its purpose in life is to allow you the
+10:38 human to edit text nowadays these text
+10:40 editors come with many more features in
+10:42 fact you'll notice that even in my code
+10:44 here even though it's just one line
+10:46 there's a bit of color to it the word
+10:48 print for me is appearing in blue the
+10:50 parentheses are black and we'll see as
+10:52 we might write more lines of code more
+10:53 and more of the lines will come to life
+10:55 in various colors now that's just one
+10:58 feature of a text editor will see too
+10:60 that it has features like this built-in
+11:01 terminal window it's going to have a
+11:02 built-in tool for debugging or finding
+11:05 problems with code and it's just a very
+11:06 popular tool nowadays but there are many
+11:08 many others out there you're welcome to
+11:10 use them for this course and beyond we
+11:12 just happen to use this one in large
+11:14 part two because you can also use vs
+11:16 code nowadays for free in the cloud how
+11:19 about one other question here on
+11:20 programming with python or hello world
+11:23 or syntax more generally that will spend
+11:25 to us if
+11:28 it's not possible to run the computer
+11:30 using the terminal window
+11:32 i think i heard is it not if it's
+11:34 possible to run the program without the
+11:36 terminal window
+11:37 are you full
+11:38 okay you froze for me again but let me
+11:40 infer what the question is so in this
+11:42 environment as i've configured my
+11:44 computer i can only run these python
+11:46 programs via the terminal window now
+11:48 that's good for me the programmer or the
+11:51 person who's trying to learn how to
+11:52 program but it's not very good if you
+11:54 want to ship this software and have
+11:55 other people use your actual code you
+11:57 can absolutely write programs and then
+12:00 allow other people to use not a command
+12:02 line interface but a graphical user
+12:04 interface or gui gui this is just one
+12:07 mechanism and perhaps i think the the
+12:09 best one with which to start writing
+12:10 code because eventually it's going to
+12:12 give us a lot more control
+12:14 allow me to forge ahead here but please
+12:16 feel free to continue asking questions
+12:18 along the way if only via the chat let's
+12:20 consider now how we might go about
+12:22 improving this program let's go about
+12:24 improving this program to make it a
+12:26 little more interactive and not just
+12:28 assume that everyone is going to want to
+12:30 be greeted more generically as hello
+12:32 world let's see if i can't get this
+12:33 program to say something like hello
+12:35 david or hello jeremiah or hello horatio
+12:37 or whatever the actual user's name is
+12:40 well to do this i'm going to go back up
+12:42 to hello.pi and i'm going to add another
+12:44 line of code at the very top that simply
+12:46 says for instance
+12:48 what's your name quote unquote with an
+12:51 extra space at the end so i'm printing
+12:53 to the user asking them a question for
+12:55 some input but now i need another
+12:56 function to actually get input from the
+12:58 user and perfectly enough python comes
+13:01 with a function named input so here i'm
+13:03 going to go ahead and call a function
+13:05 input open paren close paren and that's
+13:08 going to prompt the user with just a
+13:10 blinking cursor waiting for them to type
+13:12 something in now it turns out if i read
+13:14 the documentation for the input function
+13:16 it actually takes an argument itself i
+13:18 don't need to use print separately and
+13:20 then prompt the user for input so i can
+13:22 actually simplify this code before we
+13:24 even use it i'm going to go ahead here
+13:26 and take that same string from print put
+13:29 it as an argument to the input function
+13:31 and get rid of the print altogether and
+13:33 in fact that print would have added a
+13:34 new line anyway so now i've just got a
+13:36 prompt where the user's cursor is going
+13:37 to end up blinking at the end of the
+13:38 line asking them what's your name
+13:41 in my terminal window i'm going to run
+13:43 python of hello.pi
+13:46 enter ok we're making progress it seems
+13:48 that this new function input is indeed
+13:50 prompting me the human for input so i'm
+13:52 going to type in my name david and hit
+13:54 enter unfortunately it doesn't really do
+13:56 anything with my name it just outputs it
+13:59 immediately all right well i could fix
+14:00 this right i could go up to line two and
+14:03 i could change world to david and then
+14:06 back in my terminal window here i can do
+14:08 python of hello.pi enter what's your
+14:11 name david enter and there we go all
+14:13 right now i'm up and running now my
+14:15 program is working as intended of course
+14:19 this isn't really working as intended
+14:21 here let me go ahead and try pretending
+14:23 to be my colleague carter here well
+14:25 carter's name is this i'm going to go
+14:27 ahead and hit enter and i'll see of
+14:28 course hello carter well obviously not
+14:30 because i've hard coded so to speak i've
+14:32 written literally my name inside of the
+14:34 string so we need some way now of
+14:36 actually getting back
+14:38 what the user's input is and doing
+14:40 something with it ultimately and for
+14:42 this we're going to leverage another
+14:43 feature of programming specifically a
+14:46 feature of some functions which is that
+14:47 they can have return values as well if
+14:50 you think of input as being again this
+14:52 action this verb you can actually
+14:54 personify it as maybe a person like a
+14:56 friend of yours that you've asked a
+14:57 question of and you've asked your friend
+14:59 to go get input from someone else go ask
+15:01 that person their name and if your
+15:03 friend comes back knowing that person's
+15:05 name well wouldn't it be nice if they
+15:07 handed that name back to you that's kind
+15:09 of what we need metaphorically the
+15:10 function to do is get the user's input
+15:12 and then hand it back to me so that i
+15:14 the programmer can do something with it
+15:17 but if it's going to be handed back to
+15:19 me i kind of want to put it somewhere so
+15:21 that i can then print it back on the
+15:23 screen i need to do the equivalent of
+15:25 take out like a piece of paper or a
+15:26 post-it note write down on this piece of
+15:29 paper what it is the human has said so
+15:31 that i can then feed it into as input
+15:34 that print function and to do that we're
+15:35 going to need one more feature of
+15:37 programming namely variables and odds
+15:39 are most everyone's familiar with
+15:41 variables for math class way back when x
+15:44 and y and z and the like well
+15:45 programming has that same capability
+15:47 this ability to create a variable in
+15:50 this case in the computer's memory not
+15:52 just on a piece of paper and that
+15:53 variable can store a value a number some
+15:57 text even an image or video or more a
+15:59 variable is just a container for some
+16:01 variable
+16:02 a variable is just a container for some
+16:04 value inside of a computer or inside of
+16:07 your own program so how do i go about
+16:09 expressing myself in this way well i
+16:12 think what i'm going to do is introduce
+16:13 a variable that's a little more
+16:14 interestingly named than x or y i could
+16:17 just say this x equals input but i'm
+16:20 going to use a better name than a
+16:22 typical mathematical variable here and
+16:24 i'm going to literally call my variable
+16:25 name why well in programming because i
+16:27 have a whole keyboard in front of me i
+16:29 can use more descriptive terms to
+16:30 describe what it is i'm writing and now
+16:33 though there's an opportunity to
+16:34 consider a specific piece of syntax
+16:36 we've seen parentheses we've seen quotes
+16:39 all of which are necessary when passing
+16:41 inputs to a function but this equal sign
+16:44 here that's in between input on the
+16:47 right and name on the left is actually
+16:49 important and it's technically not an
+16:51 equal sign per se it doesn't mean
+16:53 equality as much as it means assignment
+16:56 so in python and many programming
+16:58 languages a single equal sign is the
+17:00 assignment operator and what that means
+17:02 specifically is that you want to assign
+17:05 from right to left whatever the user's
+17:08 input is so the equal sign copies from
+17:11 the right to the left whatever the
+17:14 return value of the function on the
+17:17 right is so again the input function
+17:19 clearly gets input from the user that's
+17:21 why i was able to type my name or
+17:22 carters but it also sort of behind the
+17:25 scenes hands that value that return
+17:28 value back to me the programmer and if i
+17:30 use an equal sign and a variable no
+17:32 matter what i call it i can store that
+17:35 input in that variable so as to reuse it
+17:38 later so now sitting in the computer's
+17:40 memory somewhere is a container
+17:42 containing david quote-unquote or carter
+17:44 quote-unquote or whatever the human has
+17:46 typed in
+17:47 but here it's easy to make a mistake
+17:49 suppose i
+17:51 decide to try to print that name and so
+17:54 i i kind of on a hunch type in this
+17:56 hello comma name just kind of plugging
+17:59 in the name of the variable well let me
+18:01 go ahead here and run python of hello.pi
+18:04 and hit enter that's going to prompt me
+18:06 for my name and let me type in my name
+18:08 david but i haven't hit enter yet and
+18:10 perhaps via the chat what's going to
+18:12 happen here when i now hit enter
+18:15 i'm hoping it says hello david i'd be
+18:18 okay if it says hello world but i don't
+18:21 want it to say what it's actually gonna
+18:23 say and yep what we're seeing in the
+18:24 chat is well it's probably gonna say
+18:26 literally hello comma name so that's not
+18:29 quite right so we need another way of
+18:32 printing out the value inside of that
+18:34 variable rather than just this word name
+18:37 well let me try this in a couple of
+18:38 different ways let me try this as
+18:40 follows let me go ahead and maybe undo
+18:42 this because i've gotten pretty good
+18:44 already at saying hello so let's let you
+18:46 know let's draw that line in the sand
+18:47 and just say all right let's at least
+18:48 get hello comma out the door let's now
+18:51 print name and just on a hunch i'm going
+18:53 to try this i'm going to use print again
+18:55 because you can use these functions as
+18:56 many times as you need and i'm going to
+18:58 pass to the name to the print function
+19:01 the variable called name but notice i'm
+19:03 being a little clever now i'm not
+19:05 putting it in double quotes because
+19:07 we've seen already that double quotes
+19:08 means literally print out n-a-m-e i'm
+19:11 getting rid of the quotes this time in
+19:13 hopes that
+19:14 now by passing the variable called name
+19:17 to the function called print it will in
+19:19 fact go about printing the contents of
+19:22 that variable that is its so-called
+19:24 value all right let's go ahead and do
+19:26 this here python of hello.pi enter
+19:29 what's your name david and now crossing
+19:31 my finger still i see hello comma david
+19:35 all right so it's not the best program
+19:38 i'm kind of cutting some corners here so
+19:40 to speak i'm saying hello david on two
+19:43 separate lines so it's not as elegant
+19:45 it's not as pretty it's not as
+19:46 grammatically appropriate in english as
+19:48 just saying it all in one breath on one
+19:50 line but at least i've solved the
+19:52 problem just not very well yet but let
+19:54 me take a step back now and perhaps
+19:56 introduce a couple of other concepts
+19:57 with which we should be familiar which
+19:59 is as our programs get longer and
+20:01 they're no longer just one line or two
+20:03 or even three eventually our programs
+20:06 are going to become dozens of lines
+20:07 maybe even hundreds of lines long let's
+20:09 set the stage for success moving forward
+20:12 it turns out that python and a lot of
+20:14 programming languages also support
+20:16 something called comments comments are
+20:18 notes to yourself in your code and you
+20:21 include comments by way of a special
+20:23 symbol in python it's going to be the
+20:25 hash symbol typically and that allows
+20:27 you to write the equivalent of a note to
+20:28 yourself but in a way that's not going
+20:30 to break your code the computer actually
+20:32 ignores your comments it's just there
+20:34 for you it's just there for your teacher
+20:36 it's just there for your colleague with
+20:38 whom you're sharing ultimately that code
+20:40 so if i go back to vs code here and i
+20:42 just want to add some comments to this
+20:44 program to explain to my teacher to
+20:46 myself to my colleagues what this
+20:48 program is doing well let's go ahead and
+20:50 do that i'm going to go at the very top
+20:52 of my program and on line one now i'm
+20:55 going to move that original line of code
+20:56 down a bit i'm going to add a hash and
+20:58 i'm going to say something like this
+21:01 ask user for their name now i don't have
+21:04 to use that language i don't have to use
+21:05 that that text i could use any human
+21:08 language whatsoever it doesn't have to
+21:09 be english but i'm going to now below
+21:12 that just say something like this say
+21:14 hello to user and you'll notice that vs
+21:17 code by default is kind of graying out
+21:19 my comments they're no longer blue
+21:20 there's no red there's no color in them
+21:22 and that's just because they're notes to
+21:23 myself and the computer ultimately is
+21:25 going to ignore them but what we have
+21:27 now is two comments ask user for their
+21:30 name and then a second comment say hello
+21:32 to user and i've just kind of commented
+21:34 each chunk of code like each line or
+21:37 line's plural of code that are doing
+21:39 something noteworthy why well tomorrow
+21:41 morning when i wake up having you know
+21:43 uh slept for quite some time forgotten
+21:46 what it is i did the previous day it's
+21:48 convenient with comments to just see in
+21:50 english or your own human language what
+21:52 it is this program is doing so that you
+21:54 don't have to read the code itself and
+21:56 better yet if there's maybe a mistake
+21:58 down the road you can read what your
+22:00 intention was and then you can look at
+22:02 the code and figure out if your code's
+22:04 now doing what you intended so this
+22:06 isn't really necessary for a program
+22:08 this small it's pretty obvious with just
+22:10 one or two or three lines what the
+22:12 program's doing it's just as fast to
+22:13 read the code than the comments but
+22:15 getting into this habit is generally a
+22:16 good thing to comment your code every
+22:18 one or few lines so as to remind
+22:21 yourself and others what it is your
+22:22 intent and your code is doing what's
+22:24 nice about comments too is this comments
+22:27 can also serve to be sort of a to-do
+22:30 list for yourself there's this notion in
+22:32 uh programming of pseudocode pseudocode
+22:34 isn't a formal thing it's not one
+22:36 specific language it's just using
+22:38 english or your own human language to
+22:40 express your thoughts succinctly
+22:43 methodically algorithmically so to speak
+22:45 but pseudocode therefore because it's
+22:47 not python and it's not necessarily
+22:49 english it just kind of allows you to
+22:51 outline your program even in advance so
+22:53 for instance if i wasn't sure today
+22:56 how i wanted to go about writing this
+22:58 program but i did know what i want to do
+22:60 i could have started today by just
+23:02 writing this in hello.pi no code i could
+23:06 have written just a couple of comments
+23:07 to myself step one ask user for their
+23:09 name step two say hello to user then
+23:12 once i've outlined my program in
+23:14 pseudocode then i can go in there and
+23:16 say all right how do i ask the user for
+23:17 their name well i can do input quote
+23:19 unquote what's your name question mark
+23:22 and then on the left here i can maybe
+23:24 put a variable and assign it to that
+23:26 okay how do i say hello to the user well
+23:28 i know i can use print to say things on
+23:30 the screen let me say hello comma
+23:32 and let me okay let me now print the
+23:34 person's name so again pseudocode is a
+23:36 nice way of structuring your to-do list
+23:39 especially if you have no idea how to
+23:41 write the code because it breaks a
+23:42 bigger program down into small
+23:45 bite-size tasks all right let me pause
+23:47 here to see if there are now any
+23:48 questions on comments pseudo code
+23:52 return values
+23:53 or variables
+23:56 any questions we can clear up here
+23:59 yeah my question is does the function
+24:01 input work for any type of information
+24:05 or only for words yeah really good
+24:08 question so according to its
+24:09 documentation and we'll look more at
+24:11 formal documentation soon input is going
+24:13 to expect what's called a string that is
+24:15 a sequence of text be it in english or
+24:18 any other human language but it's indeed
+24:20 going to be expecting text with which to
+24:22 prompt the user
+24:23 a good question how about another
+24:25 question from the group if we could
+24:27 i wanted to ask how i make a several m
+24:30 comments
+24:31 oh how do you do many lines of comments
+24:33 if i'm hearing you correctly sure uh you
+24:35 would just
+24:37 keep doing them like this you just
+24:39 prefix each of the lines with a hash
+24:41 symbol like i'm doing here there is
+24:44 another technique for doing multi-line
+24:46 comments in python that actually tend to
+24:48 have special meaning you can do three
+24:50 double quotes like this and then
+24:52 anything in between here is a comment
+24:55 that's another technique or you can use
+24:56 single quotes as well but more on those
+24:58 i think another time all right well if
+25:01 you don't mind let me forge ahead here
+25:02 and see how we might improve this
+25:04 program further and also introduce a few
+25:06 other features that we might want to
+25:08 take into account over time so it turns
+25:11 out that we can certainly improve on
+25:13 this program because it's a little
+25:15 disappointing that i'm cutting this
+25:17 corner and saying hello comma and then
+25:19 on a new line printing out name like we
+25:21 can do better and most programs you use
+25:23 on your phone or your laptop certainly
+25:25 keep text together when people want so
+25:27 how can we go about doing that well
+25:28 there's a few different ways and in fact
+25:30 the goal here is not so much to solve
+25:32 this one problem but to demonstrate and
+25:34 emphasize that in programming python and
+25:36 other languages there's so many ways
+25:38 sometimes to solve the same problem and
+25:41 here's one way to solve this problem let
+25:43 me go in here and let me go ahead now
+25:46 and say hello comma
+25:48 and let me just add to the end of that
+25:51 the user's name so i'm using plus in
+25:54 kind of an interesting way this is not
+25:55 addition per se i'm not adding numbers
+25:58 obviously but i do kind of want to add
+26:00 the person's name to the string of text
+26:03 hello comma well let me go now down to
+26:06 my terminal window and run python if
+26:08 hello.pi again enter what's your name
+26:11 i'm going to type in david enter
+26:13 okay it's better
+26:14 it's better but there's a minor bug
+26:16 albeit aesthetic here there's missing
+26:19 space but let's just use some intuition
+26:20 here well if i'm missing the space after
+26:22 the comma why don't i go ahead and just
+26:24 add it manually here let me now rerun
+26:27 the program python of hello.pi enter
+26:29 david enter and there we go now we have
+26:32 something that looks a little prettier
+26:33 in terms of english grammar hello comma
+26:35 space david and now if we rewind you
+26:38 might have noticed before or wondered
+26:41 why i had this seemingly extra space
+26:44 after my question mark namely here
+26:46 there's a space after the question mark
+26:48 before the double quote and that was
+26:49 just for aesthetics too i wanted to move
+26:51 the user's cursor one space to the right
+26:53 so that when i type their name or they
+26:55 type their name it's not immediately
+26:56 next to that same question mark there
+26:60 but there's other ways we can do this it
+27:02 turns out that some functions print
+27:04 among them actually take multiple
+27:07 arguments and it turns out that if you
+27:10 separate the inputs to a function the
+27:12 so-called arguments to a function with a
+27:14 comma you can pass in not just one but
+27:16 two three four five onward so let me go
+27:20 ahead and pass in not just hello comma
+27:22 space but that
+27:24 followed by name and this is a little
+27:26 confusing potentially at first glance
+27:28 because now i've got two commas but it's
+27:29 important to note that the first comma
+27:32 is inside of my quotation marks which is
+27:35 simply an english grammatical thing the
+27:38 second comma here is outside of the
+27:40 quote but between what are now two
+27:42 separate arguments to print the first
+27:44 argument is hello comma space the second
+27:47 argument is the name variable itself so
+27:49 let's see how this looks
+27:52 python of hello dot pi enter what's your
+27:54 name david enter
+27:56 okay i've kind of over corrected now
+27:58 i've got two spaces for some reason well
+28:00 it turns out and this is subtle when you
+28:02 pass multiple arguments to print it
+28:05 automatically inserts a space for you
+28:08 this was not relevant earlier because i
+28:10 was passing in one big argument to
+28:13 print all at once by using that plus
+28:16 operator this time i'm passing in 2
+28:18 because of the comma so if i don't want
+28:20 that extra space i don't need to pass in
+28:22 one myself i can just do this and now
+28:25 notice if i run this program again
+28:26 python if hello.pi
+28:28 type in my name david now it looks
+28:30 grammatically like i might want now
+28:33 which of these approaches is better this
+28:34 approach uses a function print with two
+28:37 arguments hello comma
+28:39 and the name variable the previous
+28:41 version recall technically used one
+28:44 argument even though it looked a little
+28:45 curious it's one argument in the sense
+28:47 that the computer just like
+28:48 mathematicians are going to do what's
+28:50 inside of parentheses first so if inside
+28:52 of parentheses you have this string of
+28:54 text hello comma and a space which i
+28:57 need to add back then you have a plus
+28:59 which means not addition per se but
+29:01 concatenation to join the thing on the
+29:04 left and the thing on the right
+29:06 this ultimately becomes the english
+29:08 phrase hello comma space david
+29:11 and then what's being passed ultimately
+29:14 to the function is technically something
+29:16 like this but it's doing it all
+29:18 dynamically it's not me typing in david
+29:21 as i i secretly as i discretely did
+29:23 earlier it's figuring out dynamically
+29:25 what that value is after concatenating
+29:27 hello with the value of name and then
+29:30 passing that ultimately to print as the
+29:32 soul argument
+29:34 let me pause here to see if there's any
+29:35 questions on
+29:37 numbers of arguments now
+29:39 to functions
+29:41 can we use a function
+29:43 many times to solve a certain problem
+29:46 which we can encounter many times in our
+29:47 code
+29:49 you can you can use a function many
+29:50 different times to solve some problem
+29:53 what we'll soon see though is if you
+29:54 find yourself as the programmer solving
+29:56 a problem the same way again and again
+29:59 and again it turns out you'll be able to
+30:01 make your own function so that you don't
+30:02 have to keep reusing the basic ones that
+30:05 come with the language
+30:07 i was curious about the comma and
+30:10 the plus sign so after plus sign can we
+30:12 give just one variable and after form
+30:15 again we give multiple variables like
+30:17 what is the difference a good question
+30:19 so in the context of strings and i keep
+30:22 using that term string is a technical
+30:24 term in a programming language and again
+30:25 it means a sequence of text a character
+30:28 a word a whole paragraph even so the
+30:31 plus operator is not just used as we'll
+30:34 see for addition of numbers in python
+30:36 like we do on paper pencil but it also
+30:39 is used for concatenation of strings on
+30:41 the left and the right if you did want
+30:42 to combine not just two strings left and
+30:44 right but a third and a fourth you can
+30:46 absolutely keep using plus plus plus
+30:50 plus and chain them together just like
+30:52 in math eventually that's going to start
+30:54 to look a little ugly i dare say
+30:56 especially if your line of code gets
+30:57 long so there's better ways that we'll
+30:59 actually soon see and a good question as
+31:01 well well let me come back to the code
+31:03 here in question and see if we can show
+31:05 you just a couple of other ways to solve
+31:07 the same problem along the way
+31:09 emphasizing that what we're technically
+31:10 talking about here yes are strings but
+31:12 there's even a technical term for these
+31:14 strings in python it's just stir so to
+31:17 speak str for short for string as you
+31:20 may know if you've programmed in other
+31:22 languages people who invent programming
+31:23 languages like to be very
+31:25 succinct to the point so we tend to use
+31:27 fairly short phrases to describe things
+31:30 not necessarily full words so while you
+31:32 might say string technically in python
+31:34 what we're really talking about these
+31:36 sequences of text are technically
+31:38 stirrers this is an actual type of data
+31:41 in a program but we'll soon see that
+31:42 there's other types of data in programs
+31:45 as well in fact let's see if we can't
+31:47 improve this in one other way i like the
+31:50 progress we've made by keeping
+31:51 everything on the same line hello comma
+31:53 david
+31:54 all on the same line what more though
+31:56 could we do in terms of solving this
+31:58 problem well it turns out that we didn't
+32:01 have to give up entirely with using
+32:03 print twice let me rewind a little bit
+32:05 and go back to that earlier version
+32:07 where i wasn't really sure how to solve
+32:09 this problem so i was using print once
+32:11 to print out just the hello in the space
+32:13 and the comma and then i use print again
+32:16 to call to print name that strictly
+32:18 speaking wasn't bad but there was this
+32:21 visual side effect that i just didn't
+32:23 like it just looked ugly to have these
+32:25 two lines of text separate from one
+32:27 another but there's another way to fix
+32:29 this clearly it seems to be the case
+32:32 that the print function is automatically
+32:34 outputting a blank line it's moving the
+32:37 cursor automatically for me to the next
+32:39 line because that's why i'm seeing hello
+32:41 on one line and david on the next and
+32:43 then my prompt the dollar sign on the
+32:45 line below that so print seems to be
+32:48 presuming automatically that you want it
+32:49 to move the cursor to the next line
+32:51 after you pass it some argument but you
+32:53 can override that behavior again
+32:55 functions take arguments which influence
+32:57 their behavior you just have to know
+32:59 what those arguments are and it turns
+33:02 out
+33:02 that if we look at the documentation for
+33:05 python's print function we can actually
+33:08 look up at this url here docs.python.org
+33:11 is where all of python's official
+33:13 documentation lies if i poke around i
+33:15 can find my way to more specifically
+33:17 this url here where i can find all of
+33:19 the available functions in python
+33:22 that and the documentation therefore and
+33:24 if i go a little more precisely i can
+33:27 even find specific documentation for the
+33:29 print function itself and rather than
+33:31 pull that up in a browser i'm going to
+33:32 go ahead and highlight just one line
+33:34 from that same url
+33:36 which is this and this is easily the
+33:38 most cryptic thing we've seen yet but
+33:40 this is the official documentation for
+33:42 the print function and one of the best
+33:44 things you can do when learning a
+33:45 programming language is honestly learn
+33:47 to read the documentation because truly
+33:49 all of the answers to your questions
+33:51 will in some way be there even though
+33:54 admittedly it's not always obvious and i
+33:55 will say too python's documentation
+33:57 isn't necessarily the easiest thing
+33:59 especially for a first time or novice
+34:01 programmer it too just takes practice so
+34:03 try not to get overwhelmed if you're not
+34:05 sure what you're looking at but let me
+34:06 walk you through this example this again
+34:09 is a line of text from python's official
+34:11 documentation for the print function
+34:13 what this indicates as follows is this
+34:15 the name of this function is of course
+34:16 print then there's a parenthesis over
+34:18 here and another closed parenthesis way
+34:20 over there everything inside of those
+34:22 parentheses are the arguments the
+34:24 potential arguments to the function
+34:27 however when we're looking at these
+34:30 arguments in the documentation like this
+34:33 there's technically a different term
+34:34 that we would use these are technically
+34:36 the parameters to the function so when
+34:38 you're talking about what you can pass
+34:41 to a function and what those inputs are
+34:44 called those are parameters when you
+34:46 actually use the function and pass in
+34:48 values inside of those parentheses those
+34:51 inputs those values are arguments so
+34:54 we're talking about the exact same thing
+34:55 parameters and arguments are effectively
+34:57 the same thing but the terms you use
+34:59 from looking at the problem from
+35:00 different directions when we're looking
+35:02 at what the function can take versus
+35:04 what you're actually passing into the
+35:05 function so what does this imply well
+35:07 this syntax is pretty cryptic
+35:10 but at the moment just know that an
+35:11 asterisk a star and then the word
+35:14 objects means that the print function
+35:16 can take any number of objects you can
+35:17 pass in zero strings of text one string
+35:20 like i did two strings like i did or
+35:22 technically infinitely many if you you
+35:24 really want though that code's not going
+35:26 to look very good
+35:27 after that we see a comma then we see
+35:29 another parameter here called sep short
+35:32 for separator in english and notice the
+35:35 equal sign and the single quote space
+35:38 single quote so quote unquote space i
+35:41 don't know what that is yet but i i
+35:43 think we've seen a hint about it let's
+35:45 focus though for a moment on this the
+35:46 print function takes another parameter
+35:48 called end and the default value of that
+35:51 parameter is apparently based on this
+35:53 equal sign and these quotes backslash n
+35:57 and what is backslash n if you'd like to
+35:59 chime in the chat anyone who's
+36:01 programmed before has probably seen this
+36:03 though if you've never programmed before
+36:04 this might look quite cryptic
+36:07 backslash n
+36:09 means new line and it's a way textually
+36:12 of indicating if and when you want the
+36:15 computer effectively to move the cursor
+36:17 to the next line create a new line of
+36:19 text and so technically if we read into
+36:21 the documentation we'll see more detail
+36:23 on this
+36:24 the fact that there's a parameter called
+36:26 end and the documentation for the print
+36:28 function just means that by default this
+36:31 print function is going to end every
+36:33 line with backslash n you don't
+36:35 literally see backslash n you see a new
+36:37 line you see the cursor moving to the
+36:39 next line now by that logic let's move
+36:42 backwards sep for separator the default
+36:45 value of separator is apparently a
+36:48 single blank space well where have we
+36:50 seen that well recall in an earlier
+36:52 example when i passed in not just one
+36:54 but two arguments to the print function
+36:57 recall that they magically had a space
+36:59 between them in fact they had that space
+37:01 plus my own space and that's why i
+37:03 deleted my space because at that point
+37:05 it was extra so this just means that
+37:07 when you pass multiple arguments to
+37:08 print by default they're going to be
+37:10 separated by a single space by default
+37:12 when you pass arguments to print it's
+37:15 the whole thing is going to be ended
+37:16 with a new line now just by knowing this
+37:19 and let me literally wave my hand at the
+37:21 rest of the documentation for another
+37:23 day there's more things that print can
+37:24 do but we're going to focus just on sep
+37:26 and on end
+37:27 let's see if we can't leverage this now
+37:29 to solve that original problem the
+37:31 original problem was this i don't like
+37:33 how hello comma david is on two
+37:35 different lines well that's happening
+37:37 again because print is automatically
+37:38 printing out a new line so let's tell it
+37:41 not to do that let's tell it by passing
+37:43 a second argument to the first use of
+37:46 print
+37:47 to say end equals quote unquote not
+37:51 backslash n which is the default
+37:54 automatically let's make it quote
+37:56 unquote nothing else
+37:58 let's override the default value so
+38:01 there is no new line there's literally
+38:02 nothing there and let's see what happens
+38:05 let me now go down to my terminal window
+38:07 and clear it and i'm going to run python
+38:09 of hello.pi enter i'm going to type in
+38:11 my name david and i think now
+38:13 everything's going to stay on the same
+38:15 line because and it did
+38:18 this line here 5 is going to print out
+38:21 hello comma space but then nothing at
+38:23 the end of it because i changed it to be
+38:25 quote unquote the second line is going
+38:28 to print the name david or whatever the
+38:30 human's name is and it will move the
+38:32 cursor to the next line because i didn't
+38:33 override the value of end there just to
+38:37 see this more explicitly if you do
+38:38 something cryptic like well i have no
+38:40 idea what's going on let me just put in
+38:42 temporarily three question marks here
+38:44 we'll see the results of this too let me
+38:46 go back down to my terminal window run
+38:48 python of hello.pi what's your name
+38:50 david and now
+38:52 you see literally really ugly output but
+38:54 you see literally what's going on hello
+38:56 comma space
+38:58 then three question marks end that print
+39:00 statement and then you see dav id so not
+39:04 a good outcome but it demonstrates just
+39:07 how much control we have here too and
+39:09 let me rewind further recall that in our
+39:11 other version of this
+39:13 when i passed in hello comma and name
+39:16 they were separated by a single space so
+39:19 python of hello.pi
+39:21 david enter that just worked well what
+39:24 if we override the value of sep for
+39:27 separator instead of being one space we
+39:30 could say something like uh question
+39:33 mark question mark question mark just to
+39:35 wrap our minds around what's going on
+39:36 there
+39:37 let me now do python of hello.pi david
+39:41 enter and you see two these two inputs
+39:44 hello comma and the name are now
+39:46 separated in an ugly way by three
+39:48 question marks because i've overridden
+39:51 the default behavior of sep and even
+39:53 though the documentation uses single
+39:54 quotes i've been in the habit of using
+39:56 double quotes in python you can use
+39:58 either strictly speaking it doesn't
+39:60 matter but you should be consistent and
+40:02 i generally always use double quotes
+40:03 python's documentation though always
+40:05 uses single quotes
+40:08 questions now on these types of
+40:11 parameters and allow me to propose that
+40:14 we give these an official name up until
+40:16 now when we've been passing values to
+40:18 print those are called positional
+40:20 parameters positional in the sense that
+40:22 the first thing you pass to print gets
+40:24 printed first the second thing you pass
+40:25 to print after a comma gets printed
+40:27 second and so forth but there's also
+40:29 these things we've now seen called named
+40:31 parameters named scp separator or end
+40:36 end for the line ending those are named
+40:38 parameters because one they're optional
+40:41 and you can pass them in at the end of
+40:43 your print statement but you can also
+40:45 call use them by name
+40:48 this may be a weird question but i was
+40:50 wondering uh what if someone wants to
+40:53 like add actually
+40:55 quote quotation marks within the
+40:57 quotation marks yeah i like how you
+40:59 think this is what we would call a
+41:01 corner case right just when we've made
+41:03 right this is this is all sounding great
+41:05 at least as programming goes but wait a
+41:07 minute what if you want to print a quote
+41:08 that's a really good question well let's
+41:10 see if we can't figure this out suppose
+41:12 that i want to print out
+41:14 not just the user's name let me simplify
+41:16 this further let me go ahead and get rid
+41:18 of a lot of this and let me just say
+41:20 something like hello
+41:23 um
+41:24 maybe i'm being a little sarcastic here
+41:26 hello
+41:27 friend
+41:28 you know in that kind of tone well this
+41:30 is not going to work actually because
+41:32 you were trying to use quotes to be like
+41:35 friend in finger quotes but you're also
+41:37 trying to end the sentence and if i try
+41:38 running this let's do this python if
+41:40 hello dot pi you'll see that this is
+41:42 just invalid syntax perhaps you forgot a
+41:44 comma and this is actually a bit
+41:45 annoying sometimes the error messages
+41:47 you see are misleading like the computer
+41:50 the language doesn't really know what's
+41:51 going on so it gives its best guess but
+41:53 it's not necessarily correct but i can
+41:56 solve this problem in a couple of ways i
+41:58 can do this i can change my outermost
+42:01 quotes to single quotes because recall a
+42:02 moment again i said you could use double
+42:05 quotes or single quotes so long as
+42:06 you're consistent so that's fine if you
+42:08 use single quotes on the outside you can
+42:10 then use double quotes on the inside and
+42:12 you'll see them literally so for
+42:13 instance if i run python if hello.pi
+42:16 there we go hello friend
+42:19 but there's another way if you insist on
+42:21 using double quotes as you might want to
+42:23 just to be consistent you can also use
+42:26 that backslash character again we saw
+42:28 the backslash n a moment ago and that
+42:30 meant we don't want a literal n to be in
+42:33 the output we wanted a new line so the
+42:35 backslash actually represents what's
+42:37 called an escape character an escape
+42:39 character is one that you can't just
+42:40 type necessarily once on your keyboard
+42:43 you need to express it with multiple
+42:44 characters so i can actually put
+42:46 backslashes in front of these inner
+42:50 double quotes so that the computer
+42:52 realizes oh wait a minute those aren't
+42:53 literal those aren't quotes that finish
+42:55 or start the thought they're literal
+42:57 quotes so now let me go back to my
+42:59 terminal window run python of hello.pi
+43:02 enter and now it's working as well so
+43:05 escaping is a general technique that
+43:06 allows us to do that too
+43:08 and if i may let me rewind now on these
+43:11 examples and go back to where we left
+43:14 off with my code i'm just undoing all of
+43:16 that because i want to get back to the
+43:18 point ultimately of specifying now a
+43:21 final way of solving this problem well
+43:24 it turns out that we have yet another
+43:26 way we can solve this problem which is
+43:28 perhaps the most frequently done now or
+43:32 at least the most elegant when it comes
+43:34 to setting us up for longer and longer
+43:37 uses of strings
+43:39 you can use a relatively new feature of
+43:42 python that allows you to do this you
+43:44 can literally put not the name of the
+43:46 variable like that in your string
+43:47 because we already saw this is wrong
+43:49 right if you do this you will literally
+43:50 see hello comma name but what if i do
+43:53 this what if i put curly braces or curly
+43:56 brackets around the variable's name
+43:58 notice vs code is actually very subtly
+43:60 changing the color of it so vs code
+44:01 knows something interesting is going on
+44:03 here let me run this program but i'm not
+44:05 done yet python of hello.pi enter david
+44:09 enter okay obviously not what i want but
+44:12 i need to tell python that this is a
+44:14 special string this is what we're going
+44:16 to call a format string or an f string a
+44:18 relatively new feature of python in the
+44:20 past few years that tells python to
+44:23 actually format stuff in the string in a
+44:26 special way and the symbol via which you
+44:28 do this is a little weird but this is
+44:30 what the world shows if you put a f
+44:33 at the beginning of the string
+44:35 right before the first quote mark that's
+44:38 a clue to python that oh this is a
+44:40 special string let me format this in a
+44:42 special way for you let me now rerun the
+44:45 program pythonhello.pi enter david enter
+44:48 and now we see the goal this whole time
+44:51 hello comma david we don't start with
+44:53 this way because i think if we did this
+44:55 the first way you'd be like why are we
+44:57 doing this what are all these magical
+44:58 symbols but this is just yet another way
+45:00 to solve the same problem but let me
+45:03 propose that we consider now
+45:04 yet other things we can do with strings
+45:07 and it turns out that even as we've been
+45:09 doing
+45:09 some relatively simple operations here
+45:11 we've generally been trusting that the
+45:13 user's going to cooperate and that is to
+45:16 say that they're going to actually type
+45:17 in what we want them to type now just
+45:19 because they type a string though
+45:20 doesn't mean it's going to look the way
+45:22 we want you and i honestly as humans are
+45:24 actually in the habit on websites and
+45:26 apps of like accidentally hitting the
+45:28 space bar a lot either at the beginning
+45:30 of our input or at the end maybe because
+45:32 the space bar tends to be so big it's
+45:33 pretty common to get accidental spaces
+45:36 before or after some user's input you
+45:38 and i are definitely in the habit of not
+45:40 necessarily capitalizing words like we
+45:42 should if we're sending text messages
+45:44 we're probably being a little quick and
+45:45 just sending everything in lower case
+45:47 for instance if that's your style if
+45:48 your phone's not fixing it for you maybe
+45:50 in a formal letter you would capitalize
+45:52 things properly but you and i as humans
+45:54 can't really be trusted to type things
+45:55 in a nice way necessarily when using
+45:58 some piece of software be it an app or
+45:59 website or something else but it turns
+46:01 out that strings themselves come with a
+46:05 lot of built-in functionality and you
+46:06 can see all of that in python's own
+46:08 documentation here the string
+46:11 data type that we've been talking about
+46:12 comes with a lot of functionality built
+46:14 in that means that we can manipulate the
+46:16 user's input to do more than just join
+46:19 it with something else like hello we can
+46:21 actually clean it up or reformat it in a
+46:24 way that hopefully looks a little better
+46:26 for us so let me go back to my code here
+46:28 and let me just demonstrate what might
+46:30 happen if the user doesn't cooperate if
+46:32 i go ahead here and run python of
+46:34 hello.pi enter let me just sloppily hit
+46:37 the spacebar a few too many times why i
+46:39 just wasn't paying attention and i'm
+46:41 going to type in my name david and i
+46:43 don't know i hit the spacebar a couple
+46:45 more times like it's kind of a mess it's
+46:47 all lowercase that's not going to
+46:48 necessarily look grammatically right
+46:50 it's got spaces here and here the
+46:52 program is going to print exactly that
+46:54 and that looks really bad at least if
+46:56 we're prioritizing aesthetics and
+46:57 grammar like why are there so many
+46:59 spaces after the comma this is not a
+47:01 very nice way to greet your users but we
+47:04 can clean this up
+47:05 it turns out that built into strings
+47:08 which again is this data type so to
+47:10 speak this type of data in python is the
+47:13 ability to actually do things to that
+47:15 string so let me do this i can actually
+47:18 go ahead and do something like this
+47:20 uh
+47:20 name equals name dot strip and what does
+47:24 this do
+47:25 remove
+47:26 white space from string
+47:30 and what do i mean by this well on the
+47:32 right hand side notice i've written the
+47:34 variable name called name
+47:37 i've then used a period or a dot and
+47:39 then i seem to be doing what's a
+47:42 function right anytime we've seen this
+47:43 function thus far we see it's the the
+47:45 function's name print or input then we
+47:47 see a parenthesis then another
+47:48 parenthesis and that's exactly what i
+47:50 see here but i'm using this function a
+47:52 little differently technically this
+47:53 function is in this context called a
+47:55 method and what do i mean by that well
+47:58 if name is a string aka stir well it
+48:01 turns out according to the documentation
+48:03 there's a lot of functions that come
+48:05 with strings in python and you can
+48:08 access that functionality by using the
+48:10 name of a string like literally name
+48:12 here then a period then the name of the
+48:15 function and then an open parenthesis
+48:17 and a closed parenthesis maybe some
+48:19 arguments inside of those parentheses
+48:20 but in this case it doesn't need any
+48:22 arguments i just want to strip the space
+48:25 from the left and the space from the
+48:26 right of the user's input but that's not
+48:28 enough i want to remember that i've
+48:30 stripped off that white space on the
+48:32 left and the right so i'm going to use
+48:34 the equal sign again here and notice
+48:36 that just as before this doesn't mean
+48:38 equality this means assignment from
+48:40 right to left so when this line of code
+48:42 here name.strip
+48:44 returns to me
+48:46 aka a return value it will return the
+48:49 same thing that the user typed in but
+48:50 with no more white space to the left or
+48:52 to the white
+48:53 to the right so then the equal sign
+48:56 assignment is going to copy that value
+48:58 from the right to the left thereby
+49:01 updating the value inside of my name
+49:04 variable so you can not only assign
+49:06 values to variables you can absolutely
+49:08 change the value of variables by just
+49:11 using the assignment operator the equal
+49:12 sign again and again and again and it
+49:14 will just keep copying from right to
+49:15 left whatever the new value should be so
+49:18 now if i rerun this program python of
+49:21 hello.pi
+49:22 enter
+49:24 i have david let's do it again space
+49:26 spacebase space space dav id and all
+49:28 lowercase space space enter
+49:31 it's better it hasn't fixed my
+49:33 capitalization so i'm still being a
+49:34 little sloppy with the first d but it
+49:37 has stripped off all of that extra space
+49:40 super minor detail right like this isn't
+49:42 all that exciting but it just speaks to
+49:44 the power of what you can do with just a
+49:46 single line of code now what else can i
+49:48 do here well i could capitalize the
+49:51 user's input let me go ahead and try
+49:53 this it turns out that i could also
+49:56 do this name dot
+49:58 capitalize so let me go ahead and
+50:01 capitalize uh user's name and again i'm
+50:04 making comments and there's no one right
+50:06 way to write the comments i'm just using
+50:07 some short english phrases here to
+50:09 remind myself of what i'm doing
+50:11 what's now going on here well let me go
+50:12 ahead and run python if hello.pi enter
+50:15 space spacebase spacebase david space
+50:18 space enter
+50:19 okay now it's looking prettier right no
+50:22 matter how the user typed in their name
+50:23 even a little sloppily i'm now fixing
+50:25 that but let's let's try something i'm
+50:27 getting a little curious here how about
+50:29 this uh spacebase face-to-face space
+50:31 david spacemailin i'll use my last name
+50:35 now enter
+50:37 okay so ironically capitalize is not
+50:40 really capitalizing everything we want
+50:42 it's clearly capitalizing what just the
+50:44 very first letter so it turns out that
+50:47 again there's other functions in python
+50:49 that come with strings and if we poke
+50:50 around the documentation scrolling
+50:53 through a url like that i bet we'll find
+50:55 another solution one of which is
+50:57 actually this
+50:58 let's actually change this to title
+51:01 there's yet another function that come
+51:03 with strings called title that do title
+51:06 based capitalization just like a book or
+51:08 a person's name capitalizing the first
+51:10 letter of each word and this is just
+51:12 going to do a little more work for us so
+51:14 let's go ahead and run this and as an
+51:16 aside i'm kind of tired now at this
+51:18 point of typing python python python all
+51:21 the time it turns out that when using a
+51:23 command line interface like this you can
+51:26 actually go back through all of your old
+51:27 commands what i just did a moment ago is
+51:29 i hit the up arrow that immediately goes
+51:31 back through my history of all of the
+51:33 commands i've ever typed so this is just
+51:35 a faster way now for rep repeat myself
+51:38 than typing everything manually let me
+51:40 go ahead and hit enter
+51:41 space based basically space dav id
+51:44 mailing space space all lower case enter
+51:47 now it's it's looking better now i've
+51:50 capitalized things and cleaned things up
+51:52 but what about my code i've got like
+51:54 eight lines of code now four of which
+51:56 are comments four of which are actual
+51:57 code do i really need this much well not
+52:00 necessarily watch what i can also do in
+52:03 python let me not bother capitalizing
+52:05 the user's name separately let me say
+52:08 this and capitalize
+52:11 capitalize user's name i can chain these
+52:14 functions together i can add title to
+52:17 the end of this and now what's happening
+52:19 well again with a line of code like this
+52:21 you first focus on what's to the right
+52:23 of the equal sign then we'll get to the
+52:25 left of the equal sign what's on the
+52:27 right of the equal sign this line here
+52:29 well what does this mean get the value
+52:31 of the name variable like david space
+52:34 m-a-l-a-n
+52:36 then strip off the white space on the
+52:38 left and the right that is going to
+52:40 return a value it's going to return
+52:41 david space m-a-l-a-n without any white
+52:44 space to the left or right what do you
+52:46 want to do with that return value you
+52:48 want python to title case it that is go
+52:51 through every word in that resulting
+52:54 string and fix the first letter of the
+52:56 first word the first letter of the
+52:57 second word and so forth and then now we
+52:59 can finish our thought copy the whole
+53:01 thing
+53:02 from right to left into that same name
+53:05 variable and you know what i can take
+53:07 this even one step further why don't we
+53:09 go ahead and do this if we want
+53:11 let me get rid of all that and let me
+53:14 just do
+53:15 strip and title all on that first line
+53:18 and now we've gone from like eight lines
+53:20 of code to four
+53:21 it's a lot tighter it's a lot neater and
+53:24 even though reasonable people might
+53:25 disagree it's arguably better
+53:28 because it's just easier to read fewer
+53:30 lines of code fewer opportunities for
+53:32 mistakes it just allows me to move on
+53:34 with my next
+53:35 problem to solve
+53:37 all right let me pause here and see if
+53:39 there's any questions on these methods a
+53:42 method is a function that's built in to
+53:44 a type of value like these functions are
+53:48 or on f strings which we saw a moment
+53:50 ago
+53:51 yes hi thanks david um so is there a way
+53:53 to remove the spaces between
+53:56 the spaces that i might have added a
+53:58 short answer no if you read the
+53:59 documentation at that same url earlier
+54:01 you'll see that strip removes from the
+54:03 left and the right but not in between in
+54:05 fact there's two other functions that
+54:07 come with strings one's called l-strip
+54:09 the other is called r strip that allow
+54:11 you to do one or the other if we want to
+54:13 start getting rid of space in the middle
+54:15 we're gonna have to do a different trick
+54:16 all together
+54:18 how many
+54:19 functions can we combine like this dot
+54:21 strip dot title you have combined so how
+54:23 many we can combine yeah a really good
+54:26 question
+54:27 technically as many as you want but at
+54:30 some point your code is going to start
+54:31 to look really really bad right because
+54:33 the line of code is going to get really
+54:34 really long it's eventually going to
+54:36 maybe wrap around again and again so at
+54:38 some point you just kind of say like uh
+54:40 that's too many and you start breaking
+54:42 it up into multiple lines like i did
+54:44 maybe reassigning the value to the
+54:46 variable as needed and this is actually
+54:48 a good question if i can pivot
+54:50 off your question i mean what do people
+54:52 think if we could go ahead and put
+54:54 everyone's hands down for a moment
+54:56 let me ask this
+54:58 is the way i've done this now with strip
+55:01 and title and input all in the same line
+55:05 better than my previous approach in zoom
+55:08 you can use the yes icon or the no icon
+55:11 if you think this version is better say
+55:14 yes
+55:14 if you think this previous version was
+55:17 better
+55:18 for instance this one here where we had
+55:21 everything broken out say no
+55:23 and then we'll see why in just a moment
+55:26 i proposed earlier that reasonable
+55:28 people
+55:29 can disagree and that's absolutely the
+55:31 case
+55:33 doing it one way or the other isn't
+55:34 necessarily best at least if you can
+55:37 justify it let me go back to the most
+55:39 recent version here
+55:41 all right so we're seeing a lot of yeses
+55:44 and a lot of no's why don't we go ahead
+55:46 and call on one of the yeses if we could
+55:49 someone who's voting yes why do you
+55:51 think the current version of this code
+55:53 is indeed better than the previous
+55:55 longer version of the code
+55:57 i think it's more readable so i can say
+55:60 hey this is the name from this is the
+56:02 name variable
+56:03 it gets some input and then remove the
+56:05 space and give it a title and there you
+56:08 go you have a hello name yeah i think
+56:10 that's pretty reasonable it's very
+56:11 readable at least if you're in the habit
+56:13 as you are in english of reading left to
+56:14 right it just kind of flows very
+56:16 naturally as a result the lines is not
+56:18 really that long it's certainly fitting
+56:20 nicely onto the screen so i think that's
+56:21 a good argument how about a counterpoint
+56:23 though someone who voted no if we could
+56:25 call on someone who thinks this is worse
+56:28 because it's not
+56:29 reliable at all
+56:31 i seems like uh
+56:35 it's a very long
+56:36 line so i think it's better to separate
+56:39 yeah i i think that's persuasive too
+56:41 right it's getting a little longer and
+56:43 even though my sentence here what's your
+56:45 name is relatively short you could
+56:47 imagine that this could get even uglier
+56:49 quickly if i were asking a longer
+56:51 question of the user that's going to
+56:52 make this line of code even longer and
+56:55 therefore less readable it might be less
+56:57 obvious to me or my colleagues that i am
+56:59 calling strip or that i am calling title
+57:01 it might be kind of a unexpected
+57:03 surprise so i think that's reasonable
+57:05 too in short there is no right answer
+57:07 here and in fact part of the process of
+57:09 getting better at programming is getting
+57:12 your own sense of style or working for a
+57:14 company where they might prescribe which
+57:16 way is better than the other because
+57:17 they just want everyone doing the same
+57:18 thing even though reasonable people
+57:20 might uh disagree ultimately though so
+57:23 long as you have what's a pretty good
+57:25 argument in favor of one way or the
+57:27 other like ultimately that's what's
+57:29 important if you're just doing things
+57:30 because you don't really know which one
+57:32 is better that's not great but if if and
+57:34 when you start to acquire opinions and
+57:35 if your boss if your teacher if your
+57:38 colleague your friend can challenge you
+57:39 and say wait why did you do it like this
+57:41 they might not agree with you but at
+57:43 least have an answer and that should be
+57:44 sufficiently persuasive in general now
+57:47 strings come with a whole bunch of other
+57:49 methods as well among which is one
+57:51 called split which can as the name
+57:53 suggests split a string into multiple
+57:55 smaller sub strings so to speak for
+57:57 instance if the human here is in the
+57:59 habit of typing in their first name then
+58:00 a space and then their last name and you
+58:02 want to go ahead and greet them only by
+58:04 first name well we could actually
+58:06 leverage that single space between the
+58:07 first name and last name and split that
+58:10 string into two smaller sub strings how
+58:12 can we do this well let me go ahead and
+58:14 in between these lines proactively
+58:15 comment that we're about to split user's
+58:18 name
+58:19 into first name and last name and then
+58:23 let's go ahead and take that name
+58:24 variable which currently contains
+58:26 something like presumably david
+58:28 spacemailin and let me go ahead and call
+58:30 split and pass in as the argument to
+58:32 split a single white space thereby
+58:35 indicating that i indeed want to split
+58:36 on that character now it turns out
+58:38 split's going to return a sequence of
+58:40 values ideally a first name and then a
+58:42 last name and we can actually in python
+58:44 assign both of those values from that
+58:46 sequence at once to some variables for
+58:48 instance first comma last equals and
+58:51 that's going to have the effect from
+58:52 right to left of putting the first such
+58:54 value in the first variable the second
+58:56 such value in the second variable so now
+58:58 on my last line of code i can go in and
+59:01 say hello not to the full name something
+59:03 like david malen i can just say hello
+59:05 comma first all right let's go ahead and
+59:07 clear my terminal window run python of
+59:09 hello dot pi and hit enter i won't
+59:11 bother with any leading white space this
+59:13 time but let me go ahead and type in
+59:14 david space malin and crossing my
+59:17 fingers as usual
+59:19 hello david is what we now see
+59:22 all right so we've seen so much so many
+59:24 examples thus far involving strings but
+59:26 certainly programs and programming
+59:29 languages can manipulate other types of
+59:31 data as well let's go ahead and
+59:33 transition then to another very common
+59:35 type of data in python in programming
+59:37 more generally namely integers otherwise
+59:40 known in python is int int so just as
+59:42 stir str is short for string so is int
+59:45 in python short for integer well what's
+59:48 an integer well just like in math it's a
+59:50 number like negative 2 negative 1 0 1 2
+59:54 and all the way toward negative infinity
+59:55 all the way toward positive infinity but
+59:57 there's no decimal point in an integer
+59:59 it's just a number like negative two
+60:01 negative one zero one and two onward
+60:04 that's an int of course in the world of
+60:07 mathematics there's lots of symbols that
+60:09 we use and we've seen plus before
+60:10 although we used it for a different
+60:12 purpose but python supports these
+60:14 symbols and more and python allows you
+60:16 to add numbers together plus subtract
+60:19 numbers uh multiply numbers divide
+60:21 numbers and the only one here that might
+60:23 look a little strange to people or
+60:24 unfamiliar is this percent sign but it
+60:27 doesn't mean percent in this context if
+60:29 you use a single percent sign in a
+60:31 python program that's actually the
+60:33 so-called modulo operator the operator
+60:35 that allows you to take the remainder
+60:37 after dividing one number by another so
+60:40 we'll see examples of that before long
+60:42 but the first four of these are perhaps
+60:44 quite quite familiar well it turns out
+60:46 that in python you cannot necessarily
+60:49 you don't necessarily have to keep
+60:51 writing code in a file like hello.pi and
+60:54 then running it in a terminal window one
+60:57 of the features that many people like
+60:59 about python is that it supports this
+61:01 so-called interactive mode like you can
+61:03 start writing python code and
+61:04 immediately
+61:06 execute each of those lines
+61:07 interactively if especially if you don't
+61:09 care about saving all of your lines of
+61:11 code you just want to execute code and
+61:13 get back some answers so for instance
+61:15 let me go back to vs code here and let
+61:17 me close hello.pi and let me click on
+61:19 the little triangle over here in my
+61:21 terminal window just to make it much
+61:23 bigger just temporarily for a moment so
+61:25 i'm not creating any dot pi file now i'm
+61:28 just going to run python by itself at my
+61:31 prompt and you'll see when i do this i
+61:33 get some cryptic looking output and the
+61:35 date and time at which the program was
+61:37 last updated and so forth but i
+61:39 ultimately get three
+61:41 triple
+61:42 uh brackets like this this is the
+61:44 interactive mode for python so i'm
+61:47 running the python interpreter and
+61:49 anytime i type a comma a line of code in
+61:52 the interpreter it's going to execute it
+61:54 immediately i don't have to keep running
+61:56 python again and again it's as though in
+61:58 the human world if you were standing
+61:59 next to a human who speaks some other
+62:01 language and you're just having a
+62:02 conversation with them back and forth
+62:04 it's all happening the translation
+62:06 immediately so what might i do in
+62:08 interactive mode well i could do
+62:09 something like one plus one enter that's
+62:12 actually code right you might not think
+62:14 of it as code but if you know a bit of
+62:16 arithmetic and you know
+62:17 numbers and you know plus that's valid
+62:20 python code and you can use python
+62:22 really as a fancy calculator but i could
+62:24 do other things too if i want to print
+62:26 to myself hello comma world i can also
+62:29 print out that line of code there too
+62:31 hello world so it's interactive in the
+62:32 sense that the moment you execute a line
+62:35 of code boom you see the result we're
+62:37 generally not going to do that because
+62:39 at least when teaching the language we
+62:41 tend to want to do things incrementally
+62:43 and we want you to be able to see where
+62:44 it is we came from and we want to be
+62:46 able to try things again and again
+62:48 especially if we make mistakes but know
+62:50 that this is indeed a feature of python
+62:52 this so-called interactive mode but
+62:54 let's focus for a moment now not just on
+62:56 that interactivity but really on the
+62:58 fact that python apparently supports
+62:59 integers and mathematics and some of
+63:02 those basic operations and let's see if
+63:04 we can't make maybe our our own little
+63:05 calculator so let me go ahead and open
+63:07 up vs code again and i'm going to shrink
+63:10 down my terminal window and i'm going to
+63:12 create a new file called calculator.pi
+63:15 so to do that recall i can type code
+63:17 down here and the name of the file i
+63:19 want to create dot pi enter that gives
+63:22 me a new tab up top so i have already
+63:25 closed hello.pi i'm now in calculator.pi
+63:27 and let's just make a simple calculator
+63:29 that does some addition for me but i'm
+63:31 going to do it in a file so that we can
+63:33 iterate on this and make changes for
+63:35 better for worse over time let me go
+63:37 ahead and first declare a couple
+63:38 variables i'm going to do the
+63:39 mathematical thing of calling my first
+63:41 variable x
+63:43 my second variable y
+63:45 and then i'm going to give myself a
+63:46 third variable z equals x plus y and
+63:49 then i'm going to go ahead and print out
+63:50 z now this program admittedly not very
+63:54 exciting or interesting in fact it's a
+63:56 little less interesting than printing
+63:57 stuff on the screen like before with
+63:59 strings but we'll build on this and see
+64:01 what other features exist in python that
+64:03 we can leverage so hopefully if python
+64:05 knows its math as well as i do when i
+64:08 run python of calculator.pi
+64:10 i should see hopefully that 1 plus 2
+64:13 equals
+64:14 indeed 3. all right so not that
+64:16 surprising and not that interesting and
+64:19 honestly this isn't the most useful
+64:20 program because it's always going to
+64:22 calculate 1 plus 2 equals 3. let's at
+64:25 least make this program say a little
+64:27 more interactive right we already know
+64:29 from previous examples how we can get
+64:30 input from the user let's bring back
+64:32 that input function and let's do this
+64:34 let me go ahead now and at the top of my
+64:37 code let's change x to not be the number
+64:40 one always let's change it to be
+64:42 whatever the return value is of asking
+64:44 the user for x and i can use any english
+64:47 or human language i want here i'm going
+64:49 to say what's x just like i asked before
+64:51 what's your name and i'm going to do the
+64:53 same thing for y i'm going to use input
+64:55 again but this time change the question
+64:57 to be what's y
+64:59 all right at this point i think i'm
+65:00 going to leave the rest of the code the
+65:02 same z equals x plus y and then print z
+65:06 but what's nice now is that i think i
+65:08 have a nice interactive calculator right
+65:10 now it's not going to do oneplus 2 all
+65:12 the time it's going to do whatever the
+65:14 user types plus whatever the user types
+65:16 so let's try this let me go ahead and
+65:18 run the program alright let's do it 1 is
+65:21 going to be x 2 is going to be y and of
+65:24 course
+65:25 everyone in agreement 1 plus 2 equals 3
+65:31 huh
+65:32 what's going on
+65:35 there either your math class misled you
+65:38 or i have misled you
+65:41 why don't we call on someone here to see
+65:43 if you can't help us reason through what
+65:44 the bug is what's the mistake uh anjali
+65:47 if i'm saying it right
+65:49 i think the issue is is that it's
+65:51 concatenating strings because you use
+65:53 the plus operator instead of adding
+65:55 perfect so perfect intuition we've seen
+65:57 that plus is used a little differently
+65:60 in the context of strings because it
+66:01 concatenates that as it joins the two
+66:03 strings and that seems to indeed be
+66:05 what's happening here even though the
+66:06 user typed a number but the interesting
+66:09 thing here is that when you get user
+66:11 input because they're using a keyboard
+66:13 on their mac or pc or their phone it is
+66:15 always going to be text it might look
+66:17 like a number but by default it's coming
+66:19 from the keyboard as a string that is as
+66:23 text and so how do we go about
+66:26 resolving this if ultimately we don't
+66:28 want to treat those inputs as strings we
+66:30 want to treat them as actual numbers
+66:32 well we need another function and it
+66:34 turns out in python that you can convert
+66:36 sometimes from one type of data to
+66:38 another type of data for instance from
+66:40 string to int
+66:42 by doing something like this let me go
+66:44 back into my code and let me change x
+66:47 before adding it to y to be whatever the
+66:50 integer version of x is plus whatever
+66:53 the integer version of y is so it turns
+66:57 out that int is not only a type of data
+66:59 in python it's also a function and it's
+67:02 a function that if you pass in an input
+67:04 like a string so long as that string
+67:07 looks like a number like one or like two
+67:10 it will convert it to an actual number
+67:12 that you can perform mathematics on
+67:14 instead
+67:14 so if i now go back to my terminal
+67:17 window and run python and let me show
+67:19 you another trick calculator is kind of
+67:21 a long word it's a little tedious to
+67:22 type notice what i can do in my terminal
+67:25 window in a command line interface in
+67:27 general if i start typing cal for
+67:30 calculator i can actually hit tab to
+67:33 finish my thought so auto complete is
+67:35 possible in a terminal window like this
+67:36 type the first letter or few letters and
+67:38 then boom with tab it'll finish your
+67:40 thought for you or you can go back in
+67:42 your history like i did with the up and
+67:44 down arrows let me go ahead and execute
+67:46 this what's x1 what's x2 and there we go
+67:50 now we have a general purpose calculator
+67:52 that's going to support not just
+67:55 addition of one and two but now any two
+67:57 integers that the user types and let me
+67:59 now improve this right we've seen how we
+68:01 can make improvements to code and i
+68:04 i don't know if it's gonna necessarily
+68:05 be better but let's try this
+68:07 do i really need the z variable
+68:10 it's worth noting that i'm creating a
+68:11 variable called c z
+68:14 and then i'm immediately using it on the
+68:15 next line of code now that's not that
+68:18 compelling because if you're creating a
+68:20 variable and then immediately using it
+68:22 but never again using it did you really
+68:24 need to take the time to introduce
+68:26 another symbol and another variable just
+68:28 to use it once and only once well maybe
+68:31 not maybe we don't really need z in this
+68:33 way maybe i should go and do something
+68:37 like this
+68:38 maybe i should get rid of z here
+68:41 maybe i should change this to be int up
+68:44 here
+68:45 change this to be int up here
+68:48 doing something that's pretty
+68:49 interesting now even though it's a bit
+68:51 of new syntax notice that
+68:53 you can nest functions so to speak you
+68:57 can put one function
+68:59 call that is the use of a function
+69:01 inside of the use of another function so
+69:04 that the return value of the inner
+69:06 function
+69:07 becomes the argument to or the input to
+69:10 the outer function just like in math if
+69:12 you have parentheses parentheses
+69:14 parentheses your teacher probably taught
+69:15 you to focus on what's inside the
+69:17 innermost parentheses first and then
+69:19 work your way out same thing with
+69:20 programming that's what python is going
+69:22 to do it's going to look at what's
+69:23 inside of the parentheses first it's
+69:25 going to get the answer and then it's
+69:27 going to pass the return value to the
+69:29 outermost function so what happens on
+69:31 line 1 now is that the input function
+69:33 gets called first then the result of
+69:36 that quote-unquote 1 becomes the input
+69:40 to the int function and same on line 2.
+69:42 the output of what's y
+69:44 becomes the input to this int function
+69:47 and now there is no z
+69:49 i could just do print x plus y and
+69:52 because i've taken the time to convert
+69:55 each of those strings to an integer i
+69:58 think we're okay so let me try this
+69:59 python of calculator.pi enter 1
+70:02 and 2
+70:04 and we're still getting 3. not 12 or not
+70:06 12 1 2 we're indeed getting 3 and we've
+70:09 additionally gotten rid of the variable
+70:11 because we didn't necessarily need it it
+70:13 seems especially if only using it once
+70:15 well here too let me put everyone's
+70:17 hands down for just a moment and let me
+70:19 ask as before
+70:20 this version now
+70:22 which uses int
+70:24 around the invocations of input and does
+70:27 not use z
+70:28 is this better than the previous version
+70:30 if you want to vote yes go ahead or if
+70:33 you prefer the old way vote no the old
+70:36 way i'll undo all of this as we vote
+70:38 instead looked like this
+70:43 all right and let me go back to now the
+70:45 newest version let's take a hand of the
+70:47 yeses someone who thinks this latest
+70:49 version is better
+70:51 i think this way is better because it
+70:55 allows us to immediately see what the x
+70:58 and y variables are with
+71:01 integers and so we know what to expect
+71:04 from them and also the print argument is
+71:08 more
+71:08 intuitive we avoid too much clutter
+71:11 in the codes
+71:13 i think those are all good reasons it's
+71:14 nice and succinct the lines of code are
+71:16 not very long uh i don't need to know
+71:19 what z is because it doesn't exist it
+71:20 just c print x plus y i like that but
+71:22 someone who prefers the older way where
+71:25 we did have z and we more explicitly
+71:28 passed individual variables to the in
+71:30 function yeah hi uh i think but the
+71:33 earlier version is better because when
+71:36 i mean if user input something else
+71:38 other than
+71:39 let's say i mean let's say they type one
+71:42 and two like
+71:44 so will be it will be easier to debug
+71:47 this version or the this version here or
+71:49 the old version
+71:51 okay that's fair and in fact i'm i'm
+71:53 being very careful today as best i can
+71:56 not to mess up i have thus far only
+71:59 inputted integers when i'm expecting
+72:00 integers and rows actually pointing to
+72:02 something we'll come back to in the
+72:04 coming weeks how do we actually handle
+72:05 errors what if the user doesn't type in
+72:07 the number one or the number two or a
+72:10 number at all what if they type in a
+72:11 word like cat c-a-t that's not a number
+72:14 and i bet i can't convert it to an
+72:16 integer but for today i'm not going to
+72:17 focus on that i'm just going to hope
+72:19 that the user cooperates but that's not
+72:21 going to be the case and so perhaps one
+72:22 way would set us up for more success
+72:24 when it comes to handling those errors
+72:26 now for today's purposes which is better
+72:28 i mean i like both and i think both of
+72:30 you made very valid arguments and there
+72:32 too so long as you have a justification
+72:34 that feels pretty reasonable i mean
+72:36 that's what ultimately matters but
+72:38 acquiring again a sense of the
+72:40 trade-offs here well is this way better
+72:43 if so why or why not just understanding
+72:46 what those trade-offs are but generally
+72:47 speaking prioritizing readability is a
+72:50 very good thing making your code
+72:52 readable for someone else is a very good
+72:54 thing and very good for you too so that
+72:56 when you wake up the next morning or you
+72:58 come back the next week or the next year
+72:60 you too can read your own code without
+73:02 having to waste time trying to remember
+73:03 what you did and simplicity tends to be
+73:06 a good thing too keeping your code
+73:08 simple so is as you get more comfortable
+73:10 with programming you might be tempted to
+73:12 try to like combine an entire program
+73:14 into one long line for instance let me
+73:16 do right just that don't technically
+73:18 speaking we don't really need x in a
+73:20 variable we don't really need y in a
+73:22 variable we could also do this i could
+73:25 just get rid of x and y altogether i
+73:28 could then now eliminate that and make
+73:31 it just one line of code okay so on some
+73:33 sense you might be inclined to think wow
+73:34 that's really nice you made it one
+73:37 simple line of code i would argue this
+73:39 actually isn't that simple now i think
+73:41 i'm starting to nest too many things i
+73:43 have to think about print and int and
+73:46 input i then have to notice that okay
+73:48 i've opened two parentheses i've closed
+73:50 two of them there's a plus you're making
+73:51 me think too much and anytime you make
+73:53 me think you're wasting time and any
+73:55 time you complicate the look of the code
+73:58 like this you're just going to increase
+73:59 the probability of mistakes and tactical
+74:02 mistakes or logical errors in your code
+74:04 so if all the things we've done this is
+74:06 the only one that i would argue
+74:08 yes it's one line and it's nice and
+74:10 compact it's just not readable enough i
+74:12 would shy away from doing this
+74:14 especially since two of those function
+74:16 calls are getting input from the user
+74:18 but there too reasonable people might
+74:19 disagree but that's the kind of like
+74:21 visceral reaction you should have
+74:23 sometimes when code starts getting a
+74:25 little too complicated a little too
+74:27 clever perhaps for its own good
+74:31 all right well it's not just integers we
+74:33 have access to let me propose that we
+74:35 transition from integers to one more
+74:38 data type here namely a float
+74:40 so again a string is a sequence of text
+74:43 an int is an integer like negative one
+74:45 zero and one a float is a number with a
+74:48 decimal point properly called a floating
+74:50 point value and you can think of the
+74:52 floating point as being the decimal that
+74:54 might be over here or over here with
+74:56 some number of digits to the left or the
+74:57 right mathematically it's a real number
+74:59 a number that has a decimal point in it
+75:02 so that's a third type of data that
+75:04 python supports right now our calculator
+75:06 is somewhat naively assuming that the
+75:08 user is only going to type in integers
+75:10 but if i want to support floating point
+75:12 values too i think i can just make a
+75:14 couple of tweaks so i'm going to go back
+75:16 to vs code here and instead of just
+75:18 converting the user's input x and y to
+75:21 integers on line 1 and 2 let's just make
+75:23 a simple change let's actually convert
+75:25 it to a float on the first line and a
+75:28 float on the second line here now i
+75:31 think if i go down to my terminal window
+75:33 and run python of calculator.pi let's
+75:36 type in a number like 1.2 with a decimal
+75:38 point and 3.4 with the decimal point and
+75:41 there we go we have 4.6 as the final
+75:44 answer so that wouldn't have worked
+75:45 before if i was only expecting integers
+75:48 from the user but now that i'm support
+75:50 expecting floating point values and
+75:52 accommodating it i can actually now do
+75:54 floating point arithmetic as well but
+75:56 suppose that i don't really want the
+75:58 final answer to be
+76:00 a floating point value like 4.6 i would
+76:03 be happy if we just round to the nearest
+76:05 integer so i want to support the user
+76:08 typing in floating point values with
+76:09 decimal points but at the end of the day
+76:11 i just want to round the result to the
+76:13 nearest possible integer for instance
+76:16 well it turns out that here too
+76:18 python comes with some functionality
+76:20 built in and in fact if we return to
+76:22 this url from earlier wherein all of the
+76:24 python built-in functions are listed
+76:26 there's one called round which does
+76:28 exactly as we would expect it takes as
+76:30 input a number and then rounds it for us
+76:33 for instance to the nearest digit to the
+76:35 nearest integer
+76:37 but if we look a little closer to that
+76:38 documentation as we can here i'll
+76:40 provide an excerpt this is what the
+76:43 function looks like in the documentation
+76:45 and recall that earlier we looked at the
+76:47 documentation for print and this is
+76:49 similar in spirit that this shows us not
+76:51 just the name of the function but its
+76:53 available parameters that is inputs that
+76:55 we can provide when using this function
+76:58 but this is a little cryptic too just
+76:59 like prince was and it adds some syntax
+77:01 so let's see the name of this function
+77:03 here is of course round and it's first
+77:06 argument is a number notice this times
+77:08 there's no star there's no star objects
+77:10 like there was for print the round
+77:12 function takes just one number as its
+77:14 first argument period that's its
+77:16 positional
+77:18 parameter but notice this syntax and
+77:20 this is a convention in programming or
+77:22 technology more generally
+77:24 generally speaking when you see square
+77:26 brackets and documentation like this
+77:28 this means that you're about to see
+77:29 something optional and so what this
+77:31 means is that if you want to specify
+77:33 more precisely the number of digits that
+77:36 you want the round function to round to
+77:39 you can specify it here by adding a
+77:42 comma and then that number so if we read
+77:44 the documentation if you don't specify a
+77:47 number of digits you just specify the
+77:49 number to round it rounds to the nearest
+77:51 integer but suppose you want to round to
+77:53 the tenths place or the hundredths place
+77:56 that is one or two digits after the
+77:57 decimal point you could additionally
+77:59 pass in comma one or comma two to be
+78:03 more precise so that's what the
+78:05 documentation there is saying let's see
+78:07 if we can't then translate this to
+78:09 some actual code for us so if i go back
+78:11 now to vs code and i consider that i
+78:14 want to go ahead and round x and y i can
+78:16 do this in a couple of ways i could do
+78:20 round x plus y but
+78:22 you know i'd actually kind of prefer to
+78:23 break this now out into two lines i
+78:25 don't have to and reasonable people here
+78:27 might disagree but i'd like to revert to
+78:30 a scenario where i'm printing z so that
+78:32 i can just a little more clearly to
+78:33 myself to others say z equals the
+78:36 rounded result of x plus y it's not
+78:39 necessarily the better way to do it but
+78:41 i'm a little more comfortable with
+78:42 breaking out my thoughts one at a time
+78:44 especially if i want to start commenting
+78:46 each of these chunks of code all right
+78:48 let me go down to my terminal window now
+78:50 and run python of calculator.pi what's x
+78:53 let's do 1.2 again
+78:54 then let's do 3.4 and now it was
+78:57 previously 4.6 but now it's been rounded
+79:01 up to the nearest integer which of
+79:02 course is going to be 5.
+79:04 all right what if i wanted to
+79:07 change this a little further what if i
+79:09 wanted to support maybe really big
+79:11 numbers big numbers irrespective of
+79:14 rounding let's just do something like
+79:15 this
+79:16 let me go ahead and run python i've
+79:17 calculated at pi again and let me just
+79:19 add 999
+79:21 plus 1 and notice i don't have to type
+79:24 decimal points even though i'm
+79:25 converting to float my program will just
+79:28 allow me to type decimal points but i
+79:30 don't need to oblige the answer of
+79:31 course here it should be and is in fact
+79:33 1000 whether or not we round so that's
+79:36 just arithmetic with integers here but
+79:39 in uh the us we tend to format long
+79:42 numbers by putting commas uh after or
+79:45 before every triple of digits other
+79:48 countries flip it and they use periods
+79:50 and commas instead that's a system
+79:51 setting you can change that on your own
+79:53 mac or pc or device for python or any
+79:56 language but for me i'm using the us
+79:58 approach here which is periods for
+80:00 decimal points and commas for separators
+80:03 what if i wanted this to be outputted as
+80:05 one comma zero zero zero just to make it
+80:09 a little more clear that it's one
+80:10 thousand and not something like one
+80:12 hundred that's even more useful when
+80:13 it's like one million one comma zero
+80:16 zero zero comma zero zero zero wouldn't
+80:18 it be nice if we could automatically
+80:20 output those numbers as well well it
+80:22 turns out that we can there is a way
+80:25 using python
+80:26 to actually specify that we want to
+80:29 include commas like this and here we
+80:31 have an opportunity to bring back our
+80:33 old friend the f string
+80:35 first let me do something that's not
+80:36 that productive first let me do this let
+80:39 me print out the value of z but wait a
+80:41 minute i can't just say quote unquote z
+80:43 because that's literally going to print
+80:44 z on the screen so let me wrap it with
+80:47 those curly braces like i did before but
+80:49 that too was not enough i literally
+80:51 needed to add an f at the beginning of
+80:53 my string to tell python that this is an
+80:55 f string a format string
+80:57 that now is going to print out not very
+80:59 interestingly just the value of z itself
+81:02 so that i'm going to great lengths just
+81:04 to print z when really i could have just
+81:06 passed z as the sole argument but just
+81:08 to ensure that i haven't broken it let's
+81:11 do this again 999 plus one enter okay
+81:14 it's still a thousand so i didn't make
+81:16 anything worse but notice and this
+81:18 syntax is unfortunately a bit cryptic
+81:20 notice that i can actually do this i can
+81:23 put a colon after the z
+81:25 and i can put a comma thereafter this
+81:28 looks very cryptic admittedly and even i
+81:30 have to constantly look things like this
+81:31 up in the documentation to remember the
+81:33 syntax but here let me run it again
+81:35 python of calculator.pi
+81:38 999
+81:39 1 and now notice that the number has
+81:42 been automatically formatted for me if i
+81:44 were in a different country or locale i
+81:46 could absolutely override this to use
+81:48 periods instead of commas or vice versa
+81:50 but in this case here it's just
+81:52 happening for me automatically so there
+81:53 too we see a hint of what it means to
+81:55 really format a string there's even more
+81:57 power more powerful capabilities built
+81:60 into that
+82:01 all right let me pause here to see if
+82:02 there's any questions now on floats
+82:05 on rounding
+82:07 or on this use of f strings yes so i
+82:11 have a question so when using floats um
+82:13 is it like a cap to how many decimal
+82:15 points it can have
+82:17 a really good question so floats yes and
+82:19 this is a problem we'll revisit before
+82:21 long floats cannot represent numbers
+82:24 infinitely precisely in a nutshell
+82:26 because computers only have so much
+82:28 memory they only have a finite amount of
+82:29 memory you and i only have a finite
+82:32 amount of hardware inside of the
+82:33 computer so at some point they're going
+82:35 to have to round right now i'm rounding
+82:37 automatically effectively computers will
+82:39 eventually have to do that for us but
+82:41 we'll see that as a fundamental problem
+82:43 before long
+82:44 allow me to turn back just for a few
+82:46 final examples on float before we
+82:48 introduce a few final examples that
+82:49 allow us not just to use functions but
+82:51 to make our own let me propose that we
+82:53 also try our hand at a bit of division
+82:56 here let me propose that we modify this
+82:58 calculator now to still take a couple of
+83:00 floats but let's now just do something a
+83:02 little simpler than
+83:04 a little different from this just doing
+83:06 x divided by y and let me go ahead and
+83:08 get rid of my format string and just
+83:09 keep it simple for now printing out z
+83:12 instead and what are we going to see
+83:13 here well just some simple division so
+83:15 python of calculator dot pi let's do
+83:17 something like 2 divided by 3 and of
+83:20 course i get 0.66666 and to ethan's
+83:23 question a moment ago it does seem to be
+83:25 finite it's not rounding in a weird way
+83:27 here but i only seem to see so many
+83:30 digits that's a
+83:31 an inevitability of using a float in
+83:34 this way by contrast just so you know
+83:36 integers nowadays in python can be as
+83:38 big as you want them to be unlike other
+83:40 languages there is no upper bound on how
+83:42 big an int can be now in python but
+83:44 there is a bound on just how precise a
+83:46 floating point value can be all right
+83:48 now that i've got some simple division
+83:50 working here let's go ahead and round
+83:52 this it would be nice to round this
+83:54 really long number
+83:55 0.666666 and so forth to maybe just two
+83:58 decimal places we've seen how to do this
+84:00 with round though at least in its
+84:01 documentation
+84:02 let's just round this not to the nearest
+84:04 int by passing in just x divided by y
+84:08 which is one argument once the math is
+84:10 done inside of the parentheses i don't
+84:12 want to pass in just one argument i want
+84:14 to pass in two so that i can specify n
+84:17 digits number of digits which recall was
+84:19 the second parameter for round let me go
+84:21 ahead and run python of calculator to pi
+84:23 i'll do the same thing 2 and then 3
+84:26 0.67 so here too we see a way of
+84:29 rounding now not just to a nearest
+84:31 integer but to a nearest number of
+84:33 digits but there's another way to do
+84:36 this here and in fact this evokes our
+84:39 f string example again let me go ahead
+84:41 and change this suppose that you didn't
+84:43 remember the round function or for some
+84:45 reason you didn't want to use it you
+84:47 instead want to just use a format string
+84:49 well let's go there let me do quote
+84:52 unquote z but let me surround it with
+84:54 those curly braces let me add the f at
+84:56 the beginning and again this is not
+84:58 interesting yet this is just going to
+84:59 print out z but i'm adding a lot more
+85:02 complexity to turn it into an f string
+85:04 but notice i can do something else after
+85:06 my variable name after the colon
+85:09 if this were going to be a big integer i
+85:11 might want to use a comma like before to
+85:13 separate each triple of numbers with
+85:15 commas but i don't i'm going to use a
+85:17 different sequence
+85:19 of characters i'm going to say 0.2 f and
+85:22 this too is one of these very cryptic
+85:24 things i have to constantly look up
+85:26 because i forget if i don't use it that
+85:28 often so don't be intimidated if this
+85:29 looks especially weird but this is
+85:32 according to the documentation the way
+85:34 you specify using an f-string how many
+85:36 digits you want to print so let me run
+85:38 this version of the calculator type in 2
+85:40 and then 3 we get the exact same thing
+85:43 but again this is just consistent with
+85:45 my claim that in programming we can so
+85:47 very often solve the same problem in
+85:50 multiple ways this is just now the f
+85:52 string approach
+85:54 to that very same problem
+85:56 all right which one is better it depends
+85:58 in this case they're pretty equivalent
+86:00 you could imagine though it being useful
+86:02 to use a function sometimes so that you
+86:03 can pass in an argument like n digits as
+86:06 that second argument or you can imagine
+86:08 just deciding in advance that you want
+86:10 point two and then
+86:12 writing it like this
+86:13 let's transition now from focusing on
+86:15 strings and on integers and on floats to
+86:18 focusing now on functions themselves we
+86:20 began today by focusing on how you can
+86:22 use functions that come with python but
+86:24 wouldn't it be nice if you could invent
+86:26 your own functions especially if to our
+86:28 point earlier you find yourself solving
+86:30 the same kind of problem again and again
+86:32 it's nice that python comes with the
+86:34 print function because it's really
+86:35 useful to be able to print things on the
+86:36 screen but wouldn't it be nice if you
+86:38 could print specific things on the
+86:40 screen by just calling your own function
+86:42 well let me propose that we do this let
+86:44 me go back to vs code here and let me
+86:47 propose that we go back to hello.pi i'm
+86:50 going to reopen hello.pi where we left
+86:52 it before and i'm going to go ahead now
+86:54 and propose that we consider how we can
+86:56 start improving this further by making
+86:58 our own function i have written so many
+87:01 programs today that just say hello and
+87:04 each time i'm using print but wouldn't
+87:06 it have been nice if from the beginning
+87:08 of today we could just call a function
+87:10 called hello that just says hello for us
+87:13 now the authors of python years ago
+87:15 didn't think that we need a special
+87:16 function just to say hello but i would
+87:19 like that to exist i'm saying hello so
+87:21 many times i just want to be able to
+87:22 call a function hello so i'm going to
+87:24 start from scratch here i'm going to
+87:26 delete all of my code from earlier and
+87:28 i'm going to pretend for the moment that
+87:30 a function called hello exists
+87:32 and i'm going to do just as i did before
+87:34 i'm going to get the user's name with
+87:35 the input function asking what's your
+87:38 name question mark
+87:39 and now i'm going to call a function
+87:41 hello
+87:42 and then i'm going to print out the
+87:44 user's name
+87:45 now i will admit hello doesn't exist so
+87:48 bad things are about to happen but let's
+87:50 see what let me go down to my terminal
+87:53 window let me run python of hello.pi
+87:56 i think the first line is going to be
+87:57 okay because that worked before and
+87:59 indeed it's prompting me for my name so
+88:01 let me type in david the second line of
+88:04 code is apparently calling a function
+88:06 that looks like it's called hello
+88:08 because why is it a function it has a
+88:09 parenthesis and a closed parenthesis
+88:11 immediately after it and that's what
+88:12 every function we've used has looked
+88:14 like but python's not going to recognize
+88:16 this one when i hit enter now i get a
+88:18 name error name hello is not defined did
+88:21 you mean help
+88:22 i didn't although it's opportune that's
+88:24 what i need at this point is some help
+88:26 but i
+88:27 am encountering this error because why
+88:30 the function just doesn't exist so how
+88:32 do i make this function exist well i
+88:34 need to create it myself using this
+88:36 keyword
+88:37 def
+88:38 def for define so here too just as stir
+88:41 is short for string and into short for
+88:43 integer def is short for define
+88:46 if and when you want to define create
+88:49 invent your own functions you can do so
+88:51 using now this keyword in python so let
+88:54 me go back to my code here and let me
+88:56 propose that we define this perhaps in
+88:59 this way
+88:60 at the very top of my file i'm going to
+89:02 first take a moment to define a function
+89:04 called hello using def
+89:06 hello open parenthesis close parenthesis
+89:10 colon
+89:10 what this means now is that python is
+89:13 going to treat every line of code that i
+89:15 indent underneath this one as the
+89:18 meaning of this new function hello
+89:20 so def is important as is the space i
+89:23 get to choose the name of the function
+89:25 and i'm choosing to call it hello the
+89:27 parentheses with nothing inside means
+89:29 that this function at the moment is not
+89:30 going to take any inputs no arguments
+89:32 there too the colon means stay tuned for
+89:35 some indentation everything that's
+89:36 indented beneath this line of code is
+89:39 going to be part of this function it's
+89:40 going to be a super short function one
+89:42 line of code it's just going to print
+89:44 out quote unquote hello
+89:46 but now on lines one and two i have
+89:49 invented my own function
+89:51 hello notice these dots that have now
+89:53 magically appeared here this is just a
+89:55 setting of my text editor vs code in
+89:57 this case that's just making super
+89:59 explicit to me that i've hit the space
+90:01 bar four times or equivalently the tab
+90:03 key once which is converted
+90:05 automatically to four spaces generally
+90:08 speaking i'm going to need to make sure
+90:09 that all of my indented code lines up
+90:11 now so that python knows that it's all
+90:13 part of the same thing but it's easy in
+90:15 this case because it's just a single
+90:16 line but now thanks to lines one and two
+90:20 the function hello will absolutely exist
+90:23 when i'm ready to use it on line six so
+90:25 let me go down to my terminal window and
+90:27 run python of hello.pi enter
+90:29 here comes my name again and now when i
+90:32 hit enter i now see hello david all
+90:35 right we've kind of regressed though
+90:37 right this is not nearly as pretty as it
+90:39 once was i think we can probably do
+90:41 better than this by improving things
+90:44 further why don't we consider though how
+90:46 we might
+90:48 say parameterize the same function that
+90:51 is to say can we customize hello to
+90:53 maybe take the user's name as input so
+90:55 that we can say not only hello but the
+90:57 person's name all on one line all in one
+91:00 breath well i think we can do this let
+91:03 me propose that we do this as follows
+91:05 let me go ahead and up in my code let me
+91:08 inside of these parentheses let me come
+91:11 up with my own parameter name i have
+91:13 complete choice here and i'm going to
+91:15 say that the name of my parameter will
+91:16 be the word to
+91:18 why because i want my function to sound
+91:21 like the verb
+91:22 it represents hello but who do you want
+91:24 to say hello to well i'm going to call
+91:26 my parameter for this function 2 just
+91:29 because in english it kind of sounds
+91:30 nice to me hello to who do you want to
+91:32 say hello to that's why i'm calling this
+91:34 parameter 2 instead of something simpler
+91:36 like x or y or z
+91:38 all right well what do i want to do with
+91:40 the word two well i can do a couple of
+91:42 different things we've seen like so many
+91:43 different ways to implement hello let me
+91:46 just add a comma there for grammar sake
+91:48 and then let me put the word to
+91:50 after that as the second argument to the
+91:53 function hello there's other ways we can
+91:55 do this and we've seen so many but this
+91:56 one looks a little clear to me i'll say
+91:59 what's going to happen next well i don't
+92:01 think i need this extra print line here
+92:03 i think what i'm going to do is this i'm
+92:06 going to go ahead here and print out
+92:09 not the person's name manually i'm going
+92:11 to sense instead say hello
+92:14 parentheses name
+92:15 so what am i now doing on lines 1 and 2
+92:18 i'm defining my very own function called
+92:20 hello but this time that function has
+92:22 been designed to take a parameter a
+92:25 single parameter as input and i'm using
+92:27 the value of that parameter which i
+92:30 called 2 to plug into print so that i
+92:33 see not only hello but also that
+92:35 person's name what am i doing on line 5.
+92:37 same as always i'm just getting the
+92:38 user's name line six i'm not only
+92:40 calling hello i'm passing as input the
+92:43 name variable as an argument
+92:46 so that that's what gets passed into
+92:48 hello and what's happening here is
+92:50 essentially this even though the
+92:51 variable is called name here when the
+92:54 function itself is called the computer
+92:57 assumes that that same value is now
+92:60 called to
+93:01 so name is essentially copied to another
+93:04 variable called to
+93:06 so that in the context of hello i can
+93:08 say hello to
+93:09 that variable instead
+93:11 and we'll see in a moment what happens
+93:13 if we don't keep those uh straight let
+93:15 me go ahead and run python if hello.pi
+93:17 enter what's your name and now i'm
+93:19 crossing my fingers enter there we go
+93:22 we're back in business but now i have my
+93:23 own custom function called hello that's
+93:26 allowing me to say hello to a specific
+93:28 person and here's where now things can
+93:30 get really fancy what if you wanted your
+93:32 hello function to say hello to someone
+93:33 specific but you know what if you don't
+93:35 know who you want to say hello to you
+93:37 want to say hello to the whole world you
+93:39 can give parameters default values we've
+93:41 seen that recall that with print there
+93:43 was a default value for sep for the
+93:46 separator there was a default value for
+93:48 end the line ending we can do that too
+93:51 and here's the syntax if you want the
+93:53 value of this parameter
+93:55 by default if not provided by the
+93:58 programmer to be equal to quote-unquote
+93:60 world you literally do that
+94:03 in the same line you're defining the
+94:04 function and i'll admit it's starting to
+94:06 look more cryptic but i'm still just
+94:08 defining a function called hello it
+94:10 takes a parameter called 2 but i'm
+94:13 assigning it with the equal sign a
+94:15 default value of quote-unquote world
+94:17 just in case the programmer doesn't call
+94:20 hello with an argument and we can see
+94:23 this here let me change my code to use
+94:25 hello in two ways on line five i'm gonna
+94:28 very simply call hello no arguments then
+94:32 on line six i'm going to get the name
+94:34 line seven i'm going to call hello with
+94:35 an argument so you'll see hello now
+94:37 being used in two ways let me go ahead
+94:39 and run pythonflo.pi
+94:42 i'll type in my name oh interesting
+94:45 notice i already see hello world but
+94:47 that's expected because line five
+94:49 happens before line six but once i type
+94:52 my name now the program is going to be a
+94:53 little more polite and say hello to me
+94:56 personally
+94:57 so there too we see with relatively
+94:60 simple but new syntax how you can
+95:02 implement functionality very similar in
+95:05 spirit to what the print function gave
+95:07 us automatically now you have control
+95:09 over doing that yourself
+95:11 but let me now make this point too one
+95:13 of the whole points of defining your own
+95:15 functions is one just to avoid having to
+95:17 repeat yourself again and again you
+95:19 don't have to actually keep reinventing
+95:21 the wheel and keep using the print
+95:23 function again and again and again if
+95:24 you just want to say hello wouldn't it
+95:26 be nice now if i could kind of move this
+95:29 code that i wrote for defining the hello
+95:32 function and just to be dramatic i'm
+95:34 going to hit enter a whole lot of times
+95:36 50 lines down and put my definition of
+95:39 hello way further down in this file why
+95:42 well just from the spirit of out of
+95:43 sight out of mind because if i now
+95:45 rewind to the start of my program now
+95:49 you can sort of take for granted that oh
+95:50 hello is a function y because it's there
+95:52 on line one and it has an open
+95:54 parenthesis and a closed parenthesis
+95:55 which up until now has meant call this
+95:57 function and then on line two we're
+95:58 getting a variable from the user by
+96:00 typing in their name and then we're
+96:02 calling hello passing in that value well
+96:05 at this point i can just take for
+96:06 granted that hello exists even if it's
+96:08 way down further in the file or as we'll
+96:10 see in future weeks even if it's in a
+96:12 different file altogether but there's a
+96:15 problem here and let me go ahead and run
+96:16 this version of hello dot pi
+96:19 notice that as soon as i run the
+96:21 interpreter python of hello.pi i see a
+96:24 name error name hello is not defined
+96:26 again did you mean help well again
+96:29 fitting i do need some help here but i
+96:31 didn't mean to call the function help
+96:33 the problem here though is that python
+96:35 is just taking me literally i have
+96:37 defined my function hello all the way
+96:40 down here but i'm trying to use it way
+96:42 up here and that's not allowed python's
+96:44 interpreter is going to take you
+96:45 literally and if you use a function it
+96:47 must already exist by the time you are
+96:50 calling it so how do i fix this well
+96:52 apparently i can't do that i have to
+96:54 define any functions i want at the very
+96:56 top of my file but that too could get me
+96:59 into a bit of trouble eventually because
+97:01 if i constantly have to define a
+97:03 function above where i want to use it
+97:05 you're kind of writing code in reverse
+97:07 you're constantly writing functions up
+97:08 here up here up here as opposed to like
+97:10 writing your code logically top to
+97:12 bottom so let me fix this in a more
+97:14 standard way which is to do this
+97:16 generally speaking you do want to put
+97:19 the main part of your code at the top of
+97:22 your file and in fact i'm going to go so
+97:24 far as to define my function called main
+97:27 it's not a requirement but it's indeed a
+97:29 convention and this just connotes to the
+97:31 reader that this is the main part of my
+97:33 program i'm going to get rid of my empty
+97:35 hello call now and only pass in one
+97:38 version with hello name and then down
+97:40 here a couple lines further down i'll
+97:42 actually define my hello function
+97:45 unfortunately now that i've reordered
+97:47 the functions in this way by putting the
+97:48 main part of my code at the top and
+97:51 hello at the bottom so that my logic
+97:53 kind of flows top to bottom if i go
+97:55 ahead and run python of hello.pi enter
+97:58 nothing whatsoever happens if i do it
+98:01 again nothing whatsoever happens well
+98:03 why in the world is this well just
+98:05 because i've defined a function called
+98:07 main and i've defined a function called
+98:09 hello doesn't mean that i've actually
+98:11 called that is used either of them yes
+98:14 i'm using hello inside of main but no
+98:17 one is telling python to actually use or
+98:19 call main so in order to tidy this up
+98:22 the last thing i need to do in this file
+98:25 it seems is actually call my main
+98:27 function and in fact by calling my main
+98:30 function in this way it gets me out of
+98:32 trouble because now i'm defining main
+98:33 first but i'm not calling hello yet i'm
+98:36 defining hello next but i'm not calling
+98:38 hello next i only at the very end of
+98:40 this file call main
+98:42 which has the effect of running this
+98:44 code up here which has the effect of
+98:46 running this code down here and it
+98:48 allows me therefore to organize my file
+98:51 and order my functions in any way i want
+98:53 including main at the very top
+98:56 and solving ultimately that problem of
+98:58 python not knowing what's going on now
+99:00 it's important to note that i defined my
+99:02 function hello as taking an argument too
+99:05 and then i passed into that function the
+99:07 value of the variable that i wanted to
+99:09 say hello to that is the variable called
+99:11 name because suppose i had done
+99:13 something a little bit differently
+99:14 suppose that i hadn't defined hello as
+99:16 taking an argument so i just remove
+99:18 mention of two and its default value
+99:20 help world and i go back up to my main
+99:23 function and i just call hello itself
+99:26 without passing in any argument and now
+99:29 let me go ahead and make one more change
+99:30 one more mistake technically let me go
+99:32 ahead and just try to naively print out
+99:35 the value of name in the hello function
+99:37 so now to be clear in my main function
+99:39 on line two i'm defining my variable
+99:41 called name and assigning it the return
+99:43 value of the input function from the
+99:45 user i'm then just calling hello in my
+99:47 hello function which now no longer takes
+99:50 any arguments i am calling print passing
+99:53 in hello comma and then immediately
+99:55 passing in name the variable into which
+99:57 i got the user's input but the catch is
+99:59 that name exists now only in main and so
+100:02 watch what happens when i try to run
+100:04 this version of the program with python
+100:06 hello.pi i hit enter i'm prompted for my
+100:09 name david enter and ah a name error
+100:12 name name quote unquote is not defined
+100:15 so it turns out that this is actually an
+100:17 issue of what's called scope scope
+100:19 refers to a variable only existing in
+100:22 the context in which you defined it so
+100:24 insofar as i define this variable name
+100:27 in my main function i can only use that
+100:29 variable in my name function i can't use
+100:32 it as i've tried to here in my hello
+100:34 function it doesn't exist in that
+100:36 so-called scope and so this is why now
+100:38 if i rewind and undo all of those
+100:41 changes you'll see that i'm deliberately
+100:43 passing main from my main function into
+100:46 my hello function and now in the hello
+100:48 function it technically has a different
+100:50 name it's called 2 in that context but
+100:52 that's fine it's completely up to each
+100:54 individual function to name its own
+100:55 variables or name its own arguments but
+100:57 this is a way now that i'm handing to
+100:59 the hello function the value of that
+101:01 variable so it can be printed by hello
+101:04 as well
+101:05 and there's one final flourish we can
+101:06 add here
+101:08 now that we've implemented hello you'll
+101:09 notice that hello only has a so-called
+101:11 side effect it only prints out something
+101:13 to the screen well what if i also want
+101:16 my function
+101:18 to not have a side effect per se but
+101:20 actually hand me back a value recall
+101:23 that the input function returns a value
+101:26 the string that the user typed in recall
+101:28 that the int function returns a value
+101:30 the float function returns a value that
+101:32 was passed into it well you can use one
+101:35 final keyword here literally return to
+101:38 return a value explicitly yourself in
+101:41 fact let me go back to vs code here and
+101:44 i think we'll return our attention to
+101:46 calculator.pi and see if we can't
+101:49 implement one other version of
+101:50 calculate.calculator.pi
+101:52 that actually has our own function that
+101:55 even returns a value so i'm going to go
+101:57 ahead and open up
+101:58 calculator.pi
+101:60 and i think this time i'm going to throw
+102:01 everything away as before and i'm just
+102:03 going to start practicing what we're
+102:05 preaching here
+102:07 define a function called main which is
+102:09 now going to be the main part of my
+102:10 function let's go ahead and now declare
+102:12 a variable called x and assign it to the
+102:16 converted version of the user's input
+102:18 after asking them what's x so again a
+102:21 line of code quite like we've done
+102:23 before and suppose now that what i want
+102:25 to do is square this value i want to
+102:28 take the number that the users typed in
+102:29 and raise it to the power of two so two
+102:31 squared would be four three squared
+102:34 would be nine four squared would be
+102:35 sixteen and so forth well how do i go
+102:38 about implementing a function literally
+102:39 called square which actually doesn't
+102:41 come with python built in well let me
+102:43 assume for the moment that it does exist
+102:45 and let me say something like this
+102:47 let me go ahead and say that
+102:49 printing how about
+102:52 x squared is
+102:55 comma square of x
+102:58 so what have i done i've defined a
+102:60 function called main and i've
+103:01 implemented two lines the first of these
+103:03 lines prompts the user for a value x and
+103:06 converts it to an int and stores it in a
+103:08 variable called x on line three i then
+103:10 say x squared is and then i pass a
+103:13 second argument to the print function
+103:15 whatever the return value is of a square
+103:18 function but square doesn't exist and
+103:21 i'll show you this here if i now call
+103:23 main at the bottom
+103:25 and i run python of calculator.pi
+103:30 i'll see that x is 2
+103:33 and then i see a whole bunch of errors a
+103:34 name error name square is not defined so
+103:37 this isn't a typo here it's just the
+103:39 function doesn't exist but i think i can
+103:40 make it exist here let me go ahead and
+103:42 define another function called square
+103:45 this one's going to take in a number and
+103:47 i'm going to call it generically n as
+103:49 many a programmer would just to
+103:51 represent any old number and then what
+103:53 do i want to do in order to square n
+103:56 well a number squared is really just
+103:58 itself times itself so i'm going to do
+104:00 this n times n but it's not enough just
+104:03 to do the math yourself n times n you're
+104:06 going to have to return the actual value
+104:09 n times n and that's our new keyword
+104:11 here when i now do this watch what
+104:14 happens python of calculator dot pi
+104:16 enter x say shall be 2
+104:19 x squared is 4. let me go ahead now and
+104:22 say
+104:22 x is now 3 x squared is now 9. so i've
+104:26 implemented my very own function that
+104:28 returns the square of a value and
+104:30 because i'm using the return keyword
+104:33 that ensures that i can pass the return
+104:35 value of this just like the return value
+104:37 of input or int or float
+104:39 to another function like print instead
+104:41 and here too there's going to be so many
+104:43 ways to solve the same problem i can
+104:45 actually raise n to the power of two
+104:47 we've not seen the syntax before but if
+104:49 you use stu two asterisks like this two
+104:52 stars that raises the thing on the left
+104:54 to the power on the right or it turns
+104:56 out there is in python a function called
+104:58 pow for raising something to the power
+105:00 that takes two arguments the first of
+105:02 which is the number the second of which
+105:04 is the exponent so there too there's
+105:06 just so many ways to actually solve
+105:09 that same problem as well
+105:11 so ultimately what we have we done here
+105:13 we first introduced functions these
+105:14 actions are verbs many of which come
+105:16 built into python that you can just use
+105:18 in your own code we then introduced
+105:20 variables by which you could store those
+105:22 return values and then maybe do
+105:23 something more with it at the end of the
+105:25 day too you now have the ability to
+105:26 create to invent your own functions to
+105:28 solve simple problems like hello or in
+105:30 the weeks to come much more
+105:32 sophisticated more challenging more fun
+105:34 problems as well

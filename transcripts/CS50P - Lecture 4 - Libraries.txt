@@ -1,0 +1,2114 @@
+00:06 so
+00:24 all right this is cs50s introduction to
+00:27 programming with python my name is david
+00:29 maylin and this is our week on libraries
+00:32 so libraries are generally files of code
+00:34 that other people have written that you
+00:36 can use in your own programs or a
+00:38 library's code that you've written that
+00:40 you can use in your own program but
+00:42 maybe not just this program but another
+00:43 and another as well so python supports
+00:46 exactly this idea this ability to share
+00:48 code with others share code across your
+00:51 own projects and it does so by way of
+00:53 what it calls module a module in python
+00:55 is just a library that typically has one
+00:58 or more functions or other features
+01:00 built into it generally the purpose of a
+01:02 library or a module specifically is to
+01:05 encourage reusability of code if you
+01:07 find yourself using the same types of
+01:09 functions again and again the same
+01:11 functionality if you find yourself
+01:13 copying and pasting from an old project
+01:16 into your new project odds are there's
+01:18 an opportunity there to factor out that
+01:20 code that you keep copying and pasting
+01:22 that you keep reusing and put it into a
+01:24 library that you can then load into your
+01:27 programs moving forward so as to not
+01:29 just copy and paste it and have all
+01:30 these different copies all over
+01:32 so what are some of the modules or
+01:34 libraries that python comes with well
+01:36 python comes with a random library
+01:38 literally which is to say that when you
+01:40 install the python interpreter on your
+01:42 mac or pc or somewhere in the cloud not
+01:45 only do you get python you get a whole
+01:46 bunch of modules as well now these
+01:49 modules provide you with functions that
+01:50 you don't have access to just by default
+01:53 like you do print and input print and
+01:55 input and other such functions just work
+01:57 in python but sometimes functions are
+01:60 tucked away in these modules so you have
+02:02 to be more deliberate about loading them
+02:04 into the computer's memory so somewhere
+02:07 on the computer's hard drive once you've
+02:08 installed python there is also it turns
+02:10 out a file probably called random.pi
+02:14 that someone else wrote probably long
+02:15 ago but that you have access to and in
+02:18 that random.pi file there's probably one
+02:20 or more functions that you yourself can
+02:22 use in order to do things randomly that
+02:25 is to say how could you flip a coin in a
+02:28 program in python how could you pick a a
+02:30 random number between 1 and 10 in python
+02:33 well you need a bit of randomness and
+02:34 while you could figure out
+02:36 mathematically how to write functions
+02:38 like that yourself it's a lot easier to
+02:40 stand on the shoulders of others who've
+02:42 already solved that problem for you so
+02:44 you can focus on the problem that you
+02:46 yourself want to solve so for
+02:48 documentation on most any python module
+02:51 you go to the official python docs and
+02:53 you go to a url like this where the
+02:55 documentation for that specific module
+02:57 lives and within the documentation
+02:59 you'll see a list of the functions or
+03:00 other functionality that some module
+03:02 provides but how do you go about loading
+03:05 a module
+03:06 into your own program so that you can
+03:08 use the functions in that module well we
+03:11 need a new keyword in python and namely
+03:13 its import the import keyword in python
+03:17 allows you to import the contents of the
+03:20 functions from
+03:21 some module in python well how might i
+03:24 go about using this in practice well let
+03:26 me propose that there exists in that
+03:28 random module this function among others
+03:31 so i have copied and pasted from the
+03:33 documentation
+03:34 this
+03:35 summary of a function called choice now
+03:38 the function exists in the random module
+03:42 so to speak not a random module the
+03:44 random module and so generally the
+03:46 documentation describes it fully like
+03:48 this
+03:49 random.choice is how you would
+03:51 technically call this function though
+03:52 we'll see alternatives to that in
+03:54 parentheses there is a parameter called
+03:56 seq for sequence and sequence generally
+03:59 means a list or something that is list
+04:02 like if you have a list of numbers or
+04:04 strings or anything else and the
+04:05 documentation elaborates well how can i
+04:07 go about using this function to solve
+04:09 perhaps a familiar problem well let me
+04:11 go ahead and open up vs code here and
+04:13 let me propose that we implement a
+04:15 program that simulates flipping a coin a
+04:18 coin that in the us heads heads or tails
+04:21 the idea of which is to pick a decision
+04:24 with 50 50 probability 50 probability of
+04:27 heads 50 probability of tails or you can
+04:29 use some other mechanism like that well
+04:31 let me go ahead and open a program with
+04:33 code called generate dot pi because i
+04:36 want to start generating a whole bunch
+04:38 of random information the first of which
+04:40 is just going to be a coin toss now how
+04:41 do i go about using that function well i
+04:44 first have to import the random library
+04:47 so literally the first or among the
+04:48 first lines of my file should be import
+04:51 random and that just gives me access to
+04:53 all of the functions in that specific
+04:55 module now suppose i want to flip a coin
+04:59 well i can do random dot choice per the
+05:01 documentation a moment ago and that
+05:04 again takes a sequence what's a sequence
+05:06 it's a list or something that's list
+05:07 like and we know about lists we've used
+05:09 lists to iterate over numbers we've used
+05:11 lists to iterate over students at
+05:13 hogwarts let's go ahead now and let's
+05:15 iterate over just a list of two sides of
+05:17 a coin heads quote unquote or tails now
+05:21 i could call these anything i want these
+05:22 are my strings i just want to simulate a
+05:25 tossing a coin so i'm just going to say
+05:26 in all lower case heads and tails but
+05:29 notice the syntax i have heads and tails
+05:31 and double quotes that's because they're
+05:32 strings i could also use single quotes
+05:34 so long as i'm consistent there's a
+05:36 comma between them which means the list
+05:38 has two elements there's square brackets
+05:40 to the right and the left which
+05:42 indicates that this is indeed a list
+05:44 that's the syntax recall for defining a
+05:46 list in python and then lastly there's
+05:48 something more familiar there's the
+05:50 parentheses outside of those square
+05:52 brackets but those are just the
+05:53 parentheses that belong to the choice
+05:55 function and specify where its parameter
+05:57 gets passed in but again unlike past
+06:00 functions i have to specify what module
+06:03 this function is in at least for now and
+06:06 so i do random dot choice to call this
+06:08 specific function all right well it's
+06:10 one thing to flip a coin picking between
+06:12 those with 50
+06:13 probability and that's what
+06:14 random.choice does it takes in a list
+06:17 and it returns to one of those values
+06:19 randomly with equal probability because
+06:21 i've passed in two items i've got a 50
+06:23 50 chance if i passed in three items
+06:25 it'd be a 33 chance for each of those
+06:28 items and so forth python does the math
+06:30 for you but i want to store the value of
+06:32 this in a variable so let's define a
+06:34 variable called coin equals whatever the
+06:36 return value is so this is indeed like
+06:38 flipping a coin i'm going to store in a
+06:40 variable called coin whatever that value
+06:43 is heads or tails and now just so i can
+06:44 see what's going on let's go ahead and
+06:46 print out the value of that string coin
+06:49 all right let me go ahead now and run
+06:51 this program in my terminal window
+06:52 python of generate dot pi enter and it
+06:56 looks like the first coin toss was the
+06:57 heads let's go ahead and run it again
+07:00 and it looks like it was heads again
+07:02 maybe you want to chime into the chat
+07:03 here if i run it a third time what's it
+07:05 going to be this time if you want to
+07:07 type your thoughts in the chat
+07:10 you might think there's a bug here but
+07:12 this is probability in action if i go
+07:14 ahead and hit enter a third time there
+07:17 it's actually now tails and again tails
+07:19 and again tails and again tails and
+07:21 again tails and again heads now if we
+07:24 did this an infinite number of times it
+07:26 would indeed work out to be 50 50. if we
+07:28 only do it a few times it might not work
+07:30 out as cleanly but that's how
+07:32 probabilities indeed work all right so
+07:34 i've got that now working could i have
+07:36 implemented this in a different way well
+07:38 let me show you an alternative to
+07:39 actually using the import keyword alone
+07:42 and let me introduce the keyword from in
+07:45 python so from is a keyword in python
+07:48 that you can use when importing
+07:50 functions from a module but it allows
+07:52 you to be a little more specific than
+07:54 import alone so if i go back to my code
+07:56 here it's worth noting that what
+07:58 technically i'm doing here by importing
+08:00 random is i'm technically importing
+08:03 everything that's in that module so not
+08:05 just the function called random.choice
+08:08 but a few other functions as well so
+08:10 instead of using this line of code at
+08:12 the top of my file import random which
+08:14 will technically give me access to all
+08:15 of the contents they're in a downside of
+08:18 that is that i have to type in
+08:21 random.choicerandom.this random.that
+08:23 because all of the functions i'm calling
+08:25 have to be associated with the scope of
+08:27 that module well suppose that i just
+08:29 want to call the function as its name
+08:31 choice i can do that as well let me
+08:33 replace this first line here with from
+08:35 random import choice and what this does
+08:39 effectively is it loads the function's
+08:41 name choice into my current namespace
+08:44 into the scope of the file i'm working
+08:46 in what that means is that i now no
+08:49 longer have to specify which choice
+08:51 function i mean i can just say choice
+08:53 and so it loads it into the local
+08:55 namespace that is into my local
+08:57 vocabulary if you will so i can just now
+08:59 say choice this might be advantageous
+09:03 in what cases do you think when might
+09:05 you want to import the name of the
+09:08 function explicitly like this as opposed
+09:10 to just saying random.choice
+09:12 random.choice throughout your code when
+09:15 calling a function
+09:16 any instincts here for this alternative
+09:19 import
+09:20 using from
+09:21 um hello i'm mohammed ahmar from egypt
+09:24 and maybe if we have a variable that
+09:27 its name is basically like choice if i
+09:29 have a variable called the choice so i
+09:31 need to differentiate which trace i
+09:33 choose so
+09:34 i'm gonna choose random.choice
+09:37 yeah really good instincts by using the
+09:38 first approach by just importing random
+09:40 you're making sure that all of its
+09:42 contents are associated with are scoped
+09:45 to the random module so that you can
+09:48 have your own choice function you can
+09:49 have your own choice variable you can
+09:51 use the same names as all of the
+09:53 functions or variables that are stored
+09:55 inside of that file without them
+09:57 colliding so to speak and this is a good
+09:59 thing in older languages it was the case
+10:01 that if you imported someone's library
+10:03 you better hope that you're not using
+10:05 the same functions or variables as they
+10:07 are because you might in fact have some
+10:08 kind of conflict python and certain
+10:11 other languages allow you to scope the
+10:12 names of those functions and variables
+10:14 to the file or the module that they come
+10:16 from so that's a good thing but honestly
+10:18 this is such a short program or
+10:21 equivalently maybe i'm using the choice
+10:23 function in so many places
+10:25 calling
+10:27 random.choicerandom.choicerandom.choice
+10:28 it's just making my code longer and
+10:30 longer and longer marginally so but it's
+10:32 just getting ugly and annoying i can
+10:35 simply import choice and now tighten up
+10:37 my code a little bit so as with so many
+10:39 decisions in the past there's not
+10:41 necessarily one right approach or
+10:43 another it depends but i think for those
+10:44 very reasons sometimes it's better to do
+10:46 what we did the first time which is only
+10:49 import the module so as to retain the
+10:51 scope therein well let me propose that
+10:54 we transition to another function that
+10:55 comes with python's random module and
+10:58 that's this here from the documentation
+10:60 rand int it's a bit hard to say but it
+11:02 implies get back a random int and if you
+11:04 read the documentation it's a random end
+11:06 that's between a and b
+11:09 inclusive so if you were to pass in 1
+11:11 for a and 10 for b you would get back a
+11:14 number between 1 and 10 inclusive
+11:16 including the 1 and including the 10
+11:18 potentially each with a 10 probability
+11:21 so how might i go about using a program
+11:23 like this well let me come back to my
+11:24 generate.pi file and why don't we go
+11:27 ahead and try generating a random number
+11:29 between one and ten you might do this
+11:30 frequently in the real world when you
+11:31 just want someone to pick a random
+11:32 number you tell them as much and the
+11:34 human responds let's get the computer to
+11:36 do the same here let me go ahead and
+11:38 delete my two lines of code at the
+11:39 bottom but keep my import random and
+11:41 let's go ahead and define a variable
+11:43 this time called number set it equal to
+11:45 the return value of random.randint
+11:48 and now pass in a
+11:50 a value of 1 and b a value of 10 and now
+11:53 let's go ahead and print the number i'm
+11:56 going to go ahead in my terminal window
+11:57 and run python of generate dot pi and
+11:59 hit enter
+12:00 four
+12:02 python of generate.pi and hit enter
+12:04 eight again
+12:06 nine again seven again ten again
+12:10 two again and we can do this all day
+12:12 long and if we add all those up they
+12:14 should end up being with ten percent
+12:16 probability each now how might you use
+12:19 this information well maybe we're
+12:20 playing a guessing game or maybe we're
+12:22 trying to randomize the behavior of some
+12:24 character in the game you can imagine
+12:26 using very simple building blocks like
+12:28 this just kind of spicing up your
+12:30 program by getting it to do things a
+12:32 little less predictably because you're
+12:34 choosing these values seemingly randomly
+12:36 and you're deferring to python to
+12:38 actually do the generation of these
+12:40 numbers
+12:41 using its own algorithms and its own
+12:43 math well what more could we do here let
+12:45 me propose that we introduce another
+12:46 function that comes from this random
+12:48 library yet another that you yourself
+12:49 have to don't have to implement shuffle
+12:52 if you read the documentation for
+12:53 shuffle in the same random module you'll
+12:56 see that it takes in a list for instance
+12:58 of values and just shuffles them up it
+12:60 randomizes them like a deck of cards
+13:02 here you might shuffle them so it's to
+13:04 put them into seemingly random order
+13:06 well how do i use this based on this
+13:08 function's name well let me propose that
+13:10 we go back to vs code here and let me go
+13:12 ahead and this time do the following
+13:15 because i need to shuffle something like
+13:16 a deck of cards let me go ahead and not
+13:18 just import random but let me give
+13:20 myself a variable called cards that's
+13:22 going to be of type list and just so i
+13:24 have something to shuffle i don't need
+13:26 all 52 cards in a typical deck i'm just
+13:28 going to shuffle three cards a jack a
+13:31 queen and a king i could call those
+13:33 strings anything i want but i just
+13:34 wanted a list of some values so as to
+13:36 shuffle them up that is randomize the
+13:38 order they're in well how does this now
+13:40 work if you read the documentation for
+13:42 random.shuffle you'll see that it
+13:44 shuffles the argument in place that is
+13:48 unlike many of the functions we've seen
+13:49 it doesn't return to a value that
+13:52 contains the shuffled cards in this case
+13:54 it actually shuffles the list it's given
+13:57 itself so what this means for my code is
+13:59 that i need to do something like this
+14:01 random random.shuffle and pass in the
+14:04 variable containing those cards and then
+14:07 on a final line here how might i go
+14:09 about printing the cards well i could do
+14:12 this and i could say print cards but if
+14:14 i do that i'm actually going to see
+14:16 python syntax for lists and it's just
+14:18 going to format in its own way using
+14:20 commas and the like i want to print
+14:21 these cards out one at a time just
+14:23 because i think it'll look a little
+14:24 better so we can use some of our syntax
+14:26 from loops and say something like this
+14:29 for card in cards go ahead and print out
+14:32 the current card so what's now happening
+14:35 here line three i'm defining a list of
+14:37 three cards in this order jack queen
+14:40 king
+14:41 i'm then shuffling those same cards on
+14:43 line four and then on line five i'm
+14:45 using a for loop for each of the cards
+14:48 in that list print it out one at a time
+14:51 and because i'm using print one line at
+14:53 a time well let's see the results down
+14:55 here in my terminal window i'm going to
+14:56 run python of generate.pi and hit enter
+14:59 queen king jack seemingly shuffled
+15:02 because that's not the order i defined
+15:03 earlier let's do it again
+15:05 queen king jack
+15:08 okay that happens to be the same but
+15:09 let's see this could just be bad chance
+15:12 there we go jack queen king doesn't look
+15:15 like it's shuffled but at least we're
+15:16 getting back different orderings now
+15:18 again
+15:19 jack queen king not so good
+15:22 jack queen king not so good this is
+15:24 someone you probably want to play
+15:25 against with cards queen jack king there
+15:27 we go but of course we only have three
+15:29 cards here so there's not that many
+15:31 permutations we might see and if we do
+15:33 this over time we will see all of them
+15:35 but if we had of course 13 or 52 cards
+15:37 we'd see a lot more permutations instead
+15:40 so we have now these three ways to
+15:42 generate random information one is
+15:44 simple coin toss if you want to start
+15:46 some kind of athletic event one pick a
+15:48 number between 1 and 10 if you want to
+15:49 decide something based on that and now
+15:51 using shuffle we can even take in a list
+15:53 of things and shuffle them about so that
+15:55 we get some kind of random behavior but
+15:58 let me pause here and see if there's any
+16:00 questions yet
+16:01 on random on modules or any of these
+16:05 three functions
+16:07 yeah uh can we increase or decrease the
+16:09 probability
+16:11 of cards
+16:13 if you want to uh for example there is
+16:16 three there is a 33 percent chance of
+16:18 probability
+16:19 so is there any chance to increase or
+16:21 decrease the probability can you set
+16:23 these probabilities not using these same
+16:25 functions uh can you set the
+16:27 probabilities but you can absolutely
+16:29 implement some of your own functions or
+16:31 use more sophisticated functions that do
+16:33 exist in this library and others to
+16:35 exercise more control these are meant to
+16:37 be very user-friendly and simple
+16:38 functions certainly the ones we looked
+16:40 at that give you equal probability for
+16:42 all of those but absolutely you could
+16:43 skew things though hopefully if you're
+16:45 implementing a gambling game or the like
+16:47 you're not actually making some cards
+16:48 more probable than others
+16:51 allow me to turn back now to our
+16:53 implementation here of this randomness
+16:55 and consider how we might leverage other
+16:57 types of functionality that aren't
+16:58 necessarily in this specific library
+17:01 here well it turns out that python also
+17:03 comes with a statistics library and this
+17:05 contains all sorts of functions for
+17:06 doing things more statistical in nature
+17:09 namely calculating means or medians or
+17:11 modes or other
+17:13 aspects of a data set that you might
+17:15 want to analyze so how might we use the
+17:17 statistics module on python well we
+17:19 might first just take a look at its
+17:20 documentation like any other module in
+17:23 python and we'll see within that library
+17:24 that there's a whole bunch of functions
+17:26 and one of those functions is one that's
+17:28 quite simple it's average a function
+17:30 that allows you to calculate the average
+17:32 of some numbers that you've passed in
+17:34 let me go ahead and envious code in my
+17:36 terminal window open up a new file
+17:38 called average.pi and at the top of this
+17:40 file i'm going to import a different
+17:42 library this time namely the statistics
+17:45 module in python and now i'm going to go
+17:47 ahead and call a function that i know
+17:49 comes in that module namely mean for the
+17:52 average of some values and i'm going to
+17:53 call statistics.mean
+17:56 and i'm going to pass into this function
+17:58 mean a list of some values and let's
+18:00 suppose that i'm quickly trying to
+18:02 calculate what my current grade average
+18:04 is in school and i did really well on my
+18:06 first test and i got a hundred percent
+18:08 and on my second i did well but not as
+18:10 well and i got a 90. and ironically i'm
+18:12 not very good with math so i'd like to
+18:13 figure out what my average now is
+18:15 between those two tests so let me go
+18:17 ahead now and in this list type in the
+18:19 number 100 comma 90 thereby passing in a
+18:22 list of two values two ants 190 and ins
+18:26 outside of those are the parentheses
+18:27 because of course this is now the
+18:29 argument i'm passing to the function
+18:30 called mean and this function mean is in
+18:33 the module called statistics well it's
+18:36 not that interesting to just calculate
+18:37 the mean if i don't actually see what it
+18:39 is so let me additionally pass the
+18:41 return value of that mean function to
+18:43 the print function as usual let me now
+18:46 in my terminal window in vs code type in
+18:48 python of average.pi and hit enter and
+18:50 voila as you might expect my average is
+18:53 95
+18:54 so the difference here is that i'm just
+18:55 using a different module that still
+18:57 comes with python but i need to import
+18:59 it instead of for instance the random
+19:01 module instead and this time i know from
+19:03 the documentation that there exists a
+19:05 function called mean well it turns out
+19:07 there's even more functionality that
+19:09 comes with python and that comes with
+19:11 other
+19:12 modules in python and there's this
+19:14 feature generally known as command line
+19:16 arguments this is a feature not just of
+19:18 python but of languages more generally
+19:20 that allow you to provide input not when
+19:22 prompted inside of a program as happens
+19:25 whenever we call the python function
+19:28 input but rather there's this feature
+19:30 command line arguments of programs that
+19:32 allows you to provide arguments that is
+19:34 input to the program
+19:36 just when you're executing it at the
+19:38 command line so up until now for
+19:39 instance recall that we've generally run
+19:41 python of something dot pi for instance
+19:43 python of hello dot pi and i've never
+19:46 once really executed any words or
+19:48 phrases after the name of the file but i
+19:52 could in fact when you're running
+19:54 programs in a command like environment
+19:56 like we are you can provide any number
+19:58 of words or numbers or phrases after the
+20:02 command that you're typing and all of
+20:03 those will somehow be passed in as
+20:05 inputs to the program itself you don't
+20:08 have to prompt the user for one thing at
+20:11 a time by manually calling that input
+20:13 function so what does this mean in real
+20:15 terms well let me go ahead back into vs
+20:17 code here and let me propose that we
+20:20 consider how we might leverage a certain
+20:23 module i'm going to go ahead and create
+20:25 a file called
+20:26 name.pi and i'd like to use a new module
+20:30 this time that's going to give me access
+20:32 to
+20:33 values that have been typed at that
+20:35 command line but what's this module
+20:36 going to be well this one's going to be
+20:38 called sys and sys short for system
+20:41 contains a whole lot of functionality
+20:42 that's specific to the system itself and
+20:45 the commands that you and i are typing
+20:46 the documentation for this module is at
+20:48 this url here and it lists all of the
+20:51 various functions and variables and the
+20:53 like that come with that module but
+20:55 we're going to focus on something a
+20:56 little more specific namely this thing
+20:58 here it turns out in the sys module in
+21:01 python there is a variable that just
+21:04 magically exists for you called argv it
+21:07 stands for argument vector which is a
+21:09 fancy way of describing the list of all
+21:11 of the words that the human typed in at
+21:14 their prompt
+21:15 before they hit enter all of those are
+21:17 seemingly magically provided to you via
+21:20 python in a variable called sys.rgv
+21:24 this variable is a list which means that
+21:27 the first element is going to be the
+21:28 first word that you type the second
+21:29 element is going to be the second word
+21:31 that you typed and so forth and by way
+21:33 of this list then can you figure out
+21:35 what words did the human actually type
+21:36 at the prompt and maybe use that to
+21:38 influence the behavior of your own
+21:40 program so what does this mean now in
+21:42 real terms well in this new tab called
+21:44 name dot pi let me go ahead and import
+21:47 sys within that sys module is going to
+21:50 give me access to sys.rgv but how might
+21:52 i want to use it well let's do this
+21:54 instead of writing a hello world program
+21:57 that all of these times has just looked
+21:60 for the return value of input to figure
+22:02 out what the user wants me to print
+22:04 let's go ahead and just expect the user
+22:06 to tell us when they run the python
+22:08 program itself what their name is and
+22:10 suppose this time i'd like to generate a
+22:12 whole bunch of name tags initially just
+22:14 one and in the us here it's very common
+22:16 to wear a sticker on your lapel that
+22:17 says hello my name is david so i want to
+22:20 print out some text that resembles that
+22:21 the idea being maybe i could enhance
+22:23 this program someday to even send that
+22:25 text straight to the printer and
+22:26 dynamically generate those name tags
+22:29 well let me go ahead now and do this let
+22:30 me go ahead and print out as always
+22:32 hello but i'll say a little something
+22:34 more this time to make things more
+22:35 interesting hello my name is quote
+22:38 unquote and then after that i normally
+22:41 have been in the habit of calling input
+22:43 storing the return value in a variable
+22:46 and passing in the name of that variable
+22:48 here but i'm going to instead jump right
+22:50 to this
+22:51 sys.rv bracket one and that's it
+22:55 i'm going to have a program here that
+22:57 says hello my name is followed by
+22:59 whatever is in sys.rv bracket one and
+23:03 notice sis.rgv again is a list and
+23:05 recall from our discussion of loops and
+23:07 in turn list we use the square bracket
+23:09 notation to get at the various elements
+23:12 inside of a list all right let me go
+23:13 down now into my terminal window and run
+23:15 python of name dot pi but this time
+23:18 rather than just hit enter and wait for
+23:20 the program to prompt me for my name let
+23:22 me proactively just tell this program
+23:24 what my name is at the so-called command
+23:26 line here we go dav id separated with a
+23:29 space from the name of the file so that
+23:31 now when i execute python name dot pi
+23:34 david i see on the screen voila hello my
+23:37 name is david so based on this
+23:40 demonstration alone i think we can infer
+23:42 exactly what's going on in sys.rg even
+23:44 though it sounds certainly at first
+23:46 glance
+23:47 rather complicated here let's look up at
+23:49 sys.rgv i'm going to bracket one here so
+23:54 clearly sys.rv bracket one
+23:58 is storing dav id but it's one in the
+24:02 past when we looked at loops recall that
+24:04 we said that they were zero indexed that
+24:06 is the first element is zero the next
+24:08 element is one this next element is two
+24:11 and so forth and yet here i am treating
+24:13 it as though my name is at the start of
+24:15 the list one well let me ask this
+24:18 question
+24:19 what is probably in cis.rgv of zero
+24:23 what is probably insist dot argv of zero
+24:28 the very first element actually in that
+24:30 list oh yeah i think
+24:33 it's like in c
+24:36 the name of program
+24:38 indeed it's indeed like in c in other
+24:40 languages the name of the program well
+24:42 if we consider what it was i typed i
+24:44 certainly typed python because that's
+24:46 the name of my interpreter and we don't
+24:47 really need to know that because we're
+24:49 using python itself but after that i did
+24:51 type two things i typed name dot pi as
+24:54 i've done so many times anytime i want
+24:56 python to interpret a program i've
+24:57 written and it turns out by convention
+24:59 what python does is it stores in sys.rgv
+25:02 the name of the file that you're
+25:05 executing or interpreting followed by
+25:08 any number of other words that you typed
+25:10 so all this time we could have been
+25:12 accessing the name of the program which
+25:14 frankly isn't all that interesting but
+25:15 we can also now access words that are
+25:18 typed after that prompt as well
+25:20 but of course if i don't type anything
+25:23 in
+25:24 what might happen here this might be
+25:26 naive of me to assume that there's
+25:27 always going to be something at location
+25:29 1 in sys.rgv let me go ahead and try
+25:32 this python name dot pi and no i'm not
+25:35 giving you my name because at this point
+25:36 i might not even know that you want my
+25:38 name to be typed so let me hit enter now
+25:41 and uh uh-oh we see now an error a
+25:43 so-called exception in python this one's
+25:45 a new one this one's an index error that
+25:48 elaborates list index out of range and
+25:51 turns out this is actually one of the
+25:52 most common mistakes in programming
+25:54 whether using a list in python or arrays
+25:57 or vectors in other languages is to try
+25:59 to access some element that does not
+26:02 exist you try to go too far to the left
+26:04 or you try to go too far to the right in
+26:06 this
+26:07 in this object that is just a list of
+26:09 some values so of course the mistake
+26:12 here is that i'm assuming there's going
+26:14 to be something at location one when
+26:16 really it's location zero that's the
+26:18 only one that has a value but fixing
+26:20 this is not going to amount to doing
+26:22 bracket zero because now if i go ahead
+26:24 and rerun this program with no other
+26:27 words after name.pi it says hello my
+26:29 name is name.pie which is fine if we're
+26:32 making a name tag for the program but
+26:33 that's not of course what my goal here
+26:35 is instead so if the fix is not just to
+26:38 change the one to a zero
+26:40 how else might i handle this error
+26:44 how else might i handle this error
+26:46 this index error that happens if the
+26:48 user just doesn't remember to or doesn't
+26:50 know to type their actual name at the
+26:52 prompt
+26:54 we could always put an exception into
+26:56 the program saying
+26:58 if there is um if there's nothing at
+27:01 location one
+27:02 we just come out to say okay we haven't
+27:05 got a parameter or something but if
+27:07 there is you continue along with the
+27:08 program
+27:10 perfect so if i might simplify we can
+27:12 try to execute this line of code except
+27:14 if there's an error we'll deal with it
+27:15 in some other way now ideally and once
+27:18 i'm a strong enough programmer i would
+27:20 have anticipated this and written the
+27:22 following code from the get-go but when
+27:24 you're learning it's certainly
+27:25 reasonable to see an error oh i didn't
+27:26 realize i should detect that and then go
+27:28 back and improve your code but of course
+27:30 if you read the documentation you
+27:32 ingrain some of the lessons learned from
+27:33 the past you'll get into the habit of
+27:35 trying and checking for some of these
+27:37 exceptions yourself so let me solve this
+27:39 in one possible way as you proposed here
+27:41 let's try to handle this exception as
+27:43 follows let me go ahead now and instead
+27:45 of just blindly calling this print line
+27:47 let me try
+27:48 to print out hello my name is such and
+27:51 such except if there is an issue
+27:54 specifically an index error then what do
+27:57 i want to go ahead and do i'm going to
+27:58 say something like too few arguments i
+28:01 could be more explanatory than that but
+28:03 for now i'm just going to explain to the
+28:05 user that they gave me too few arguments
+28:07 too few words at the prompt so now it's
+28:10 still not going to work in quite the way
+28:12 i want i'm still not going to be able to
+28:13 generate their name tag but at least
+28:15 they're not going to see some cryptic
+28:16 error message and think that they
+28:18 themselves broke the program let me go
+28:20 ahead now and run python of name.pi
+28:22 enter and too few arguments okay let me
+28:24 go ahead now and do python of name.pi
+28:26 and type in my name david and now we're
+28:29 back in business and i see that my name
+28:32 is on the screen too
+28:34 but strictly speaking i don't have to
+28:36 try to do this i could actually be a
+28:38 little more defensive in writing this
+28:40 code and maybe i could check whether or
+28:43 not the user has indeed provided a name
+28:46 or multiple names at the prompt so as to
+28:48 give them more refined error messages as
+28:50 well so how might i do this well let me
+28:53 go and undo the exception handling i've
+28:55 added and why don't i instead more
+28:57 modestly try to do this let me go ahead
+28:60 and introduce a conditional here if the
+29:02 length of cis.rgv
+29:05 is less than two or equivalently equal
+29:09 to just one value but i'll just stick
+29:11 with less than two for now
+29:13 then go ahead and print out too few
+29:16 arguments so i want ultimately two
+29:18 arguments i want the name of the program
+29:20 at location zero and i want the name of
+29:22 the human at location one so that's a
+29:24 total of two arguments so if i have
+29:26 fewer than two arguments let's tell the
+29:28 user with this print line l if the
+29:30 length of sys.rgv
+29:33 is say greater than two like they typed
+29:35 in too many words at the prompt well
+29:36 let's tell them print quote unquote too
+29:39 many arguments else if they did get it
+29:42 right and they gave me exactly two
+29:44 arguments else let's go ahead and print
+29:47 what i actually care about all right let
+29:48 me go down to my terminal window here
+29:50 and run python of name.pi and voila
+29:53 a completely different type of error
+29:55 this one a syntax error which we've seen
+29:57 in the past now a syntax error recall is
+29:60 me a culpa like i messed up here and i
+30:02 wrote invalid syntax and so no amount of
+30:05 conditionals or exception handling is
+30:07 really going to catch this one i need to
+30:08 go back and just get my program to work
+30:10 because it's not running at all well let
+30:12 me go up here and see
+30:14 line 4 is the issue and indeed it looks
+30:17 like i have an unterminated string here
+30:20 i need to go ahead and now add this
+30:22 double quote so let me go ahead now when
+30:24 with that red herring gone let me rerun
+30:26 python of name dot pi and hit enter and
+30:28 now we see too few arguments okay maybe
+30:30 it wants my full name let me go ahead
+30:32 now and run python of name dot pi david
+30:34 malin typing in both words after the
+30:37 name of the file and hit enter and now
+30:40 of course it's too many arguments fine
+30:41 now i'll oblige and do python of name.pi
+30:44 and just david and there we have it my
+30:46 name tag printed on the screen so
+30:48 strictly speaking we don't have to
+30:50 handle exceptions if we can be a little
+30:52 smarter about it and just check for the
+30:54 things that we're worried about
+30:55 especially if we want to give the user
+30:57 more refined advice we don't want to
+30:59 just tell them no something went wrong
+31:00 or we don't want to pass we want to tell
+31:02 them no that's too few or no that's too
+31:05 many we have conditionals in our
+31:07 vocabulary already via which we can now
+31:10 express that well let me pause here and
+31:12 see if there's any questions now on how
+31:14 we handled the error before with the
+31:16 index error or how now we're just
+31:18 proactively avoiding all index errors
+31:21 all together by just checking first is
+31:24 it too few is it too many or is it
+31:26 exactly what we want oh yeah thank you
+31:28 um so i was wondering you you touched
+31:30 upon kind of using your full name um
+31:34 could we could we then um
+31:36 is there a way
+31:38 going forwards that perhaps we
+31:40 have people that want their full names
+31:42 and want their just their first name
+31:44 that we separate that into like oh this
+31:46 person has full name this person has
+31:49 just the one name
+31:51 absolutely and allow me to
+31:54 allow me to propose we come back to that
+31:56 support for multiple names
+31:58 but indeed we could do that and i should
+31:59 know too though we can support full
+32:02 names right now if i do this instead of
+32:04 typing in david spacemailin which is
+32:07 problematic because again by definition
+32:09 of how argv works each word ends up in a
+32:12 specific location in the list but if i
+32:15 add quotes single quotes or double
+32:17 quotes at the command line now python
+32:19 will view this as two total things the
+32:21 name of the file and this full name and
+32:23 now when i hit enter i don't see the
+32:25 quotes the whole thing is passed in as
+32:27 my full name and if i want to adapt this
+32:29 further for multiple people we'll be
+32:31 able to do that as well other questions
+32:33 now on this version with if elif else or
+32:36 on accept before
+32:39 i want to i want to ask you
+32:41 can we use multiple else statement can
+32:44 you use multiple else's statements no
+32:46 else is the last catch-all statement
+32:48 that you can have you can have multiple
+32:50 l if statements in the middle but not
+32:53 multiple elses
+32:57 all right
+32:58 all right well let's turn our attention
+32:59 back now to this code and see if we
+33:01 can't refine it a bit more by adding in
+33:03 some additional functionality that we
+33:04 get with modules like the sys module one
+33:07 of the things i don't love about this
+33:08 version of the code even though arguably
+33:10 it is now correct
+33:12 is that the essence of my program which
+33:15 is just to print out the name tag is
+33:17 kind of relegated to this else clause
+33:19 and that's fine logically it's correct
+33:22 but generally speaking there's something
+33:24 nice about keeping all of your error
+33:26 handling separate from the code that you
+33:30 really care about having all of these
+33:32 ifs lifts perhaps at the top of your
+33:34 code that are checking to make sure that
+33:36 all of the data is as expected but then
+33:38 it would be nice if only for design's
+33:40 sake not to sort of hide in this else
+33:43 statement the actual code that you care
+33:45 about i would prefer for instance to do
+33:47 something logically like this i could
+33:50 check for errors up top
+33:52 and then down here print the name tags
+33:54 it would be nice if those are sort of
+33:56 distinct blocks of code all of which are
+33:58 here left aligned but there's a problem
+34:00 with what i've just done here
+34:02 logically what bug did i just introduced
+34:06 by getting rid of the else
+34:08 and introducing line 10 on its own with
+34:11 no indentation outside of the
+34:13 conditional
+34:15 what bug have i just introduced what
+34:16 mistake to be clear
+34:19 um name error ironically it's a name
+34:22 error but not a name error exception
+34:25 it's an error with my name but
+34:28 i think you're frozen for me it's going
+34:30 to raise an exception because even
+34:33 though i'm checking the length of
+34:34 sys.rgv up top and even though i'm
+34:37 checking it again for being greater than
+34:39 two not just less than two but greater
+34:41 i'm still then blindly and incorrectly
+34:43 assuming it's now going to exist so just
+34:45 to be clear if i run python of name dot
+34:48 pi and i don't type any arguments i've
+34:50 got too few i think i'm going to see
+34:52 that i have too few but i'm also going
+34:55 to see that same exception at the very
+34:57 top of my terminal windows output
+34:59 there's my error message too few
+35:00 arguments but again on line 10 i blindly
+35:03 proceed to still index into my list at
+35:06 location one which does not exist so it
+35:09 turns out there's a better way to handle
+35:10 errors like this especially if you're
+35:12 writing a program in python that's just
+35:14 meant to run briefly and then exit
+35:16 anyway but maybe we could start to exit
+35:19 prematurely if the program itself just
+35:22 can't proceed if the user has not given
+35:24 us the data we want perhaps we should
+35:26 just exit the program earlier than we
+35:29 might otherwise so let me go ahead and
+35:31 do this let me go ahead and remove my
+35:33 comments so as to focus only on the code
+35:35 here and let me propose that instead of
+35:38 just printing quote unquote too few
+35:41 arguments i'm going to use one other
+35:42 function that comes with the sys module
+35:45 i'm going to go ahead and call sys.exit
+35:48 and as the name suggests it's going to
+35:50 do exactly that with the systems help
+35:52 it's going to exit my program then and
+35:54 there on line four why is that okay well
+35:57 if you gave me too few arguments i have
+35:59 nothing more to say to you the user i
+36:01 might as well exit a bit prematurely and
+36:03 i can do this as well on line six let's
+36:05 go ahead and not just print that but
+36:07 sys.exit quote-unquote too many
+36:09 arguments print out that message and
+36:11 just exit right there
+36:13 now i can trust that by the time i get
+36:15 to line eight every error condition has
+36:18 been checked for and so it's safe for me
+36:20 to assume that there is in fact an item
+36:24 at location one in sys.rgv so let me go
+36:27 ahead now and run this
+36:29 python of name dot pi enter too few
+36:32 arguments but i'm back at my prompt
+36:34 nothing more has happened let me run it
+36:37 again python of name dot pi david malen
+36:39 with no quotes enter too many arguments
+36:42 is now printed here finally python of
+36:44 name dot pi just david enter hello my
+36:48 name is david so we have then insists
+36:50 two forms of functionality now we have
+36:52 access to this variable sys.rgv this
+36:54 argument vector that gives me all of the
+36:57 words that were typed at the prompt
+36:58 including the program's own file name
+37:00 and it turns out if we read further in
+37:02 the documentation there's an exit
+37:03 function that can take different types
+37:05 of inputs but if i pass it a string like
+37:08 this it will indeed print that string
+37:10 for me and then exit from my program
+37:12 then in there
+37:14 questions now on exiting from programs
+37:17 like this
+37:18 to be clear all of this time once python
+37:20 gets to the bottom of your file it's
+37:22 going to exit anyway so i'm using
+37:24 sys.exit now just to make sure that i
+37:26 exit earlier than otherwise um my
+37:29 question is about the cis that are
+37:32 our v
+37:34 so is that capable of accepting or
+37:37 taking multiple elements at once let's
+37:40 say for example
+37:41 a python name that pi david malin i'm
+37:46 a male uh 20 years old and if let's say
+37:49 i only want to access your name which is
+37:52 at the first index and then your
+37:55 your
+37:56 your age is brought say at the sixth
+37:58 index can i say
+38:00 cis.rb
+38:02 one
+38:03 and another one for six to access what i
+38:06 just want
+38:07 is that possible for cis harvey
+38:10 uh short answer yes i think if i
+38:13 understand your question correctly
+38:14 whereby you're proposing to have many
+38:16 words at the end of the command and you
+38:18 want to access those individual words
+38:20 absolutely at some point it gets a
+38:22 little fragile i would say if you're
+38:24 typing so many words at the prompt that
+38:26 the order really matters and so it turns
+38:29 out there's a lot of programs and
+38:31 there's functionality in python that can
+38:32 allow you to provide those values like
+38:35 name or age or any number of other
+38:37 fields in any order you want but pass in
+38:41 a bit more information textually that
+38:43 tells the program how you want to use it
+38:45 so in short what you're describing is
+38:47 possible and let me do a small
+38:49 incarnation of it as follows let me
+38:52 propose that we go back to my code here
+38:54 and let's propose that we actually now
+38:56 want to support multiple values at the
+38:58 prompt so there's going to be no such
+39:00 thing as too many arguments suppose that
+39:02 i want to generate name tags not just
+39:04 for david but for david for carter for
+39:06 wrong shin for others in the group who
+39:08 all want their name tags as well so i'm
+39:10 going to go ahead and do this i'm going
+39:11 to get rid of my elif condition because
+39:13 i don't want to limit the maximum number
+39:15 of words that are typed at the prompt
+39:17 anymore i instead want to iterate over
+39:20 every
+39:22 name at the prompt so i'm going to say
+39:24 this for arg in sys.rgv
+39:28 go ahead and print out this time
+39:31 arg
+39:32 so what am i doing here well even though
+39:34 the syntax is a little different the
+39:36 idea is the same as before when we've
+39:38 had loops i'm using a for loop to
+39:40 iterate over a list the list in question
+39:43 here is sys.rgv
+39:45 arg is a variable that i'm creating on
+39:47 the fly the for loop is going to make
+39:49 sure that the first time through this
+39:51 loop r gets set to the first word on the
+39:53 command line the second time through the
+39:55 loop python python's going to make sure
+39:56 that arg is now set to the second thing
+39:57 on the command line and so forth that's
+39:59 just how a for loop works it updates the
+40:01 variable for us i don't have to call it
+40:03 arg i could call it name so long as i
+40:05 change it to name in both places but arg
+40:07 is reasonable if i'm iterating over
+40:09 arguments more generally
+40:11 if i now run this program though
+40:13 unfortunately there's a little bit of a
+40:15 bug
+40:16 even if i type in david and carter and
+40:19 wrong shin
+40:21 i'm not gonna get just three name tags
+40:25 in your mind does anyone see the bug i'm
+40:28 about to trip over it's not a huge deal
+40:31 if i've got enough name tags to go
+40:33 around but i'm gonna be wasting one
+40:36 because this is gonna print not three
+40:37 but four name tags whereby the first
+40:40 contains the name of the program itself
+40:42 maybe not a big deal maybe that's the
+40:44 sticker we don't bother handing out but
+40:45 it's wasteful and it does look wrong so
+40:48 how could we get access to
+40:50 not all four elements of argv but just a
+40:53 slice of argv and this is actually a
+40:55 technical term in python and some other
+40:57 languages to take a slice of a list
+40:60 means to take a subset of it maybe from
+41:02 the beginning maybe the middle maybe the
+41:04 end but a slice is a subset of a data
+41:07 structure like a list well how do i
+41:09 actually do this in code well
+41:11 in python it's actually very easy to
+41:13 take a slice of a list that is a subset
+41:15 thereof you can simply do this at the
+41:18 end of the list name sys.rgv in this
+41:20 case you can use square brackets and
+41:22 then in those square brackets you can
+41:24 specify the start and the end of the
+41:27 list that you want to retain i want to
+41:30 start at element one
+41:32 not zero i want to start at element 1
+41:34 and i want to just go to the end so i'm
+41:36 actually going to omit a second number
+41:38 altogether it's not necessary to have a
+41:40 second number but i do need that colon
+41:42 because this is going to give me a slice
+41:44 of the list it's going to give me a
+41:45 slice of the list that starts at
+41:47 location one not zero and the colon and
+41:50 then a blank just means it's going to
+41:51 give me everything else so this is
+41:53 equivalently going to slice off the
+41:55 first element of the list and give me a
+41:57 new list that contains just those three
+41:59 human names not the name of the file
+42:01 itself let me try running this again i'm
+42:04 going to run python of name dot pi david
+42:06 carter wrong shin this time hopefully
+42:08 i'm going to get three and only three
+42:10 name tags hitting enter and indeed i've
+42:14 done now just this so again using some
+42:16 relatively simple syntax in python we
+42:18 can use square brackets not just to go
+42:20 to specific elements like bracket zero
+42:22 or bracket one we can also get subsets
+42:25 of the list slices of the list by doing
+42:27 bracket something colon something where
+42:30 each of those somethings is a number the
+42:32 beginning or the end and they're
+42:33 optional depending on whether you want
+42:35 all of them or just some
+42:37 any questions now on this version which
+42:40 adds the loop
+42:42 and these slices with that new syntax
+42:45 can we slice starting from the end
+42:48 of the argument argument vector
+42:50 you can you can slice something from the
+42:52 end of the argument vector and this
+42:54 might uh this might blow one's mind a
+42:57 little bit let me go ahead and do this
+42:60 uh let's see let me go ahead and do
+43:02 negative one at the end using a negative
+43:04 number here and running the same command
+43:06 we've just uninvited wrong shin from
+43:08 receiving a name tag here so if you use
+43:10 a negative number it has the effect of
+43:13 counting to the uh in the other
+43:15 direction from the end of the list a
+43:17 good question there other questions now
+43:19 on slices on
+43:20 looping over sys.rgv
+43:24 hi uh so i remember very early on uh
+43:26 when we were talking about uh only
+43:28 having two decimal places in uh in an um
+43:31 float value um
+43:33 does this
+43:34 is is that in the same vein like um
+43:37 because we use the the colon point two f
+43:41 uh so that's is that the same thing then
+43:44 uh why would the f be included then
+43:46 in the point two f
+43:48 as opposed to here when you just have
+43:50 the numbers
+43:52 a really good question and it's just the
+43:54 short answer is that context matters so
+43:56 there's only so many keyboard keys on
+43:59 our keyboard and so we sometimes use the
+44:01 same symbols for different things so
+44:02 what you're alluding to is the format
+44:05 code in in fstring for actually
+44:07 formatting a number using a colon using
+44:10 a period using a number using the letter
+44:12 f and so forth and that is very specific
+44:14 to the f string feature of python this
+44:17 case has nothing to do with any of that
+44:19 syntax per se this is just using a colon
+44:22 in a different context to solve this
+44:23 problem to implement a slice the authors
+44:26 of python could have chosen another
+44:27 symbol but honestly looking down at my
+44:29 keyboard here we don't have that many to
+44:31 choose from that are easy to type so
+44:33 sometimes they have different meanings a
+44:34 good question as well allow me to
+44:37 propose now that we take things further
+44:39 and move away from using only those
+44:42 modules those libraries that python
+44:44 comes with to talk about more generally
+44:46 packages that exist one of the reasons
+44:48 that python is so popular and powerful
+44:51 these days is that there's a lot of
+44:52 third-party libraries out there as well
+44:55 otherwise known as packages strictly
+44:57 speaking python itself has a term of art
+45:01 called a package which is a module
+45:04 essentially that's implemented in a
+45:06 folder not just a file but a folder but
+45:08 more generally a package is a
+45:11 third-party library that you that i can
+45:13 install on our own mac or pc or our
+45:16 cloud server and gain access to even
+45:31 and this is a website that is searchable
+45:33 via the command line as well as via the
+45:35 web that allows you to download and
+45:37 install all sorts of packages even cs50
+45:40 has some of its own packages
+45:42 in services like these now there's a fun
+45:44 one out there that's a throwback to a
+45:46 command that's been around for years in
+45:47 command line environments called cowsei
+45:50 causee is a package in python that
+45:52 allows you to have a cow say something
+45:55 on your screen if curious to read up on
+45:57 it its own documentation is on pipi.org
+46:00 specifically at this url here but how do
+46:03 you actually get the package into your
+46:05 system well technically you could figure
+46:07 out how to download the file and maybe
+46:10 unzip it and put it into the right
+46:11 location on your mac or pc but nowadays
+46:14 a lot of languages python among them has
+46:16 what's called its own package manager
+46:18 this one here called pip which is just
+46:20 one so pip is a program that generally
+46:24 comes with python itself nowadays that
+46:26 allows you to install packages onto your
+46:28 own macs or pcs or cloud environment by
+46:31 just running a command and then voila
+46:33 you have access to a whole new library
+46:36 in python that didn't come with python
+46:38 itself but now it's available on your
+46:40 system
+46:41 for you let's go back to vs code here
+46:43 and in my terminal window i'm going to
+46:44 go ahead and type pip install
+46:47 cow say now what's going on here pip is
+46:49 the command the package manager and i
+46:52 want to install what package the package
+46:54 called cow say i'm going to go ahead and
+46:56 hit enter here and after a little bit of
+46:58 output it has successfully installed cow
+47:00 say now what does that mean that means i
+47:02 can now go about importing this into my
+47:05 own code well let's go ahead and see
+47:07 what this means let me go ahead and
+47:08 create a new file with code called say
+47:10 dot pi because i want something to be
+47:12 said on the screen and in my new tab
+47:14 here i'm going to go ahead and import
+47:16 cowse which presumably is now installed
+47:20 i'm now going to import sys as well
+47:22 because i'd like to use some command
+47:23 line arguments in this program just so
+47:25 that i can run it quickly and without
+47:27 using the input function i can get the
+47:29 user's name immediately from the prompt
+47:32 and let me go ahead and do this i'm
+47:33 going to do a bit of error checking
+47:34 proactively this time and rather than
+47:36 use less than or greater than i'm this
+47:38 time going to say if the length of
+47:40 sys.org v does
+47:42 does equal two so if the human is
+47:44 provided just the name of the program
+47:46 and their own first name we're good to
+47:48 go
+47:49 i'm going to do the following i'm going
+47:51 to call a function called
+47:54 cow
+47:55 in the package called cow say and i'm
+47:57 going to pass in a string hello
+47:60 comma and then as in the past i'm going
+48:02 to pass in just one string because
+48:04 according to its documentation it's not
+48:05 like print i can't pass in comma this
+48:07 comma that i can only pass in one string
+48:09 so i'm going to concatenate the contents
+48:11 of sis.org v bracket one so long as then
+48:16 i type in my name david after the name
+48:19 of this program it should end up in
+48:21 sys.org v1 in which case this line 5 of
+48:24 code should concatenate hello with my
+48:26 name with a space in between and
+48:28 apparently a cow is going to say it so
+48:30 let's see what happens here
+48:32 let me go ahead and clear my screen and
+48:34 increase the size of my terminal window
+48:37 let me go ahead and run python of say
+48:39 dot pi and type my name david and enter
+48:43 there is the program called kausei it
+48:45 literally has a cow say something on the
+48:47 screen and this is a throwback to a
+48:49 program from yesteryear that tended to
+48:50 come with a lot of systems
+48:53 this is otherwise known as ascii art
+48:55 it's a textual way using just keys on
+48:57 your keyboard to print pictures of sorts
+48:60 on the screen now we can really go down
+49:02 the rabbit hole here and there's
+49:03 questionable academic value of doing so
+49:05 so i'll do so just once turns out the
+49:07 cow say package comes with other
+49:09 functions as well one of those functions
+49:11 for instance is t-rex and if i now
+49:14 increase the size of my terminal window
+49:16 we'll perhaps see where we're going with
+49:17 this let me now run again python of
+49:19 say.pi this time let me not provide my
+49:21 name just to see if it's broken
+49:23 it's still okay because we have that if
+49:25 condition if the length of sys.rgv
+49:29 equals equals 2 and only if it equals
+49:31 equals 2 do we do anything that's why
+49:33 we're not seeing anything here let me go
+49:35 ahead and cooperate now say.pi space
+49:38 david and it's no longer a cow but
+49:41 if i zoom out on my screen a t-rex why
+49:45 just because these are the things you
+49:47 can do once you know how to program you
+49:48 can even package them up and make them
+49:50 freely available to others as open
+49:51 source software for us it's
+49:54 demonstrative of a feature more
+49:55 generally here namely being able to
+49:57 install these third-party packages and
+49:59 how you might do so in python now i'll
+50:02 leave this up on the screen for a moment
+50:03 and see if there's any questions about
+50:05 cows or tyrannosaurus rex's or packages
+50:09 more generally
+50:11 i'm really qualified to speak to just
+50:13 one of those
+50:14 hi um i've got two questions it's a bit
+50:18 earlier than what it's supposed to be um
+50:21 so the first question is
+50:23 the
+50:24 packages that you're calling um
+50:28 to
+50:28 use in the program
+50:31 are they the same as
+50:34 um
+50:35 let's say because i'm doing java
+50:38 the same as calling a class of a java
+50:41 file
+50:42 in order to use its functions
+50:46 and my second question is
+50:49 what's the actual purpose of using
+50:51 command line arguments as you use
+50:54 because
+50:55 it's not really the best way to
+50:59 as you say be user friendly
+51:02 where as in
+51:04 let's say the person who's
+51:06 using the program doesn't know what it
+51:09 what they want what the program's asking
+51:11 them
+51:12 really good questions the first question
+51:14 about the comparison with java python
+51:16 packages are similar to java packages
+51:19 where you have something dot something
+51:20 dot something at the top of your program
+51:22 that gives you access to a class or
+51:24 something else python itself supports
+51:26 classes more on those down the road and
+51:28 you can do very similar things in python
+51:31 as you can do with java but the analog
+51:32 really is python packages to java
+51:35 packages here as for command line
+51:37 arguments you ask a good question why do
+51:40 we use them especially if they're
+51:41 literally yes user friendly they're a
+51:43 little less user friendly to people who
+51:45 aren't in this zoom to be honest you and
+51:48 i as we learn more and more about
+51:50 programming and more about command line
+51:51 arguments i daresay will become more
+51:53 comfortable with and tend to prefer the
+51:56 ability to customize commands using
+51:58 these command line arguments why
+51:59 productivity it tends to make you faster
+52:01 because you get into the habit of
+52:03 knowing exactly how you can configure
+52:04 your software without having to manually
+52:06 answer questions and case in point all
+52:09 of this time
+52:10 have we been running python of something
+52:13 dot pi you could imagine not doing that
+52:15 you could imagine typing only python
+52:17 hitting enter and then you're prompted
+52:19 for the name of the file you want to run
+52:20 so you type in something.pi and then it
+52:22 runs not a big deal but i i would argue
+52:25 that over time you're going to get a
+52:26 little tired of that tedium and you
+52:28 would much prefer to just automate the
+52:30 command again and again and again
+52:31 especially with little conveniences like
+52:33 being able to hit up and down in your
+52:35 keyboard history so as to rerun those
+52:37 same commands automation is big too if
+52:40 you emerge from a class like this and
+52:42 start using python to automate processes
+52:44 at work or for personal projects or the
+52:46 like the ability to specify all of your
+52:48 inputs on the one line just means you
+52:50 can get work done more quickly so hands
+52:52 down absolutely using command line
+52:54 arguments is a more arcane uh feature of
+52:58 systems that most of us are no longer as
+52:60 familiar with because of windows and mac
+53:02 os and other operating systems that have
+53:04 buttons and guise and menus but the more
+53:06 comfortable get you get with programming
+53:08 i dare say the more you will tend to
+53:10 prefer these capabilities because they
+53:12 allow you to do things more quickly
+53:15 with that said allow me to propose that
+53:17 we take a turn toward yet another
+53:20 package that's particularly popular and
+53:23 just as easy to install all toward an
+53:25 end of using apis now apis are not
+53:28 something that's python specific more
+53:30 generally an api is an application
+53:32 programming interface and it can refer
+53:35 to python files and functions but often
+53:38 apis really refer to third-party
+53:40 services that you and i can write code
+53:43 that talk to
+53:44 many apis but not all live on the
+53:46 internet these days so that so long as
+53:48 you have a browser or so long as you
+53:50 have some experience with python
+53:52 programming or programming in any
+53:53 language you can write code that in
+53:56 effect pretends to be a browser connects
+53:59 to that third-party api on a server and
+54:02 downloads some data that you can then
+54:04 incorporate into your own program now
+54:06 how do you do this well python has a
+54:08 very popular package that you can
+54:10 install via pip called requests the
+54:13 requests library allows you to make web
+54:15 requests internet requests using python
+54:18 code essentially as though you were a
+54:21 browser yourself you can automate there
+54:24 for the retrieval of urls that start
+54:26 with http or https the documentation for
+54:29 this library is a url like this but it
+54:31 too can be installed at the command line
+54:33 and even though it's third party it's
+54:34 one of the most popular and commonly
+54:36 used packages out there in python and
+54:38 this too is one of the reasons again
+54:41 that python is so popular there's just
+54:43 so many solutions to problems that you
+54:45 and i have or are invariably going to
+54:47 have when we write projects of our own
+54:49 there's just a really vibrant ecosystem
+54:52 a really vibrant community of open
+54:54 source software that's that easy for us
+54:56 to install let me go back to my terminal
+54:58 window now and run pip install requests
+55:01 in order to install this package on my
+55:02 own system and after some lines of
+55:04 output i'll see that it's successfully
+55:06 installed now let's go ahead and create
+55:08 a new file here for instance
+55:10 itunes.pi
+55:12 it turns out that apple has its own api
+55:14 for their itunes service the software
+55:16 that provides you with the ability to
+55:17 download and search for music and songs
+55:19 and other information as well and it
+55:21 turns out that let me go back over to my
+55:23 computer here and open up a browser like
+55:25 chrome and let me go ahead and visit
+55:27 this url here https colon slash
+55:30 itunes.apple.com
+55:32 search
+55:33 question mark entity equals song
+55:35 ampersand limit equals one ampersand
+55:38 term equals weezer now i constructed
+55:41 this url manually by reading the
+55:42 documentation for apple's api
+55:45 application programming interface for
+55:46 itunes and what they told me is that if
+55:49 i want to search for information about
+55:51 songs in their database i should specify
+55:53 entity equal song so that it's songs and
+55:56 not albums or artists or something like
+55:57 that if i just want to get back
+55:59 information on one song i'm going to
+56:00 provide limit equals one and if the band
+56:03 i want to search for the artist is
+56:05 weezer i should specify term equals
+56:07 weezer so with this if i go ahead and
+56:10 hit enter and visit this url i actually
+56:12 end up with a text file in my downloads
+56:14 folder on my mac if i go ahead and open
+56:16 that text file that my browser just
+56:18 downloaded will see all of this text
+56:19 here which at first glance might look a
+56:21 bit cryptic but it actually follows a
+56:23 pattern notice this curly brace at the
+56:25 start and notice this closed curly brace
+56:27 at the end notice this open square
+56:29 bracket here and notice this close
+56:31 square bracket here and in between those
+56:34 pieces of syntax are a whole bunch of
+56:36 strings and values in fact a whole bunch
+56:38 of key value pairs what we're looking at
+56:41 here is a standard text format known as
+56:43 json javascript object notation which
+56:46 yes is technically related to yet
+56:47 another programming language called
+56:49 javascript but json itself is typically
+56:52 used nowadays as a language agnostic
+56:55 format for exchanging data between
+56:57 computers by language agnostic i mean
+56:59 you don't have to use javascript you can
+57:01 use python or any other language to read
+57:03 json or write it as well and it's a
+57:05 completely text based format which means
+57:08 that if i visit that url with my browser
+57:10 what gets downloaded is just a bunch of
+57:12 text but that text is formatted in a
+57:14 standard way using curly braces and
+57:17 square brackets using quotes and some
+57:20 colons that ultimately contains all of
+57:22 the information in apple's database on
+57:24 weezer's song at least the first one
+57:26 because i limited it to one in their
+57:28 database and that's an api an
+57:30 application programming interface a
+57:32 mechanism whereby i can access data on
+57:35 someone else's server and somehow
+57:36 integrate it into my own
+57:38 program now of course my browser chrome
+57:41 is not something i wrote i should
+57:42 actually write some python code that
+57:44 perhaps pretends to be a browser to grab
+57:47 the same data so let's do that let me go
+57:49 back to vs code here and let me write a
+57:51 program with code itunes.pi and we're
+57:54 going to write some code by which i can
+57:56 then use
+57:57 the itunes api and in turn python to get
+58:00 information about any band that i might
+58:03 want i'm going to go here and import
+58:05 first the requests library which i
+58:08 installed earlier in order to make those
+58:10 http requests i'm going to go ahead and
+58:12 import the sys library by which i'll
+58:14 have the ability to use command line
+58:16 arguments like specification of the band
+58:18 that i want to search for if not weezer
+58:21 and then down here i'm going to go ahead
+58:22 and insert some error checking to say if
+58:26 the length of sys.rgv
+58:28 does not equal 2 so if the user does not
+58:31 provide me with the name of the file
+58:33 they want to run and the name of a band
+58:35 and that's it you know what let's just
+58:37 go ahead and exit for now i could
+58:40 provide a more explanatory message but
+58:41 for now i'm going to keep things simple
+58:42 and just exit the program prematurely so
+58:45 that i can trust hereafter that sys.rt
+58:48 has what i want
+58:49 and now i have the opportunity to use
+58:52 the requests library to write some
+58:54 python code that effectively is
+58:56 pretending to be a web browser so as to
+58:59 connect to that same https url on
+59:02 apple's own server so now that i've
+59:04 guaranteed that the user has typed in
+59:06 not just the name of the file but also
+59:08 the name of a band at the prompt giving
+59:10 me a length of 2 for sys.rgv let's go
+59:13 ahead and execute requests.get which is
+59:16 a function inside of the request package
+59:18 that will literally get some response
+59:20 from a server and the url that i want to
+59:22 get is exactly the same as before https
+59:25 colon slash
+59:26 itunes.apple.com
+59:28 search question mark entity equal song
+59:31 ampersand limit equals one ampersand
+59:34 term equals previously weezer but let's
+59:37 make this program a little interactive
+59:39 and actually allow the human to specify
+59:41 at the command line what artists they'd
+59:43 like to search for so i'm going to go
+59:45 ahead and close my quote early and just
+59:48 append using the concatenation operator
+59:50 as in the past sis.rgv
+59:53 bracket 1. and now it'd actually be nice
+59:56 to store the response from the server in
+59:58 a variable so i'm going to go ahead and
+59:59 say response equals and to store all of
+60:03 the response that comes back from the
+60:04 server in a variable called response
+60:06 down here now i'd like to just
+60:08 understand what the server is returning
+60:09 to me to make sure i know how next to
+60:12 proceed so this isn't going to be very
+60:13 pretty yet but i'm going to go ahead and
+60:15 print out
+60:16 response.json which ensures that the
+60:19 data i'm getting back is formatted on my
+60:21 screen as exactly that json the same
+60:23 text format as we saw on my screen it's
+60:26 not a useful program yet i'm really just
+60:28 learning along the way but let me go
+60:30 ahead now and increase the size of my
+60:31 terminal window and run python of
+60:34 itunes.pi and type in the name of a band
+60:36 like weezer and hit enter
+60:39 and what we see on the screen formatted
+60:41 almost the same as before is exactly
+60:43 that same text but what you'll see here
+60:46 is that this has been standardized now
+60:48 as a python dictionary what indeed apple
+60:51 is returning is technically a json
+60:54 response javascript object notation but
+60:56 python the request library is converting
+60:59 it to a python dictionary which happens
+61:02 to use wonderfully coincidentally almost
+61:04 the same syntax it uses curly braces to
+61:06 represent the dictionary here and a
+61:08 closed curly brace to represent the end
+61:10 of it here for any lists therein it uses
+61:13 a square bracket here and a closed
+61:15 square bracket down here it uses quotes
+61:18 single quotes in this case or
+61:19 equivalently double quotes to represent
+61:21 the keys in that dictionary and after a
+61:24 colon it stores the value of that key
+61:27 and so you'll see that indeed we have a
+61:29 result count key whose value is one but
+61:32 then a more interesting result key
+61:34 called results whose value is this
+61:37 entire list of data now honestly this is
+61:40 such a big blob of text that it's going
+61:42 to take me forever to wrap my mind
+61:43 around what i'm seeing so let me propose
+61:45 temporarily we use another library in
+61:48 python that will allow me to format my
+61:50 data a little more cleanly it turns out
+61:52 that python also comes with a special
+61:55 library uh called json that allows you
+61:57 to manipulate json data and even just
+61:60 printing print it that is formatted in a
+62:02 way that's going to be way easier for
+62:03 you and i to understand so let me go
+62:05 back to my code here let me shrink my
+62:08 terminal window
+62:09 and let me propose that just temporarily
+62:12 again we do this let me import this
+62:14 additional library json which comes with
+62:16 python so i don't need to install it
+62:18 manually with pip and let me go ahead
+62:20 now and not just print out response.json
+62:23 which was that big blob of hard to
+62:25 understand text let me go ahead and use
+62:27 one other function here called
+62:30 json.dump s for dump string and pass to
+62:34 that function that response dot json
+62:36 return value so again i'm just
+62:38 introducing another function who i claim
+62:41 it has a purpose in life of pretty
+62:43 printing nicely formatting on the screen
+62:45 the exact same information i know this
+62:47 from the documentation having done this
+62:49 before but i'd like things to be nicely
+62:50 indented and according to the
+62:52 documentation if i pass in a named
+62:54 parameter of indent equals two that's
+62:57 going to indent everything at least two
+62:59 spaces i could do four or something else
+63:01 but it's going to be enough to help me
+63:03 wrap my mind around what the data is i'm
+63:05 getting back because again i'm just
+63:07 learning along with you so let me
+63:09 increase the size of my terminal window
+63:10 again let me run python of itunes.pi and
+63:13 again let's search for weezer and hit
+63:14 enter and now notice
+63:16 it's still a little bit cryptic because
+63:18 there's a lot going on here but my gosh
+63:21 i can totally read this more easily now
+63:24 notice now that i still see the first
+63:26 curly brace which means hey this is a
+63:28 dictionary in python a collection of
+63:30 keys and values the first key is called
+63:33 result count it happens to be displayed
+63:35 in double quotes now but that's just an
+63:36 issue of formatting it could be double
+63:38 or single so long as we're consistent
+63:40 the value of that key is one why well i
+63:43 told the url to only limit the responses
+63:45 to one weezer song so i've gotten a
+63:47 result set of one if i increase that
+63:49 limit i could probably get more then the
+63:52 interesting part of this response is
+63:53 really the data itself notice in the
+63:56 results key here there's a really big
+63:59 value the value is a python list as
+64:03 implied
+64:04 by this square bracket what does this
+64:06 list contain well i know from skimming
+64:09 it earlier that this contains one
+64:11 dictionary and that's why we see another
+64:14 curly brace here
+64:16 so again if this gets a little more
+64:17 complicated keep in mind that a
+64:19 dictionary is just a collection of key
+64:21 value pairs and python uses curly braces
+64:24 to indicate as much
+64:26 it is perfectly reasonable for a
+64:28 dictionary to be inside of another
+64:30 dictionary if the value of some key
+64:33 itself is another dictionary so this is
+64:35 a common paradigm and even though it
+64:37 might seem a bit cryptic it's just
+64:39 something that allows us to associate
+64:41 more keys with more values now most of
+64:43 this information i probably don't care
+64:45 about for instance according to apple
+64:47 the unique identifier for weezer is
+64:49 apparently 115
+64:51 234. that might be useful if i'm making
+64:54 my own database and i want this to be
+64:55 searchable but for today's purposes all
+64:58 i care about is the name of the track
+64:60 otherwise called track name as key and
+65:03 the first song and only song because we
+65:05 limited it to one that we got back from
+65:07 itunes here is the song that you might
+65:09 know by weezer called say it ain't so
+65:12 so now i have a bit of a clue if my goal
+65:15 here is to implement a program called
+65:17 itunes.pi that doesn't just dump the
+65:20 response from the server which is
+65:21 admittedly very cryptic but to print out
+65:24 all of the songs that itunes has for the
+65:26 band called weezer maybe i can iterate
+65:30 over this somehow so let me backtrack
+65:32 here's the key called track name
+65:34 it is inside of a dictionary
+65:36 that is the value of results here
+65:40 so how can i go about getting this well
+65:42 let me go ahead and try this let me go
+65:44 ahead and shrink my terminal window back
+65:46 down
+65:47 and let me propose now for one final
+65:49 flourish we don't just lazily print out
+65:51 the contents of that response because
+65:53 that's not interesting or pretty for
+65:54 anyone let's do this let me go ahead and
+65:57 create a new variable just for the sake
+65:59 of discussion called o for object and
+66:01 i'm going to go ahead and call
+66:03 o equals response dot json just to store
+66:08 that json response specifically in a
+66:10 variable called o but i could name it
+66:12 anything i want and now i'm going to do
+66:14 this
+66:15 for each result
+66:17 in
+66:18 that object's
+66:19 key
+66:20 called results go ahead and print out
+66:23 that results track name and notice i
+66:27 have used exactly the same
+66:28 capitalization track name has a capital
+66:31 n results is all lowercase and let me
+66:33 rewind before we run the actual program
+66:35 in line eight we are making an http
+66:38 request using python to the server just
+66:40 like you and i as humans type urls into
+66:42 a browser and hit enter this is the
+66:44 python equivalent thereof
+66:45 i am then on line 10 just grabbing from
+66:48 that variable that contains the server's
+66:50 response the json object that i care
+66:53 about the thing between those curly
+66:55 braces at the very top and the bottom
+66:58 but because we've poked around and
+66:60 because i read the documentation earlier
+67:02 i know that that object has a key called
+67:05 results and that results key again is a
+67:07 list now at the moment that list
+67:09 contains only one song say it ain't so
+67:12 because i limited my response to one but
+67:14 even so my loop will work it's just
+67:16 going to iterate once and each time
+67:18 through that loop it's going to print
+67:19 the current results
+67:21 track name
+67:22 if i want to make this even more
+67:23 interesting let me change this limit now
+67:25 from 1 to 50 so i'll at least get back
+67:27 50 track names instead let me go ahead
+67:30 now and increase the size of my terminal
+67:32 once more and go ahead now and run
+67:34 python of itunes dot pi searching again
+67:37 for band like weezer and here we go
+67:40 and voila there are 50 songs that itunes
+67:44 has for weezer and if we scroll back up
+67:46 to the top here we'll see that the very
+67:49 first one there is indeed say it ain't
+67:50 so but now we got undone the sweater
+67:53 song buddy holly apparently another
+67:55 rendition of say it ain't so perhaps
+67:56 from another album another buddy holly
+67:59 undone my name is jonas and so forth
+68:02 questions now on this program which
+68:04 integrates python with a real-world
+68:07 third-party api
+68:10 yeah hi uh can we use break instead of
+68:13 system.exist exactly good question but
+68:16 no um break again is used to break out
+68:18 of things like loops like we saw earlier
+68:21 sys.exit is used to break out of the
+68:23 whole program itself use break for loops
+68:26 for now and use cis.exit to terminate
+68:28 the whole program good question
+68:31 other questions now on this program are
+68:32 others from where we bring the name of
+68:35 the key results
+68:37 from where do we get the name of the key
+68:39 uh results itself can we change the
+68:42 results
+68:43 you cannot you so we could in our
+68:45 program so the keys that come back in
+68:47 that json response to be clear come from
+68:49 itunes.apple.com
+68:50 some engineer some team of engineers
+68:52 decided for us what all of those keys
+68:55 would be called including track name
+68:57 results result count and everything else
+68:60 you and i can absolutely store those
+69:02 same values in variables just like i'm
+69:04 doing here with o just like i'm doing
+69:06 here with results you can rename those
+69:07 keys anything you want using python
+69:09 variables but the json response is
+69:12 coming from that third-party server
+69:15 other questions yes sir so i have a
+69:18 question related to cause a package
+69:21 so like
+69:22 uh yes
+69:23 so so what sort of uh ascii graphics uh
+69:27 is it capable of
+69:28 outputting the calce package um i would
+69:31 refer you to the url in the slides
+69:33 earlier uh if only because it's more
+69:35 thorough they have not just cows but
+69:37 tyrannosaurus rex's and several other
+69:39 animals as well i should emphasize that
+69:41 this is not a package i suspect you will
+69:42 use much in the real world it's really
+69:44 just meant to be representative of the
+69:46 types of packages you can install but
+69:48 allow me to refer to the documentation
+69:50 for what more is there but ascii art uh
+69:53 is the all we had before there were
+69:55 emojis let alone gifs and jpegs and
+69:57 pings but it's what is immortalized in
+69:60 cow say well allow me to transition us
+70:02 back now to one final capability of
+70:05 python which is that you yourselves have
+70:08 the ability to make your own libraries
+70:10 up until now we've been writing all of
+70:13 our functions in our one file hello pi
+70:16 and everything since and now that we've
+70:18 introduced modules in python like random
+70:22 and statistics we can import those that
+70:24 come with python but that's other
+70:25 people's code as well and we've now used
+70:27 pip this package manager to install
+70:29 third-party packages as well in the
+70:31 system and using other people's code
+70:33 still
+70:34 but to come full circle what if you
+70:36 yourself find yourself implementing the
+70:38 same kinds of functions again and again
+70:40 or you find yourself opening up old
+70:42 programs copying and pasting code you
+70:44 wrote into new programs because you have
+70:46 the same problem yet again a good
+70:48 practice would be to somehow bundle up
+70:51 that code you keep reusing and make your
+70:54 own python module or package you can
+70:56 keep it local on your own mac or pc or
+70:58 cloud server or you can go through the
+71:01 steps of actually bundling it up making
+71:02 it free in open source and putting it on
+71:04 something like pi pi for others to use
+71:07 as well okay i'm going to go ahead and
+71:09 run code of sayings.pi to create a brand
+71:11 new file called sayings.pi which is
+71:13 going to be my own sayings module i'm
+71:15 going to define a couple of simple
+71:17 functions in there i'm going to define a
+71:19 hello function that's going to take a
+71:20 name parameter as input and that
+71:23 function is simply going to print out an
+71:25 f string that contains hello comma and
+71:28 then in curly braces whatever that
+71:29 person's name actually is
+71:31 then i'm going to go ahead and define
+71:33 one other function a goodbye function
+71:35 that has def goodbye also takes a name
+71:38 as its input and then that prints out by
+71:40 contrast an f string that says goodbye
+71:43 comma and then in curly braces name and
+71:46 now just for good measure just so i can
+71:48 be sure that these functions are working
+71:50 as expected i'm going to go ahead and
+71:51 define a main function in here too just
+71:53 for the purposes of testing and i'm
+71:55 going to go ahead and define a main
+71:56 function that simply does a couple of
+71:59 tests for instance it calls uh hello of
+72:03 quote-unquote worlds shall we say and
+72:05 then it's going to call goodbye of quote
+72:08 unquote world as well and hopefully what
+72:10 i'll see on the screen then is hello
+72:11 world and goodbye world when i run this
+72:13 program of course as always i need to
+72:15 explicitly tell python to call that
+72:17 function so i'm going to call main at
+72:19 the very bottom of this file all right
+72:20 let's try it out python of sayings.pie
+72:24 enter and indeed i see hello world and
+72:26 goodbye world and so i think it's
+72:27 reasonable for me to assume that these
+72:29 functions albeit simple are pretty
+72:31 correct at this point but now suppose
+72:33 that i want to use these functions as
+72:35 though i've indeed created my own
+72:37 library my own python module that makes
+72:40 available a hello function for me or
+72:42 anyone else who wants to use it or a
+72:43 goodbye function as well well let me go
+72:45 ahead and open up again say.pi but start
+72:48 fresh and rather than have the cow say
+72:51 anything let me go ahead and have my own
+72:53 library do the talking so i'm going to
+72:56 go ahead and as before import sys so
+72:58 that i have access to command line
+72:60 arguments and from my own module called
+73:03 sayings i'm going to import hello so
+73:05 because i created a file called
+73:07 sayings.pi
+73:08 i can say from sayings and it's inferred
+73:11 by python that i mean sayings.pi at
+73:13 least in this current directory but i
+73:15 specifically going to import just one of
+73:17 the functions for now namely hello and
+73:19 now i can do something like this if the
+73:21 user obliges by giving me two command
+73:23 line arguments which i can check by just
+73:25 checking the length of sys.org v i'm
+73:28 going to then go ahead and call this new
+73:30 hello function passing is its input
+73:33 assist.rgv bracket1 which should
+73:35 hopefully be the person's name which i'm
+73:37 going to expect them to type at the
+73:38 prompt so here we go i'm going to go
+73:40 down to my terminal window run python of
+73:42 say.pi and my own name because i want my
+73:45 own name to end up in the command line
+73:47 arguments and therefore be part of the
+73:48 hello so when i hit enter in just a
+73:50 moment i should hopefully see hello
+73:52 comma david so here we go enter
+73:56 and huh i see hello world goodbye world
+73:59 and then i see hello david so
+74:02 why is this happening well it turns out
+74:05 even though i've done everything
+74:06 according to our own past practice it's
+74:10 not really the right way to go about
+74:12 calling maine after all if i'm blindly
+74:15 calling main here at the bottom of my
+74:16 file that means whenever this file is
+74:18 loaded by python main is going to get
+74:20 called and unfortunately that's true
+74:22 even if i'm importing this file or just
+74:25 a function from this file as i am here
+74:27 in my say.pi program this is to say on
+74:30 mine three here when i say from sayings
+74:32 import hello this effectively tells
+74:34 python to go find that module sayings.pi
+74:37 read it from top to bottom left to right
+74:39 and then import specifically the hello
+74:41 function unfortunately by the time
+74:43 python has read the file from top to
+74:45 bottom left to right that last line of
+74:47 code recall is to call main main gets
+74:50 called no matter what so really the
+74:52 right way to go about using a main
+74:55 function which does solve that problem
+74:56 of ensuring that we can order our
+74:58 functions however we want and all the
+74:60 functions will be defined at the time
+75:02 they're invoked i shouldn't be
+75:03 unconditionally calling main at the
+75:05 bottom of this or really any of my
+75:07 programs i should instead use this
+75:09 technique i should say if underscore
+75:12 underscore name underscore underscore
+75:14 equals equals quote unquote underscore
+75:17 underscore main underscore underscore
+75:19 close quote then and only then should
+75:22 you actually call main well it turns out
+75:25 that this variable is a special symbol
+75:26 in python underscore underscore name
+75:29 underscore underscore and notice that vs
+75:31 code because of its font isn't quite
+75:33 showing those two underscores but
+75:34 they're indeed there to the left and the
+75:36 right this is a special variable whose
+75:37 value is automatically set by python to
+75:40 be quote unquote main
+75:42 when you run a file from the command
+75:45 line as by running python of sayings.pi
+75:48 so watch what happens now with this
+75:50 additional conditional in sayings.pi if
+75:53 i run python of sayings.hi it still
+75:56 works as before because name will be
+75:59 automatically set to underscore
+76:02 underscore main underscore underscore
+76:04 when i run this file using python of
+76:06 sayings.pi but notice this
+76:09 name is not going to be set to quote
+76:11 unquote main it's going to be set to
+76:13 something else technically the name of
+76:14 the module when i instead import the
+76:17 file like i do here
+76:19 so this highlighted line of code even
+76:21 though it will cause python to go find
+76:22 sayings.pi read it from top to bottom
+76:25 left to right it's going to ignore the
+76:27 call to main this time because it's
+76:28 wrapped in that conditional in this case
+76:30 when i'm importing a file and not
+76:33 running it directly at the command line
+76:35 main will not get called by definition
+76:37 of that names value so let me go ahead
+76:39 and try this instead of running python
+76:41 of sayings.pi which is the module which
+76:44 contains that conditional main let me go
+76:46 ahead here on run python of say.pi which
+76:49 is the program here before me that
+76:51 imports hello from sayings but because
+76:55 of that conditional it's not going to
+76:56 say hello to anyone else except
+76:59 me in this case
+77:01 all right we're here at the end of our
+77:02 week it's only appropriate i think to
+77:04 import something other than hello why
+77:06 don't i go ahead and import not hello
+77:08 but goodbye from here let me go ahead
+77:10 and call goodbye instead of hello and
+77:13 this time when i run python of say pi
+77:15 i'm not going to type my own name allow
+77:16 me if i may to type in the whole world
+77:18 so that our final sentiment today is
+77:21 goodbye world indeed that's it for this
+77:23 week we will see you next time

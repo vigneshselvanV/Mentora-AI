@@ -1,0 +1,4984 @@
+01:15 DAVID J. MALAN: All right, this is CS50.
+01:17 And this is week 4 on memory, wherein
+we reveal a topic that's actually
+01:23 fairly distinct to CS50 nowadays as an
+introductory course, known as pointers.
+01:27 Indeed, today is the day you can tell
+your friends that you learned something
+01:30 about pointers and, in turn, how
+computers work underneath the hood.
+01:34 I will say that this
+is the kind of topic,
+01:36 this is the kind of lecture
+where probably won't all
+01:38 sink in the first time around.
+01:40 Think back to that fire hose
+that we showed in week 0.
+01:42 In fact, all these years later, I still
+remember where I was on campus when,
+01:46 finally, today's topics
+finally clicked for me.
+01:49 It was in office hours in
+Eliot house dining Hall
+01:51 in the back right-hand
+corner, which is only to say,
+01:54 as you approach this week's
+material, this week's problem
+01:56 set 4, take comfort in knowing
+that it is challenging.
+01:58 It's meant to be challenging.
+01:60 But, as we ratchet things up and
+up and up over the past few weeks,
+02:03 we will start to plateau
+in just about a week
+02:05 and then it's smooth
+sailing there on out
+02:08 even though it might not feel
+that way initially this week.
+02:10 But, this week, we'll
+focus all the more, indeed,
+02:12 underneath the hood, how
+information is represented,
+02:15 like this here photograph
+of the bowl of stress balls
+02:17 that we have most every week.
+02:18 But recall that any time you have
+an image like this, it of course,
+02:22 is composed of pixels, and
+those pixels or dots each
+02:25 have some bits or bytes
+associated with them
+02:28 that prescribe what color
+those dots should be,
+02:30 but there's only a finite
+amount of information in there.
+02:33 So if we enhance, enhance,
+enhance, you don't actually
+02:38 see the 50 more and more clearly.
+02:40 You only see it larger.
+02:42 And, in fact, at this size, you can
+actually see the dithering, so to speak,
+02:46 which is this cloudiness
+that looms over the image.
+02:49 And you can kind of see the
+outlines of the actual pixels.
+02:52 All of those hard vertical
+and horizontal edges
+02:54 are the pixels, the dots
+that compose that image.
+02:57 So this is actually an example of--
+02:59 and, in fact, on this
+last slide here, can you
+03:01 see them even most clearly on the
+screen as we go and go and go.
+03:05 So how do you go about implementing then
+or representing something like an image?
+03:09 Well, there's bunches of different
+file formats out there for images.
+03:13 There's GIF, there's JPEGs, there's
+PNGs, and there's others as well.
+03:16 But the simplest of them,
+like a bitmap image,
+03:19 is literally just a map
+of bits horizontally
+03:21 and vertically conceptually.
+03:23 So, for instance, here is
+a grid of bits 0's and 1's.
+03:28 And suppose, for instance, that maybe 0
+represents black and 1 represents white.
+03:35 Can anyone with their human eyes see
+what this is a picture of even though
+03:40 it's just 0's and 1's?
+03:42 Can you see it?
+03:43 Yeah.
+03:44 So it is actually a smiley face
+because if the 0's are black
+03:47 and the 1's are white, this is
+what's actually latent in that image.
+03:50 It's hard to see at
+this size, of course.
+03:52 But if we were to shrink
+that down and actually use
+03:54 square pixels black and white, it would
+probably pop out all the more clearly.
+03:58 Of course, it's not that useful
+to store things with single pixels
+04:01 because you can only represent
+two states like 0 and 1,
+04:04 like black and white.
+04:05 And so here might be that same image
+actually zoomed in such that you
+04:09 can see all of those individual pixels.
+04:11 But, when it comes to
+color, we, of course,
+04:13 need more than a single 0 or a single
+1 to represent each of those pixels.
+04:17 We probably need like 24, maybe 3
+bytes' worth for some red, some green,
+04:22 and some blue.
+04:23 And recall that that's, in fact,
+one of the ideas we implement--
+04:26 we talked about in week 0--
+04:28 how do you go about representing
+images, for instance?
+04:31 So, more generally, this is actually
+kind of an art nowadays, if only
+04:34 for fun, to actually use small dots
+and compose things on the screen.
+04:38 And, wonderfully, just before we
+began today, two of your classmates
+04:40 bravely volunteered.
+04:41 And, in fact, let me invite them
+to come up and introduce themselves
+04:44 before we reveal what they have
+made on this canvas here using
+04:48 Post-it notes, square
+paper as their pixels.
+04:53 SELENA: Hello, my name is Selena.
+04:55 I'm a freshman in Wigglesworth.
+04:56 I'm thinking of studying robotics
+and possibly in secondary and AFBS.
+04:60 DAVID J. MALAN: Welcome.
+05:01 JEFFREY: Hi, I'm Jeffrey, I'm
+a freshman in Thayer Hall,
+05:03 and I'm thinking about
+concentrating in econ and CS.
+05:05 DAVID J. MALAN: All right, welcome, and
+allow me-- hang on to the microphone
+05:09 if you would.
+05:09 I'm going to go ahead and reveal
+what they kindly did on very, very
+05:12 short notice before class began.
+05:14 And here is what they came up with,
+a grid of pixels, two colors here.
+05:17 What is it that we're looking at?
+05:19 SELENA: Can you tell what it is?
+05:21 Shall we say--
+05:21 DAVID J. MALAN: Actually,
+well, we can ask the audience.
+05:23 What is it they made?
+05:25 Because they're a little
+insecure about their pixel art.
+05:31 A ladder?
+05:34 Again.
+05:36 A flamingo.
+05:39 Is it a flamingo?
+05:39 SELENA: No.
+05:40 DAVID J. MALAN: No?
+05:41 SELENA: No, they said a
+palm tree on an island.
+05:43 DAVID J. MALAN: Oh, it's
+a palm tree on an island.
+05:45 All right, maybe a round of applause
+for palm tree on an island, if we could.
+05:49 Thank you.
+05:51 Here we go.
+05:52 So suffice it to say, when you
+do have just-- thanks very much.
+05:55 If you have just a single
+color to use, black or white,
+05:59 and you're using 1-bit art, it's
+actually kind of hard to paint
+06:02 a picture.
+06:02 But if you do have actually more
+colors at your disposal and an even
+06:06 bigger grid, can you do
+more interesting things?
+06:08 And so, in fact, we invited some
+past students to do exactly this.
+06:12 We shared a Google spreadsheet
+whereby we use the cells instead
+06:16 of as long default rectangles.
+06:18 We just turn them all
+artificially into squares
+06:20 so that you can use
+the paint bucket tool
+06:22 and just paint different
+pixels onto the screen.
+06:24 And among the pieces of art
+that some of your predecessors
+06:26 came up with were this
+here, a scene from Mario
+06:29 using a grid of multicolored
+pixels, this one here of Scratch
+06:34 the Cat, this one here in honor
+of the Harvard-Yale football game
+06:37 coming up in a few weeks' time, this
+one here using a bit of the same.
+06:42 And, in fact, if you'd like to
+play along at home just for fun,
+06:45 if you go to CS50.ly/art, you can make a
+copy in your own Google account of that
+06:50 blank spreadsheet and just play around
+if you'd like to experiment as well.
+06:54 But this is really meant to motivate
+one of today's topics, which is indeed
+06:59 how we can start to manipulate
+data at a lower level, including
+07:03 images and other things.
+07:04 And images, of course,
+can be, among other ways,
+07:07 be represented with
+RGB, some amount of red,
+07:09 some amount of green,
+some amount of blue.
+07:11 Before we dive into that, though,
+let me augment our vocabulary a bit
+07:15 today by adding another
+base to our system.
+07:19 So we have binary, of
+course, which is base 2.
+07:22 We have decimal of
+course, which is base 10.
+07:24 Today we're going to introduce one more,
+which is useful in today's concepts
+07:28 as well as others as we'll
+see down the line known
+07:30 as hexadecimal, where you actually
+have 16 digits at your disposal.
+07:34 And if any of you are
+artistically inclined
+07:37 or you might've dabbled
+in web development,
+07:39 you might actually be familiar with
+hexadecimal notation itself already.
+07:42 Here, for instance, is a
+screenshot from Photoshop
+07:45 whereby if you use the so-called
+color picker to manually choose
+07:49 a color that you want to
+paint onto the screen,
+07:51 you see a lot of information over here.
+07:53 But salient to today's
+conversation is this here
+07:55 where there's a hash sign and then
+typically six or sometimes three digits,
+07:60 in this case.
+08:00 000000 means that the color I'm
+going to get here is actually black.
+08:07 So it's sort of no
+red, no green, no blue,
+08:09 hence the 0's, means
+you're going to get black.
+08:11 Meanwhile, if I play around
+with the same color picker
+08:14 and I instead do FFFFFF, either
+all caps or in lowercase,
+08:19 I actually get a color that
+we're going to see today
+08:21 is going to be white, which is
+like a lot of red, a lot of green,
+08:24 a lot of blue, all the frequencies
+of light coming together
+08:27 to give us what we know as white light.
+08:29 But now we can play
+with this because it's
+08:31 no coincidence that these are
+indeed six digits of sorts,
+08:35 even though they're letters of an
+alphabet and not numbers yet per se.
+08:39 For instance, FF0000 would seem to mean
+a lot of red and no green, no blue.
+08:47 And, indeed, that's why we get
+red according to Photoshop itself.
+08:50 00F00 gives no red, a
+lot of green, no blue.
+08:55 And, of course, that's the
+color Photoshop would give us.
+08:57 And, lastly, 0000FF gives us indeed
+blue because that's no red, no green,
+09:03 but a lot of blue.
+09:04 So the 0's would seem to
+make intuitive sense here,
+09:07 if you have no red, no green, no blue.
+09:09 But what's with the FF?
+09:11 Like FF, of course, in English, are
+letters of an alphabet, not numbers.
+09:15 Well, it turns out that
+Photoshop and people
+09:18 in the world of images and people
+in the world of computer memory
+09:22 tend to use a different
+system altogether.
+09:24 They don't use binary, and
+no one, really, in practice
+09:26 uses binary except the computers
+we use because you can't do or see
+09:30 much with 0's and 1's alone.
+09:31 We humans in the real world
+use the decimal system, again,
+09:34 0 through 9, which is
+just very conventional.
+09:36 But, in the context of
+computers and specifically
+09:39 memory and files and images, we tend
+to use hexadecimal, which gives us
+09:44 another six digits in our
+vocabulary, and I'm deliberately
+09:48 calling them digits, even though
+they appear to be letters.
+09:50 But this is just a convention.
+09:52 We just need we need--
+we want six more symbols.
+09:54 So we have 0, 1, 2, 3, 4, 5, 6,
+7, 8, 9, I don't want to say 10,
+10:01 and I don't want to write 10 because
+that would be two symbols on the screen.
+10:04 So the world, years
+ago, decided, all right,
+10:06 when we want to represent 10 with
+a single digit, let's call it A
+10:10 and then B for 11, and then
+C and then D and then E,
+10:13 and then F, where F happens to be 15.
+10:16 So this is what's known
+as hexadecimal notation.
+10:18 And this really is the last of the
+notations or systems that we'll use.
+10:21 You can use uppercase or lowercase.
+10:23 The software you use decides
+what convention to use,
+10:26 but they mean one and the same.
+10:28 So hexadecimal, hex implying 16 in
+this case, otherwise known as base 16.
+10:33 All right, so just a bit
+of jargon out of the way,
+10:35 how does it actually
+work mathematically?
+10:37 The exact same way as in week 0.
+10:39 The math is a little different.
+10:41 It's not going to come to
+intuitively in the same way,
+10:43 but the system is the same.
+10:44 If you've got two-digit values here,
+like here are some placeholders,
+10:47 the columns represent the 16th to the
+0-th place, the 16th to the 1 place.
+10:53 That math is easy.
+10:54 This is the 1's place.
+10:55 This is the 16's place instead of in our
+human decimal world 1's, 10's, 100's,
+10:60 or, in the binary world, 1, 2, 4,
+8, same idea, just different powers
+11:06 for each of the columns.
+11:08 All right, so this number 00 represents
+the number you and I know as 0.
+11:12 In hexadecimal, 01 represents
+the number you and I know is 1.
+11:16 And it goes from there
+pretty straightforwardly.
+11:18 05, 06, 07, 08, 09 translates to
+exactly what we in decimal the number 9
+11:25 because it's 1 times 9 plus 16 times 0.
+11:28 Gets a little more interesting
+when you're using two digits,
+11:30 but you're using hexadecimal because
+now if I want to count as high as 10
+11:34 in decimal, I would represent
+that in hexadecimal as 0A.
+11:38 0B is 11.
+11:40 0C, 0D, 0E, 0F, and there's our F.
+And F I'll stipulate just represents
+11:47 the number we know as 15.
+11:49 So 1 times F gives us
+15, plus 16 times 0.
+11:52 All right, dot dot dot, we're not going
+to do the whole range of numbers here.
+11:56 But I don't want to call this 10
+in hexadecimal just like in binary.
+11:59 Even though you might
+see 10, you don't say 10.
+12:01 You would say 10, same in hexadecimal.
+12:03 So this is 10.
+12:05 But if I translate this pair of digits
+to decimal, what does this represent?
+12:10 So this is 16 because I've got 16
+times 1 plus 1 times 0 and on up
+12:14 and on up and on up.
+12:15 We can do this for quite a while.
+12:17 It gets interesting only
+once we get to the end.
+12:19 Using hexadecimal, as
+I've defined it, what's
+12:22 the highest we can count with
+two digits then in hexadecimal?
+12:26 FF would be the highest because
+F seems to be the largest digit.
+12:30 So this is actually 16 times 15 plus
+1 times 15 actually gives me 255.
+12:37 So that is as high as I can count
+in hexadecimal from 00 to FF,
+12:42 otherwise known as 0 to 255.
+12:45 And if you don't believe
+me, a quick little math
+12:47 will give us that, again, 16
+times 15 plus 1 times 15 as well.
+12:51 All right, so how is this
+useful doing out this math?
+12:55 Well, we have the following--
+oh, actually, why is this useful?
+12:59 So it's very common to use two
+digits of hex, maybe possibly more.
+13:04 Why?
+13:04 Well, it turns out that to
+represent the numbers 0 through 15--
+13:10 let me spread these apart now just to
+be deliberate about it, 0 through 15.
+13:13 How many bits do you need?
+13:15 Well, 0, you can use any number of bits.
+13:18 How about 15?
+13:19 How many bits--
+13:20 Sorry, how many bits do
+you need to count to 15?
+13:24 So it turns out that's four
+because, in binary, that would be,
+13:28 what, the 8's place plus the
+4's place plus the 2's place,
+13:32 plus the 1, which I
+think gives me indeed 15.
+13:36 So why is hexadecimal useful?
+13:38 Well, it turns out that you can
+represent a single hex digit,
+13:41 whether it's 0 or F, using
+four bits, no matter what.
+13:46 And so why do we tend to
+use two hexadecimal digits?
+13:49 Well, it's just useful to be able to
+describe a single byte, otherwise known
+13:54 as eight bits, using two
+digits instead of eight.
+13:58 So, in binary, we'd have to use eight.
+13:59 In hexadecimal we can just use
+two, and it's just useful visually.
+14:03 Hexadecimal is useful as a result.
+14:06 All right, so when are
+we going to see this?
+14:07 And why are we going to see hexadecimal?
+14:09 Well, here's a grid of the computer's
+memory just abstracted away
+14:12 as some byte, byte, byte,
+byte in rows and columns.
+14:15 Well, here is how we
+might number those bytes.
+14:17 As I've stipulated for several weeks
+now, we could call this byte 0,
+14:21 this byte 1, byte 2, dot dot
+dot all the way to byte 15.
+14:24 But, by convention,
+we don't use decimal,
+14:26 and we definitely don't use binary.
+14:27 Instead, a computer
+scientist would think
+14:30 of the addresses, the locations
+of, the count of bytes in memory
+14:35 as still starting from 0, 1, 2, 3 on up.
+14:37 But, as soon as you get to 8, 9, A, B,
+C, D, E, F. Again, just a convention.
+14:43 There's nothing really
+intellectually interesting
+14:45 here other than we're using a
+different base system instead.
+14:48 Here's how the others might play out.
+14:50 And it gets a little confusing
+because this 10 is not 10
+14:53 if it's in hexadecimal.
+14:55 But, clearly, there's some
+potential ambiguities here.
+14:57 It's pretty obvious now that
+if you see an A through F, OK,
+15:01 it's probably hexadecimal.
+15:03 But if you see 10 or
+11 or 12, well, it's
+15:06 maybe not-- it might
+not be 10 or 11 or 12.
+15:08 Those might be hexadecimal
+even though 1A, 1B is.
+15:12 So this is an ambiguity.
+15:13 And so what we're also going to see
+today that the way humans have mitigated
+15:16 this potential ambiguity is, when
+you write things in hexadecimal,
+15:20 by convention, you put 0x before
+them, a 0 and typically a lowercase x.
+15:26 That does not mean
+anything mathematically.
+15:28 It's not an extra 0 per se.
+15:29 It just means, to the human reading
+this, here comes a hexadecimal number.
+15:34 And now there is no ambiguity.
+15:35 So we're going to see
+a lot of this today.
+15:37 Generally, we won't
+care about the numbers,
+15:39 but that is what we're going to
+be looking at is hexadecimal.
+15:42 So any questions on hexadecimal
+which, again, is just
+15:45 another way of representing numbers?
+15:50 Any questions on hexadecimal?
+15:53 OK, so let's see this
+in practice and start
+15:55 to tease apart what's going on
+underneath the hood of our computer
+15:59 all of this time when we actually
+start to use variables and more.
+16:04 So here's a single line of code.
+16:05 Give me an integer called n, and
+initialize it to the value of 50,
+16:09 so fairly straightforward.
+16:11 So let's actually do something
+with this kind of code.
+16:13 Let me go into VS Code here.
+16:15 Let me go ahead and
+create a program called--
+16:17 let's call it addresses.c because I
+want to look at the locations in memory,
+16:23 the address of things in memory.
+16:25 And let me stipulate to,
+as we've said in the past,
+16:27 just as mailboxes in the real world,
+houses and buildings in the real world
+16:31 have unique addresses, like we are
+at 45 Quincy Street, Cambridge,
+16:35 Massachusetts 02138, USA.
+16:37 Similarly does your computer's
+memory have addresses.
+16:40 But they're super simple numbers like
+0, 1, 2 dot dot dot all the way on up.
+16:45 So I've created a program
+now called addresses.c.
+16:48 Let's just play around
+with some familiar code.
+16:50 Let me include stdio.h.
+16:52 Let me do int main(void), so no
+command line arguments for this.
+16:56 Let me declare that variable
+n, set it equal to 50.
+16:59 And let's just print out n.
+17:00 So this is like week 1 stuff, super
+simple and presumably familiar by now
+17:06 whereby I want to print out using the
+%i placeholder the value there of n.
+17:12 All right, hopefully, if no syntax
+errors, I can do make addresses, enter,
+17:16 so far, so good. ./addresses enter.
+17:19 And I see, as expected, the number 50.
+17:22 But what's actually going on inside
+of the computer's memory in this case?
+17:25 Well, we can actually
+see that over here.
+17:27 Let's look at this grid of memory here.
+17:29 For today's purposes,
+I don't necessarily
+17:31 know where in the computer's
+memory at this point.
+17:34 The n is going to end up--
+so let's just arbitrarily
+17:37 say the computer finds room for the
+int in the bottom right-hand corner
+17:41 of my screen.
+17:42 The size of it is deliberate
+because, recall, that integers
+17:45 tend to be how many bytes
+on most systems nowadays?
+17:48 4 bytes by convention, aka
+32 bits if you multiply by 8.
+17:53 So who knows? n might very well end
+up in the bottom right-hand corner
+17:56 of my screen here, with
+the number 50 stored there.
+17:60 Now, it's not literally the number 50.
+18:01 There's literally 32 0's and 1's
+in the computer's memory that
+18:06 are turned on and off to represent the
+pattern that gives me the decimal number
+18:10 50.
+18:10 So, again, that's sort
+of week 1-style stuff.
+18:13 But what we're thinking about
+now is the computer's memory.
+18:15 In fact, even though we refer to it as n
+in my code, it's got to live somewhere.
+18:21 And the address at which it might live
+for the sake of discussion is maybe
+18:25 something notationally written
+in hexadecimal like 0x123,
+18:29 completely arbitrary.
+18:30 In practice, it's probably
+a bigger number than that,
+18:32 but, for the sake of discussion, let's
+assume that that 50, the variable n,
+18:36 just so happened to get placed by
+the computer at location 0x123.
+18:42 Can we see that in code?
+18:44 We haven't yet thus far.
+18:46 But if I propose here, maybe going
+back into VS Code in a moment,
+18:51 maybe we can actually use
+some slightly new syntax
+18:54 and poke around the contents
+of the computer's memory.
+18:57 But, before we do that, we do
+need a few new building blocks.
+18:60 And there's not much new
+syntax today, but we're
+19:02 going to go pretty darn far
+in terms of capabilities
+19:05 with just a few new symbols.
+19:07 It turns out that, in C, if you use the
+ampersand operator, just one of them,
+19:12 not two.
+19:12 Two means and logically, just
+like two vertical bars meant or.
+19:16 If you use just one of them,
+as we are going to today,
+19:20 that is going to be the
+so-called address of operator.
+19:23 So you can write ampersand
+and the name of a variable,
+19:26 and the compiler
+essentially will tell you
+19:28 where that variable is
+in the computer's memory.
+19:31 Or, more technically, when
+the program is running,
+19:33 you will be told where it is.
+19:36 The star operator or a single asterisk
+is not multiply in this context.
+19:40 It's going to be the
+dereference operator, which
+19:43 is going to be a trick via
+which we can have an address
+19:46 and go there, sort of
+following a breadcrumb,
+19:49 following X marks the spot on a map
+and going to that location in memory
+19:53 and just see what's there.
+19:54 Is it an int?
+19:55 Is it a char?
+19:55 Is it a string or something else?
+19:57 So these sort of reverse
+the effects of each other.
+19:60 This tells you the address of something.
+20:02 This tells you how to get to something.
+20:05 So the address of operator and the
+dereference operator, so to speak.
+20:09 But we need one other building block.
+20:11 And this one's going to be
+useful in the context of printf.
+20:13 Recall that printf has all those
+format codes like %s for string,
+20:17 %i for integer, %f for float.
+20:20 Turns out there's another one, %p, which
+is going to allow us to print what are
+20:25 called pointers, which
+are really, for now,
+20:28 synonymous with addresses in memory.
+20:30 So using just those new building blocks,
+let me propose that we do the following.
+20:36 Leveraging this notion of a pointer.
+20:38 I'm going to change my
+code in just a moment
+20:40 to still have the same single
+line here int n equals 50.
+20:43 But then let's create a second variable
+called p, just for convenience.
+20:47 But let's declare it as a pointer.
+20:50 A pointer is simply a variable that
+stores the address of something.
+20:56 So it's a variable that stores the
+address of something like 0x123 or some
+21:00 such value.
+21:01 How do you use it syntactically?
+21:02 It's a little weird,
+especially since we've
+21:04 used star and the ampersand
+in other ways already.
+21:07 But you say that I want
+a variable called p.
+21:10 The type of this variable is going
+to be a pointer, so to speak.
+21:13 How do express that?
+21:14 Well, I want it to be the
+address of an integer.
+21:17 So you say int, but you
+make clear that it's
+21:20 the address of an integer, not an actual
+integer per se, by putting a star here.
+21:25 Of all the things we
+have and will see in C,
+21:27 I will concede this is the
+most confusing way to do this.
+21:30 Ideally, there would just be a variable
+called pointer, and you just write it,
+21:34 and you get a variable that's a pointer.
+21:36 But, in the case of C,
+you actually specify
+21:39 that this variable p will indeed be
+an address that points to an integer.
+21:45 So you just have to let
+that ingrain in yourself.
+21:48 This one's a little easier.
+21:49 &amp;n, how would you express that in
+English based on my previous definition?
+21:54 The address of n, &amp;n just
+means get the address of n.
+21:57 And because code recall is generally
+read and executed right to left,
+22:01 in this case, this says wherever n
+is, get the address of it like 0x123
+22:06 and assign it to the variable p.
+22:08 What is the variable p?
+22:09 It is a pointer, so to speak, that
+is, the address of an integer.
+22:14 So it's a little-- it is arcane.
+22:15 It's a little weird.
+22:16 But this is kind of
+as low-level as we can
+22:18 get with C with just telling the
+computer exactly what we want to do.
+22:22 So let's see this.
+22:23 Let me go back to VS Code here.
+22:24 And, quite simply, after clearing my
+terminal, let me go ahead and print out,
+22:29 using %p, the following address of n.
+22:34 And then we'll enhance this
+code to actually-- actually, no,
+22:37 let's do this exactly as I did.
+22:39 Let's go back into VS Code here.
+22:41 Let's declare int *p equals &amp;p
+and then print out not i itself--
+22:48 not n itself, but print out
+using %p the value of p itself.
+22:54 So what is this going to do for me?
+22:55 It should print out the address of n.
+22:59 All right, so, in my terminal
+window, make addresses, enter.
+23:04 Huh, I messed up because
+I did something stupid.
+23:08 I forgot the semicolon as you might have
+one or more times the past few weeks.
+23:12 Let's do this again.
+23:13 Let's make addresses.
+23:14 Enter.
+23:14 Dammit!
+23:17 I screwed up a second time.
+23:19 I want the address of
+n, not the address of p.
+23:22 All right, so I'm doing well.
+23:24 So, so much for remembering this concept
+from the dining hall of Eliot House.
+23:27 All right, so make addresses.
+23:29 Enter, oh, my god, thank you.
+23:31 All right, so now it works,
+hopefully. ./addresses,
+23:34 it's not going to be as simple
+in the actual computer as 0x123.
+23:38 It's probably going
+to be a bigger number.
+23:40 And, indeed, it's a much bigger number,
+but there is an address of some sort.
+23:44 Might be different run
+on a different system,
+23:46 but it turns out that the variable n
+is stored at location 0x7ffef3c2925c,
+23:55 which is just a really big number that
+if we did all of the math on paper,
+23:58 pencil or computer would be
+a really big decimal number.
+24:01 Why?
+24:02 The server has lots of gigabytes
+of memory, billions of bytes.
+24:05 So, of course, it's probably going
+to be a big number like that.
+24:09 Now I don't strictly have to create p.
+24:11 And, in fact, let me do what my
+instinct had me doing a moment ago.
+24:13 Let me delete p and simply just print
+out directly, what is the address of n?
+24:18 Let me go ahead and recompile the code.
+24:20 Make addresses, ./addresses, and I
+actually do get a different address this
+24:25 time.
+24:26 Why?
+24:26 Because I've run the
+program again and things got
+24:29 organized in memory a
+little bit differently.
+24:31 So these numbers are not going
+to remain invariant, unchanged.
+24:34 But, every time you
+run the program, things
+24:36 might deliberately, or for
+other reasons, get moved around.
+24:39 But all I have done is asked
+the computer explicitly,
+24:42 what is the address of n?
+24:45 And that's what I'm seeing.
+24:47 All right, so, just to recap then
+what these lines of code are doing,
+24:51 previously, when I had both
+n and p, this latter line
+24:55 is just asking what's the address
+of n storing the address thereof
+24:58 in this variable p.
+24:60 But there's some disagreement
+in the world as to how
+25:02 you should write this syntactically.
+25:04 And just so you've seen it in
+case you see a video or a tutorial
+25:07 or a book that disagrees, this is really
+the conventional way to write the star.
+25:12 That means, hey, computer,
+this is a pointer
+25:15 to an integer, the
+address of an integer.
+25:17 You could also write it this way.
+25:19 And some people do this.
+25:20 I do think it's a little--
+25:21 this can get you into
+trouble in certain cases.
+25:24 Some people do this with spaces on
+either side, which even looks more
+25:27 like multiplication, but it's not.
+25:29 All three will work, but the recommended
+conventional way is indeed to do this,
+25:34 even though I do concede
+it looks a little weird,
+25:36 but you'll get more and
+more comfortable over time.
+25:39 All right, so if you're with
+me that what we've just done
+25:45 amounts to just figuring out
+where in the computer's memory
+25:48 a variable actually lives, I
+think we can poke around further
+25:53 to see even more of what's going on.
+25:56 In fact, let me go
+ahead and propose this.
+26:00 Let me propose here that we go back to
+VS Code here, clear my terminal window,
+26:08 and let's go back to the version
+before where I explicitly did have p.
+26:11 So int *p equals &amp;n.
+26:15 And then, again, printf, quote, unquote,
+and what I had before was %p backslash n
+26:20 comma p.
+26:22 So this printed again, the exact
+same thing the address of n.
+26:25 But what if I actually want to print
+out n itself just like I did in week 0?
+26:30 Well, in week 0--
+26:32 sorry, just like I did in week 1.
+26:34 In week 1, I could have just done,
+as I did a few minutes ago, this.
+26:38 And this would print out in the
+old-school way the value of n and just
+26:42 as a quick check, make
+addresses, ./addresses.
+26:45 And there's my 50 as expected.
+26:47 But, now that I have these two other
+operators whereby I have both ampersand
+26:51 and star, I can poke around
+with them, play around
+26:54 with them in ways that should,
+hopefully, with some practice,
+26:58 make sense.
+26:58 So, for instance, I could do this
+again int *p equals the address of n.
+27:04 Well, I could print out n
+literally as I'm doing now.
+27:08 Or I could use the
+location of n called p
+27:12 and go there with the second of these
+two operators, the dereference operator.
+27:18 The dereference operator, the single
+star, means go to this address.
+27:21 And so now, when I go back to VS Code
+and I do make addresses, ./addresses,
+27:26 enter, I still get 50.
+27:28 I'm kind of jumping
+through hoops proverbially
+27:30 here because this is the
+stupid, longer, more complicated
+27:33 way to print out the value of 50, but
+it just speaks to the relative power
+27:37 that I have by just figuring out what
+the address is and then going there.
+27:40 But the confusing part I
+do think about this for me
+27:43 and for most folks learning this is
+the following-- the designers of C,
+27:48 decades ago, made, I would
+say, the unfortunate decision
+27:51 to use the star in two different ways--
+in three different ways in total-- one,
+27:55 multiplication.
+27:56 We saw that in week 1 since.
+27:57 But notice that there's two
+different uses of this star operator.
+28:01 Here, it literally means go there,
+dereference the address, that is,
+28:06 follow the breadcrumbs, and go there.
+28:08 But, when you declare the pointer,
+when you create the pointer,
+28:11 you also use a star, but
+you also use the type.
+28:14 So what's confusing, at
+least to me, is that we're
+28:16 using the star in two
+different ways, both of which
+28:18 are related to addresses, both
+of which are related to pointers.
+28:21 But, when you create a variable or
+declare a variable for the first time,
+28:25 you specify not only star, but
+the type of the pointer, just
+28:29 like any other variable declaration.
+28:31 But, when you use the
+pointer subsequently,
+28:34 you do not mention the data type.
+28:35 Again, the compiler is
+smart enough to remember.
+28:37 OK, got it.
+28:38 You wanted a pointer to an integer.
+28:41 The compiler will remember that for you.
+28:43 You do not need to remind it.
+28:45 So admittedly confusing, but, on
+line 6, we are declaring the pointer
+28:49 and assigning it a value.
+28:50 And, on line 7, we are
+dereferencing the pointer.
+28:53 So one creates the pointer,
+one goes to that there address.
+28:60 So, in terms of what's going on
+inside of the computer's memory,
+29:03 let me propose that if
+we revisit the same grid,
+29:06 and we propose that
+50 ended up down here.
+29:08 The value n is actually
+technically at 0x123.
+29:12 What exactly is p, the second variable?
+29:15 Well, I could draw it
+as follows in my memory.
+29:18 Maybe, by chance, it ends up here
+sort of higher up on my slide.
+29:22 But this is the variable called p.
+29:24 And the value of p is simply
+literally the address of n.
+29:29 Why is p so big?
+29:30 Well, it turns out, on most systems
+nowadays, pointers, that is, addresses,
+29:34 are 64 bits, or 8 bytes.
+29:36 So they just use a lot of bits.
+29:38 Why?
+29:38 Well, you and I have gigabytes,
+again, of memory nowadays,
+29:42 and if you're counting up
+to the billions of bytes,
+29:44 you actually need more
+than 4 bytes, or 32 bits,
+29:48 because recall, from week 0
+even, the highest you can count
+29:51 with 4 bytes or 32 bits is 4 billion.
+29:54 But some of you probably
+have Macs or PCs
+29:56 that have 5 gigabytes, 6 gigabytes, 8
+gigabytes or more of memory nowadays.
+30:01 That means we need 64
+bits to count that high,
+30:04 so we can actually label every memory
+location in order to access these spots.
+30:09 So what is p?
+30:10 It's just a variable whose
+value happens to be an address.
+30:13 What is n?
+30:14 Well, it simply happens to be
+an integer at that address.
+30:19 What questions do you have on this?
+30:22 Yeah.
+30:24 Are you able to use more
+than one pointer in main?
+30:26 Absolutely, just like
+variables, you can create
+30:28 as many as you want,
+including arrays thereof.
+30:32 How do you differentiate them?
+30:33 By way of their name.
+30:34 So I'm using p because it sounds like
+pointer, but I could call it q or r
+30:37 or s or t or use an actual English
+word to describe my variable.
+30:42 I'm just using p for short,
+just like any variable.
+30:45 Yeah.
+30:46 AUDIENCE: Does a pointer
+not have an address itself?
+30:48 DAVID J. MALAN: Oh, good question.
+30:49 Does the pointer have an address itself?
+30:52 Short answer, yes, because anything in
+your computer's memory has an address.
+30:57 And odds are it really has 8
+addresses associated with it.
+30:60 So maybe we refer to it by the
+first one or something like that.
+31:03 There actually exists-- but
+we won't do this today--
+31:05 pointers to pointers, which
+answers that question.
+31:08 But here I'm leaving it abstracted
+away and just calling it p.
+31:11 But it absolutely has an address.
+31:13 Other questions?
+31:14 Yeah.
+31:15 AUDIENCE: You may have
+already said this,
+31:16 but when we're referencing
+things in the code [INAUDIBLE]?
+31:21 DAVID J. MALAN: A good question.
+31:22 When you're referencing p in
+your code, do you dereference it?
+31:25 Do you use *p?
+31:26 Short answer, yes, if you
+want to go to that location.
+31:29 And that is usually, as we'll
+see this week and next week,
+31:32 how pointers are useful.
+31:34 You want to go to that location
+and do something there.
+31:37 It is rarely, if ever, helpful
+to literally print or see
+31:41 the actual address
+because who really cares?
+31:44 Especially if it changes
+every time I run my code.
+31:46 We, as programmers, don't
+care where things are
+31:49 but that we can get to those locations.
+31:52 A good question.
+31:53 Yeah.
+31:56 Sorry.
+31:57 AUDIENCE: [INAUDIBLE]
+physical memory [INAUDIBLE]?
+31:60 DAVID J. MALAN: Yes, without
+going down this rabbit hole today,
+32:02 we're talking really
+about virtual memory.
+32:04 This maps underneath the hood using
+virtual memory to physical memory.
+32:06 But, for all intents and
+purposes, we're talking about one
+32:09 and the same today, old computers,
+simpler computers, simpler times.
+32:12 OK, so how can we now think about this?
+32:18 Well, that is literally what's
+going on in the computer's memory.
+32:21 But, as I just said, rarely do we
+actually care that it's specifically
+32:24 at 0x123.
+32:25 And, in fact, the name pointer kind
+of conjures up a nice metaphor here.
+32:29 Let's ignore all of the bytes
+of memory that we're not even
+32:32 using or talking about, anyway.
+32:34 And who really cares about 0x123?
+32:36 Let's just abstract that away,
+as we've done in the past
+32:38 with literally an arrow when drawing
+or talking about these things,
+32:42 and just think of p as being
+a variable that literally
+32:45 points to another location in memory.
+32:48 So, indeed, whenever a computer
+scientist is talking about or arguing
+32:51 about or designing something
+that involves memory,
+32:53 they're not going to get into
+the weeds of doing 0x anything.
+32:56 They're just going to use arrows to
+draw things on paper or digitally.
+32:60 And, in fact, next week,
+when these sort of all
+33:02 comes to a head, when
+it comes to memory,
+33:04 we're going to build things
+in computer's memory, known
+33:06 as data structures, fancier
+structures than simply arrays.
+33:09 We're going to do one-dimensional
+structures, two-dimensional structures,
+33:12 and we're going to use
+pointers as sort of a thread
+33:15 with needle to connect this location
+with this one with this one and this one
+33:19 and start to create two-dimensional
+objects, if you will,
+33:22 inside of our Macs or PCs,
+our phone's memory as well.
+33:26 So, to make this super clear, we
+actually do have a nice metaphor.
+33:30 Maybe if you wouldn't
+mind coming up, I keep
+33:32 saying that can think
+of addresses in memory
+33:34 as being akin to physical
+addresses in the real world,
+33:37 like mailboxes for, say, this
+building, again, 45 Quincy
+33:40 Street in Cambridge, Massachusetts.
+33:42 And here, then, is a
+mailbox that has the name p.
+33:46 So this is appropriate
+because if a pointer is
+33:48 a variable that stores an address, this
+here mailbox called p would seem to be,
+33:53 I'll say, storing an address.
+33:54 Meanwhile, Yulia has a separate
+mailbox here that's actually called n.
+33:59 So it's like a variable in memory.
+34:00 We're kind of cheating because,
+technically, the pointer would
+34:03 be twice as big as this mailbox.
+34:04 But Home Depot only has
+so many different sizes,
+34:07 so they look the same physically.
+34:08 But n, according to this
+story, lives at address 0x123.
+34:12 So if I am the computer and I am
+executing code that looks like *p,
+34:18 go to the address stored in p.
+34:20 That's akin to a person
+opening up a mailbox,
+34:24 looking inside, seeing that what's
+in there is not an actual value
+34:28 you care about per se, but it's kind of
+like a treasure map, X marks the spot,
+34:32 if we sort of abuse the
+metaphor, which just
+34:34 means if I want to go
+to the address in p,
+34:38 that means I look in computer's memory.
+34:40 And, just to be dramatic,
+we can do this too.
+34:42 We've got a little big foam finger.
+34:43 This is like the computer pointing at
+the actual location 0x123, and, voila,
+34:49 there is the number
+50 that we care about.
+34:52 And, for those following along at home,
+maybe avert your eyes here in Sanders,
+34:56 we can similarly do this
+with the Yale foam finger
+34:59 as well to dereference that as well.
+35:01 And the crowd went wild for those
+of you watching from New Haven
+35:05 today with applause.
+35:06 So thank you to the Yulia,
+though, for this particular demo.
+35:09 Yes, yes, we will enhance the applause
+in the final version of the video.
+35:17 So let's now revisit,
+admittedly, a bit of a white lie
+35:21 that we've been telling
+for a few weeks now.
+35:23 And I kind of tripped over this in
+week one but then sort of waved my hand
+35:26 and solved it real quickly by
+introducing the CS50 library.
+35:30 But I'm going to propose that we
+revisit what a string actually is.
+35:33 Now, we use strings in week 1.
+35:37 We then began, in week 2, to
+talk about strings, thank you,
+35:41 as just being an array of characters,
+so that was the first reveal.
+35:45 But, even then, we kept
+using the word string.
+35:48 But it turns out that strings do
+not exist in C as a data type.
+35:53 Strings are not a CS50 thing per se,
+but there is literally no keyword in C
+35:58 called S-T-R-I-N-G, string.
+36:01 It's a concept that
+exists in C, so nothing
+36:03 is that we've said
+over the past few weeks
+36:05 has anything to do with CS50, per se.
+36:07 Almost every programming language
+you'll encounter in the real world
+36:10 supports strings in some
+way, but my claim today
+36:13 is that the keyword string is actually
+made up for us for convenience
+36:18 over the past few weeks.
+36:19 Now, why is that?
+36:20 Well, up until now, we have
+been creating strings in code
+36:23 with lines like this.
+36:24 String s equals, quote, unquote,
+"HI!" in all caps, semicolon.
+36:27 What that would do, according to
+week 2's discussion of memory,
+36:30 is it would give us four bytes in memory
+for HI Exclamation point and a fourth
+36:35 byte, to be clear, for the null
+character, N-U-L-L, the backslash 0,
+36:39 which is just 8 0 bytes.
+36:41 And, therefore, were able to manipulate
+that string as though it were an array.
+36:46 So S bracket 0 is the first character.
+36:49 S bracket 3 is the very last character,
+specifically that null character.
+36:53 Well, really, we can start to think
+about strings a little differently still
+36:57 today.
+36:58 In fact, let me go back over to VS
+Code here, clear my terminal window,
+37:03 and let's stop playing around
+with integers like number 50.
+37:06 And, instead, let's do this.
+37:08 Let's give myself a string s
+equals, quote, unquote, "HI!"
+37:13 And then let's go ahead and print
+it out, just like in week 1,
+37:16 with %s backslash n comma s.
+37:20 Let me go ahead and increase
+the size of my terminal window.
+37:23 Do make addresses.
+37:24 And here is the very same mistake
+we glossed over in week 1.
+37:28 Error, use of undeclared
+identifier string.
+37:31 Did you mean stdin?
+37:32 Now, maybe that does sound familiar,
+but it's kind of a red herring.
+37:37 This has nothing to
+do with stdin per se.
+37:39 String is undeclared because it
+doesn't exist in C by default.
+37:44 And, in fact, it thinks
+maybe this is a typo. stdin
+37:46 in is a thing that exists in programming
+languages, but string, I said, in C,
+37:50 does not.
+37:51 But this fix for me, recall
+in week 1, was to very quickly
+37:55 say, oh, we'll come back to that.
+37:56 And, at the top of my code, I went
+in and added one more include, cs50.h
+38:02 And, somehow, if I
+clear my terminal, rerun
+38:04 make addresses, that solved everything,
+and string was brought into existence.
+38:09 But how exactly was that the case?
+38:11 Well, we'll see today what's actually
+going on underneath that hood as well.
+38:15 So what have I just done with this code?
+38:18 I've simply printed out the string s.
+38:20 But, notice, I claim,
+what's really going on
+38:24 if I visit the actual memory in the
+computer is, yeah, it's an array.
+38:30 But if an array is just a
+chunk of contiguous memory,
+38:32 certainly, we could figure
+out what the bytes are,
+38:36 the addresses are of each of those
+characters H-I exclamation point,
+38:39 and the null character.
+38:40 And, again, for the sake of simple
+discussion, suppose the H is at 0x123,
+38:44 stands to reason that I is going to be
+at 0x124, exclamation points at 0x125,
+38:51 and the null character's at 0x126.
+38:53 The specific numbers
+don't matter, but what
+38:55 does matter is that
+they are 1 byte apart,
+38:57 and that is literally what I've meant
+all these weeks when I say contiguous.
+39:00 Back to back to back, they're
+literally 1 byte apart.
+39:04 So, once we know this,
+can we leverage this
+39:06 to play around with and see strings,
+perhaps, in a somewhat different light?
+39:11 Well, let me go ahead and do this.
+39:13 Let me go back to VS Code here
+after clearing my terminal.
+39:16 Let's leave string s as is, but let's
+print out a few different things.
+39:21 Let's actually print
+out what is inside of s.
+39:25 %p backslash n is how I can
+display an address, aka pointer.
+39:30 And let's print out the value of s.
+39:32 Let me go down to my terminal
+and do make addresses, enter.
+39:36 ./addresses.
+39:37 And what I see now is a seemingly random
+but a much bigger hexadecimal address.
+39:44 So it seems that s is
+not a string, per se,
+39:48 because I literally just told the
+computer to print it out with printf,
+39:51 albeit using %p instead of s.
+39:55 But %p just means show me
+the address of a variable.
+39:58 And it seems that s's technical
+value is 0X59FB1699D004.
+40:05 Now, that is the longer version of what
+I just proposed, for discussion's sake,
+40:09 is 0x123.
+40:11 Well, let's be a little
+more pedantic here.
+40:13 Let me go ahead and print
+a couple of more things.
+40:15 Let me print out another
+address using %p,
+40:19 but let me print out the address of
+the first character in s using my array
+40:26 notation.
+40:27 And then let me do some quick copy-paste
+just to see a few more of these.
+40:31 Let me print out location 1,
+location 2, and location 3.
+40:36 So we're really kind of making use
+of this arcane-looking syntax today,
+40:39 lots of %p's, but that just means show
+me, address, address, address, address,
+40:42 and so forth.
+40:44 s[0] is from week 2-- just
+show me, using array notation,
+40:47 the first character, the second
+character, the third, and the fourth.
+40:50 And &amp; is new today.
+40:51 It juts means show me the
+address of that character, not
+40:54 the actual character.
+40:55 So if I go back down to my terminal
+window, make addresses again,
+40:59 I'm going to see five values in
+total now, ./addresses gives me this.
+41:05 Let me zoom in, and what's noteworthy
+is that the very first one is
+41:10 identical to the second one,
+which seems to imply that s has
+41:16 the same address as the
+first character of s,
+41:19 but that sort of makes logical
+sense because what else would it
+41:21 be if not the first one.
+41:23 And so what we're seeing
+here now is a hint that,
+41:27 whereas %p is printing out
+literally the value inside of s,
+41:32 what was %s doing all of this time?
+41:34 It was thanks to printf's
+implementation, decades ago,
+41:38 going to that address and printing
+character, character, character,
+41:42 character, and stopping
+only once printf finds what?
+41:46 The backslash 0, the null byte.
+41:49 So some person, years ago,
+literally implemented printf.
+41:53 They literally are using s as an
+address, going to that address
+41:57 somewhere with a star
+operator in their code,
+41:60 and then using a for
+loop or a while loop,
+42:02 iterating over character,
+character, character,
+42:04 and character from that
+address onward until it
+42:06 sees the so-called null character.
+42:09 All of this has sort of been
+happening for us automatically,
+42:12 but that's really all that's going on.
+42:14 If I go back into the visualization
+of my computer's memory,
+42:17 here's that same simplification
+using smaller numbers 0x123, 124,
+42:22 and so forth.
+42:22 And what is s then when
+it's declared in memory?
+42:25 Well, it's a pointer, which
+means it takes up 8 bytes,
+42:27 so I am doing this to scale.
+42:29 But what is s really doing?
+42:30 It's storing the address of the
+first byte of the actual characters.
+42:36 It's storing nothing else.
+42:38 s is not storing the last byte.
+42:41 It's not storing the length.
+42:42 It's not storing anything other
+than the first byte's address.
+42:46 But that's OK.
+42:47 Why?
+42:48 Because how does the computer,
+functions like printf,
+42:50 know where the strings end
+just to be super clear?
+42:55 The backslash 0.
+42:56 That's why we're wasting an
+extra byte all these weeks
+42:60 because someone needs to know or tell
+everyone else where strings actually
+43:04 end.
+43:05 Those of you who do have some
+prior programming experience
+43:07 in Java or in Python or other
+languages, you can generally
+43:11 just ask a string, what is its length?
+43:13 You can call a length function.
+43:14 You can do .length or similar, those
+of you who've done this before.
+43:17 That's because in higher-level
+languages like Java and Python,
+43:21 there is more memory being used than
+just the address of the variable alone.
+43:25 Someone somewhere is keeping track of
+the length of that chunk of memory,
+43:30 but C is much lower level.
+43:32 It's much more efficient.
+43:33 It's much more complicated
+in that it leaves it
+43:35 to someone else, something else to keep
+track of where strings actually end.
+43:40 But like that's it.
+43:41 And, in fact, oh, I brought these
+just to be sort of unduly dramatic.
+43:44 All these weeks, we've had these
+sort of training wheels on,
+43:47 where we've had these simplifications
+of cs50.h and strings existing.
+43:51 And now we're taking
+the training wheels off
+43:54 because this is literally all
+that's been going on since week 1.
+43:58 I'm not sure that added anything.
+44:01 This is all that's been
+going on since week 1,
+44:04 but, again, that's the design of the
+course is to help you understand first
+44:08 at a high level so you can just get
+things working and start playing around.
+44:11 Now we're taking a peek
+underneath the hood
+44:13 to see what really has been
+going on all of this time.
+44:16 And, indeed, who cares what
+addresses these things live at?
+44:19 And so the way you would typically think
+about or draw this on a piece of paper
+44:23 is literally just with
+an arrow. s is pointing
+44:25 at a chunk of contiguous memory that
+is null terminated, so to speak.
+44:31 So where did string actually come from?
+44:33 Well, here is how I've been
+declaring strings today and prior,
+44:38 string s equals, quote, unquote,
+"HI!" string being supposedly the type
+44:42 of my variable.
+44:43 Well, it turns out that a string we
+have seen is really just an address,
+44:47 but it's the address of
+what just to be super clear?
+44:50 A string is really the address
+of its first character,
+44:55 so its first character,
+so its first char.
+44:57 So I think the
+implication of this now is
+44:60 that if we get rid of
+those training wheels
+45:01 and we get rid of even the
+CS50 library, we can actually
+45:04 start calling strings char stars.
+45:07 And this is what real
+geeks call strings.
+45:09 Like oh, a char star in C is known to
+mean you're just talking about a string,
+45:14 but you're doing it at a sort of a
+lower level, actual vernacular, which
+45:19 implies that the address is, in
+fact, that of its first char.
+45:23 The last address --of the
+address of its last char
+45:26 is implicit in that null character
+that we've been using all of this time.
+45:31 So we've actually seen
+this kind of before.
+45:33 In fact, just recently we
+introduced the notion of persons.
+45:37 And I said, well, if we wanted
+to invent our own data type
+45:39 and a person, for instance,
+would have a name and a number,
+45:42 we introduced syntax like this,
+which was kind of a mouthful,
+45:44 but the only interesting
+part is what's inside
+45:46 of the data structure in this case.
+45:48 person was the name we
+gave to the data type.
+45:51 This whole struct is what
+we wanted a person to be,
+45:54 and the way we brought a
+person into existence in C
+45:58 was we defined a type using
+the typedef keyword in C.
+46:03 That's actually going to be
+the trick to what we've been
+46:06 doing in CS50 for the past few weeks.
+46:08 We're using typedef to
+define our own type.
+46:10 We want to create an alias, for
+instance, from one thing to another.
+46:15 So just to keep things simple at first,
+suppose that I'm really confused by int.
+46:19 It's an integer I get, but why int?
+46:21 Why int?
+46:21 Suppose I want to create a
+synonym called integer for ints.
+46:26 I could literally say typedef
+int integer semicolon,
+46:29 and this will bring into existence
+a data type called integer,
+46:32 which doesn't really solve a problem
+other than helping you remember
+46:35 that ints is really
+just short for integer,
+46:37 but the syntax can be as simple as that.
+46:39 It doesn't need to be multiple
+lines with structures and Person
+46:43 attributes like that.
+46:44 So, accordingly, how can I
+define a data type for a string?
+46:48 I can say typedef char *, which
+is, admittedly, more mind-bending,
+46:54 but I want to think of
+it instead as a string.
+46:57 So, inside of cs50.h, since week
+1 has been literally this line
+47:02 of code, a bunch of other lines too.
+47:04 But this one-liner, because you
+are including it atop your code,
+47:07 brings into existence
+the keyword string.
+47:10 But it's just like doing an automatic
+find and replace between string
+47:15 and char *.
+47:17 That's all that's actually happening,
+really underneath the hood.
+47:23 What questions do you have on what
+a string actually is in this case?
+47:32 It's all what's inside of cs50.h.
+47:38 Yeah.
+47:40 AUDIENCE: In this case, if we put the
+star next to string [INAUDIBLE] that you
+47:45 were talking about, [INAUDIBLE].
+47:48 DAVID J. MALAN: A really
+good question here.
+47:53 Am I violating my own convention?
+47:58 I am not here.
+48:00 I do-- Rongxin, do you know if this
+would work without the space here?
+48:08 We'll find out.
+48:09 He's checking.
+48:10 So this is a different context.
+48:12 I'm not actually declaring a
+variable here called string.
+48:15 I am declaring a type called string.
+48:18 It's possible it's allowed.
+48:19 I don't know offhand.
+48:20 So good question.
+48:24 Other questions, yeah, in the back.
+48:25 AUDIENCE: When is it more useful to
+use the char * rather than string?
+48:29 DAVID J. MALAN: A really good question.
+48:31 When is it more useful to
+use char * instead of string?
+48:33 Honestly, after you exit CS50,
+you should not use string anymore.
+48:36 And, in fact, among
+the things we're going
+48:38 to do next week is take the last
+of these training wheels off
+48:41 and take away the CS50 library so that
+you actually use only native C code, per
+48:46 se, so that there are no more training
+wheels physically or virtually,
+48:51 otherwise.
+48:51 So, in the real world, if you ever
+write C, you would just use char *.
+48:55 We use string only because
+I daresay introducing char *
+48:59 and these memory addresses and
+mailboxes all in the first week of C.
+49:02 It's just too much when
+all we want to get working
+49:04 is like hello world
+or Mario or the like.
+49:07 Other questions, yeah.
+49:10 AUDIENCE: [INAUDIBLE]
+49:13 DAVID J. MALAN: Ah,
+really good question.
+49:15 In my VS Code here, when
+I used the &amp;, I used it
+49:24 in front of each of the
+characters 0 through 3,
+49:27 but I didn't use it here, a subtlety.
+49:29 But the reason I didn't use it
+here is because s we now know
+49:33 is already a pointer.
+49:35 It is a char *.
+49:36 So if it's already an address
+and %p expects an address,
+49:40 there's no reason to do &amp;s.
+49:43 It is already the address of a string.
+49:46 Specifically, I can now take away
+the CS50 library from my own code.
+49:50 Let me clear my terminal.
+49:51 Go back up here.
+49:52 Take the CS50 library away,
+which was a bad thing earlier.
+49:55 But if I now call this
+char * s, this declaration
+50:00 here makes more explicit that
+s is the address of a char.
+50:05 So %p expects an address.
+50:08 You can literally slot in s there.
+50:10 But s[0] s[1], s[2], those are
+actually chars inside of an array.
+50:17 So if you want the address
+of those characters,
+50:19 you do need to use the ampersand.
+50:22 And, in answer to the
+question that came up
+50:23 over here, if I were to
+incorrectly use an ampersand here,
+50:26 that would be getting the address of the
+pointer, not the address of the string.
+50:31 But we're not here to
+talk about that today.
+50:34 Other questions.
+50:35 Yeah, in the back.
+50:35 AUDIENCE: Where does %s come from?
+50:38 DAVID J. MALAN: Where does %s come from?
+50:40 So that, %s is supported by
+C and specifically printf.
+50:45 So strings exist as a concept in
+C. The word string does not exist.
+50:50 But, when you use printf now, as I
+can here as another demonstration,
+50:56 I can do printf.
+50:57 I don't change this now to %c because
+I don't want to print a character.
+51:01 I still want to print a
+whole string conceptually,
+51:04 and I can pass in here's just as before.
+51:07 So printf has always understood %s.
+51:09 That's not a CS50 thing.
+51:11 The only thing that was
+a CS50 training wheel
+51:12 was the word string, which
+we can now take away safely.
+51:16 You just have to start
+writing char star instead.
+51:19 Other questions, in the back?
+51:20 AUDIENCE: So, for our
+code going forward, should
+51:23 we be writing typedef char * string?
+51:25 DAVID J. MALAN: Oh, good question.
+51:27 So, in your own code,
+should you now start
+51:29 doing typedef char * string semicolon
+so that you can still use string?
+51:33 No, if, after today or if
+after a few days from today,
+51:36 you understand what's really going
+on and you're comfortable with it,
+51:39 there's no reason to keep
+putting the training wheels back
+51:42 on yourself in perpetuity.
+51:43 The simpler approach would just
+be keep using CS50's library
+51:46 for some amount of time, and that too
+is fine, even some final projects.
+51:49 It's fine to still use
+these training wheels.
+51:51 The goal of today and
+next week and beyond
+51:53 is really to make sure you understand
+how you can write code successfully,
+51:58 even without those same
+training wheels on.
+52:01 All right, so let's poke around just a
+little bit more with these capabilities.
+52:05 In VS Code here, let me propose that
+we can dabble a little further as
+52:11 by doing something like this.
+52:13 If I go into, let's say,
+addresses.c one final time,
+52:20 I'm still going to create s as,
+quote, unquote, "HI!" in all caps.
+52:23 But now, just to be clear, let's
+print out this string manually
+52:27 just as we could have back in week
+1, except now there is no string.
+52:31 There's only char stars.
+52:32 So I'm going to do %c /n,
+quote, unquote, comma s[0].
+52:38 And then, just for the
+sake of discussion,
+52:40 let me just copy-paste this twice so
+as to print out these two characters.
+52:43 Again, I'm just playing around.
+52:45 In the real world, I should really
+use a for loop or something like that,
+52:48 but I just want to manually poke
+around with this new syntax.
+52:51 So let me make addresses again,
+./addresses, and I should see HI!
+52:56 one per line.
+52:57 So that's just week 1 stuff.
+52:59 But now let me propose that
+there's this other feature of C we
+53:02 can avail ourselves are known
+lastly as pointer arithmetic.
+53:06 So if every chunk of
+memory has an address
+53:10 and that address is just a number,
+whether it's in hexadecimal, decimal,
+53:13 binary, whatever, they're just numbers,
+I can actually do math on addresses.
+53:18 And if I can start in
+one location, I can
+53:20 go 1 byte away, 2 bytes away, 3 bytes
+away, just by adding 1 or 2 or 3.
+53:25 It stands to reason.
+53:26 So what's the implication of this?
+53:28 Well, it turns out that I don't need
+to use square bracket notation anymore
+53:32 if I don't want to.
+53:33 We introduced it in week 2.
+53:35 It is a feature of C, and it is a
+very, very common and useful convention
+53:39 and probably the
+convention to keep using.
+53:41 But, strictly speaking, we don't
+need to use square brackets anymore
+53:44 to print out individual
+elements of an array.
+53:47 For instance, I could change
+this first line to not be s[0],
+53:53 but I can just say go to the first
+character of s because if s is
+53:59 a string--
+53:60 otherwise, now known as a char *--
+54:02 and char * just means
+the address of a char,
+54:06 well, if I want to print
+out the actual char,
+54:09 I can use * s to go to that
+address and where I will find--
+54:14 X marks the spot--
+54:15 a char in the computer's memory.
+54:17 But here's where the
+arithmetic comes in.
+54:20 Let me do another line.
+54:21 printf %c backslash n
+comma go to s plus 1.
+54:28 So I can literally do a
+bit of math on my pointer
+54:32 to go one location to the right.
+54:35 I can do this once more. printf
+%c backslash n comma %s--
+54:39 percent-- sorry, * s plus 2 to
+go 2 locations to the right.
+54:46 And I'm doing this only because I
+know HI! exclamation point gives me
+54:49 3 locations in total.
+54:50 But if I now do again make
+addresses, ./addresses,
+54:53 I get the exact same behavior.
+54:56 And, in fact, the square
+brackets we introduced
+54:58 in week 2, which, again, come with C
+is just syntactic sugar, so to speak,
+55:03 which is a term of art
+in computing, which
+55:06 just is a more user-friendly way
+of expressing this weirder syntax.
+55:11 The square brackets by the
+compiler are essentially
+55:14 converted into pointer
+arithmetic for me so
+55:17 that I don't have to write code
+that, admittedly, on the screen,
+55:19 looks more cryptic than it
+would with just the simpler,
+55:22 more user-friendly square brackets.
+55:24 But all that those square brackets
+are doing, underneath the hood,
+55:27 is effectively pointer
+arithmetic for you.
+55:31 So if I want to play around one
+final way with all of the same code,
+55:36 I can even do things that probably
+aren't the best idea but do speak
+55:39 to the power of this syntax and
+this language, C. For instance,
+55:44 if I want to print out the actual
+string s, we know I can do this already,
+55:48 %s and print out s itself because s is
+a string, otherwise known as a char *.
+55:53 So make addresses just gives me HI!
+55:56 But what if I only want to
+print out part of the string?
+55:59 I could start partway in
+the middle of this thing.
+56:02 What if I do this-- printf
+%s backslash n, s plus 1.
+56:07 So no star, I don't want
+to print out a char.
+56:09 I want to print out a whole string.
+56:11 What is a string?
+56:12 A string is an address of the
+first character of the string,
+56:17 still null terminated.
+56:18 So, when I compile this code,
+printing out-- and, actually, let
+56:22 me get rid of the previous line.
+56:24 When I compile this code with make
+addresses and I run ./addresses,
+56:28 what should I see on the screen now?
+56:30 If I'm not printing starting at s,
+I'm printing starting at S plus 1?
+56:35 AUDIENCE: i.
+56:36 DAVID J. MALAN: Yeah, I think
+you're saying i, like i!
+56:39 Why?
+56:40 Because if these strings start
+at 0x123 and go 0x124, 0x125,
+56:45 0x126 and I'm starting at 0x123 plus
+1, that means start at the second
+56:50 character.
+56:51 And I think, yep, I now see i!
+56:54 If I change it to 2, I now see,
+after doing make addresses,
+56:59 I think I should just see very
+excitedly an exclamation point.
+57:01 And that's it.
+57:02 I probably don't want to
+go even further than this
+57:04 because then who knows what's
+going to happen if I start printing
+57:07 beyond the boundaries
+of the actual string.
+57:09 And that, in fact, is going to
+be one of the trade-offs here.
+57:12 Even though now with these simple
+operators like star and an ampersand--
+57:15 we can now manipulate and understand
+memory at this lower level--
+57:19 we can actually do a lot of damage.
+57:21 And among the things we'll talk
+about today too, after the break,
+57:24 is recall the CrowdStrike
+fiasco a few months back where
+57:28 systems around the world broke down,
+including airlines and the like.
+57:32 That stupid, stupid issue was the
+result of such a simple problem
+57:37 that, after today's break,
+you too will understand.
+57:40 But, in the meantime, in happier
+news, let's have some little bites
+57:43 of blueberry muffins in the transept.
+57:46 See you in 10.
+57:47 No, don't applaud.
+57:48 We're not done.
+57:48 See you in 10.
+57:50 All right.
+57:51 We are back and one erratum.
+57:54 So this was the line of
+code I proposed in cs50.h.
+57:58 It's not quite the line of code
+in cs50.h because, as was asked,
+58:01 stylistically, the, quote, unquote,
+right way to write this would indeed
+58:05 be without the space after the star.
+58:07 So even though string is not being
+declared as a variable here but rather
+58:11 as a type, stylistically--
+58:13 and just asked style50 for the correct
+answer, it would indeed omit the space.
+58:17 So this is what I should
+have said earlier,
+58:19 and we'll fix that in the
+online version thereof.
+58:22 But, for now, let's actually
+transition to taking a look again
+58:26 at the computer's memory
+and revisit some problems
+58:28 that we looked at indirectly
+over the past couple of weeks
+58:31 and better understand why things
+worked and now work the way they do.
+58:35 So let me go over to VS
+Code here, and I've written
+58:38 in advance a relatively simple program.
+58:40 I'm still using cs50.h and
+stdio.h for this example.
+58:44 I'm calling get_int twice
+to get two variables, i
+58:47 and j, so two numbers from the user.
+58:49 And I'm checking for
+equality using equals equals.
+58:52 So if i equals equals j,
+I'm going to print same.
+58:55 Otherwise, I'm going to print
+different, so fairly straightforward.
+58:58 And it should just work.
+58:59 Indeed, if I open up my terminal window,
+and I do, let's say-- oops, sorry.
+59:06 If I open up my terminal window, do make
+compare because this file is compare.c,
+59:11 I can then do ./compare and type
+in two numbers like 50 and 50,
+59:15 and they're indeed the same.
+59:16 Or I can do it again 50 and 51,
+and they're, in fact, different.
+59:20 And I'll stipulate that pretty
+sure this code is in fact correct.
+59:23 But what if we make a change of sorts
+and actually compare not integers,
+59:28 but strings, what's going on?
+59:30 Well, let's first consider what
+is happening with integers.
+59:32 So here's my computer's memory.
+59:34 And I've zoomed out a bit just so we
+can fit more on the screen at once.
+59:37 And here might be where i and j
+end up in the computer's memory.
+59:40 When running this program,
+i here j here, both of them
+59:43 4 bytes because both
+i and j are integers.
+59:46 It stands to reason then,
+when I compare i and j,
+59:50 we are literally comparing 50
+against 50 in that first scenario.
+59:54 And indeed it's, technically,
+32 bits and 32 bits,
+59:57 but they're exactly the same if
+they're both storing and representing
+60:01 the value 50.
+60:02 All right, so fairly straightforward.
+60:04 But what about strings?
+60:06 In fact, we deliberately introduced
+strcmp, for string comparison,
+60:10 because, when I last tried
+to compare two strings,
+60:14 it didn't actually work as
+intended when using equals equals.
+60:18 So, in fact, let me go back to my
+code here and close my terminal window
+60:21 and just make a couple of changes here,
+same idea but different data types.
+60:25 So let's do string s equals
+get_string, and we'll prompt the user
+60:30 for a string s now instead of i.
+60:33 Then maybe a string t just
+to keep the variable name
+60:35 short for the sake of discussion,
+and prompt the user for t here.
+60:38 Then let me go ahead and say if s == t.
+60:42 Go ahead as before, and
+print out Same backslash n.
+60:46 Otherwise, go ahead in my else clause
+and print out, quote, unquote--
+60:52 oops, quote, unquote, "Different".
+60:55 All right, so same logic but different
+data types using strings for the type
+60:60 and get_string for the function.
+61:01 Let me open my terminal
+window again, make compare.
+61:04 No syntactic errors, but let me go ahead
+and do ./compare and type in something
+61:09 like, how about HI!
+61:11 and HI!, both in all caps, but
+they appear to be different.
+61:16 I can try again.
+61:17 Maybe my name, David and David.
+61:20 Hmm, also different even
+though it seems to be the same.
+61:23 So what's going on?
+61:24 Well, you might already
+have an intuition.
+61:26 And someone last time, when we
+looked at a program like this,
+61:28 did have an intuition.
+61:29 But what if we make
+it more explicit now?
+61:31 What if I change my
+strings to literally char
+61:33 *'s, which doesn't
+affect the functionality
+61:35 but takes off one of
+those training wheels.
+61:37 I'm not going to get rid of cs50.h
+altogether because, as we'll see,
+61:40 I still want to use get_string.
+61:42 Otherwise, it's a pain in the
+neck in C to get user input.
+61:44 But we'll come back to that.
+61:46 But s now is not only a string.
+61:48 It's more precisely the
+address of a character,
+61:51 technically, the first
+character of a string.
+61:54 So what then is being compared on line
+9 that's yielding this different answer?
+62:01 Why are HI!
+62:03 And why are David different
+even if typed identically?
+62:07 Yeah, it's two different addresses.
+62:09 What's really going on if we take a
+look at the computer's memory now,
+62:12 dealing with strings is the following.
+62:15 Here's that grid of memory.
+62:16 Maybe s ends up here, and maybe
+the actual array of characters
+62:22 ends up here because, notice,
+when we're using strings,
+62:24 technically, we're storing the address,
+and we're storing the actual characters.
+62:28 And that's all been happening magically
+in one step for us, one line of code.
+62:31 But, technically, there's different
+chunks of memory involved.
+62:34 And it might be at 0x123,
+0x124, 0x125, and 0x126.
+62:39 All of that happens automatically
+with that one line of code
+62:41 when I create and initialize s.
+62:44 Meanwhile, s is going to therefore store
+the address of that first character,
+62:48 hence the whole idea of a char *.
+62:50 But what is t?
+62:50 Well, maybe t ends up over
+here somewhere in memory.
+62:53 Maybe the other HI! that I typed in or
+later the David that I typed in ends up
+62:58 at maybe 0x456, 0x457, 0x458, 0x459.
+63:03 Again, who cares what the addresses are?
+63:05 But they are back to back
+to back, which is important.
+63:07 But suffice it to say
+then what ends up in t
+63:10 is the address of that second
+string that I actually typed in.
+63:13 And, for all intents
+and purposes, that's
+63:15 like s pointing to this chunk of memory,
+t pointing to this chunk of memory.
+63:19 So, when I use literally == to
+compare the two strings, that is,
+63:24 to compare the two char *'s, that is,
+compare the two addresses, clearly,
+63:29 they're in different places.
+63:31 It's like asking the computer,
+are 0x123 and 0x456 the same?
+63:36 Well, of course, not, those are
+literally two different numbers
+63:38 written in hexadecimal or anything else.
+63:41 So we needed a solution for this.
+63:43 And that is why we introduced
+strcmp, the function that
+63:46 actually addressed this properly.
+63:50 If I go back then to VS Code
+here and, instead of using ==,
+63:55 I give myself access to our old
+friend now, the string.h header file--
+63:60 in that library is the
+declaration of strcmp.
+64:04 So I can do strcmp passing
+in two variables s comma t.
+64:10 And, recall, what is the
+return value I care about?
+64:13 What is strcmp return if
+two strings are equal?
+64:16 So it returns 0.
+64:17 Otherwise, it's a positive
+or a negative number,
+64:19 which helps with alphabetization.
+64:20 But that's not what we want here.
+64:22 I want to make sure that the
+return value of strcmp == 0.
+64:26 And what does that do for me?
+64:28 Well, if I open up my terminal again,
+make compare, ./compare, and, again,
+64:32 type in HI exclamation point, enter,
+and HI exclamation point, enter.
+64:38 Now they're, in fact, the same.
+64:40 But if I type something
+different like HI!
+64:43 and BYE!
+64:45 those, of course, are different,
+not on the basis of their addresses,
+64:49 but on the basis of
+their actual characters.
+64:52 And, in fact, that's
+what's really happening.
+64:54 The way strcmp is implemented by someone
+else years ago is that they have some
+64:59 code, some kind of loop probably,
+that first dereferences s and t,
+65:04 respectively, goes there, and
+then, in some kind of loop,
+65:07 iterates over these
+two strings in memory,
+65:10 checking whether the individual
+chars =='s each other,
+65:14 stopping once it hits
+backslash 0 in either string.
+65:18 And if they happen to look the
+exact same character by character,
+65:22 then it returns 0.
+65:24 It's a little fancier than that because
+it uses some less than or greater
+65:27 than to figure out if one comes
+before the other ASCII-betically.
+65:30 But it is doing the
+walking across the string.
+65:33 So the person that
+implemented strcmp uses
+65:36 a for loop, a while loop, whatever
+to do all that legwork for us.
+65:41 Questions on strcmp or
+what we've just revealed?
+65:47 Yeah.
+65:48 AUDIENCE: Subtracting the value
+of-- the ASCII values of each char
+65:51 from [INAUDIBLE]?
+65:53 Is that why it was a [INAUDIBLE]?
+65:54 DAVID J. MALAN: Good question.
+65:55 Is it subtracting the ASCII
+values of the characters?
+65:57 Not necessarily.
+65:58 It's probably comparing them
+with less than or greater
+66:00 than literally because if
+you're comparing A and B,
+66:03 that would be like comparing
+65 and 66 if capitalized.
+66:06 So you don't need to
+subtract anything, per se.
+66:08 You can just compare the
+magnitude of those values.
+66:11 Yeah.
+66:13 AUDIENCE: So do you have to create
+a different memory to store that?
+66:17 DAVID J. MALAN: Oh, good question.
+66:19 Do we use two locations in
+memory for both the pointer
+66:22 s and the actual array of characters?
+66:25 Short answer, yes.
+66:26 And how that is happening is, as
+follows, if I go back to VS Code
+66:30 and highlight the lines of code that we
+just wrote, so, for instance, line 7,
+66:36 the left-hand side of the expression
+here creates those 8 bytes in memory
+66:40 called s that will
+eventually store an address
+66:43 of the first character of some string.
+66:45 The get string function,
+written by cs50,
+66:48 handles the process of
+allocating the array for H-I-!
+66:52 And the backslash 0
+and puts it somewhere.
+66:55 I depicted it down here on the screen.
+66:57 So get_string allocates one
+chunk, and your code here
+66:60 allocates the other chunk.
+67:01 There are other ways to do this.
+67:02 And, in fact, once we completely
+take away the CS50 library,
+67:05 you have to allocate not
+only the left side, but also
+67:08 the memory for the right side
+of this expression, so to speak.
+67:11 And we can do that in different ways,
+and we'll come back to that soon.
+67:14 All right, so if we now know and
+appreciate that these two addresses are
+67:21 indeed different s
+and t, it turns out we
+67:23 can play around with create some new
+problems but also solve them as well.
+67:29 So how might I go about,
+for instance, let's see--
+67:35 seeing what we just did, if
+I go back into VS Code here,
+67:38 let me just do something simple
+and no longer compare these.
+67:40 But, just to make the point,
+using our %p format code now,
+67:44 I can actually print out the actual
+values of s and p if I want to--
+67:49 s and t if I want to convince
+myself of all of this.
+67:51 So I can print out--
+67:53 sorry, with %p with the value
+of s, with %p the value of t.
+67:58 And, in this case, even if I type the
+same thing, watch again what happens.
+68:02 Make compare, ./compare.
+68:05 I'll type in HI!
+68:06 I'll type in HI!
+68:07 And I should now see two addresses,
+but, per the depiction, on the screen,
+68:12 they do end up in different locations.
+68:14 They're similar locations.
+68:15 These numbers are actually
+pretty similar, but, notice,
+68:18 they differ down here.
+68:19 A b and an f puts them
+a few bytes apart.
+68:21 So they're actually next
+to each other in memory,
+68:23 but they're not, in fact,
+at the same location.
+68:26 So that's what's happening
+underneath the hood.
+68:28 And, just to be super
+clear, it is rare, if ever,
+68:30 that you as a programmer will ever
+bother using %p to print out an address.
+68:35 Generally, we do not care
+where things are, just using it
+68:37 for the sake of
+demonstration to make clear
+68:40 that we could go there if we so want.
+68:43 All right, well, what
+if we want to make--
+68:46 maybe manipulate these strings and
+actually change them in some ways.
+68:49 Let me do this.
+68:50 Let me clear my terminal,
+close compare.c.
+68:52 Open a new file called copy.c
+whereby I might ultimately need
+68:57 to make copies of strings in memory.
+68:59 And let me go ahead and do this.
+69:00 Let me include cs50.h so I
+can still use get_string.
+69:03 Let me include, how about,
+stdio.h, as we often do.
+69:08 Let me include string.h as we now do.
+int main(void) for my main function.
+69:15 And then, in here, let's do
+the same thing as before.
+69:17 string s equals get_string, and
+prompt the user for that string.
+69:21 Then let's go ahead and
+copy the string as follows.
+69:24 String t equals s, then
+let's go ahead and capitalize
+69:30 the first letter of this string.
+69:33 And it might be a little hazy, but we
+introduced a library a couple of weeks
+69:36 back called ctype.h, which has a bunch
+of functions related to types in C,
+69:41 one of whose functions,
+recall, is toupper,
+69:43 which just uppercase is a character.
+69:45 So what I'm going to
+do here is I'm going
+69:47 to change the first
+character of t, but not s,
+69:51 to equal whatever the
+return value of toupper
+69:54 is passing in the first character of t.
+69:56 So I'm just changing
+the first character of t
+69:58 to be the uppercase version thereof.
+70:00 Now I'm going to go ahead and print out.
+70:02 The value of s is %s backslash n.
+70:05 And I'm going to plug in s.
+70:06 And then I'm going to do
+the exact same thing for t.
+70:09 So I can see both the before and the
+after version of my capitalized change.
+70:14 Let me open my terminal.
+70:16 Let me do make copy.
+70:18 And I screwed up because I
+should be including not a c file,
+70:22 but a header file.
+70:23 So ctype.h at the top,
+unintended mistake.
+70:27 Make copy again.
+70:29 That worked. ./copy, and now this time
+let me deliberately type it in all
+70:33 lowercase HI exclamation point because
+the whole point of t is to be uppercase.
+70:37 If I hit Enter now, I
+see, huh, a curiosity.
+70:43 Both s and t were somehow
+capitalized for some reason,
+70:48 even though I only changed, on
+line 12, the first character of t.
+70:55 Why might that be?
+70:59 Why might that be?
+71:00 Let me offer a bit of a hint.
+71:01 What if, again, we take off
+some of these training wheels?
+71:04 S is just a char * as of today.
+71:06 t is just a char * after today.
+71:09 So what's happening such that I'm
+seeing the change affect both s and t?
+71:14 Yeah.
+71:17 Yeah, I'm really copying literally s and
+t, which means both of those variables
+71:22 contain the same address.
+71:23 So, even though I'm
+following t's address,
+71:26 that leads me to the same
+location that s is pointing to.
+71:29 So I'm essentially changing the one and
+only one copy of HI exclamation point.
+71:34 In fact, we can see that as follows.
+71:36 If I open up my computer's memory--
+71:38 let me propose that s ends up over here.
+71:40 Maybe hi in lowercase ends up down here.
+71:42 Maybe at those same addresses as before
+0x123 therefore s contains 0x123.
+71:48 Meanwhile, t is a separate variable that
+I declared with almost identical code,
+71:52 but I then set it equal to s, which is
+literally copying the value in s into t.
+71:57 If we now get rid of all these
+unnecessary addresses and just use
+72:01 abstraction, it's as though s and
+t are pointing at the same place.
+72:04 So it doesn't matter whether
+you follow s or you follow t
+72:07 when you dereference either.
+72:09 As is implied by the
+square bracket notation,
+72:12 means go there, you're just
+changing the 1 and only copy of H.
+72:17 And so, whether you print
+s or t, you print out
+72:19 the capitalized version thereof.
+72:21 So what's the solution here?
+72:23 Well, we actually need to
+be a little more clever when
+72:25 it comes to making actual copies.
+72:29 Up until now, super simple to copy
+integers, chars, floats, longs, doubles.
+72:34 All of those primitive data types,
+super simple because code like that,
+72:38 on line 10, would just work.
+72:40 But, whenever you're talking
+about something fancier
+72:42 like a string, which
+isn't one location-- it's
+72:44 sort of a sequence of
+locations, someone's
+72:47 got to do the hard work of
+allocating another chunk of memory,
+72:50 copying the characters
+from old into new,
+72:53 and somehow keeping
+track of all of that.
+72:55 Now, we'll do this
+ourselves in just a moment,
+72:57 but, thankfully, there's
+going to be a library that
+72:59 can make our lives easier instead.
+73:01 So let me go ahead and do this.
+73:04 Let me propose that we, in VS
+Code, improve this code as follows.
+73:11 Instead of just blindly
+copying s and calling it t,
+73:16 I'm going to actually use a
+new function called malloc.
+73:21 We haven't needed this before.
+73:22 It's among the remaining
+tools in our toolkit in C.
+73:25 But malloc stands for memory allocation.
+73:27 And it's a function that super simply
+lets you pass in as input a number.
+73:32 How many bytes of memory do you want?
+73:34 And it will hand you
+back a chunk of memory.
+73:36 Specifically, it will hand you back
+the address of that chunk of memory,
+73:40 specifically, the address of the
+first byte of that chunk of memory.
+73:44 Free is the opposite.
+73:46 Once you're done with this
+memory, you can call free
+73:48 and give it back to the computer so that
+you don't eventually run out of memory.
+73:51 You can give things
+back when you're done.
+73:53 So how can I now leverage
+this in my own code?
+73:56 Well, let me propose that.
+73:58 I implement a copy a
+little more cleverly here.
+74:01 Let me go back to VS Code here.
+74:03 And, instead of using s
+equals t, let me instead
+74:08 say t initially should store the
+address of a new chunk of memory
+74:13 that's big enough to
+store the characters of s.
+74:16 The way I do that would be malloc.
+74:18 And how many do I need?
+74:19 H-I-!
+74:20 And the null character.
+74:21 I could just get away with saying 4.
+74:24 Give me 4 bytes of memory and store
+the address of the first byte in t.
+74:30 That is what line 10 is now doing.
+74:32 Now, that's kind of a stupid approach.
+74:34 I shouldn't hard code the
+number 4 because who knows
+74:36 what the human's going to type in.
+74:37 But we have other friends here.
+74:38 We can say, figure out
+what the length of s is,
+74:42 add 1 more bite for the null character,
+and ask malloc for that many bytes
+74:47 because, now, no matter
+how big or small s is,
+74:50 we're going to ask for the
+appropriate number of bytes.
+74:53 What is stored in t at
+this point in the story
+74:56 is the address of that chunk
+of memory, specifically
+74:59 the address of the first
+byte in that memory.
+75:02 Now, there's no null
+terminator or anything.
+75:04 Everything in there at the
+moment is sort of garbage value,
+75:06 so to speak, until I
+put something there.
+75:08 So what I'm going to do now is this,
+after I allocate that chunk of memory,
+75:13 I'm going to use a for
+loop, just like the authors
+75:15 of strcmp had, but for
+a different purpose.
+75:19 For int i equals 0, n equals the
+string length of s semicolon.
+75:27 And we've seen that technique before.
+75:28 So we don't waste time calling
+strlen again and again and again.
+75:31 i is less than n.
+75:33 And then i++.
+75:35 And, inside of my loop, I'm going to
+copy into location i of t whatever's
+75:41 at location i of s, effectively
+copying from left to right all
+75:47 of the characters of s into t.
+75:50 At the very end of this, I could
+do something, but I think--
+75:57 I could do something to
+manually add a null character
+76:01 to the end of my new string t, but
+I don't think I have to do that.
+76:04 The one time this makes
+sense is perhaps now.
+76:07 I'm going to actually
+iterate from i less than
+76:09 or equal to n because I actually want
+to copy the null character as well.
+76:14 So if the string is H-I
+exclamation point new line,
+76:17 I actually do want to go from
+0 to 1 to 2 to 3 and then stop.
+76:22 Normally, I would go
+from 0 to 1 to 2, but I
+76:24 want to include the sort of
+secret null character there.
+76:28 So I think this for loop
+will capture that for me.
+76:30 I'm not going to change
+any of the rest of code,
+76:33 so all I have done that's
+different now is explicitly
+76:36 allocate a new chunk of memory for
+t and copy everything in s into t.
+76:42 But, to use malloc,
+I need a new library.
+76:47 I'm going to go up here
+and include stdlib.h.
+76:51 And, again, you learn, through
+practice, what's in what library?
+76:54 Or you can go to manual.cs50.io
+and just look it up
+76:56 to figure out in which
+header file something is.
+76:58 And I'm also going to include
+the same header files as before.
+77:03 So the only change is to add stdlib.h.
+77:05 Let me open my terminal window.
+77:07 Make copy ./copy.
+77:10 And now let me type in H-I
+exclamation point in all lowercase.
+77:14 And I should see in a moment
+the output of both s and t,
+77:18 but, hopefully, only one
+of them is capitalized t.
+77:22 And, indeed, I've done it somehow.
+77:24 So what actually just happened?
+77:26 Well, if we actually go over
+to a visualization thereof,
+77:29 here is my computer's
+memory when s exists.
+77:33 If, though, I'm going to
+allocate new memory with malloc,
+77:36 that's like calling malloc,
+getting some chunk of memory.
+77:39 Maybe it ends up here.
+77:40 Maybe it ends up somewhere else.
+77:41 I'm just keeping it in the
+same place for discussion.
+77:43 And the first address
+happens to be 0x456.
+77:46 Well, what gets stored in t?
+77:47 The return value of malloc,
+and malloc returns the first--
+77:50 the address of the first byte of memory.
+77:52 So what ends up in t
+is effectively 0x456.
+77:55 But who cares?
+77:56 We'll just draw it
+abstractly as an arrow.
+77:58 What does my for loop then do?
+78:00 Well, it iterates over s and t in
+lockstep such that the h gets copied,
+78:06 the i gets copied, the
+exclamation point gets copied.
+78:09 And because I use less
+than or equal to, we also
+78:12 copy the secret null character as well.
+78:15 Then I use toupper on t[0].
+78:19 Here's t, here's t[0], and so I think
+only the h and t is now capitalized.
+78:26 It's not a particularly
+interesting exercise,
+78:28 but it does demonstrate really,
+with as few steps as possible, how
+78:32 we can solve this problem of
+actually copying strings in memory
+78:35 by allocating enough space for
+them in that actual memory.
+78:40 But there is a caveat.
+78:41 A lot of things, unfortunately,
+this week onward,
+78:44 can go wrong when it comes to memory.
+78:45 Your computer could be out.
+78:46 Maybe you have an older computer.
+78:48 Maybe you have a really fancy
+program that has so many variables,
+78:50 so many arrays that eventually
+you run out of memory.
+78:52 It's possible that malloc can fail.
+78:55 Something can go wrong, and
+malloc will not, in fact,
+78:58 return to you the address of the
+first byte of memory available.
+79:01 Because if none's available, it's
+got to return something else.
+79:04 So, in cases of error, what
+malloc really returns to you is 0.
+79:09 I have no valid bytes for you.
+79:11 And 0 itself is a number.
+79:13 So that's a little confusing.
+79:14 And this doesn't really
+help with confusion--
+79:16 what malloc returns, if an error
+happens, is null with two l's.
+79:22 This was a stupid design decision
+decades ago to call the character 0
+79:26 N-U-L and the pointer 0 N-U-L-L,
+but this is where we're at.
+79:31 So N-U-L-L is the address 0, and it
+almost always signifies something went
+79:37 wrong.
+79:37 We just need a special
+symbol to signify something
+79:40 went wrong when returning
+a value from malloc.
+79:42 So how can I use this?
+79:44 Unfortunately, now, just like
+in some of the problem sets
+79:47 thus far, when you've started
+to add error checking to when
+79:49 things can potentially go wrong,
+your code gets a little more verbose.
+79:53 But what I'm going to do here if I
+go back to VS Code, is the following.
+79:58 What can go wrong?
+79:59 Well, if t ends up
+equaling null, that is,
+80:04 if it has a bogus return value in it
+that is not a valid memory address,
+80:08 then there's not much I really can do
+except return one just to signify error.
+80:13 I could print out an
+error to the screen.
+80:15 I could inform the user somehow,
+but if malloc returns null,
+80:18 I had better not proceed to try copying
+things from left to right into it
+80:22 because there is no memory there.
+80:24 That chunk of memory on
+the screen at bottom-right
+80:26 does not exist if
+malloc fails, of course.
+80:30 So you don't want to go there and start
+blindly touching memory, let alone
+80:33 capitalizing memory that's there.
+80:35 So I have to start adding in some
+of these error checks in this case.
+80:39 And, in fact, even
+this is a little naive.
+80:41 It's probably not safe to even
+assume that the user typed
+80:44 in any string at all.
+80:45 Maybe the human just to be difficult
+or making a mistake and just hit Enter.
+80:48 So the length of the string is 0.
+80:51 You probably shouldn't
+try capitalizing 0 either.
+80:54 And so what we should probably
+do down here to be super safe
+80:57 is only if the strlen of t
+is at least greater than 0,
+81:03 then go ahead and capitalize it.
+81:06 Otherwise, do not touch
+that memory either.
+81:09 In other words, starting
+this week and next week
+81:11 and even when we get
+to Python, you should
+81:13 start acquiring an instinct
+to code defensively.
+81:15 Things can go wrong in your
+code, in someone else's code,
+81:18 and if you do not handle
+those situations with ifs
+81:21 or else ifs or the like, your computer
+will crash, the thing will freeze
+81:24 or the like.
+81:25 And, again, to tease the
+CrowdStrike example, if you screw up
+81:28 and you don't check the boundaries of
+something, the length of something,
+81:32 who knows what can happen?
+81:33 Because if you touch memory
+that does not belong to you,
+81:35 the typical behavior, again,
+is to crash, to freeze,
+81:38 to do some undefined behavior like that.
+81:41 Now I will say this is
+getting really annoying.
+81:43 I mean, I've written what like
+30-some-odd lines of code just to copy
+81:46 two strings.
+81:47 That's a little unfortunate when this
+is probably a pretty common thing
+81:51 to do in the real world.
+81:52 So it turns out there are
+library functions like this too.
+81:55 And, in fact, I can get rid of a
+lot of my code here for copying.
+81:59 And I can actually just call a
+function strcpy, S-T-R-C-P-Y for short,
+82:04 and pass in the destination,
+pass in the source, semicolon.
+82:09 And that will do all of
+for loop or the while loop
+82:12 or however that person implemented
+it of copying one into the other.
+82:16 The ordering's a little weird.
+82:17 It is indeed destination comma
+source, but that saves me the trouble
+82:22 of doing all of that code myself.
+82:26 Questions then on what we've done here,
+the key details really being malloc
+82:31 and one omitted detail,
+which we'll come back to.
+82:33 Yeah.
+82:34 AUDIENCE: So, when you call--
+or when you create a char *,
+82:37 and you create two right after each
+other, and you assign a string value,
+82:42 you showed us that--
+82:43 DAVID J. MALAN: A really good
+question, let me summarize.
+82:46 If you allocate two
+variables that happen
+82:48 to be next to each other in memory,
+but maybe you type in, excuse me,
+82:51 a very long string for one of them,
+can one overflow into the other one?
+82:54 Short answer, yes.
+82:55 And we're going to talk
+about that briefly today.
+82:57 The code I've written is not
+vulnerable to that at the moment.
+83:00 And, in fact, among the
+things that get_string
+83:02 has been doing for us
+since week 1 is it actually
+83:05 sort of crawls over the user's input,
+literally taking baby steps to make sure
+83:10 that we only allocate more memory, more
+memory, more memory for every keystroke
+83:14 that you type in.
+83:15 So, theoretically,
+there should be no way
+83:17 to crash get_string unless
+you type in more bytes
+83:20 than the system has even memory for.
+83:21 But, even that, we
+should be able to detect
+83:23 because we are somewhat
+inefficiently, but very conservatively
+83:27 trying to avoid the
+situation you described.
+83:29 But it is too common in life
+is-- again, with CrowdStrike,
+83:32 you'll see that humans
+will make mistakes
+83:34 when it comes to the length of
+memory or arrays that we have.
+83:37 Now, I alluded to there being
+one mistake or omission here.
+83:41 Did I somehow not practice
+what I preached a moment ago
+83:44 about malloc and its cousin?
+83:46 AUDIENCE: You didn't free your memory.
+83:47 DAVID J. MALAN: I never
+freed my own memory.
+83:49 So, technically, this program has what
+we would call a memory leak, whereby
+83:53 I'm asking for memory
+on line 11 via malloc,
+83:56 but I'm never giving it back
+to the operating system.
+83:58 Now, this is a bit of an
+overstatement, because, technically,
+84:00 when the program quits, it should
+automatically give everything back.
+84:03 But a lot of programs in the
+world keep running again and again
+84:06 and again, really forever, like
+a clock program or a web server
+84:09 or an email server and the like.
+84:11 And if that code that you or someone
+else has written asks for memory,
+84:14 asks for memory, and never
+hands it back, freezes,
+84:17 crashes eventually because the computer
+will somehow run out of memory.
+84:20 So it's an easy fix.
+84:21 At the very bottom of this
+program, once and only
+84:24 once I am done using t in the
+first place, I can simply free t.
+84:30 And C itself-- or, really,
+the functions that we're using
+84:35 keeps track of how many
+bytes you asked for.
+84:37 You do not need to-- when
+freeing it, it will free
+84:40 that byte onward that you requested.
+84:43 So free does the
+opposite of then malloc.
+84:46 All right, unfortunately, we have
+so much power at our disposal
+84:51 now lots of things can go wrong.
+84:52 But, thankfully, there
+are tools that help
+84:55 you find these mistakes so that
+if and when your program crashes,
+84:58 you don't have to just kind of stare at
+the screen or ask a TF or another human
+85:01 for help.
+85:02 You can actually use software
+tools that other people
+85:04 wrote that detect these common errors.
+85:05 And one of these
+programs that you're now
+85:07 going to have access to besides printf,
+besides debug50, besides the rubber duck
+85:12 is a program called Valgrind, which is
+a command line program whose output is
+85:16 a little scary looking,
+but it will allow
+85:19 you to look at your program
+for memory-related errors.
+85:23 So let me go ahead and propose this.
+85:25 I'm going to open up a program that I
+wrote in advance here called memory.c.
+85:30 And, quite simply, in VS
+Code, it looks as follows.
+85:33 I have-- including stdio.h.
+85:36 I'm including stdlib.h
+so that I can use malloc,
+85:39 and this program does nothing useful.
+85:40 It just demonstrates, as
+simply as I can, a bug.
+85:43 On line 6, I'm allocating
+a variable called x that's
+85:48 going to be a pointer to an integer.
+85:49 And I'm allocating space
+for three integers.
+85:52 So we haven't seen this before, but
+it just kind of does what it says.
+85:55 Give me memory for
+three of these things.
+85:58 What are these things?
+85:59 Well, whatever the size of an int is--
+86:00 I know it's four, usually.
+86:02 So I could just write 4 times 3.
+86:04 But I'm going to generalize it.
+86:06 sizeof is an operator in C
+that lets you figure out,
+86:08 what is the size of
+this type of variable?
+86:10 It's usually 4, but, on older computers,
+eventually on newer computers,
+86:14 it might not be 4, so
+I'm not going to write 4.
+86:16 I'm going to say size of int.
+86:17 So this whole line 6 gives me enough
+memory for an array of three integers,
+86:22 and it stores the address of the
+first byte in a variable called x.
+86:27 So what's x1 going to be?
+86:30 72.
+86:31 What's x2 going to be?
+86:32 73.
+86:32 What's x3 going to be?
+86:33 33.
+86:34 Even in these four lines
+of code, there's two bugs.
+86:38 Can you spot any of them.
+86:39 Yeah.
+86:40 What's that?
+86:42 Yes, so I did not 0-index my array.
+86:44 So that's sort of week
+2-type of mistake.
+86:46 This should be x[0], x[1], x[2], and
+there's a second more subtle mistake.
+86:55 Yeah.
+86:57 AUDIENCE: [INAUDIBLE] 0.
+86:58 DAVID J. MALAN: I don't have what?
+86:59 AUDIENCE: [INAUDIBLE] 0 at the end.
+87:01 DAVID J. MALAN: I don't have room--
+oh, I don't have room for the 0,
+87:04 but that's OK because I'm
+dealing with integers only.
+87:06 I'm not strictly trying to
+treat this like a string.
+87:09 But good eye, but only relevant if
+I'm dealing with strings or char *'s.
+87:13 It's subtle, but we also talked
+about it like three minutes ago.
+87:16 Yeah, I didn't free the memory.
+87:18 So I called malloc,
+but I didn't eventually
+87:20 call free at the end of my function,
+so at least two mistakes it would seem.
+87:24 Now, you can reason through this,
+and there's only four lines of code,
+87:27 so, eventually, you'd probably figure
+it out with some time in practice.
+87:30 But could a program help
+me spot these mistakes?
+87:33 Well, debug50 is not relevant here,
+per se unless your program crashes.
+87:38 debug50 can probably
+tell you on what line
+87:40 it crashed, but not necessarily why.
+87:42 What we need is a memory-related
+program called Valgrind.
+87:45 And, to do this, to use it,
+I'm going to do the following.
+87:48 I'm going to run make memory.
+87:50 And if I do ./memory, at a
+glance, nothing seems to go wrong.
+87:53 It didn't even crash.
+87:54 But it's still incorrect.
+87:56 And especially if I have these
+kinds of bugs in larger software,
+87:59 it's definitely going
+to crash eventually.
+88:01 So let me do this instead.
+88:02 Let me run this program
+called Valgrind on ./memory.
+88:06 So, just like you run debug50
+./something, you run Valgrind ./memory.
+88:11 Let me increase the size
+of my terminal window
+88:13 because there's going to be a lot
+of ugly output here for a moment
+88:15 and hit Enter.
+88:16 And you'll see a whole
+bunch of cryptic output
+88:18 and a lot of numbers, which
+largely aren't useful for us
+88:22 until we get to the error messages.
+88:24 So I ran the command up here.
+88:26 I saw all this crazy output.
+88:28 But what's germane?
+88:29 Well, here, I have
+invalid write of size 4.
+88:32 It's a little technical,
+but that just means
+88:33 I'm changing something
+that involves 4 bytes.
+88:36 Well, what does that mean?
+88:37 Well, apparently my mistake
+is in memory.c line 9,
+88:41 and it's elaborating with
+some cryptic addresses,
+88:43 which, again, I don't really care about.
+88:45 But I do care about this.
+88:48 After a block of size 12
+is allocated-- so there's
+88:50 12, evidence that there's indeed
+an array of three ints, which
+88:54 total 12 bytes.
+88:55 So that's consistent.
+88:57 But what's going on?
+88:58 It's at line 9.
+88:59 Well, how did I somehow touch
+4 bytes that I shouldn't.
+89:02 Well, if I go back to my code
+by shrinking my terminal window,
+89:05 look at line 9, it did
+not like, as you observed,
+89:10 the last element of the array because
+I 1-indexed instead of 0-indexed.
+89:15 So, OK, I think my fix is
+going to be to change this
+89:17 to 0, 1, and 2, so 0, 1, and 2.
+89:20 But let's go back to the errors because
+there was another one on the screen.
+89:23 If I ignore anything I don't
+really understand in this summary,
+89:26 here's something.
+89:27 12 bytes in 1 blocks are definitely
+lost in lost record 1 of 1.
+89:31 More verbose than ideally it
+would be, but that problem
+89:34 seems to relate to memory.c line 6.
+89:37 So I'll admit, Valgrind output is
+sort of a big complicated mess,
+89:42 but there are little hints of
+diagnostically useful information,
+89:47 like invalid write of size 4
+and the line number of the file.
+89:51 12 bytes in 1 blocks are definitely
+lost in memory.c and line number.
+89:56 So those are the kinds of things you
+want to look for even if at a glance,
+89:59 it is and will look confusing.
+90:01 So let me go back to
+now line 6, and, oh,
+90:04 line 6, even though it's not
+obvious what's wrong with this line,
+90:08 if I'm somehow losing 12 bytes,
+well, it must be a memory leak.
+90:12 So let me just have
+the intuition to go in
+90:14 and say, oh, eventually I
+have to free x because x
+90:18 is pointing at that chunk of memory.
+90:20 Let me now clear my
+terminal window down here.
+90:22 Make memory again, ./memory.
+90:25 And it doesn't seem to crash
+still, but it is more correct
+90:28 even though, at a glance,
+it seems fine either way.
+90:31 Let me do now Valgrind of ./memory.
+90:34 Let me increase the size of my terminal
+window, clear the screen, and hit Enter.
+90:38 And now there's slightly less output.
+90:41 But what I really like
+is the sound of all heap
+90:43 blocks were freed, whatever that means.
+90:45 No leaks are possible.
+90:47 And even though there's
+still a lot of output there,
+90:49 I don't see anything glaring anymore.
+90:51 So Valgrind too this week and next week
+will be your friend, and all it's doing
+90:55 is helping check for memory-related
+mistakes in your code.
+91:01 Questions then on Valgrind?
+91:06 Yeah, in front.
+91:07 AUDIENCE: Can you set a condition
+before you create the memory?
+91:10 DAVID J. MALAN: Can you set a
+condition before you free the memory?
+91:12 You could.
+91:13 In this case, logically,
+there's no reason
+91:14 to because this program is
+so relatively simple that I
+91:18 do want to free it no matter what.
+91:20 But you can absolutely have
+conditionals in there, which
+91:22 you might in more complicated programs.
+91:25 All right, well, let's play around
+slightly more with these garbage
+91:28 values, to which I alluded earlier.
+91:30 Let me actually close this.
+91:31 Let me code up a file called garbage.c
+just so we can make the point that there
+91:35 can be these so-called garbage
+values in a computer's memory
+91:38 that are really remnants
+of something else that has
+91:41 been at that location in memory before.
+91:43 And I can actually do
+this pretty easily.
+91:45 Let me, in garbage.c, include stdio.h.
+91:49 Let me go ahead and do--
+91:53 whoops, stdio.h.
+91:55 Let me go ahead and do int main(void)
+inside of my main function.
+91:59 Let me just give myself an array of a
+lot of scores to come back to week 2
+92:03 when we introduced arrays.
+92:04 Suppose I very, sadly, have 1,024
+scores to keep track of over the course
+92:11 of college.
+92:12 I now might iterate
+over those as follows.
+92:14 For int i = 0; i is less than 124; i++.
+92:18 And, inside my for loop, let's just
+blindly print out those values.
+92:22 %i backslash n scores[i].
+92:25 The problem, though, is that I have
+neither hard-coded those actual scores
+92:30 into this program like we
+did in week 2, nor have
+92:32 I prompted the user for the scores
+with get_int or anything else.
+92:35 So who knows what I'm going
+to be printing 1,024 times.
+92:40 Well, let me open my terminal.
+92:41 Let me do make garbage,
+sort of pun intended.
+92:44 Let me increase the size of
+my terminal window, ./garbage.
+92:48 And I should see 1,024 values
+that eventually will be my scores,
+92:52 but who knows what they are now.
+92:54 Enter, it's a mix of some really
+good and some really bad scores,
+92:58 it would seem.
+92:58 Some 0's, some small
+numbers, some big numbers.
+93:01 My god, some negative numbers,
+which isn't good for scores,
+93:04 but they're all over the place.
+93:05 And if I scroll up, I could count them.
+93:07 There's indeed going
+to be 1,024 of them,
+93:09 but their garbage values and that I
+can't make head or tails of what they
+93:13 actually are.
+93:14 As an aside, this has
+nothing to do with C,
+93:16 but the operating system
+Linux that we're using here
+93:18 does have commands that you can run if
+you are getting overwhelmed by output.
+93:23 So, for instance, if
+I run garbage again,
+93:26 if you know there's going to be
+more output than you can see at once
+93:30 and you don't want to have to
+bother scrolling back through time,
+93:33 you can actually do
+what's called piping it
+93:35 to a program called less,
+which, as the name suggests,
+93:37 will show you less of the output
+at a time, one screenful at a time.
+93:41 So if I hit Enter now, I
+only see the first screenful
+93:44 until I hit space, space,
+space, space, and so forth,
+93:49 and it will paginate the output for me.
+93:51 And I can just hit q
+when I'm done with that.
+93:53 So it doesn't change my code.
+93:54 It doesn't change my program.
+93:55 It's just a handy command line
+trick if you're ever overwhelmed
+93:58 by the amount of output there.
+93:60 But these garbage values can
+really get us into trouble.
+94:03 And, in fact, let me propose to
+consider another program that's
+94:06 a little arbitrary, but it's going to
+use some of today's building blocks.
+94:11 So here's a main function.
+94:12 And, at the top couple of
+lines here, I'm doing this--
+94:15 I'm creating a variable called x that's
+going to store the address of an int.
+94:18 I'm creating a variable y that's
+going to store the address of an int.
+94:21 So far, so good.
+94:23 I haven't assigned them any values yet.
+94:24 But that, in and of
+itself, is not problematic.
+94:26 I can always assign them values
+later, like any variable.
+94:29 I'm now going to allocate enough
+bytes for the size of an int.
+94:33 You and I know it's
+probably going to be 4,
+94:34 but I'm doing it dynamically
+asking for the size of an integer.
+94:38 And I'm storing the address
+of the first byte in x.
+94:41 But, notice, what I'm not doing
+is storing anything yet in y.
+94:44 The next line of code here,
+I'm using the sentinel value 42
+94:50 and storing that at the location in x.
+94:53 So the dereference operator says
+whatever address you got from malloc,
+94:56 go there, and put the number 42 there.
+94:59 This next line says go to the address
+in y, and put the number 13 there.
+95:05 But I've highlighted in red this time.
+95:06 Why?
+95:07 This line will probably crash.
+95:10 Why, intuitively?
+95:12 AUDIENCE: We haven't got one.
+95:13 DAVID J. MALAN: We
+haven't given y a value.
+95:15 I didn't copy s's value.
+95:16 I didn't malloc anything for y.
+95:18 It contains a garbage value.
+95:20 Maybe it's 0 like we saw on the screen.
+95:21 Maybe it's a really big number.
+95:23 Maybe it's a big negative number.
+95:24 Who knows?
+95:24 But that's like saying go there, and
+put the number 13 in some random unlucky
+95:30 location.
+95:31 And, again, program's probably going
+to crash, freeze, or something else.
+95:34 The other lines here are OK.
+95:35 Eventually, I get around to copying
+x into y, giving it a valid value
+95:39 and then going to y's value
+and assigning it to number 13.
+95:44 So that one line of code was
+the problematic one, ultimately.
+95:48 So what's nice about this
+code is that it actually
+95:50 happens to line up
+perfectly with a fun video
+95:54 that our friends at Stanford
+University put together
+95:56 that's about two minutes long.
+95:57 And it introduces a character that's
+well known in computer science spaces
+96:00 as Binky.
+96:01 So a Professor Nick
+Parlante of Stanford,
+96:04 spent some time doing some claymation
+to bring exactly that code and exactly
+96:08 that problem to life, if we could
+dim dramatically the lights.
+96:14 - Hey, Binky!
+96:14 Wake up, it's time for pointer fun.
+96:18 - What's that?
+96:19 Learn about pointers?
+96:20 Oh, goodie!
+96:22 - Well, to get started, I guess we're
+going to need a couple of pointers.
+96:25 - OK, this code allocates two
+pointers which can point to integers.
+96:30 - OK, well, I see the
+two pointers, but they
+96:32 don't seem to be pointing to anything.
+96:34 That's right.
+96:35 - Initially, pointers
+don't point to anything.
+96:37 The things they point to are called
+pointees, and setting them up
+96:40 is a separate step.
+96:41 - Oh, right, right.
+96:42 I knew that-- the pointees are separate.
+96:45 So how do you allocate a pointy?
+96:47 - OK, well, this code allocates
+a new integer pointee.
+96:50 And this part sets x to point to it.
+96:54 - Hey, that looks better.
+96:55 So make it do something.
+96:57 - OK, I'll dereference the pointer x to
+store the number 42 into its pointee.
+97:02 For this trick, I'll need my
+magic wand of dereferencing.
+97:06 - Your magic wand of dereferencing?
+97:09 That's great.
+97:11 - This is what the code looks like.
+97:13 I'll just set up the number and--
+97:16 - Hey, look!
+97:16 There it goes.
+97:18 So doing a dereference
+on x follows the arrow
+97:21 to access its pointee, in this
+case, to store 42 in there.
+97:25 Hey, try using it to store the number
+13 through the other pointer y.
+97:29 - OK, I'll just go over here to
+y and get the number 13 set up
+97:35 and then take the wand of
+dereferencing and just--
+97:39 Whoa.
+97:40 - Oh, hey, that didn't work.
+97:43 Say, Binky, I don't
+think dereferencing y
+97:46 is a good idea because setting up
+the pointee is a separate step,
+97:50 and I don't think we ever did it.
+97:52 - Eh, good point.
+97:53 - Yeah, we allocated the pointer y, but
+we never set it to point to a pointee.
+97:58 - Hmm, very observant.
+98:00 - Hey, you're looking good there, Binky.
+98:02 Can you fix it so that y points
+to the same pointee as x?
+98:05 - Sure, I'll use my magic
+wand of pointer assignment.
+98:08 - Is that going to be
+a problem like before?
+98:11 - No, this doesn't touch the pointees.
+98:12 It just changes one pointer to
+point to the same thing as another.
+98:16 - Oh, I see.
+98:17 Now y points to the same place as x.
+98:20 So, wait, now y is fixed.
+98:22 It has a pointee, so you can try
+the wand of dereferencing again
+98:25 to send the 13 over.
+98:27 - Uh, OK, here goes.
+98:30 - Hey, look at that.
+98:31 Now dereferencing works on y.
+98:33 And because the pointers are sharing
+that one pointee, they both see the 13.
+98:37 - Yeah, sharing, whatever.
+98:39 So are we going to switch places now?
+98:41 - Oh look, we're out of time.
+98:42 - But--
+98:44 DAVID J. MALAN: All right,
+so Binky's purpose in life
+98:46 is really to make clear that bad things
+can indeed happen when you touch memory
+98:50 that you shouldn't, including things
+that we now know as garbage values.
+98:54 But there's even other
+problems, but also
+98:55 solutions that we now have access to
+thanks to our newfound understanding
+98:59 of memory and, in turn, pointers.
+99:01 So it's been very common
+over the past few weeks,
+99:03 especially last week,
+to have to swap values.
+99:06 When we were doing bubble
+sort or selection sort,
+99:08 we kept having our human
+volunteers swap locations.
+99:10 And, in the computer's
+memory or in our pseudocode,
+99:13 we had to have two variables or
+two values swap locations as well.
+99:17 For this, we thought
+we'd motivate folks.
+99:19 We can offer you either a little
+Mario mushroom or question
+99:22 mark if we can get one more volunteer
+today to act a little something out
+99:26 with me here.
+99:27 Don't all raise your hands at once.
+99:28 How about-- I saw the
+Harvard shirt, is it?
+99:31 That shirt, yes.
+99:32 Yeah, no, you.
+99:34 Yeah, come on down.
+99:35 Yes, the one who wanted to keep
+using string as a typedef before.
+99:39 All right, maybe a round of applause
+to break the awkwardness here.
+99:45 All right, and, for the other
+volunteer who had your hand up,
+99:47 catch my eye next time too.
+99:49 But, for now, we just need
+one of you, and come on up.
+99:54 All right, you want to
+introduce yourself to the world.
+99:57 GABE: Hi, my name is Gabe.
+99:58 DAVID J. MALAN: Gabe, OK.
+99:59 And a little something about yourself.
+100:02 GABE: I live in Thayer.
+100:03 I'm a freshman.
+100:04 DAVID J. MALAN: Nice, all right.
+100:04 Well, good to meet you.
+100:05 Come on over here where we
+have two glasses of water.
+100:08 One is pink.
+100:09 One is blue.
+100:09 And each of these effectively
+represents a variable
+100:11 that contains some value,
+either pink or blue.
+100:14 Could you go ahead and swap the
+two values of these glasses?
+100:19 OK, that's technically just like
+moving the variables around in memory,
+100:22 but I'd really like you to get
+the pink water in the blue glass
+100:25 and the blue water in
+the pink glass instead.
+100:27 So let me undo that.
+100:32 You're hesitating.
+100:32 Why?
+100:33 GABE: Because if I pour
+the blue in the pink, then
+100:37 they're going to blend together.
+100:38 DAVID J. MALAN: Yeah, and you're going
+to overwrite the value with the other.
+100:41 And so we're going to lose
+information in that case.
+100:43 OK, OK, so this was a bit of a setup.
+100:45 So let me get you a third glass or
+a temporary variable, if you will.
+100:49 And if you want to verbalize how
+you would solve the problem now
+100:51 with this third variable.
+100:53 GABE: OK, so I'm going to pour
+the blue into the new variable
+100:59 and then pour the pink
+into my old blue cup.
+101:06 DAVID J. MALAN: Nice.
+101:08 GABE: And then pour the blue
+back into the old pink cup.
+101:11 DAVID J. MALAN: Very nice.
+101:12 I think that warrants round
+of applause, if we could.
+101:16 OK, nicely done.
+101:17 GABE: Thank you.
+101:18 DAVID J. MALAN: Thank you.
+101:19 OK, which would you like?
+101:22 GABE: Ooh, this one.
+101:23 DAVID J. MALAN: All right,
+so thank you to Gabe.
+101:25 So this was all to make the point
+that swapping is not that hard.
+101:28 And we all have an intuitive notion of
+how to do it, but we do need, it seems,
+101:32 like a temporary variable.
+101:33 And that, actually, maps
+pretty cleanly onto C code.
+101:36 So how might we do this in practice?
+101:38 Well, if we wanted to implement
+a actual function in C that does
+101:42 swapping, for instance, I might do--
+101:48 if we want to actually do something
+in C that involves swapping,
+101:50 I might do something like this.
+101:52 Avoid function because I
+don't need to return a value.
+101:53 I just need to do some work.
+101:55 Function's called swap.
+101:56 It's going to take in two
+values int a and int b.
+101:58 And the goal in life
+here is to swap a and b.
+102:00 It's actually pretty straightforward.
+102:02 I could actually do lines of
+code like this calling a and b,
+102:04 the two inputs like the
+pink and blue glasses, temp,
+102:07 or tmp for short for
+the temporary variable.
+102:10 And, just as Gabe did, I can store
+in the temporary variable one
+102:13 color of liquid or the value of a.
+102:15 I can then change a to be that of b.
+102:17 And then I can copy the value from the
+temporary variable to b and, at which
+102:21 point, I don't care about tmp anymore.
+102:23 This code is correct.
+102:25 It would swap those values just as
+Gabe did with the glasses of water.
+102:29 But it's only going to work
+inside of the scope of swap.
+102:33 And this is the catch.
+102:34 Recall that, when we
+introduced the notion of scope
+102:36 earlier a few weeks back, we said
+that variables really only exist
+102:40 in the context of the curly braces in
+which they're defined, or, in this case,
+102:43 as part of the arguments
+passed into the function.
+102:47 So this successfully swaps a and b.
+102:50 But if main or any other
+function is using swap,
+102:53 it's actually not going
+to have any useful effect
+102:56 on the original values of a and b.
+102:59 In fact, let me go over to VS Code
+here, where, while Gabe was doing that,
+103:02 I whipped up this program in advance.
+103:04 And it looks like a lot, but it
+does something relatively simple.
+103:07 I've got main, which declares two
+variables x and y, values of 1 and 2.
+103:13 I'm then just printing
+out x is this, y is that.
+103:16 I'm then calling a swap
+function, and then I'm
+103:18 just printing the same
+thing-- x is this, y is that,
+103:21 the whole point being, hopefully,
+it'll say the opposite the second time.
+103:24 What is the swap function?
+103:25 Exactly what I just proposed earlier,
+which is exactly what Gabe just
+103:28 did correctly with the glasses.
+103:30 But, as you might see where
+we're going with this,
+103:33 if I go into my terminal window
+and say make swap, ./swap Enter,
+103:40 it doesn't actually seem to
+affect the values of x and y.
+103:45 It does affect the values of a and b.
+103:48 And I can see this if I
+use our old friend debug50.
+103:51 Let me go ahead and set a
+breakpoint inside of swap.
+103:54 Let me run debug50 on ./swap, Enter.
+103:58 And, just to demonstrate
+what's going on here,
+104:01 let me step through a few of
+these lines of code as follows.
+104:04 So notice 1 at top left.
+104:06 tmp has some bogus value initially.
+104:08 It's a garbage value.
+104:09 It's like putting some random
+color inside of the glass.
+104:11 But I kept it empty
+because, in the real world,
+104:13 we need space for the colored liquid.
+104:15 But a is 1, and b is 2.
+104:17 Why?
+104:17 Because we passed in
+x and y, respectively.
+104:20 If I now step over line 17,
+notice that tmp changes to 1.
+104:26 If I step over line 18, a changes to 2.
+104:29 If I step over on line
+19, b changes to 1.
+104:32 So a and b, per Gabe's algorithm,
+were swapped correctly.
+104:36 But if I continue running this
+program all the way to the end,
+104:40 ultimately, I got, because of this
+second printf, that x is still 1,
+104:44 and y is still two.
+104:46 So a and b were changed clearly per
+the debugger, but x and y were not.
+104:52 So why is that?
+104:53 Well, it turns out that the answer
+to that too relates to memory.
+104:57 And code like this, at least
+if encapsulated in a function,
+105:00 is not correct precisely
+for the matter of scope
+105:03 because we're changing
+the values of variables
+105:05 that are local to the swap
+function but has no effect on main
+105:09 that's actually using this function.
+105:11 And the reason for
+that is a term of art,
+105:13 when you pass arguments
+to functions, you're
+105:15 generally passing things by value.
+105:18 You are passing in
+copies of those values.
+105:21 So, when you pass an
+x and y, you're really
+105:24 passing in a copy of x and a copy of y
+that you can do anything you want to.
+105:27 And we're calling them a
+and b in the context of swap
+105:29 but that has no effect on the
+original versions of x and y.
+105:34 What's really going on,
+though, can be thought of again
+105:36 in terms of the computer's memory.
+105:38 So here's a chip of memory.
+105:39 Let's zoom in and abstractly on the
+grid as we keep describing this,
+105:42 and consider that we can use this
+memory in bunches of different ways.
+105:46 But the world has standardized
+how we use computers' memories
+105:49 when running programs.
+105:51 And we tend to use this
+part of memory at the top,
+105:53 so to speak, in certain
+ways and this type of memory
+105:55 at the bottom in other ways.
+105:57 And if we understand
+what those ways are,
+105:59 we can actually infer deductively
+why this function is not
+106:03 working as intended.
+106:04 So it turns out-- let's even
+get rid of the individual bytes
+106:07 because we don't really
+care about numbers for now.
+106:09 It turns out that, when you double-click
+a program on your Mac or PC or tap
+106:13 an icon on your phone or run
+./something on your code space,
+106:19 the computer automatically loads
+the program's machine code,
+106:22 the 0's and 1's that someone else
+compiled or maybe you compiled
+106:25 into the top of your
+computer's memory, so to speak.
+106:28 It's not literally the top because
+who knows how the thing is oriented
+106:30 but, just for the sake
+of discussion, up here.
+106:33 What else gets loaded into
+the computer's memory?
+106:35 If your program has any global variables
+defined outside of main, by convention,
+106:40 they go below the machine code
+that was loaded into memory.
+106:43 What else?
+106:45 If you end up using malloc
+in your code, that memory
+106:48 comes from this location here,
+which we didn't do until today.
+106:52 But, actually, it turns
+out that get_string
+106:55 has been using malloc all
+this time since week 1
+106:58 because that's how we're getting
+an arbitrary amount of memory
+107:01 for everything you might
+type in at the keyboard.
+107:03 The heap, though, so to
+speak, grows downwards.
+107:05 So the more and the more and
+the more and the more you call
+107:07 malloc, the more stuff that gets filled
+up top to bottom in the so-called heap.
+107:11 But there's one last region
+of memory, generally,
+107:13 called the stack, much
+like a stack of trays
+107:16 in the cafeteria or dining hall,
+that sort of works its way up
+107:20 as you continue putting stacks of tray
+and tray and tray on top of each other.
+107:24 The stack, so to speak, grows upward.
+107:26 And the heap and the stack
+are used differently.
+107:28 The heap is indeed used
+for malloc, but the stack
+107:31 is used any time you call a function.
+107:33 Anytime you have local variables,
+they use memory down here.
+107:37 So, in particular, for the code
+I just wrote a moment ago where
+107:40 I had a main function
+and a swap function,
+107:42 the stack gets used to implement
+this kind of logic as follows.
+107:47 I first-- unbeknownst to me,
+my computer does this for me,
+107:51 I get a chunk of memory at the
+bottom of my computer's memory space
+107:54 that contains any command line
+arguments if we had int argc
+107:58 and char and string argv
+like a couple of weeks
+108:02 back or if I have any local
+variables like x and y.
+108:06 If I then call a
+function like swap, swap
+108:09 gets its own chunk of memory,
+its own frame of memory
+108:12 above main in the computer's memory.
+108:14 So it's like putting down a main tray
+from the dining hall and then a swap
+108:17 tray on top of it from the dining hall.
+108:20 Each of them contains their own local
+variables x and y here a and b here.
+108:23 And you can kind of see
+where this is going already.
+108:25 If x and y live here, but
+we're changing a and b here,
+108:29 well, obviously, we're not
+changing x and y down here.
+108:32 Well, let's be a little more specific.
+108:33 In the main function, when I have
+two local variables like x and y,
+108:37 it's like having space for
+them in the computer's memory.
+108:40 And, initially, I had values
+1 and 2, respectively.
+108:43 When I then call the swap function,
+that had two local variables of its own,
+108:47 technically, arguments passed in
+which, because I'm passing by value,
+108:51 gets copies of x and y called a and b.
+108:54 But the values are going to be the
+same initially, 1 and 2, respectively.
+108:58 But then, in the three
+lines of code that
+108:60 represent what Gabe did with the
+bottle-- the glasses of water does
+109:03 is we have a temporary
+variable, a third, still
+109:05 in the same frame of memory.
+109:07 And I signed with this code
+here-- let me step out of the way.
+109:11 This first line of code stored
+the value of a in tmp like this.
+109:17 The next line of code
+stored the value of b
+109:19 in a like this, at which
+point, unfortunately,
+109:22 they're identical, but no big
+deal because, like Gabe, we
+109:25 kept the temporary variable around.
+109:27 And then we can store the
+value of tmp inside of b.
+109:32 Now, as an aside with respect to
+the debugger we pulled up earlier,
+109:36 as well as a couple of
+weeks back, when you've
+109:38 looked at the top left
+of the debugger window
+109:40 and you can see your local variables,
+what you're seeing in the debugger
+109:44 is either these variables if you've set
+a breakpoint in main or these variables
+109:49 if you've set a breakpoint in swap.
+109:51 The debugger is just showing
+you what variables are in scope.
+109:54 What does scope really mean?
+109:55 It's a slice of memory at that
+moment in time, effectively.
+109:58 And we've been simplifying
+it verbally by saying
+110:00 what's between the curly braces.
+110:02 But that's the simpler way
+of describing really this.
+110:04 Now we don't care about
+tmp eventually, but what we
+110:07 do care about is having
+swapped these values.
+110:09 But, unfortunately, as
+soon as swap returns,
+110:12 well, main's x and y are literally
+left unchanged because we only
+110:17 passed in copies thereof.
+110:19 So the fundamental problem seems to
+be that the swap function is logically
+110:23 correct, but it has not been given
+access to the locations of x and y
+110:31 in memory.
+110:31 What swap really needs is a
+treasure map, so to speak,
+110:34 that leads it to the actual location
+of x, the actual location of y
+110:38 so that, using the *
+operator, it can go there
+110:41 and go there and swap the actual values
+inside of main's frame of memory.
+110:47 So what we really want to do is what
+computer scientists would call pass
+110:51 by reference or pass by address would
+be the same thing in this case, whereby
+110:56 what I want to do is not this code,
+per se, which is logically correct,
+111:02 but doesn't fundamentally change
+the caller's variables, x and y.
+111:07 Watch the delta here.
+111:09 This is correct.
+111:10 And it looks crazy scary at a glance
+because there's all this new syntax,
+111:14 but it's really just the
+same syntax from the start
+111:16 of today used a few different places.
+111:19 What I'm saying now in this
+correct version of swap
+111:22 is that A is not going
+to be an int, per se.
+111:25 It's the address of an int.
+111:26 And b is going to be the
+address of another int.
+111:28 This is my treasure map,
+whereby a and b are going
+111:32 to contain the addresses of x and y.
+111:34 What am I going to do?
+111:35 Well, tmp is still just an int.
+111:37 It's still just an empty glass.
+111:38 But if I want to store the value
+at a in tmp, I have to go to a
+111:43 and store it in tmp.
+111:44 I have to go to b and go to a and
+put the latter in the former--
+111:49 the former in the latter.
+111:51 I have to-- the first and the second.
+111:52 Then I go and get the value of tmp
+and put it at the address in b,
+111:58 so exact same logic,
+exactly what Gabe did,
+112:00 just way more syntactically involved.
+112:02 But, again, it's just using
+pointer declarations up here
+112:06 and pointer dereferencing down here
+to go to those locations in memory.
+112:12 And, in fact, if I make this
+change in my own code here--
+112:16 let me go back to VS Code.
+112:18 And let me hide my terminal.
+112:20 Let me make these changes,
+so pass in the address
+112:23 of an int, the address
+of an int dereference a,
+112:26 dereference b, dereference
+a and dereference b.
+112:30 It's almost done, but I do have
+to change one more line of code.
+112:34 And, based on what we've discussed thus
+far, how does line 11 need to change?
+112:40 I no longer want to pass an x and y.
+112:43 AUDIENCE: The address.
+112:44 DAVID J. MALAN: The address
+of x and the address of y,
+112:46 which involves the syntax &amp;x and &amp;y.
+112:52 So, again, syntactically,
+way scarier than it once was,
+112:55 but it's just the
+simple building blocks.
+112:56 Get me the address of x, and then go
+to that address as with the * operator.
+113:01 So let me open my terminal window again.
+113:03 Let me do make swap, Enter.
+113:06 It's erroring now, but why?
+113:08 I've made a subtle mistake.
+113:10 It doesn't like the fact that
+I've passed in the address.
+113:12 But, wait a minute, let me scroll up.
+113:13 What else needs to change?
+113:15 AUDIENCE: [INAUDIBLE]
+113:16 DAVID J. MALAN: The prototype here.
+113:18 So this also needs to be matching
+the actual implementation.
+113:22 So sort of newbie mistake, but I
+think now if I do make swap again,
+113:26 it does compile.
+113:27 ./swap, I should see x is 1, y is 2, and
+then, hopefully, indeed the opposite.
+113:34 So this version of swap
+correctly swaps the value
+113:37 because now I have a correct
+understanding of what is going on
+113:42 inside the computer's memory.
+113:43 And, indeed, if we look at
+this code now in the context
+113:45 of those, the stack frames,
+let's see what now happens.
+113:48 So here is again the same setup.
+113:50 Main has variables x
+and y equaling 1 and 2.
+113:53 Swap gets called, but what are a and b?
+113:56 They're no longer the values of x
+and y, but the addresses of x and y.
+114:01 I don't care what those addresses are.
+114:02 So I'm going to abstract it
+away with some simple arrows.
+114:05 But these are the treasure map I
+keep referring to, the breadcrumbs,
+114:08 however metaphorically
+you want to think of it.
+114:10 a and b Now lead to x and
+y, so you're passing things
+114:14 in by reference, so to speak.
+114:16 And, therefore, swap can
+manipulate those values.
+114:19 Now, as an aside, pass by reference is
+really the same idea as pass by value,
+114:25 but the values you're passing in are the
+addresses instead of the actual value.
+114:30 So it's sort of just context dependent
+as to how you think about that.
+114:33 But passing by reference means,
+really, you're passing in by address.
+114:36 All right, so, with that said,
+step by step, what's happening?
+114:40 I'm going to a, which is
+going to contain the value 1,
+114:44 and I'm going to store that in tmp.
+114:46 So what I should see in tmp still is 1.
+114:48 Now I'm going to go to b, and
+what I should see at b is 2.
+114:52 And I'm going to put it at * a,
+which is the same thing as 2 here.
+114:55 Then, lastly, I'm going
+to grab tmp, which is 1.
+114:58 And I'm going to put it at b
+which is like following that arrow
+115:01 and changing that to 1.
+115:02 And this then pictorially is
+why my new version of the code
+115:06 indeed works as expected.
+115:08 And, better still, when swap is all done
+and that frame of memory is taken away--
+115:14 it's still physically there, but
+we don't care about it anymore,
+115:17 so we might as well think of it
+as just disappearing-- the change
+115:20 has, in fact, permanently affected
+main's version of x and y.
+115:27 Questions then on this trickery?
+115:33 Yeah.
+115:35 AUDIENCE: Is the first [INAUDIBLE]
+you say that it [INAUDIBLE]
+115:38 things all together?
+115:39 Or is it still [INAUDIBLE]?
+115:40 DAVID J. MALAN: Sorry, a little louder.
+115:41 AUDIENCE: As soon as
+the function returns,
+115:42 does its stack disappear [INAUDIBLE]?
+115:44 DAVID J. MALAN: Oh, good question.
+115:45 When a function returns,
+does its stack disappear?
+115:47 Typically, no.
+115:48 You still have remnants
+of all of those values
+115:51 that were once there unless
+the compiler or the computer
+115:53 has sort of scrubbing that memory,
+which is not typically done
+115:55 for performance reasons.
+115:57 And so there could be
+remnants of past things.
+115:59 So, as an aside, your mind is actually
+going in an interesting adversarial way,
+116:02 place because suppose there was
+some function that you're calling
+116:05 that involves passwords, for instance.
+116:06 And the user types in their
+password, and their password
+116:08 is stored at that location in memory.
+116:09 Even after that function
+returns, if the code
+116:13 is not implemented with
+any kind of rigor in place,
+116:15 you could somehow maybe, if you
+have malicious access to the code,
+116:18 access that memory location
+where there's the garbage value.
+116:21 But that garbage value is useful
+because it's someone's actual password,
+116:26 and, in fact, that's a threat that
+has indeed happened from time to time.
+116:30 So, here then, to recap
+the bad code but logically
+116:34 correct, just doesn't get the job
+done, the green code, of course,
+116:37 does get the job done for exactly
+those same logical reasons.
+116:40 But there's another problem
+we've now created, even as we
+116:42 understand how the stack's working.
+116:44 And I claim that the heap is
+where malloc takes memory from.
+116:48 Having two arrows
+pointing at [INAUDIBLE]
+116:51 does not seem like a very
+good design because if you
+116:53 keep using heap, heap, heap,
+heap, by calling malloc a lot,
+116:56 you're going to eventually
+overflow the stack.
+116:58 Or if you call lots and lots
+and lots and lots of functions,
+117:00 as you might with recursion
+or some other technique,
+117:03 you might overflow the stack, like
+a big stack of trays eventually
+117:06 kind of toppling over and touching
+things that it shouldn't either.
+117:09 Unfortunately, there's no
+real solution because you only
+117:12 have a finite amount of memory,
+so it doesn't really matter
+117:14 if things go this way or this way.
+117:15 Eventually, you're going to either
+run into other chunks of memory
+117:18 or run out of memory altogether.
+117:19 So, strictly speaking,
+this isn't such a bad thing
+117:22 unless you let things get
+out of control and you
+117:25 don't keep track of how
+much memory you're using
+117:28 or, defensively, make sure you're
+freeing it as much as you can.
+117:31 And there are terms of art
+out there, like heap overflow,
+117:34 which means if you call
+malloc too many times,
+117:36 you might somehow overflow some
+other area of memory with the heap.
+117:40 Some of you might know a popular
+website called Stack Overflow.
+117:43 Well, what is the
+etymology of that website?
+117:45 Stack overflow is when you
+call so many darn functions
+117:48 that they overflow each
+other and maybe hit the heap,
+117:51 or overflow each other in some way.
+117:53 You're overflowing the memory
+region known as the stack.
+117:56 These are generally examples of what
+are called buffer overflows, where
+117:59 buffer just means a chunk of memory
+that you're using for some purpose.
+118:03 And so a buffer can certainly
+overflow another, especially
+118:07 if you're treating it as a
+chunk of memory this big,
+118:09 but you start poking
+around past the end of it.
+118:12 It's like allocating an
+array for four characters
+118:15 but trying to print
+the fifth or the sixth
+118:18 or the hundredth or the thousandth.
+118:19 If you've not asked for
+it, you're overflowing
+118:21 the buffer you've been given.
+118:23 So an array is just a buffer.
+118:24 And YouTube and Netflix, they all
+have buffers in the colloquial sense
+118:27 in that they might pre-download a few
+seconds or minutes of video, storing it
+118:31 in a chunk of memory, like an array,
+or maybe somewhere on the heap.
+118:34 But the point is, a
+buffer is a finite size,
+118:37 and you can potentially overflow it
+by going past the boundary of it,
+118:40 past the end or maybe
+even past the beginning.
+118:43 And thus was the issue
+with the real world
+118:46 a few months back with CrowdStrike.
+118:48 So this is very popular
+security-related software, ironically,
+118:52 that a lot of the world has installed on
+their servers to keep themselves safe.
+118:56 For those unfamiliar,
+unfortunately, this very software
+118:59 crashed some months back, taking
+down very important systems with it,
+119:03 including Delta Airlines's site
+and so many other companies.
+119:07 And this cost the world
+millions of dollars,
+119:09 probably in lost labor and
+effort because systems went down,
+119:12 sales were lost, human
+time was incurred.
+119:15 And it boiled down, in retrospect, to
+the stupidest of bugs, if I might say.
+119:19 If you read through their very
+long PDF, their postmortem that
+119:22 describes what exactly went wrong,
+which took a few weeks, I believe,
+119:25 to come out, there was
+this paragraph here,
+119:27 which actually sounds
+like a lot of big words.
+119:29 "Sensors that receive the new
+version of channel file 291,
+119:32 carrying the problematic content, were
+exposed to a latent out-of-bounds read
+119:34 issue in the content interpreter."
+119:36 Like, the real interesting
+part is the last sentence.
+119:39 The content interpreter
+expected only 20 values.
+119:42 Therefore, the attempt to access the
+21st value produced an out of bounds
+119:47 memory read beyond the end of the input
+data array and resulted in a system
+119:52 crash.
+119:53 So, literally, even though you're
+only in a class like this for a couple
+119:56 of months time now, they
+had an array of size 20,
+119:59 and they wrote code that tried
+to access the 21st element.
+120:02 They touched memory they shouldn't have.
+120:04 The software froze or crashed.
+120:05 Therefore, the system itself froze
+or crashed and cost the world
+120:09 millions of dollars in
+downtime and other side effects
+120:13 because of one off-by-I error.
+120:16 So it's a very possible
+danger to trip over.
+120:20 And among the downsides
+of languages like C
+120:23 is that they make it
+very easy to do this.
+120:26 There is nothing in C
+stopping you from doing this.
+120:29 And a few other languages
+allow this as well.
+120:31 Other languages like Python
+and Java generally prevent you
+120:34 and me from doing this.
+120:35 Why?
+120:36 Because humans, for years,
+were writing so much darn buggy
+120:38 code that we realized,
+wow, we should probably
+120:40 build into the programming language
+defenses against this stuff
+120:43 so, with the right language
+and the right know-how,
+120:46 you can avoid these problems altogether.
+120:48 But, in this particular
+case, they had code that
+120:50 similarly was not sufficiently tested.
+120:53 They didn't have a check50 to
+tell them a priori whether or not
+120:56 the code was correct.
+120:56 And so they shipped this to
+computers around the world.
+120:59 As an aside too, this is one of
+the dangers of automatic updates.
+121:02 If you have this on your
+phone or your Mac or PC,
+121:04 let alone your corporate servers,
+if you update automatically
+121:07 your systems but the
+update itself is buggy,
+121:09 you can therefore take down your whole
+system, personally or professionally.
+121:12 There's a lot of real-world
+implications to that business decision,
+121:16 they made, it seems to update
+so unilaterally as well.
+121:21 So beware.
+121:22 But these things happen very
+really in the real world.
+121:25 OK, so let's take things
+down back to CS50 land here.
+121:29 Here was the functions,
+the training wheels
+121:31 that we've been using since week 1.
+121:33 And let's just consider for a moment how
+one of the most powerful of these does--
+121:37 let's consider for just a moment how one
+of the simplest of these actually works,
+121:40 namely get_int.
+121:41 So it turns out, in C, it's not that
+hard to get an int or a char or a float,
+121:46 relatively simple, at
+least in a safe way.
+121:48 Strings are the scary
+one because who knows
+121:50 how many characters the
+user's going to type in,
+121:52 and you would seem to
+have to decide in advance,
+121:55 do I want room for one character?
+121:57 Four characters, 100, 1,000?
+121:59 What if I get the number wrong, and
+they type in a really long paragraph.
+122:02 Ints and chars and floats
+are easy because they're
+122:04 4 bytes or 1 byte or 4 bytes.
+122:06 You sort of know in advance.
+122:08 So let me propose that we
+implement a simple problem--
+122:12 a simple program that really kind
+of implements the idea of get_int.
+122:16 So, first, let me open
+my terminal and clear it.
+122:19 Let me open a new file
+called get.c because I'm
+122:22 going to implement my own
+functions for getting input.
+122:25 I'm going to go ahead initially
+and actually still use cs50.h,
+122:28 and I'm going to use stdio.h.
+122:31 And then, in main, I'm going to go
+ahead and very simply, as in week 1,
+122:36 do this int n equals get_int,
+and just prompt the user for n,
+122:41 so nothing interesting there.
+122:42 And then, quite simply, I'm
+going to print out using %--
+122:46 I'm going to print out using %i
+the value of n, passing in n.
+122:52 So, again, week 1 stuff, no memory--
+122:54 no explicit use of memory
+or pointers here yet.
+122:57 Make a get, ./get, type in 50.
+122:60 Program, for now, seems to work.
+123:02 But suppose I take away,
+truly, the training
+123:04 wheels, not just for the keyword string,
+but for the get_int function as well.
+123:09 And I take away this header file,
+which means get_int no longer works.
+123:12 How could I implement this instead?
+123:14 Well, without CS50's training wheels,
+you can still solve this problem.
+123:17 You can declare an int called n.
+123:19 And don't give it a value initially
+because you want it from the user.
+123:22 I can then prompt the user with a
+printf n colon space with no newline
+123:26 because I just want a
+blinking prompt for the user
+123:29 which get_int does for you
+automatically, otherwise.
+123:31 And I can use a function called scanf
+to scan the user's input for some format
+123:38 string, so for some
+type of formatted text.
+123:41 Maybe it's an int, a float,
+a string, or something else.
+123:44 So scanf is sort of like the opposite
+of printf. printf prints something.
+123:47 scanf reads something
+from the user themself.
+123:50 All right, so how can I use this?
+123:52 I can call scanf.
+123:53 I can say, what do I want to scan
+from the keyboard, so to speak?
+123:56 And I want to scan in an integer
+from whatever the human types.
+123:60 Where do I want to put that integer?
+124:02 Well, I can't just say put it
+in n because you can't change--
+124:06 I want n to persist.
+124:07 cs want to tell it to
+go to the address of n
+124:10 and put it there wherever
+there actually is in memory.
+124:13 So, again, just like with swap,
+if I want another function
+124:16 to be able to change my variable,
+I can't just hand it the variable,
+124:19 I have to hand it the
+address of my variable.
+124:22 And scanf is designed to expect that.
+124:24 Now it's my last line.
+124:25 I can print out n colon %i backslash
+n, and now print the value of n.
+124:31 So it's a bit more of a mouthful.
+124:33 I've got like two, three lines
+instead one with get_int,
+124:37 but I think it'll work.
+124:39 Let me do make ./get and type
+in 50, for instance, Enter.
+124:44 And it does seem to work.
+124:45 And, effectively, this
+is what get_int is doing.
+124:47 get_int is a little smarter
+because, for instance,
+124:50 if you don't type an int and you type
+in cat or dog or bird or something else,
+124:55 weird things will happen.
+124:56 So we make sure that if you don't type
+in something that's actually an int,
+124:59 we prompt the user again and again
+and again using our own loop.
+125:02 So we sort of handle that
+error checking for you.
+125:05 But if I want to do this with a string,
+how might I go about doing this?
+125:10 Well, let me go back into my program
+here after clearing my terminal.
+125:13 And let me just kind of do the
+same thing, but with strings.
+125:16 I could say string s, but we strings
+don't really exist as a data type.
+125:21 So I'm going to more explicitly
+say char * S. That's effectively
+125:24 a string or a placeholder, therefore.
+125:26 Let me print out a
+prompt for that string,
+125:28 just say s colon just because I want
+the user to type in a string for me.
+125:32 And now I'm going to use scanf again.
+125:34 What do I want to read from the user?
+125:36 Well, I want to read a string.
+125:37 And so, just like printf, I use %s to
+scan a string from the human's keyboard.
+125:42 And now, after that, I
+need a place to put it.
+125:45 Well, I think I want to
+put it in my string s.
+125:48 I don't need an &amp; here
+because s is already a char *.
+125:51 It's already the address
+of a string, if you will.
+125:54 But now if I go and print this?
+125:56 I'm going to say s, %s
+backslash n just as before.
+125:59 So it's the exact same logic.
+126:02 But this line of code is now dangerous.
+126:04 And this is why we give you get_string.
+126:06 And this is why more of the world should
+use libraries instead of doing this.
+126:10 Why is this line of code
+on line 7 dangerous?
+126:13 Or undefined what it will do?
+126:17 Yeah, in the back.
+126:18 A little louder.
+126:19 AUDIENCE: It doesn't know when
+your string is going to end.
+126:21 DAVID J. MALAN: It doesn't know
+where my string's going to end.
+126:23 Or, more specifically,
+it doesn't know how much
+126:25 memory is available for that string.
+126:28 At the moment, the only memory
+I've allocated implicitly
+126:31 is 8 bytes for the pointer called s.
+126:35 So I have-- I'm ready to jot down in
+memory where I want to put this string,
+126:39 but I never initialize s to anything.
+126:41 Previously, when I wanted to
+initialize S to something, I could,
+126:44 for instance malloc some space, Or I
+could even do something' like I could
+126:48 specify that oh, let's get out
+of the pointer business today.
+126:51 And let's actually just say that
+s is an array of 1,000 characters.
+126:54 And that would mean I have 1,000 places
+where I can put that chunk of memory.
+126:58 So turns out there's an
+implicit relationship
+126:60 between pointers, as we've
+seen today, and arrays
+127:03 whereby you can treat one as the other.
+127:06 But, for now, let me stick
+with this model of making clear
+127:08 that I did not call malloc.
+127:10 And so S contains a
+garbage value, which is
+127:13 like saying put whatever the user
+types over there, it's random,
+127:18 it's a garbage value.
+127:19 And that's probably going to
+cause the computer to crash.
+127:21 Not always.
+127:22 And I don't know what to expect
+today, but let's try this.
+127:24 Make get./entr Enter.
+127:27 Let's type in.
+127:28 I exclamation point, I
+got lucky it still worked.
+127:31 Let's do something random.
+127:32 Like just type a c of
+characters that will hopefully
+127:35 overflow the buffer that doesn't
+even exist, enter I. Got lucky,
+127:39 but if I do this again
+and again, I ideally,
+127:41 that would have made
+an educational point.
+127:43 But, again and again
+and again, eventually it
+127:46 will probably crash on
+me. s certainly incorrect.
+127:49 And I bet we could figure this
+out with Valgrind if we start
+127:52 poking around with that tool as well.
+127:53 S?
+127:54 What's the solution here?
+127:55 Or what's really the issue?
+127:56 Well, if we consider where we
+started, if here's my memory,
+127:59 let me actually put a lot of Oscar
+the grouch's here to make clear
+128:02 that before you use memory.
+128:04 It' effectively garbage values.
+128:05 Who knows what is there.
+128:06 So in my first program,
+when I created a variable n,
+128:09 I actually used 32 of those bits, or
+four of those bytes to put a legitimate
+128:14 pattern of 0s and ones to
+represent the number 50.
+128:16 So that part was good.
+128:18 But when it got to the
+string version, I allocated
+128:21 space for the pointer, 8
+bytes, s I said earlier,
+128:24 but I never initialize s to anything to
+malloc, to an array, literally nothing.
+128:30 So S's value is literally this
+sequence of s values, so who
+128:33 knows what it is pointing to.
+128:34 There is certainly no
+memory allocated elsewhere,
+128:37 like in the heap, for whatever
+the human actually types in.
+128:41 So this value's effectively garbage.
+128:43 And this is the best I could
+do with squiggly lines, who
+128:45 knows where it's pointing.
+128:47 Certainly no where valid.
+128:48 And so, in this case, I got lucky.
+128:50 It did not crash, but the more and run
+the code, the bigger the input it is.
+128:55 Odds are this will in fact
+crash ultimately on me.
+128:58 So how can I avoid this?
+128:60 Well, if I go back into VS Code, I could
+just allocate space myself and say,
+129:04 equals malloc of 4, but they're
+still going to be a danger there even
+129:09 if at the bottom, I do 3F because I
+only have allocated space for 4 bytes.
+129:14 If the user types in 5 or 50 or 500,
+who knows what's going to happen?
+129:18 I'm going to overflow
+my buffer of size 4.
+129:21 I could do this another way.
+129:22 I don't have to use malloc.
+129:23 I can use week two stuff.
+129:25 I can, again, as before, just
+say S-- maybe not 1,000, but 4.
+129:28 That gives me an array, which
+is a chunk of memory of size 4.
+129:32 But what happens if I
+overflow that buffer?
+129:34 Bad things will happen.
+129:35 And so this is why we still
+use and would encourage
+129:38 you to keep using get_string
+because it avoids overstepping
+129:42 the boundaries of any buffer.
+129:44 We literally, as I acted out before,
+take these baby steps in code.
+129:47 And every time you type a
+character, essentially we
+129:50 call malloc again and again and again.
+129:53 And it's a little inefficient, but we
+call malloc as many times as we need
+129:57 to grow enough space in the heap for
+whatever the human types in, whether
+130:01 it's 1 character, 4, 4,000, or more,
+130:04 It's just really annoying to write out.
+130:06 And, in fact, the code is open source,
+but it's a decent amount of logic
+130:09 just to do something relatively simple.
+130:10 Languages like Java
+and especially Python
+130:13 make life so much easier
+with input and output.
+130:16 And we'll get to that
+in a few weeks' time.
+130:19 Any questions then on
+scanf and, really, why
+130:23 we've been using these training wheels?
+130:25 Yeah.
+130:26 AUDIENCE: [INAUDIBLE]
+130:31 DAVID J. MALAN: I only
+heard part of that.
+130:33 Would it be valid to use malloc and
+just allocate a really big number?
+130:36 So that just kind of kicks
+the can down the road.
+130:38 But I bet whatever number
+you come up with, I
+130:40 could if I copy-paste enough
+or just type, type a lot,
+130:43 I could overflow that buffer still
+by just typing in longer input.
+130:47 And, worse, you're now wasting
+memory because you only
+130:50 have a finite amount of memory.
+130:51 If one program is using
+all of this memory
+130:53 just in case some crazy
+user types in way too much--
+130:56 I mean, most of the time, you might be
+slowing down the computer, or at least
+130:59 wasting memory as well.
+131:01 So get_string does that too.
+131:02 We only allocate what
+memory you need, ultimately,
+131:04 even though we end up allocating and
+freeing a lot of memory along the way.
+131:09 Really good question.
+131:10 All right, so let's transition
+then to a final topic
+131:13 that's going to set you up really
+for problem set 4, in which case
+131:19 you'll be exploring something
+specifically known as file I/O
+131:23 or file Input and Output.
+131:24 And we've deferred
+playing with actual files
+131:26 where you can save files and open
+files until now because you actually do
+131:30 need pointer syntax in
+C to do that with files.
+131:33 In Python, world's going to
+be easier in a few weeks' time
+131:35 when you don't even
+need that complexity.
+131:37 But, for now, we'll explore the idea
+of file input and output as follows.
+131:42 There are a bunch of functions
+that come with C related to files.
+131:45 And here's just a short list thereof.
+131:48 But you can infer from the
+names what these do in code
+131:52 because they're operations you're
+familiar with in the real world,
+131:55 like opening a file, aka fopen; closing
+a file, aka fclose; printing to a file,
+132:01 aka fprintf; and a
+bunch of others as well.
+132:04 So any function that
+starts with an f probably
+132:06 means that it operates somehow on
+files, whether it's text files or binary
+132:12 files with 0's and 1's, these files,
+these functions tend to be involved.
+132:17 We'll see with this, how we can
+now create some of our own files.
+132:21 So let me go ahead and do this.
+132:22 Let me go back to VS Code.
+132:24 And let's make, in the spirit of week
+0, my own actual phone book in C. Let's
+132:29 write some code that allows me to save
+in a file someone's name and number
+132:33 so that it actually persists over time.
+132:35 And I'm going to go ahead
+and call this phonebook.c.
+132:38 And, in this file I'm going to
+include just to make life easier still
+132:41 for today-- because we've seen that
+scanf is not really your friend.
+132:45 We'll use get_string again to
+include cs50.h, stdio.h, and also
+132:50 string.h, which might be useful.
+132:53 int main(void) again.
+132:54 And, inside of main, let's do this.
+132:56 Let's first-- whoops.
+132:58 Let's first open a file
+called phonebook.csv.
+133:03 Most of you are probably
+familiar with CSV files.
+133:05 They're like lightweight Excel--
+133:07 they're lightweight
+spreadsheet files that
+133:09 can be opened in Excel, Google
+Sheets, or Apple Numbers or the like.
+133:12 It just means Comma-Separated
+Values, or CSV.
+133:15 So I can make a very simple
+file like this myself,
+133:17 but the syntax is going
+to be a little new.
+133:19 It turns out, weirdly,
+in C, there's a data type
+133:22 called FILE in all capital
+letters for really no good reason.
+133:26 I'm going to then declare a pointer
+called file in all lowercase,
+133:30 but I could call it anything I want.
+133:32 And I'm going to set
+it equal to the return
+133:33 value of calling fopen for file open.
+133:36 And I'm going to specify that I want
+to open a file called phonebook.csv
+133:40 in, let's say, write
+mode, quote, unquote, "w".
+133:43 And I know this from the documentation
+for the function that w means write.
+133:46 And that's why I'm passing
+it in as the second argument.
+133:49 Now let's go ahead and do this.
+133:51 I could do string, but we know
+strings aren't really a thing,
+133:54 so char * name equals get_string
+and prompt the human for their name.
+133:59 Then let's do char * number and
+prompt the human for their number.
+134:05 And then I want to save the human's
+name and number in this file
+134:08 like I'm adding friends to my contacts.
+134:10 Let's go ahead and do
+not printf but fprintf,
+134:14 passing in file as the first
+argument, which is unlike printf.
+134:18 printf, obviously, just goes
+to the screen by default.
+134:21 But fprintf needs to know what
+file you want to print to.
+134:24 I want to print out a string
+that looks like a string comma
+134:29 another string and then new line.
+134:31 So just like printf lets
+format what you're printing.
+134:33 fprintf lets you format what you're
+saving as string comma string and then
+134:37 a new line.
+134:38 The last things I'm going to pass in
+are the values for those placeholders.
+134:42 Store the name and store
+the number semicolon.
+134:45 And then, lastly, let's go
+ahead and close the file.
+134:48 So it's not that many
+lines of code, but this
+134:51 is code enough to prompt the user
+for a new name, a new number, save.
+134:55 I could run it again, new
+name, new number, save.
+134:57 And, just to make this clear,
+let me go ahead and do this.
+134:60 Let me open up phonebook.csv,
+which doesn't yet exist.
+135:05 Let me kind of split the screen here,
+which, if you haven't discovered,
+135:08 you can do by just dragging the tabs up
+and around, so I can see both at once.
+135:12 Let me do make phonebook, Enter.
+135:15 ./phonebook, Enter.
+135:17 And I'll do how about
+John Harvard, Enter.
+135:20 And now let's see, +1-949.
+135:25 What's his number?
+135:27 Ah, line-- Rongxin, do you remember?
+135:31 Does anyone-- has anyone
+texted this number yet?
+135:34 Do you have it saved?
+135:37 This is not important, but
+I'd like to be consistent.
+135:39 Yeah.
+135:41 AUDIENCE: 949-468-2750.
+135:45 DAVID J. MALAN: Thank you.
+135:46 And the 2750 spells CS50 so Enter, and
+now notice what happened at top right.
+135:52 In my CSV file, I added
+a name to the phone book.
+135:55 Now, let me run the program
+again because there is a bug.
+135:58 I'll put in my name now, and I'll
+just do, let's see, plus 1 617-495,
+136:02 I think we used, 1000 last time, Enter.
+136:05 But, notice, John Harvard disappeared.
+136:07 And that's because I chose
+to write to this file.
+136:10 But there's another mode
+in which I can write data.
+136:13 I can actually use a for append,
+which is probably smarter.
+136:16 Let me run my program a third
+time and put John Harvard back.
+136:18 So John Harvard enter, +1-949-468-2750.
+136:26 Oh, yes. thank you.
+136:27 Someone caught my mistake before I did.
+136:30 I didn't compile it again.
+136:31 OK.
+136:32 Control-C, make phonebook, Enter.
+136:34 Now, let's rerun ./phonebook.
+136:37 All right, Here we go.
+136:37 John Harvard, we'll put him
+back. +1-949-468-2750, Enter.
+136:44 OK, that's in there.
+136:45 Let's run it one more time for myself,
+David Malan, +1-617-495-1000, Enter.
+136:53 And now it's indeed
+appending to the file.
+136:55 So if you've ever used Excel or
+Apple Numbers or Google Sheets,
+136:59 and you're adding rows to
+the file, or you're literally
+137:01 clicking like new contact
+on your Android phone
+137:03 or your iPhone, effectively,
+what's happening
+137:05 is Apple or Google wrote code like this
+to add more and more data to some file.
+137:11 It might not be as
+simplistic as a CSV file,
+137:14 where you're separating the values with
+commas and just putting it in raw text.
+137:17 It might be some binary file
+with raw zeros and ones,
+137:21 but it's the exact same idea.
+137:23 And, in fact, if I go ahead
+and try to improve this code,
+137:29 I should note this too.
+137:30 In the spirit of error-checking, let
+me add one additional line before we
+137:33 add one other example to the mix.
+137:35 It turns out that just like
+malloc, things can go wrong
+137:38 when you try to open files.
+137:39 Maybe it doesn't exist.
+137:40 Maybe there was a typo.
+137:41 Maybe you are, in fact, out of memory.
+137:43 So here too and for
+problem set 4 onward,
+137:46 you should get into the habit
+of checking return values.
+137:49 Don't just assume that you've
+got a valid return value.
+137:51 Check instead per the
+documentation of this function.
+137:54 if file == null, bad things just
+happen, something went wrong,
+138:00 and I should probably just get out of
+here and return 1 or some other value
+138:04 instead.
+138:05 So, again, the lesson
+today is, any time pointers
+138:07 are involved from malloc, fopen,
+and other functions as well,
+138:10 do not trust that they are valid until
+you have checked whether they are null
+138:15 or not.
+138:16 All right, one final
+flourish here to implement
+138:19 the notion of copying a file as well.
+138:22 We introduced-- you might've seen
+the cp command before for copy files
+138:27 from one to the other.
+138:28 How might we implement that
+ourselves even though it's
+138:30 been around for some decades now?
+138:32 Let me go ahead and open
+another file here called copy.c.
+138:36 Or, actually, we'll call
+it-- we did copy earlier.
+138:38 Did we?
+138:40 Yes, let's go ahead and
+create a new file cp.c
+138:43 to implement our own
+version of the copy command.
+138:45 In this file, let me go ahead and
+include stdio.h, and let me go ahead
+138:50 and include another file,
+stdint.h because it's
+138:56 something you'll see in problem set 4.
+138:58 And I'm going to go
+ahead, and, in int main,
+138:60 I'm going to use command line arguments
+now. int argc string argv as an array.
+139:07 But we-- whoops.
+139:09 But we know strings don't exist.
+139:10 So, technically, main
+can henceforth be written
+139:13 as char * argv, still an array thereof.
+139:17 So we're just getting
+rid of the word string.
+139:19 And here's how I could open one
+file and copy it into another.
+139:22 Recall that copy works like
+this, cp source destination.
+139:27 So it's the opposite of the strcpy
+function, confusingly, but cp copies
+139:33 the source file to the destination.
+139:34 So you can change the name
+or give it any name you want.
+139:37 So how might I use this knowledge?
+139:40 Let me create a pointer
+called source, src for short,
+139:44 and open a file called, hmph, well,
+what should the file be called?
+139:48 Let's expect the user to pass, in
+an argv1, whatever the file name is
+139:53 per the usage at the command line.
+139:54 Then let's open it up in
+read mode, specifically.
+139:58 Then let's go ahead and
+have a destination pointer,
+140:01 called DST for short,
+that equals the return
+140:03 value of opening the second
+file that the human typed
+140:05 the name of at the prompt.
+140:07 And we'll open that in write mode.
+140:09 I'm not going to do append mode because
+I want to literally copy everything.
+140:12 I don't want to add to an existing file.
+140:14 And then what do I want to do?
+140:16 I'm going to propose that
+we do this byte by byte.
+140:18 And there's many
+different ways to do this.
+140:20 But among our list of
+functions from earlier
+140:22 are functions like fread
+for reading from a file,
+140:25 f write, for writing to a file, as well
+as fprintf, which prints to a file.
+140:29 But if I actually am dealing with binary
+data, I might actually want to do this.
+140:33 I might want to declare a
+variable of type byte, which,
+140:37 by convention, especially in the
+windows world, is capitalized as byte.
+140:40 Give me one variable of type byte.
+140:42 And let me do this, while I read
+from the file, passing into that bite
+140:48 a bite from the file.
+140:49 So give this function
+the address of that bite.
+140:52 So we can go put 8 bits in it.
+140:54 Then let's read in the size of a
+bite, which I could just write as 1.
+140:57 But I'm going to keep it dynamic.
+140:59 I'm going to read one
+such byte at a time.
+141:02 And I'm going to read
+from the source file.
+141:04 And I'm going to keep doing this so
+long as the return value's not 0.
+141:07 This is a mouthful, but allow me to
+just stipulate, for today's purposes,
+141:10 that line 11 just starts a while
+loop that iterates over the file
+141:15 called src byte by byte by byte
+by byte, from left to right, top
+141:20 to bottom, so to speak.
+141:21 And how do I save each of those
+bytes to the destination file?
+141:25 Well, I can do fwrite, passing
+in the address of that byte
+141:29 so we can go to the
+location, the size of it,
+141:31 so it knows how big it is, how
+many there are, which is still 1,
+141:34 but send it to the destination instead.
+141:36 And then, at the end of this code--
+let me hide my terminal for a moment--
+141:39 let me go ahead and close, for
+instance, the destination file,
+141:42 and let me go ahead and
+close the source file.
+141:45 And, ultimately, I think
+this is enough to, again,
+141:48 iterate over all the bytes in the file,
+One byte, one byte, one bite at a time
+141:52 and write them byte by byte by byte.
+141:55 And minor tweak,
+technically, because I want
+141:58 to do this literally-- there's no
+text involved, there's no Unicode.
+142:01 I just want this to be
+a raw copy of bytes--
+142:03 technically, I can specify read the file
+in binary and write the file in binary.
+142:08 Don't try to do any kind of
+interpretation of characters.
+142:10 Treat it as raw 0's and 1's.
+142:12 And, just so you've seen
+it, technically, in C,
+142:15 there is no such thing as
+a data type called byte.
+142:17 This is again a thing
+in the Windows world,
+142:19 and we will give it to
+you in problem set 4.
+142:21 But I can actually create
+a type using typedef.
+142:25 I'm going to have it be equal
+to something called uint8_t,
+142:32 where that just means
+unsigned 8-bit integer.
+142:36 But more on that some other
+time or never perhaps.
+142:38 But, for now, that just
+gives me a byte of 8 bits
+142:41 in a manner consistent with
+what windows computers do.
+142:43 And if I didn't mess this up--
+let me open my terminal window.
+142:46 Make cp for make the copy program .cp.
+142:49 I want to run .cp, so it's my
+version of the copy command,
+142:53 not the built in system one.
+142:55 Let me go ahead and copy a file like,
+what was the file we started with?
+142:59 addresses.c and how
+about we'll call this--
+143:04 how about we call this backup.c.
+143:08 And if I open up addresses.c
+here, we'll see the file
+143:12 with which we began class earlier.
+143:14 If I open up backup.c, we'll
+see exactly the same file.
+143:18 If I hold them side by side,
+these happen to be text,
+143:21 but they could've just
+been raw 0's and 1's.
+143:23 I've indeed implemented the cp
+command correctly in this way.
+143:27 Now how, though, does this loop work?
+143:30 Let me go back into cp.c.
+143:32 Recall that I had this loop here.
+143:34 Let me close these other files.
+143:35 There was this loop
+that somehow just knew
+143:38 to advance to the next byte in the
+file even though there's no plus 1.
+143:41 There's no for loop explicitly.
+143:42 It's just kind of reading and reading
+and reading until fread returns 0.
+143:46 Well, the reason for that is that
+these file reading and writing
+143:49 functions behave a bit like a
+YouTube video or a Netflix video,
+143:52 whereby once you start reading
+from them, watching them,
+143:55 the sort of cursor advances
+from left to right.
+143:59 So as soon as you read
+a byte, the file itself
+144:02 keeps track of where you
+are in the file, kind
+144:04 of like an old school cassette tape.
+144:06 Once you start playing,
+physically, the device
+144:08 is moving so it knows where
+to read the next bytes from
+144:10 and where to write the next bytes to.
+144:14 And this is all going to be germane as
+we introduce ultimately a specific file
+144:18 format this week in problem set 4, known
+as a bitmap file or BMP, for short.
+144:22 In the world of bitmap files, you'll see
+that you can represent images like this.
+144:26 But these images are really just going
+to be a grid of pixels top to bottom,
+144:30 left to right.
+144:30 And among the goals for
+this week is to implement
+144:33 some Instagram-like filters
+via which you can actually
+144:36 manipulate these images.
+144:38 So, for instance, among
+the filters you'll
+144:40 implement is first one that
+converts any image, even a photo
+144:43 you yourself took into black
+and white by throwing away
+144:46 color information somehow and just
+retaining some form of grayscale.
+144:49 You'll implement.
+144:50 And it's a bit hard to see on the
+screen, but a sepia tone, sort
+144:53 of an old school photographic style.
+144:56 You might be able to invert or
+flip the image on its axis here,
+144:60 so I've just reversed
+the sides of the bridge.
+145:02 Same photo just flipped around
+in the computer's memory
+145:04 by moving these bytes over
+here, and these bytes over here.
+145:07 Or if you really are feeling more
+comfortable, you can do edge detection
+145:10 and write nah.
+145:11 I said that wrong?
+145:12 Or if you're feeling really--
+145:14 no, wait, everyone has to do this.
+145:16 Sorry let's stick the landing.
+145:18 We have one minute left.
+145:19 So what you'll also be challenged
+to do is blur the image too
+145:23 whereby you're going
+to make it look fuzzier
+145:25 by sort of combining pixel values.
+145:27 So that it's not quite as
+crisp as it originally was.
+145:29 And if you're feeling
+really comfortable,
+145:31 you can even do edge detection,
+whereby you can figure out
+145:34 where the outlines of physical
+objects are on the screen
+145:36 by writing more sophisticated code,
+optionally to render images such as this
+145:41 here.
+145:41 So, ultimately, this whole week is
+going to be about file input and output,
+145:45 recovering images that might have
+been deleted or corrupted as well.
+145:48 But we thought we'd end
+on a final pointer note,
+145:51 this is another one of these comics
+that now computer scientists should
+145:54 be able to understand the humor of.
+145:57 Hopefully, OK, lots of laughter.
+145:60 All right, that's it for CS50.
+146:01 We will see you next time.

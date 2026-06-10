@@ -1,0 +1,4224 @@
+00:44 All
+00:45 right,
+00:46 this is CS 50,
+00:47 and this is week one,
+00:49 our second week together,
+00:50 and you'll recall that last week,
+00:51 week zero,
+00:52 we focused on scratch ultimately this graphical
+00:55 programming language by which you can drag and
+00:56 drop puzzle pieces that interlock together only if it makes logical sense to do so.
+01:00 And many of you had actually probably played with that
+01:03 in like middle school or even prior at some point,
+01:05 but for our purposes,
+01:06 the goals of Scratch were to give us
+01:07 sort of a mental model for some fundamental constructs
+01:10 that we're going to see again and again today in C in a few weeks in Python.
+01:14 and even thereafter,
+01:15 and those include things like functions and return variables and
+01:19 arguments and variables and loops and conditionals and more.
+01:22 And so even if today feels like a bit of a fire hose such as that pictured here,
+01:28 appreciate that a lot of today's ideas are exactly the same as last week's ideas.
+01:32 It's just that the syntax is going to change.
+01:34 It's going to look a little different.
+01:35 It's going to look a little scarier.
+01:36 It's going to be harder to sort of memorize
+01:38 except with practice will come that muscle memory,
+01:41 but the ideas ultimately are going to be the same.
+01:43 And indeed this is,
+01:44 if unfamiliar,
+01:45 MIT down the road has a tradition of hacks whereby students
+01:48 once a year do something fairly crazy and at this point
+01:51 they happen to connect an actual working
+01:53 uh drinking fountain to an actual fire hydrant,
+01:56 and the sign there,
+01:57 very pixelated,
+01:58 says Getting an education from MIT is like trying to drink from a fire hose.
+02:02 And that's indeed how computer science,
+02:04 how programming,
+02:05 how CS 50 will sometimes feel,
+02:07 but realize that what's going to be ultimately most important is not where you.
+02:12 Uh,
+02:13 feel you are day after day,
+02:14 but where 3 months from now you feel that you are relative to
+02:18 last week alone,
+02:19 so-called week zero.
+02:21 So let's look back at what week zero looked like.
+02:23 It looked a little something like this the simplest of programs
+02:25 by which we get get that cat to say Hello world.
+02:29 Today that same code
+02:30 is going to start to look a little like this,
+02:32 which was a glimpse we gave you last week.
+02:34 But this time I've deliberately color coded it to
+02:36 try to send the message that we're in scratch.
+02:38 We had this yellowish puzzle piece that sort of kicked things off.
+02:42 That didn't really do anything itself,
+02:43 but it got the program started,
+02:45 whereas the real work was done in purple here.
+02:47 Same is going to be true today,
+02:49 whereby I'm going to wave my hands for a little
+02:50 bit of time at this yellowish code on the screen,
+02:53 but what's really going to have the most effect is
+02:56 this same purple line here and the white text within.
+02:58 And we'll break down what all of these lines mean over the next couple of weeks,
+03:02 but sometimes we'll wave our hand at details if we feel
+03:04 it's a little unnecessary at this point in the story.
+03:07 And in fact,
+03:07 let me get rid of the color coding for now and we'll see that this is the kind.
+03:11 Of code in a language called C we're going to start playing with and using today
+03:16 and for the next several weeks.
+03:17 And indeed it's representative of what we're going to generally call source code.
+03:21 So source code is what programmers write.
+03:22 It's what you write.
+03:23 It's what you wrote,
+03:24 albeit by dragging and dropping puzzle pieces.
+03:26 This week onward you're going to start using your keyboard
+03:28 all the more and you're going to write source code.
+03:30 So this is code that we humans can
+03:32 understand with some training and with some practice,
+03:35 but of course per last week what language do computers ultimately understand?
+03:41 Only
+03:42 so binary zeros and ones and so you and I,
+03:45 yes,
+03:45 can write code starting today in a form that looks a little something like this,
+03:49 which admittedly might look a little arcane and cryptic,
+03:52 but it's certainly better than a whole bunch of zeros and ones.
+03:55 But we're going to write in source code,
+03:56 but the machines that we write code for
+03:59 ultimately only understand these here zeros and ones,
+04:02 which may very well say hello world,
+04:04 but we're going to call this moving forward machine code.
+04:06 So machine code is what the the.
+04:09 understand only the zeros and ones.
+04:11 Source code is what you and I understand and actually write,
+04:13 so it stands to reason that we're going to have
+04:15 to somehow translate one to the other from source code
+04:19 to machine code.
+04:20 And I alluded to this ever so briefly last week,
+04:22 but we're going to use the same mental model whereby the
+04:25 source code we write might be the input to some problem.
+04:28 The output we want therefrom is going to be the machine code.
+04:31 So what we're going to equip you with today
+04:33 inside of this proverbial black.
+04:34 Box is a special piece of software that takes source code as input,
+04:39 produces machine code as output,
+04:41 and that type of program is called a compiler,
+04:43 and there's bunches of different compilers in the world.
+04:46 We're going to have you use one of the most popular ones,
+04:48 but it's simply a piece of software that someone
+04:49 else wrote that converts one language to another.
+04:53 Source code,
+04:53 for instance,
+04:54 in a language called C to machine code,
+04:56 the zeros and ones that our Macs PCs,
+04:58 phones,
+04:58 and other devices actually understand.
+05:01 So where are we going to do this and how are we going to do this?
+05:03 So I promised last week that we'd introduce you to this year tool,
+05:06 which I used briefly at the very start of class to whip up that chatbot.
+05:10 We're going to use it though not for Python this week,
+05:12 but indeed for a different language C.
+05:14 And indeed this tool,
+05:15 Visual Studio Code or VS code for short,
+05:18 is super popular in industry.
+05:19 This is what real programmers,
+05:21 so to speak,
+05:21 are using all of the time nowadays.
+05:23 There's absolutely alternatives.
+05:24 If some of you have programmed before,
+05:26 you might have used or experienced different tools,
+05:28 but this is a very.
+05:29 Common tool that you'll see even after CS 50,
+05:32 and in fact it's something that ultimately you can
+05:34 install for free on your own Macs and PCs so
+05:37 that by the end of the course you're completely
+05:39 independent of CS 50 and any CS50 related tools,
+05:43 but what we have done for the very start of the class
+05:45 is essentially provided you with a cloud-based version of this tool.
+05:49 So all you need is a web browser on any Mac or PC or the like,
+05:53 so that everything's pre-installed for you,
+05:55 pre-configured for you,
+05:56 and you don't have to deal with the stupid technical.
+05:57 Support headaches at the start of the term because it should
+06:00 just work.
+06:01 But by the end of the term,
+06:02 once you're a little more comfortable with technology and with code in particular,
+06:05 you can absolutely offboard yourself from this tool,
+06:08 install it,
+06:08 download it on your own Mac and PC,
+06:10 and have pretty much the exact same environment
+06:13 completely under your control.
+06:15 So starting today,
+06:16 you're going to see an interface that looks quite like this quite often,
+06:19 and we use this same interface last week ever so briefly.
+06:22 Moving forward,
+06:23 here's where we're going to write code at top right is where one or more codes.
+06:26 Tabs are going to appear similar to any tabbed environment that you might use.
+06:30 Here,
+06:31 for instance,
+06:31 is just a screenshot of the first file we'll create today called hello.c.
+06:35 The reason it's called hello.c is because it's in a language called C,
+06:39 as we soon shall see,
+06:41 no pun intended.
+06:42 Meanwhile,
+06:42 the code here happens to be color coded,
+06:45 not quite in the same way as you saw before,
+06:47 because I manually made it look more like scratch blocks.
+06:50 But among the features that VS code and other programming environments provide.
+06:54 Something called syntax highlighting
+06:56 whereby you don't worry about or even think about these colors,
+06:59 but as you write out code in a recognized language,
+07:03 tools like VS code will just color code different parts of
+07:06 your code for you just to make different features jump out,
+07:09 and we'll see what those features are
+07:10 over the course of today.
+07:12 But you'll also spend a good amount of time,
+07:13 as I briefly did last week,
+07:15 down here in the bottom right of your screen,
+07:17 the so-called terminal window,
+07:18 which is going to be where you run commands for compiling code and write.
+07:22 In code.
+07:22 And in fact,
+07:23 as we'll see today,
+07:24 you're going to start using your mouse and clicking a little bit less.
+07:27 You're going to start using your keyboard and typing a bit more.
+07:30 And ultimately,
+07:31 even though if that first that might feel like a step
+07:33 backwards to sort of not use something that's so user friendly,
+07:36 the reality is most every programmer tends
+07:38 to find themselves ultimately much more productive,
+07:41 much more powerful,
+07:42 using the keyboard more often,
+07:44 more quickly than,
+07:45 say,
+07:46 a traditional mouse or trackpad would allow.
+07:48 Meanwhile,
+07:49 we'll see some somewhat familiar features.
+07:50 Here at left like this is where you'll see the
+07:52 files and folders that we will create over time.
+07:54 At far left here is going to be an activity bar,
+07:56 which is essentially a modern form of a menu via which
+07:59 you can open and close things and access other features.
+08:01 For my purposes,
+08:02 I'll generally hide this part here.
+08:04 I'll generally hide this part here so that when we're
+08:06 together we're focusing almost entirely on code and commands,
+08:09 but I'm just typing some quick keyboard shortcuts
+08:11 to simplify my own user interface in that way.
+08:15 So with all that said,
+08:17 just some terminology.
+08:18 So this The whole collective environment that I'm describing here
+08:21 is generally what's known as a graphical user interface.
+08:24 Why?
+08:24 Well,
+08:24 it's an interface for users that's graphical in
+08:27 nature with icons and buttons and the like.
+08:29 Shorthand notation for this is GUIY GUI for short.
+08:33 But within this graphical user interface,
+08:35 as promised,
+08:35 is going to be that terminal window at bottom right where
+08:38 I promised we would be typing most of our commands.
+08:40 And just to give you a bit more jargon in computing,
+08:43 that's generally known as a command line interface,
+08:45 or CLI.
+08:47 For short,
+08:47 whereby you're typing commands into that interface instead,
+08:51 and the world of computing software is essentially divided into GUIs and CLIs
+08:56 and sometimes a piece of software might have one of each as well.
+09:00 But without further ado,
+09:02 why don't we go ahead and focus entirely first on this here program,
+09:05 which I dare say is the simplest program you can write
+09:08 in a language like C and see how we can actually compile and run it together.
+09:13 So I'm going to go over to VS code here.
+09:15 I've hidden my File Explorer with all the
+09:17 icons and I've hidden my activity bar so that
+09:20 only do I have room for tabs of code and the command prompt at the bottom.
+09:25 I'm calling this a command prompt because it's
+09:26 at this dollar sign where I'm going to run
+09:29 some of my commands,
+09:30 and it's a dollar signed by convention.
+09:31 It has nothing to do with currency.
+09:32 It's just a computing convention.
+09:34 Some systems will use a carrot symbol.
+09:36 Some systems will use a greater than symbol rather,
+09:39 or something else,
+09:40 but it just means type your commands here.
+09:42 The first such.
+09:43 And I'm going to type is this
+09:45 code hello.c with a single space in between.
+09:48 I've not used any spaces in the name of the file.
+09:51 I've not capitalized any aspect of the file just because this is convention,
+09:55 unlike your Mac or PC,
+09:56 where you might be in the habit of naming files with spaces and capitalization.
+09:60 Generally you'll make your life simpler by just
+10:02 using lowercase and no spaces at all.
+10:04 As soon as I hit enter,
+10:05 what you'll see is that a brand new tab
+10:07 appears called hello.c with a cursor blinking on online.
+10:11 I and this is essentially VS code waiting for me now to type the first line of my code.
+10:16 Notice though that the command is complete
+10:18 thereby whereby I have another cursor here which I'd give if
+10:21 I click in the terminal window and give foreground to it,
+10:24 my cursor might blink there instead.
+10:26 That just means I can type another command when I am ready.
+10:28 So let's go ahead and whip up this code,
+10:30 and I've done this many times,
+10:31 so I can type it fairly quickly,
+10:32 but in this tab I'm going to do include standardio.h,
+10:36 so to speak,
+10:38 in main void.
+10:39 Then inside of so-called curly braces indenting therein by 4 spaces,
+10:44 I'm going to say print F quote unquote hello world backslash and close semicolon,
+10:50 and voila,
+10:51 I've written my first program in C.
+10:54 In a class like this,
+10:54 no need to write down each and every line of code that I write.
+10:57 In fact,
+10:57 on the course's website will be copies of everything that we've
+10:59 done as well as excerpts therefrom in the course's notes,
+11:02 but you're welcome but not expected to follow along
+11:05 in real time with what I am typing here.
+11:08 So that's it.
+11:09 Like I've written my very first program and see if I had done
+11:12 this on an actual Mac or PC without a command line interface,
+11:16 I might have a new icon on my desktop,
+11:18 so to speak,
+11:19 called Hello,
+11:20 and ideally I could double click on that or tap on it and run the program,
+11:23 but because I'm in this specific programming environment that
+11:26 has a mix of a GUI and a CLI.
+11:28 I actually need to click down in my terminal window,
+11:31 and I need to now compile this program first because at
+11:34 this point in time it exists only as source code.
+11:37 So to do this,
+11:38 I'm going to compile my code by very aptly saying make space hello,
+11:43 and I'm pronouncing the space,
+11:44 but literally I hit the space bar.
+11:46 Make space hello,
+11:47 is it sort of implies some.
+11:48 will make a program called hello.
+11:51 Notice I have not said hello.c again because the compiler,
+11:55 let's call it Make for now,
+11:56 even though that's a bit of a white lie,
+11:58 is going to infer that if I want to make a program called hello,
+12:01 it's going to automatically look for a file called hello.c in this case,
+12:06 so a bit of magic.
+12:08 Enter.
+12:09 And remarkably,
+12:10 any time you don't see any output at a command like this,
+12:13 that's probably a good thing.
+12:14 Generally speaking,
+12:15 when you see output when compiling your code,
+12:17 you have done something wrong or in this case I might have done something wrong,
+12:20 but no output is good because what I can now do,
+12:23 and this is a bit cryptic,
+12:24 I can run this program not by double clicking or tapping anywhere,
+12:28 but by doing slash
+12:30 hello with no spaces.
+12:32 And this is a bit weird,
+12:33 but what the slash means is that after having just made a program called hello,
+12:39 that program's going to end up in my current folder.
+12:41 It's somewhere in the cloud,
+12:42 yes,
+12:42 more on that in a bit,
+12:43 but the program called hello is just somewhere in my current folder.
+12:47 When I say slash,
+12:48 that's like saying go into the current folder
+12:51 and run the program therein called hello specifically.
+12:55 Now,
+12:55 as I often do,
+12:56 I'll cross my fingers,
+12:57 hope that I didn't mess this up in any way,
+12:59 and I should see in a second.
+13:01 Hello world indeed printed onto the screen.
+13:05 And so just to recap those in commands,
+13:07 one,
+13:08 I ran code hello.c,
+13:09 which is a VS code specific thing.
+13:11 Code short for VS code,
+13:12 just creates a new file called hello.c and then I'm on my way with my own keyboard.
+13:17 Make hello compiles that source code into machine.
+13:20 Code thereby creating a new file called hello
+13:24 and to run that program hello,
+13:26 I type this strange command.
+13:29 hello.
+13:29 But this is a paradigm no matter what you call your programs,
+13:32 we're going to see again and again and again.
+13:34 So even if you've not done something quite like this,
+13:36 it will very quickly
+13:38 get familiar.
+13:40 Yes,
+13:41 questions.
+13:43 How,
+13:43 when you say make hello,
+13:44 how like,
+13:45 how does,
+13:45 how do you,
+13:46 how does the computer know like what part of the code
+13:49 to what part of the code is ascribed to hello?
+13:52 Good question.
+13:53 When I say make hello,
+13:54 how does the computer know what part of the code is ascribed to this program,
+13:57 hello?
+13:58 It literally is going to take the entire contents
+14:00 of hello.c and turn them somehow into a program.
+14:04 And does it have to be like hello?
+14:07 Does it have to be named hello?
+14:08 No,
+14:08 I could have called it goodbye or anything more myfirstprogram doc,
+14:11 anything at all,
+14:12 so long as I change these words here accordingly.
+14:16 But it has to be like it needs to be like
+14:24 from the same thing like it.
+14:24 Yes.
+14:24 Exactly.
+14:25 If you change the name there,
+14:26 you need to change your commands accordingly.
+14:28 Other questions on these here,
+14:30 steps.
+14:33 No.
+14:34 All right,
+14:34 so let's tease apart what it is we just did and
+14:37 like why this code works in the way that it does.
+14:39 Well,
+14:40 to recap,
+14:40 in Scratch,
+14:41 we had a program like this.
+14:42 When the green flag was clicked,
+14:43 we wanted to say hello world onto the screen.
+14:46 The code that corresponds to that is roughly here and indeed notice that
+14:49 the yellowish or orangeish code lines up with the when green flag clicked,
+14:53 the purple code here lines up with the same block,
+14:55 and the white code inside of here roughly corresponds to what was in
+14:58 the white oval that we kept using again and again last week.
+15:01 So let's do more of a one.
+15:02 One correspondence and these slides are deliberately designed
+15:05 to give you again that sort of mental model
+15:08 of taking same ideas from last week and just changing the syntax this week onwards.
+15:12 So when we have a function like this thing here,
+15:15 and recall that a function is just an action or verb,
+15:17 it sort of accomplishes a small piece of work
+15:20 in code in C specifically,
+15:22 you're going to type,
+15:23 of course not a purple puzzle piece,
+15:25 but you're going to say the word print while more technically print F,
+15:28 where the F as we'll soon see,
+15:29 means format the printed.
+15:31 Output because this is more powerful than just printing some raw text alone,
+15:35 then you can have parentheses open and closed left and right and notice that it's no
+15:39 accident that MIT MIT chose an oval for
+15:41 their input to functions because it roughly looks like
+15:45 the start of a parenthesis and parenthesis on left and right.
+15:49 Meanwhile,
+15:49 what goes inside of the parentheses in the corresponding C code,
+15:52 well,
+15:52 at the end of the day,
+15:53 minimally hello,
+15:54 comma world because that's literally what we want to print to the screen.
+15:57 But in C,
+15:58 unlike in Scratch.
+15:60 A bit of overhead,
+16:01 a bit of additional syntax that you just got to deal with
+16:03 to make clear to the computer what you want to print.
+16:07 In particular,
+16:08 you're going to have to surround everything you want to print with double quotes to
+16:12 make clear that hello is not some special function or variable or something else.
+16:16 It's Hello world is the English phrase that you want to print.
+16:19 So double quote here,
+16:21 double quote there means He's the beginning and the end of what I want to print.
+16:25 You're also curiously going to put a backslash n.
+16:29 In most cases,
+16:30 at the end of the word or words you want to print,
+16:33 we'll take that away in a moment and see what it does
+16:35 and then lastly and perhaps most annoyingly in programming circles,
+16:38 you have to finish your thought with a semicolon,
+16:41 much like in English you would finish most sentences with a period instead.
+16:44 And the thing the thing about programming is with C in particular,
+16:48 if you mess up almost any of these details I just rattled off,
+16:52 something's going to go wrong.
+16:53 And so you're in good company.
+16:54 The very first program you try to write or try to compile,
+16:57 odds are it might not work correctly because
+16:59 you'll develop over time the muscle memory for spotting
+17:02 all of these seemingly minor and actually minor
+17:05 details but that do matter to the computer.
+17:09 All right,
+17:10 so if you're familiar,
+17:11 of course,
+17:11 with the notation in like mathematics of functions like a function in code,
+17:15 it's really the same idea as a function in math whereby the function F
+17:19 takes some input,
+17:20 for instance X,
+17:20 and generally produces some output.
+17:22 So if you're coming more from that background,
+17:24 realize that what we're really doing here is roughly the same.
+17:27 But in code,
+17:28 recall that we can have different types of output.
+17:30 So if this is our grand mental model and say we've got a function.
+17:35 As inside of this black box that takes arguments,
+17:37 that is to say is it's inputs,
+17:38 it can sometimes have side effects and recall that side
+17:41 effects are often visual things that happen as a result.
+17:44 They just play on the screen,
+17:45 maybe it comes out of the speaker.
+17:47 It's some thing generally ephemeral that just happens,
+17:50 but it's.
+17:50 Not necessarily useful in the same way as another type
+17:52 of function that we'll return to in just a bit,
+17:54 but last week recall that we got the cat with
+17:56 the speech bubble to manifest on the screen and say
+17:59 hello world in that speech bubble when the input was
+18:02 hello world and the corresponding function was instead say.
+18:06 So let's see if we can't now
+18:08 tease apart
+18:10 what the code we wrote is actually doing for us bit by bit.
+18:14 So let me go back to VS code here and let me propose to break this in a little way.
+18:18 Let me delete the backslash N,
+18:20 if only because at first glance,
+18:22 who knows or cares what that's doing.
+18:23 Let's just get rid of it if we don't understand it.
+18:26 I could now go back down to my terminal window
+18:28 and I could do hello enter again,
+18:31 but there's seemingly no change.
+18:34 Which is good,
+18:35 doesn't seem like I broke it,
+18:37 but I've kind of misled you here why?
+18:40 Why did nothing seem to change?
+18:43 I didn't recompile it,
+18:45 so recall that
+18:46 the compiler converts source code to machine code,
+18:49 but I already did that a couple of minutes ago.
+18:51 If I've changed the source code,
+18:52 it stands to reason that I need to recompile the code
+18:55 to actually see the effects of that.
+18:58 So let me do that again.
+18:59 Make hello E.
+19:01 Nothing seems to have gone wrong,
+19:03 but let me now do hello Enter.
+19:06 And it's subtle now and in fact let me go ahead and zoom in,
+19:09 it's really just an aesthetic bug insofar as functionally
+19:13 the program is still technically printing Hello world,
+19:16 but what's seemingly wrong
+19:18 or put another way,
+19:19 what did the backslash and apparently do?
+19:21 Yeah.
+19:23 Yeah,
+19:23 so it's somehow giving me a new line,
+19:25 and that's essentially what the backslash N denotes is give me a new line there.
+19:29 And why was I doing that?
+19:30 Well,
+19:30 really just for the aesthetics.
+19:31 Like if this dollar sign represents my prompt where I type commands,
+19:34 if anything,
+19:35 it just looks kind of stupid that I finished a program over here
+19:38 and then the prompt is on the same line.
+19:40 It just looks wrong even though you could sort of argue that was my intent,
+19:43 even though in this case it wasn't.
+19:45 So what would the alternative be?
+19:47 Well,
+19:47 what you're seeing here is what's actually
+19:49 generally known as an escape sequence which.
+19:51 are
+19:52 sort of special sequences
+19:54 of symbols like backslash and N in this case that do a little something unusual.
+19:60 And here's just a non-exhaustive list of some you'll encounter in the real world
+20:03 and including in CS 50 backslash N moves you to a new line.
+20:08 Backslash R is a so-called carriage return if you've
+20:10 ever seen or used an old school typewriter,
+20:12 this refers to the process of bringing the typing head back to the left end,
+20:16 so it sort of moves the cursor horizontally as opposed to vertically.
+20:20 This one's interesting.
+20:22 backslash double quote.
+20:24 Why does there exist this pattern?
+20:28 Backslash double quote,
+20:29 yeah.
+20:32 Exactly.
+20:35 So recall that phrase we tried to type,
+20:36 uh,
+20:37 print out like hello,
+20:38 comma world.
+20:39 If for some reason you don't want to say hello world,
+20:41 but you wanted to say some or like sort
+20:43 of snarkily like hello world or something like that,
+20:46 well,
+20:46 you can't put a quote,
+20:48 a quote,
+20:48 a quote at a quote and expect the computer to know which quote corresponds to what.
+20:52 It's just arguably ambiguous.
+20:54 So if inside of double quotes you actually want to print actual double quotes.
+20:59 This is an escape sequence that tells the computer
+21:03 this is not some
+21:04 quote delineating where my thought begins and ends.
+21:08 This is literally a double quote and we'll see other situations
+21:11 in which a single quote or apostrophe is the same.
+21:13 We'll see crazy situations in which you want to print a backslash,
+21:16 but backslash already has some special meaning,
+21:18 so there's solutions to all of these problems.
+21:20 But let's not get too far into the weeds here.
+21:22 But let me go back to the code and propose what the alternative.
+21:25 Otherwise might have been.
+21:26 If I didn't know about backslashn,
+21:28 my instinct to move the cursor to the next line might have
+21:31 been literally to just like hit enter or do something like this,
+21:35 like move the double quote,
+21:37 move the parenthesis,
+21:37 move the semicolon onto the next line.
+21:39 But this should start to rub you the wrong way.
+21:41 And indeed this violates a principle of most programming
+21:45 languages and that most programming languages are line based.
+21:48 You sort of start and finish your thought.
+21:50 Ideally
+21:51 on the same line,
+21:52 and this runs afoul of that.
+21:54 And 2,
+21:54 even if you're seeing code for the first time,
+21:57 assume that this just looks stupid as well to sort
+21:59 of move part of your thought to the next line.
+22:02 It just looks a little sloppy and it is.
+22:04 So C and many other languages,
+22:06 Python among them,
+22:07 solve this by giving you these so-called escape sequences.
+22:09 So if you want a new line there,
+22:11 you do backslash N and you will get your new line
+22:14 there.
+22:14 Now that's a bit of an Overstatement what I said in that sometimes lines
+22:18 of code will be so long that they do wrap onto multiple lines,
+22:21 but generally
+22:22 that's a convention that we're going to try
+22:25 to avoid.
+22:26 All right,
+22:26 what else could go wrong?
+22:27 Well,
+22:27 let's do this.
+22:28 Let me go ahead and clear my terminal window,
+22:29 which I can do by hitting
+22:32 control L,
+22:32 or I can literally type clear and I'm going to
+22:34 frequently do this just to keep the screen clear,
+22:36 even though it has no functional impact.
+22:38 It's just an aesthetic.
+22:39 Let me do something else.
+22:42 suppose I forgot to finish my thought and I omitted the semicolon,
+22:45 but otherwise the code is perfect.
+22:47 Let me do make hello now.
+22:49 Enter.
+22:50 Now we're going to see some output that's a little more arcane.
+22:53 Let me go ahead and scroll back up here to
+22:55 make clear that what's just happened is Iran make hello,
+22:58 but I didn't get back to another prompt.
+23:01 I don't see immediately a dollar sign because there's an error message here
+23:04 that is almost as long as the code I tried to write.
+23:06 Not to worry.
+23:07 Let's see.
+23:08 Here is the name of the file in which the problem exists,
+23:11 stands to reason that it's in hello.c.
+23:13 Here is the line number in which the problem seems to exist,
+23:17 line 5,
+23:18 and that's helpful because it lines up with this.
+23:20 And then if you're you care to.
+23:22 This is the 29th character.
+23:24 So if I count from left to right around 29,
+23:27 something is wrong,
+23:28 something is missing.
+23:29 So it's a pretty decent error message.
+23:31 In fact,
+23:31 it even says expected semicolon after expression.
+23:35 There's a little green carrot symbol pointing me at the mistake.
+23:38 So this is again this is another value of the compiler.
+23:41 Not only does it know how to convert source code to machine code,
+23:45 it's also pretty good at finding mistakes in your
+23:47 code and trying to draw your attention to them.
+23:50 So how do I fix this?
+23:52 Well,
+23:52 assuming you've understood the error message at this.
+23:54 Point.
+23:55 Well,
+23:55 you just go back in,
+23:56 add the semicolon,
+23:57 let me go back down to my terminal window.
+23:59 I'm gonna clear it just to clean up the mess.
+24:02 Let me rerun make hello,
+24:03 and now we are back in business and indeed if I do slash hello,
+24:07 I've got hello world
+24:09 back on the screen.
+24:11 Well,
+24:11 let's make one other mistake.
+24:12 Suppose that I forgot,
+24:14 as you sometimes will,
+24:15 to include this line at the top,
+24:17 which will make more sense next week.
+24:18 But for now,
+24:19 let's just omit it and dive right into the code.
+24:21 You would think this is enough,
+24:22 just printing out Hello world.
+24:24 Well,
+24:24 here,
+24:25 let me go back down to my terminal window.
+24:27 Let me do make hello again now,
+24:28 and I'm going to get a whole different error message instead.
+24:32 So now
+24:33 the problem is still with hello.c.
+24:35 that makes sense.
+24:36 Line 3,
+24:37 OK,
+24:38 so somewhere in there print F is suddenly the problem even
+24:41 though the semicolon is back and the backslash N is back.
+24:44 So let's keep reading error call to undeclared library function print F with type.
+24:49 And and then this is a whole mouthful.
+24:52 So here is an example of an error message that unless you're sort
+24:55 of conditioned to know what this means and you've seen it before,
+24:58 it's quite more cryptic and unclear like what the solution to the problem is,
+25:02 especially when the rest of your code is truly correct.
+25:05 I've just forgotten something stupid,
+25:07 but how can I
+25:08 sort of think about this problem?
+25:10 Well,
+25:10 it turns out.
+25:11 That another feature
+25:13 of C is that it comes with a bunch of header files,
+25:16 a bunch of files whose names don't end in doc but end in H,
+25:21 and these so-called header files,
+25:23 which end inh contain
+25:26 code that other people wrote that you can use in your own programs.
+25:31 So for instance,
+25:32 in this particular case,
+25:33 a header file is giving us access to what's more generally.
+25:36 In computing called a library,
+25:38 a library is code someone else wrote that you can use,
+25:42 and I actually used the library last week when
+25:44 I did that import line and mentioned OpenAI,
+25:46 the company,
+25:47 I was actually using a library from that company
+25:50 that I automatically downloaded and installed into my programming
+25:54 environment in advance of class because I don't know how
+25:56 to implement a chatbot without standing on their shoulders and
+25:59 using a lot of the code they themselves wrote.
+26:02 Same idea here,
+26:03 even though printF is a feature of C,
+26:06 if you want to use it,
+26:07 you have to include that library by telling your program to include
+26:13 the header file.
+26:14 That defines that function and you only know this by being taught
+26:18 it or looking it up in a book or a reference,
+26:20 but in this case I wanted to use a header file called Stanio.h STDio.h.
+26:27 It is not studio.h.
+26:30 This is a very common
+26:31 bug online if you find yourself typing studio.
+26:35 Hypo,
+26:36 it's standardio.h and in that file then is defined the printer function.
+26:42 So if I go back to my code here,
+26:44 the solution to this problem truly is to just undo the deletion I made a moment
+26:48 ago because what line one is now doing for me is it's telling the compiler,
+26:51 oh by the way,
+26:53 I didn't write all of the code that I'm about to use.
+26:55 Please include the definition of printF
+26:59 from this other file called standardio.h.
+27:01 And again,
+27:02 you'd only know this by looking it up in a reference,
+27:04 attending a lecture or something like that.
+27:06 It's not obvious otherwise,
+27:07 but these are the kinds of things you very quickly look up.
+27:11 So where do you look them up?
+27:12 Well,
+27:12 it turns out the ecosystem of C.
+27:14 Has hundreds of books you can buy or download.
+27:17 Many,
+27:18 many,
+27:18 many websites among them is one of CS 50's own.
+27:21 And in fact the conventional way
+27:23 to look stuff up for the programming language called C is to
+27:26 look at the official manual pages or man pages for sure,
+27:30 for the C language.
+27:31 Unfortunately,
+27:32 many of them were written decades ago when they were certainly
+27:34 written by fairly advanced programmers and not for a broad audience.
+27:38 And so what we have done is imported all of that freely available documentation.
+27:43 Uh,
+27:43 hosted it at our own URL here,
+27:45 manual.cs50.O,
+27:47 and we've essentially simplified it for those less comfortable,
+27:49 those of you who might be less familiar with,
+27:51 less comfortable with technology,
+27:53 and really for most people who aren't used to reading manual pages,
+27:56 it's just useful to have it written in teaching assistant-like language instead.
+28:00 So for For instance,
+28:01 if you go to a URL like this,
+28:03 you'll see CS 50's documentation for this official
+28:06 library Standardio.h that comes with C itself.
+28:10 If you get a URL like this,
+28:11 you can look up the documentation for printF itself specifically.
+28:14 So for instance,
+28:15 let me go ahead and just give you a teaser for this.
+28:17 If I were to do the same.
+28:19 On my own computer,
+28:20 I might see the CS 50 manual pages here and you'll see header
+28:24 file by header file a bunch of frequently used functions in CS 50.
+28:28 We've also filtered the list down from a massive list to a much shorter
+28:32 list so that you can sort of see what's most likely useful to you.
+28:35 If you go to a specific page like Standardio.H,
+28:38 you'll see for instance here just over a half dozen
+28:40 functions that we won't touch on today beyond print def,
+28:43 but that we'll see in the class over time that does useful stuff for.
+28:46 For instance print prints to the screen and
+28:49 we'll see other functions for opening files,
+28:51 closing files,
+28:52 and the like because all of that's related to standard IO input and output.
+28:56 If I go to a specific man page for this header file,
+29:01 you'll see the standard formatting for these pages.
+29:04 So here's the name of the function printF,
+29:05 and it prints to the screen.
+29:07 You'll see a synopsis,
+29:08 and this indeed indicates we're in less comfortable mode.
+29:10 If you want to see the original,
+29:11 more arcane documentation,
+29:13 just uncheck that.
+29:14 And you'll see the original official documentation,
+29:17 but you'll see a mention of like what header file this function is defined
+29:19 in so that you know what file to use in your own code.
+29:22 You'll see a so-called prototype,
+29:24 which is just
+29:25 the first line of code from that function.
+29:28 More on that in just a little bit.
+29:29 You'll see an English description.
+29:30 You'll see example code.
+29:31 Long story short,
+29:32 this is the authoritative answer.
+29:34 And even though you have access in this class,
+29:37 to the virtual rubber duck at CS50.AI and other forms of it that you'll soon see.
+29:42 You should also have the tendency and the
+29:44 instinct moving forward to check the official documentation,
+29:48 and all of today's AIs are trained on things like the official documentation.
+29:52 So that's the source material
+29:54 that any of these AI,
+29:55 the ducks the duck among them are actually relying on.
+29:59 But what we're also going to see is that besides these official functions,
+30:03 there's some that CS 50 itself has invented.
+30:05 We use these really as training wheels for just the first few weeks of the course,
+30:08 and then we take these training wheels off,
+30:10 but the reality is in a language like C,
+30:12 certain stuff is just really hard or annoying to do.
+30:15 Certainly if you're learning how to program for the very first time,
+30:18 or at least you are new to C,
+30:20 we'll eventually show you how to do it that way.
+30:22 But even if you just want to get input from the
+30:24 user like a string of text or a number of some.
+30:27 It's generally not that easy to do and see,
+30:30 at least in these early days.
+30:31 So for instance,
+30:32 at this URL here you can see documentation for CS
+30:34 50's own library and CS 50's own header file CS50.H,
+30:38 and you'll see such functions in the documentation as these get string,
+30:42 get in,
+30:43 get char,
+30:44 and a bunch of others as well,
+30:45 and we'll touch on those this week,
+30:47 but it will ultimately be a way of just getting useful
+30:51 work done quickly by standing on our shoulders and actually.
+30:56 Uh,
+30:56 using functions we wrote
+30:58 to then solve problems of interest
+31:00 to you.
+31:01 So let's focus,
+31:02 for instance,
+31:03 on one of these first.
+31:04 Get string.
+31:05 A string in programming speak means text,
+31:08 zero or more characters of text like H E L
+31:12 L O W O R L D.
+31:13 That is a string of text in computer speak and it's obviously not a number like 50,
+31:18 it's actual text that you would type on the keyboard.
+31:20 We'll see then what other things we want to get,
+31:23 but with this.
+31:23 this function,
+31:24 we can start to replicate another program that
+31:27 we implemented pretty quickly last week in Scratch.
+31:30 So recall that in Scratch this one was a little more interactive.
+31:32 I used another blue puzzle piece ask to actually
+31:35 get input from the user and recall that unlike
+31:39 the printF function today and the same block last week,
+31:44 this time we still have the same input output model,
+31:46 but if we pass an arguments to a function
+31:50 that we're about to see.
+31:51 You can get back not just a side effect sometimes but a
+31:54 return value like a useful reusable value like the person's name,
+31:59 as we'll soon see.
+32:01 All right,
+32:01 so let's actually do this.
+32:02 If in scratch the equivalent was asking the user what's your name,
+32:06 asking them that,
+32:06 and then waiting for an answer that we can store in a variable,
+32:09 let me propose that in C side by side it's going to look a little something like this.
+32:13 Instead,
+32:14 at left we have the scratch block,
+32:16 the ask function.
+32:17 Here is the argument there too,
+32:19 and then it and wait just means it's going to wait till the user finishes typing.
+32:22 If I want to translate this to see now today moving forward,
+32:26 well,
+32:27 it looks a little something like this.
+32:28 The closest analog in C,
+32:31 thanks to CS 50's library is going to be a function called get string.
+32:35 So there's no C function called.
+32:36 Ask and we deliberately named this function get string just to make super clear
+32:40 what it is you are getting a string of text in this case,
+32:43 and we've got the parentheses ready to go
+32:45 indicative of this white oval for user input.
+32:48 If I want to prompt the user with that same phrase,
+32:51 what's your name?
+32:52 Well,
+32:52 I can just put it inside of those parentheses.
+32:55 But what next do I need to add
+32:57 around my user input?
+33:01 Yeah,
+33:01 I need the quotation marks just to make clear
+33:04 that these aren't special individual words.
+33:06 This is a whole phrase that I want to be displayed to the user,
+33:10 so I'm going to indeed put double quotes around everything,
+33:13 and this is just an aesthetic.
+33:14 I don't in this case want to bother moving the cursor to the next line.
+33:18 Like I want the user to see the question
+33:20 and I want the cursor to just stay there blinking,
+33:22 waiting for their prompt,
+33:24 but I don't want the cursor to be right next to the question mark.
+33:26 So I'm deliberately just leaving a single white space there just to kind
+33:29 of scooch it over a bit so it looks a little prettier,
+33:32 at least to my eye.
+33:33 Now we're not done yet.
+33:34 Because we need to do something with this value.
+33:37 The get string function,
+33:38 as we'll soon see,
+33:39 is going to prompt the user for me to type something in like my name,
+33:42 but where do I want to put that?
+33:44 Well,
+33:44 MIT has the answer put in a variable called answer,
+33:48 and you can't rename that in scratch.
+33:49 It's just defined as answer.
+33:52 But
+33:53 in C,
+33:53 what I'm going to need to do is something like this.
+33:56 If you want to keep return values around from a function,
+34:00 you literally use an equal sign.
+34:03 And then to the left of it you put the name of the variable into which you want to put
+34:08 that return value.
+34:10 So in mathematics we would use X,
+34:11 Y,
+34:11 and Z as our variables.
+34:12 Again in code,
+34:14 as in scratch,
+34:14 you can name your variables anything you want.
+34:16 By convention they should usually be lowercase.
+34:18 They should not have spaces therein,
+34:20 similar to file names,
+34:21 but this is a pretty good analog now of what's going on collectively.
+34:25 Here,
+34:26 but C is a little more
+34:28 precise.
+34:29 You can't just give the variable a name.
+34:31 You need to tell C or really the compiler,
+34:35 what type of value you want to put in this variable.
+34:39 So if it's a string of text,
+34:40 you put string.
+34:41 If it's a number,
+34:42 you're going to put something else.
+34:43 But for now it's a string
+34:45 per the function's name it's going to give me
+34:47 a string.
+34:48 Now we're so close to finishing this comparison.
+34:50 There's one detail missing.
+34:53 What's still missing from the code here?
+34:55 Yeah,
+34:57 yeah,
+34:57 so we have to finish the thought lastly with a semicolon.
+35:00 So if you're getting the sort of the point already,
+35:02 like this is one of the reasons why we start with scratch,
+35:04 you sort of you get the intuition pretty quickly and even
+35:07 though nothing on the right hand side is particularly hard,
+35:09 there's just all these stupid little details that
+35:10 you have to ingrain in yourself over time.
+35:12 In this case,
+35:13 for C,
+35:14 but for many programming languages we're going to see the similar paradigm.
+35:17 But among the goals of the course too are
+35:19 to show you how ultimately languages have been evolving.
+35:21 And so one of the things we'll see in Python in a few weeks' time
+35:24 that some of this syntax actually goes away because over time humans.
+35:28 Gotten annoyed at older languages like this.
+35:30 Like why the heck do I have to keep putting a semicolon
+35:32 when it's clear that I'm at the end of the line?
+35:34 So we'll see among languages like Python we can
+35:37 get rid of some of these same features.
+35:39 But for now it's just a matter of remembering what goes where.
+35:43 All right,
+35:43 so let's go ahead now.
+35:45 And take that same idea
+35:46 of converting Scratch to see and actually do something with this code.
+35:50 Let me go back to VS code here.
+35:51 I'm going to keep my file name the same,
+35:53 but what you'll see on CS50's website is that we'll add version numbers to each of
+35:56 the examples that I'm typing out so you
+35:58 can actually see the progression of these programs,
+36:01 even though we're not changing the name.
+36:03 And what I'm going to go ahead and do here,
+36:04 for instance,
+36:05 in hello.c this time.
+36:08 Is the following.
+36:09 I'm going to go ahead and
+36:11 first get rid of the single Hello world.
+36:14 I'm going to go up here and include this time CS 50.
+36:18 H,
+36:18 so not one but two header files,
+36:20 and then inside of my curly braces inside the so-called main function,
+36:24 as we'll soon call it,
+36:25 I'm going to go ahead and do this
+36:27 exactly the same line of code as on the screen before.
+36:30 I'm going to get a string.
+36:32 Prompting the user for what's your name?
+36:34 question mark space close semicolon,
+36:37 and as an aside,
+36:39 this will will soon see print on the screen.
+36:41 What's your name?
+36:43 So that implies that the get string function is actually using printF itself
+36:49 to print out that message.
+36:50 I do not need to use printF to display that message on the screen because I read the
+36:54 documentation for CS 50's get string function and I
+36:56 just know that it is using printF for me
+36:59 to achieve that particular goal.
+37:01 Now let me do something intuitive but not quite correct.
+37:04 If I want to print out that answer so that the expression is
+37:07 going to be not hello world but hello David or hello Kelly,
+37:10 let me go ahead and say hello answer
+37:14 backslash and to move the cursor down as before,
+37:16 semicolon.
+37:18 So this is not quite right,
+37:19 and even if you've never programmed before,
+37:21 you can perhaps see where this is erroneously going.
+37:24 Let me remake the program because I've changed the
+37:26 source code and I need new machine code.
+37:28 Nothing seems to be wrong aesthetic logic rather syntactically,
+37:33 but if I do now hello and hit enter,
+37:36 you'll see I'm being prompt.
+37:37 What's your name?
+37:38 So I'm going to go ahead and type in David and then hit enter.
+37:41 But when I do,
+37:43 If you know where this is going,
+37:44 what am I going to see instead?
+37:46 Hello answer and the computer's just doing literally what I told it to do.
+37:50 I said,
+37:50 quote unquote,
+37:51 print out hello answer,
+37:52 but obviously that's not the goal that I have in mind.
+37:55 So how do I actually work around that?
+37:57 Well,
+37:57 what I really need to do is achieve the equivalent of this thing here,
+38:01 which we did by stacking blocks in scratch or nesting them,
+38:05 if you will,
+38:05 one inside of the other.
+38:07 So I want to join the expression hello,
+38:09 comma space and that answer,
+38:11 and it turns out in C you can't do it quite like this.
+38:13 Like there isn't an analog of the.
+38:15 function at least that we'll see today.
+38:18 So we have to do this a little bit differently.
+38:20 We can do it though
+38:22 by maybe telling the computer,
+38:23 well go ahead and print out hello com space and then
+38:26 maybe we can give it like a placeholder to plug in the
+38:29 name once we know the name because when I'm writing my
+38:32 code I have no idea who's going to play this game,
+38:34 me or Kelly or someone else.
+38:36 So what if we use special syntax to indicate
+38:39 where I want the person's name actually to go?
+38:42 Let me propose that we now do this.
+38:44 Instead of
+38:46 printing out hello
+38:49 hello answer,
+38:50 quote unquote,
+38:51 let's go ahead and start printing out something,
+38:53 and I got my parentheses ready to go and I did my semicolon in advance this time.
+38:57 I want to somehow now say hello comma placeholder,
+39:00 and you would only know this by someone having told you
+39:02 or a reference online percent S is the placeholder for a string
+39:07 that you don't know when you're writing the code,
+39:09 but when someone else is running the code,
+39:11 it will be filled in.
+39:13 And substituted for their input.
+39:15 So hello cents is the closest we can get to this.
+39:18 I still need those some other syntax.
+39:20 I still,
+39:20 I do need those quotes on the left and the right
+39:24 just to be aesthetically pleasing.
+39:26 I'm going to put a backslash N there at the end to move the cursor,
+39:30 but now I've left room in my parenthesis for one more thing,
+39:32 and you could perhaps guess where I'm going with this again,
+39:34 even if you've never programmed before,
+39:36 this is telling print F print out H E L L O comma space something.
+39:42 What should I probably pass in
+39:45 to these parentheses as a second input so that PRF knows what that something is.
+39:51 Yeah.
+39:52 The variable name,
+39:53 so the variable in which I have the user's name,
+39:57 and indeed the convention is to put a comma after the quotes and then the name
+40:02 of the variable that has the value you want to be substituted for that placeholder.
+40:06 Now notice there's a collision of syntax and grammar here.
+40:10 The comma inside of the quotes is just an English thing.
+40:13 Hello.
+40:14 so and so.
+40:15 The comma outside of the quotes is meaningful to see because it delineates which
+40:19 is the first input or argument to left and which now is the second,
+40:24 and we haven't seen this before in C up until now we've only been passing one input,
+40:28 but you can pass in 2 or 3 or 4.
+40:30 Completely depends on what the function is designed
+40:33 to expect.
+40:34 So let me put this all together now.
+40:36 Let me go back to VS code.
+40:38 Previously we were literally printing out answer,
+40:41 but I can change answer to percent S.
+40:43 I can move my cursor outside of those quotes,
+40:46 comma answer,
+40:47 because that's the name I gave to that variable.
+40:49 I can go back down to my terminal window and clear it
+40:52 just to reduce clutter.
+40:53 Let me do make hello one more time.
+40:55 Seems to work.
+40:57 hello,
+40:59 E DAVID,
+40:60 and now
+41:03 hello David is printed.
+41:05 OK,
+41:06 questions on any and all of that.
+41:12 Mhm.
+41:13 Good question.
+41:13 Where is it pulling these header files from?
+41:15 So what you are seeing here is a graphical user
+41:19 interface that's somewhere hosted in the cloud at cs50.dev,
+41:22 the URL I mentioned last week,
+41:23 and we're going to tease this apart in just a moment.
+41:25 That
+41:26 software is running on a computer and that computer's got a hard drive.
+41:30 or solid state drive like folders of storage,
+41:32 those files CS50.
+41:33 H and Standard IO.h and many more are pre-installed
+41:37 on the server to which I have connected,
+41:39 and they're stored in a standard place so that the
+41:41 compiler in particular knows where to look for them.
+41:44 And those are all things we did in advance for you,
+41:46 yeah.
+41:48 and not create a new like a new line.
+41:51 Why does the backslash N not create a new line?
+41:53 So it is backslash N is essentially being printed here,
+41:58 which has the effect of pushing the dollar sign to the next line,
+42:01 otherwise the dollar sign would stay on that second to last line.
+42:05 Other questions?
+42:08 Good,
+42:09 uh,
+42:09 why is there no backslash N over here?
+42:12 Good question.
+42:12 My choice as the programmer.
+42:14 I just wanted to see the sentence.
+42:16 What's your name?
+42:16 question mark and I wanted the user me to type my name immediately after it like this,
+42:22 but I didn't have to do it that way.
+42:23 I just wanted to show you the difference.
+42:25 Got you.
+42:25 And then also like just generally when we're like doing like
+42:28 the what actually always write the like first four lines.
+42:32 Should you always write the 1st 4?
+42:34 Oh,
+42:34 these?
+42:35 Yes,
+42:35 for today,
+42:37 trust me,
+42:38 do this,
+42:38 do this,
+42:38 do this,
+42:39 do this,
+42:39 and next week we'll understand even more what those lines do.
+42:42 However,
+42:42 slight caveat only use CS 50.H if you're using one of our functions.
+42:47 Clearly you don't need CS 50.H if you're just
+42:49 printing something out as in the first example.
+42:52 Other questions?
+42:55 dividing the first input and the second input.
+42:58 I understand that the second input is what I typed as the user,
+43:02 but the first input does not really feel like input
+43:05 for me because that's the question that you ask.
+43:07 Can you like.
+43:10 Correct.
+43:11 So to summarize the question on the right here,
+43:14 this input is effectively provided by the user.
+43:17 This first input though is provided by me.
+43:19 That's the way it is.
+43:20 So these are both inputs because they're being provided as inputs to the function.
+43:25 The origins of those inputs though are entirely up to what I'm trying to achieve.
+43:30 The first one I know in advance,
+43:31 like I'm the programmer,
+43:32 I know I wanted to say hello
+43:35 someone.
+43:35 The second input I don't know in advance,
+43:38 so I'm using a place I'm using a variable to store the value that
+43:41 I'm going to get when the get string function is used later on,
+43:45 but they're both inputs even though they're used in different ways.
+43:48 Good question.
+43:49 Any others?
+43:51 Yeah,
+43:51 OK,
+43:53 so
+43:54 if we now have
+43:55 that done,
+43:56 well,
+43:56 let's just take a step back into the first question
+43:58 that was just asked about where are these files.
+44:01 Let's take a look back at actually what it is we're actually using here.
+44:04 So it turns out,
+44:05 even though most of you are using Mac OS or Windows,
+44:08 there's other operating systems out there in the world.
+44:10 Phones have iOS,
+44:12 iPads have iPad OS,
+44:15 Android devices have Android.
+44:16 Which is its own operating system.
+44:18 The operating systems in the world are the pieces of software that really
+44:22 just do the most fundamental operations on a device like booting it up,
+44:26 shutting it down,
+44:27 sending something to a printer,
+44:28 displaying something on the screen,
+44:29 managing windows and icons and all of that sort of commodity
+44:33 stuff that is used by other people's software as well.
+44:35 A very popular operating system in the programming world and in the
+44:39 world of servers in the cloud and on the internet at.
+44:42 It's called Linux,
+44:43 and it's a descendant of something called Unix,
+44:46 which has been around for quite some time,
+44:47 and it's what many programmers,
+44:49 most programmers use depending on their environments
+44:53 insofar as Linux is very highly performance,
+44:56 like you can support thousands of millions of users
+44:59 on servers running an operating system like this.
+45:01 It tends not to,
+45:02 but it can have a graphical user interface,
+45:04 which just means it can operate more quickly because it does.
+45:07 Need all of these graphics that are really just for humans' benefits,
+45:09 not necessarily for web browsers and other devices,
+45:13 and Linux,
+45:14 insofar as it's usually used or often used as a command line interface,
+45:18 comes with a whole bunch of commands that you'll start to use and see over time.
+45:22 Now I've used a bunch of commands already.
+45:24 I've used code,
+45:25 which is a VS code thing.
+45:26 I have used Make,
+45:27 which is for today's purposes our compiler,
+45:29 but that's a little white lie that we'll distill next week.
+45:32 And then I've used hello,
+45:35 which is a command I essentially invented as soon as I created a program
+45:39 called Hello.
+45:40 But there's a bunch of other ones as well.
+45:42 For instance,
+45:43 if I want to list the files in my current folder,
+45:46 I can type LS and hit enter for short.
+45:48 If I want to create a new folder,
+45:50 otherwise known as a directory,
+45:52 I can use MKDIR to make a directory.
+45:55 If I want to remove a directory,
+45:56 I can use RM.
+45:57 Director.
+45:58 If I want to remove a file,
+45:59 I can use RM.
+45:60 If I want to rename a file,
+46:01 I can use MV for move.
+46:03 If I want to copy a file,
+46:04 CP,
+46:05 if I want to change directories,
+46:06 change into a folder,
+46:08 I can use CD.
+46:09 Now these two just take a little bit of time and practice to memorize them,
+46:12 and they're all very terse insofar as the whole point of
+46:15 a command line interface is to let people navigate things quickly.
+46:19 So for instance,
+46:20 even though this will be a bit of a whirlwind,
+46:21 let me go back into
+46:23 VS code
+46:24 and let me propose that we play around with just a
+46:27 few of these commands so that you've seen me doing it,
+46:29 but generally speaking in CS 50's problem sets,
+46:31 we will tell you step by step what commands to type
+46:35 so that you can achieve the same results and then later
+46:37 in the term we'll stop bothering reminding you pedantically how to
+46:40 do this and that because it should come more naturally eventually.
+46:44 But for instance,
+46:44 let me go ahead and do this.
+46:45 Let me go ahead.
+46:46 And reopen my file explorer at left.
+46:49 Yours will look a little different.
+46:51 You'll have a different number as your unique ID,
+46:53 but generally you'll see whatever files and or folders you've created already.
+46:57 The first thing I created today was called hello.c.
+46:59 and then by using Make,
+47:01 I created a second file I claimed called hello.
+47:04 So the reasonhello works is because there is in fact a program called hello.
+47:09 In my current folder,
+47:11 ergot
+47:12 that was created when I compiled my source code into machine code.
+47:16 Now suppose for the sake of discussion that
+47:18 this is going to get messy quickly because the more
+47:20 programs we create in class and for problem sets,
+47:22 you're just going to have a hot mess of files inside of this one main folder.
+47:26 Well,
+47:27 let's create subfolders like you might be inclined to do
+47:29 on your Mac or PC or Google Drive or whatnot.
+47:32 What we can do.
+47:32 This in a bunch of ways.
+47:33 I could right click or control click on my File
+47:37 Explorer and I'll see a somewhat familiar contextual menu and I
+47:42 can literally choose new folder or I can rename things or
+47:45 I can move things around by dragging and dropping them.
+47:48 But for today,
+47:48 let's focus more on the CLI,
+47:49 the command line interface,
+47:51 and again commands like this.
+47:53 So let me go back into VS code.
+47:55 And let me propose that we do a few things just because as a tour.
+47:59 First,
+47:59 let me delete the machine code.
+48:01 I'm done with this example.
+48:03 I don't really want to keep these bits around unnecessarily.
+48:05 I'm going to delete hello,
+48:06 not hello.c,
+48:08 but hello,
+48:08 the compiled program.
+48:10 When I type that,
+48:11 I'll be cautioned,
+48:12 remove the regular file,
+48:13 whatever that means,
+48:14 called hello.
+48:15 Here I'm being prompted for a yes no response.
+48:18 Y suffices.
+48:19 So I'm going to hit Y enter and watch what happens
+48:21 at top left as soon as I use my terminal window
+48:24 and this command.
+48:26 To remove that file,
+48:27 it disappears.
+48:28 I could have right clicked on it or control clicked on it,
+48:30 but this command line interface achieves the same thing.
+48:33 Now suppose that for problem set one and future problem sets,
+48:36 I want to keep like every program I write
+48:38 in its own folder just to keep myself organized,
+48:40 especially as the term progresses.
+48:42 Well,
+48:42 let me create a new folder
+48:44 called hello itself.
+48:45 So I don't want to create a program called hello.
+48:47 I want to create a folder called hello.
+48:50 One way I can do this per this here cheat sheet
+48:53 is to make a directory,
+48:54 which just means folder.
+48:55 So MK DIR,
+48:57 hello enter and you'll see a top left.
+48:60 Now I indeed have a folder and it even has an obvious folder icon next to it.
+49:03 Now I could cut some corners.
+49:05 I could click and drag on hello.c and just drop it into hello,
+49:08 but again,
+49:08 let's stick with the command line interface.
+49:10 Let me go ahead now and move
+49:12 MV for short.
+49:14 Hello.c into hello.
+49:17 So this is the first command where I'm passing in not
+49:21 one word after the command like code hello.c or make hello.
+49:25 Now I'm typing two words after the command
+49:28 because the way the move command is designed
+49:31 is to expect the origin as the first word and the destination as the second,
+49:36 so to speak,
+49:37 whereby
+49:38 if I want to rename hello.
+49:40 sorry,
+49:40 if I want to move hello.c into the hello folder.
+49:43 I should type like this.
+49:45 Now you can,
+49:46 just so you know,
+49:47 include a trailing slash,
+49:49 a forward slash at the end of the destination just to make clear that you
+49:53 want to put this into a folder and not just rename Hello.c to hello,
+49:58 but because the hello folder already exists,
+50:01 Linux knows what it's doing and it's just going to assume that when you do that,
+50:04 watch what happens at the top left.
+50:06 Hello.c seems to have disappeared,
+50:07 but if I click this little triangle,
+50:09 ah,
+50:10 there it is,
+50:10 it's now inside of that folder.
+50:12 But now I've created.
+50:13 Kind of a predict for myself.
+50:14 Let me clear my terminal window
+50:16 and now let me type LS.
+50:18 And when I type LS for list,
+50:21 you'll see only a folder called hello,
+50:23 and it's color coded just to call it out to your eyes and there's a trailing slash
+50:27 just to make obvious that it's a folder
+50:28 that's all done automatically for you by Linux,
+50:30 the operating system.
+50:31 But wait a minute,
+50:32 where did my hello program go?
+50:34 Like where is hello.c?
+50:36 Well,
+50:36 it's in that folder,
+50:37 so I need to change into that folder or directory.
+50:40 And here per the cheat sheet we have CD for.
+50:43 directory so I can do CD space hello,
+50:46 with or without the slash and hit enter,
+50:48 and now you'll see this,
+50:49 and it's admittedly a little cryptic,
+50:51 but my prompt has now changed to still be a dollar sign,
+50:55 but before it is just a constant reminder of where what folder I am in.
+51:00 We adopted this as a convention.
+51:02 Many systems do the same thing,
+51:03 though the formatting might be a little different.
+51:05 This is just to help you remember where the heck you are without having to
+51:08 type some other command to ask the operating system what folder you are in.
+51:13 So now that I'm here,
+51:14 if I type LS and hit enter,
+51:16 what should I see?
+51:19 Just hello.c because that's the only thing in that their folder.
+51:23 So now let's do maybe one other thing.
+51:25 Let's do make hello inside of this folder.
+51:29 That is OK and notice at top left what just happened.
+51:32 Now I've got both files back.
+51:33 All right,
+51:34 suppose I want to get rid of one well I can do RM hello again.
+51:37 I can type Y for yes to confirm the deletion,
+51:40 and now I'm back to where I just was.
+51:42 Now suppose I want to do yet other things,
+51:43 suppose that I'm not really proud of this version of hello.c.
+51:46 Let me keep it,
+51:47 but.
+51:48 Rename it.
+51:49 Well,
+51:49 I can say
+51:50 how about MV hello.c to old.c.
+51:54 I just want to rename the file so MV can be used not only to physically move a file
+51:58 from one place to another.
+51:60 If you use it on two file names,
+52:01 it will just rename the file for you.
+52:04 So there's no rename command that you need to use instead.
+52:06 Uh,
+52:07 but you know what,
+52:07 nope,
+52:07 I regret that this program was fine.
+52:09 Let's name it back.
+52:10 So let's move old.c back to hello.c and watch it top left.
+52:14 It just renames the file again.
+52:17 Um,
+52:17 let me go ahead and make a backup though.
+52:18 So let me copy with CP,
+52:20 hello.c into a file called like backup.c just in case I screw this up.
+52:24 I want to have a spare around.
+52:26 Now you see at the top left,
+52:27 I've got both files.
+52:28 If I now type out less,
+52:29 you'll see both files.
+52:30 So what's happening in the GUI is the exact same thing is happening in the CLI,
+52:34 but you know what,
+52:35 this was just for demonstration's sake.
+52:36 I don't need any of this,
+52:37 so let me remove the backup,
+52:39 say yes for why.
+52:40 Let me go ahead and move hello.c out of this folder,
+52:44 which I could just kind of drag and drop it,
+52:45 but how do I move
+52:47 hello.c
+52:48 to the parent folder,
+52:49 so to speak?
+52:50 I want to move it out of this folder.
+52:52 Well,
+52:52 you would only know this by having been told.
+52:55 is special notation that means the so-called parent folder.
+52:58 So go back up in the hierarchy.
+53:00 And now if it's not obvious,
+53:02 a single dot,
+53:03 which we have seen before,
+53:04 means this folder,
+53:06 two dots means one step up.
+53:08 There's no triple dots or quadruple dots.
+53:10 You have to use different syntax,
+53:11 but more on that another time.
+53:13 So watch what happens when I do move hello.c up into the parent directory.
+53:18 Notice at top left
+53:20 that the indentation changed because it's no longer
+53:22 inside of that same folder and heck,
+53:24 now I'm going to go ahead and do this.
+53:26 I could go back to my main folder by doing CD.
+53:29 to back out of this folder,
+53:31 but
+53:31 when in doubt or if you ever get yourself into a confusing mess,
+53:35 just type CD enter alone and you'll be
+53:37 magically whisked away to your default folder,
+53:41 a home directory,
+53:42 so to speak,
+53:42 even though that too is a bit of a white lie,
+53:44 so that will lead you.
+53:46 Always where you're starting when logging in to CS50.dev AKA VS code,
+53:51 and now I can see the folder which happens to be empty,
+53:54 and the file.
+53:55 So let me go and do one last command or hello to really undo
+53:60 all of the work such that we're now back to where the story began.
+54:03 But the point here is just to demonstrate
+54:05 that with these basic fundamental commands you can
+54:07 do everything that you've taken for granted on Macs and PCs for years with a mouse
+54:13 instead.
+54:14 Questions.
+54:15 On any of these here Linux commands,
+54:17 yeah.
+54:24 Really good question.
+54:24 If you have 5 different files in a folder,
+54:27 how can you choose which one to open?
+54:28 Well,
+54:28 you can certainly do code,
+54:30 space,
+54:30 and the name of the file you want to open,
+54:33 or we're going to see other tricks like you can use an asterisk or
+54:35 a star for a so-called wildcard and say open everything in this folder,
+54:39 and you can even use more precise patterns than that.
+54:41 So over time,
+54:42 once we have more files at my disposal,
+54:43 I'll be able to do tricks like that as well too.
+54:46 Yeah.
+54:52 Yeah
+54:53 Uh-huh.
+54:54 So when you like delete the file,
+54:56 uh what was that?
+54:58 Hello
+55:00 How did
+55:04 Sure,
+55:04 so one of the things I did in my VS code a moment ago was once I was
+55:08 inside of the Hello folder into which I had
+55:11 put hello.c just for the sake of discussion,
+55:13 I then recompiled it by running Make hello,
+55:17 and this example is a little confusing,
+55:18 deliberately insofar as I've got a file called hello.c
+55:23 inside of a folder called hello,
+55:25 but because I compiled Hello.C,
+55:27 I then created a program called Helloo as well.
+55:30 But that program he was inside of.
+55:32 folder called hello,
+55:34 which is only to say that you can totally do this.
+55:36 You can't have a file in a folder
+55:38 in the same place name the same thing because they would collide.
+55:41 Like you can't do that on a Mac or a PC as well.
+55:43 You have to have unique names,
+55:44 but you can certainly put something inside of another folder without collision.
+55:48 Good question.
+55:49 All right,
+55:50 so let's introduce a few more
+55:52 building blocks and a few more things we can do.
+55:54 So besides these Linux commands,
+55:56 which we'll now start taking for granted,
+55:57 we have a bunch of other features of programming languages that we saw in Scratch.
+56:01 Let's now translate them to C.
+56:03 So conditionals were sort of the proverbial fork in the road,
+56:05 enabling you to do this or this or some other thing based on the answer to a question,
+56:10 a so-called boolean expression.
+56:12 Here,
+56:12 for instance,
+56:12 in Scratch is how we might express if a variable X is less than a variable y.
+56:17 We'll go ahead and say x is less than y and out of context,
+56:21 I didn't include it in the slide,
+56:22 presumably we've created X and Y and somehow given them values,
+56:26 whatever they are,
+56:27 but this is just now the conditional part of the program.
+56:30 In C,
+56:31 the way you would do the same thing is you would say if and then a space,
+56:35 then parentheses,
+56:36 which have nothing to do with functions.
+56:37 If is not a function,
+56:39 it is a feature of C that implements conditionals just
+56:42 like this orange block is a feature of scratch.
+56:45 Inside of the parentheses you put your same Boolean expression.
+56:48 So here too out of context,
+56:49 if up here I have defined variables X and Y,
+56:52 well I can certainly use them in this conditional and I can use
+56:55 this less than operator just like in math class to ask this question.
+56:59 And the answer,
+56:59 even though it's a less than sign,
+57:01 is indeed if you think about it going to be true or false,
+57:04 yes or no,
+57:05 it's a boolean expression.
+57:06 It either is less than or it is not.
+57:08 All right,
+57:09 inside of the curly braces which are necessary here,
+57:12 I'm just going to literally put.
+57:13 Old friend print F,
+57:14 and there's nothing interesting here except the new phrase X is less than y
+57:18 with the backslash N,
+57:19 the semicolon,
+57:20 and the parentheses.
+57:21 This though is deliberate,
+57:22 just like in Scratch.
+57:23 The say is sort of indented and sort of hugged by the if orange puzzle piece.
+57:29 Similarly,
+57:30 do these curly braces,
+57:31 are they meant to sort of imply the same?
+57:33 It's sort of embracing these lines of code.
+57:35 As an aside,
+57:36 in C,
+57:37 they're not always necessary.
+57:38 If you have a single line of code,
+57:40 you can technically omit.
+57:41 However,
+57:41 what you'll see
+57:43 in C as well as in CS 150 in particular,
+57:46 we will generally preach a certain style like any company in the real world would
+57:50 do so that programmers who are collaborating on
+57:52 code all write code that looks the same
+57:55 so that it doesn't
+57:57 devolve into a mess because everyone has their own convention.
+57:59 So this is a convention to which you
+58:01 should indeed adhere and then I've indented 4 spaces
+58:04 to make clear logically that this line of code
+58:06 only executes if the answer to this question.
+58:09 Is true
+58:10 or yes.
+58:11 Meanwhile,
+58:12 in scratch,
+58:12 if we had an if E condition,
+58:14 so a two-way fork in the road,
+58:15 if X is less than Y,
+58:17 say so el say x is not less than Y.
+58:20 How can I do that in C?
+58:21 Well,
+58:21 if X less than Y,
+58:23 something
+58:25 else,
+58:25 something else.
+58:26 And what are the uh what goes in between those curly braces?
+58:29 Well,
+58:29 just two different print Fs.
+58:30 X is less than Y or X is not less than Y.
+58:34 The only new thing here is we've added Ls and another pair of curly.
+58:37 Races just like we've got sort of two orange
+58:41 shapes hugging those two purple puzzle pieces there.
+58:43 All right,
+58:44 how about something a little more involved
+58:45 and this looks like it's escalating quickly,
+58:46 but it's just because the scratch puzzle pieces are so big.
+58:49 If X is less than Y,
+58:50 then
+58:51 say X is less than Y.
+58:53 else if X is greater than Y,
+58:55 then say X is greater than Y.
+58:57 else if X equals Y,
+58:59 then say X is equal to y.
+59:01 How can we do this in C?
+59:03 Almost the same idea.
+59:05 If X less than Y,
+59:06 if X greater than Y,
+59:07 L X equals equals Y.
+59:11 Well,
+59:11 before we reveal what's in the curly braces,
+59:13 this is not a typo.
+59:15 Why have I presumably done this even if you've never used C before?
+59:20 Yeah.
+59:24 sit
+59:25 Exactly,
+59:26 the single equal sign,
+59:27 which we've used already when storing a value from get string
+59:31 into a variable like answer is technically the assignment operator.
+59:35 So humans decades ago decided that when faced with a situation where they wanted
+59:39 to copy from the right to the left a return value into a variable,
+59:43 it made sort of visual sense to use an equal sign because you want those two things
+59:46 ultimately to be equal even though you kind of read the code from right to left.
+59:50 In that case,
+59:51 I can only imagine at some point the same people were in the
+59:53 room and they were coming up with the syntax for conditionals and like,
+59:55 oh shoot,
+59:56 we've already used equals for assignment.
+59:59 What do we now use for equality and the solution in C as
+60:03 well as in many other languages is literally this they use 2.
+60:06 So this is the equality operator,
+60:08 whereas a single one is the assignment operator,
+60:11 and it's just because.
+60:12 Now Scratch is designed for kids,
+60:14 no sense of confus.
+60:14 using little kids with equal equal signs,
+60:16 so scratch uses a single equal sign,
+60:19 whereas C and most languages use double equal signs,
+60:22 so a minor divergence there.
+60:23 What goes in the curly braces,
+60:25 nothing all that interesting,
+60:26 just a bunch more print Fs.
+60:28 But here's an opportunity to distinguish not only the
+60:30 equivalence of this scratch code with C code,
+60:33 but a missed design opportunity that we sort of tripped over,
+60:36 if briefly last week.
+60:37 This is arguably
+60:39 not well designed,
+60:41 even though it is correct.
+60:44 Why,
+60:46 yeah.
+60:47 Yeah,
+60:48 we don't need to ask this third boolean expression.
+60:51 Is X equal equal toy,
+60:53 so to speak?
+60:54 Well,
+60:54 logically,
+60:55 if we're using sort of normal person numbers,
+60:57 it's either less than or greater than or by default equal to.
+61:01 So you're just wasting the computer's time and in
+61:03 turn the user's time by asking this third question.
+61:05 So slightly better here would be get Of the ELTS if just have a default case,
+61:10 an ETS block,
+61:11 so to speak,
+61:12 that looks like this.
+61:14 If it stands to reason that there's only 3 possibilities,
+61:16 you only really need to interrogate 2 of them out of the 3.
+61:19 So a minor optimization,
+61:20 but you can imagine doing that again and again and again in your code.
+61:23 You don't want to be wasting the computer or the
+61:25 user's time if you can improve things like that.
+61:28 All right,
+61:29 so now that we have these equivalences between
+61:32 scratch code and C code for these conditionals,
+61:35 well,
+61:35 what other things can we throw into the mix?
+61:36 Well,
+61:37 C has a whole bunch of operators,
+61:39 and just so that you've seen a list in one place,
+61:41 you've got not only assignments and less than and greater than in equality,
+61:45 but a few others here as well.
+61:47 Now,
+61:47 even though in like Microsoft Word and Google Docs
+61:49 you can kind of do a greater than or.
+61:51 to sign one over the other or less than or equal to in C,
+61:55 in most languages,
+61:56 you actually just hit the keyboard twice.
+61:58 You do the less than and an equal sign,
+61:60 or you do a greater than and the equal sign,
+62:02 and that's how you achieve the notion of greater than or equal
+62:05 to or less than or equal to this one we've seen.
+62:08 Anyone want to guess what
+62:09 exclamation point equals means,
+62:11 otherwise pronounced bang equals?
+62:13 Yeah.
+62:15 Not equal.
+62:16 So generally in programming you'll see an exclamation
+62:19 point implying the negation of something else,
+62:21 the opposite.
+62:22 So you don't want it to be equal to,
+62:24 you want it to be not equal to.
+62:25 Now you might think,
+62:27 shouldn't it be
+62:28 not equal equal?
+62:30 Yes,
+62:31 but they're trying to save keystrokes.
+62:32 So this is the negation of that,
+62:34 even though it doesn't quite look like it should be,
+62:37 just 2 characters instead of 3.
+62:39 Um,
+62:40 and there's many other operators that won't encounter
+62:42 in the wild over time.
+62:44 Um,
+62:44 but there's also worth noting in C,
+62:47 more than just strings,
+62:48 like strings we call were strings of text,
+62:50 and there's other types of
+62:51 Uh,
+62:52 data that you might get from a user or store we've seen string,
+62:56 but we'll actually see a whole bunch of others.
+62:57 So in C
+62:59 we're going to see boos themselves of a variable that can be true or false,
+63:03 and that's it.
+63:04 So very much interrelated with Boolean expressions.
+63:06 A variable itself can be true or false.
+63:08 We're going to see chars or characters,
+63:10 so not strings of text like multiple letters and words and the like,
+63:14 but just individual characters.
+63:16 See,
+63:16 unlike some languages.
+63:17 Does distinguish between single characters and multiple characters.
+63:21 Double,
+63:22 or rather let's jump to float.
+63:23 A float is otherwise known as a floating point value,
+63:26 which is just a number that has a decimal point in it,
+63:28 a real number if you will,
+63:31 but a float generally uses nowadays 32 bits total to represent those numbers.
+63:37 The catch with that is that how many total values
+63:39 can you represent with 32 bits roughly per last week.
+63:45 It's one of the few numbers I propose you remember it's like roughly 4 billion,
+63:48 but how many real numbers are there in the world according to math class?
+63:52 An infinite number.
+63:53 So we seem to have a mismatch between what we can represent
+63:56 in code and how many actual numbers there are in the world.
+63:59 OK,
+63:60 so not to worry,
+64:01 if you need more precision,
+64:02 like more significant digits,
+64:03 well,
+64:03 you can upgrade your variables,
+64:05 so to speak,
+64:05 from a float to a double,
+64:06 which uses 64 bits,
+64:08 which is way more precise,
+64:09 twice as many bits,
+64:10 but it doesn't fundamentally solve the problem because
+64:13 really it's still finite and not infinite,
+64:15 and we'll end today with a look at what the real world implications of that are.
+64:19 But besides floating point values,
+64:20 there's just simple integers 012,
+64:22 and the negatives thereof,
+64:24 but those conventionally used 32 bits,
+64:26 which means the highest a computer can count using an in would be 4 billion.
+64:30 But if you want to do negative numbers,
+64:32 it's going to be roughly 2 billion,
+64:34 so you can go all the way to negative 2 billion.
+64:36 So that's not that large nowadays.
+64:38 Along uses 64 bits,
+64:39 which is a much bigger range of values,
+64:41 but there too still finite,
+64:43 and there's a bunch of.
+64:44 Others as well.
+64:45 So these are just the types of data that we can store and manipulate in our programs,
+64:50 but a couple of those now,
+64:53 do
+64:54 a couple of those,
+64:54 one in particular specifically come from CS50.H. So
+64:59 among the things you get by including CS50.
+65:02 H in your code is access to not only get string,
+65:05 but these other functions as well.
+65:06 And we'll start to use these in a little bit whereby you can get integers or chars.
+65:10 Doubles or floats.
+65:11 We don't have a get bol because it's not really
+65:13 useful to just get a true or false value typically,
+65:16 but we could have invented it.
+65:17 We just chose not to.
+65:18 But we'll frequently use these here functions
+65:21 that you can access by using
+65:23 that there header file.
+65:25 But where are we going to put these values and how are we going to display them?
+65:28 Well,
+65:29 turns out there's more than just percent S.
+65:31 So percents was a placeholder for a string,
+65:33 but if you want to print out something like a char.
+65:36 Single character you're actually going to use percent C.
+65:40 If you want to print out a floating point value,
+65:42 you're going to use percent F,
+65:43 an integer percent I,
+65:45 and a long integer that is a long,
+65:47 you're going to use LI instead.
+65:50 So in short,
+65:50 there are solutions to all of these problems.
+65:52 These are not intellectually interesting details,
+65:56 but they are useful,
+65:57 practical things to eventually absorb
+66:00 over time.
+66:01 So let's go ahead and do.
+66:02 Let's do just a few more examples together in a little bit we'll adjourn for
+66:07 a short break during which snacks will be served every week out in the transit.
+66:11 But before we get to that,
+66:12 let's focus on these here variables.
+66:14 So in Scratch we had the ability
+66:17 to store a bunch of values in variables that
+66:19 we could create ourselves by creating new puzzle pieces.
+66:22 In C you can essentially achieve the same.
+66:24 So for instance,
+66:25 suppose that in Scratch we wanted to keep track of someone's score.
+66:28 Using a counter,
+66:29 well,
+66:29 we might create a variable called counter and set it
+66:32 initially to 0 and then eventually add 1 to it,
+66:35 add 2 to it,
+66:36 and so forth as they drop trash into the trash can for instance.
+66:39 Well,
+66:39 in C you're going to do something almost the same.
+66:42 You can choose the name of your variable just like I did previously with answers.
+66:46 You can assign it a value like 0 initially,
+66:49 but
+66:50 per earlier,
+66:51 what more am I probably going to have to do in C on the right hand side here?
+66:55 Yeah.
+66:56 I got to give it a type
+66:58 and a counter insofar as it's numeric is not going to be a string of text,
+67:02 and I don't think I need to worry about decimal
+67:04 points if I'm just counting the equivalent on my fingers.
+67:07 So int will suffice and in is the go to number and at
+67:11 least if 2 billion plus values is more than enough for your case,
+67:14 which this is going to be still one minor thing missing.
+67:18 Yeah.
+67:18 The semicolon to finish the thought.
+67:20 So that on the right is the equivalent to doing this here on the left.
+67:23 Suppose that in scratch you wanted to increment the counter and add 1 to the score,
+67:27 add 2 to the score,
+67:27 and so forth.
+67:28 It might look like this.
+67:29 Change counter by 1,
+67:31 implicitly going up unless you did negative,
+67:33 which would go down.
+67:34 In C you can do this actually in a few ways,
+67:36 and this looks a bit wrong at the moment.
+67:39 How can counter possibly equal counter plus 1?
+67:42 This does not mean equality per se.
+67:44 The single equal sign recalls.
+67:46 Assignment and it means take the value on the right and copy it to the
+67:50 value on the left or to the variable in this case on the left.
+67:54 So this takes whatever the current value of counter is 0,
+67:57 adds 1 to it,
+67:58 and then stores that 1
+68:00 in the counter variable.
+68:02 So now the value is 1,
+68:03 and if you do it again,
+68:04 it goes to 2,
+68:05 it goes to 3,
+68:06 goes to 4,
+68:07 and so forth.
+68:08 But honestly,
+68:08 this incrementation technique is so common that
+68:10 there's more shorthand notation for it.
+68:12 You can also just do this.
+68:13 Looks a little weird at first glance,
+68:15 but counter plus equals one semicolon does the exact same thing.
+68:19 You can just type fewer keystrokes,
+68:21 and honestly,
+68:21 doing this is so down common in C that you can even
+68:25 do this.
+68:26 Counter plus plus does the exact same thing
+68:29 by adding one to the variable.
+68:30 There's no plus plus plus or plus plus plus or more pluses.
+68:34 It's only for incrementing individual values by one.
+68:37 So arguably this version and this version,
+68:39 albeit more verbose,
+68:40 are a little more.
+68:41 A tile because then you can add 2 or 3 or more
+68:44 at a time.
+68:44 And there are equivalents for you doing decrementation and doing
+68:48 minus
+68:49 or the minus symbol more generally in there.
+68:52 All right,
+68:52 so let's actually use this technique in some code.
+68:55 Let me go back into VS code here.
+68:58 Let me close my file explorer and let's go ahead and
+69:00 create maybe this time like a little calculator of sorts.
+69:03 Let me propose that we implement a very baby calculator,
+69:07 or rather,
+69:08 not even a.
+69:08 Calculator,
+69:09 yeah,
+69:09 let's just compare some few values.
+69:11 So let me do this code of compare.c to create a brand new program called Compare.
+69:16 And then in here I'm going to do a bit of boilerplates.
+69:19 I'm going to go ahead and include CS 50.
+69:21 H.
+69:22 I'm going to go ahead and include standard.io.H,
+69:24 and I'm going to go ahead and do in Main void,
+69:27 more on that next week.
+69:28 And then inside the curly braces,
+69:30 let's use these these new techniques.
+69:32 Let's give myself a variable called X
+69:34 and set it equal to.
+69:36 The return value of get in,
+69:38 that other function I promised exists,
+69:40 and let's prompt the user for a value for
+69:43 X with a sentence like What's X question mark,
+69:46 and then a space just to nudge the cursor over.
+69:48 Let's get another variable Y.
+69:50 Set it equal to get into again and ask the user this time what's Y,
+69:54 essentially using the same function twice but to get two different values.
+69:57 Now.
+69:58 Let's go ahead and do something pretty mindless.
+70:00 If
+70:01 X is less than Y,
+70:03 go ahead and print out with print FX is less than Y
+70:08 backslashn to move the cursor close semicolon.
+70:12 So it's not that interesting of a program,
+70:13 but it's at least dynamic in that now I'm prompting the user for two numbers.
+70:17 So let's do this Make compare enter
+70:20 seems to have worked,
+70:21 and in fact I can check that it worked by
+70:23 typing what command to list the files in my directory.
+70:26 LS for short.
+70:28 And now you'll see I've got hello.C,
+70:30 but no hello because I deleted that with RM a few minutes ago.
+70:33 I've got Compare.c which I just created,
+70:35 and then I've also got a program called Compare and the
+70:37 asterisk there is just a visual indicator that this is executable.
+70:41 It's a program you can run.
+70:42 It's not just a simple old file,
+70:44 even though I didn't type.
+70:45 As previously with hello,
+70:47 it would have similarly had an asterisk next to it in this context,
+70:51 but you don't see that in the File Explorer.
+70:53 If I now do compare,
+70:54 well,
+70:54 let's do something silly like 1 for X,
+70:56 2 for Y.
+70:58 OK,
+70:58 X is less than Y.
+70:59 Let's do it again.
+71:01 compare,
+71:01 2 for x,
+71:03 1 for Y.
+71:04 OK and I see
+71:05 nothing.
+71:07 Well,
+71:07 why am I seeing nothing?
+71:08 Well,
+71:08 logically,
+71:09 I didn't have a condition for checking
+71:12 for greater than,
+71:13 let alone equal to.
+71:14 So let's enhance this a little bit.
+71:16 Let me go ahead and minimally say,
+71:17 right,
+71:18 else if x is not less than Y,
+71:20 let's go ahead and print out X is not less than Y backslash and close semicolon.
+71:25 So I'm at least handling that situation too.
+71:28 Let me clear my terminal window,
+71:29 do make compare again,
+71:32 compare 1 and 2 works exactly the same.
+71:35 Now let me go ahead and do 2 and 1.
+71:38 There we have better output.
+71:40 Of course it's not really complete yet because if I do slash compare again
+71:44 and do 1 and 1,
+71:46 it'd be nice to be a little more specific than X is not less than Y.
+71:49 It's not wrong,
+71:50 but it's not very precise.
+71:51 So I can add in to the mix what we did earlier and I can say,
+71:55 OK,
+71:55 well,
+71:56 else if X is greater than Y.
+71:60 Say X is greater than Y else if X equals equals y,
+72:06 go ahead and print out
+72:07 X is equal toys.
+72:11 But here too someone observed that this is sort of stupidly inefficient.
+72:15 What line of code should I actually improve here?
+72:19 To tighten this up,
+72:19 yeah.
+72:21 if you could
+72:22 Yeah,
+72:23 so line 17,
+72:24 I think I can just get rid of
+72:25 that unnecessary question because logically that's going to be
+72:28 the case at this point and now I can go ahead and recompile this with make compare
+72:33 compare again enter 1 and 1,
+72:36 and now we're back in business,
+72:38 catching all three of those situations,
+72:41 uh,
+72:41 those scenarios
+72:43 there.
+72:45 Questions on any of these things here.
+72:50 Why have I deliberately not done this?
+72:52 Let me rewind just a moment and let me hide my
+72:55 terminal window just to keep the emphasis on the code here.
+72:57 Why not do this and keep my code arguably simpler?
+73:02 Like,
+73:02 why not just ask three questions Step 9,
+73:06 step 13,
+73:07 and step 17 here?
+73:09 Yeah,
+73:10 what don't you like?
+73:11 Because then it would check each and every condition,
+73:13 um,
+73:14 even though for example the first one might be fulfilled,
+73:16 it would check the 2nd and 3rd to that way.
+73:20 Exactly,
+73:20 it's another example of bad design because now no matter
+73:23 what you were asking three questions on lines 9,
+73:26 13,
+73:27 and 17.
+73:28 Even if X ends up being less than Y from the get-go,
+73:32 you're still wasting everyone's time by saying,
+73:34 well,
+73:34 well,
+73:35 is X greater than Y?
+73:36 You already might know that it's not.
+73:37 Is X equal to Y?
+73:38 You already might know that it's not.
+73:40 And so these three conditionals at the moment are mutually exclusive,
+73:45 whereby you're checking all three of them no matter what,
+73:48 even though logically that should.
+73:49 Be necessary.
+73:51 So our first approach was actually quite better.
+73:53 And in fact just to show you the density difference here,
+73:56 let me go back to this very first version here
+73:58 whereby I was only checking that one condition is X less than y.
+74:03 Well,
+74:03 if you're more of a visual learner,
+74:05 you can actually draw out what code looks like in flow chart form.
+74:08 So here is a drawing of a program that starts here and ideally stops down here,
+74:14 and each of these figures in the middle
+74:16 sort of represent logical components of the code.
+74:19 Uh,
+74:19 here in the in the diamond here is my boolean expression,
+74:23 which represents the start of the conditional.
+74:25 So if X is less than Y,
+74:26 I have a decision to make.
+74:27 Yes or no,
+74:28 true or false.
+74:29 Well,
+74:30 if it is less than Y,
+74:31 true,
+74:32 well,
+74:32 let's go ahead and print out quote unquote X is less than Y
+74:35 and then stop.
+74:36 However,
+74:37 the first version of that program recall just said nothing
+74:40 if it were not the case that X were less than Y.
+74:43 That's because false just led to the stop of the program.
+74:46 There's no keyword stop.
+74:48 There's just.
+74:48 No no code to handle that situation,
+74:51 but the second version of the code,
+74:53 when I actually added in ES looked fundamentally a little different.
+74:56 So now
+74:57 2nd version of that code asked is X less than Y and if true,
+75:01 behavior is exactly the same.
+75:02 But if it weren't true,
+75:04 it were instead false,
+75:05 that's when I got the message X is not less than Y.
+75:08 But in the third version of the code where I added the if else if L if,
+75:12 then the picture gets a little more complicated and let me zoom in top to bottom.
+75:16 Here we have.
+75:18 Longer flow chart,
+75:19 but the questions are really the same.
+75:21 When I start this program,
+75:22 I ask,
+75:24 is is X less than Y?
+75:25 If so,
+75:26 I print out X is less than Y.
+75:28 However,
+75:29 in that,
+75:30 in that last version of the program,
+75:31 I was still foolishly asking the same question.
+75:34 Well,
+75:34 wait a minute,
+75:34 is X greater than Y?
+75:36 Wait a minute,
+75:36 is X equal toy?
+75:38 And that's the version in which again I had all of that unnecessary
+75:42 code which I just undeleted here asking three questions at a time.
+75:46 Ideally,
+75:47 Don't want to make that mistake by doing it again and again and again.
+75:50 So if I instead revert that code
+75:53 to ETS
+75:54 if
+75:55 and Es if,
+75:57 then my flow chart looks a little bit
+75:59 different because notice the sort of shortcuts now.
+76:02 If X is less than Y,
+76:04 woo,
+76:04 true,
+76:05 we do this and we're done super quick.
+76:07 If x is not less than Y,
+76:08 fine,
+76:09 we do ask one more question.
+76:10 X is greater than Y.
+76:11 Well,
+76:11 if so,
+76:12 boom,
+76:13 we make our way to the end of the program by just printing that only if it's the.
+76:16 Reverse case where x equals equals y.
+76:19 Do we check this condition?
+76:20 No.
+76:20 This condition,
+76:21 no.
+76:22 This condition and then OK,
+76:24 now we can print out X is equal toy because it must be logically.
+76:27 Of course it's been observed multiple times.
+76:29 This is a waste of everyone's time,
+76:31 so we can prune this chart more and just have one question,
+76:35 two questions,
+76:36 and that alone tightens up the program.
+76:38 So again,
+76:38 if you're more of a visual learner,
+76:40 most any block of code you can translate to this sort of pictorial form,
+76:44 but it really just captures the same.
+76:46 Logical flow that the indentation and the syntax in the code itself
+76:51 is meant to
+76:53 imply.
+76:54 All right,
+76:55 how about a final exercise with one other type here?
+76:58 Recall that this is our available types to us.
+77:01 Actually two final examples here before we have a bit of a break.
+77:04 Here we have a list of types that we can use,
+77:06 and here we have a list of functions that we can use.
+77:09 Let's go ahead and make a program that's
+77:11 representative of something we do quite often nowadays,
+77:14 but using a different type.
+77:15 So let me go back into VS code.
+77:16 Let me close compare.c.
+77:18 Let me reopen my terminal window and clear it just so we have a new prompt.
+77:22 And let's go ahead and create a program.
+77:23 Called agree.c.
+77:24 It's all too often nowadays that we have to like agree to terms and conditions.
+77:28 To be fair,
+77:28 it's usually in the form of like a pop up and a button that we click,
+77:31 but we can do this in code at the command line as well.
+77:34 Let me go ahead and include to start CS 50.H and include to start standardio.h.
+77:39 Let me again for today's purposes do in Main void,
+77:41 but we'll reveal next week what we why we keep doing that.
+77:44 And now for a yes no answer,
+77:46 it suffices just to ask for a single char or character,
+77:50 not a whole string.
+77:51 So let's do this char.
+77:53 C equals get char and let's ask the user,
+77:57 quote unquote,
+77:57 do you agree question mark for instance.
+78:00 And now
+78:01 I can actually compare that value for
+78:04 quality with some known answers.
+78:06 For instance,
+78:06 I could say if C equals equalsy,
+78:12 then go ahead and print out,
+78:13 for instance,
+78:14 agreed period backslash semicolon,
+78:18 else if C equals equals n.
+78:22 In quotes,
+78:23 let's go ahead and print out,
+78:24 for instance,
+78:25 not agreed backslash and
+78:27 semicolon.
+78:28 Now there's still room for improvement here,
+78:30 but notice we're just now using the same building blocks and C
+78:34 um in different ways to solve different problems.
+78:37 But notice on lines 8 and 12
+78:39 I've used single quotes,
+78:41 which I alluded to earlier.
+78:43 Why
+78:44 is that the case?
+78:46 Why single in this case here?
+78:49 Yeah,
+78:49 it's a single character and this is just the way you do it in C.
+78:52 When you want to compare a single character,
+78:54 you use chars and you use single quotes.
+78:57 When you want to use strings of text like multiple characters,
+79:00 multiple words,
+79:01 multiple sentences or paragraphs,
+79:03 you use strings.
+79:04 So
+79:05 this would seem to work,
+79:06 but are.
+79:06 I could be a little more efficient if the user doesn't type Y.
+79:10 I mean,
+79:11 frankly,
+79:11 I could just chop off this L if and make it an
+79:14 E and just assume if you don't give me ay answer,
+79:16 then at least I'm going to assume the worst and you don't agree.
+79:20 But even here,
+79:20 the program's not all that great.
+79:22 Let me go ahead and do make agree.
+79:24 And then do slash agree,
+79:26 and do I agree?
+79:27 Sure,
+79:27 I'm gonna go ahead and type Y.
+79:29 Meanwhile,
+79:29 if I type anything else like N
+79:31 or uh even emphatically no,
+79:34 that would seem to,
+79:35 whoops,
+79:36 why did that not work?
+79:38 Yeah.
+79:40 Exactly.
+79:41 So among the features of CS 50's functions like Getchar is
+79:44 that it will enforce what type of data you're getting.
+79:47 So even though I,
+79:49 because I use Getchar,
+79:50 if the user doesn't cooperate and types in multiple characters,
+79:54 GetAR,
+79:55 like some of our other functions,
+79:56 is just designed to prompt them again.
+79:57 Again and again until they cooperate,
+79:60 that's useful so that you don't have to deal with that kind of error checking.
+80:03 But here I could type N in uppercase,
+80:06 and that seems to now work but that only works because of the Ls.
+80:09 Let me go ahead and do this,
+80:10 which is very reasonable.
+80:12 I'm going to go ahead and type Y
+80:13 Y,
+80:14 which you would hope works.
+80:15 That feels like a bug at this point.
+80:17 Like it's fine if we don't want to support yes and no.
+80:19 We just want to support Y and N,
+80:21 but it's kind of obnoxious not to support the upper case version thereof.
+80:25 So how can we fix this?
+80:26 Well,
+80:26 let me hide my terminal window and I could go in and fix this as follows.
+80:29 I can say,
+80:29 well,
+80:30 else if C equals equals quote unquote.
+80:32 Capital Y
+80:33 in single quotes and then I can do print out agreed period backslash and semicolon,
+80:38 and then I can do
+80:40 that
+80:41 that would work that would work there,
+80:43 but what rubs you the wrong way perhaps about this solution,
+80:46 even if you've never programmed before.
+80:49 Just applying some of the lessons from last week,
+80:51 yeah.
+80:53 It's redundant.
+80:54 I mean,
+80:54 I didn't technically copy and paste,
+80:56 but like line 14 is identical to the line 10,
+80:58 so I might as well have copied and paste,
+80:59 and that's generally bad practice.
+81:01 Why?
+81:02 Well,
+81:02 if I want to change the English language to say something else in that case,
+81:05 now I have to change it twice and it's just I'm repeating myself,
+81:08 which is just bad design.
+81:10 So there are ways to address this through other
+81:12 types of operators that we haven't yet seen.
+81:14 If I want to ask two questions at once,
+81:16 that's fine.
+81:16 I can do something like this.
+81:18 Well,
+81:18 if C equals equals Y
+81:20 or C equals equals Y,
+81:24 I can tighten things up using so-called logical operators whereby I am now
+81:29 taking a boolean expression and composing
+81:32 it from two smaller boolean expressions,
+81:34 and I care about the answer to one of those questions being true.
+81:39 So whether it's lowercase y or uppercasey,
+81:42 this code now will work and if it's anything else,
+81:45 we're going to default to not agreed.
+81:48 So the two vertical bars,
+81:50 which is probably not a character you type that often,
+81:52 and it varies where it is on your keyboard
+81:53 depending whether it's American English or something else,
+81:56 just means logical or.
+81:57 This is not relevant here,
+81:59 but you could also in some contexts use two ampersands to connote and,
+82:05 but this does not make sense why.
+82:07 Why is it clearly not correct to say and in between these two clauses,
+82:12 yeah.
+82:15 Exactly,
+82:16 the variable can't both be lower case and uppercase.
+82:18 That just makes no sense.
+82:19 So this would be a bug,
+82:20 but using a vertical two vertical bars here is in fact correct.
+82:25 All right,
+82:25 well,
+82:25 let's do one final flourish here besides conditionals.
+82:28 We had these now loops.
+82:30 We call that a loop is just something that does something again and again and again.
+82:33 Here,
+82:33 for instance,
+82:33 to scratch how we might meow 3 times.
+82:36 In C
+82:37 there's going to be a few different ways to do this.
+82:40 Here is one.
+82:41 You can in C.
+82:42 Declare a variable like I for integer or whatever you
+82:45 want to call it and set it equal to 3,
+82:47 the number you care about.
+82:48 You can then use a loop,
+82:49 and the closest to the repeat block is arguably a y loop.
+82:52 There is no repeat keyword in C,
+82:54 so we can't translate this verbatim,
+82:56 but we could say while
+82:58 I is greater than 0.
+82:60 Why?
+82:60 Because that's sort of logically what I want to do.
+83:02 If I start counting at 3,
+83:03 maybe I can just sort of decrement one at a time and get down to 0,
+83:06 at which point
+83:07 I can stop doing this thing.
+83:09 So I'm going to initialize a variable to I,
+83:12 a variable I to 3,
+83:13 and then I'm going to say while I is greater than 0,
+83:16 go ahead and do the following.
+83:17 And at the end of that loop before whipping around again,
+83:21 I'm going to use this line of code,
+83:22 which we haven't seen,
+83:23 but you can infer
+83:24 I minus minus just means subtract 1 from I.
+83:28 So this is going to have the effect of starting at 3,
+83:30 going to 2,
+83:31 going to 1,
+83:32 going to 0,
+83:32 and as soon as it goes to 0,
+83:34 this boolean expression
+83:35 will no longer be true.
+83:37 And so the loop will just implicitly stop
+83:39 because that's it.
+83:40 So what are we going to put inside of the curly braces besides this decrementation?
+83:44 Well,
+83:44 I think I can get away with just saying meow,
+83:47 and that will now print 123 times.
+83:51 And yet that's interesting.
+83:52 I sort of counted instinctively 123,
+83:55 even though I'm proposing that we count 321.
+83:58 So can we implement the logic in the other direction whereby
+84:01 we count up from 0 instead of down from 3?
+84:03 Well,
+84:03 sure,
+84:03 we just have to.
+84:04 A few changes.
+84:05 We can set i equal to 0 initially.
+84:08 We can change our boolean expression to check that I is less than 3
+84:12 again,
+84:12 again and again.
+84:13 And on each iteration of this loop,
+84:14 let's just keep incrementing I with I plus plus.
+84:17 And at this point it will have the effect of doing +1233 is not less than 3,
+84:23 so I won't put any more fingers up.
+84:25 I will meow in total 3 total times.
+84:28 And again,
+84:28 if you're a visual person,
+84:29 here's how we might start counting at 0.
+84:31 Initially,
+84:32 check that i is less than 3,
+84:34 which it is initially,
+84:35 and if so,
+84:36 we print out meow.
+84:37 Then we increment I and we get whisked around again
+84:40 to the Boolean expression because that's how while loops work.
+84:43 You constantly have the condition being checked again and again.
+84:46 That's just how C works.
+84:48 As soon as I've incremented I from 0 to 1 to 2 to 33 will eventually not equal,
+84:55 not be less than 3,
+84:56 so the answer will be false,
+84:57 so the loop will just.
+84:58 So that has the effect of achieving the same,
+85:01 but it turns out that looping some amount of times is so
+85:05 darn common that you don't strictly have to use a Y loop.
+85:07 A 4 loop,
+85:08 so to speak,
+85:09 is another alternative there too,
+85:11 whereby the syntax is a little weird,
+85:13 it's a little harder to memorize,
+85:14 but it allows you to write slightly less code
+85:16 because you write more code on a single line.
+85:19 So the way you read a for loop is exactly the same in spirit.
+85:22 You initialize the variable,
+85:24 everything to the left of this first semicolon.
+85:26 You then
+85:27 check the condition and the computer does all this for you.
+85:30 If I less than 3,
+85:31 if so,
+85:32 you execute what's inside of the curly braces,
+85:34 and then automatically
+85:35 the thing to the right of the second semicolon happens,
+85:38 so I gets incremented from 0 to 1 in this case.
+85:41 The condition is checked is 1 less than 3.
+85:43 It is,
+85:44 so we print meow again.
+85:45 And C increments 1 to 2.
+85:48 Is 2 less than 3?
+85:49 Yes.
+85:49 So we now again
+85:51 I gets incremented to 3.
+85:53 Is 3 less than 3?
+85:54 No,
+85:55 so the 4 loops stops.
+85:56 So it's exactly the same,
+85:57 but just more magic is happening
+85:59 in this first line of code here more than you yourselves have to actually write,
+86:03 and it's just arguably more common convention,
+86:05 but both of them.
+86:07 Are perfectly correct if you'd like to do that yourself.
+86:10 So let's go ahead and actually implement now this this beginning of a CAT in VS code.
+86:14 Let me go back to VS code and close agree.c.
+86:17 Let me reopen my terminal window and create an actual cat in cat.C.
+86:21 And let's go ahead and do this initially the wrong way,
+86:24 include standardio.
+86:25 H in main void,
+86:27 and then inside of Main,
+86:28 let's go ahead and print out quote unquote meow backslash N semicolon.
+86:33 And then heck,
+86:34 let me just copy paste.
+86:35 So this is obviously the wrong way,
+86:37 the bad way to do this because I'm literally copying and pasting,
+86:40 but it is correct if I want the cat to meow 3 times,
+86:42 I can make this cat.
+86:44 I can do cat,
+86:46 and I get my meow,
+86:47 meow,
+86:48 meow.
+86:48 But let's now actually use some of those
+86:50 new building blocks whereby we converted scratch to.
+86:52 See and let me go back into this code and I'll do the while loop first.
+86:56 So I could instead have done in i equals 3 if we count down initially
+87:01 while I is greater than 0,
+87:04 then go ahead
+87:05 and print out quote unquote meow backslash N and then
+87:09 do I + plus or I minus.
+87:14 I minus minus because we're starting at 3.
+87:17 Now let me go back to my terminal window and clear it.
+87:19 Do makecagalaca and we get 3 meows and this is now arguably better implemented.
+87:25 What if I want to flip things around?
+87:28 Well,
+87:28 I could now change,
+87:30 uh,
+87:30 maybe do it the normal person way.
+87:32 I could start counting at 0,
+87:34 and I can do this so long as I is less than 3,
+87:37 and I can do this so long as I increment I on each iteration.
+87:42 Now I can do makecagaincat enter,
+87:45 and that too works.
+87:47 But there's another way I could do this if I want to count like a normal person,
+87:50 like start counting from 1
+87:51 and count up 2 and through 3.
+87:55 I could do this,
+87:56 but this is arguably this is correct.
+87:58 It would iterate 3 times,
+87:60 but it's a little confusing because now I have to
+88:01 think about what it means to be less than 4.
+88:03 OK,
+88:03 that means equal to 3.
+88:04 I could be a little more explicit and say,
+88:06 we'll do this while I is less than or equal
+88:08 to 3 using yet another one of those operators.
+88:10 So I can make a cat yet again,
+88:13 and that too would work.
+88:14 Now which of these is correct or best?
+88:17 The convention truthfully is in general in code to start counting from zero,
+88:22 start counting up to but not through the value.
+88:25 You that you want so at least you see
+88:26 the starting point and the ending point on the screen
+88:30 if you will at the same time.
+88:31 But of course I can condense all of this a bit more and turn this whole
+88:34 thing into a 4 loop and I instead could do 4 in I equals 0,
+88:38 I less than 3,
+88:39 I + plus,
+88:40 and then down here
+88:41 I could do print out quote unquote meow
+88:43 and
+88:44 if only because I typed fewer keystrokes that time,
+88:47 like this feels a little nicer,
+88:48 it's a little tighter
+88:49 and more efficient to create even though the effect is the same.
+88:53 Indeed,
+88:53 when I make this cat.
+88:54 And do a final time this year to
+88:58 gives me the three meows.
+89:00 So what
+89:02 could go wrong?
+89:03 Well,
+89:03 sometimes you might be inclined to do something forever,
+89:06 and we might have done that in scratch,
+89:07 and indeed we did when we had some things bouncing
+89:09 back and forth off of walls and so forth.
+89:11 You can achieve the same thing in code.
+89:12 In fact,
+89:12 in C we could use a while loop,
+89:15 but there is no forever block,
+89:16 so while suffices.
+89:18 But recall that the while loop expects a boolean expression,
+89:21 and if I want to do something.
+89:22 Forever I essentially need an expression here that's always true.
+89:25 So I could do something stupid and arbitrary like while 2
+89:29 is greater than 3 or while 1 is less than 2.
+89:32 I mean,
+89:32 make a statement of fact that never changes ergo it's just going to run forever.
+89:37 But if the whole goal here is to do something
+89:38 forever and to get this boolean expression to be true,
+89:41 the convention in programming is just to literally say while true,
+89:45 and that implies.
+89:46 And functionally means that you will do this thing forever
+89:50 unless you somehow prematurely break out of those curly braces.
+89:53 More on that before long.
+89:55 So if I want to meow forever,
+89:57 I could now just do this,
+89:58 and this would be an infinite deliberate loop,
+90:01 but unlike a game where you might want it to
+90:02 keep going and going and going for some time,
+90:04 I'm not sure this is going to
+90:06 be the best thing for us.
+90:07 Let's go ahead and try this.
+90:08 So let me go ahead here and
+90:10 Include for good measure
+90:11 uh CS 50's library if only because
+90:14 um it too is giving us features like uh bulls.
+90:18 Uh,
+90:18 here I'm gonna go ahead and say while true,
+90:21 and then inside of my curly braces I'm just gonna print out meow.
+90:25 Let's go ahead backslash N semicolon.
+90:28 Let's go ahead here and make cat
+90:31 one final time.
+90:32 Let me go ahead here and do cat and.
+90:37 This is like the annoying cat game just like meowing meowing meowing endlessly.
+90:41 Like I've now kind of lost control over my terminal window and mark my words,
+90:44 at some point you might do this too,
+90:46 but let's go ahead and take a juicy 10 minute break here.
+90:49 Uh,
+90:49 we have some delicious blueberry muffins out in the transep.
+90:51 Come back in 10,
+90:52 and we'll figure out how to stop this here,
+90:54 cat.
+90:55 Alright,
+90:57 so it's been about 10 minutes and like VS code
+91:00 is freaking out with high code space CPU utilization detected.
+91:04 Consider stopping some processes for the best experience.
+91:06 So this is what happens when you have intentionally or otherwise an infinite loop
+91:11 insofar as I've been printing out meow endlessly,
+91:14 and I was warned by my colleague that I probably shouldn't let this run too.
+91:17 Long because we might lose control over the environment altogether,
+91:20 but the answer
+91:21 to how to solve this is going to be control C.
+91:24 So there's a few cryptic keystrokes that you can
+91:26 use to generally interrupt things as in this way.
+91:29 And in fact,
+91:29 if I go back and you'll see,
+91:30 you know,
+91:31 I kind of lost control over my code space here,
+91:33 I'm going to go ahead and try to reload the window altogether,
+91:36 but had I hit control C in time,
+91:39 let's hope this doesn't now go off the rails.
+91:42 Control C
+91:43 would have been
+91:44 our friend.
+91:46 There we go,
+91:47 and we're back.
+91:48 OK,
+91:48 so now that we've got control over our so-called code space again,
+91:52 how can we go about making our meowing program a little more dynamic in so far
+91:55 as let's like start asking the user how many times they want the cat to meow,
+91:59 certainly rather than do it an infinite number of times
+92:01 and even rather than do it 3 times alone.
+92:04 I think we have all.
+92:05 These building blocks thus far.
+92:07 So let me go ahead and stay in cat.c here and go
+92:09 ahead and delete the body of the contents of my main function.
+92:12 And let's go ahead and do this.
+92:13 Let's give myself an in and I'll go ahead and call it N for number,
+92:16 though I could be more verbose than that if I wanted.
+92:19 I'm going to set it equal to the so-called return value of get in,
+92:22 which we call is going to get an integer from the user and quote unquote,
+92:25 let's ask the user what's and just.
+92:28 Like I asked earlier,
+92:28 what's X and what's Y,
+92:30 where N is the number of times I want the cat to meow.
+92:33 Now how can I use this variable?
+92:34 Well,
+92:34 we have that building block too.
+92:35 I could use a Y loop or a 4 loop,
+92:37 and if I use a 4 loop,
+92:39 I could do this.
+92:40 I could initialize a variable I for integer,
+92:43 set it equal to 0 initially.
+92:45 I could then do I less than not 3 this time,
+92:48 but N,
+92:49 so I can use that.
+92:50 Variable is a placeholder inside of the loop to indicate that
+92:53 I want to do this n times instead of 3,
+92:56 and on each iteration through this loop I can do I + plus.
+92:59 Of course I could be counting down if I prefer by using decrementation,
+93:02 but logically I would say this is canonical.
+93:04 Start at 0 and go up 2,
+93:06 but not through the value that you actually care about.
+93:09 And I'll go ahead now and print out quote unquote meow with a backslash N semicolon.
+93:13 Back down to my terminal,
+93:15 make this catgaca enter.
+93:17 I'm prompted this time for N.
+93:19 I can still give it 3,
+93:20 and I'm going to get 3 meows this time.
+93:22 However,
+93:23 if I run it again with cat and a different input like 4,
+93:27 of course I'm going to get 4 meows instead.
+93:30 Now what is get in doing for me?
+93:32 Well,
+93:32 it does a few things similar to get char doing a few things for me.
+93:35 For instance,
+93:37 suppose that instead of answering this question correctly with a number.
+93:40 and
+93:41 I say something random like dog
+93:44 that is not an integer and so the get in function is
+93:47 designed to reject the user's input implicitly and just reprompt again,
+93:51 again and again.
+93:53 I can try bird and it's going to do this again.
+93:55 So somewhere in the implementation of get in there's a loop that
+93:58 we wrote that does this kind of error checking for you,
+94:02 but it doesn't do everything because an integer
+94:04 is a fairly broad category of numbers.
+94:06 It's like negative infinity.
+94:08 Through positive infinity and that's a lot of possibilities,
+94:10 but suppose I don't want some of those possibilities.
+94:13 Suppose that it makes no sense to ask the cat to meow like -1 time,
+94:18 and yet the program accepts that.
+94:20 It doesn't do anything or anything wrong,
+94:22 but I feel like a better designed program would say no,
+94:25 no,
+94:25 no,
+94:25 like -1 makes no sense.
+94:27 Let's meow 0 or 1 or 2 or more times instead.
+94:31 So how can I begin to add some of my own error checking and coerce the user.
+94:35 To give me the type of input I want.
+94:37 Well,
+94:37 let me clear my terminal window and go back up into my code,
+94:39 and why don't I do something like this?
+94:41 After getting N,
+94:43 let's just check
+94:44 if N is less than 0,
+94:47 because if so,
+94:47 I want to prompt the user again,
+94:49 and I can prompt the user again by doing N equals get in quote unquote what's
+94:55 N question mark semicolon.
+94:58 Now what's going on here?
+94:59 Well,
+94:60 on line 6 I'm doing two things.
+95:02 I'm getting an integer from the user and
+95:05 I'm not only storing it in the variable N,
+95:08 I'm also technically creating the variable N.
+95:11 So I didn't call this out earlier,
+95:12 but on line 6 when you specify the type of a variable and the name of the variable,
+95:16 you are creating the variable somewhere in the computer's memory,
+95:19 and that's necessary in C
+95:21 to specify the type.
+95:23 If the variable already exists though,
+95:25 and you just want to reuse it and change it later on,
+95:28 it suffices as in line.
+95:30 9 just to reference it by name.
+95:32 It would be sort of stupid to specify the type again because C already knows
+95:36 what type it is because you told C what it is on line 6.
+95:39 So that's why line 6 and 9 are a little bit different.
+95:43 So let's see how this now works.
+95:45 Let me go back to my terminal window and remake this cat.
+95:48 Let me doca again.
+95:50 Let me not cooperate and type in like -1 again
+95:53 and notice I am reprompted this time.
+95:55 Fine,
+95:55 fine,
+95:55 fine.
+95:56 Let's type in 3.
+95:57 And now it works,
+95:59 but you can perhaps logically see where this is going.
+96:01 Let me go ahead and run this againca,
+96:04 type in -1,
+96:06 type in -1,
+96:07 and huh,
+96:08 it didn't prompt me again,
+96:10 but that's consistent with the code.
+96:12 If I hide my terminal window here,
+96:14 you'll notice that I've got 1,
+96:15 maybe 2 tries to get this question right,
+96:19 and after that there's no more prompting of me.
+96:21 Now you can kind of imagine that this is probably not the best way to do this.
+96:25 If I were to go inside of line 9 and then move the cursor down and say,
+96:29 OK,
+96:29 well if N still doesn't it still is less than 0,
+96:33 well,
+96:33 let's just do get into again and ask what's N question mark and heck,
+96:37 OK,
+96:38 if it's still less than 0,
+96:40 well,
+96:40 let's just keep asking the same,
+96:42 right?
+96:42 Why is this bad?
+96:45 I'm repeating myself.
+96:46 I'm essentially copying and pasting even though I'm retyping.
+96:49 I mean this just never ends,
+96:50 right?
+96:50 Like how many chances are you going to give the user?
+96:52 In spirit you'd hope that they don't not cooperate this many times,
+96:57 but really to do this the right way we should probably prompt them
+97:01 potentially as many times as it takes to get the correct input.
+97:04 So this is not the right path for us to be going down.
+97:07 But of course we have already now this notion of like
+97:09 a loop whereby we could just do this in a loop.
+97:12 Ask the question once and maybe just repeat the question again,
+97:15 again,
+97:16 but the same question.
+97:17 So how might I do this?
+97:18 Well,
+97:18 let me go ahead and delete all of this
+97:21 and let me just try to spell this out logically.
+97:23 So I want to get a variable N from the user
+97:26 and let's go ahead as follows.
+97:30 While
+97:31 true,
+97:32 I know how to do infinite loops now,
+97:33 and even though that created a problem for me with the cat,
+97:36 I bet we can sort of terminate the loop prematurely.
+97:38 I proposed earlier as follows.
+97:40 I could do this in N equals get in and ask the user again what's N question mark.
+97:46 And then
+97:47 I could do something like this.
+97:49 If
+97:50 N
+97:50 is less than 0,
+97:52 well then,
+97:52 you know what,
+97:53 go ahead and just continue on with the same loop.
+97:56 Else if it is not the case that N is less than 0,
+97:58 what do I want to do?
+97:59 I want to break out of this loop.
+98:00 So this is new syntax.
+98:02 This is something you can do and see whereby if N is.
+98:05 Less than 0,
+98:06 fine.in means go back to the start of the loop and do the same exact thing again.
+98:10 Otherwise if you instead say break,
+98:12 it means break out of the loop and go to below
+98:16 whatever curly brace is associated with that loop.
+98:19 So continue essentially brings you to the top,
+98:21 brake brings you to the bottom if you will.
+98:23 So logically I think this is right,
+98:24 but
+98:25 this code curiously isn't quite going to work and get me a value for N.
+98:30 Let me go ahead and open my terminal window again.
+98:32 Let's make this cat and
+98:34 huh
+98:35 cat.c line 1925 is an error use of undeclared identifier N.
+98:44 Well,
+98:44 what does that mean again cat.C line 19.
+98:46 Let me hide my terminal window highlight line 19
+98:50 N is being used in line 19,
+98:53 but I created it in line 8
+98:57 and so what's the problem?
+98:59 Why is it?
+99:01 Not declared seemingly,
+99:03 yeah.
+99:05 Like and
+99:08 Yeah,
+99:08 this is a subtlety,
+99:09 but I'm using.
+99:10 I'm creating N
+99:11 inside of this loop.
+99:12 I mean literally between the curly braces on line 7 and 17.
+99:17 The implication of which
+99:19 because of how C works is that that variable only exists inside of
+99:24 that 4 loop.
+99:25 This is a problem of what's known as scope,
+99:28 the.
+99:28 and
+99:29 only exists inside of the scope of
+99:33 the while loop in which it was declared.
+99:35 So how do I actually fix this?
+99:37 Well,
+99:38 I need to logically
+99:39 somehow declare that variable and outside of the loop so
+99:43 that it exists later on in the program as well.
+99:46 And there's a few different ways I can fix this,
+99:48 but the best.
+99:49 The way is probably to move the declaration of N,
+99:53 so to speak,
+99:53 the creation of N outside of the curly braces,
+99:56 and maybe kind of squeeze it in here below line 5,
+99:59 so still inside of Main,
+100:00 whatever that is,
+100:01 more on that next week,
+100:02 but in the same
+100:03 curly braces as everything else.
+100:06 So I can in fact do this,
+100:07 and this is where the syntax gets a little bit different.
+100:10 I can solve this quite simply as follows.
+100:12 I can go down to a new line 6 and just say in and semicolon,
+100:17 and that's it.
+100:18 This declares a variable called N.
+100:20 It creates a variable called in and initially it doesn't give it any value,
+100:23 so who knows what's in there.
+100:24 More on that another time.
+100:26 But now on line 9,
+100:27 I don't need to recreate it.
+100:28 I just need to assign it a value.
+100:31 And because now N has been declared on line 6 and between the curly braces on line 5
+100:38 and all the way down on 24,
+100:41 now N is in scope,
+100:43 so to speak,
+100:44 for the entirety of this code that I've written.
+100:47 So let me reopen my terminal window and clear that old error.
+100:50 Let me do make cat again.
+100:52 Now the error messages is gone.
+100:53 Let me go ahead and do slashca.
+100:55 What's in.
+100:56 Now I'm back in business and I can do 3 for meow meow meow.
+100:59 But better yet,
+100:59 because I'm inside of a loop now,
+101:01 watch that I can do -1,
+101:02 -1,
+101:03 1123,
+101:06 50.
+101:07 Finally I can cooperate with something like 3,
+101:10 and because I'm in a loop
+101:11 that by design may very well go
+101:14 infinitely many times until
+101:16 the user actually cooperates and lets me break out of.
+101:20 That exact loop.
+101:21 Now I strictly speaking,
+101:22 don't need both continue and break.
+101:24 I wanted to demonstrate that both exist,
+101:26 but this is like twice as much code than I actually need.
+101:28 If logically I just want to break out of this loop if
+101:31 and only if n is greater than or equal to 0,
+101:34 because I'm sort of comfortable with the idea of zero mouses,
+101:37 but negative makes no sense,
+101:38 well I can just flip the logic.
+101:40 I can say if N is greater than or equal to 0,
+101:45 then go ahead and break and I've tightened up.
+101:47 The code
+101:48 further.
+101:49 I could technically do something else.
+101:51 I could say something like if N
+101:54 is less than
+101:57 0,
+101:57 but wait a minute,
+101:58 I want to negate that.
+101:59 You can start to do tricks like this an exclamation point
+102:02 with some additional parentheses so you can invert the logic.
+102:04 It's arguably a little hard to read
+102:06 even though that would be logically correct.
+102:08 So I'm just going to say more explicitly as before,
+102:11 if N is greater than or equal to 0,
+102:13 break out of this here loop.
+102:15 All right,
+102:16 so this is one way to use an infinite loop,
+102:18 but it turns out there's another construct that you can do altogether
+102:22 that is in a feature of C.
+102:24 Instead of using a while loop and forcing it to be infinite
+102:26 by using while true and then eventually manually breaking out of it,
+102:30 there exists another type of loop altogether,
+102:32 and that's called a do while loop,
+102:34 and you can literally say the word do,
+102:36 which means do the following,
+102:37 then you can do.
+102:38 Exactly what we did before N equals get in quote unquote what's end question mark,
+102:43 so exactly like before,
+102:44 but then after those curly braces you use a while
+102:49 keyword,
+102:49 so at the end of the loop instead of the beginning,
+102:52 and that's where you put your boolean expression.
+102:54 I want to do all of that
+102:56 while N is less than 0,
+102:59 so you can kind of invert the logic.
+103:00 And now kind of tighten things up further by just telling the computer
+103:04 do the following.
+103:05 What's the following?
+103:06 Everything in between those curly braces while N is less than 0,
+103:09 and this implicitly handles all of the continuation and all
+103:13 of the breaking by just doing what you've said do this
+103:17 while this is true,
+103:18 but the difference between this do while loop and a normal while loop is literally
+103:23 that the condition is checked at the bottom.
+103:26 Instead of the top,
+103:28 so when you say while parentheses something,
+103:30 that question is asked first and then you proceed maybe
+103:34 this condition is only asked at the very end and why is this useful?
+103:38 Well,
+103:38 oftentimes when writing programs where you want to do something at least once,
+103:42 like you obviously want to ask the user this question at least once,
+103:44 there's no point in asking a question.
+103:46 And like while true or while anything else you should just do it
+103:50 and then you should do it again
+103:52 if
+103:53 the expression evaluates the true and tells you to do something.
+103:56 Now you haven't played with these loops yet
+103:58 most likely unless you have programmed before.
+104:01 Uh there's a fun sort of meme that's apropos of this moment,
+104:03 so let's see if this maybe causes a few chuckles
+104:07 if you remember Looney Tunes here.
+104:10 It's funny for people
+104:12 in the know.
+104:14 There we go,
+104:15 thank you.
+104:16 OK,
+104:16 this doesn't make sense.
+104:17 It eventually will,
+104:18 and it still might not be funny,
+104:19 but it will at least make sense,
+104:21 and it illustrates the difference between do while loop,
+104:23 like the roadrunner,
+104:24 is stopping because he's checking the condition while not on edge,
+104:27 he'll run,
+104:28 but if he is on the edge,
+104:29 he's not going to proceed further.
+104:30 But of course the coyote here,
+104:32 he's going to do running no matter what and then only too late does he check.
+104:37 Ha ha,
+104:37 he's still on the edge.
+104:39 All right,
+104:39 so,
+104:40 ah,
+104:40 thank you.
+104:41 All right,
+104:42 now you're cool.
+104:43 All right,
+104:43 so
+104:44 many more memes will now make sense as a result,
+104:46 but let's go ahead and revisit this code and maybe do something a little bit
+104:50 different here whereby we no longer want to just futz around with some of these,
+104:54 uh,
+104:55 conditionals and these loops.
+104:56 Let's actually make the software a little better designed.
+104:58 And to do this,
+104:59 we'll revisit an idea that we touched on last week and he had to do with problems.
+105:02 0,
+105:03 which was like create your own function like C
+105:05 does not come with everything you might want.
+105:07 CS 50 library is not going to come with everything you might want.
+105:09 And at the end of the day,
+105:10 a lot of programming is about abstracting away your ideas,
+105:14 so you solve a problem once
+105:15 and then reuse it,
+105:16 reuse it,
+105:17 reuse it.
+105:17 And heck,
+105:18 you can package it up in a so-called library like
+105:20 we have and let other people use it as well.
+105:22 So here for instance in Scratch is how we could have
+105:25 implemented the notion of meowing as by getting The
+105:28 cat to play the sound meow until done.
+105:30 We abstracted it away and then we had a magical new puzzle piece called meow.
+105:34 In C,
+105:34 this is going to be a little weird today,
+105:36 but next week these details will start to make more sense.
+105:39 You would instead
+105:41 do the following literally type void,
+105:43 the name of the function you want to create,
+105:45 and then void again in parentheses.
+105:47 For now,
+105:48 know that this is the return value of the function.
+105:52 So void means it returns nothing.
+105:54 This is the input to or the arguments to the function,
+105:57 void means it takes no inputs,
+105:59 and that makes sense because literally meow doesn't return anything,
+106:02 it doesn't take anything,
+106:04 it just meows.
+106:05 It has a so-called side effect audibly last week.
+106:08 So this means,
+106:09 hey,
+106:10 see,
+106:10 invent a function called meow that takes no input,
+106:13 produces no output,
+106:14 but does have a side effect of printing meow on the screen.
+106:17 Meanwhile,
+106:18 if I wanted to do something like this in code last week where I meowed 3 times,
+106:23 well,
+106:23 that's fine.
+106:23 We have the building blocks for this,
+106:25 and here's where inventing your own functions starts to get more compelling.
+106:28 I can abstract away the notion of meow.
+106:30 Now this doesn't come with C,
+106:31 it doesn't come with the CS 50 library.
+106:32 I just created in the previous code this meow function so I can
+106:36 encode with a 4 loop and that new function meow 3 times.
+106:41 But I can abstract this away further.
+106:42 Recall that the refinement and scratch last time was this.
+106:45 I could edit the new function and I can say it actually does take an input,
+106:49 otherwise known as an argument,
+106:50 called N.
+106:51 And I clarified that this means to me meow some number of times and
+106:54 then inside of those scratch blocks I repeated N times the meowing act.
+106:60 Well,
+107:00 in C I can achieve the exact same thing even
+107:02 though it's going to look a little more cryptic,
+107:04 but
+107:05 meow still returns nothing.
+107:07 It has an audible or visual side effect,
+107:09 but it doesn't return a value.
+107:11 But this version does take an input,
+107:13 and this might look a little weird,
+107:14 but just like before,
+107:15 when you create a variable in C,
+107:17 you specify the type and the name.
+107:19 When you invent your own function in C
+107:22 and it takes one or more inputs,
+107:24 AKA arguments,
+107:26 you specify the type
+107:27 and the name of those as well.
+107:29 No semicolons up there,
+107:31 just inside of the parentheses,
+107:32 and you'll get used to with practice this convention,
+107:34 but the rest of this code is exactly the same except instead of 3.
+107:39 I'm now using N.
+107:40 So again,
+107:41 I'm just composing the exact same ideas as last week,
+107:43 even though it looks way more cryptic this week,
+107:46 but it will come more and more familiar
+107:48 with
+107:48 more and more practice.
+107:50 So how can I go about implementing this
+107:53 myself?
+107:54 Well,
+107:54 let me propose that.
+107:56 We do something like this.
+107:57 Let me go back to VS code here and let me go ahead and
+108:01 let's really delete most of the code that I've written inside of Maine
+108:04 and let me just suppose for the moment that meowing exists,
+108:07 and I'm going to go ahead and say for the first version for into I equals.
+108:11 less than 3,
+108:13 so we're not going to take input yet.
+108:14 I plus plus,
+108:15 and then I'm going to go ahead here and say
+108:17 meow is what I want this function to do.
+108:20 Now if I scroll back up,
+108:21 you'll see there's no definition of meow yet,
+108:23 so
+108:24 I'm going to invent that too.
+108:25 I'm going to go up here and say void,
+108:27 meow,
+108:28 void,
+108:29 and again this first version means no input,
+108:31 no output,
+108:32 just a side effect,
+108:33 and that side effect super simply is going to be
+108:35 to say just quote unquote meow with the backslash n.
+108:38 And now
+108:39 if I go and open my terminal window,
+108:41 clear it from before,
+108:43 do make cat so far so good,
+108:45 scat,
+108:46 we're back in business,
+108:47 but I've abstracted the function away.
+108:49 Now much like last week where I sort
+108:50 of dramatically dragged the meow definition way down
+108:54 to the bottom of the screen just to make the point that you don't need to
+108:56 see it anymore,
+108:57 out of sight,
+108:58 out of mind,
+108:59 let me sort of try to do the same here.
+109:00 Let me
+109:01 highlight and delete that.
+109:03 And like go way,
+109:04 way,
+109:04 way down arbitrarily just to be dramatic and paste it near
+109:07 like the 100th line of code and scroll back up.
+109:09 Now out of sight,
+109:10 out of mind.
+109:11 I've already implemented the idea of meowing.
+109:13 We don't need to see or talk about it again.
+109:15 But there is a caveat in C.
+109:17 When I now clear my terminal and make this cat,
+109:20 now I've introduced a problem,
+109:22 and there's like more problems it seems than code.
+109:24 Let me scroll back up to the first such error
+109:27 and you'll see this
+109:28 on line 9 of cat.
+109:31 9,
+109:31 there's an error.
+109:32 Call to undeclared function meow and then something fairly arcane.
+109:36 But that means that meow is no longer recognized as an actual function.
+109:40 I know that it doesn't come from CSST.H,
+109:42 and I know it doesn't come from standard IO.H. It's just down there.
+109:46 But why is the compiler being kind of dumb here?
+109:49 Uh,
+109:49 yeah.
+109:52 defined the
+109:53 Yeah,
+109:54 because insofar as the first version worked,
+109:56 like logically it would seem that putting it at the bottom
+109:59 was just a bad idea because C compilers are fairly simplistic.
+110:03 Like they won't proactively do you the favor of like checking
+110:07 all the way down to the bottom of the file.
+110:08 They're going to take you literally.
+110:09 So if meow doesn't exist as of line 9,
+110:12 that's on you.
+110:13 Like that is an error.
+110:15 So I could fix this by just undoing what I did.
+110:18 Move it way back up to the top,
+110:19 but let me argue that in general when writing C programs,
+110:23 the main function which I keep using and we'll talk more about next
+110:26 week is literally meant to be the main part of your code.
+110:28 And so it kind of stands to reason that it should
+110:30 be at the top because when you open the file,
+110:32 it'd be nice to see the main program that you care about,
+110:34 the main function.
+110:35 So there's an argument to be made that it's a little
+110:37 annoying to have to put my functions all at the top,
+110:40 which is just going to push main further and further down.
+110:42 So there is a solution,
+110:44 and this is dare say the only time copying and pasting is appropriate.
+110:48 Let me delete most of these blank lines,
+110:50 which is unnecessarily
+110:51 dramatic,
+110:52 and just move it below main as over here.
+110:56 The way I can uh the solution here though is to do this to copy the first line
+111:03 of the main function.
+111:05 It's so called signature
+111:06 and then just put that one line and only that one line with a semicolon above main
+111:12 and this
+111:13 is what's known as a prototype.
+111:15 So a prototype is just a bit of a hint to the compiler,
+111:18 a promise if you will,
+111:20 that hey,
+111:20 compiler,
+111:21 there will exist a function called meow.
+111:23 It takes no input and it returns no output semicolon,
+111:27 and it's on the honor system that it will eventually exist later in the file.
+111:30 We'll talk more about this next week,
+111:32 why that works,
+111:33 but this is sort of a promise to the compiler that it will
+111:36 eventually be defined.
+111:38 Now what I've done here on line 4 as an aside is what's generally known as a comment.
+111:41 I just wanted to put on the screen exactly what I was verbalizing.
+111:45 Anything in C that starts with slash slash is a note to self,
+111:48 like a sticky note in scratch,
+111:49 which is just for the human,
+111:51 not for the computer,
+111:51 and it's a way of reminding yourself or someone else what's
+111:54 going on on that line or those lines of code.
+111:56 But I'll go ahead and delete it for now is unnecessary because
+111:59 now if I go back into my terminal and clear those errors,
+112:02 make this cat again now.
+112:03 It does work
+112:05 because the
+112:06 the meow function has been defined
+112:09 exactly where it should be,
+112:11 and now I can make the new version of this
+112:14 cat even better.
+112:15 I could
+112:16 change the function meow to take a variable n as input for the number of times,
+112:21 and then in here I could do something like my 4
+112:23 loop 4 into i equals 01 less than Ni plus plus,
+112:29 and then in this.
+112:31 For loop,
+112:31 I can print out quote unquote meow,
+112:33 and then
+112:35 I'm gonna have to change this too because I have to copy and repaste it if you will,
+112:38 or just manually fix that.
+112:39 But now I can get rid of all of this
+112:42 and do meow 3,
+112:43 for instance,
+112:44 and this now will be the second version of the scratch code if you will,
+112:48 makeA still gonna work exactly the same meow meow meow,
+112:52 but now I've implemented my own function that does take input
+112:55 even though it doesn't happen to
+112:57 return
+112:58 any outputs.
+113:01 All right,
+113:01 questions.
+113:03 On any of these
+113:04 examples just yet.
+113:06 Confusion
+113:09 All right,
+113:10 let me add one other feature to this to demonstrate that we
+113:13 can take not only input but actually produce output if we want.
+113:17 If I go back into
+113:19 this code here,
+113:21 let me propose that it's a little silly to be hard coding that is fixating 3.
+113:25 It'd be nice to get input from the user,
+113:28 so I could do this.
+113:29 I could use in N equals get in and say something like.
+113:33 Like what's question mark
+113:36 and then I could pass N in if only to demonstrate a couple of things.
+113:40 So one,
+113:41 now the program's dynamic,
+113:42 I'm going to ask the user how many times to meow
+113:45 and I'm going to pass in that value n.
+113:47 Now this deliberately is confusing at the moment because wait a minute,
+113:51 I got N defined here,
+113:53 used here,
+113:54 but then redefined here
+113:56 and then reused here.
+113:58 So it turns out that even if you create n up here and use the name N,
+114:03 no other functions can see it for that same issue of scope.
+114:07 So for instance,
+114:08 suppose I didn't quite remember this,
+114:10 and I sort of naively just said void,
+114:12 meow doesn't need to take any inputs because heck,
+114:16 N is already defined in Maine.
+114:17 Let me go ahead and open my terminal and clear it,
+114:21 make CA and see what error comes out here.
+114:24 Well,
+114:25 error oh sorry.
+114:27 I made two mistakes here.
+114:29 Let me,
+114:29 I also have to change the prototype up here to say void,
+114:32 which means again meow takes no inputs.
+114:35 Let me go ahead now and rerun
+114:37 make CAT,
+114:38 and there we have an undeclared identifier again N.
+114:42 So in cat.
+114:42 C line 14,
+114:43 which is here,
+114:44 it doesn't like that I'm using N.
+114:46 But wait a minute,
+114:47 I created N here,
+114:48 but for the same logic as earlier,
+114:50 that's fine.
+114:50 You create an N on line A,
+114:52 but where does N exist?
+114:54 In what scope?
+114:58 Yeah,
+114:58 only between the curly braces,
+114:60 which is lines 7 and 10.
+115:01 So by the time you get down to 14,
+115:03 it's out of scope,
+115:04 so to speak,
+115:05 so it just doesn't work.
+115:06 So the solution is exactly what I did the first time.
+115:09 I can pass it into meow as input,
+115:12 and I have to tell C to expect that input,
+115:14 and I can use the same name,
+115:16 but arguably that's going to get confusing sometimes.
+115:18 But let me do this.
+115:19 Let me go back into my code.
+115:21 Let me undo this change such that now meow does take an input,
+115:25 but instead of just calling it N and using N everywhere for number,
+115:28 this is crazy,
+115:28 let's just call this like times.
+115:31 So meow takes some number of times
+115:33 and then it uses that value,
+115:35 and now I'm passing in on line 9 N,
+115:39 but in the context of the meow function on lines 12 onward,
+115:44 that same variable n.
+115:46 Is now referred to as times because you're passing it in as
+115:49 input and giving it its own name and that's totally your prerogative.
+115:53 It's just a matter of scope.
+115:55 I mean I could have called it M or some other letter of the alphabet,
+115:58 but times is even more clear because that's the number of times I want the cat
+116:02 to meow.
+116:03 But again,
+116:04 the whole point here is just this matter of scope.
+116:08 All right,
+116:09 so let's take a higher level look now at some of the things we've been thinking about,
+116:12 and then we'll do a final deep diver too on
+116:15 some of the corner some of the problems that we
+116:17 can solve with all of these building blocks and some
+116:19 of the problems that we're sort of ignoring for now.
+116:21 So when it comes to writing good code,
+116:23 CS 50 and really the world in general tends
+116:25 to focus on these kinds of axes correctness,
+116:28 design,
+116:28 and style.
+116:28 What does this mean?
+116:29 Correctness just means does the code work the way
+116:31 it's supposed to in the context of a class,
+116:33 it should do exactly what the homework assignment,
+116:35 AKA problem set,
+116:36 tells you.
+116:36 To do in the real world,
+116:38 it should do exactly what someone decided
+116:40 the software should do the product manager,
+116:42 the CEO,
+116:42 or the like.
+116:43 Correctness just means it behaves as it should.
+116:45 That's different though from how well designed the code might be,
+116:49 and we've seen that a few times.
+116:50 I've had some simplistic examples in Scratch and C that were 100% correct,
+116:54 like it did the right thing logically,
+116:56 but I was wasting the computer's time.
+116:57 I was wasting the human's time by asking more
+116:59 boolean expressions than I needed to and so forth.
+117:02 So design is more about like in the in the world.
+117:05 English like not only saying things that are correct but doing it well,
+117:09 like and making a good cogent argument,
+117:11 not just one that happens to be correct.
+117:13 Style meanwhile is the third axis on which
+117:16 we might evaluate the quality of someone's code,
+117:18 and that's more of the aesthetics like is everything pretty printed,
+117:21 that is nicely indented,
+117:23 are variables well named and not just called
+117:25 X Y Z arbitrarily or something like that.
+117:27 So style matters really to other humans,
+117:30 not to the computer,
+117:31 but to other humans.
+117:32 And to illustrate these.
+117:33 And you'll see that in problem set one onward you'll
+117:36 be given a number of tools that you can use.
+117:38 So one of those tools is called Check 50,
+117:40 and in each problem set,
+117:41 problem in C and Python and other languages,
+117:43 you'll be showed how you can test your own code and you
+117:46 can literally run a command that CS50 created called Check 50.
+117:49 You'll then specify what's called a slug,
+117:51 which just means a unique identifier for that homework problem,
+117:54 and you'll get quick feedback
+117:56 on whether or not your code is correct.
+117:58 It doesn't mean it's well implemented or well designed or.
+118:01 that is well stylized,
+118:02 but at least that's the first gauntlet in getting good code submitted.
+118:06 Design though is much more subjective.
+118:08 Design is something you get feedback on from a human,
+118:10 for instance,
+118:10 in section or a teaching assistant or in software.
+118:13 You can actually see at top VS code there's a
+118:15 couple of buttons that I haven't yet used but could.
+118:18 Design 50 is built on top of the CS50 duck,
+118:21 whereby if you have a program open in a tab,
+118:23 you click Design 50,
+118:24 you will get chat GPT like
+118:27 advice on how you can.
+118:28 Prove not the correctness of that code,
+118:30 but the design of that code,
+118:32 the quality thereof,
+118:33 which is a bit more subjective and modeled
+118:35 after what a good teaching assistant might say.
+118:38 Style 50 meanwhile is a third tool that will provide
+118:41 you with feedback on the style of your code.
+118:43 It will show you on the left what your code looks
+118:44 like and on the right what your code really should look like
+118:48 insofar as it should be consistent with what we've taught
+118:50 in class and consistent with CS 50's so-called style guide.
+118:53 And those of you who have some prior programming experience undoubtedly won't.
+118:56 Like some of CS 50's stylistic choices,
+118:58 and that's going to be the case in the real world too,
+119:01 but as I alluded to earlier,
+119:02 in typical companies you would have an official style guide or tool to which
+119:05 everyone adheres so that everyone's code actually
+119:08 looks the same as everyone else's,
+119:09 even though people have contributed
+119:11 different solutions to problems.
+119:13 So correctness,
+119:14 design,
+119:15 style is not only how we,
+119:16 but really the world writ large tends to evaluate the quality of code,
+119:20 and we do it by way of the CS 50 specific tools here.
+119:24 All right,
+119:25 how about
+119:27 one final flourish then to this here program back in VS code,
+119:31 I've got a correct solution right now.
+119:34 Um,
+119:34 it's well styled.
+119:35 I'll stipulate even though it could stand to have some more comments.
+119:38 So for instance,
+119:39 I could do something like this,
+119:40 like meow
+119:42 uh some number of times,
+119:44 a comment to myself or up here I could say something like,
+119:47 uh,
+119:48 get.
+119:49 A number from user just to remind myself and my TA
+119:54 or my colleague what it is this code is doing,
+119:56 but what more could I do in the way of design?
+119:59 Well,
+119:59 this function here get in will indeed get me an integer,
+120:02 but not just positive or zero,
+120:04 but negative,
+120:05 and I could go in and add a bunch of code like before,
+120:07 like I could actually do instead of this line,
+120:10 I could do something like in and.
+120:12 Semicolon do the following N equals get in and then I can say what's
+120:18 N question mark and then after that I can do something like while
+120:22 N is less than
+120:24 0,
+120:24 keep doing that so I can have a pretty verbose implementation of getting user input
+120:29 or I can implement
+120:31 another function of my own that only gets a
+120:34 positive integer or non-negative integer from the user.
+120:38 For instance,
+120:38 I might do something like this.
+120:41 Uh,
+120:41 I could,
+120:42 uh,
+120:42 declare at the,
+120:43 uh,
+120:44 maybe below my main function a function like this,
+120:47 uh,
+120:47 in,
+120:49 uh,
+120:49 how about
+120:50 get
+120:50 N
+120:51 and then inside of this I might say void because I'm not going to pass in any input.
+120:56 Then inside of this function is where I'm going to do into and do Y.
+121:01 N equals get quote unquote what's n question mark and then down
+121:06 here I'm going to do while N is less than 0,
+121:09 but
+121:10 rather than
+121:12 do something immediately with N because I'm no
+121:14 longer inside of my so-called main function,
+121:16 what I'm going to do,
+121:17 which is new,
+121:18 is return this value n.
+121:21 And notice that this notion of returning a value,
+121:24 which is the first time I've done this explicitly,
+121:26 is consistent with this little hint here on my 19,
+121:29 which implies that this get end function which I'm inventing is going to return,
+121:33 not void,
+121:34 which means nothing
+121:35 but an integer,
+121:36 and that's the whole purpose of this function in life now.
+121:39 If I scroll back down here,
+121:40 I can get rid of this whole block
+121:43 of code.
+121:44 And just say get in from the user and then I can immediately call meow with that value.
+121:52 I need to do one other thing.
+121:53 I need to highlight this line of code here,
+121:55 and I'm going to go ahead and add another prototype up top,
+121:58 which is the only time again for now that copy paste is encouraged
+122:01 and
+122:02 best to do.
+122:04 So I've invented my own function,
+122:05 get in,
+122:06 the whole point being now I have this sort of abstraction here of a function
+122:09 whose whole sole purpose in life is to get me not just an integer,
+122:13 but one that is zero or positive and not negative.
+122:18 If I open my terminal window,
+122:20 clear the mess from before,
+122:21 make this catca what's N3,
+122:25 I'm now back in business,
+122:26 and again we've essentially translated from scratch last time
+122:30 into C this time.
+122:32 Exactly how we might modularize now the code,
+122:34 abstract away these lower level details,
+122:36 and ultimately create my own function that as before takes not
+122:40 only arguments but in this case has not only side effects,
+122:43 it doesn't have side effects but rather a return value this time.
+122:49 All right,
+122:49 so as you walked in,
+122:50 we had a little walkthrough of Super Mario Brothers playing from yesteryear,
+122:54 which was a side scrolling game in which Mario would jump down and go up,
+122:57 down,
+122:57 left,
+122:57 right and try to collect coins and make it to the end of the level.
+122:60 There's a lot of obstacles throughout this kind of game
+123:03 whereby the world might look a little something like this,
+123:05 like there's a pit that Mario's got to jump over,
+123:07 and then there's these coins hidden typically behind these question marks that he
+123:10 can jump up and hit his head with and actually accrue points.
+123:12 Now we're not going to do anything graphical just yet.
+123:14 We're leaving.
+123:15 Graphics behind for now in the form of scratch,
+123:17 but with C we can implement some of these ideas.
+123:20 For instance,
+123:20 if I were to write code to generate just this row of 4 question marks,
+123:25 I dare say there's a bunch of ways we can do this.
+123:28 In other words,
+123:28 let's see if we can't use all of today's building blocks to start
+123:31 implementing our own tiny version of Super Mario Brothers in a file,
+123:35 say,
+123:35 called Mario.c.
+123:37 So let me open and clear my terminal window.
+123:39 Let me run codemario.c.
+123:41 And let's just try to do something super simple like print 4 question marks in a row.
+123:46 Well,
+123:46 to do this,
+123:46 I need printF,
+123:47 so I'm going to include standard IO.H. I'm then going to do in Main void.
+123:51 More on that next time.
+123:53 And inside of Main,
+123:54 my default function that just automatically as before gets called for me,
+123:58 I'm going to print out the simplest possible implementation,
+124:01 just print out for.
+124:01 Or question marks like that.
+124:03 So no need per se for a loop just yet,
+124:06 but
+124:07 I think we can go down that rabbit hole too.
+124:09 Let me go down into my terminal window,
+124:11 make this version of Mario Mario enter,
+124:14 and voila.
+124:15 We have a very black and white version,
+124:17 textual version of 4 question marks in the sky.
+124:21 Now I'm kind of cheating.
+124:22 Here by just hard coding 4 question marks,
+124:24 what if I wanted not 4 but 3 or 5 or some other number?
+124:27 Well,
+124:27 we could do that with a loop too.
+124:29 So let me change this code here
+124:31 and do something like this 4 I equals say 0 I less than say 4 for now,
+124:37 I plus plus.
+124:38 Then inside of this loop I can print out
+124:40 one question mark at a time,
+124:42 semicolon.
+124:43 Now let me go back to the bottom,
+124:45 make this version of Mario Mario enter and hmm.
+124:50 It's not actually correct
+124:52 this time.
+124:53 So why am I getting a column instead of a row with this here change?
+124:57 Yeah.
+125:01 Yeah,
+125:01 so I've got,
+125:02 I foolishly included the backslash N after each question mark.
+125:05 OK,
+125:05 so that seems like an easy fix.
+125:07 Let me get rid of that.
+125:08 Let me now recompile Mario,
+125:11 rerun Mario,
+125:12 and now
+125:13 so close.
+125:14 Now I've just done something stupid.
+125:16 All right,
+125:16 I need the backslash N,
+125:17 so I think I do want this here,
+125:19 or
+125:21 What do you
+125:22 propose instead?
+125:27 Yeah,
+125:27 I should really put the backslash in outside of the loop
+125:29 so once I'm done printing all of the question marks,
+125:32 then I get the backslash in and that's fine,
+125:34 even though we haven't seen this before.
+125:36 Backslash N is an escape sequence that you can certainly print by itself,
+125:39 so I do quote unquote backslash N outside of the loop below those curly braces.
+125:44 Now if I do make Mario Mario,
+125:46 now I get the 4
+125:48 question marks in a row.
+125:49 As well as the new line at the very end.
+125:52 So again,
+125:53 kind of a little baby exercise,
+125:54 but demonstrative of how you can just take a few different
+125:57 techniques,
+125:57 a few different building blocks we've used to compose a correct
+126:00 solution to what a moment ago was a brand new problem.
+126:04 Well,
+126:04 let's try another.
+126:04 So later on in Super Mario Brothers,
+126:06 when you go into sort of the underground world,
+126:08 you see,
+126:08 or rather it's still above ground,
+126:09 you see a column of bricks.
+126:12 Like this that he has to jump over.
+126:14 So those here,
+126:15 how might we make a column?
+126:16 Well,
+126:16 we kind of had that solution already.
+126:18 And in fact,
+126:18 if I go back to VS code here and just change this version of Mario,
+126:22 I think we can design this thing to be pretty simply the same.
+126:26 I is less than 3 though,
+126:27 and I do want to put the backslash N at the end there,
+126:30 make Mario Mario and albeit textual.
+126:33 I've got my column.
+126:35 Of 3,
+126:37 of let's see,
+126:38 I don't want question marks.
+126:39 Let's make this a little better.
+126:40 Maybe we'll use the hash symbol because that kind of sort of looks like a square.
+126:43 So make Mario Mario.
+126:46 OK,
+126:46 now we're back in business.
+126:48 But let's make it more interesting by going into Mario's
+126:50 underground now and here's the third and final Mario problem
+126:53 whereby we want to implement like this 3 by 3 grid of bricks circled here.
+126:58 So this one's interesting because we've never done something in two dimensions.
+127:01 I did horizontal,
+127:03 I did vertical,
+127:04 but we haven't really composed those ideas into the same.
+127:07 So let me now think a little harder this time about how I can print out row,
+127:12 row,
+127:13 row,
+127:14 and this is where if you have in your mind's eye any familiarity with.
+127:17 Old school typewriters,
+127:18 it's kind of the same idea where you want to print a row of bricks,
+127:21 then go back to the beginning,
+127:22 a row of bricks,
+127:23 then go back to the beginning and a row of bricks,
+127:25 and that's kind of what printF has always been doing for us.
+127:27 It's printing line by line by line of text.
+127:30 It's not jumping around,
+127:31 so we can leverage that
+127:33 perhaps as follows.
+127:34 Let me go into my main function here.
+127:36 And if I want to print out something 2 dimensional,
+127:39 let me kind of think about it as rows and columns.
+127:41 So maybe I could do this for
+127:43 in I equals 01 less than 3,
+127:46 I + plus.
+127:47 Why?
+127:47 Well,
+127:47 I want to do something 3 times,
+127:49 even if I have no idea where I'm going with this solution.
+127:51 I at least want to do something 3 times like 3 rows of text.
+127:55 But how about this on each row,
+127:57 what do I want to do?
+127:58 I want to print out 3 things.
+128:01 So I could
+128:02 steal this idea like I equals 01 less than 3,
+128:06 I plus plus,
+128:08 and then inside of this loop,
+128:09 let me just print out one brick at a time,
+128:12 no new lines yet,
+128:13 one brick at a time,
+128:14 but there is a bit of a problem here.
+128:17 This is correct to nest loops in this way.
+128:20 Totally fine to have an outer loop,
+128:22 totally fine to have an inner loop,
+128:23 but I probably don't want the inner loops variable competing with
+128:27 the outer loops variable by giving them the same name.
+128:30 And that's fine.
+128:31 It is pretty conventional in code when you want another integer,
+128:35 and it's not I because you've used it already,
+128:37 fine.
+128:37 You can use J.
+128:38 So using I and J and K is generally fine.
+128:41 If you're using L,
+128:43 M,
+128:43 and O,
+128:44 like at that point you're probably doing something wrong.
+128:45 There's no hard line,
+128:46 but at some point it gets ridiculous and you
+128:48 should be coming up with better variable names.
+128:50 But I and J,
+128:51 maybe K is fine.
+128:53 So now what's really happening?
+128:54 Let me propose that this is my
+128:57 Uh,
+128:57 for each row,
+128:59 this is my for each column.
+129:02 I want to print one brick.
+129:05 Now this isn't quite correct,
+129:07 but let me go ahead and make this version of Mario Mario,
+129:11 and now there's what,
+129:13 123,
+129:13 there's 9 bricks there.
+129:15 So I'm close,
+129:16 right?
+129:16 It's supposed to be 3 by 39 total.
+129:19 What
+129:20 do I want to do though to get this just right?
+129:24 Yeah,
+129:25 up on the left
+129:26 Yeah,
+129:27 what,
+129:27 on what line number would you or after,
+129:30 uh,
+129:30 where would I put the new line?
+129:34 Cause I think I don't wanna put it here
+129:36 because I'm gonna get myself into trouble as before,
+129:38 how about in back?
+129:41 After the what?
+129:44 After 13,
+129:45 yeah,
+129:45 so after I finished printing each brick in the column
+129:49 from left to right,
+129:50 I'm gonna go ahead and print out,
+129:52 I think,
+129:52 a single new line here,
+129:54 nothing else,
+129:55 and now if I open my terminal,
+129:56 run Mike Mario again.lamario,
+129:59 now we've got it,
+129:60 and it's not a perfect square because like this.
+130:02 One is because like the hashtags are kind of more vertical than they are horizontal,
+130:06 but it's pretty darn close.
+130:08 The the takeaway here being you can certainly
+130:10 nest these kinds of ideas and compose them,
+130:12 and honestly I and J is maybe making this more confusing than necessary.
+130:16 I could just give these better names like row row.
+130:20 Row
+130:22 and then maybe call for column or column I can spell it out if
+130:25 that's clear column column just to make clearer to myself to my TA,
+130:31 to my colleagues
+130:33 what exactly these variables represent and indeed like an old school typewriter,
+130:36 the outer loop is.
+130:37 Handling row by row by row,
+130:39 but each time you're on a row you first want to do column,
+130:42 column,
+130:42 column,
+130:43 column,
+130:43 column,
+130:44 column,
+130:44 and that's what logically the nesting is achieving.
+130:47 And again,
+130:47 if I do make Mario Mario,
+130:49 all I've done is change variable names,
+130:51 it has no functional effect beyond that.
+130:54 Now this is a little more subtle,
+130:56 but there is a bit of
+130:57 duplication in this program.
+130:59 There's a bit of magic,
+131:01 and this is subtle,
+131:02 but does anyone want to conjecture
+131:04 what still could be improved here?
+131:09 What is
+131:11 maybe rubbing you the wrong way?
+131:14 Yeah,
+131:14 I've hard coded the 3 here and here.
+131:17 It's not a big deal.
+131:17 It's like an in-class exercise.
+131:19 Like who really cares if I'm just manually typing 3?
+131:21 But if I want to make this square bigger and bigger and bigger over time,
+131:25 I'm going to have to change it in two
+131:26 different places and I've conjectured last time and today
+131:29 eventually that's going to come back and bite you.
+131:30 You're going to do something stupid or a colleague isn't
+131:32 going to realize you hard coded 3 in multiple places,
+131:35 like just bad design.
+131:37 So how could we fix this?
+131:38 Well,
+131:39 we could just.
+131:40 Declare a variable like n,
+131:41 set it equal to 3,
+131:43 and then use n in both places,
+131:45 and that's pretty darn good.
+131:46 That's better because now we are reusing the value,
+131:49 but we can do 1 better than this.
+131:51 It turns out in C and in many languages too,
+131:54 there's the notion of a constant whereby if
+131:56 you want to store something in a variable but
+131:58 you want to signal to the compiler that
+131:60 this value should never change and better still,
+132:02 you want to prevent yourself,
+132:04 a human,
+132:05 or Not to mention a colleague from accidentally changing this value,
+132:09 you can declare it to be constant or constant for sure.
+132:12 So if I go back into VS code on line 5 now and say constant,
+132:16 that means that N is an integer that has a constant value.
+132:20 So if I do something stupid later in my code and I try to set N equal to something else,
+132:24 the compiler won't let me do that.
+132:26 It will protect me from myself,
+132:28 so it's just a slightly better design
+132:31 as well.
+132:33 All right,
+132:34 questions
+132:35 on any of these here,
+132:37 Mario.
+132:39 Examples the first of our sort of real world problems,
+132:42 albeit simplified textually.
+132:45 All right,
+132:46 let's focus lastly on things we can't really do well with computers,
+132:51 uh,
+132:51 namely some of the limitations thereof.
+132:53 So here is a cheat sheet of some of the operators we've seen thus far.
+132:56 We played with these with comparison and,
+132:58 uh,
+132:59 doing some,
+132:59 uh,
+132:60 addition or the like,
+133:01 but here we have addition,
+133:02 subtraction multiplication,
+133:03 division,
+133:04 and the modulo operator which is essentially the remain.
+133:07 operator,
+133:07 which you can do with a single command with a single operator like this.
+133:11 Let's use some of these to make our own calculator and
+133:14 see what this calculator can and can't do for us.
+133:16 So back here in VS code,
+133:17 let me open my terminal.
+133:19 Let's go ahead and create a program called Calculator.c.
+133:22 And in this program,
+133:23 let's do something super simple initially that
+133:25 just like adds two numbers together.
+133:27 So let's include first.
+133:29 Uh,
+133:29 CS 50.h so we can use our get functions.
+133:32 Then let's go ahead and include standard IO.h so we can use print F.
+133:35 Let's just copy paste our usual in main void,
+133:38 and inside of Main,
+133:39 let's do this declare a variable X,
+133:42 set it equal to get in,
+133:43 and let's ask the user what's X question mark.
+133:46 Then let's declare another variable Y,
+133:48 set it equal to get in and ask the user what's Y question mark.
+133:53 Let's do something super simple like give me a third variable,
+133:55 heck,
+133:56 we'll call it Z,
+133:57 set it equal to x + y,
+133:59 and then lastly,
+134:00 let's just print out the sum
+134:02 of X + Y.
+134:03 So this is a super simple calculator for addition of two numbers.
+134:07 Print F quote unquote.
+134:08 What's the answer going to be?
+134:10 Well,
+134:10 it's not pers.
+134:12 This was quick earlier.
+134:14 What's the placeholder to use for an integer?
+134:17 Percent I
+134:18 backslash N and what do I want to substitute for that placeholder?
+134:23 Just Z in this case we haven't quite done this before,
+134:25 but again it's just the composition of some of our earlier ideas.
+134:28 I can go ahead and make this calculator enter calculator enter what's X is 1,
+134:34 what's Y is 2,
+134:35 and indeed I get 3.
+134:37 So not a bad calculator.
+134:39 It seems to be working correctly,
+134:40 but it's maybe not the best design.
+134:43 Like it's generally frowned upon
+134:45 to create a variable like Z
+134:47 if you're only going to use it.
+134:48 A moment later in one place,
+134:50 like why are you wasting my time creating a variable just to use it once and only once?
+134:54 Sometimes it's fine if it makes your code more readable or clearer,
+134:57 and in fact it might if I called it sum.
+134:59 Like that's arguably a net positive because I'm making clear
+135:02 to the reader that it's the sum of two variables.
+135:04 But even then I'm quibbling,
+135:06 I could just get rid of that third variable altogether and heck,
+135:08 I could just do X + Y right here.
+135:10 That's totally fine and reasonable,
+135:12 especially since it's still a pretty short line of code.
+135:14 It's not.
+135:14 Hard for anyone to read feels like a reasonable call,
+135:17 but this hints at again my comment on design being subjective.
+135:20 There's no steadfast rules here.
+135:22 Some of the TAs might disagree with me,
+135:23 but like,
+135:24 ah,
+135:24 this feels fine.
+135:25 It's readable,
+135:26 which is probably the most important thing ultimately.
+135:28 Let's make this calculator calculator.
+135:31 E 12,
+135:33 and we still get 3.
+135:34 So the code now is still working.
+135:36 As an aside,
+135:37 if you're starting to wonder how I type so fast,
+135:39 sometimes I'm kind of cheating.
+135:40 With autocomplete.
+135:42 So if I know I want to create a program called Calculator,
+135:45 and Calculator.c exists,
+135:47 I can start typing CAL tab
+135:50 and you can hit tab to sort of autocomplete the rest
+135:53 of the file name if it happens to exist there.
+135:55 Better still,
+135:56 if I want to go back to previous commands I've typed,
+135:58 I can actually use my up and down errors to go through my history.
+136:02 So if I go up,
+136:02 up,
+136:03 up,
+136:03 you'll see all of the recent commands I typed,
+136:05 and that saves me time.
+136:06 2 so just little keyboard shortcuts that speed things along.
+136:10 All right,
+136:10 well,
+136:11 let's do something like this,
+136:12 not just addition.
+136:13 Why don't we use some multiplication?
+136:14 So how about we prompt the user,
+136:16 not for two numbers,
+136:18 but how about just 1 initially X,
+136:20 and let's go ahead and multiply X by 2,
+136:23 and I would do X,
+136:24 asterisk 2,
+136:25 which is the multiplication operator in C.
+136:27 Let's make this version of the calculator calculator,
+136:30 and now what's X?
+136:31 Let's do 1.
+136:33 So 1 times 2 is 2.
+136:34 Let's do this again.
+136:35 Let's type in 22 times 2 is 4.
+136:37 Let's do this again 33 times 2 is 6,
+136:39 and so forth.
+136:41 That's fine.
+136:41 It seems to work,
+136:42 but maybe let's implement like a recent meme from the past year or two.
+136:46 How about this?
+136:47 Let's,
+136:48 uh,
+136:48 let's see if you recognize it as we go.
+136:50 So I'm going to get rid of this code altogether and inside of
+136:52 my calculator I'm gonna do something like in dollars equals $1 by default.
+136:57 Then I'm going to deliberately induce an
+136:59 infinite loop just for demonstration's sake.
+137:01 Then I'm gonna do
+137:02 a character from the user
+137:04 and say something like this using get char,
+137:07 which gets a single character.
+137:08 Uh,
+137:09 how about I'll tell the user,
+137:11 here's this many dollars percent I
+137:14 with the US dollar sign before it.
+137:17 Double it and give to next person question mark if familiar with that one,
+137:22 and I'm going to prompt them for a yes no answer,
+137:24 but I'm going to plug in the current number
+137:25 of dollars so they know what they're wagering on.
+137:27 Then below this I'm going to say if the character
+137:30 the human typed in equals equals Y for yes,
+137:33 then I'm gonna go ahead and do dollars times equals 2,
+137:36 which recall was our shorthand notation
+137:39 for doubling something.
+137:41 Uh,
+137:41 in this case,
+137:42 I could more pedantically say equals dollars times 2,
+137:45 but again I can say some keystrokes and dollar equals 2 instead.
+137:50 There's no plus plus.
+137:51 There's no star star trick,
+137:52 asterisk trick,
+137:54 you have to do it in this way minimally.
+137:57 However,
+137:57 if the user does not want to double it and give it to the next person,
+137:60 then let's do an L and just break out of this infinite loop altogether.
+138:04 But notice what I've deliberately done in Getchar.
+138:07 Similar to Print F,
+138:09 I have included a placeholder.
+138:11 Why we implemented GetHA and get in and get string just like Print
+138:15 F and that you can pass in placeholders and plug in values.
+138:18 Why?
+138:19 Well,
+138:19 again,
+138:19 for the meme's sake,
+138:20 I want to be able to tell the user how much money I'm about to hand them
+138:23 when I ask them the question,
+138:24 Do you want to double it and give it to the next person?
+138:26 I want to see the number and the dollar
+138:28 sign is just because we're talking about dollars.
+138:30 The percent I is because we're talking about integers.
+138:33 All right,
+138:33 if I didn't mess this up,
+138:34 let's make this version of a calculator or meme.
+138:37 So far,
+138:38 so good.
+138:39 calculator,
+138:40 enter.
+138:41 Here's $1
+138:42 which was the initial value of my dollars variable on line 6.
+138:45 Double it and give it to the next person.
+138:47 All right,
+138:47 why?
+138:48 Here's $2.
+138:49 Double it and give it to the next person.
+138:51 OK.
+138:52 OK.
+138:53 OK.
+138:54 OK.
+138:55 OK.
+138:55 I'm going to do it faster.
+138:56 It's getting pretty good.
+138:58 You can see the power of exponentiation.
+139:01 It's getting pretty high.
+139:02 Let's keep going.
+139:03 Keep going,
+139:05 lot of dull,
+139:06 mm mm,
+139:07 too far.
+139:09 That does not happen in the memes.
+139:11 What happened here?
+139:14 What's going on?
+139:14 Yeah,
+139:14 what do you think?
+139:23 Exactly good intuition because the computer only has a
+139:26 finite number of bits allocated to each integer.
+139:28 I hypothesized earlier that it's usually 32 bits,
+139:30 maybe 64 bits,
+139:32 but it's finite,
+139:33 which means you can only count so high and it's roughly 4
+139:35 billion or again an integer by default can be negative or positive.
+139:39 So it's roughly 2 billion,
+139:40 and that's pretty close to what we were getting here.
+139:42 In fact,
+139:42 we overflowed the integer
+139:45 in memory.
+139:46 In fact,
+139:46 integer overflow is a term of art.
+139:48 Whereby you can overflow an integer by trying to store too big of a value in it,
+139:54 and the reason for this is again to make this clear,
+139:56 this is a piece of memory inside of a laptop or a desktop or some other device,
+140:00 and in these little black chips is a whole bunch
+140:03 of bits or really bytes that can store information electronically,
+140:06 but they allocate those bits in units of 8,
+140:08 maybe 16,
+140:09 maybe 32,
+140:10 maybe 64,
+140:11 but finitely many per value.
+140:13 Whether we're using 32 or 64,
+140:16 you can only count so high if you have a finite number of bits,
+140:19 and we've seen this problem even on a small scale with our flat light bulbs last week.
+140:22 If we have a 3 digit number as represented by like
+140:25 3 physical light bulbs or 3 tiny transistors in the computer,
+140:28 I can count from 0 to 1 to 2 to 3 to 4 to 5 to 6 to 7.
+140:35 If I want to count to 8 though,
+140:37 I need a 4th bit.
+140:39 But as the red suggests,
+140:40 if you don't have a 4th bit,
+140:42 for all intents and purposes,
+140:43 that number is just 0.
+140:46 Or as an aside,
+140:47 depending on how you're representing your numbers,
+140:49 sometimes a leading one indicates that
+140:51 the number itself is negative,
+140:53 which is why in VS code we actually saw both symptoms.
+140:55 First we went negative because we wrapped around logically,
+140:59 much like that 1 resulted in our getting back effectively to zero,
+141:03 and then we did.
+141:03 Indeed end up on 0 ultimately.
+141:06 So how can we chip away at this?
+141:08 Well,
+141:08 a couple of solutions perhaps.
+141:10 Let me close my terminal window here and instead of using an in,
+141:13 well,
+141:13 let's just kick the can down the road.
+141:15 Let's use a long,
+141:16 which is 64 bits.
+141:17 So at least we can give away even more money in this scenario.
+141:20 I can't use percent I I need to use LI now for a long integer,
+141:24 but I think at this point,
+141:26 if I go back to VS Code's terminal window here,
+141:29 or when I quit that program by hitting control C quickly.
+141:32 Uh,
+141:32 now I'm going to go ahead and do make calculator again calculator,
+141:36 and I'm just going to keep hitting Y.
+141:38 But because I'm using a long in now and thus 64 bits,
+141:42 if I do this long enough,
+141:44 it's going to get crazy high
+141:46 and much,
+141:46 much higher than before,
+141:48 high enough that I'm not going to keep clicking Y
+141:49 enter because we're never going to hit the boundary,
+141:51 but eventually,
+141:52 especially if I did this in a loop automatically,
+141:54 it would certainly,
+141:55 00.
+141:57 OK,
+141:57 I guess exponentiation works fast.
+141:59 OK,
+141:59 so it did work.
+141:60 I didn't think I was going to hit it enough times,
+142:01 but the same problem happened again.
+142:03 We overflowed this
+142:04 long integer,
+142:05 even using that many bits because I was talking so long I
+142:08 kept hitting Y enough times to overflow even that long integer.
+142:12 So that too was a problem,
+142:13 and this happens truly in the real world.
+142:15 So picture here is a Boeing 787 from a few years back,
+142:18 long before there were all the more recent problems with.
+142:20 planes whereby after
+142:23 248 days of continuous power,
+142:26 which is kind of a thing in the aviation industry like time is money,
+142:29 and generally they want the planes in the air as much as possible,
+142:32 which means they want them powered on as much as possible,
+142:34 which means they don't like turn them off at night.
+142:36 They keep them going and flying.
+142:37 After 248 days,
+142:40 the New York Times reported a few years back that a Model 787 airplane.
+142:44 That has been powered continuously for 248 days can lose all alternating current
+142:49 electrical power due to the generator control
+142:51 unit simultaneously going into fail-safe mode.
+142:53 This condition is caused by a software counter internal to the
+142:56 GCUs that will overflow after 248 days of continuous power.
+142:60 Boeing is in the process at the time of developing a GCU software upgrade.
+143:03 Will remedy
+143:04 the unsafe condition.
+143:05 So literally what this means is that the power to these planes would just shut
+143:09 off if the planes were on for more than 248 days at a time,
+143:14 and this was a common thing for lanes to be maximal power.
+143:18 Why was this actually happening or what was the solution?
+143:21 Well,
+143:21 the short term fix,
+143:22 because it took a while for Boeing to fix this,
+143:24 was what?
+143:25 What would you do if the symptom is that the plane
+143:28 shuts off midflight after 248 days,
+143:30 yeah.
+143:32 Literally turn it off and back on again,
+143:35 much like you've probably been taught with your phones and computers
+143:38 and any other electronic devices that somehow freak out on occasion.
+143:41 Reboot the plane.
+143:42 Now why is that?
+143:43 Well,
+143:43 any time you reboot a phone or a laptop or a plane,
+143:46 all of those variables get reset to their default values,
+143:50 which,
+143:50 if it's the first line of code,
+143:51 like in some of my examples,
+143:52 get set back to zero again.
+143:54 For instance,
+143:55 the first line of code is executed from top to bottom.
+143:58 So this effectively solved the.
+143:59 Problem.
+143:60 But when they finally rolled out a fix,
+144:01 then you didn't have to do that anymore.
+144:02 But the source of the problem is essentially
+144:05 that they were probably using 32 bit integers,
+144:07 but also negative value,
+144:08 so they had 31 bits at their disposal to count to positive numbers,
+144:12 and 248 days is roughly how many tens of a second there are,
+144:19 which means once you count in tens of a second for 248 days
+144:23 you would overflow an integer and the power would shut off effectively because.
+144:26 Something ended up going to zero,
+144:28 so there was a lot of sort of
+144:30 marketing speak or technical speak in that,
+144:32 but it boiled down to just a simple integer overflow.
+144:35 There's a historical bug in Pac-Man if you've
+144:37 ever played this in any of its forms whereby
+144:40 you can play up to level 255,
+144:43 but because there was a missing if condition that checked what level you were on,
+144:47 you could accidentally garble the screen if you were amazing at Pac-Man
+144:50 because they too would overflow an integer and just random character.
+144:54 would end up appearing on the screen,
+144:55 so it's sort of like a badge of honor to actually
+144:57 hit level 256 in this way because of this bug.
+145:01 But there's yet other issues we can see here,
+145:03 and if you don't mind,
+145:03 we might go a couple minutes over,
+145:05 but let me just demonstrate
+145:07 what these examples can do for us here.
+145:09 If I were to revamp my calculator here as follows by
+145:12 clearing my terminal window after hitting control C to kill that,
+145:16 let me go ahead and get rid of all of this meme code here,
+145:19 scrolling down to the inside of main.
+145:21 And let's just do a couple of things like this
+145:23 in X equals quote unquote uh what's X question mark.
+145:29 Then let's go ahead and do in Y equals get in quote unquote what'sy question mark.
+145:35 Then let's go ahead and print out just X divided by Y.
+145:37 So here's a percent I backslash N X divided by Y.
+145:42 This would seem to be a calculator now for division,
+145:44 which I can make as before.
+145:46 And actually,
+145:47 sorry,
+145:48 I don't want to do the missing terminating,
+145:51 oh,
+145:52 sorry,
+145:52 missing a double quote there was an unintended bug.
+145:55 So,
+145:55 if I make this here calculator,
+145:56 do slash calculator,
+145:57 type in 1,
+145:58 type in 3.
+145:59 I get 0,
+146:00 which is weird.
+146:01 What if I do instead maybe 2 and 3?
+146:04 It's 0 instead of 0.66.
+146:06 What if I do 3 and 3?
+146:08 Well,
+146:08 that curiously works,
+146:09 but if I do something like 4 and 3,
+146:11 which would be 1.33,
+146:13 that 2 doesn't seem to work.
+146:15 So there's this other issue in computing when
+146:17 you have finite numbers of bits known as
+146:19 truncation whereby even when you're trying to do
+146:21 floating point math like with a decimal point,
+146:24 if you are using an integer,
+146:26 you're going to.
+146:27 Throw away everything after the decimal point unless
+146:30 you're explicitly using the right data type,
+146:33 and we saw an allusion to this earlier.
+146:35 If I actually go in now and change my values from integers to floats
+146:39 and change the percent I to a percent F and remake this calculator,
+146:43 now I can do 1 divided by 3 and I actually get back that their response.
+146:48 But there's another issue latent here which happens to in the real world
+146:51 whereby I'm going to tweak this percent F to be a little arcane.
+146:54 It turns out.
+146:55 You can see how many digits you want to show how many significant digits you want,
+146:59 if you will,
+146:60 by just using a dot and then a number like 50 arbitrarily.
+147:03 And contrary to what you might have learned in grade school,
+147:06 this calculator would seem to think
+147:08 that calculator 1 divided by 3
+147:11 is not 0.33333333 infinitely many times.
+147:15 There's all this random stuff happening at the end.
+147:18 Long story short,
+147:19 this is because computers one only use finitely many bits even.
+147:23 To represent floating point numbers and if there's an infinite number of those,
+147:26 you can't possibly represent every possible floating point value.
+147:29 So we're essentially seeing an approximation of 1/3 precisely,
+147:33 but this too happens quite a bit in the wild.
+147:36 There's really no solution to this other than by throwing more
+147:38 bits at the problem using a double instead of a flow,
+147:42 or at least somehow trying to detect this and catch this.
+147:45 That then is what we'd call floating point imprecision.
+147:47 But to tie this together and sort of induce a bit of fear and for the coming years.
+147:51 These things happen all of the time.
+147:53 Back when I was finishing school,
+147:54 there was the so-called Y2K problem or year 2000 problem whereby
+147:58 for decades computers had been using not 4 digits to
+148:01 represent years but just two because it was convenient,
+148:04 it was more efficient because you use half as much memory to
+148:06 represent maybe the year 1999 just using two digits instead of 4.
+148:10 Of course when the year rolled around from 1999 to 2000,
+148:15 if you didn't have these numbers even in memory,
+148:18 you might confuse.
+148:19 2000 with 1900,
+148:21 which was the presumption if you're only storing two digits.
+148:24 So we screwed that up and thankfully the world scrambled,
+148:26 and if you read up on Wikipedia and news articles from
+148:28 the time everyone thought the world might very well end,
+148:31 but it didn't,
+148:32 so you'd think we'd learned our lesson.
+148:34 Unfortunately,
+148:34 another such problem is coming up in the year 2038,
+148:37 whereby historically since the 70s and prior,
+148:41 computers have generally used 32 bit integers to keep track of time,
+148:45 the date and the time.
+148:46 By means of counting how many seconds have passed since January 1st,
+148:50 1970,
+148:52 and all of the math is just relative to that date because
+148:54 that's when computers were really starting to come onto the scene,
+148:56 if you will.
+148:57 Unfortunately,
+148:58 there's only 4 billion values you can count to or
+149:01 2 billion if you're doing negatives from January 1st,
+149:04 1970.
+149:05 And so,
+149:06 um,
+149:07 on the date January 19th,
+149:09 2038,
+149:10 we will overflow a 32 bit counter and suddenly if this problem is not.
+149:14 Fixed by you or other people before the year 2038,
+149:18 our computers and phones and other devices may very well think it's December 13,
+149:22 1901.
+149:24 So
+149:25 there are solutions to these problems.
+149:27 CS 50 is all about empowering you with solutions to these problems,
+149:29 but if you'd like to scan this here code,
+149:32 um,
+149:32 this will add that date to your Google calendar or your Outlook calendar.
+149:36 Keep an eye on it.
+149:37 That though is week one for CS 50.
+149:39 Problem set one will be in your hands soon.
+149:41 We'll see you next time.

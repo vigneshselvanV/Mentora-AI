@@ -1,0 +1,3646 @@
+00:44 All
+00:45 right,
+00:45 this is CS 50,
+00:47 and this is already week 7 where
+00:50 wherein we introduce another programming language,
+00:52 this time known as structured query language or SQL or SQL for short.
+00:57 Now SQL,
+00:57 as we'll see,
+00:58 is a different sort of programming language that allows us to solve like a lot of
+01:01 the same kinds of problems that we've been
+01:03 dabbling with over the past several weeks,
+01:04 but
+01:05 arguably in a lot of contexts,
+01:06 it allows us to solve those problems more easily.
+01:09 Indeed,
+01:09 among the goals for.
+01:10 Today are to demonstrate that sometimes there's multiple tools
+01:13 that you can use to solve the same problem,
+01:14 whether it's C or Python or today's SQL but we'll also see
+01:18 that SQL allows us a different sort of approach to solving problems,
+01:22 whereas C very much so and Python to a large extent are
+01:26 very much procedural programming languages whereby
+01:29 you have to write these procedures,
+01:30 functions step by step that tell the computer what to do,
+01:33 including loops and conditionals and all of that.
+01:36 SQL is said to be a declarative programming language,
+01:38 which is a different sort of paradigm whereby when you want to solve some problem you
+01:42 essentially declare what problem you want to solve
+01:44 or you declare what question you have,
+01:46 and it's up to the programming language to figure out using
+01:49 loops and conditionals and all of those lower level building blocks,
+01:52 how to get you the answer.
+01:54 So ultimately today is all about teaching you yet another language,
+01:57 mostly so that you can learn again to teach
+01:59 yourself new languages and to appreciate that when.
+02:02 You exit a class like CS 15 or out there in the real world
+02:05 really isn't all that big a deal to pick up new programming languages,
+02:08 especially when in advance you've seen
+02:10 different programming paradigms like procedural,
+02:13 like object oriented,
+02:14 like today declarative as well.
+02:16 But today ultimately is also about data and so to get us started,
+02:19 we thought we'd collect some real world data by
+02:21 asking all of you a couple of questions.
+02:23 So if on your laptop or phone you would like to pull up this URL here.
+02:28 It will also exists in just a moment in QR code form.
+02:32 So if you'd like to go to that URL there
+02:33 or simply scan this here QR code with your phone,
+02:37 that's going to lead you to a Google form.
+02:39 For those unfamiliar,
+02:39 Google has lots of tools,
+02:41 among which are,
+02:42 uh,
+02:42 is a tool via which you can ask people questions via forms.
+02:45 Microsoft has something similar as well,
+02:48 and at that URL.
+02:50 What you'll soon see is a form
+02:53 that looks a little something like this among
+02:56 whose questions are which is your favorite language,
+02:59 at least among those we've studied thus far.
+03:01 So go ahead and anonymously answer the questions you see on this form
+03:05 you'll see which is your favorite language and also which is your favorite
+03:09 problem in problem sets thus far.
+03:12 And meanwhile,
+03:13 as you might know,
+03:14 if you've used Google Forms yourself to collect data,
+03:16 we can move from questions here
+03:18 to actual responses.
+03:20 And as people start to buzz in,
+03:21 we'll see that the data set here is starting to update in real time,
+03:24 and Google gives us these nice graphical user interfaces
+03:27 or GUIs via which we can analyze the data.
+03:29 And so far,
+03:29 Python is easily the winner with 70% plus of you preferring it,
+03:33 11% of you,
+03:35 wishing we were still in scratch,
+03:37 and 18% of you in C,
+03:39 and you'll see the responses are coming in here,
+03:40 but for our purposes.
+03:42 Today,
+03:42 what's more interesting than the actual answers to these questions
+03:45 is how we can get at the raw data.
+03:47 So among the things you can do in Google
+03:49 Sheets is quite literally click View in sheets,
+03:52 which is in Google Forms,
+03:53 is click on View in sheets,
+03:55 and what this is going to allow me to do is access the underlying raw data.
+03:58 Now because Google has forms and spreadsheets,
+04:00 they sort of tied these two products together.
+04:02 But what's especially nice about Google spreadsheets is that
+04:06 I can also download the raw data as a file.
+04:08 I can download it as an Excel file,
+04:10 a text file,
+04:10 a PDF,
+04:11 but for Today we're going to download it in a very common format known as CSV for
+04:16 separated values.
+04:17 And indeed,
+04:18 if I go to the file menu download
+04:20 separated values,
+04:20 this is perhaps the most
+04:23 straightforward,
+04:24 easiest way to get raw data out of any kind of tabular data
+04:28 like this to load it into code that we are about to write.
+04:31 So if you haven't buzzed in already,
+04:32 that's fine,
+04:33 but at this point in time,
+04:34 now that I've clicked the button,
+04:35 I now have a CSV file in my Mac downloads folder which if I go ahead and open up here,
+04:40 I can see that indeed.
+04:41 I've got this long named file favorite form responses1.csv.
+04:45 I'm going to shorten that file name to just favorites.csv.
+04:48 And what I'm going to go ahead and do is open up VS code and in my File Explorer,
+04:53 I'm going to literally just drag and drop favorites.csv from my Mac.
+04:57 That's going to have the effect of uploading the file as it was at that moment
+05:01 in time so that we can now begin to write some code using this file.
+05:06 And VS Code is automatically gone ahead and opened it up for me.
+05:09 And what you're looking at here is what we're Start to call a flat file database.
+05:12 It's a very lightweight database in the sense that it stores a lot of data,
+05:17 and it's a flat file in the sense that it's literally just a text file.
+05:20 And by convention,
+05:21 the way the data is stored in this file is indeed by separating values with commas.
+05:25 There are other conventions as well,
+05:26 but CSV is probably the de facto standard.
+05:28 But TSV is a thing for tab separated values.
+05:31 PSV,
+05:32 which is pipe separated values where you might have a vertical bar.
+05:35 Essentially these file formats try to use a character that
+05:38 might not appear in the actual data so as to.
+05:40 Separate your rows and columns.
+05:42 So indeed if I switch back to VS code here and we take a look at the data,
+05:46 you'll see that from Google Sheets I've been given three columns time stamp,
+05:49 which was automatically generated for me,
+05:51 the language as well as the problem,
+05:54 and what I see here is that we had a few respondents buzz in a little early,
+05:57 very excited for today's data,
+05:58 but here's the rest of them from like 1:30 p.m. Eastern onward,
+06:01 and you'll see separating
+06:03 separated via commas are effectively three columns of data.
+06:07 So everything before the first column represents a time stamp.
+06:09 Every.
+06:10 Between the 1st and 2nd comma represents the choice of language that
+06:14 you all buzzed in with and then everything after the 2nd comma
+06:17 represents the problem.
+06:18 Now it's kind of jagged edges.
+06:21 It doesn't line up in nice rows and columns because some answers are longer,
+06:24 some answers are shorter,
+06:25 but the commas are sufficient
+06:26 to tell the code we write where one column ends and the next one begins.
+06:31 So how do we go about writing code like this if we'd now like
+06:34 to ask some questions about the data like what is the most popular language,
+06:37 what is the most popular problem,
+06:39 or.
+06:40 Conversely,
+06:40 the least of each of those,
+06:41 well,
+06:42 we could look at the original data in Google forms,
+06:45 and that's where we got the pie chart.
+06:46 But how is Google figuring out what the most popular answers are and what
+06:51 uh pie charts it wants to depict?
+06:53 Well,
+06:54 they probably wrote some code not unlike what we're about to do,
+06:57 although we'll start with just a command line environment as always.
+06:60 So within VS code,
+07:01 I'm going to go ahead and do this.
+07:03 I'm going to go ahead and open up a program called Favorites.ie
+07:07 and let's write a program whose purpose in life is to open the.
+07:09 CSV file.
+07:10 Read it top to bottom,
+07:11 left to right,
+07:12 and then crunch some numbers,
+07:13 figure out what the most popular answers are to those questions.
+07:16 So I'm going to go ahead and import a package that comes with Python,
+07:20 a library called the CSV library,
+07:22 and nicely enough,
+07:22 this is just code that someone else wrote years ago that figures out how
+07:25 to read data from a file separating it via comma so that you and I
+07:29 don't have to write all of that ourselves.
+07:31 Then I'm going to use this
+07:32 Pythonic convention with open quote unquote favorites.csv
+07:37 as file.
+07:39 If I want to be super explicit that I intend only to read this file,
+07:42 which is the default,
+07:43 I'm going to go ahead and explicitly say quote unquote R just like we did in C
+07:47 when using F open to open a file and read mode.
+07:50 And now I'm going to do this.
+07:51 I'm going to go ahead and say reader equals csV.reader
+07:56 file.
+07:56 So this is a Python convention whereby the CSV library comes with a function called
+08:01 Reader that takes as its sole argument here a file that has already been opened,
+08:07 and what that reader will do is Figure out where all of
+08:09 the commas are so that I can iterate over this reader in a
+08:12 loop and get back row after row after row without me having to
+08:17 write all of the code to figure out where those commas are.
+08:20 So what I'm going to do in this loop here in this block of code is for each row
+08:25 in that reader,
+08:27 let's go ahead and just print out maybe
+08:29 the second column which was the language column.
+08:32 So I'm going to go ahead and say print row 1
+08:37 because what we'll see.
+08:38 Is that this reader,
+08:40 which again comes with Python,
+08:41 hands me
+08:42 a list,
+08:43 a list,
+08:44 a list for each of the rows wherein bracket 0 would represent the first column,
+08:49 1 would represent the 2nd,
+08:51 2 would represent the third because everything is 0 indexed in Python.
+08:55 All right,
+08:55 so let's see what the effect is here.
+08:57 Let me maximize my terminal window,
+08:59 run Pythonofas.ie,
+09:01 cross my finger that I got this right,
+09:03 and voila.
+09:04 There is every language that was selected by you all
+09:07 in the form from top to bottom by default chronologically.
+09:10 But
+09:11 there's a bit of a bug,
+09:13 I dare say.
+09:13 Let me scroll up and up and up in this output
+09:17 through all of these answers
+09:19 until I get to the very top where I ran the program myself,
+09:23 which is here,
+09:24 Pythonofavos.ie.
+09:25 There's a minor bug here.
+09:28 What's the bug in the output?
+09:29 yeah.
+09:31 Yeah,
+09:31 it accidentally includes the header,
+09:33 which is a bug in the sense that I really just wanted to see the languages,
+09:36 but the code is doing what I told it to,
+09:38 which is just print out every row.
+09:40 So there's a few ways we could ignore this.
+09:41 Let me go ahead and minimize my terminal window and let me go ahead and say,
+09:44 well,
+09:45 you know what,
+09:45 after we create this reader,
+09:47 let's just skip to the next.
+09:49 Uh,
+09:50 let's just skip to the next row and ignore
+09:52 it effectively and then begin iterating over everything thereafter.
+09:56 And so what happens now is if I re-maximize my window,
+09:60 rerun Python of favorites.ie,
+10:03 enter,
+10:04 and now scroll up again to the beginning of this incarnation of the program,
+10:09 you'll see that the very first thing I see after my program was run was indeed Python,
+10:14 Python,
+10:15 Python,
+10:15 Python,
+10:16 and so forth.
+10:17 No more quote unquote language.
+10:19 So how is that?
+10:20 Well,
+10:20 this is a feature we haven't quite seen
+10:24 before or talked about in much detail,
+10:26 but this reader is is stateful in some sense,
+10:28 and this was actually true of all of the file IO we didn't see whereby
+10:32 when you were using Fread or some other function to read data from the file,
+10:36 something was remembering where it was in the file so that
+10:40 you didn't get the same bytes again and again and again.
+10:42 It was more like a cassette tape,
+10:45 an old school cassette tape if you will,
+10:46 or a scrubber.
+10:48 Along the bar along the bottom of like any streaming video whereby
+10:51 when you just read some data it grabs the next chunk,
+10:53 the next chunk,
+10:54 the next chunk,
+10:54 the next drunk,
+10:55 and something inside of the computer's memory remembers where it is.
+10:59 So this says skip to the next row and thus when you do 4 row in reader,
+11:03 you get everything but the first row
+11:05 because the reader is stateful.
+11:07 It remembers where it is
+11:09 in memory.
+11:10 All right,
+11:10 well thus far this isn't all that useful because
+11:12 all I'm doing is just printing out the data,
+11:14 but let's take a step toward making this program a little more useful.
+11:17 Particular,
+11:18 let's just be a little more pedantic and specify that what I'm really doing
+11:22 here inside of this loop is figuring out what the current row's favorite is.
+11:27 So I'm going to create a variable called favorite and set that equal to row 1.
+11:32 And then,
+11:32 even though this doesn't change the functionality,
+11:34 I'm going to print that favorite just because semantically,
+11:37 stylistically,
+11:38 it's nice to know what row 1 is
+11:41 as by defining a variable that tells me or
+11:43 anyone else who reads this code in the future
+11:45 what it's actually doing.
+11:47 All right,
+11:48 but readers are only so useful,
+11:50 and in fact,
+11:51 if I were to open up this CSV file maybe
+11:53 in Microsoft Excel or Apple Numbers or Google Sheets again,
+11:56 you could imagine someone kind of moving the data by just dragging one of the columns
+11:59 to the left or the right such that now it's no longer time stamp language problem,
+12:04 maybe it's time stamp problem language or maybe time stamp is all.
+12:08 way over to the right,
+12:09 you can imagine therefore that the indices we're using
+12:12 01 and 2 could be a little fragile because if
+12:15 someone changes the data on me now my code
+12:17 is just going to break because I am blindly assuming
+12:20 that the second column,
+12:21 aka 1 is going to be
+12:25 the language column,
+12:26 but that might not be the case.
+12:28 But there's an alternative to this.
+12:29 And you might recall having seen this before,
+12:31 I'm going to go into favorites.ie and tweak my code a little bit,
+12:34 not just to use a reader,
+12:36 but a dictionary reader.
+12:37 So I'm going to change this to dict reader instead of just reader.
+12:40 And then the upside of using a dictionary reader is that every time
+12:44 I go through this loop reading row by row by row,
+12:48 each row
+12:49 that I'm handed by this reader is not going to
+12:51 be a list anymore that's numerically indexed with zeros and
+12:54 ones and twos.
+12:55 Each row is going to be,
+12:57 as you might guess,
+12:58 a
+12:59 A dictionary,
+13:00 which is a collection of key value pairs,
+13:02 which means now we can use words as our indices instead of just numbers,
+13:06 which is to say if I switch from reader,
+13:08 which gives me lists to dict reader,
+13:10 which gives me dictionaries,
+13:12 I can change this line 10 now.
+13:14 And say I specifically want the language column
+13:18 wherever it is all the way to the left or the middle or the right so in
+13:21 general using a dictionary reader is probably just going
+13:24 to be more robust because it's resilient against changes
+13:27 in that actual numeric ordering.
+13:30 Alright,
+13:30 let me pause here to see first if
+13:31 there's any questions on this exercise whose purpose
+13:34 in life is just to demonstrate how we can download the CSV data then iterate over it
+13:39 line by line without actually
+13:41 analyzing it yet.
+13:45 No,
+13:45 OK,
+13:46 so let's ask maybe the most natural question,
+13:49 which is like how many people prefer Python?
+13:52 How many people prefer C or scratch in turn?
+13:55 In other words,
+13:56 how can we recreate in our own code what Google
+13:58 Forms is doing for us graphically with those pie charts?
+14:02 Well,
+14:02 I think what we could do is write some
+14:04 code logically that essentially relies on this mental model.
+14:07 What I have here is an opportunity to use a bunch of key value
+14:10 pairs because if I want to know how many instances of Python there are.
+14:13 and C and scratch.
+14:15 Well,
+14:15 those might as well be three keys,
+14:17 the values of which are hopefully going to be 3 numbers that
+14:20 represent the counts of the popularity of each of those languages.
+14:23 So in memory,
+14:24 I essentially want to construct something that looks like this
+14:26 and would if I were doing this on a chalkboard,
+14:28 but recall that this mental model
+14:30 maps perfectly to the notion of a Python dictionary,
+14:33 because a dictionary in Python is indeed key value pairs,
+14:36 and we've seen it already because that's how the dictionary reader works.
+14:40 But we could certainly use our own.
+14:42 Uh,
+14:42 dictionaries to solve the same problem ourselves.
+14:45 So the goal at hand is to count the number of people who said Python
+14:49 and C and scratch respectively.
+14:51 So how to do this?
+14:52 Well,
+14:52 I think what I could do
+14:54 is,
+14:54 I actually let me delete this line because we are using a dictionary reader,
+14:58 we no longer need to skip the first row.
+14:60 It is automatically consumed by the dictionary reader for us,
+15:03 so this now would be the better version of the dictionary reader.
+15:07 Let's go ahead and do this.
+15:07 Let me declare some variables first
+15:10 that will store for me the total number of people who said Python,
+15:14 scratch,
+15:15 and C respectively.
+15:16 So I could say scratch equals 0,
+15:18 C equals 0,
+15:20 Python equals 0,
+15:21 and I could just set 3 variables equal to 00,
+15:24 and 0.
+15:24 If you haven't seen it before,
+15:25 there are some pythonic tricks you can do here if you've got 3
+15:28 variables that you want to initialize all at once because it's that simple.
+15:31 You could alternatively do scratch,
+15:33 C,
+15:34 Python equals 0.0.0.
+15:37 This too would have the intended effect and it looks
+15:39 a little better because it's all a simple one liner.
+15:41 But what do I want to do now?
+15:43 Well,
+15:44 down here,
+15:45 let's go ahead and do a simple conditional before
+15:48 we enhance this by using an actual dictionary.
+15:50 Let me go ahead and say if the current favorite in that reader equals equals scratch,
+15:56 well,
+15:56 Let's go ahead and increment the scratch variable by
+15:59 doing plus equals 1 as we saw last time.
+16:02 El if the favorite
+16:04 in the current row equals equals unquotec,
+16:07 well,
+16:07 let's go ahead and then increment the C variable by 1.
+16:12 E if the favorite equals equals Python,
+16:15 then let's go ahead and increment plus equals
+16:18 Python by 1 instead.
+16:21 I could technically get away with saying else here,
+16:24 but I'm consciously this time not trying to over optimize this
+16:28 because if someone changes the form maybe next semester and whatnot,
+16:31 and we're asking about 1/4 language,
+16:32 I wouldn't want my code
+16:34 to assume that anything that isn't scratch or C must be Python.
+16:38 When there could be some future 4th language.
+16:40 So this is a little more robust and in this case
+16:42 we'll just ignore anything that isn't scratch or C or Python.
+16:45 All right,
+16:46 at the end of this,
+16:47 let's go ahead and not just print out the favorite,
+16:48 but outside of the 4 loop,
+16:50 let's go ahead and print out,
+16:51 for instance,
+16:52 the scratch count is this,
+16:55 then let's go ahead and print out the C count
+16:59 is this,
+17:01 and then let's print out the Python count is this,
+17:05 but of course there's a subtle bug here.
+17:08 Yeah.
+17:09 Uh,
+17:09 so I didn't format these things.
+17:10 It's F strings,
+17:11 so I need the little F over here to the left of each of these strings.
+17:14 All right,
+17:15 so let me go ahead and maximize my terminal window,
+17:17 run Python of this version of favorite stoppi
+17:20 and hopefully what we'll see is not every row
+17:22 again and again and again,
+17:23 but 3 lines of output,
+17:25 giving me the total counts instead.
+17:28 All right,
+17:28 this seems to line up with the rough percentages
+17:30 that we saw coming in earlier on Google Forms,
+17:32 109 of you like Python,
+17:34 followed by 58 of you and C and 24 of you preferring scratch instead.
+17:38 All right,
+17:38 but why does this perhaps rub you the wrong way?
+17:42 I already alluded to the fact that we're going to get rid of this,
+17:45 but why is this not the best design?
+17:47 Just using three variables like this,
+17:48 yeah.
+17:55 Yeah,
+17:56 exactly.
+17:56 If we were to add a bunch more languages,
+17:57 a 4th 1,
+17:58 a 5th 1,
+17:58 a 6th 1,
+17:59 a 10th 1,
+18:00 a 20th 1,
+18:01 like having that many variables,
+18:02 it's just certainly going to look unwieldy and it's just not gonna,
+18:06 it shouldn't rub you the right way.
+18:07 At that point we should really be graduating to some proper data structure
+18:10 whether it was an array in C or better still in Python,
+18:13 an actual dictionary.
+18:14 So let's do that instead.
+18:16 Let me go ahead and in a newer version of this file,
+18:18 let's get rid of these.
+18:20 variables and let's just have a generic variable called counts
+18:23 for instance and set it equal to an empty dictionary
+18:27 and just using two curly braces will give me an
+18:29 empty dictionary or if you want to be more pedantic,
+18:32 you can actually call the dict function which
+18:34 will return to you an empty dictionary.
+18:36 I'd argue though that most people would probably just use the double
+18:39 curly braces like this to indicate that here comes a dictionary for me
+18:43 now.
+18:43 Do I use this?
+18:44 Well,
+18:45 I don't need to update three separate variables.
+18:48 I think I could just do something like this.
+18:50 I could say once I've determined what the
+18:52 current row's favorite value is for language,
+18:55 I could say counts,
+18:57 bracket favorite,
+18:58 so use the current string as an index into the dictionary,
+19:02 so it's going to be quote unquote scratch or C or Python,
+19:05 and then just increment that by 1.
+19:08 And then down here we don't have these variables anymore,
+19:11 so I'm going to go ahead and instead say.
+19:13 Uh,
+19:13 how about this?
+19:14 We'll use a loop for each favorite in those counts,
+19:18 let's go ahead and print out,
+19:21 uh,
+19:21 how about the favorite value
+19:24 and the counts
+19:26 thereof without any F string for now.
+19:28 OK,
+19:29 so the only thing that's different is I'm using a dictionary
+19:31 here which is essentially the code version of this two column chart
+19:36 whose keys are going to be the favorite strings,
+19:40 scratch or C or Python,
+19:42 the values of which are going to be the actual counts,
+19:44 and I'm just doing some simple math by plus plusing or
+19:46 incrementing the count each time I see a certain language.
+19:50 Unfortunately this code is not quite going to work.
+19:52 Let me go ahead and run Pythonofavours.ie and
+19:56 Dang it,
+19:57 there's a key error.
+19:59 Let me minimize the terminal window so we can see both at once.
+20:02 Why is
+20:03 there a key error apparently
+20:06 on line 11,
+20:08 wherein I'm indexing into the counts
+20:10 array uh dictionary.
+20:14 What's going on?
+20:14 Yeah,
+20:17 yeah,
+20:17 it's a little subtle,
+20:18 but if this is like the very first time through the file,
+20:21 there is no key Python.
+20:23 There is no key C or scratch because no one has put them there and yet recall
+20:27 that plus equal means you're going to that location
+20:30 in the dictionary and just blindly incrementing it.
+20:32 But what is it?
+20:33 Well,
+20:33 it's effectively a garbage value,
+20:35 but it's not even that because there's no actual key there.
+20:38 So we need to do a little bit of logic here and we can solve this in a couple of ways.
+20:42 Well,
+20:42 I could say something very pedantically like this.
+20:45 I could just say,
+20:46 well,
+20:46 if this favorite is in the counts dictionary,
+20:51 this is the Pythonic way to ask that question is this key in this dictionary?
+20:56 If so,
+20:56 well then it's safe to go ahead and increment it just as I've done before.
+20:59 But if it's not,
+21:00 what I think I want to do is set counts favorites equal to.
+21:09 One
+21:10 instead
+21:11 because either I want to increment the current count by 1 or
+21:16 this is the first time logic like I've seen this favorite,
+21:19 so I want to set it equal to 1 instead.
+21:22 We could do this a different way logically just
+21:24 like we could in C solve problems differently.
+21:26 I could instead say something like this.
+21:29 I could get rid of all this code and just say if.
+21:33 Favorite not
+21:34 in counts,
+21:35 then I could say counts bracket favorite equals 0.
+21:39 So just always initialize it to 0 if it's not there.
+21:41 Now I can safely blindly
+21:44 update the count
+21:46 by 1 because now I know no matter what,
+21:48 once I get to line 13,
+21:50 that count is actually there.
+21:53 All right,
+21:53 so let's see with this version of the code,
+21:56 let's go ahead and clear my terminal window,
+21:58 uh,
+21:59 rerun Pythonofavos.ie,
+22:01 cross my fingers,
+22:01 and
+22:02 There we go,
+22:03 Python and Scratch and see.
+22:05 Interestingly,
+22:06 the order switched around this time based on the order
+22:10 in which I was inserting things into the dictionary,
+22:12 but we'll see how we can exercise a bit more control over that.
+22:15 But let me propose that that key error recall we discussed briefly last week that
+22:19 whenever you have these kinds of trace backs that refer to certain exceptions like.
+22:23 Exceptionally bad situations that can happen,
+22:26 you can also change your code to just try to do something
+22:29 and then try to catch the exception instead.
+22:31 So an alternative way to do what we initially did would be this
+22:35 instead of just blindly saying go into the counts dictionary,
+22:39 index into it at the favorite
+22:41 key,
+22:41 and increment it by one,
+22:43 what we could do is.
+22:45 Try to do that please,
+22:47 except if there is a key error,
+22:50 in which case,
+22:51 you know what,
+22:51 go ahead and just initialize that
+22:53 value
+22:54 to one instead.
+22:55 So in short there's like 4 different ways already to solve
+22:58 the same problem whichever way you prefer is quite reasonable.
+23:01 This is just another way and arguably another pythonic way
+23:04 to do things by trying to do something but anticipating
+23:07 that something in fact can go wrong.
+23:12 A while ago what?
+23:16 Correct.
+23:16 A while ago I removed next reader because that was only necessary for CSV.reader
+23:21 because that was just reading every row again and again,
+23:24 but when you use a CSV dictionary reader,
+23:26 that automatically consumes the first row because
+23:29 that's how the dictionary reader knows what the
+23:31 columns will be called and so you don't have to skip over it instead,
+23:34 a nice enhancement.
+23:36 Other questions.
+23:38 On what
+23:39 we've just done.
+23:40 Here
+23:43 All right,
+23:44 so let me propose that like writing this amount of code is kind of annoying just
+23:49 to ask a relatively simple question like what's
+23:51 the most popular language in this file,
+23:52 right?
+23:53 It's nice.
+23:54 It's sort of a step backwards from
+23:55 Google spreadsheets and Apple Numbers and Microsoft
+23:58 Excel where you could really just like highlight the column and it would just
+24:02 tell you the answer usually in the bottom right hand corner or you could
+24:04 use a function in one of those spreadsheet tools to ask the same question.
+24:08 So it's starting to feel like with almost 20 lines of code like maybe.
+24:12 There's a better way,
+24:13 and I dare say there is rather than use a flat file database,
+24:17 let's graduate already to what the world calls a relational database,
+24:20 and a relational database
+24:22 is simply data in which
+24:25 you define relations among your data,
+24:26 which isn't so much relevant now except that
+24:29 that time stamp is associated with that language
+24:31 is associated with that
+24:34 prefer favorite
+24:35 problem as well.
+24:37 But we'll see that data sets can be much more,
+24:39 much larger and more complicated and it might be valuable.
+24:41 We can actually express relationships across multiple pieces of data.
+24:45 In particular,
+24:46 let's introduce already a programming language called
+24:48 Structured Query Language or SQL for short,
+24:51 AKA SQL and SQL essentially only has 4 fundamental operations.
+24:55 So even though we're transitioning
+24:57 into a new language,
+24:58 by the end of today we're gonna transition out of the
+24:60 new language because there's only so much you can do.
+25:01 Now,
+25:02 as with any language,
+25:02 it's going to take time and practice or to sort of get a hold the hang of it,
+25:07 but
+25:07 take comfort in knowing that SQL really just supports four fundamental.
+25:11 operations and the acronym that the world uses is indeed CRD,
+25:15 which stands for Create,
+25:17 read,
+25:17 update,
+25:18 and delete.
+25:19 That is to say,
+25:20 when using a relational database,
+25:21 you can create data,
+25:22 read data,
+25:24 update the data,
+25:24 or delete data,
+25:25 and that's pretty comprehensive as to what's possible.
+25:28 Now what is an actual database?
+25:29 Well,
+25:30 generally speaking,
+25:30 a database is just a piece of software that's running on a computer somewhere
+25:35 inside of which is stored a whole lot of data and
+25:37 that database therefore provides you with access to that data.
+25:40 At any time,
+25:41 whether it's on your local Mac or PC somewhere in
+25:43 the cloud or to a whole cluster of web servers
+25:46 which we'll talk about in the weeks to come as
+25:47 we transition from command line tools to the web.
+25:50 Now technically in SQL,
+25:52 the commands you actually use to implement this idea of creating data,
+25:55 reading data,
+25:56 updating,
+25:56 and deleting data is almost the same,
+25:58 but for whatever reason,
+25:60 uh,
+26:00 the world chose the command select,
+26:02 which is equivalent to reading.
+26:04 Data so we'll soon see that there's a command in SQL that lets
+26:06 us select data which is equivalent to this idea of reading it,
+26:10 whereas the other three options refer of course
+26:12 to writing data that is changing data.
+26:14 Um,
+26:15 technically speaking,
+26:16 we'll be able to insert data into a database as we'll soon see,
+26:19 and we'll also be able to drop data altogether,
+26:21 not just delete individual rows but whole tables,
+26:24 so to speak,
+26:25 of rows instead.
+26:27 So what does this all mean?
+26:29 Well,
+26:29 let's go ahead and do,
+26:31 say,
+26:32 an example of using SQL to solve,
+26:34 to ask some relatively simple questions and begin to
+26:37 develop some muscle memory for using this new language.
+26:39 If I were to manually
+26:41 load a bunch of data into a proper database for SQL,
+26:46 I would actually use code like this.
+26:47 I would literally type Create table.
+26:49 I'd come up with the name of the table,
+26:51 aka sheet,
+26:51 and then I would specify every column that I want to put in that table.
+26:56 And here's where the vernacular changes.
+26:57 So whereas in the world of spreadsheets you have sheets,
+27:00 tabs that contain rows and columns,
+27:02 in the world of databases you have tables which are just rows and columns.
+27:07 It's different terminology,
+27:08 but it refers to conceptually the same thing.
+27:10 In CS 50 we're going to use a specific version of SQL known as SQL Light,
+27:14 which is like a lightweight version of SQL
+27:16 that's actually very commonly used in web applications,
+27:19 in mobile applications,
+27:20 but it doesn't have all of the bells and whistles or all of the scalability
+27:24 uh that your Oracle,
+27:25 SQL servers,
+27:26 Microsoft Access,
+27:28 Postgress,
+27:28 MySQL,
+27:29 those are just product.
+27:30 Names open source and commercial alike,
+27:32 which if you've ever heard of just represent bigger,
+27:35 faster
+27:36 versions of SQL databases,
+27:38 but we'll indeed use the lightweight version of it known as SQL Light,
+27:42 and the command we're going to start to run is quite literally
+27:45 SQL Light 3,
+27:45 which is version 3 of the same command which
+27:47 we've pre-installed into your code spaces for you.
+27:50 So let's go ahead and do this.
+27:52 Let me go ahead and run a command called SQL Light 3 which
+27:54 is going to let me create my very first SQL Light database,
+27:59 and I'm going to import into that database
+28:01 the CSV file
+28:03 that we downloaded from Google Forms.
+28:05 In other words,
+28:06 I'm going to load that same data set into a different program,
+28:10 an actual database,
+28:11 so that I can use a completely different programming
+28:13 language to ask questions about it instead of writing,
+28:16 as we just did some Python code.
+28:18 So let me go back into VS code here.
+28:21 Let me close my CSV file and my Python file.
+28:24 Let me reopen my terminal window and let me go ahead and run
+28:27 SQLite 3 space,
+28:29 and then the name I want to give to this database,
+28:31 which for instance will be favorites.db for database by convention.
+28:36 Enter.
+28:37 I'm going to be prompted to make sure I want to create this new file.
+28:40 Y for yes,
+28:41 enter,
+28:41 and now I'm inside of the data.
+28:43 Base running a command at a prompt that now says SQL light and then an angle bracket.
+28:48 I'm not going to be using any.SQL files for now,
+28:51 although you can actually write SQL code in separate text files.
+28:54 I'm actually going to use the database's interactive interpreter to just run
+28:59 all of the commands I want interactively by just typing them out.
+29:02 Semicolon enter.
+29:02 Type it out,
+29:03 semicolon,
+29:04 enter
+29:05 back and forth,
+29:05 but you can save all of these commands as you'll see in problems.
+29:08 7 in files as well.
+29:09 Now how do I go about actually importing
+29:12 that CSV file into this lightweight database?
+29:16 Well,
+29:16 for this,
+29:16 I'm going to execute 3 commands,
+29:18 and any command in SQL Light that starts with a dot is specific to SQL Light.
+29:23 This lightweight version of SQL,
+29:25 anything that doesn't start with a dot is generalizable and will
+29:28 work on most any SQL database anywhere in the world,
+29:30 no matter the product you're using.
+29:32 So I'm going to go ahead and in my SQLite terminal I'm going to change my mode
+29:37 to CSV mode just to tell the database that I want to load some CSV data.
+29:41 I'm going to then literally import that data
+29:44 from a file called favorites.csv,
+29:46 which is the file we downloaded earlier and then uploaded to my code space.
+29:51 And now I have to specify the name of a table,
+29:53 so I'm going to call this table,
+29:54 aka sheet favorites just to keep everything consistent.
+29:58 And that's it.
+29:59 In the absence of an error message,
+30:00 everything probably worked fine.
+30:01 I'm going to do quit.
+30:03 That quits out of SQL light,
+30:05 but what you'll now see if I type LS is that not only do I have favorites.
+30:09 CSV,
+30:10 which I uploaded,
+30:11 favorites.ie,
+30:11 which we wrote a few minutes ago,
+30:13 but I also now have favorites.db,
+30:15 which is a database version of that same file.
+30:19 Now I can't actually see what's inside of it because if I go ahead and run
+30:24 a code of favorites.db.
+30:26 I'm going to see this file is not displayed in the text
+30:28 editor because it is either binary or uses an unsupported text encoding.
+30:32 This is to be expected
+30:33 because this database is stored essentially in the form of zeros
+30:37 and ones that the SQLite 3 program knows how to read,
+30:40 but it's not something that VS Code can just show me everything they're in.
+30:43 And generally storing data in binary is going
+30:45 to be more efficient than storing things purely textually
+30:49 because we're going to be able to use various
+30:52 data structures and algorithms that we've been talking about.
+30:54 For weeks more easily on that binary data.
+30:58 All right,
+30:59 so let's go ahead now and see what this import command did.
+31:02 I'm going to again
+31:03 maximize my terminal window.
+31:05 I'm going to go ahead and run SQLite 3 again,
+31:08 passing in favorites.db.
+31:10 Enter this time it already exists,
+31:11 so it just opened it without prompting me.
+31:13 And now I'm going to go ahead and
+31:14 type another SQL Light specific command called schema.
+31:19 The schema of a database is just the design of the database.
+31:22 It look like?
+31:22 What are the rows and columns and tables therein?
+31:25 So if I type
+31:26 dot schema,
+31:27 what I'm going to see
+31:28 is this SQL command Create table,
+31:31 if not exists,
+31:33 quote unquote favorites,
+31:34 which is the name of the table.
+31:35 Then in parentheses there are going to be apparently 3 columns,
+31:38 one of which is called Timestamp,
+31:40 the next of which is called Language,
+31:41 the third of which is called Problem,
+31:43 and each of those columns is going to be raw text.
+31:45 Now we'll soon see that it doesn't have to just be text,
+31:47 but
+31:48 when I use the dot import command.
+31:50 This is the default table that SQLite created for me.
+31:55 Soon we'll see that I can exercise more control,
+31:58 especially over the types of data that I'm putting in this database.
+32:01 But what's really nice about the import command is it could not be easier to convert
+32:05 a CSV file to a SQLite database so that now as we're about to see,
+32:09 we can use SQL on it instead of Python or any other language
+32:13 instead.
+32:15 OK,
+32:16 so how do we go about getting data from
+32:19 this
+32:20 database?
+32:21 Well,
+32:21 the first of our commands that we'll explore is that one called Select.
+32:24 So select data means to read data from the database,
+32:27 and in this sense it's going to be a declarative language because I'm
+32:30 just going to declare what data I want to select from the database,
+32:33 and I'm not going to worry about opening the file anymore or iterating.
+32:37 It with a 4 loop or a while loop or defining variables of the like,
+32:41 I'm just going to select
+32:43 syntactically what I want.
+32:45 So let me go back to SQLite here.
+32:47 Let me clear my terminal just to get rid of
+32:49 the past commands and let's do the first of these.
+32:52 Select star from favorites,
+32:54 and I regret to say the semicolon is back for the SQL code we're now writing.
+32:59 Enter
+32:60 and we will see a sort of Asky art version now so even
+33:04 better than the raw CSV file of all of the data that was inputted
+33:08 into this table.
+33:09 So select star from favorites is apparently selecting everything so the
+33:13 star in this context is a wild card of sorts.
+33:16 That represents all of the columns in the table.
+33:18 The table itself is called favorites,
+33:20 so I'm selecting all of the columns from the table called favorites,
+33:23 and here you have it with sort of simple Asy art first column,
+33:26 second column,
+33:27 3rd column,
+33:28 chronologically listed because that's exactly how
+33:30 it was loaded into the database.
+33:33 All right,
+33:33 so if star is wildcard,
+33:35 what more can we do?
+33:36 Well,
+33:36 if you don't care about all of the columns,
+33:38 you can actually be a little more specific.
+33:40 So I could say instead select just the language column from
+33:44 the favorites table,
+33:45 semicolon,
+33:46 enter,
+33:47 and now I have just a single column of data
+33:50 that shows me one cell for every submission but not the
+33:53 time stamp or the favorite problem that that person put in.
+33:56 Or if I want to declare that I want a couple
+33:58 of columns so I can say select language and problem.
+34:01 but I don't care about
+34:03 the time stamp from favorites as such,
+34:05 and now you get two columns instead.
+34:07 So in short,
+34:08 rather than write the dozen or so lines of code that we earlier did
+34:12 with Python to open the file and then iterate over it with a reader,
+34:16 we just select what data we want from this here database.
+34:19 But even more powerfully,
+34:21 SQL comes with a whole bunch of functions
+34:22 built in quite like the spreadsheet software that you
+34:25 and I are already familiar with in the real
+34:26 world like Excel and Numbers and Google Sheets.
+34:30 SQLite comes with an average function,
+34:32 account function,
+34:32 distinct lower min,
+34:34 uh,
+34:34 max min,
+34:35 upper case,
+34:36 and so forth.
+34:37 There's a whole list of them.
+34:38 We'll play around with just a couple of these
+34:40 if we want to transform some of this data.
+34:41 Let me go back into VS code,
+34:43 clear my SQLite terminal,
+34:45 and suppose I just want to get the total number of rows in the favorites table,
+34:49 like how many people at the moment in time I downloaded the file,
+34:52 even if not everyone had quite buzzed in yet.
+34:54 Did I end up with in that file?
+34:56 Well,
+34:56 I could say select the count of all of the rows from the favorites table,
+35:02 semicolon,
+35:03 and now I'll get back a single cell,
+35:05 which gives me 272 submissions had come in the moment I downloaded that file.
+35:10 Suppose I want to see
+35:12 just to confirm that no one submitted bogus data
+35:15 which languages were actually among those typed in.
+35:18 Well I can select only the distinct.
+35:20 Languages that were typed in from the favorites table and now I get a
+35:24 unique list of languages that everyone buzzed
+35:27 in with irrespective of how many times.
+35:30 If I want to maybe get
+35:32 um how many distinct languages there are,
+35:34 if it's not as obvious as 3 here,
+35:36 I could select the count of distinct languages from
+35:41 the favorites table,
+35:42 and that would just tell me the answer.
+35:43 3 is the total number of languages that are distinct.
+35:47 In that submission,
+35:48 so again it's easy to just eyeball this,
+35:50 but very quickly with single statements that are sort of English like left to right
+35:55 is enabling me to just select the answers I want to some of these problems.
+35:59 Well,
+35:59 what more can SQL do?
+36:00 Well,
+36:01 here is a bunch of other.
+36:03 A keywords that we can add to our SQL commands that allow us
+36:07 to control further what kind of data we're going to get back.
+36:10 We're going to be able to group data by similar values.
+36:12 We're going to check for not not just string equality but for
+36:16 fuzzy matching,
+36:17 checking if something is close to a string that we're looking for.
+36:19 We can limit the total number of rows coming back.
+36:21 We can order or sort the data by a certain column,
+36:24 and we can actually have predicates,
+36:26 so to speak,
+36:26 using a where which is similar in.
+36:28 It to an if condition,
+36:30 but a little more succinctly written instead.
+36:32 So for instance,
+36:33 let me go back to VS code here.
+36:34 Let me clear my terminal again
+36:36 and let me go ahead and select how many of you answered
+36:40 C is your favorite language without selecting all of the counts again.
+36:44 Let's just hit the nail on the head.
+36:46 So let's select the count of rows
+36:49 from
+36:50 the favorites table
+36:51 where the language.
+36:53 Selected equals quote unquote
+36:56 semicolon,
+36:56 and I get back a simple answer 58 of you buzzed in with the answer C.
+37:01 How many of you liked both C and very
+37:04 specifically the problem called hello world if you sort of
+37:07 that was the extent of your sort of um the passion for for code,
+37:10 let's go ahead and select the count of star from favorites
+37:14 where the language you typed in equals quote unquote C.
+37:18 Uh,
+37:18 and the problem you typed in equals quote unquote hello world semicolon,
+37:25 and it looks like 5 of you said your
+37:26 favorite language was C and your favorite program was
+37:29 hello world.
+37:30 Great.
+37:31 All right,
+37:31 so it's getting a little more interesting.
+37:33 What about the other version of Hello World where we called it hello it's me?
+37:37 Well,
+37:37 that one's interesting because I think it's gonna
+37:39 break my convention of using single quotes,
+37:42 which would be convention here in SQL.
+37:43 Whenever you're using a raw string,
+37:45 single quotes here would be the norm,
+37:46 but let's type this.
+37:47 Out so select count of star
+37:51 from favorites where language equals quote unquote C
+37:56 and the problem this time equals quote unquote hello
+38:00 it's
+38:01 me.
+38:02 So at a glance this is probably going to confuse SQLite 3 because does that
+38:06 middle apostrophe belong to the first one or the second one.
+38:10 is ambiguous and this is weird.
+38:11 In C we would solve this problem by putting
+38:14 a backslash in front of it and a so-called escape character.
+38:16 Different languages have different conventions.
+38:18 This one's a little weird,
+38:19 but in SQL light what you instead do is doubly single quote it.
+38:24 So putting two single quotes is the convention for escaping
+38:28 a single quote just because you got to remember
+38:30 or Google these kinds of things in the real.
+38:33 If you forget.
+38:33 Enter now I get back that.
+38:35 So it was not the case that any of you liked both C and that problem
+38:40 specifically.
+38:41 Well,
+38:41 what if we want to be a little more inclusive of either hello problem?
+38:44 Well,
+38:44 I could do this in this way,
+38:46 just like in my
+38:48 code spaces terminal.
+38:49 I can go up and down to go back through my history.
+38:52 Same thing in SQLite,
+38:53 so I can go back to commands to get up here.
+38:55 And let me go ahead and write something longer
+38:58 where the problem is
+38:59 hello world or the problem equals quote unquote hello,
+39:04 it's
+39:05 double apostrophe me
+39:08 single apostrophe semicolon and parenthesis so it's wrapped onto
+39:11 two lines here so it's a little messy,
+39:13 but I'm just logically saying where you buzzed in with C as your language and
+39:19 a problem of.
+39:19 A world or a problem of hello it's me E.
+39:22 It should be the same answer as before because none of you liked hello it's me,
+39:26 but I chose this syntax because I can actually make this a little cleaner.
+39:31 I can go and delete this whole parenthetical
+39:34 and just say we're language equals C and the problem
+39:37 is like quote unquote hello
+39:41 percent sign single semicolon.
+39:44 So this is a little weird too.
+39:45 It's just how SQL does this instead,
+39:48 but whereas previously I was using an equal
+39:50 sign to check for literal string equality,
+39:52 like literally those problem names like allows me to use wildcards,
+39:56 and it's not a wildcard quite like the previous use of the asterisk that we saw
+40:00 when you are using a Wildcard in a string
+40:04 in sequel you say percent sign to represent zero or more characters
+40:09 there so hello comma space percent is going to hopefully match this or
+40:15 the other problem that started with hello comma.
+40:17 So let me go ahead now
+40:19 and hit enter.
+40:20 The answer is still gonna be the same,
+40:22 but indeed it's demonstrative that that is how you could express yourself
+40:24 a little more generally if you wanted a pattern match like that.
+40:28 Questions now
+40:30 on any of these techniques,
+40:31 yeah.
+40:32 they have
+40:34 Uh,
+40:34 good question.
+40:35 Does it have to be capitalized when doing string equality,
+40:37 yes,
+40:38 but not with like.
+40:40 Like will tolerate case insensitivity,
+40:42 so upper case or lower case.
+40:46 00,
+40:47 I see.
+40:47 Good question.
+40:47 So the capitalization,
+40:49 so stylistically in SQL,
+40:51 I would argue,
+40:52 and this is a stylistic convention in SQL,
+40:54 certainly for CS 50 and also for a lot of
+40:55 companies and communities in the world to uppercase your SQL keywords
+41:01 just to make them stand out from words that you and I.
+41:03 Chose is like the name of the table or the name of the columns they're in.
+41:07 This is just a convention.
+41:08 I would propose like always to be consistent,
+41:10 but for CS 50 and for Style 50's sake,
+41:12 I would propose that you indeed capitalize like this and
+41:14 frankly it just makes it easier to read to my
+41:17 eye because the SQL stuff jumps out and then the
+41:19 lower case stuff is specific to your data set.
+41:21 A good question.
+41:24 All right.
+41:24 How about
+41:26 another
+41:27 uh set of keywords that we saw on the screen earlier,
+41:30 namely grouping by.
+41:32 Well,
+41:32 suppose we have a data set like this,
+41:35 whereby,
+41:36 oops,
+41:37 we suppose we have a data set like this,
+41:38 whereby
+41:40 How does this go?
+41:42 Happy Halloween.
+41:43 Whereby here's just an excerpt from that table.
+41:46 So for as languages go,
+41:47 uh,
+41:47 say one of you liked C,
+41:49 2 of you like 3 of you liked Python,
+41:52 and then now that we're introducing SQL,
+41:54 let's imagine that 2 of you now like SQL even better.
+41:57 So that's the extent of the data set.
+41:58 Wouldn't it be nice to be able to figure out how many of you like C or Python or SQL?
+42:03 Well,
+42:04 I could write some Python code,
+42:06 open the file,
+42:06 iterate over it using variables,
+42:08 using a dictionary,
+42:08 and those what 20 or.
+42:10 Lines of code we wrote earlier to answer this question.
+42:13 Wouldn't it be nice to just ask the SQL language
+42:16 to figure out how many of you like C,
+42:18 how many of you like Python,
+42:19 how many of you like SQL?
+42:20 We can do this by grouping
+42:22 these cells by common values.
+42:24 Let's group all of the Python rows together
+42:27 and all of the SQL rows together,
+42:29 and even though there's just one,
+42:30 all of the Crows as well.
+42:31 So how can we do this?
+42:32 Well,
+42:32 let me go
+42:34 back to VS code here and clear my terminal,
+42:36 and let's do this.
+42:37 Let's select
+42:38 every language,
+42:40 but
+42:41 it's respective count as well
+42:43 from the favorites table,
+42:45 but
+42:45 before you do any of that group everything by
+42:49 language.
+42:50 So this one takes a little more practice and getting used to,
+42:52 but this is simply saying select all of the uh it's saying look at the languages,
+42:58 essentially group all of the common languages together and then figure out
+43:02 what count that gives you for all.
+43:04 Of the grouped rows.
+43:05 If I hit enter here,
+43:07 we'll get an answer just like the Python code that
+43:09 took me 20 lines of code to write earlier.
+43:12 What's really happening though in the database is something a little bit like this.
+43:15 Notice,
+43:16 of course,
+43:16 that there's only one version of C.
+43:18 There's then 3 versions of Python and there's 2 examples of SQL,
+43:22 and the table I'm essentially building is to group all of those
+43:24 by identical values and then spit out the total counts here.
+43:28 Now on the screen it's just 13,
+43:30 and 2 in the data set.
+43:31 With some 200+ responses we have much larger answers,
+43:34 including Scratch instead of SQL right here.
+43:37 But this now sort of speaks to just how much more convenient it is to,
+43:40 if you want to ask a question like that,
+43:42 especially if the data set is more than a couple 100 rows,
+43:44 if your boss,
+43:45 for instance,
+43:45 in the real world has a CSV data set and wants you to analyze the data,
+43:49 well,
+43:49 you can literally download it,
+43:50 import it into SQLite,
+43:51 run one command,
+43:52 and boom,
+43:52 like you've got this analysis done if the extent of
+43:55 it is just to group the data and figure out.
+43:58 Uh,
+43:59 what kinds of,
+43:60 uh,
+44:00 accounts you have in the data set.
+44:02 All right,
+44:03 what else can we do?
+44:03 Well,
+44:04 we can play around with this a bit more.
+44:05 Let me go back here into VS code
+44:07 and propose that we could.
+44:10 Uh,
+44:10 order those results more than just the uh the default way.
+44:13 So let's go ahead and select the language
+44:15 and the count from
+44:17 the favorites table yet again.
+44:19 Let's group by language yet again,
+44:22 but this time let's order by
+44:25 the counts column in descending order.
+44:28 So it's a bit more of a mouthful and it
+44:29 takes some practice to memorize all of the syntax,
+44:31 but when I hit enter now,
+44:33 I get back the same answers,
+44:34 but Python.
+44:34 is at the very top of the list.
+44:36 Now Countar isn't necessarily all that self explanatory
+44:41 and indeed it's a little annoying that I
+44:43 have to write out Countar here at top right as well as in the beginning.
+44:46 So it turns out SQL also supports aliases.
+44:48 So if you want to change the temporary name of
+44:51 the column to be something else like N for number,
+44:54 well then I can actually define an alias with the keyword as
+44:58 order by N at the end.
+44:59 Of this statement and then hit enter and get back the same results too.
+45:03 And so if it's not
+45:04 sort of implicitly clear already,
+45:07 each of these SQL select commands is essentially giving me back a temporary table.
+45:12 This is not being saved anywhere like now it's gone
+45:14 from the computer's memory once I've actually gotten my answer,
+45:17 but it's essentially returning a subset
+45:19 of the tables that do exist in the computer's
+45:22 memory because that's what the import command did for.
+45:24 Me,
+45:25 it loaded the whole data set into memory,
+45:27 and now I have these temporary tables
+45:30 that are just containing the answers to questions I care about.
+45:33 And if you only care about the top one language,
+45:35 well,
+45:35 there's a limit keyword too.
+45:37 I can literally just say limit one at the end of that exact same statement enter,
+45:41 and now I've got the single answer to my question,
+45:44 a single row saying Python was the most popular with 190 people selecting that.
+45:51 All right,
+45:51 for now,
+45:51 I think that's enough on select.
+45:53 There's a few more keywords,
+45:54 but it really is just a matter of composing these building blocks,
+45:57 questions though on these capabilities.
+46:01 Fundamentally.
+46:04 No.
+46:05 All right,
+46:05 well,
+46:05 how about maybe inserting data instead?
+46:08 So here might be the canonical way to insert a row into a table in SQL.
+46:12 You literally say insert into then the name of the table,
+46:15 then in parentheses the one or more columns for which you have data,
+46:18 and then literally the word values,
+46:20 and then in another set of parentheses a comma separated list
+46:23 of the one or more values that you want to insert
+46:26 into those that.
+46:27 columns.
+46:28 So for instance,
+46:29 let me go back into VS code here and of course
+46:31 at the time we circulated this form a few minutes ago,
+46:35 we had not yet assigned problem set 7.
+46:36 But in problem set 7 is a problem called 50ville which
+46:40 let's propose might very well be someone's favorite in a week.
+46:43 So let's go ahead and insert that row now preemptively.
+46:47 Let's insert into the favorites table.
+46:50 Two columns language and problem.
+46:53 Why?
+46:54 Well,
+46:54 I don't really care to figure out what the time stamp is and the format thereof,
+46:57 so I'm just going to omit the time stamp altogether,
+46:59 but the values I'm going to insert for this new row are
+47:02 going to be are going to be quote unquote SQL 50 ville
+47:09 close
+47:09 close parenthesis semicolon.
+47:11 E.
+47:12 Nothing bad seems to have happened.
+47:14 Let me go ahead and select star from favorites just
+47:16 to see what my data set looks like now.
+47:18 And indeed at the bottom of the file or the bottom of the table,
+47:21 indeed there is that new row.
+47:23 But what's sort of noteworthy is that this isn't just blank.
+47:26 There's our old friend null,
+47:27 which is not a null pointer,
+47:29 it's the same word,
+47:30 literally NULL,
+47:32 and it refers explicitly to the absence of data.
+47:34 And this is actually a nice feature because if any of you have ever used like Google.
+47:37 Spreadsheets,
+47:37 Apple numbers,
+47:38 Microsoft Excel
+47:39 and thought about
+47:41 uh or looked at cells that are blank.
+47:43 Like what does it mean if a spreadsheet cell is blank?
+47:45 Does it mean like there's literally no data there?
+47:47 Does it mean that you just don't have the data there or it's missing in some form?
+47:52 Well,
+47:52 how do you address that?
+47:53 Well,
+47:53 maybe you put like Nlash A in English for like not available or something like that,
+47:57 but that's kind of hackish and if you use NA,
+47:60 that might mean that no one can actually type NA at the.
+48:02 Answer.
+48:03 And so what's nice about SQL and data and database languages
+48:06 more generally is that null signifies the conscious omission of data.
+48:11 It's not just a missing value,
+48:12 it's consciously not there.
+48:14 It's not just the empty string,
+48:16 quote unquote,
+48:16 for instance.
+48:18 So we might see different examples of that,
+48:19 but
+48:20 what's nice now is that I can distinguish null from other values and in fact
+48:23 if that is not a good idea to have any data in my data set.
+48:27 That is null for whatever reason like it just looks like bogus data.
+48:30 It would be nice to know who inserted that when,
+48:33 no problem.
+48:33 We can also delete data from a table in SQL,
+48:35 and I can delete from the name of the table where some condition is true.
+48:40 So for instance,
+48:41 if I want to delete that,
+48:42 I can do this in a couple of ways,
+48:44 but perhaps the simplest is to delete from.
+48:48 Favorites,
+48:50 where,
+48:51 uh,
+48:51 time stamp
+48:53 is
+48:54 null,
+48:55 semicolon.
+48:56 So is 2 is another SQL keyword here,
+48:58 and that will go ahead and delete
+48:60 only those rows where the time stamp is null.
+49:03 Enter.
+49:04 Let's do the same select command as before.
+49:06 Enter and voila,
+49:08 that row is now gone.
+49:09 Be very,
+49:10 very,
+49:10 very careful with delete
+49:13 statements.
+49:14 If I had foolishly
+49:15 done this,
+49:17 wanna guess what the results would be.
+49:21 It would delete everything and like you can Google around and see
+49:25 actual articles of like interns at companies who had way too much
+49:28 access to a company database executing
+49:30 something like delete from favorites because
+49:31 they forgot the predicate they hit enter too soon and boom,
+49:35 all of the data is now gone.
+49:36 So these are very destructive commands and just like in the real
+49:39 world if you don't have backups or versions of these same tables,
+49:43 the data can indeed be lost.
+49:45 So don't do that.
+49:47 Always have your wear and make sure
+49:49 your wear is correct.
+49:51 All right,
+49:52 well,
+49:52 let's go ahead maybe and um
+49:54 suppose let's claim that maybe 50ville is going
+49:57 to be a really popular problem among students,
+49:59 so much so that it becomes overnight everyone's favorite problem.
+50:01 Well,
+50:02 we can update the table as is.
+50:04 Here is the general syntax for updating rows in a table.
+50:06 You literally say update the name of the table.
+50:09 The word set and then a bunch of key value pairs.
+50:12 The column that you want to update
+50:15 setting it equal to the value that you want to update it to
+50:18 where some condition is true.
+50:20 So what does this mean concretely?
+50:21 Well,
+50:22 let's say that we want to change everyone's favorite to SQL and 50ville.
+50:26 I could do this
+50:28 update favorites,
+50:29 set language equal to SQL,
+50:34 problem equal to 50 ville.
+50:37 Close quote
+50:38 semicolon,
+50:40 and this is where again it can be dangerous,
+50:41 but in this case I'm gonna go ahead and
+50:43 hit enter without any predicate to filter this.
+50:46 Nothing bad seems to happen,
+50:47 but if I now do select star from favorite semicolon,
+50:50 all of you
+50:51 would seem to like 50ville,
+50:53 and there is no going back to the previous version of the table unless I quit
+50:56 out of this and I import the whole CSV again maybe after deleting the data entirely.
+51:02 All right,
+51:02 so how do I get rid of all of the data?
+51:03 Well,
+51:03 if you want to delete from favorites for real now,
+51:06 enter select star from.
+51:09 Favorites,
+51:10 we can confirm that that was a bad idea.
+51:12 There's literally no data in the database anymore,
+51:16 but we can certainly restore from our actual CSV.
+51:19 So in short,
+51:19 we've got select,
+51:20 we've got insert,
+51:21 we've got update,
+51:22 we've got delete,
+51:24 we've seen.
+51:25 8 albeit automatically generated by SQL Light 3,
+51:28 maybe we'll see Drop and actually we can see Drop now.
+51:31 So recall that if I do.
+51:32 schema,
+51:33 I can see all of the tables in this database.
+51:36 If I do drop table
+51:39 favorites,
+51:39 semicolon,
+51:41 and now again do do schema,
+51:42 now there is nothing in this database at all.
+51:45 So that's an even worse command to run
+51:47 unless you know and intend what you're doing.
+51:50 Questions then on these crud operations creating,
+51:52 reading,
+51:53 updating,
+51:53 deleting yeah here first.
+51:59 Why do you not do quotation marks around null?
+52:01 So null is a special symbol,
+52:03 and if you put quotation marks around it,
+52:05 you would literally be looking for the value NULL that maybe was the name of
+52:09 a language or the name of a problem or something literally in the CSV.
+52:13 We are looking for the absence of that data altogether,
+52:15 yeah.
+52:23 Really good question,
+52:24 because it's so easy to destroy data like this,
+52:26 are people actively backing up their data?
+52:27 Short answer yes,
+52:28 absolutely.
+52:29 Like all of CS 50's web apps and the
+52:31 like are automatically backed up on some schedule.
+52:33 Even then we have to decide what that schedule is,
+52:35 and if it's daily,
+52:36 for instance,
+52:36 nightly,
+52:37 we could lose up to like 23 hours,
+52:39 59 minutes of data in some case,
+52:41 maybe companies would therefore version their data more tightly,
+52:44 like every 5 minutes,
+52:45 every minute,
+52:46 although that's going to consume a lot more space,
+52:47 but there already is this theme of trade off certainly in computer.
+52:50 You can also implement forms of access control.
+52:53 So SQL Light is lightweight.
+52:54 It has no notion of usernames or passwords.
+52:56 If you have access to the data,
+52:57 you can touch everything,
+52:58 but in the real world with commercial and open source
+53:01 software like Oracle and SQL Server and Postgrass and MySQL,
+53:06 you actually have usernames and passwords and specific permissions,
+53:09 so you can give users interns the ability to select data
+53:12 but not update or delete or insert data or any combination
+53:16 thereof.
+53:16 So there are defenses.
+53:18 Other questions
+53:19 on these here crud.
+53:21 Commands
+53:25 OK,
+53:25 let's go ahead and play with some real world data.
+53:27 So many of you might be familiar with IMDB,
+53:29 the Internet Movie Database,
+53:31 which is a great repository of data for movies
+53:33 and also TV shows and actors and the like.
+53:35 And within IMDB's website you can actually download
+53:39 uh TSV files,
+53:40 tab separated values of files that contain a lot of the data from that website.
+53:45 So we went ahead and did this.
+53:46 We then converted that TSV.
+53:48 Data into a whole bunch of SQL tables so that we can begin to play with it
+53:53 in the context of TV shows.
+53:55 However,
+53:55 let's start first with a question about how you
+53:57 could go about modeling data for TV shows themselves.
+54:01 So for instance,
+54:02 in advance,
+54:02 I also created a few different spreadsheets that just allowed
+54:05 me to play with how I might model data,
+54:08 real world data at that.
+54:09 So the Office is very popular.
+54:11 Uh,
+54:11 TV show,
+54:12 the US version here is uh the US version here starred Steve Carell and others.
+54:16 So if I think about how IMDB or maybe just even little old me with a spreadsheet,
+54:21 might keep track of who starred in what TV show,
+54:24 well,
+54:25 I might just use a Google sheet like this,
+54:26 and in the first column have a title column where
+54:28 this is the title of the show like The Office,
+54:30 and then if it stars one person,
+54:32 I would put Steve Carell in the next column,
+54:34 but if.
+54:34 As a second star I might put Rainn Wilson or John
+54:37 or Jenna or BJ Novak here column by column by column,
+54:41 and I could just keep adding show after show after show after show one
+54:45 row per show
+54:47 and then however many stars that are in there.
+54:50 What might you not like about the design of this
+54:53 data though or what might start to look odd?
+54:57 Yeah,
+54:58 it's a little weird that we have star star star star star.
+55:01 Just this repetition has tended to be bad any time
+55:03 we're copying and pasting should rub you the wrong way.
+55:06 Other observations about it too?
+55:08 Yeah.
+55:10 Yeah,
+55:10 at the moment I've got 12345 stars,
+55:13 and there's certainly TV shows with fewer TV stars and more,
+55:17 and so,
+55:17 OK,
+55:17 I can add more columns.
+55:19 I can just keep saying star,
+55:20 star,
+55:21 star,
+55:21 but then it's going to be a very ragged data set,
+55:23 very sparse data set where there's gonna be a lot
+55:25 of blank cells for shows that have small casts,
+55:28 but then a lot of columns for shows that have large casts,
+55:30 so it just feels like mm,
+55:32 this should be rubbing you the wrong way.
+55:33 It just feels like it's gonna get messy,
+55:35 especially as the number of stars,
+55:37 let alone shows,
+55:38 gets.
+55:38 Larger.
+55:39 All right,
+55:39 well,
+55:40 another version of this,
+55:41 uh,
+55:42 data set
+55:42 that I put together is this instead.
+55:45 So I didn't like the fact that I was going to have
+55:46 an arbitrary number of columns based on the specific show in question.
+55:51 So here I scaled back and I just have a single column for title as before,
+55:55 but now a single column for star,
+55:57 and I decided that if a TV show has multiple stars,
+56:00 well I just put each of the stars' names and then
+56:04 to the left of them specify the show that they're in.
+56:07 Seems to be a little better and that I've solved some of the redundancy problem,
+56:10 but I've kind of just
+56:12 kind of like covered up the hole in a leaky hose and now another leak sprung up here,
+56:16 which is to say there's still a bad design.
+56:18 What's bad here?
+56:20 Yeah.
+56:22 Yeah,
+56:23 now I've got the office,
+56:23 the office,
+56:24 the office,
+56:24 the office,
+56:24 the office,
+56:25 and that too feels like I'm wasting space.
+56:28 If I manually type this in,
+56:29 odds are eventually going to screw up and one of these is going to be misspelled,
+56:32 which is going to break something somehow.
+56:33 So this too doesn't feel quite ideal.
+56:36 So the third and final version I whipped up to model this data,
+56:39 which is going to lead us to a similar design in an actual database
+56:44 looks a little more arcane but is the right way,
+56:47 at least academically,
+56:48 to do things,
+56:49 and we'll see technologically too this is going to be a big game.
+56:52 So here I now have a spreadsheet with 3 separate sheets.
+56:56 One is called shows,
+56:57 which is selected at the moment.
+56:59 Another is called People,
+57:00 which is not selected yet,
+57:01 and the third of which is called Stars.
+57:04 What am I doing here?
+57:05 Well,
+57:05 notice that in the show sheet I've still got the title column,
+57:08 but I've decided to give the office a unique ID,
+57:11 much like a Harvard student has a unique ID number,
+57:13 much like an employee in a company,
+57:14 probably.
+57:14 A unique employee ID.
+57:16 Similarly,
+57:17 have I given the office a unique identifier that happens
+57:20 to be the same as it is in IMDB.
+57:23 Meanwhile,
+57:23 for all of the people that exist in the world of TV shows,
+57:26 for instance,
+57:27 these 5 folks,
+57:28 I have their names as well as unique IDs for them,
+57:31 and those integers are unique to the people and no
+57:34 connection per se to the show IDs just yet.
+57:37 But the third and final sheet I've whipped up is going to be a
+57:40 sort of cross referencing sheet that allows me to associate shows with people,
+57:45 and at a glance this looks the most arcane of the three because it's just
+57:50 numbers,
+57:50 it's just integers,
+57:52 but
+57:52 if you recall from a moment ago that the office's unique ID was 386-676,
+57:57 well,
+57:58 that's how we associated that show with this person,
+58:00 which happens to be Steve Carell,
+58:02 and so forth.
+58:03 Now at a glance,
+58:05 not very useful.
+58:05 To me,
+58:06 the human,
+58:06 unless I do some fancy spreadsheet stuff like the lookups if familiar or the like,
+58:10 but
+58:11 this is a stepping stone to how proper databases do actually store data.
+58:15 What I have done here is normalize the
+58:17 data by eliminating all redundancies except for maximally
+58:22 some redundant integers.
+58:23 And why is that?
+58:24 Well,
+58:24 integers,
+58:25 at least we know from our days in C,
+58:26 are going to be a finite length.
+58:27 It's going to be 32 bits,
+58:28 maybe 64 bits,
+58:29 but it's always going to be the same number of bits,
+58:31 and that's nice because any time you have Fixed number of bits,
+58:35 it lends itself to storing things nicely in an array
+58:37 or doing binary search because everything is a predictable distance apart
+58:40 as opposed to strings like Steve Carell or John
+58:43 Krasinski or the names might vary in length.
+58:45 These IDs for the title of the show and these IDs for the
+58:49 persons are not going to vary in length because they're all just integers.
+58:53 But of course this spreadsheet now much less useful because if
+58:56 I want to figure out who is in the office,
+58:57 well first I have to figure out what show this is,
+58:60 then I have to figure out what.
+59:01 Uh,
+59:02 person
+59:02 this is and this is and this is,
+59:04 but that's where SQL is again going to swoop in
+59:07 and allow us to solve this problem.
+59:09 And indeed SQL is one of the most common ways that web applications today,
+59:14 mobile applications today store any amount of data at scale.
+59:17 They are most likely not using simple CSV files.
+59:19 They are using SQL L Lite or MySQL or Postgress
+59:22 or Oracle or other commercial and open source incarnations of
+59:26 SQL databases,
+59:28 and odds are IMDb might be using.
+59:30 The same as well.
+59:32 All right,
+59:32 so let's go ahead and do this.
+59:34 I have created in advance a file called shows.db
+59:38 that contains hundreds of thousands of rows from
+59:41 TV shows and TV stars and other data from
+59:44 IMDB itself,
+59:46 and in a moment we'll see
+59:47 a database that if drone as a picture looks a little something like this.
+59:51 There is going to be a people table,
+59:53 there's going to be a shows table.
+59:55 Going to be a star's table that somehow links the two.
+59:58 There's also going to be a writer's table and a ratings table and a genres table.
+60:02 So overnight this sort of escalated quickly from just favorites,
+60:05 which was a single table,
+60:06 to now a real world data set that has 6 tables.
+60:09 But here is the relational in relational databases as
+60:12 these arrows are meant to imply right now,
+60:15 there are relationships across these several tables.
+60:19 Case in point,
+60:20 here's people.
+60:20 Here and we'll see in a moment that a person in the IMDb world has an ID number,
+60:25 a name,
+60:25 and a year of birth.
+60:27 A show in the IMDB world has a unique ID,
+60:30 a title,
+60:30 the year it debuted,
+60:31 and a total number of episodes.
+60:33 But there's no mention of people in shows.
+60:35 There's no mention of shows and people.
+60:37 But for the arrows,
+60:39 there's going to be this third table here,
+60:41 stars that somehow links show IDs with person IDs,
+60:45 and this is.
+60:46 Where relational databases get really powerful because you can solve all of those
+60:50 redundancy concerns
+60:52 and actually enable yourself to select data much more quickly instead.
+60:57 But let's focus on something simple first.
+60:58 Let's focus just on the show's table,
+61:01 which pictorial might look a little something like this.
+61:04 So in just a moment I'm going to go ahead and reopen VS code,
+61:07 and I'm going to open up instead of favorites.db.
+61:09 I'm going to go ahead and open up.
+61:11 Uh,
+61:11 a file called shows.db which again I arrived with in advance.
+61:17 So if I open up with SQLite 3 shows.db and hit enter,
+61:21 I'm back at a SQL prompt.
+61:23 Let me go ahead and type schema shows just to show you what
+61:28 command created this here table,
+61:30 and it got a little more interesting already.
+61:32 Notice that the table is called shows and it's got 123.
+61:36 Four columns the ID for each show,
+61:38 a title for each show,
+61:40 the year it debuted for each show,
+61:41 and the number of episodes.
+61:43 There's also clearly some mention of types and some
+61:45 other keywords that we haven't yet talked about,
+61:47 but let's focus now first on just what the data is.
+61:50 The best way to wrap your mind around a new data set if someone hands you a
+61:53 SQL database or you've imported a CSV into a SQL database is just select some data.
+61:57 So select star from shows,
+61:59 semicolon.
+62:01 That's a lot of data flying across the screen.
+62:03 It's not very easy to see because some of the
+62:05 show names are apparently crazy long and so it's wrapping,
+62:07 but it's still going and going and going.
+62:09 I'm gonna hit control C to interrupt it.
+62:11 Control C,
+62:12 as with our terminals in general as your friend,
+62:14 let's run that same command but just limit it to the 1st 10 shows.
+62:17 So there are the 1st 10 shows in the IMDB database of TV shows.
+62:22 So we've got
+62:23 10 rows in this data set going back to it looks like the 1970s is roughly.
+62:27 Where their data set starts.
+62:29 All right,
+62:30 so here's the data we have in here.
+62:34 Well,
+62:34 how much is there?
+62:35 Well,
+62:35 let's go ahead and check.
+62:36 So select count star from shows semicolon,
+62:40 and now we're talking.
+62:41 There's 250,000 87 shows in this database.
+62:45 And if I do the same for people,
+62:47 select count star from people semicolon looks like there are 704,315 TV.
+62:54 Stars associated with this year data sets.
+62:56 So here too,
+62:57 the data is much more interesting and much more representative of real world data.
+63:02 How about the ratings?
+63:03 IMDb,
+63:04 if unfamiliar,
+63:04 is also a place where you can go to check
+63:06 the ratings from users as to whether something is good,
+63:09 a good show,
+63:10 a bad show,
+63:10 or anything in between.
+63:12 So let's dotschema ratings
+63:14 and I'll see that,
+63:15 yeah,
+63:15 there's this table called ratings that as we saw briefly on the screen,
+63:19 there's a show ID.
+63:21 And then a rating and then the total number of votes that contributed there too
+63:24 and again some data types and other syntax that we'll get to before long.
+63:28 But let me go ahead and just do select star from ratings
+63:31 limit 10 just to get a sense of what the data is.
+63:34 That's now what the data looks like in that table.
+63:37 So to a human at a glance,
+63:38 not that useful because you don't know what those show IDs are,
+63:41 but in a moment we're going to see how we
+63:43 can reconstitute this data by linking these tables together.
+63:47 By way of those IDs and actually get answers to questions.
+63:51 So among other things,
+63:52 a SQL database or a relational database
+63:54 more generally supports 1 to 1 relationships whereby
+63:57 a row in one table can map to a one row in another table.
+64:02 So it's this is in contrast to one to many,
+64:04 for instance.
+64:05 So 1 to 1 means one row over here somehow relates to one row over here.
+64:09 Again,
+64:09 the relational in relational database.
+64:12 Uh,
+64:12 how might we go about.
+64:14 Uh,
+64:15 seeing this,
+64:16 well,
+64:16 first,
+64:17 here's a tour of the data types that SQL Light supports,
+64:20 whereas in C we had a somewhat similar list and in Python that list went away,
+64:25 at least with regard to explicit types.
+64:27 In SQL we're back to when creating our
+64:30 tables explicitly stating what the types of those
+64:33 columns are.
+64:34 So you have integers,
+64:35 you have numeric,
+64:36 which is more of a catch all for things like
+64:38 times and dates and other useful real world data.
+64:40 You have real numbers which are like floats with.
+64:42 points you have text,
+64:44 which we've seen already,
+64:45 and then you have blobs,
+64:46 which is a great name which stands for binary large objects.
+64:48 You can actually store raw zeros and ones like files
+64:51 in the database generally that's frowned upon to store files,
+64:53 but there's certain times where you do want to store binary data and not pure text.
+64:57 That's it for SQLite.
+64:59 There are only these 5 types in other commercial and open source
+65:04 SQL databases like Oracle and MySQL and Postress
+65:06 and the same names I keep rattling off,
+65:08 you have even more data types than these.
+65:10 So that's a the additional features you get by using other databases as well.
+65:15 There's a few keywords though that are worth noting in SQL.
+65:18 You can specifically say when creating a table
+65:20 that this column cannot be null.
+65:23 If you don't want time stamp,
+65:24 for instance,
+65:25 to ever allow for null values,
+65:27 you can literally specify when creating that table this column cannot be null.
+65:31 And if I try to insert data into that table
+65:34 with a null value as by not providing a time stamp,
+65:37 the insertion will fail.
+65:39 And so Here's where things are different from just writing
+65:41 Python code or certainly using a spreadsheet you can actually
+65:44 have built-in defenses so that you and no one else
+65:47 messes up your data by inserting bogus or blank data
+65:50 accidentally.
+65:51 You can further say that things must be unique,
+65:54 so every
+65:55 element,
+65:56 every cell in a column must be unique to ensure that you
+65:58 can't accidentally put two things with the same ID to Harvard IDs,
+66:02 to employee IDs that are duplicates.
+66:04 You can avoid that altogether.
+66:06 But more importantly.
+66:08 Relational databases support these two concepts primary keys and foreign keys,
+66:13 and this is where the magic really starts to happen.
+66:15 A primary key
+66:17 is the unique identifier for a table.
+66:20 It is the column of values that uniquely identify every row,
+66:24 so it's probably going to be the show ID,
+66:26 the person ID,
+66:27 the Harvard ID,
+66:28 the employee ID,
+66:29 any time you have a value,
+66:31 often numeric,
+66:32 often integral.
+66:33 All that uniquely identifies rows,
+66:35 you simply call that a primary key.
+66:38 When that same ID appears in another table for cross referencing purposes,
+66:43 you refer to it instead as a foreign key because
+66:45 that same key is over there in another table,
+66:48 thus foreign but they refer to one and the same things
+66:50 in the context of the table in which it's defined,
+66:53 it's primary if it appears in some other table,
+66:56 it is now considered foreign.
+66:58 All right,
+66:59 so how can we
+67:00 make use of this?
+67:01 Well,
+67:02 let me go ahead and propose that
+67:04 we execute a few SQL commands as follows.
+67:07 If I wanted to start asking questions about ratings,
+67:10 I could do something like this select star from ratings,
+67:14 where the rating is maybe a good show,
+67:16 so let's call it 6.0 or higher,
+67:18 but let's just limit this to the top 10 shows that meet that threshold.
+67:22 Enter.
+67:22 So here I now have a temporary table that gives
+67:25 me 3 columns from the ratings table show ID,
+67:29 which is a for the moment useless identifier because
+67:32 I don't know what show it corresponds to,
+67:34 but the rating value and the number of votes that contributed there too.
+67:37 Well,
+67:37 how might I actually get to the shows that are actually highly rated at 6.0 or higher?
+67:43 Well,
+67:43 I don't need to select star.
+67:44 If all I care about is these top 10,
+67:46 I can whittle this same command down to just selecting the ratings.
+67:50 And now,
+67:50 sorry,
+67:51 sorry.
+67:52 Not the ratings.
+67:53 I can whittle this uh this table down
+67:55 to just selecting the show IDs.
+67:58 So this is the answer to the question What are the
+67:60 top 10 TV shows whose ratings are 6.0 or higher?
+68:04 Well,
+68:04 from the table,
+68:05 these are the 1st 10 that come back,
+68:07 how do I now select.
+68:09 The shows that correspond to these values.
+68:12 Here's where things can be done a few different ways.
+68:14 I could
+68:15 select everything I know from the show's table
+68:19 where the idea of the show is in
+68:22 the following
+68:24 set.
+68:24 I'm going to do a parenthesis and then just for readability I'm going to hit enter.
+68:29 The and angle bracket just means.
+68:30 Continuing my thought,
+68:31 it's not executing the command yet.
+68:33 What is the query I now want to run?
+68:34 Well,
+68:34 it's going to be a nested query.
+68:36 I can now do the same thing as before select the show
+68:38 ID from the ratings table where the rating is really good,
+68:43 greater than or equal to 6.0,
+68:45 but let's then limit the total number of queries
+68:48 to just
+68:50 10.
+68:50 So here,
+68:51 just like in sort of grade school math,
+68:53 we have parentheses.
+68:54 So the first thing that's going to be executed is the thing inside parentheses.
+68:57 So this is going to get me every show ID from the
+68:59 ratings table that has a really good rating of 6.0 or higher.
+69:02 That's going to return to me a column of values.
+69:05 I'm.
+69:06 Then gonna say select star from the show's table
+69:09 where the ID of the show is in that list of values but only show me 10 of those
+69:14 is what I'm asking here.
+69:16 So what I should now see is much more useful data,
+69:18 namely the 10 shows that are highly rated enter.
+69:21 And indeed I get back these 10 shows,
+69:24 all of whose ratings are indeed quite a bit higher.
+69:27 If I want to only care about the title,
+69:29 that too I can do.
+69:30 So let's do this again.
+69:32 Instead of selecting star,
+69:33 let's select title from shows where the ID
+69:37 of the show is in the following parenthetical
+69:39 select show ID from ratings where the rating is greater than or equal to 6.0.
+69:45 Close my parenthesis,
+69:47 limit to 10.
+69:48 E.
+69:49 And I see the exact same thing,
+69:50 but just
+69:51 the nail being hit on the head.
+69:53 Just give me the titles of those top several shows.
+69:56 Of course
+69:57 I might
+69:58 want to,
+69:59 might be able to do this differently.
+70:00 In other words,
+70:01 here's the top 10 titles.
+70:03 Well,
+70:03 what are the ratings?
+70:04 Like that's why you go to IMDB or Rotten Tomatoes or the like.
+70:06 You want to see the actual ratings,
+70:07 not the titles or the ratings.
+70:09 Well,
+70:10 it turns out we're gonna need another technique to do that,
+70:12 namely an ability to join two tables and in fact just as a teaser for this.
+70:16 If we want to start playing around with some real data,
+70:19 here might be,
+70:19 for instance,
+70:20 excerpts from
+70:22 two tables.
+70:23 Here's the show's table at left.
+70:25 Here's the ratings table at right,
+70:27 or a subset thereof.
+70:28 If I want to figure out what the rating is for a given show,
+70:32 wouldn't it be nice if I could somehow like line these two
+70:34 tables up together such that just like the tips of my finger,
+70:37 I line up this value with its corresponding value over here,
+70:41 a cross reference of sorts?
+70:42 Well,
+70:42 just for the sake of.
+70:43 And let me just kind of visually flip this around,
+70:45 though that does nothing technically underneath the hood.
+70:48 Let me just scooch them together now after highlighting the common values,
+70:51 demonstrate that,
+70:52 well,
+70:52 wouldn't it be nice to take the show's table
+70:54 and join it with the ratings table in such a
+70:57 way that those IDs all line up and we're going to have the ability to do just this.
+71:02 This is a lot already and this isn't the sort of
+71:03 cliffhanger I'd wanted to end on because who cares about joints,
+71:06 but it's going to be cool.
+71:07 But let's take our 10 minute Halloween candy break and come back in 10 for the next.
+71:12 All
+71:13 right,
+71:13 we're back.
+71:15 So recall where we left off was essentially here.
+71:18 We had these two tables,
+71:19 the show's table at left and the ratings table at right,
+71:22 and the motivation here was like how do we actually associate shows with their
+71:26 respective ratings because the ratings of course are not in the show's table.
+71:30 As an aside,
+71:30 they could be.
+71:31 And in fact,
+71:32 because this is meant to demonstrate a 1 to
+71:34 1 relationship whereby every show has one rating,
+71:37 we could have just put the rating and the number of votes into the show's table,
+71:41 but we chose not to because uh you know I am.
+71:44 actually stores their ratings as a separate TSV file,
+71:47 and so what we tried to do for parity with that is only import
+71:50 into a ratings table the very TSV file that we had downloaded from them.
+71:53 But that too would be a solution there too.
+71:55 So at this point in the story we've got the shows table here.
+71:58 We've got the ratings table over here.
+72:00 We've noticed that there are commonalities.
+72:02 There are show IDs that appear in both tables and in fact,
+72:06 to
+72:07 use some of the new vernacular,
+72:08 this is the primary key,
+72:10 the ID column here.
+72:12 This is that same value.
+72:13 But in this context it's known as a foreign key because it's in some other table,
+72:16 but that's gonna be how we link these two things together.
+72:19 So how do we select for not just the Office but maybe every TV show,
+72:23 its respective rating?
+72:24 Well,
+72:24 let's go back to VS Code and at my SQL light prompt,
+72:27 let me go ahead and do this select star
+72:30 from the show's table,
+72:32 but
+72:32 let's go ahead and
+72:34 join
+72:35 the show's table
+72:36 with the ratings table.
+72:38 How do I want to join these two tables together?
+72:40 We'll do so on.
+72:42 The shows tables ID column
+72:44 being equal to the ratings tables show ID column
+72:49 and then go ahead and filter the results in the following way where the
+72:53 rating we care about should still be greater than or equal to 6.0,
+72:57 and let's only limit this to the top 10 results.
+72:60 So it's a bit more of a mouthful,
+73:02 but what I'm doing is selecting everything from
+73:04 the result of joining shows and ratings on.
+73:08 This column with this column and the rest of the predicate is as before.
+73:13 So join is going to do literally that.
+73:15 Join these two tables as I have prescribed.
+73:18 When I go ahead here and hit enter now that I have my semicolon,
+73:21 I get back a complete table containing everything from the show's table,
+73:25 everything from the ratings table with those unique identifiers lined up.
+73:29 Indeed,
+73:30 if you look at the primary key over here,
+73:32 the ID column 62614.
+73:35 Over here you have show ID which came from the ratings table 62614.
+73:40 So we've taken two tables and really joined them together,
+73:44 but we're only seeing a subset because I limited it to 10 such rows.
+73:48 Now of course most of this data doesn't seem very interesting if my whole
+73:50 goal is just to tell me what the ratings are for these shows.
+73:55 Well,
+73:55 let's go ahead and in code achieve this sort of result.
+73:58 Let's literally join these tables together.
+73:60 Let's get rid of the redundant.
+74:01 See altogether and then really let's whittle it down
+74:03 to just a title column and a rating column.
+74:05 So how do we do that?
+74:07 Well,
+74:07 in code I'm going to go ahead and select more specifically the title
+74:10 of every show and the rating of every show from the show's table,
+74:14 but I'm going to join it with the ratings table on shows.
+74:19 ID equaling ratings.show ID and as before,
+74:23 I'm going to limit it to where rating is greater than or equal to 6.0.
+74:28 And 10 such results.
+74:29 Enter and now I have a nice simple temporary table that in one column has the
+74:34 titles of these shows and in the right hand side has the ratings of the shows,
+74:38 even though those two data sets were completely separate in two
+74:42 separate tables.
+74:43 Indeed,
+74:44 if we think back to where this data came from,
+74:46 what we've been focusing on is the show's table,
+74:49 and we've joined it with the ratings table.
+74:51 Here's the primary key for shows.
+74:52 Here's the foreign key for ratings,
+74:54 and by convention notice
+74:56 that we've adopted a certain.
+74:58 Uh,
+74:58 a certain approach.
+74:59 Anything that's called ID here implies that it's a primary key.
+75:04 Anything that's something underscore ID implies that it's a foreign key,
+75:08 and the convention we adopted,
+75:09 which is actually quite common,
+75:11 is if the table is called shows plural,
+75:13 we call the foreign key show singularco ID.
+75:17 Different companies,
+75:18 different communities will have different practices,
+75:20 but we've been consistent across all of these
+75:21 tables with our underscore and lower case conventions.
+75:26 Yeah.
+75:27 Is all generate and relate to each other.
+75:30 Really good question.
+75:31 How do all these IDs generate and relate to each other properly?
+75:34 Well,
+75:34 in our case,
+75:35 I have no idea.
+75:36 The Internet Movie Database people came up with these unique identifiers somehow,
+75:40 and we simply incorporating them into our data set.
+75:43 In practice,
+75:43 what they probably did and what you will do,
+75:45 for instance,
+75:46 in future problem sets when generating data is you
+75:49 just assign an arbitrary integer starting at 1,
+75:51 then 2,
+75:52 then 3,
+75:52 then 4,
+75:53 then 5,
+75:54 and you just let it auto increment all the way up and
+75:56 you let the database ensure that you never have duplicate values,
+75:59 yeah.
+75:60 Just to clarify for the dot dot dot and er symbols,
+76:03 that's only to like make it look better,
+76:05 right?
+76:05 Like there's no like.
+76:09 Correct.
+76:09 The angled bracket that you keep seeing is just the continuation prompt,
+76:14 which means I have prematurely hit enter
+76:16 deliberately because I want to move everything
+76:18 onto the next line so it doesn't wrap ugly on to multiple lines.
+76:22 It is not SQL syntax.
+76:24 It's specific to SQL Light 3,
+76:25 and it's just a continuation of the thought.
+76:27 That's all.
+76:28 Good,
+76:28 good observation.
+76:30 Yeah.
+76:31 Um,
+76:31 when you limit it to 10,
+76:33 is it showing
+76:34 how does it
+76:39 earliest ones.
+76:42 Good question.
+76:42 When you limit something to 10,
+76:43 for instance,
+76:44 which ones do you get,
+76:44 you just get literally the 1st 10 rows from the table.
+76:48 And so it will typically be ordered if you don't use the order by uh keywords,
+76:53 uh,
+76:53 in the same order from which it came from those tables.
+76:56 And so you're just seeing arbitrarily the 1st 10 that match that predicate,
+76:60 which is rating greater than or equal to 6.
+77:03 We have not ordered it by rating,
+77:04 so I'm not getting like the 10 shows necessarily.
+77:07 I'm just getting the 1st 10 shows that are greater than 6,
+77:09 and the point for that is just I want it to fit on the screen
+77:12 rather than see hundreds of thousands of answers.
+77:15 OK,
+77:15 so you might recall now that there were certainly other tables besides these.
+77:19 So let's see in the broader scheme,
+77:22 not just shows and ratings,
+77:23 but let's focus on genres,
+77:24 if only because genres is interesting because it's no longer a 1 to 1 relationship
+77:28 because of course why would a show have multiple
+77:30 ratings that sort of has its own rating,
+77:32 but a show could certainly belong to multiple genres.
+77:34 You could imagine a show being a.
+77:35 and a drama or a musical and a comedy or any other number of combinations of one or more
+77:41 genres and so the way we've chosen to implement that
+77:44 here too is with a separate table called genres,
+77:47 which is not perfect.
+77:48 There's going to be some redundancies here that we have not yet eliminated,
+77:51 but it does indicate that we can go ahead and have multiple such values.
+77:57 Associated with
+77:58 each and every show.
+77:60 So how do we get there?
+78:01 Let's focus just on this.
+78:02 Let's go back in just a moment to VS code and
+78:04 let's take a look at the schema for now genres.
+78:07 In genres we have the following a table called genres,
+78:10 which has two columns a show ID,
+78:12 which is an integer that cannot be null,
+78:14 and a genre which is text,
+78:15 which is also not be null.
+78:17 And now for the first time,
+78:18 let's actually use some of the vernacular we've introduced.
+78:21 Here we have an example explicitly in SQL that specifies when creating this table
+78:25 that it shall.
+78:26 The show ID column shall be a foreign key
+78:30 that references the show's tables ID column,
+78:33 and admittedly I think the syntax for creating tables is a bit of a mouthful.
+78:37 Even I often have to read to look it up to remember the order of everything,
+78:41 but
+78:41 here we have the columns listed first and then these key constraints,
+78:46 foreign key referencing this primary key over here.
+78:49 And in fact,
+78:50 let's rewind to look at the show's table now to see
+78:52 from which from whence we came.
+78:54 So if I do dot schema.
+78:56 Of
+78:57 shows,
+78:58 which we've done before but waved our hand at it then,
+79:01 we'll indeed see that shows has a primary key called ID,
+79:04 which is an integer.
+79:05 How do I know that?
+79:06 Because the very last thing in the parenthesis says that
+79:08 the ID column in this table is a primary key.
+79:11 Then we see that the title is text can't be null.
+79:14 The year is numeric,
+79:15 which again I described as sort of a catch all
+79:17 for other real world numeric types that aren't purely integers or
+79:21 real numbers per se.
+79:23 Episodes is an integer.
+79:24 Both of those are.
+79:25 Apparently can be null because maybe IMDB just
+79:27 doesn't have that data for some older shows,
+79:30 but primary key is indeed specified here.
+79:32 And just for thoroughness,
+79:33 let me distinguish now genres from ratings.
+79:36 If I do do schema ratings again,
+79:38 which we waved our hand at earlier,
+79:40 very similar in spirit to genres in that there's
+79:43 an ID column that somehow references the show's table,
+79:47 and then some other column here genre.
+79:49 In this case we had ratings and votes which were reels and integers respectively.
+79:53 But notice this one additional constraint here.
+79:56 I deliberately specified that show ID in the ratings table
+80:01 must be unique.
+80:02 That is to say,
+80:02 you cannot have the same show ID more than once in the ratings table.
+80:06 Why?
+80:06 Because I indeed wanted a 1 to 1 relationship,
+80:09 and it would not be 1 to 1.
+80:11 If there were multiple show IDs that correspond to one ID
+80:15 in the show's table itself,
+80:18 but genres we're going to allow that it can be
+80:21 duplicates and so we don't have mention of unique there.
+80:25 All right,
+80:25 so where does this get us?
+80:26 Well,
+80:26 let me go back into
+80:28 my terminal here after clearing all of that,
+80:31 and let's go ahead and just see the data to wrap our mind around it a little more.
+80:35 Uh,
+80:35 real.
+80:35 So select star from genres,
+80:38 limit 10 just to see the the 1st 10.
+80:40 All right,
+80:41 so it looks like there's some comedies,
+80:42 avengers,
+80:43 comedies,
+80:43 family action,
+80:44 sci-fi,
+80:44 and so forth.
+80:45 Well,
+80:45 let's go ahead and look up just one show's information.
+80:49 In fact,
+80:49 I saw this number this ID before.
+80:51 How about let's just look up this show?
+80:53 What is this adventure show?
+80:55 63881.
+80:56 So select star from shows where ID equals.
+80:60 63881 semicolon.
+81:02 OK,
+81:02 so this is the show called Cat Weasel from 1970,
+81:05 which had 26 episodes in total,
+81:07 and that was indeed its unique identifier.
+81:09 So that's all fine and good
+81:11 if I want to see something about that specific show.
+81:13 But as before,
+81:14 how do I associate Cat Weasel in this case with all of its genres?
+81:18 Well,
+81:18 instead of it being a 1 to 1 relationship necessarily,
+81:20 maybe Cat Weasel is not just an adventure,
+81:23 maybe it's also a comedy and a family.
+81:25 Show and indeed if I go back to the results just now,
+81:27 you'll see that 68111 indeed lines up with adventure,
+81:31 comedy,
+81:32 and family and then the ID changes to be about some other show.
+81:35 So how do I select these three answers to the question What genre is cat weasel?
+81:41 Well,
+81:41 for this we need to talk about one to many relationships and how we can get those back.
+81:45 Well,
+81:45 let's go ahead and do this now in my terminal.
+81:48 Let me go ahead and say,
+81:50 Uh,
+81:51 the following select genre from the genres table
+81:56 where the show ID equals just that 63881,
+81:60 which I'm now starting to memorize adventure,
+82:02 comedy,
+82:02 and family.
+82:03 So that's the answer to the question,
+82:04 but this certainly isn't the best way to do this where you have
+82:07 to like look up the unique ID for the show you care about,
+82:10 then copy paste it or.
+82:12 and type it out into this query just to get the genres.
+82:14 It would be nice to just ask all of this in one breath.
+82:17 Well,
+82:17 we can do this even though it's a bit more verbose.
+82:20 I'm going to instead this time say select genre from genres
+82:23 where the show ID I care about equals,
+82:26 and now I'm just going to hit enter so
+82:28 as to move this nested query inside of parentheses,
+82:32 and I'm going to.
+82:33 Well,
+82:33 I don't know off the top of my head what the unique ID is for cat weasel,
+82:37 but I can ask the database select the ID from
+82:40 the show's table where the title of the show equals
+82:44 cat weasel,
+82:45 and this now obviates the need for me to memorize or copy paste that unique ID.
+82:49 I'll hit enter and close my parenthesis.
+82:51 Uh,
+82:51 I'm gonna go ahead then and say.
+82:54 Uh,
+82:54 semicolon,
+82:55 enter,
+82:56 and now I get back the exact same answers but without having to know
+82:60 or care about these numeric values and that's kind of the point here,
+83:03 even though the database itself,
+83:04 the actual IMDB website,
+83:06 needs to use these unique identifiers to store everything in the database we.
+83:11 Humans generally speaking should not know or care what these identifiers are.
+83:15 They're just meant to implement this notion of relationships,
+83:18 these cross references,
+83:19 and so here we see an example where you can ask the question you care about
+83:23 without worrying about any of the underlying numbers
+83:25 or even seeing them as a result.
+83:28 All right,
+83:29 well,
+83:29 what's really,
+83:30 how else might we go about doing this?
+83:33 Well,
+83:33 let me propose that we join these two tables
+83:35 and ask the question in a slightly different way.
+83:37 So here's an excerpt from the show's table.
+83:39 Here's an excerpt from the genre's table,
+83:41 and clearly we could do something like we did before for ratings where we could line
+83:44 these two up and kind of join them together just for the sake of discussion,
+83:49 let me flip these columns around though that has no technical significance,
+83:51 and now we can clearly see 63881.
+83:54 There and here.
+83:55 The difference though,
+83:56 because now this is a one to many relationship,
+83:58 is that it's not quite as simple as just joining the rows together.
+84:02 I need to kind of join it here and here and here,
+84:05 and the database can do this for you,
+84:07 albeit at some cost in redundancy.
+84:09 So what I'm going to observe is that these IDs
+84:11 are all the same primary key in this context,
+84:15 foreign key in this context.
+84:16 Well,
+84:17 I'm going to
+84:18 start to join them together here.
+84:19 But it's not possible to return
+84:22 a temporary table that's just outright missing data.
+84:25 You have to get the same number of rows and columns everywhere in a grid.
+84:28 So what the database is going to do if I do join these two tables
+84:31 together and they are participating in a one to many relationship with each other,
+84:35 it's going to duplicate the data that's necessary to
+84:38 sort of make every row look the same.
+84:40 Downside is it might indeed be taking up some additional space
+84:42 unless the database is smart and somehow using pointers or something.
+84:45 That underneath the hood to avoid the redundancy,
+84:48 but for my purposes this is actually quite nice because if
+84:51 I iterate over these rows as I could in Python,
+84:54 as we'll eventually see,
+84:55 it's just nice to have all the data you care about
+84:57 in each and every row even though it's clearly redundant,
+85:01 but the data is not being stored redundantly in the data,
+85:04 it's just temporarily being presented to me
+85:07 with this here redundancy.
+85:09 So what do I really want to have happen?
+85:10 Well,
+85:11 I really care about actually joining these two tables together and
+85:15 ultimately just getting back the title and the genre respectively,
+85:18 so let me go ahead and my VS code here
+85:21 and do select title.
+85:23 And genre
+85:25 from the show's table,
+85:26 but let's join it this time on the genres table on shows.
+85:30 ID equaling genres.ho ID.
+85:33 So that's quite the same as with ratings
+85:35 where
+85:36 uh the ID equals just for time's sake,
+85:39 63881,
+85:40 which I know is cat weasel,
+85:42 but I could certainly use a nested query if I wanted to do this as before.
+85:46 Enter.
+85:47 And I get back cat weasel's 3 genres,
+85:50 and if I were to loop over this data
+85:52 in some kind of like Python code,
+85:53 I would have access to the title and genre with each iteration,
+85:57 which I claim is.
+85:58 Useful,
+85:59 but if I don't care about that and I just really want to select the genres,
+86:02 I can do this with joins too.
+86:04 Let me just select the genre from shows joining it on genres on shows.
+86:10 ID equaling genres.ho ID
+86:14 where the ID is cat weasel 63881.
+86:18 And now I get back just that answer.
+86:20 So in short,
+86:20 what have we just seen?
+86:22 One,
+86:22 you can join two tables together and whittle down the
+86:25 temporary table to just the data you care about.
+86:27 Or if you prefer,
+86:29 and if I scroll back up in my history here,
+86:31 you could take a fundamentally different approach but still get the same answer
+86:35 of simply using a nested query.
+86:37 I would say as you learn SQL for the first time,
+86:39 I think it's quite often easier to just do multiple.
+86:43 Nested queries because you sort of work your way
+86:46 from the inside out taking sort of baby steps to the problem.
+86:49 If the problem in question is give me all of the genres for a specific TV show.
+86:53 Well,
+86:54 first I need to know because I know how the data is laid out in the database.
+86:58 I need to know the unique ID of the show I care about.
+87:01 fine,
+87:01 that's pretty straightforward and hence this inner query.
+87:04 Once you have that you can parenthesize it and on the outside now you can select.
+87:07 The question to which you really want the answer,
+87:10 which is what is the genre that lines up with
+87:12 that show ID one or more times.
+87:15 So in short,
+87:16 nested queries probably easier and certainly when learning for the first time,
+87:20 but quite powerful are these joined queries
+87:23 where this achieves the exact same result,
+87:25 especially if I were to generalize away the 63881 and do a nested query here.
+87:30 Sometimes you want joins,
+87:31 sometimes nested queries suffice.
+87:35 What
+87:37 Oh my goodness,
+87:38 how does SQL do all of these searches?
+87:39 What's its time complexity?
+87:41 We'll talk about that to the end of today.
+87:43 In the most naive implementation,
+87:44 SQL is essentially just doing linear search from the top of the table
+87:48 all the way to the bottom.
+87:50 However,
+87:50 we as the programmers are going to have the ability
+87:53 to optimize those queries so that the database can actually
+87:56 do something closer to binary search and in general we'll
+87:59 be able to achieve much better performance as a result.
+88:02 A really good question.
+88:03 All right,
+88:03 let's go back to the big.
+88:05 Uh,
+88:05 flow chart of this data set we've looked now at shows and ratings.
+88:09 We've looked at shows and genres.
+88:11 Let's now focus on the juiciest part,
+88:12 like the part that associates shows with people,
+88:15 that is who stars in what,
+88:17 thinking back now to what I was mocking up in the Google sheet at the very start,
+88:20 whereby I wanted to somehow be able to associate the Office with
+88:23 Steve Carell and John Krasinski and Jenna Fischer and so forth,
+88:26 the right way.
+88:27 And the right way I claim is going to be like this.
+88:29 Here's my people table,
+88:31 which has a primary key of ID and then the
+88:33 name of each person and their birth year if known.
+88:35 Then we have the show's table,
+88:37 which we keep talking about,
+88:38 which again has a primary key,
+88:39 a title and year and episodes thereof.
+88:42 And then the stars table is somewhat new now because
+88:45 now when it comes to people starring in TV shows,
+88:47 we have a third and final type of relationship.
+88:50 A many to many relationship.
+88:52 Why?
+88:52 Because it's certainly the case that one person can be in multiple shows,
+88:56 and it's certainly the case that some shows have multiple people,
+88:60 hence many to many.
+89:01 So this is the 3rd and final relationship where just to recap,
+89:05 ratings was 1 to 1,
+89:06 genres was one to many,
+89:08 and now stars
+89:10 is going to be many to many.
+89:12 All right,
+89:12 let's dive in.
+89:13 So these queries will be a bit more
+89:16 verbose,
+89:17 but again they're gonna follow this principle of sort of
+89:19 taking baby steps to the answer we care about.
+89:21 Let me go back into VS code here
+89:23 and suppose I want to find out
+89:25 everything about the office that we know.
+89:27 So select star from shows where title equals quote unquote the office semicolon.
+89:33 Well,
+89:33 that's interesting.
+89:34 There's a whole bunch of offices.
+89:35 There was the UK versions.
+89:36 A few other variants,
+89:37 but the one we're probably talking about with these stars
+89:40 is the one that started in 2005 with 188 episodes.
+89:44 That's the US version,
+89:45 in fact.
+89:45 So let me be a little more precise.
+89:47 Let me select everything I know from the stars from the
+89:49 show's table where the title equals office and year equals 2005,
+89:53 so we don't confuse our answers with the other versions of The Office.
+89:57 Now how do I go about selecting all of the people who starred in that.
+90:01 version of the office.
+90:03 Well,
+90:03 I already have an answer to the question of what is the ID of
+90:06 that version of the office because it's right there in front of me.
+90:09 And in fact,
+90:09 I can narrow my query more precisely.
+90:12 Let's just select the ID
+90:14 from the show's table where the title is The Office and the year is 2005 386676.
+90:20 Now I could lazily just copy paste that or memorize it,
+90:23 but we're going to do this query more dynamically.
+90:25 I want to next though figure out who is in.
+90:29 That show.
+90:30 So if I have a show ID,
+90:32 I want to figure out who's in it,
+90:34 but how do I get to the people and the names of those people?
+90:38 I have to logically go through this cross referencing of the star's table.
+90:42 So here's where this query is going to be a bit meatier than the
+90:45 past ones and that we need to do a bit more work than before.
+90:48 All right,
+90:48 well,
+90:48 what's the work I need to do?
+90:50 Let me go ahead now.
+90:52 And do the following select
+90:54 all of the person IDs that are associated with this
+90:59 show ID.
+90:59 So how do I do that?
+91:00 Select person ID from the stars table
+91:04 where the show ID
+91:06 equals,
+91:07 and I could lazily copy paste this,
+91:09 but let's avoid that,
+91:11 where the show ID equals,
+91:13 let me now in parentheses do this,
+91:15 select ID from shows where title equals quote unquote the office
+91:21 and.
+91:21 And year equals 2005
+91:24 and then close my parenthesis semicolon.
+91:26 So what am I doing?
+91:27 I'm taking a second baby step,
+91:28 if you will.
+91:29 The innermost query inside the parentheses is just again dynamically figuring
+91:33 out the unique ID of the office I care about.
+91:36 The outer query is now figuring out all of the person
+91:39 IDs associated with that show as per the stars table,
+91:43 and the stars table has only two columns
+91:45 show ID
+91:46 and person ID.
+91:47 That's how the linkage is done just with those integers.
+91:50 Enter.
+91:51 I now have a column of person IDs that are starring in that version of The Office,
+91:57 so how do I take this one final step if I really
+91:59 want to care about their names and not their random person IDs?
+92:03 Well,
+92:03 I could go ahead and select the name
+92:05 from the people.
+92:06 table
+92:07 where that person's ID
+92:10 is in the following set.
+92:12 So when I'm dealing with a single value,
+92:14 I just use equals for equality,
+92:15 but when I'm dealing with a whole result set,
+92:17 a whole column of answers,
+92:19 I use the preposition in
+92:21 in SQL instead.
+92:22 So where the person's ID is in the following data set.
+92:27 Well,
+92:27 let's do the same queries as before.
+92:28 Select all the person IDs from the stars table where the show ID I care about
+92:35 equals,
+92:35 because there's only one show I care about.
+92:37 I'm going to further parenthesize this
+92:39 select ID from shows where title equals quote
+92:43 unquote the Office and year equals 2005.
+92:47 Uh,
+92:48 I'll close my parenthesis.
+92:50 Enter.
+92:50 I'll close my parenthesis semicolon,
+92:52 and now from the outside in I've taken three baby steps.
+92:55 The innermost one just gets me the show ID.
+92:58 The second one in the middle gets me all of the related person IDs,
+93:01 and the last one is really the final flourish.
+93:03 Get me all of the names of these people based on those IDs.
+93:07 Enter
+93:08 and now we see all of the stars in this
+93:11 show beyond even the subset that we've been playing with visually
+93:15 on the screen.
+93:17 OK,
+93:17 that's a lot.
+93:18 Let me pause here and see if there's any
+93:21 questions.
+93:21 Yeah.
+93:25 This outermost query is what gives me the names,
+93:28 but that query needs to know the ID of the person who whose name you want.
+93:33 So the middle query actually gets all of those person IDs,
+93:37 but to get those person IDs,
+93:38 I need to know the show ID.
+93:39 So the innermost query,
+93:41 this one,
+93:42 gets me the show ID of the office itself.
+93:47 All right,
+93:48 so at the risk of overwhelming,
+93:50 here are other ways you can solve the same problem,
+93:52 but I do claim that the nested selects
+93:55 is probably conceptually and pragmatically the easiest way.
+93:59 But let's also solve this problem by doing a few joins just so you've seen it.
+94:02 Actually,
+94:03 before we do a joint,
+94:04 let's let's flip the question around first.
+94:06 How about all of the shows that Steve Carell has starred in besides The Office?
+94:09 So let me select everything I know from the people table where the name of the person.
+94:13 Equals quote unquote
+94:15 Steve Carell semicolon.
+94:17 All right,
+94:17 there seems to be only one Steve Carell in IMDB born in 1962.
+94:21 That's all nice and good.
+94:22 What I really care about is his ID,
+94:23 so I'm going to
+94:25 narrow this down to selecting just his ID.
+94:28 Now I could memorize or copy paste 136797,
+94:30 but
+94:31 don't need to do that.
+94:32 Let's just use this as part of a nested query.
+94:34 Let's now select all of the show IDs from the stars table that are somehow related.
+94:40 Need to Steve Carell's person ID.
+94:43 So where person ID
+94:45 equals,
+94:46 and I could copy paste this,
+94:48 but that's generally frowned upon.
+94:50 So let's not do that.
+94:50 Let's just set it equal to a nested query where I do the same thing as before.
+94:54 Select ID from people where name equals
+94:58 Steve Carell,
+94:60 then close my parenthesis semicolon.
+95:02 All right,
+95:02 he's been in a lot of TV shows,
+95:04 but this is not useful because I have no idea what all of these integers are.
+95:07 So the final flourish,
+95:08 select the title
+95:10 from the show's table where the ID of the shows I care about is somehow in
+95:16 this parenthetical list.
+95:17 Well,
+95:17 what's that parenthetical list?
+95:18 Well,
+95:19 select the show ID
+95:20 from stars where the person ID equals Steve Carell's.
+95:24 What is his ID?
+95:25 Well,
+95:26 I didn't memorize it,
+95:27 so I'm gonna select ID from people where
+95:30 the name of the person I care about is Steve Carell.
+95:34 I quote unquote close these this parenthesis,
+95:37 close this parenthesis,
+95:37 semicolon,
+95:38 enter,
+95:39 and now I see all of Steve Carell's shows.
+95:41 And even though we're doing this in a black and white command line environment,
+95:45 think about what the actual IMDB is doing with both of these queries.
+95:48 If you go to IMDb.com and search for Steve Carell,
+95:50 even though there's going to be a lot of colors and pretty pictures and whatnot,
+95:53 you'll probably get in some form a list of all of Steve Carell's shows.
+95:57 Or if you search for the Office,
+95:58 you'll get a list in some.
+95:60 Of all of the stars they're in,
+96:02 I could claim then that if
+96:04 IMDb.com is using SQL,
+96:05 which it very likely is,
+96:07 but not necessarily,
+96:08 they are executing queries just like we did.
+96:11 And when you type into the search box something like The Office or Steve Carell,
+96:16 they're essentially just
+96:17 copy pasting your user input into a prefabbed SQL query that they wrote in advance
+96:23 so as to get you the answers that you actually care about.
+96:26 So this is how a lot of today's websites and mobile apps are actually working.
+96:31 The programmer comes up with sort of the template for the queries you might ask,
+96:35 and then you supply the actual data
+96:37 you're searching for.
+96:39 All right,
+96:39 how about now,
+96:40 as promised,
+96:40 a couple of other ways to implement these many to many relationships,
+96:45 uh,
+96:46 based queries,
+96:47 but by using joints.
+96:49 If I know I need to involve the show's table,
+96:51 the people table,
+96:52 and the stars table,
+96:53 I can actually do this all in.
+96:54 One breath without any nested queries.
+96:56 Select for me the title from the show's table,
+97:00 but let's join that on the stars table on shows.
+97:05 ID equaling stars.sh show ID.
+97:10 Uh,
+97:12 But let's additionally join the show's table on the following.
+97:16 Let's join it on people on stars.person ID equaling people.
+97:21 ID.
+97:22 In other words,
+97:23 if you know conceptually that you've got these 3 tables,
+97:25 you want to somehow combine them without using nested selects,
+97:29 just figure out how to line them all up.
+97:31 So again,
+97:31 I'm selecting from the show's table,
+97:33 but I'm joining it with the stars table.
+97:35 By lining up the shows,
+97:38 tables,
+97:38 primary key with the stars tables foreign key,
+97:41 and
+97:42 I'm lining it up with the people table by lining up
+97:45 the stars tables foreign key with the people table's primary key.
+97:50 I'm just kind of logically connecting all of the things I know to be related
+97:54 and lastly,
+97:55 let's just say where the name I care about equals quote unquote Steve
+97:60 Carell
+98:01 semicolon.
+98:02 It's a little slower for now and this speaks to the question that was asked earlier,
+98:05 how is the database doing this?
+98:06 Well,
+98:06 slowly,
+98:07 apparently by default unless we optimize it,
+98:09 I got back essentially the same results although
+98:12 there is some duplication as a result,
+98:14 uh,
+98:15 which alludes to the.
+98:16 Um,
+98:17 filling in blank of blanks that I alluded to earlier.
+98:20 But let me show you one other technique too.
+98:22 But again,
+98:22 I would encourage you certainly for problems at 7 to focus on
+98:25 nested queries when you can because they're a little conceptually simpler.
+98:28 If I care about the titles of those shows,
+98:30 I could select title from the show's table and the stars
+98:33 table and the people table all at once in one breath.
+98:37 But I want to do so where the show's
+98:40 table's primary key equals the stars tables foreign key.
+98:45 Uh,
+98:46 and the people table's primary key equals the stars tables
+98:51 foreign key,
+98:52 and the name I care about is Steve Carell.
+98:55 In other words,
+98:56 this is just a third way to express the exact same idea
+98:59 by doing implicit.
+99:00 Joins by selecting data clearly from all three tables as per this comma
+99:04 separated list of table names but telling the database with your predicate,
+99:08 the where clause,
+99:09 how you want to line all of those tables up.
+99:12 If I hit enter here,
+99:13 cross my fingers,
+99:14 I should get back
+99:16 the same
+99:17 results as well,
+99:18 albeit with duplication,
+99:20 which I didn't see in the nested queries.
+99:22 OK,
+99:22 that too was a mouthful.
+99:23 Let me pause here
+99:25 for questions.
+99:27 Yeah.
+99:29 do that
+99:30 No the internal structure.
+99:35 Correct.
+99:35 In order to do this,
+99:36 you,
+99:36 as the programmer must know the internal structure of the database,
+99:39 which is quite often the case whether you created the database yourself or
+99:42 you work with a colleague who designed the schema for the database.
+99:45 That said,
+99:46 I think your question's hinting at sort of the
+99:48 challenge like I really need to know the underlying implementation
+99:51 details when really all I care about is the
+99:53 answers to my questions in code quite oftenly nowadays,
+99:57 um,
+99:57 there are object relations.
+99:59 Mappings whereby you can use ORMs for sure,
+100:02 whereby you can use libraries
+100:04 that they understand the underlying database schema
+100:07 you as the programmer do not need
+100:09 to because it figures out how to do all of the joints for you.
+100:12 So for CS 50 we're introducing everyone to the
+100:15 bottom up understanding of how these joints work,
+100:17 but that too can be easily automated
+100:19 because of those schemas.
+100:20 Yeah.
+100:24 That is
+100:26 Good question.
+100:27 Is indentation in SQL important?
+100:29 Technically no,
+100:30 but like with any of the languages we've talked about thus far,
+100:32 it is good for the humans and certainly good for the students in a context like this.
+100:37 Python of the languages we looked at is the most rigorous,
+100:39 whereby indentation very much matters and the consistency thereof SQL,
+100:43 I'm just trying to pretty print things to make it easy to grok visually.
+100:47 All right,
+100:48 so those last two queries were arguably kind of slow,
+100:50 whereas with my nested queries,
+100:51 I actually got lucky and just boom,
+100:53 I got the answer quite quickly.
+100:54 Those joins seemed to be a step backwards and that it was taking
+100:57 more time to get back the same data that I actually cared about,
+101:00 but that's something we can actually chip away at.
+101:02 It turns out that one of the other values of
+101:05 a relational database vis a vis something like a spreadsheet is that you
+101:09 can actually tell the database in advance how to optimize for certain queries.
+101:13 This is not the case for spreadsheets if you.
+101:14 Have a lot of data in Google spreadsheets or Microsoft Excel or Apple Numbers,
+101:19 tens of thousands of rows,
+101:20 hundreds of thousands of rows,
+101:21 millions of rows.
+101:22 Your computer's going to slow to a crawl,
+101:24 and at some point those software packages are just going to say sorry file is too big,
+101:28 and they're certainly not going to be terribly fast at searching the data.
+101:31 But with a SQL database and relational databases more generally,
+101:34 you are as much the architect of it as you are the user of it in this case.
+101:39 And so you can tell the database in advance if you want to.
+101:43 Optimize for certain queries like select statements.
+101:46 So for instance,
+101:46 let me go back to VS code here and just for the sake of discussion,
+101:49 let's time how long it takes to find all of the shows whose name is the Office.
+101:55 I'm gonna use a SQL like command called Timer and I'm gonna set it to on,
+101:58 and this is just now going to tell me for every command I run how long it took.
+102:03 I'm gonna now select everything from the show's table where
+102:06 the title of the show equals quote unquote the office.
+102:09 Semicolon Enter
+102:11 and that query took,
+102:12 let's say in real terms 0.042 seconds.
+102:17 That's crazy fast.
+102:18 Like it's less than a second.
+102:19 I mean it's truly a split second,
+102:20 so no big deal,
+102:21 but it's a fairly simple query.
+102:23 But I bet we could optimize even this.
+102:25 Now why would you want to optimize even queries that are already pretty fast?
+102:29 Well,
+102:29 if they're very commonly being executed,
+102:31 and I dare say someone going to IMDb.com and searching for The Office or any TV show,
+102:35 like that's the common case.
+102:36 People are looking for TV.
+102:37 Shows,
+102:37 movies,
+102:38 actors,
+102:38 and so forth,
+102:39 it'd be nice to use as little amount of time to answer those questions as possible.
+102:42 Why?
+102:43 One,
+102:43 it makes for happier customers and users
+102:45 because you're getting them the answer faster.
+102:47 Two,
+102:47 it saves you money
+102:49 because presumably if you've spent $1000 for a server
+102:52 and that server has a certain amount of RAM,
+102:55 a certain speed CPU or brain,
+102:57 it can only do so many searches per unit of time per second,
+103:00 per minute or the like.
+103:01 So wouldn't it be nice if all of those searches is faster.
+103:04 Using less time so you can handle not 1000 users at once
+103:07 but 2000 users or 5000 users all with the same hardware.
+103:11 So there's certainly upsides there.
+103:13 Well,
+103:13 how can I go about optimizing a query?
+103:16 Well,
+103:16 I can create my own index,
+103:17 another use of the create keyword in SQL,
+103:19 where I can tell the database
+103:21 to optimize for searches on
+103:24 a specific table and specific columns therein.
+103:27 I say create index,
+103:28 and then I come up with a name for the index,
+103:30 whatever I want.
+103:32 the name of the table that I want to index,
+103:34 and then in parentheses the columns that I want to optimize for.
+103:38 So what does this mean in real terms?
+103:39 Well,
+103:39 let's go back to BS code here and let me create an index called,
+103:43 for instance,
+103:43 title index,
+103:44 though the name doesn't matter,
+103:45 on the shows table using the title column.
+103:49 In other words,
+103:50 tell the database,
+103:51 please expedite searches on the shows tables title column.
+103:57 After all,
+103:57 that's what I just searched on.
+103:59 Enter.
+103:60 Now that took a moment,
+104:01 almost half a second,
+104:02 but that's a tab that's an index that only has to be created once.
+104:05 If I do a lot of updates and deletes,
+104:06 it might actually take a little bit of time over over
+104:09 the course of using the database to maintain that index,
+104:12 but for now that's a one-time operation creating the index.
+104:15 But watch what happens now.
+104:17 If I scroll up in my history and go to the exact same query as before,
+104:21 which previously took 0.042 seconds,
+104:25 which,
+104:25 yes,
+104:25 is fast but not nearly as fast as the new version.
+104:29 Which is 0.001 seconds instead.
+104:33 orders of magnitude faster so I can handle 42
+104:37 times as many users on the same database,
+104:40 so to speak,
+104:41 than I could have previously just by building this index.
+104:44 So what actually is an index?
+104:46 Well,
+104:46 we come full circle to discussions in like week 5 of the class.
+104:50 So an index in a database is very often created using what's called a Bree.
+104:54 This is not a binary tree.
+104:55 B.
+104:56 The tree is its own distinct structure that's very similar in spirit
+104:59 in that it's fairly shallow because most of the nodes have children,
+105:03 but it doesn't necessarily have
+105:04 two children.
+105:05 It might have more children and in fact,
+105:06 the more children the nodes have,
+105:08 the sort of higher up you can pull all of the leaf
+105:10 nodes and the shorter you can make the height of the tree.
+105:13 So this is just a generic representation of a bee tree,
+105:16 but what this implies is that
+105:17 when I am now searching for titles like The Office,
+105:21 the database doesn't have to do the.
+105:22 Fault behavior which is start at the top and
+105:24 use linear search all the way to the bottom.
+105:26 If it has proactively built up an index in memory thanks to my command,
+105:30 it now has a tree-like structure storing those titles
+105:34 that allows it to find in some logarithmic time,
+105:37 whether it's logbase 2 or some other base,
+105:39 the same data
+105:40 much more quickly,
+105:41 and that's how we went from 0042 to 0.001 2nd
+105:47 instead
+105:48 in this case here.
+105:50 Questions then
+105:51 on these here indexes.
+105:56 No.
+105:57 All right,
+105:57 well,
+105:57 let's propose that
+105:59 we can combine some of today's ideas.
+106:01 It turns out
+106:02 that now we're getting to the point in the course
+106:05 where you're not just choosing between this language and another,
+106:07 you're generally using a suite of languages to solve problems.
+106:09 And indeed in the coming weeks of the
+106:11 class when we transition to web-based applications,
+106:13 you're going to use a bit of Python.
+106:15 You're going to use a bit of SQL,
+106:16 you're going to use a bit of JavaScript and two other languages called HTML and CS.
+106:19 You might be using like 5 different languages
+106:22 at a time just to build one application.
+106:24 Why?
+106:24 Because some of them are better for the job than others,
+106:26 and indeed that's the ecosystem in which real world software development is done.
+106:30 Well,
+106:30 to make this bridge,
+106:31 we have a version of the CS 50 library we're
+106:34 called for Python which has functions like Get string,
+106:36 even though it's not that useful because it's just like the input function,
+106:39 but get in and get float,
+106:41 but also in the CS 50 library.
+106:43 For Python,
+106:44 we have a
+106:46 module that specifically makes it easier to use SQL from Python code.
+106:51 After all,
+106:52 wouldn't it be nice if I could get the best of both worlds and implement
+106:55 like an interactive program in Python but that uses SQL to actually get back data?
+106:60 Or I can build a website that allows people to search for
+107:03 TV shows or TV stars and actually get that data from.
+107:06 A database but use Python to generate the web pages themselves.
+107:10 Well,
+107:10 we have some documentation for this library here,
+107:12 but I'm going to go ahead and use it in real time to show you how much
+107:16 more easily you can solve certain problems by using each tool for what it's good at.
+107:21 So let's go back to VS code here.
+107:23 Let me exit out of SQL light and get back to my normal terminal,
+107:26 and let me go ahead and let's say,
+107:29 minimize.
+107:31 My terminal here.
+107:33 Uh,
+107:34 actually,
+107:34 let's go ahead and open up favorites.ie,
+107:37 which is where we left off before,
+107:38 and recall that in the last version of
+107:40 favorites.ie we had simply used a dictionary to
+107:43 go about keeping track of how many of you said Python or C or scratch.
+107:47 And when I last ran this program with Pythonofavos.ie,
+107:50 the answer looked like this.
+107:52 Now notice that it's not sorted alphabetically,
+107:55 otherwise C would be first,
+107:56 and it's also.
+107:57 Sorted numerically,
+107:58 otherwise C would be second.
+108:01 So it would be nice in Python to maybe exercise some control over this,
+108:04 but I stopped short of doing that before because it gets very annoying quickly.
+108:08 And by this I mean the following.
+108:09 Let me go back into VS code here
+108:12 and into favorites.ie.
+108:14 And if I wanted to sort by
+108:16 the counts here,
+108:17 I could do this.
+108:19 I could change my
+108:20 Loop from iterating for favorite in counts to favorite in sorted counts.
+108:24 So this is actually not too bad thus far.
+108:27 I can actually sort dictionaries pretty readily.
+108:29 So now if I run this,
+108:30 and let me make my terminal a little bit taller so we can see both the results,
+108:34 if I run the program now,
+108:35 you'll see that it's sorted alphabetically by key.
+108:39 So apparently when you use the sorted function in Python and pass it a dictionary.
+108:43 Can still iterate over all of the key value pairs in that dictionary,
+108:46 but it's been sorted now by key.
+108:48 So that's nice if that's to be my goal,
+108:50 but maybe that's not really my goal.
+108:52 And here's how alternatively I could sort by value the 190,
+108:56 the 58,
+108:56 and the 24.
+108:57 I can still use the sorted function,
+108:59 but
+108:60 I need to tell Python to use a key,
+109:02 a sorting key of the counts dictionary's gets function,
+109:07 and then if I run it again.
+109:09 I now see it's sorted by value,
+109:11 but darn it,
+109:11 it's now sorted in the opposite order.
+109:13 I see scratch at 24,
+109:14 then 58,
+109:15 then 190.
+109:16 If I want to reverse it,
+109:17 well then I have to go up here and add another
+109:19 named parameter.
+109:20 Reverse equals true.
+109:22 I can run it another time and now I get the result.
+109:25 I.
+109:26 Long story short,
+109:27 this is just very annoying to have to use that amount of code to actually
+109:31 answer relatively simple questions and this is
+109:33 why we did transition for much of today
+109:35 to a declarative language like SQL that just let
+109:37 me select what I care about in that data.
+109:40 So if I again
+109:42 I go back into my database version with SQLite 3 of favorites.
+109:45 DB,
+109:46 I'll maximize my terminal window.
+109:48 What did we do before?
+109:49 Well,
+109:49 we can select uh from the database,
+109:53 uh,
+109:53 select.
+109:54 Uh,
+109:56 let's see,
+109:56 favorite
+109:58 com count star from favorites
+110:01 group by,
+110:03 uh,
+110:04 favorite semicolon,
+110:05 whoops
+110:07 oh
+110:11 it's fine.
+110:13 Oh,
+110:13 sorry.
+110:14 What do we do?
+110:15 We do select language com count star from favorites group by favorite.
+110:20 Oh damn it,
+110:21 what happened?
+110:22 Oh,
+110:22 we deleted it.
+110:24 See this is why you don't use the delete or drop commands.
+110:27 So I'm not going to demonstrate this again,
+110:28 but recall before break that when we last selected this information,
+110:32 we used the group by command to actually group by the language in question,
+110:36 and we got back all the counts,
+110:37 but then we were very easily able to reorder things by actually just using
+110:41 order by and then doing something in
+110:43 ascending order or for instance descending order.
+110:46 Well,
+110:46 now let's actually combine these worlds of Python
+110:49 and SQL together to write first a program
+110:52 that does
+110:53 just that.
+110:54 But to do this,
+110:55 we're going to need to restore that database.
+110:57 So let's go ahead and do this.
+110:58 Let's remove favorites.db,
+110:60 which is just a file in my account.
+111:02 Let's go ahead and run SQLite 3
+111:06 of favorites.db.
+111:07 Create a new version thereof.
+111:10 Let's now go ahead and change my mode as we did earlier in class to CSV.
+111:14 Let's now do import of favorites.csv into a table called favorites,
+111:19 and now let's do do quit.
+111:21 And when I do LS,
+111:22 OK,
+111:23 now it's back,
+111:23 favorites.db in addition to today's other files.
+111:26 Now let me go ahead and run SQLite 3.
+111:29 Of favorites.db and just as a sanity check select star from favorites semicolon,
+111:35 there's all of the data back minus the
+111:37 addition and subtraction that we ourselves made earlier manually
+111:40 and let's go ahead and in SQL go ahead and do select language
+111:46 count star
+111:47 from favorites.
+111:50 And group by
+111:52 language,
+111:53 but let's order by
+111:56 count in descending order,
+111:58 and that's one of the last commands we ran with this
+111:60 file and there's the answer in a single line of code
+112:03 instead of some 17 lines of code plus or minus some white space here.
+112:08 Can we merge now these two ideas?
+112:09 Well,
+112:09 let's see how to do this.
+112:11 Let's go back into favorites.
+112:13 here and make a new and improved version of
+112:15 it that actually uses SQL and no dictionary,
+112:18 no for loop,
+112:19 no try accept or any of this.
+112:20 Instead,
+112:21 let's go ahead and from CS 50's own library,
+112:24 import a SQL function which will give me access to this functionality.
+112:28 Let's create a variable called DB by convention,
+112:30 but I could call it anything I want and set it
+112:32 equal to CS50 SQL function and pass to CS50 SQL function.
+112:37 The path to the database file I want to open.
+112:40 This is a little weird,
+112:40 but the syntax here is SQL Light without the 3,
+112:44 colon slash slash slash
+112:47 favorites.
+112:51 This syntax,
+112:52 otherwise known as URI,
+112:53 is going to allow us to use the SQL light uh protocol in order to open up favorites.db,
+113:01 which is the very file I was just experimenting with manually in my terminal.
+113:05 Here now is how I can execute a SQL query in Python using CS 50's library.
+113:10 Now,
+113:10 as an aside,
+113:11 even though this is indeed meant to be a training wheel,
+113:14 CS 50's library is just easier to use than a lot of the.
+113:17 World libraries that makes this possible.
+113:19 So because we spend so relatively little time on this,
+113:21 we're still using this training wheel for this.
+113:24 Give me a variable called rows because I want to get back all
+113:26 of the rows from this table that contain those languages and db.
+113:32 execute.
+113:33 The only function that's useful in the CS 50 library for SQL is this execute
+113:36 function which allows me to write literally a line of SQL like select language,
+113:42 count,
+113:42 star.
+113:44 Uh,
+113:44 from favorites,
+113:46 group by language,
+113:47 order by count,
+113:49 star.
+113:50 Uh,
+113:51 descending order
+113:52 just to make my life easier,
+113:54 I'm going to add that alias trick that we saw before.
+113:56 So as N to change the count to the variable n,
+113:59 and then here I can just do order by N instead.
+114:02 It's a little long,
+114:03 but notice that now I'm using SQL as a string
+114:07 that I'm passing as an argument to this DB execute
+114:12 function.
+114:12 So at the very end of this I've got to close my quote,
+114:16 close my parenthesis
+114:18 so as to use.
+114:19 One language in effect inside of another.
+114:22 Now assuming I do get back at temporary tables,
+114:24 rows with that line of code on line 5,
+114:26 let's do this for each row in rows,
+114:30 go ahead and do the following create a variable
+114:33 called language and set it equal to row,
+114:35 quote unquote language.
+114:37 Then create another variable called N for instance and set it equal to row,
+114:41 unquote N.
+114:43 and then let's just go ahead and print out language and N respectively.
+114:47 So what does CS 50's library do?
+114:49 It returns by design a list of rows.
+114:54 Each of those rows is a dictionary of key value pairs.
+114:58 So when I do 4 row and rows,
+114:60 this is just iterating over a list of values,
+115:02 and we've done that over the past couple of weeks.
+115:05 Inside of this loop,
+115:06 I'm just creating temporarily two variables,
+115:09 language and N,
+115:10 to show you that.
+115:11 Each row is indeed a dictionary,
+115:12 which means I can index into it using strings like quote unquote language
+115:17 and quote unquote n
+115:18 because
+115:19 those are the columns that I selected using this query up above.
+115:23 Strictly speaking,
+115:24 I don't even need these variables.
+115:25 I can just get rid of that
+115:27 and a little more succinctly just pass in row bracket language
+115:31 and then row bracket N instead.
+115:35 So let me go down to my terminal window here,
+115:37 exit out of SQL light,
+115:39 run Python of favorites.pi in this form,
+115:42 enter,
+115:43 and I get back,
+115:43 it would seem.
+115:47 The same exact answer,
+115:48 190,
+115:49 58 and 24 in this case.
+115:53 Questions now on this co mingling.
+115:56 Of languages
+115:59 All right,
+116:00 how about one final thing.
+116:02 Once we have the ability to like use Python,
+116:03 now we can in fact make things interactive.
+116:05 So for instance,
+116:06 let me close my terminal temporarily.
+116:08 Let me go ahead and now ask for some user input.
+116:10 So after opening the database,
+116:11 let's do this.
+116:12 Let's ask the human using Python's input function,
+116:14 or equivalently CS 50s get string function for their favorite TV.
+116:18 Show and store it in that same variable.
+116:20 Then let's do a SQL query that selects that data rows equals db.
+116:25 execute.
+116:26 Select and let's see how many people selected
+116:29 this favorite problem rather not TV show.
+116:32 How about favorite problem from our favorites data set.
+116:34 So select count star as N from the favorites database
+116:40 where the problem in question equals.
+116:43 Well,
+116:44 now I need to put the user's inputs.
+116:46 I don't know what that is yet because they haven't typed it in yet,
+116:49 so what I'm going to go ahead and do is
+116:51 a placeholder
+116:53 and say favorite,
+116:54 close quote,
+116:55 and make this whole thing an F string.
+116:58 Then I'm going to go down here and I don't need
+116:59 to iterate because ideally I'm just getting back a single answer.
+117:02 How many people chose this problem as their favorite?
+117:05 So I'm going to say.
+117:07 That the row I care about
+117:09 is simply the first row.
+117:11 So rows is a list,
+117:12 so rows 0 is the first and only row in that list,
+117:16 and then let's go ahead and print out row N.
+117:20 Let's see the results here and then
+117:23 see what happens.
+117:25 Let me put some single quotes here
+117:27 and single quotes here.
+117:29 Let me open my terminal.
+117:31 Let me do Python of favorites.ie.
+117:33 And I'll say hello
+117:36 world enter
+117:38 and as before at the start of class,
+117:39 42 of you like that.
+117:41 However,
+117:42 this is not,
+117:43 not,
+117:43 not how you should ever write SQL code in Python.
+117:47 What could go wrong with this code?
+117:51 Nothing went wrong a moment ago,
+117:53 but what could go wrong?
+117:56 Yeah.
+117:57 The user input,
+117:58 how so?
+118:00 Injection
+118:03 True,
+118:03 I don't know what those are yet,
+118:04 but we're about to go there.
+118:06 What even more simplistically could go wrong
+118:08 by plugging in
+118:09 the user's input here?
+118:12 Yeah.
+118:16 Exactly.
+118:17 If I inputted the other problem we played with hello,
+118:19 it's me,
+118:20 where it was IT apostrophe S,
+118:22 that if interpolated right here is clearly going to confuse the
+118:26 single quotes such that who knows what's going to come back.
+118:29 Now in the best case,
+118:31 the code might just not work and I'll get some kind of error on the screen,
+118:34 which is not great for the user because the program's not going to be useful.
+118:37 There's no user friendly error message,
+118:38 but in the worst case,
+118:40 the user could do something incredibly malicious if
+118:44 you are simply blind.
+118:45 Blindly trusting user input and plugging their input
+118:49 into a SQL query that you yourself constructed.
+118:51 Why?
+118:52 What if the user types something crazy like the word delete or drop or update or any of
+118:59 those destructive commands that we saw earlier and somehow
+119:02 tricks your code into executing maybe the select,
+119:05 but then eventually
+119:07 an additional query like a delete.
+119:09 Maybe they type in a semicolon and then delete or
+119:11 a semicolon and then drop or something like that.
+119:14 This is.
+119:14 The biggest threat to taking user input and trusting it in the context of databases,
+119:20 and it's called,
+119:22 as one of your classmates knows already,
+119:24 what's known as a SQL injection attack.
+119:28 A SQL injection attack
+119:30 is the ability for an adversary or an unknowing
+119:33 user to somehow inject code into your database.
+119:37 A SQL injection attack then might look something like this in the real world.
+119:41 Here for instance
+119:42 is like the login screen.
+119:43 To GitHub.com,
+119:45 they do actually use SQL among other languages underneath the hood,
+119:47 I believe,
+119:48 not necessarily for this,
+119:49 but suppose they did.
+119:50 And when logging into GitHub.com,
+119:53 you're prompted for your username or email address,
+119:54 and then of course your password.
+119:56 Well,
+119:56 what if I know a little something about SQL and suppose
+119:59 for the sake of discussion GitHub is using SQL L Lite,
+120:01 which they're not using because it's not meant for massive,
+120:04 large massive data sets like this,
+120:06 but suppose they are,
+120:08 and just to be malicious,
+120:10 I type in my username maillin at harbor.edu.
+120:13 But then I use a single quote and then da da.
+120:16 Well,
+120:16 the single quote is there,
+120:17 me being an adversary in the story,
+120:19 because maybe I can confuse their code by
+120:21 closing their quotes sooner than they intended,
+120:24 and we haven't talked about this yet,
+120:25 but it turns out that in SQL is the comment character.
+120:28 So it's like hash in Python or slash slash C.
+120:32 This in SQL means ignore everything to the right.
+120:35 That alone can be used fairly maliciously as follows.
+120:39 Here,
+120:39 for instance,
+120:40 could be the code that GitHub is using underneath the hood,
+120:43 whereby
+120:44 they might have some Python code,
+120:46 and heck,
+120:46 maybe they're using the CS 50 library
+120:48 that executes this pre-made query.
+120:50 Select star from the user's table where the username equals
+120:54 this question mark and the password equals this question mark,
+120:57 passing in username and password,
+120:59 for instance.
+120:60 Uh,
+121:00 but
+121:01 if they are trusting the username and password I
+121:04 typed in and just plugging it right there,
+121:06 they could be vulnerable to indeed a SQL injection attack.
+121:09 For instance,
+121:10 this code we'll soon see is actually the right way to do it.
+121:12 But suppose they were doing it
+121:14 with F strings like I started to in my version of favorites.ie.
+121:18 Same thing,
+121:18 select start from users where username equals
+121:21 this username and password equals this password,
+121:24 and the little F here means here's a format string.
+121:26 What could go wrong?
+121:27 Well,
+121:27 let me actually.
+121:28 Paste in the mail at harvard.edu single text here.
+121:34 Notice that this single quote and this single quote are meant
+121:36 to surround the username and same thing for the password there.
+121:39 But watch what happens when I type in my data maillin at harvard.edu single quote.
+121:44 So this would seem to finish the thought prematurely,
+121:47 and then it says,
+121:49 and so that just means ignore everything else.
+121:51 And so the effect here is essentially to gray out
+121:54 all of that stuff because it's effectively been commented out.
+121:57 So what GitHub ends up doing accidentally in this case is selecting star
+122:00 from users where username is mailen@harvard.edu irrespective
+122:03 of what his password actually is.
+122:06 And if you assume that down here they've got some conditional logic like,
+122:09 well,
+122:09 if we get back some rows,
+122:11 that means that Malin is in fact a registered user,
+122:14 go ahead and log him in.
+122:15 We don't know what the code looks like,
+122:17 so it's you've just enabled anyone on the internet to log in as
+122:20 me or anyone else just by suffixing their input with a single quote.
+122:25 And and that's the least of our concerns.
+122:28 If we additionally went in there and maybe
+122:30 instead of we put a semicolon and then delete
+122:33 from users or drop users,
+122:35 we could cause massive havoc on their database.
+122:37 This happens all the time,
+122:39 even now in the current year,
+122:41 you can Google around and see examples of companies
+122:43 that have not used proper sanitization of user input,
+122:47 and it's not just the intern,
+122:48 it's like random people on the internet
+122:50 are accessing or destroying their data maliciously.
+122:54 So what is the solution to a problem like this?
+122:57 Well,
+122:57 one,
+122:58 do not use format strings in Python to simply plug in user input.
+123:02 But the more important lesson is
+123:04 never trust users' input.
+123:06 Either they're going to do something accidentally
+123:08 or they're going to do something maliciously,
+123:10 and you do not want that to happen.
+123:11 So the solution then is to use a library,
+123:14 almost always use a library.
+123:15 This is not a wheel you should reinvent yourself,
+123:17 and by library I mean something like this.
+123:20 If you instead.
+123:21 Use a library like CS 50s and you don't just use F strings,
+123:25 you'll see in a moment you use question marks.
+123:27 What will happen is this
+123:28 when the user goes and types in mail in at Harvard.edu single quote that's fine.
+123:33 Let them put weird scary characters like single quotes in their input.
+123:37 The library will take charge of escaping user input,
+123:41 so anything dangerous in their input will be changed from
+123:44 one single quote to two because we saw earlier today that
+123:47 that's how you escape a character,
+123:48 and that means that now what you have is
+123:51 an effect my username is apparently Malin@harvard.edu apostrophe,
+123:56 and that's my username.
+123:58 Well,
+123:58 that's obviously not a real email address.
+123:59 It's not a real username.
+124:00 This is just going to return false.
+124:02 No rows are actually going to come back.
+124:05 And the way to do this now in our favorites example analogously is in VS code here
+124:10 to actually go up into this execute line,
+124:14 don't use an F string,
+124:16 change the value of problem to be a placeholder instead,
+124:20 and then pass into
+124:22 this
+124:23 execute function.
+124:25 One or more arguments that will be substituted in for that
+124:28 question mark and this is not a CS 50 thing,
+124:30 this is a uh industry convention whereby
+124:33 you quite often use literally a question mark
+124:36 and that means that whatever this variable's value is will get plugged.
+124:40 Into that question mark for you,
+124:41 but the single quotes will be added.
+124:43 Any dangerous characters will be escaped for you,
+124:45 and at that point you can trust that the user can type in anything they want.
+124:49 Your code is not going to break.
+124:51 You can see hints of this actually in the real world if you've ever gone to a website.
+124:55 And they tell you like oh you can't like for passwords for instance,
+124:58 like all of us probably intuitively know that you should have pretty long
+125:01 uh hard to guess passwords with letters and numbers and punctuation symbols
+125:06 sometimes websites very stupidly prohibit you
+125:09 from using certain punctuation symbols,
+125:11 which should drive you nuts because there's no computational reason that you have
+125:14 to put the onus on the user to sanitize their own input,
+125:17 but quite likely those websites have kind of learned.
+125:19 Part of this lesson,
+125:20 and they know some characters can be dangerous in
+125:23 sequel like semicolons or single quotes or the like,
+125:26 and they just don't want you to ever type those
+125:28 in even though there are solutions to this problem.
+125:31 Use a library that someone else smarter than you with more
+125:35 history of writing code than you has used that's open source so
+125:38 that many people have seen it and banged on it over the
+125:40 years so that this problem is not something you're vulnerable to.
+125:46 Questions then on what these here SQL injection attacks.
+125:51 Are all about,
+125:54 yeah.
+125:55 also telling them what you're using and so maybe that.
+125:60 Good point.
+126:00 So if by also telling people what characters they shouldn't use,
+126:04 you're leaking information because a smart adversary might know,
+126:07 oh well,
+126:07 if they don't want me using that symbol,
+126:08 they're probably using this language or this technology.
+126:10 Yes,
+126:10 no good comes from telling the world more information than they need to know.
+126:14 So that's another good paranoia to have.
+126:16 How about one other issue before we come full circle to the SQL injection attacks.
+126:20 There's another challenge with relational databases and with SQL uh itself,
+126:24 namely race conditions.
+126:26 This isn't so much a problem when I'm writing a,
+126:28 a little program here on my own computer.
+126:30 Uh,
+126:31 but when you're running SQL code on a database in the real world in the
+126:35 cloud where you have many different servers talking
+126:38 to that database and many different users,
+126:40 uh,
+126:41 talking to those web servers,
+126:42 as is going to be the case at Meta and
+126:43 Google and Microsoft and any number of popular companies nowadays,
+126:47 and even some of CS 50 zone apps uses centralized SQL databases
+126:51 where if multiple people are trying to do the same thing on them at the same time,
+126:54 submit their homework,
+126:55 run Check 50,
+126:56 we too are vulnerable to what are called.
+126:58 Race conditions.
+126:59 So what is a race condition?
+126:60 Well,
+126:60 the way I learned this back in the day when
+127:01 taking a course on databases and operating systems more generally
+127:05 was to think of a scenario like this.
+127:07 Maybe in your dorm you and your roommates have a little dorm fridge
+127:09 and you're both in the habit of really liking to drink milk,
+127:12 as the story was told to us.
+127:13 And so maybe one of you comes home from class one day and you get to your room,
+127:17 look in the fridge,
+127:18 there's no milk in there,
+127:19 and so you decide to walk across the street to CVS or some other store to get milk.
+127:23 Meanwhile,
+127:23 your roommate comes home from there.
+127:25 Class and opens the fridge and it's like,
+127:27 oh,
+127:27 we're out of milk.
+127:28 Let me go to the store too.
+127:29 And for the sake of the story they go to a different store altogether
+127:32 so that you don't run into each other and the problem solves itself.
+127:35 So now both of you are on your way to a store to get milk.
+127:37 Time passes,
+127:38 you both come home,
+127:39 one of you puts a jug of milk in the fridge,
+127:41 the other one gets home and it's like,
+127:42 Oh damn it,
+127:42 like we already got milk.
+127:44 I can't fit this milk in the fridge,
+127:46 or now it's too much milk.
+127:47 We don't really like milk this much.
+127:48 It's gonna go bad.
+127:49 Like a very bad outcome here,
+127:50 having too much milk is the moral of the story.
+127:53 But what's the
+127:55 stupid story.
+127:56 What's the,
+127:58 what's the real takeaway?
+127:59 Why did we find ourselves in a situation where we ended up with too milk,
+128:03 too much milk?
+128:05 You know what the other
+128:07 We didn't know what the other person was doing,
+128:09 and to really geek out on this,
+128:10 we inspected the state of a variable that was
+128:13 in the process of being updated by someone else.
+128:16 And this is a thing in computing as far back as scratch.
+128:19 Recall with scratch,
+128:19 you could have multiple scripts running at the same time
+128:21 for a single sprite because Scratch in effect is multi-threaded.
+128:25 You can have a single sprite doing multiple.
+128:28 Things in parallel by having those multiple scripts.
+128:30 Similarly here,
+128:31 your room is sort of multi-threaded because you have two independent beings who
+128:35 can both go to the store to solve the same problem in parallel.
+128:37 The problem though is that if one is not
+128:39 aware that the other is doing that work already,
+128:41 you might make poor decisions.
+128:43 So in the real world,
+128:43 what should the first roommate have done after
+128:45 inspecting the state of the refrigerator and realizing,
+128:48 oh,
+128:48 we're out of milk.
+128:50 OK,
+128:50 call the other roommate or maybe more simply like put
+128:53 a note on the door or like maybe dramatically lock
+128:56 the refrigerator somehow and in fact that's a term of
+128:58 art in databases is to actually use a database lock
+129:02 so that
+129:03 if you are in the process of updating the value in the database,
+129:05 lock it so that no one else can inspect
+129:08 the value of that database and potentially make a poor
+129:11 decision.
+129:12 So when might this actually happen in the
+129:14 real world rather than the contrived milk example.
+129:16 So there are a lot of social media posts nowadays that are quite popular to this day,
+129:20 as of today,
+129:21 this is still the most popular Instagram post,
+129:23 for instance.
+129:24 And imagine when this was first posted hundreds,
+129:26 thousands,
+129:27 hundreds of thousands of.
+129:28 People might have all been clicking the heart icon essentially at the same time.
+129:32 Now Mehta,
+129:33 the company behind Instagram,
+129:35 presumably has lots and lots of different servers,
+129:37 but let's suppose for the sake of discussion they have a single database,
+129:40 which is not true,
+129:40 but
+129:41 the danger is still there even with multiple databases.
+129:45 All of these different web servers are talking to the same database,
+129:48 and suppose those those servers are using Python code and hey,
+129:51 the CS 50 library
+129:53 that might look a little something like this in order to decide
+129:55 how to update the total number of likes for an Instagram post.
+129:59 The first line of code running on meta servers.
+130:02 Might say this get these rows as follows.
+130:04 Execute a query like select the current number of likes from the posts
+130:09 table where the ID of the post is whatever it is 123456,
+130:13 whatever.
+130:14 Notice no SQL injection attacks possible here because I'm using the placeholder,
+130:18 not an F string.
+130:19 Then the next line of code running on MetaServer maybe just
+130:22 stores in a variable just to make the code more readable.
+130:25 The first rows likes column.
+130:28 So it's again it's the CS 50 library in the story.
+130:30 Rose is a list of dictionaries,
+130:32 so this is the first such element in the list,
+130:35 and this is the likes column in
+130:38 the
+130:39 column we just selected,
+130:40 the temporary.
+130:42 Lastly,
+130:42 what do we want to do?
+130:43 Well,
+130:43 we want a plus plus essentially that total,
+130:45 so we update the post table setting the number of likes equal to this question
+130:49 mark where the ID equals this question mark and we didn't see this already,
+130:53 but the CS 50 library supports indeed multiple arguments after the SQL string.
+130:58 I'm going to update the number of likes to be likes plus one,
+131:01 plugging in the same ID of that post.
+131:03 So in short,
+131:04 take on faith that it's quite common that in
+131:06 order to achieve one small goal like updating the number
+131:09 of likes stands to reason you might need to do 2 database queries or 3 lines of code.
+131:14 Now if these lines of code are executing on multiple web servers,
+131:17 you could certainly imagine that if people are hitting
+131:20 the like button pretty much at the same time,
+131:23 maybe one server is going to execute this first line
+131:25 of code and it's going to get its answer.
+131:28 Maybe there's 100 likes at this point in the story.
+131:30 And then just by chance.
+131:31 Another server,
+131:32 this line of code is also executed,
+131:35 but it too gets the same answer.
+131:36 There's currently 100 likes.
+131:38 Meanwhile,
+131:39 the first server in the story continues to do its execution of code
+131:43 such that it updates the number of likes from 100 to 101.
+131:47 But because the other server was essentially running the same code in parallel,
+131:50 it's going to make the same mathematical decision and update the number of posts,
+131:53 the number of likes from 100 to 1001.
+131:56 But at this point in the story,
+131:57 the number of likes should obviously be 10.
+132:00 2,
+132:01 so we've lost data,
+132:03 and that's one of the dangers of a race condition is that you'll
+132:05 end up with an inaccurate result and for a company like Meta they
+132:09 don't want to go losing data like likes like this like that actually
+132:12 drives engagement and so forth and so like that's genuinely a technical,
+132:15 if not a business problem as well.
+132:17 So it's analogous to sort of the milk problem but actually at scale.
+132:20 So what's the solution?
+132:22 There's a bunch of different ways,
+132:23 but conceptually we just want to lock the
+132:25 database when this logic is being executed.
+132:27 such that when one server is updating the number of likes,
+132:30 no one else should be allowed to update the like count at the same time.
+132:34 Now that's a little crazy for someone as big as meta because
+132:37 you're really just serializing all of these likes and slowing things down.
+132:40 So there's more fine grain control nowadays,
+132:42 namely called transactions where you can essentially lock not the
+132:46 whole table and then certainly not the whole database,
+132:48 but just the row in question,
+132:50 for instance.
+132:51 And so you would use commands in SQL like begin transaction.
+132:55 And then execute the lines of code that you want,
+132:57 and then when you're ready to commit it,
+132:58 that is save it,
+132:59 you use a commit command,
+133:01 but if something goes wrong or you get interrupted,
+133:03 you can actually roll back the whole thing.
+133:05 And what this kind of code does in effect by using
+133:09 more verbose CS 50 and Python code like this is you can ensure that
+133:14 those three lines of code inside or technically the two database queries inside,
+133:17 will either both be executed
+133:19 or not at all.
+133:20 They will not be interrupted,
+133:22 and that's the fundamental solution to this problem analogous to putting a lock
+133:26 on the fridge or by leaving a note or calling your roommate,
+133:30 preventing them from making the same
+133:32 decision
+133:33 themselves.
+133:35 Questions
+133:36 then
+133:36 on these race conditions,
+133:38 the solutions again,
+133:39 even though this won't be germane for CS 50,
+133:41 simply using techniques like locks and
+133:43 what we called transactions.
+133:47 No.
+133:48 All right,
+133:48 then a final moment to end on.
+133:50 Uh,
+133:50 we would not be a computer science course if we
+133:52 didn't introduce you to a few pieces of CS Canon.
+133:55 Uh,
+133:55 here is a sort of meme that's circulated for
+133:58 years when it comes to like optical character recognition,
+134:00 OCR of like toll booths trying to detect your license plate automatically.
+134:05 This is someone trying to have a funny old time
+134:07 tricking the city into deleting their database altogether
+134:10 because if you're just scanning this off of someone's
+134:12 license plate in front of the car and just
+134:14 blindly plugging it in without sanitizing their input.
+134:17 Escaping their input with something like a good library,
+134:19 you might very well still drop the entire database.
+134:22 As an aside,
+134:22 something one did something similar to where I
+134:24 think they made their license plate null,
+134:26 NULL,
+134:27 which just confused the heck out of
+134:28 the system too because the programmers didn't understand
+134:30 why null was all over the place when lights were being run and whatnot.
+134:34 And lastly,
+134:35 a very famed character in the world of XKCD as computer science circles goes is this,
+134:40 so we'll end as we've done before on an awkward
+134:42 silence as you process this here canonical CS joke.
+134:51 Oh
+134:53 Now you two know who little Bobby Tables is.
+134:56 All right,
+134:56 that's it for week 7.
+134:57 We'll see you next time.

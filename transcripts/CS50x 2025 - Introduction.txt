@@ -1,0 +1,57 @@
+00:00 DAVID MALAN: Hello, world.
+00:02 My name is David Malan, and this is
+CS50, Harvard University's introduction
+00:06 to the intellectual
+enterprises of computer science
+00:09 and the art of programming for
+majors and non-majors alike.
+00:12 Indeed, whether you're among
+those less comfortable or more
+00:15 comfortable with technology, this
+course, and computer science more
+00:18 generally, are in fact for you.
+00:20 And it is free via platforms like
+edX, YouTube, Apple TV, Google TV,
+00:24 and CS50's own website.
+00:27 Through this course, you'll learn
+how to think more methodically, more
+00:30 algorithmically, so to speak.
+00:32 You'll learn how to
+communicate succinctly
+00:34 and precisely, and you'll learn how to
+solve problems efficiently with code.
+00:38 Indeed, this course begins
+at the very beginning
+00:40 with a very friendly graphical
+programming language called Scratch,
+00:44 via which you'll write code
+by dragging and dropping
+00:46 puzzle pieces that
+only interlock together
+00:48 if it makes logical sense to do so.
+00:50 We'll then transition to C, a more
+traditional keyboard-based language,
+00:54 via which you'll learn how computers
+work underneath the hood, so to speak.
+00:58 Thereafter, the course
+moves on to Python,
+00:60 a more modern language via which you can
+analyze data, automate processes, build
+01:03 web applications, and more, and SQL,
+via which you can read and write
+01:07 lots and lots of data in databases.
+01:10 Toward course's end, we'll dive
+into HTML, CSS, and JavaScript,
+01:14 languages with which you can create
+web apps and mobile apps alike.
+01:17 And at course's end, you'll design and
+implement your very own final project
+01:21 for the world to see.
+01:23 You will have learned how to program.
+01:25 And if at any point
+you get stuck, there's
+01:27 a whole CS50 community to support you,
+as well as nowadays a virtual rubber
+01:32 duck of whom you can also ask
+questions anytime, thanks to AI.
+01:37 All this and more, this is CS50.
