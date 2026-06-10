@@ -622,6 +622,10 @@ body {
   }
 })()
 
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:8000' 
+    : 'https://mentora-ai.onrender.com';
+
 const CURRENT_USER = JSON.parse(localStorage.getItem('mentora_user') || '{}')
 const TOKEN = localStorage.getItem('mentora_token') || ''
 
@@ -670,7 +674,7 @@ function logout() {
 
 async function loadUserData() {
   try {
-    const res = await authFetch(window.location.origin + '/user/data', { headers: authHeaders() })
+    const res = await authFetch(API_BASE + '/user/data', { headers: authHeaders() })
     const result = await res.json()
     if (result.data) {
       Object.assign(APP.progress, result.data)
@@ -688,7 +692,7 @@ async function loadUserData() {
 
 async function syncToServer() {
   try {
-    await authFetch(window.location.origin + '/user/data', {
+    await authFetch(API_BASE + '/user/data', {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify({
@@ -836,7 +840,7 @@ async function sendMessage() {
     }
     const diffNote = diffMap[APP.difficulty] || diffMap.beginner
     
-    const response = await authFetch(window.location.origin + '/chat', {
+    const response = await authFetch(API_BASE + '/chat', {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify({ question: question + '\n\n[Difficulty note: ' + diffNote + ']' })
@@ -1181,7 +1185,7 @@ async function startQuiz() {
   
   showQuizSection('loading')
   try {
-    const response = await authFetch(window.location.origin + '/chat', {
+    const response = await authFetch(API_BASE + '/chat', {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify({ question: buildQuizPrompt(topic, diff, count) })
@@ -1311,7 +1315,7 @@ async function generatePath() {
   if (resultEl) resultEl.style.display = 'none'
   
   try {
-    const response = await authFetch(window.location.origin + '/chat', {
+    const response = await authFetch(API_BASE + '/chat', {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify({ question: buildPathPrompt(goal) })
@@ -1739,7 +1743,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function checkHealth() {
-  fetch(window.location.origin + '/health')
+  fetch(API_BASE + '/health')
     .then(r => r.json())
     .then(data => {
       const dot = document.getElementById('status-dot')
